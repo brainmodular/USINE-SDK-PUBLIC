@@ -18,12 +18,12 @@
 //	This file is part of the Usine Hollyhock CPP SDK
 //
 //  Please, report bugs and patch to Usine forum :
-//  http://www.sensomusic.org/support/ 
+//  support@brainmodular.org 
 //
 // All dependencies are under there own licence.
 //
 //@LICENCE
-// Copyright (C) 2013, 2014, 2015 Sensomusic
+// Copyright (C) 2013, 2014, 2015 BrainModular
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of 
 // this software and associated documentation files (the "Software"), 
