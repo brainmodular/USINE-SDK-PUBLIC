@@ -1,0 +1,290 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4E2704871A9E379C00104AD4 /* AudioVolumeExample.usr-osx32 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4EAD14871A9E2D8400784045 /* AudioVolumeExample.usr-osx32 */; };
+		4EAD14991A9E2E6500784045 /* UserDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14931A9E2E6500784045 /* UserDefinitions.h */; };
+		4EAD149A1A9E2E6500784045 /* UserModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD14941A9E2E6500784045 /* UserModule.cpp */; };
+		4EAD149B1A9E2E6500784045 /* UserModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14951A9E2E6500784045 /* UserModule.h */; };
+		4EAD149C1A9E2E6500784045 /* UserUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD14961A9E2E6500784045 /* UserUtils.cpp */; };
+		4EAD149D1A9E2E6500784045 /* UserUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14971A9E2E6500784045 /* UserUtils.h */; };
+		4EAD149E1A9E2E6500784045 /* UsineDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14981A9E2E6500784045 /* UsineDefinitions.h */; };
+		4EAD14A11A9E2E8800784045 /* AudioVolumeExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD149F1A9E2E8800784045 /* AudioVolumeExample.cpp */; };
+		4EAD14A21A9E2E8800784045 /* AudioVolumeExample.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14A01A9E2E8800784045 /* AudioVolumeExample.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4EAD14CF1A9E306600784045 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(SRCROOT)/../../bin/SDK Examples";
+			dstSubfolderSpec = 0;
+			files = (
+				4E2704871A9E379C00104AD4 /* AudioVolumeExample.usr-osx32 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		4EAD14871A9E2D8400784045 /* AudioVolumeExample.usr-osx32 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "AudioVolumeExample.usr-osx32"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EAD14931A9E2E6500784045 /* UserDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefinitions.h; sourceTree = "<group>"; };
+		4EAD14941A9E2E6500784045 /* UserModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserModule.cpp; sourceTree = "<group>"; };
+		4EAD14951A9E2E6500784045 /* UserModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModule.h; sourceTree = "<group>"; };
+		4EAD14961A9E2E6500784045 /* UserUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserUtils.cpp; sourceTree = "<group>"; };
+		4EAD14971A9E2E6500784045 /* UserUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserUtils.h; sourceTree = "<group>"; };
+		4EAD14981A9E2E6500784045 /* UsineDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineDefinitions.h; sourceTree = "<group>"; };
+		4EAD149F1A9E2E8800784045 /* AudioVolumeExample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioVolumeExample.cpp; sourceTree = "<group>"; };
+		4EAD14A01A9E2E8800784045 /* AudioVolumeExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioVolumeExample.h; sourceTree = "<group>"; };
+		4EAD15021A9E367300784045 /* Usine_CPP_SDKProj.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Usine_CPP_SDKProj.xcconfig; path = ../../builds/Xcode/Usine_CPP_SDKProj.xcconfig; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		4EAD14081A9E2A8F00784045 = {
+			isa = PBXGroup;
+			children = (
+				4EAD149F1A9E2E8800784045 /* AudioVolumeExample.cpp */,
+				4EAD14A01A9E2E8800784045 /* AudioVolumeExample.h */,
+				4EAD14921A9E2E6500784045 /* sdk */,
+				4EAD15021A9E367300784045 /* Usine_CPP_SDKProj.xcconfig */,
+				4EAD14881A9E2D8400784045 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4EAD14881A9E2D8400784045 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4EAD14871A9E2D8400784045 /* AudioVolumeExample.usr-osx32 */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4EAD14921A9E2E6500784045 /* sdk */ = {
+			isa = PBXGroup;
+			children = (
+				4EAD14931A9E2E6500784045 /* UserDefinitions.h */,
+				4EAD14941A9E2E6500784045 /* UserModule.cpp */,
+				4EAD14951A9E2E6500784045 /* UserModule.h */,
+				4EAD14961A9E2E6500784045 /* UserUtils.cpp */,
+				4EAD14971A9E2E6500784045 /* UserUtils.h */,
+				4EAD14981A9E2E6500784045 /* UsineDefinitions.h */,
+			);
+			name = sdk;
+			path = ../../sdk;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		4EAD14831A9E2D8400784045 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EAD14991A9E2E6500784045 /* UserDefinitions.h in Headers */,
+				4EAD149B1A9E2E6500784045 /* UserModule.h in Headers */,
+				4EAD149D1A9E2E6500784045 /* UserUtils.h in Headers */,
+				4EAD149E1A9E2E6500784045 /* UsineDefinitions.h in Headers */,
+				4EAD14A21A9E2E8800784045 /* AudioVolumeExample.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		4EAD14861A9E2D8400784045 /* AudioVolumeExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4EAD148B1A9E2D8400784045 /* Build configuration list for PBXNativeTarget "AudioVolumeExample" */;
+			buildPhases = (
+				4EAD14831A9E2D8400784045 /* Headers */,
+				4EAD14841A9E2D8400784045 /* Sources */,
+				4EAD14CF1A9E306600784045 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AudioVolumeExample;
+			productName = AudioVolume;
+			productReference = 4EAD14871A9E2D8400784045 /* AudioVolumeExample.usr-osx32 */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4EAD140A1A9E2A8F00784045 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 4EAD140D1A9E2A8F00784045 /* Build configuration list for PBXProject "AudioVolumeExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 4EAD14081A9E2A8F00784045;
+			productRefGroup = 4EAD14881A9E2D8400784045 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4EAD14861A9E2D8400784045 /* AudioVolumeExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4EAD14841A9E2D8400784045 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EAD149A1A9E2E6500784045 /* UserModule.cpp in Sources */,
+				4EAD149C1A9E2E6500784045 /* UserUtils.cpp in Sources */,
+				4EAD14A11A9E2E8800784045 /* AudioVolumeExample.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4EAD140B1A9E2A8F00784045 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CPLUSPLUSFLAGS = (
+					"-Wno-write-strings",
+					"-mstackrealign",
+					"$(OTHER_CFLAGS)",
+				);
+				SDKROOT = macosx;
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
+				VALID_ARCHS = i386;
+			};
+			name = Debug;
+		};
+		4EAD140C1A9E2A8F00784045 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4EAD15021A9E367300784045 /* Usine_CPP_SDKProj.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CPLUSPLUSFLAGS = (
+					"-Wno-write-strings",
+					"-mstackrealign",
+					"$(OTHER_CFLAGS)",
+				);
+				SDKROOT = macosx;
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
+				VALID_ARCHS = i386;
+			};
+			name = Release;
+		};
+		4EAD14891A9E2D8400784045 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_EXTENSION = "usr-osx32";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_EXCEPTIONS = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"MACOSX=1",
+					"USINE_OSX_1068=1",
+				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INSTALL_PATH = /usr/local/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CPLUSPLUSFLAGS = (
+					"-Wno-write-strings",
+					"-mstackrealign",
+					"$(OTHER_CFLAGS)",
+				);
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = AudioVolumeExample;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = i386;
+			};
+			name = Debug;
+		};
+		4EAD148A1A9E2D8400784045 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_EXTENSION = "usr-osx32";
+				GCC_ENABLE_EXCEPTIONS = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NDEBUG=1",
+					"MACOSX=1",
+					"USINE_OSX_1068=1",
+				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INSTALL_PATH = /usr/local/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CPLUSPLUSFLAGS = (
+					"-Wno-write-strings",
+					"-mstackrealign",
+					"$(OTHER_CFLAGS)",
+				);
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = AudioVolumeExample;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = i386;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4EAD140D1A9E2A8F00784045 /* Build configuration list for PBXProject "AudioVolumeExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4EAD140B1A9E2A8F00784045 /* Debug */,
+				4EAD140C1A9E2A8F00784045 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4EAD148B1A9E2D8400784045 /* Build configuration list for PBXNativeTarget "AudioVolumeExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4EAD14891A9E2D8400784045 /* Debug */,
+				4EAD148A1A9E2D8400784045 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4EAD140A1A9E2A8F00784045 /* Project object */;
+}

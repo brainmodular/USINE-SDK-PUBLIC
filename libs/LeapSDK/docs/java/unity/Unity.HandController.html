@@ -1,0 +1,560 @@
+
+
+
+  
+  
+ 
+  
+  
+ 
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>HandController &mdash; Leap Motion Java SDK v2.3 documentation</title>
+    
+    <link rel="stylesheet" href="../../cpp/_static/bootstrap-3.0.0/css/documentation-bundle.1439949735.css" type="text/css" />
+    
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+      <script type="text/javascript" src="../../cpp/_static/bootstrap-3.0.0/js/documentation-bundle.1439949735.js"></script>
+    <link rel="top" title="Leap Motion Java SDK v2.3 documentation" href="../index.html" />
+<script type="text/javascript" src="/assets/standalone-header.js?r9"></script>
+<link rel="stylesheet" href="/assets/standalone-header.css?r9" type="text/css" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-31536531-1']);
+  _gaq.push(['_setDomainName', 'leapmotion.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+ 
+
+<script>
+
+    function getQueryValue(variable)
+    {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+        var relPath = "../../";
+
+    var requestedAPI = getQueryValue("proglang");
+    if(requestedAPI == "current") requestedAPI = localStorage["currentAPI"];
+    var pageAPI = 'java';
+    var hasAPI = {};
+    hasAPI.unity = true;
+
+    if(requestedAPI && (requestedAPI != pageAPI))
+    {
+        if(pageAPI != 'none'){
+            var redirectedLocation = relPath + 'java/unity/Unity.HandController.html';
+            if( requestedAPI == 'cpp' && hasAPI.cpp){
+                redirectedLocation = relPath + "cpp/unity/Unity.HandController.html";
+            }
+            else if( requestedAPI == 'csharp' && hasAPI.csharp){
+                redirectedLocation = relPath + "csharp/unity/Unity.HandController.html";
+            }
+            else if( requestedAPI == 'unity' && hasAPI.unity){
+                redirectedLocation = relPath + "unity/unity/Unity.HandController.html";
+            }
+            else if( requestedAPI == 'objc' && hasAPI.objc){
+                redirectedLocation = relPath + "objc/unity/Unity.HandController.html";
+            }
+            else if( requestedAPI == 'java' && hasAPI.java) {
+                redirectedLocation = relPath + "java/unity/Unity.HandController.html";
+            }
+            else if( requestedAPI == 'javascript' && hasAPI.javascript){
+                redirectedLocation = relPath + "javascript/unity/Unity.HandController.html";
+            }
+            else if( requestedAPI == 'python' && hasAPI.python){
+                redirectedLocation = relPath + "python/unity/Unity.HandController.html";
+            }
+            else if( requestedAPI == 'unreal' && hasAPI.unreal) {
+                redirectedLocation = relPath + "unreal/unity/Unity.HandController.html";
+            } else {
+
+                    if( requestedAPI == 'cpp'){
+                        redirectedLocation = relPath + "cpp/index.html?proglang=cpp";
+                    }
+                    else if( requestedAPI == 'csharp'){
+                        redirectedLocation = relPath + "csharp/index.html?proglang=csharp";
+                    }
+                    else if( requestedAPI == 'unity'){
+                        redirectedLocation = relPath + "unity/index.html?proglang=unity";
+                    }
+                    else if( requestedAPI == 'objc'){
+                        redirectedLocation = relPath + "objc/index.html?proglang=objc";
+                    }
+                    else if( requestedAPI == 'java') {
+                        redirectedLocation = relPath + "java/index.html?proglang=java";
+                    }
+                    else if( requestedAPI == 'javascript'){
+                        redirectedLocation = relPath + "javascript/index.html?proglang=javascript";
+                    }
+                    else if( requestedAPI == 'python'){
+                        redirectedLocation = relPath + "python/index.html?proglang=python";
+                    }
+                    else if( requestedAPI == 'unreal') {
+                        redirectedLocation = relPath + "unreal/index.html?proglang=unreal";
+                    } else {
+                        redirectedLocation = relPath + "index.html";
+                    }
+            }
+
+            //Guard against redirecting to the same page (infinitely)
+            if(relPath + 'java/unity/Unity.HandController.html' != redirectedLocation) window.location.replace(redirectedLocation);
+        }
+    }
+
+</script>
+
+<script>
+window.addEventListener('keyup', handleKeyInput);
+function handleKeyInput(e)
+{
+    var code;
+    if (!e) var e = window.event;
+    if (e.keyCode) code = e.keyCode;
+    else if (e.which) code = e.which;
+    var character = String.fromCharCode(code);
+    if( character == "J" & e.altKey){    }
+    else if( character == "K" & e.altKey){
+    }
+
+}
+</script>
+
+
+  </head>
+  <body role="document">
+
+<div class="developer-portal-styles">
+  <header class="navbar navbar-static-top developer-navbar header beta-header">
+    <nav class="container pr">
+      <a class="logo-link pull-left" href="/">
+        <img alt="Leap Motion Developers" class="media-object pull-left white-background" src="../_static/logo.png" />
+      </a>
+      <span class="inline-block hidden-phone developer-logo-text">
+        <div class="text">
+          <a href="/">
+            <span class="more-than-1199">Developer Portal</span>
+
+          </a>
+        </div>
+      </span>
+
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <!-- Everything within here will be hidden at 940px or less, accessible via a button. -->
+      <div class="nav-collapse">
+        <ul class="nav header-navigation developer-links">
+          <li class="external-link"><a href="https://developer.leapmotion.com/features">What's new</a> </li>
+          <li class="external-link"><a href="https://developer.leapmotion.com/downloads/skeletal-beta" class="">Getting Started</a></li>
+          <li><a class="active" href="#" class="">Documentation</a></li>
+          <li class="external-link"> <a href="https://developer.leapmotion.com/gallery" class="">Examples</a> </li>
+          <li class="external-link"> <a href="https://www.leapmotion.com/blog/category/labs/" class="" target="_blank">Blog <i class='fa fa-external-link'></i></a> </li>
+          <li class="external-link"> <a href="https://community.leapmotion.com/category/beta" class="" target="_blank">Community <i class='fa fa-external-link'></i></a> </li>
+        </ul>
+      </div>
+
+    </nav>
+  </header>
+</div>
+<section class="main-wrap">
+  <div data-swiftype-index="true">
+    <div class="second_navigation">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            
+              
+
+<ul>
+  <li>
+      <a href="../../javascript/index.html?proglang=javascript" onclick="localStorage['currentAPI'] = 'javascript'">JavaScript</a>
+    
+  </li>
+  <li>
+      <a href="../../unity/unity/Unity.HandController.html?proglang=unity" onclick="localStorage['currentAPI'] = 'unity'">Unity</a>
+    
+  </li>
+  <li>
+      <a href="../../csharp/index.html?proglang=csharp" onclick="localStorage['currentAPI'] = 'csharp'">C#</a>
+    
+  </li>
+  <li>
+      <a href="../../cpp/index.html?proglang=cpp" onclick="localStorage['currentAPI'] = 'cpp'">C++</a>
+    
+  </li>
+  <li>
+      Java
+    
+  </li>
+  <li>
+      <a href="../../python/index.html?proglang=python" onclick="localStorage['currentAPI'] = 'python'">Python</a>
+    
+  </li>
+  <li>
+      <a href="../../objc/index.html?proglang=objc" onclick="localStorage['currentAPI'] = 'objc'">Objective-C</a>
+    
+  </li>
+  <li>
+      <a href="../../unreal/index.html?proglang=unreal" onclick="localStorage['currentAPI'] = 'unreal'">Unreal</a>
+    
+  </li>
+</ul>
+            
+          </div>
+          <div class="col-md-4 search">
+            
+              <script>
+function storeThisPage(){
+    sessionStorage["pageBeforeSearch"] = window.location;
+    return true;
+}
+function doneWithSearch(){
+    var storedPage = sessionStorage["pageBeforeSearch"];
+    if(storedPage){
+        window.location = storedPage;
+    } else {
+        window.location = "index.html"; //fallback
+    }
+    return false;
+}
+</script>
+<div  style="margin-top:-4px">
+<ul style="display:inline; white-space:nowrap"><li>
+<form class="navbar-form" action="../search.html" method="get" onsubmit="storeThisPage()">
+ <div class="form-group">
+  <input type="search" results="5" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form></li>
+</ul>
+</div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+        //Remove dev portal header and footer when viewing from file system
+       if(window.location.protocol == 'file:'){
+            var navNode = document.querySelector(".developer-links");
+            navNode.parentNode.removeChild(navNode);
+        }
+
+    </script>
+
+
+<div id="wrap" data-spy="scroll" data-target="#sidebar">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 pull-right">
+        <!-- 
+ 
+<span id="breadcrumbs">
+  <a href="../index.html">Home</a>&raquo;
+  HandController
+</span> -->
+        
+  <div class="section" id="handcontroller">
+<h1>HandController<a class="headerlink" href="#handcontroller" title="Permalink to this headline">¶</a></h1>
+<p>The HandController script is attached to the HandController prefab. The prefab serves as the anchor point for drawing hands. You can set the HandController properties, such as which hand prefabs to use, in the Inspector panel.</p>
+<img alt="unity/../../../images/unity/Unity_HandControllerGraphics.png" src="unity/../../../images/unity/Unity_HandControllerGraphics.png" />
+<p>When you play the scene, any hands detected by the Leap Motion controller are drawn relative to the position and orientation of the prefab.</p>
+<img alt="unity/../../../images/unity/UnityGizmo.jpg" src="unity/../../../images/unity/UnityGizmo.jpg" />
+<p>If your hand is 20cm above the Leap Motion device, the virtual hand is drawn 20cm above the prefab position (if the HandController transform scale is set to 1.0). Do note that the default scale is 20:1, so hands are drawn much larger than real-size. In the Unity Scene view, the approximate field of view of the Leap Motion sensors are shown.</p>
+<div class="line-block" id="unitycorea00011">
+<div class="line"><em>class</em> <strong>HandController</strong></div>
+</div>
+<blockquote>
+<div><p>The Controller object that instantiates hands and tools to represent the hands and tools tracked by the Leap Motion device. </p>
+<p><p><a class="reference internal" href="#unitycorea00011"><em>HandController</em></a> is a Unity MonoBehavior instance that serves as the interface between your Unity application and the Leap Motion service.</p>
+<p>The <a class="reference internal" href="#unitycorea00011"><em>HandController</em></a> script is attached to the <a class="reference internal" href="#unitycorea00011"><em>HandController</em></a> prefab. Drop a <a class="reference internal" href="#unitycorea00011"><em>HandController</em></a> prefab into a scene to add 3D, motion-controlled hands. The hands are placed above the prefab at their real-world relationship to the physical Leap device. You can change the transform of the prefab to adjust the orientation and the size of the hands in the scene. You can change the <a class="reference internal" href="#unitycorea00011_1a5ef71c307ecb8bb0d18744e14764f19a"><em>HandController.handMovementScale</em></a> property to change the range of motion of the hands without changing the apparent model size.</p>
+<p>When the <a class="reference internal" href="#unitycorea00011"><em>HandController</em></a> is active in a scene, it adds the specified 3D models for the hands to the scene whenever physical hands are tracked by the Leap Motion hardware. By default, these objects are destroyed when the physical hands are lost and recreated when tracking resumes. The asset package provides a variety of hands that you can use in conjunction with the hand controller. </p>
+</p>
+<em>Public Functions</em><blockquote>
+<div><p><span class="target" id="unitycorea00011_1a1021eded54e2eb1c07787a4c651e4e5d"></span><div class="line-block">
+<div class="line">void <strong>DestroyAllHands</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Destroys all hands owned by this <a class="reference internal" href="#unitycorea00011"><em>HandController</em></a> instance. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a5b279910a509a1ed618bda08b0161649"></span><div class="line-block">
+<div class="line">string <strong>FinishAndSaveRecording</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Saves the current recording to a new file, returns the path, and starts playback. </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>string The path to the saved recording. </dd>
+</dl>
+</p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a04f2d545cd15dd0ad426bc21e5592b4a"></span><div class="line-block">
+<div class="line"><a class="reference internal" href="Unity.HandModel.html#unitycorea00013"><em>HandModel</em></a> [] <strong>GetAllGraphicsHands</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns a copy of the hand model list. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a0a41f7c0c7945d36f76f6feff6080665"></span><div class="line-block">
+<div class="line"><a class="reference internal" href="Unity.HandModel.html#unitycorea00013"><em>HandModel</em></a> [] <strong>GetAllPhysicsHands</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns a copy of the physics model list. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a453e4b3ca374b56728f42f9c22ead8b5"></span><div class="line-block">
+<div class="line">LeapDeviceInfo <strong>GetDeviceInfo</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns information describing the device hardware. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1ae222f1dd3236e389d50d3d8590eb5e8d"></span><div class="line-block">
+<div class="line">Frame <strong>GetFrame</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the latest frame object. </p>
+<p>If the recorder object is playing a recording, then the frame is taken from the recording. Otherwise, the frame comes from the Leap Motion Controller itself. </p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1ae13b6dffc35593fd1b5bd6e929b2687a"></span><div class="line-block">
+<div class="line">Controller <strong>GetLeapController</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the Leap Controller instance. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a60ff88ef90e6c87755126e3cd9220e59"></span><div class="line-block">
+<div class="line">float <strong>GetRecordingProgress</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>The current frame position divided by the total number of frames in the recording. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a71ffd30863b9fd6c0262f40dbdf59702"></span><div class="line-block">
+<div class="line">void <strong>IgnoreCollisionsWithHands</strong>(GameObject to_ignore, bool ignore = true)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Turns off collisions between the specified GameObject and all hands. </p>
+<p>Subject to the limitations of Unity Physics.IgnoreCollisions(). See . </p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a4ba687be1175a2d3036c746a159059af"></span><div class="line-block">
+<div class="line">bool <strong>IsConnected</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>True, if the Leap Motion hardware is plugged in and this application is connected to the Leap Motion service. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1ae648f07548a36a04c6ce145855d8893f"></span><div class="line-block">
+<div class="line">void <strong>PauseRecording</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Stops playback or recording without resetting the frame counter. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a37841e5e535d80820629007d10fbd1ff"></span><div class="line-block">
+<div class="line">void <strong>PlayRecording</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Start getting frames from the <a class="reference internal" href="Unity.LeapRecorder.html#unitycorea00018"><em>LeapRecorder</em></a> object rather than the Leap service. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a0d17b4ca5629eadb8289cc5ec6c9979e"></span><div class="line-block">
+<div class="line">void <strong>Record</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Starts saving frames. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1ae937208cbe366db461f2f502c25177c4"></span><div class="line-block">
+<div class="line">void <strong>ResetRecording</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Discards any frames recorded so far. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a7ae8968c463f7a3c0297fdec02e0fc68"></span><div class="line-block">
+<div class="line">void <strong>StopRecording</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Stops recording or playback and resets the frame counter to the beginning. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Public Members</em><blockquote>
+<div><p><span class="target" id="unitycorea00011_1a0bb0aef1ff72b95ebf8a10c3907941fb"></span>bool <strong>destroyHands</strong></p>
+<blockquote>
+<div><p>If hands are in charge of Destroying themselves, make this false. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a97d3e1c875bc0acdc229b348d0e82c9e"></span>bool <strong>enableRecordPlayback</strong></p>
+<blockquote>
+<div><p>Set true to enable recording. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a5ef71c307ecb8bb0d18744e14764f19a"></span>Vector3 <strong>handMovementScale</strong></p>
+<blockquote>
+<div><p>The scale factors for hand movement. </p>
+<p>Set greater than 1 to give the hands a greater range of motion. </p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a9a980d0b5a9a33e1c9ff79c62e203b05"></span>Transform <strong>handParent</strong></p>
+<blockquote>
+<div><p>The parent transform to which the hand models are added as children. </p>
+<p>If null, the hands have no parent. </p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a1641717a3668746c0b8a98ff2016af1b"></span>bool <strong>isHeadMounted</strong></p>
+<blockquote>
+<div><p>Set true if the Leap Motion hardware is mounted on an HMD; otherwise, leave false. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a9728c29af7849f9686bb319d00af27b4"></span><a class="reference internal" href="Unity.HandModel.html#unitycorea00013"><em>HandModel</em></a> <strong>leftGraphicsModel</strong></p>
+<blockquote>
+<div><p>The GameObject containing graphics to use for the left hand or both hands if separateLeftRight is false. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a158880e736884511b95e8583bbbb1cd7"></span><a class="reference internal" href="Unity.HandModel.html#unitycorea00013"><em>HandModel</em></a> <strong>leftPhysicsModel</strong></p>
+<blockquote>
+<div><p>The GameObject containing colliders to use for the left hand or both hands if separateLeftRight is false. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1aaa659074cd19297d111a3d4c2e759c0b"></span>bool <strong>mirrorZAxis</strong></p>
+<blockquote>
+<div><p>Reverses the z axis. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a6a5c15a6a47440e9cf103fb71b59e7a7"></span>bool <strong>recorderLoop</strong></p>
+<blockquote>
+<div><p>Whether to loop the playback. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a16e646baa1476aa0c4d10892a4f3a27e"></span>float <strong>recorderSpeed</strong></p>
+<blockquote>
+<div><p>Playback speed. </p>
+<p>Set to 1.0 for normal speed. </p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a2ec112d3e531fee36eb3096f590b557d"></span>TextAsset <strong>recordingAsset</strong></p>
+<blockquote>
+<div><p>The file to record or playback from. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1afe94112ac9e8e8f9388322d10cedc790"></span><a class="reference internal" href="Unity.HandModel.html#unitycorea00013"><em>HandModel</em></a> <strong>rightGraphicsModel</strong></p>
+<blockquote>
+<div><p>The graphics hand model to use for the right hand. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a0ba3596207d1d59fd81862ba1355450b"></span><a class="reference internal" href="Unity.HandModel.html#unitycorea00013"><em>HandModel</em></a> <strong>rightPhysicsModel</strong></p>
+<blockquote>
+<div><p>The physics hand model to use for the right hand. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1ae57db93b931f50ae3a9c16e53ff40f35"></span>bool <strong>separateLeftRight</strong></p>
+<blockquote>
+<div><p>Whether to use a separate model for left and right hands (true); or mirror the same model for both hands (false). </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00011_1a6fd0aa8e20f8e67dec01e1de401bd3fe"></span><a class="reference internal" href="Unity.ToolModel.html#unitycorea00029"><em>ToolModel</em></a> <strong>toolModel</strong></p>
+<blockquote>
+<div><p>The GameObject containing both graphics and colliders for tools. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+</div>
+
+
+           <!-- get_disqus_sso -->
+      </div>
+      <div id="sidebar" class="col-md-3">
+        <div class="well-sidebar" data-offset-top="188">
+          <ul>
+            <li><a href="../index.html" title="Home">Java Docs (v2.3)</a></li>
+          </ul><ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Intro_Skeleton_API.html">Introducing the Skeletal Tracking Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Leap_Overview.html">API Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practices/Leap_Practices.html">Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Leap_Guides.html">Application Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Leap_Guides2.html">Using the Tracking API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Leap_Classes.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplements/Leap_Supplements.html">Appendices</a></li>
+</ul>
+
+
+        </div>
+      </div>
+        
+    </div>
+  </div>
+</div>
+<!--
+
+<div class="ribbon">
+    <p>Java</p>
+</div>
+
+
+<footer>
+  <div id="footer" class="container">
+    <div class="container">
+      <div class="copyright">
+        <span>Copyright &copy; 2012 - 2014, Leap Motion, Inc.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,1883 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "1.0">
+   <FileBreakpoints>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "/Volumes/MF_FAT32/SensoMusic/Usine 6/Dependencies/juce_2__2012_09_25/extras/static library/Builds/MacOSX/../../JuceLibraryCode/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+         timestampString = "371037781.449748"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1026"
+         endingLineNumber = "1026"
+         landmarkName = "VSTPluginInstance::processBlock (AudioSampleBuffer&amp; buffer, MidiBuffer&amp; midiMessages)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/DeviceMidi/DeviceMidi.cpp"
+         timestampString = "380399898.841492"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "809"
+         endingLineNumber = "809"
+         landmarkName = "DeviceMidi::tryRestoreWantedSettings(bool recursive)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689017.214735"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "525"
+         endingLineNumber = "525"
+         landmarkName = "PluginLister::rescanPlugins ()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689017.214735"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "438"
+         endingLineNumber = "438"
+         landmarkName = "PluginLister::rescanPlugins ()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/DeviceMidi/DeviceMidi.cpp"
+         timestampString = "380399898.841492"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "353"
+         endingLineNumber = "353"
+         landmarkName = "DeviceMidi::onGetChunkLen (LongBool Preset)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.h"
+         timestampString = "387814307.428666"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "86"
+         endingLineNumber = "86">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/Matrix - Audio Mix/MatrixAudio.cpp"
+         timestampString = "382465538.556943"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1121"
+         endingLineNumber = "1121">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../../Dependencies/juce_2__2013_01_19/extras/static library/JuceLibraryCode/modules/juce_gui_basics/components/juce_Component.cpp"
+         timestampString = "380989055.697977"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "582"
+         endingLineNumber = "582"
+         landmarkName = "Component::addToDesktop (int styleWanted, void* nativeWindowToAttachTo)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../../Dependencies/juce_2__2013_01_19/extras/static library/JuceLibraryCode/modules/juce_gui_basics/components/juce_Component.cpp"
+         timestampString = "380990130.017737"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "628"
+         endingLineNumber = "628"
+         landmarkName = "Component::removeFromDesktop()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/Matrix - Audio Mix/MatrixAudio.cpp"
+         timestampString = "382465538.556943"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1594"
+         endingLineNumber = "1594">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/Matrix - Audio Mix/MatrixAudio.cpp"
+         timestampString = "382293316.081213"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "722"
+         endingLineNumber = "722"
+         landmarkName = "MatrixAudioModule::onProcess ()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../../Dependencies/juce_2__2013_01_19/extras/static library/JuceLibraryCode/modules/juce_gui_basics/native/juce_mac_NSViewComponentPeer.mm"
+         timestampString = "381055867.029225"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "102"
+         endingLineNumber = "102"
+         landmarkName = "NSViewComponentPeer (Component&amp; comp, const int windowStyleFlags, NSView* viewToAttachTo)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/Matrix - Audio Mix/MatrixAudio.cpp"
+         timestampString = "382293316.081213"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "685"
+         endingLineNumber = "685"
+         landmarkName = "MatrixAudioModule::onCallBack (TMessage *Message)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/Matrix - Audio Mix/MatrixAudio.cpp"
+         timestampString = "382293316.081213"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "733"
+         endingLineNumber = "733"
+         landmarkName = "MatrixAudioModule::onProcess ()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390590108.264866"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "157"
+         endingLineNumber = "157"
+         landmarkName = "PluginLister::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689017.214735"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "449"
+         endingLineNumber = "449"
+         landmarkName = "PluginLister::rescanPlugins ()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/Matrix - Display or Set/Matrix.cpp"
+         timestampString = "382467752.717758"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1082"
+         endingLineNumber = "1082">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/Matrix - Display or Set/Matrix.cpp"
+         timestampString = "381855978.420497"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "74"
+         endingLineNumber = "74"
+         landmarkName = "TMatrixModule::TMatrixModule ()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689017.214735"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "527"
+         endingLineNumber = "527"
+         landmarkName = "PluginLister::rescanPlugins ()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/scanning/juce_PluginDirectoryScanner.cpp"
+         timestampString = "381860264.11091"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "89"
+         endingLineNumber = "89"
+         landmarkName = "PluginDirectoryScanner::scanNextFile (const bool dontRescanIfAlreadyInList)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/scanning/juce_KnownPluginList.cpp"
+         timestampString = "382015407.414769"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "163"
+         endingLineNumber = "163"
+         landmarkName = "KnownPluginList::scanAndAddFile (const String&amp; fileOrIdentifier, const bool dontRescanIfAlreadyInList, OwnedArray &lt;PluginDescription&gt;&amp; typesFound, AudioPluginFormat&amp; format)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/Matrix - Display or Set/Matrix.cpp"
+         timestampString = "382467477.379378"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1627"
+         endingLineNumber = "1627"
+         landmarkName = "TMatrixModule::setCellsGuiColor(int index)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/Matrix - Display or Set/Matrix.cpp"
+         timestampString = "382467477.379378"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1367"
+         endingLineNumber = "1367"
+         landmarkName = "TMatrixModule::updateCellsColor()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_AudioUnitPluginFormat.mm"
+         timestampString = "389632386.992608"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1542"
+         endingLineNumber = "1542"
+         landmarkName = "attachView (WindowRef windowRef, HIViewRef rootView)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/scanning/juce_PluginDirectoryScanner.cpp"
+         timestampString = "382012758.845014"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "62"
+         endingLineNumber = "62"
+         landmarkName = "PluginDirectoryScanner::PluginDirectoryScanner (KnownPluginList&amp; listToAddTo, AudioPluginFormat&amp; formatToLookFor, FileSearchPath directoriesToSearch, const bool recursive, const File&amp; deadMansPedal)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_basics/components/juce_Component.cpp"
+         timestampString = "382123858.762835"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "582"
+         endingLineNumber = "582"
+         landmarkName = "Component::addToDesktop (int styleWanted, void* nativeWindowToAttachTo)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_basics/components/juce_Component.cpp"
+         timestampString = "382286233.218625"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "628"
+         endingLineNumber = "628"
+         landmarkName = "Component::removeFromDesktop()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_basics/windows/juce_TopLevelWindow.cpp"
+         timestampString = "382116766.810297"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "145"
+         endingLineNumber = "145"
+         landmarkName = "TopLevelWindow::TopLevelWindow (const String&amp; name, const bool shouldAddToDesktop)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_basics/native/juce_mac_NSViewComponentPeer.mm"
+         timestampString = "390047689.257771"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "65"
+         endingLineNumber = "65"
+         landmarkName = "NSViewComponentPeer (Component&amp; comp, const int windowStyleFlags, NSView* viewToAttachTo)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_basics/windows/juce_ComponentPeer.cpp"
+         timestampString = "382189073.392328"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "31"
+         endingLineNumber = "31"
+         landmarkName = "ComponentPeer::ComponentPeer (Component&amp; component_, const int styleFlags_)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_basics/components/juce_Component.cpp"
+         timestampString = "382286233.218625"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "594"
+         endingLineNumber = "594"
+         landmarkName = "Component::addToDesktop (int styleWanted, void* nativeWindowToAttachTo)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/JucePluginWindow.cpp"
+         timestampString = "390213023.542684"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "308"
+         endingLineNumber = "308"
+         landmarkName = "PluginWindow::buttonClicked (Button *button)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390079792.182798"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1189"
+         endingLineNumber = "1189"
+         landmarkName = "PluginWrapper::initBuffers ()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390079792.182798"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1362"
+         endingLineNumber = "1362"
+         landmarkName = "PluginWrapper::createPlugin (String optionalString, LongBool Flag, String optionalContent )"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/JucePluginWindow.cpp"
+         timestampString = "390148763.646288"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "198"
+         endingLineNumber = "198">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/DeviceMidi/DeviceMidi.cpp"
+         timestampString = "382289745.190696"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "465"
+         endingLineNumber = "465"
+         landmarkName = "DeviceMidi::onGetChunk (void* chunk, LongBool Preset)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/DeviceMidi/DeviceMidi.cpp"
+         timestampString = "382289687.863464"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "541"
+         endingLineNumber = "541"
+         landmarkName = "DeviceMidi::onSetChunk (const void* chunk, int sizeInBytes, LongBool Preset)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/DeviceMidi/DeviceMidi.cpp"
+         timestampString = "382289750.166035"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "474"
+         endingLineNumber = "474"
+         landmarkName = "DeviceMidi::onGetChunk (void* chunk, LongBool Preset)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/Matrix - Data Mix/MatrixData.cpp"
+         timestampString = "382465538.556943"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1583"
+         endingLineNumber = "1583"
+         landmarkName = "MatrixDataModule::setCellsGuiColor(int index)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/Matrix - Data Mix/MatrixData.cpp"
+         timestampString = "382291436.919908"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "657"
+         endingLineNumber = "657"
+         landmarkName = "MatrixDataModule::onCallBack (TMessage *Message)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/Matrix - Data Mix/MatrixData.cpp"
+         timestampString = "382465538.556943"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1316"
+         endingLineNumber = "1316"
+         landmarkName = "MatrixDataModule::updateCellsColor()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/Matrix - Data Mix/MatrixData.cpp"
+         timestampString = "382291433.390748"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "243"
+         endingLineNumber = "243"
+         landmarkName = "MatrixDataModule::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.h"
+         timestampString = "382460297.304873"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "127"
+         endingLineNumber = "127">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/Matrix - Display or Set/Matrix.cpp"
+         timestampString = "382467934.193776"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "831"
+         endingLineNumber = "831"
+         landmarkName = "TMatrixModule::onSetChunk (const void* chunk, LongBool Preset)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/Matrix - Display or Set/Matrix.cpp"
+         timestampString = "382468036.482868"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "735"
+         endingLineNumber = "735"
+         landmarkName = "TMatrixModule::onGetChunk (void* chunk, LongBool Preset)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689017.214735"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "484"
+         endingLineNumber = "484"
+         landmarkName = "PluginLister::rescanPlugins ()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689017.214735"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "477"
+         endingLineNumber = "477"
+         landmarkName = "PluginLister::rescanPlugins ()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390066120.773287"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "525"
+         endingLineNumber = "525"
+         landmarkName = "PluginWrapper::onCallBack (UsineMessage *Message)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390079792.182798"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1174"
+         endingLineNumber = "1174"
+         landmarkName = "PluginWrapper::initBuffers ()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390065461.650004"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1033"
+         endingLineNumber = "1033"
+         landmarkName = "PluginWrapper::onSetChunk (const void* chunk, int sizeInBytes, LongBool isPreset)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390065461.650004"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "965"
+         endingLineNumber = "965"
+         landmarkName = "PluginWrapper::onSetChunk (const void* chunk, int sizeInBytes, LongBool isPreset)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "382555037.022808"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "470"
+         endingLineNumber = "470"
+         landmarkName = "PluginWrapper::onSetEventAddress (int numParam, UsineEventPtr pEvent)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/DeviceAudio/DeviceAudio.cpp"
+         timestampString = "386873494.594037"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "51"
+         endingLineNumber = "51">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390590108.264866"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "118"
+         endingLineNumber = "118"
+         landmarkName = "PluginLister::onInitModule (MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689017.214735"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "255"
+         endingLineNumber = "255"
+         landmarkName = "PluginLister::rescanForChanges()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+         timestampString = "390482679.493356"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "753"
+         endingLineNumber = "753"
+         landmarkName = "tempBuffer (1, 1)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.h"
+         timestampString = "387806468.89418"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "114"
+         endingLineNumber = "114"
+         landmarkName = "PluginLister(AinsiCharPtr optionalString)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/scanning/juce_PluginDirectoryScanner.cpp"
+         timestampString = "387814657.531833"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "47"
+         endingLineNumber = "47"
+         landmarkName = "PluginDirectoryScanner::PluginDirectoryScanner (KnownPluginList&amp; listToAddTo, AudioPluginFormat&amp; formatToLookFor, FileSearchPath directoriesToSearch, const bool recursive, const File&amp; deadMansPedal)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689017.214735"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "768"
+         endingLineNumber = "768"
+         landmarkName = "PluginLister::crcComputeFromCurrentSettings()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689017.214735"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "553"
+         endingLineNumber = "553"
+         landmarkName = "PluginLister::rescanPlugins ()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689017.214735"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "666"
+         endingLineNumber = "666"
+         landmarkName = "PluginLister::crcLoadSettings()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "389695511.529044"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "43"
+         endingLineNumber = "43">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390065461.650004"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "675"
+         endingLineNumber = "675"
+         landmarkName = "PluginWrapper::onProcess ()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390065461.650004"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "768"
+         endingLineNumber = "768"
+         landmarkName = "PluginWrapper::onGetChunkLen (LongBool isPreset)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390145052.986989"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "908"
+         endingLineNumber = "908"
+         landmarkName = "PluginWrapper::onSetChunk (const void* chunk, int sizeInBytes, LongBool isPreset)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "389459992.66882"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "100"
+         endingLineNumber = "100"
+         landmarkName = "PluginWrapper::PluginWrapper (AinsiCharPtr optionalString, LongBool Flag, MasterInfo* pMasterInfo, AinsiCharPtr optionalContent)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_AudioUnitPluginFormat.mm"
+         timestampString = "389632386.992608"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "802"
+         endingLineNumber = "802"
+         landmarkName = "setCurrentProgramStateInformation (const void* data, int sizeInBytes)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390079792.182798"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1131"
+         endingLineNumber = "1131"
+         landmarkName = "PluginWrapper::preparePlugin()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "389474681.170265"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "164"
+         endingLineNumber = "164"
+         landmarkName = "PluginWrapper::onGetModuleInfo (MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390079792.182798"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1399"
+         endingLineNumber = "1399"
+         landmarkName = "PluginWrapper::createPluginInstanceFromDesc (PluginDescription&amp; plugDesc)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390079792.182798"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1382"
+         endingLineNumber = "1382"
+         landmarkName = "PluginWrapper::createPlugin (String optionalString, LongBool Flag, String optionalContent )"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format/juce_AudioPluginFormatManager.cpp"
+         timestampString = "389521155.515868"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "93"
+         endingLineNumber = "93"
+         landmarkName = "AudioPluginFormatManager::createPluginInstance (const PluginDescription&amp; description, String&amp; errorMessage)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_AudioUnitPluginFormat.mm"
+         timestampString = "389632386.992608"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1636"
+         endingLineNumber = "1636"
+         landmarkName = "AudioUnitPluginFormat::createInstanceFromDescription (const PluginDescription&amp; desc)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_AudioUnitPluginFormat.mm"
+         timestampString = "389521310.008875"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "298"
+         endingLineNumber = "298"
+         landmarkName = "AudioUnitPluginInstance (const String&amp; fileOrId)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_AudioUnitPluginFormat.mm"
+         timestampString = "389522761.782469"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "293"
+         endingLineNumber = "293"
+         landmarkName = "AudioUnitPluginInstance (const String&amp; fileOrId)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390079792.182798"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1437"
+         endingLineNumber = "1437"
+         landmarkName = "PluginWrapper::usineEventsToMidiBuffer(UsineEventPtr eventSource)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390079792.182798"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1421"
+         endingLineNumber = "1421"
+         landmarkName = "PluginWrapper::getPluginWindow()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_AudioUnitPluginFormat.mm"
+         timestampString = "389632386.992608"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "827"
+         endingLineNumber = "827"
+         landmarkName = "refreshParameterList()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "389697177.048993"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "52"
+         endingLineNumber = "52">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_AudioUnitPluginFormat.mm"
+         timestampString = "389698473.411634"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1012"
+         endingLineNumber = "1012"
+         landmarkName = "propertyListenerCallback (void* userData, AudioUnit inUnit, AudioUnitPropertyID inID, AudioUnitScope inScope, AudioUnitElement inElement)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689017.214735"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "244"
+         endingLineNumber = "244"
+         landmarkName = "PluginLister::rescanForChanges()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689017.214735"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "239"
+         endingLineNumber = "239"
+         landmarkName = "PluginLister::rescanForChanges()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689017.214735"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "331"
+         endingLineNumber = "331"
+         landmarkName = "PluginLister::rescanAll()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689017.214735"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "685"
+         endingLineNumber = "685"
+         landmarkName = "PluginLister::crcLoadSettings()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689017.214735"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "741"
+         endingLineNumber = "741">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689017.214735"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "800"
+         endingLineNumber = "800"
+         landmarkName = "PluginLister::crcComputeFromCurrentSettings()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_basics/native/juce_mac_NSViewComponentPeer.mm"
+         timestampString = "389895456.599856"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "629"
+         endingLineNumber = "629"
+         landmarkName = "handleKeyEvent (NSEvent* ev, bool isKeyDown)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390079792.182798"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1465"
+         endingLineNumber = "1465"
+         landmarkName = "PluginWrapper::tryToLocatePlug()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390079792.182798"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1475"
+         endingLineNumber = "1475"
+         landmarkName = "PluginWrapper::tryToLocatePlug()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_basics/native/juce_mac_NSViewComponentPeer.mm"
+         timestampString = "389897698.485465"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "684"
+         endingLineNumber = "684"
+         landmarkName = "redirectKeyDown (NSEvent* ev)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_basics/native/juce_mac_NSViewComponentPeer.mm"
+         timestampString = "389897738.11628"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1430"
+         endingLineNumber = "1430"
+         landmarkName = "keyDown (id self, SEL, NSEvent* ev)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390051601.889073"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "67"
+         endingLineNumber = "67"
+         landmarkName = "CreateModule (void* &amp;pModule, AinsiCharPtr optionalString, LongBool Flag, MasterInfo* pMasterInfo, AinsiCharPtr optionalContent)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390079792.182798"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1059"
+         endingLineNumber = "1059"
+         landmarkName = "PluginWrapper::onBringToFront()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/JucePluginWindow.cpp"
+         timestampString = "390148763.646288"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "250"
+         endingLineNumber = "250"
+         landmarkName = "PluginWindow::constructButtonsBar ()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/JucePluginWindow.cpp"
+         timestampString = "390148763.646288"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "240"
+         endingLineNumber = "240"
+         landmarkName = "PluginWindow::constructButtonsBar ()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/JucePluginWindow.cpp"
+         timestampString = "390148763.646288"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "256"
+         endingLineNumber = "256">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_basics/components/juce_Component.cpp"
+         timestampString = "390072583.957125"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1383"
+         endingLineNumber = "1383"
+         landmarkName = "Component::addChildComponent (Component* const child, int zOrder)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/JucePluginWindow.cpp"
+         timestampString = "390148763.646288"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "261"
+         endingLineNumber = "261"
+         landmarkName = "PluginWindow::paint (Graphics&amp; g)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_extra/native/juce_mac_CarbonViewWrapperComponent.h"
+         timestampString = "390146646.65594"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "130"
+         endingLineNumber = "130"
+         landmarkName = "createWindow()"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_extra/native/juce_mac_CarbonViewWrapperComponent.h"
+         timestampString = "390212313.537178"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "198"
+         endingLineNumber = "198"
+         landmarkName = "setEmbeddedWindowToOurSize()"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+         timestampString = "390079792.182798"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1056"
+         endingLineNumber = "1056"
+         landmarkName = "PluginWrapper::onBringToFront()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/JucePluginWindow.cpp"
+         timestampString = "390153360.383602"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "140"
+         endingLineNumber = "140"
+         landmarkName = "PluginWindow::~PluginWindow()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+         timestampString = "390480675.277508"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1303"
+         endingLineNumber = "1303"
+         landmarkName = "handleCallback (VstInt32 opcode, VstInt32 index, VstIntPtr value, void* ptr, float opt)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+         timestampString = "390480675.277508"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "2016"
+         endingLineNumber = "2016"
+         landmarkName = "childBoundsChanged (Component*)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+         timestampString = "390480675.277508"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "2153"
+         endingLineNumber = "2153">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+         timestampString = "390480675.277508"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "2167"
+         endingLineNumber = "2167"
+         landmarkName = "openPluginWindow (WindowRef parentWindow)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_extra/native/juce_mac_CarbonViewWrapperComponent.h"
+         timestampString = "390213809.908189"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "75"
+         endingLineNumber = "75"
+         landmarkName = "createWindow()"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_extra/native/juce_mac_CarbonViewWrapperComponent.h"
+         timestampString = "390127430.241934"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "97"
+         endingLineNumber = "97"
+         landmarkName = "createWindow()"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/JucePluginWindow.cpp"
+         timestampString = "390125100.377636"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "103"
+         endingLineNumber = "103"
+         landmarkName = "PluginWindow::PluginWindow (AudioProcessorEditor* const uiComp, PluginWrapper* module_, AudioPluginInstance* owner_, void *nativeWindowToAttachTo)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_extra/native/juce_mac_CarbonViewWrapperComponent.h"
+         timestampString = "390214861.650592"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "268"
+         endingLineNumber = "268"
+         landmarkName = "carbonEventHandler (EventHandlerCallRef /*nextHandlerRef*/, EventRef event)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/JucePluginWindow.cpp"
+         timestampString = "390211082.050349"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "275"
+         endingLineNumber = "275">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_extra/native/juce_mac_CarbonViewWrapperComponent.h"
+         timestampString = "390214861.650592"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "260"
+         endingLineNumber = "260"
+         landmarkName = "carbonEventHandler (EventHandlerCallRef /*nextHandlerRef*/, EventRef event)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginWrapper/JucePluginWindow.cpp"
+         timestampString = "390154772.378346"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "85"
+         endingLineNumber = "85"
+         landmarkName = "PluginWindow::PluginWindow (AudioProcessorEditor* const uiComp, PluginWrapper* module_, AudioPluginInstance* owner_, void *nativeWindowToAttachTo)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_basics/components/juce_Component.cpp"
+         timestampString = "390156160.816213"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1063"
+         endingLineNumber = "1063"
+         landmarkName = "Component::setBounds (const int x, const int y, int w, int h)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_basics/layout/juce_ComponentMovementWatcher.cpp"
+         timestampString = "390162253.648763"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "89"
+         endingLineNumber = "89"
+         landmarkName = "ComponentMovementWatcher::componentMovedOrResized (Component&amp;, bool wasMoved, bool wasResized)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+         timestampString = "390480675.277508"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "2639"
+         endingLineNumber = "2639"
+         landmarkName = "openPluginWindow (WindowRef parentWindow)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+         timestampString = "390480675.277508"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "2346"
+         endingLineNumber = "2346"
+         landmarkName = "openPluginWindow (WindowRef parentWindow)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+         timestampString = "390480675.277508"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "2587"
+         endingLineNumber = "2587"
+         landmarkName = "openPluginWindow (WindowRef parentWindow)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_gui_basics/components/juce_Component.cpp"
+         timestampString = "390212734.315066"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1132"
+         endingLineNumber = "1132"
+         landmarkName = "Component::setBounds (const RelativeRectangle&amp; newBounds)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/DeviceMidi/DeviceMidi.cpp"
+         timestampString = "390315576.808756"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "887"
+         endingLineNumber = "887"
+         landmarkName = "DeviceMidi::handleIncomingMidiMessage (MidiInput *source, const MidiMessage &amp;message)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/DeviceAudio/DeviceAudio.cpp"
+         timestampString = "390319885.400181"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "514"
+         endingLineNumber = "514"
+         landmarkName = "DeviceAudio::onCallBack (UsineMessage* Message)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/DeviceAudio/DeviceAudio.cpp"
+         timestampString = "390829372.104345"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1033"
+         endingLineNumber = "1033"
+         landmarkName = "DeviceAudio::selectBufferSize (double bufferSize)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/DeviceAudio/DeviceAudio.cpp"
+         timestampString = "390829372.104345"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1050"
+         endingLineNumber = "1050"
+         landmarkName = "DeviceAudio::changeBufferSize ()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../sdk/UserModule.cpp"
+         timestampString = "390569764.950014"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "232"
+         endingLineNumber = "232"
+         landmarkName = "InitModule (void* pModule, MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../sdk/UserModule.cpp"
+         timestampString = "390569764.950014"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "228"
+         endingLineNumber = "228"
+         landmarkName = "InitModule (void* pModule, MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+         timestampString = "390483485.176573"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "731"
+         endingLineNumber = "731"
+         landmarkName = "tempBuffer (1, 1)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+         timestampString = "390483595.046227"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "501"
+         endingLineNumber = "501"
+         landmarkName = "open()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+         timestampString = "390483859.190414"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "2772"
+         endingLineNumber = "2772"
+         landmarkName = "VSTPluginFormat::createInstanceFromDescription (const PluginDescription&amp; desc)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/Juce v2/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+         timestampString = "390483951.567481"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "2688"
+         endingLineNumber = "2688"
+         landmarkName = "VSTPluginFormat::findAllTypesForFile (OwnedArray &lt;PluginDescription&gt;&amp; results, const String&amp; fileOrIdentifier)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689017.214735"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "460"
+         endingLineNumber = "460"
+         landmarkName = "PluginLister::rescanPlugins ()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/DeviceAudio/DeviceAudio.cpp"
+         timestampString = "390500452.120066"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "136"
+         endingLineNumber = "136"
+         landmarkName = "DeviceAudio::onGetModuleInfo (MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../sdk/UserUtils.cpp"
+         timestampString = "390589896.096341"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "632"
+         endingLineNumber = "632"
+         landmarkName = "my_handle_exn(char *addr, integer_t code)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../sdk/UserModule.cpp"
+         timestampString = "390569566.576388"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "108"
+         endingLineNumber = "108"
+         landmarkName = "UserModuleBase::CallBack (UsineMessage *Message)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689017.214735"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "596"
+         endingLineNumber = "596"
+         landmarkName = "PluginLister::rescanPlugins ()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../sdk/UserUtils.cpp"
+         timestampString = "390583833.728169"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "442"
+         endingLineNumber = "442"
+         landmarkName = "initExceptionHandler ()"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../sdk/UserUtils.cpp"
+         timestampString = "390589896.096341"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "497"
+         endingLineNumber = "497"
+         landmarkName = "forward_exception( mach_port_t thread, mach_port_t task, exception_type_t exception, exception_data_t data, mach_msg_type_number_t data_count )"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../sdk/UserUtils.cpp"
+         timestampString = "390589896.096341"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "558"
+         endingLineNumber = "558"
+         landmarkName = "catch_exception_raise( mach_port_t exception_port,mach_port_t thread,mach_port_t task, exception_type_t exception,exception_data_t code, mach_msg_type_number_t code_count )"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../sdk/UserUtils.cpp"
+         timestampString = "390589629.542818"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "521"
+         endingLineNumber = "521"
+         landmarkName = "forward_exception( mach_port_t thread, mach_port_t task, exception_type_t exception, exception_data_t data, mach_msg_type_number_t data_count )"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390590527.315396"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "65"
+         endingLineNumber = "65"
+         landmarkName = "CreateModule (void* &amp;pModule, AinsiCharPtr optionalString, LongBool Flag, MasterInfo* pMasterInfo)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390688969.248066"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "717"
+         endingLineNumber = "717"
+         landmarkName = "PluginLister::crcSaveSettings()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/PluginLister/PluginLister.cpp"
+         timestampString = "390689134.183387"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "200"
+         endingLineNumber = "200"
+         landmarkName = "PluginLister::onCallBack (UsineMessage* Message)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/DeviceAudio/DeviceAudio.cpp"
+         timestampString = "390828098.505116"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "488"
+         endingLineNumber = "488"
+         landmarkName = "DeviceAudio::onCallBack (UsineMessage* Message)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/DeviceAudio/DeviceAudio.cpp"
+         timestampString = "390828100.793265"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "493"
+         endingLineNumber = "493"
+         landmarkName = "DeviceAudio::onCallBack (UsineMessage* Message)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/DeviceAudio/DeviceAudio.cpp"
+         timestampString = "390828161.543966"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "504"
+         endingLineNumber = "504"
+         landmarkName = "DeviceAudio::onCallBack (UsineMessage* Message)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../modules/DeviceAudio/DeviceAudio.cpp"
+         timestampString = "390829450.912269"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "831"
+         endingLineNumber = "831"
+         landmarkName = "DeviceAudio::createDevice (bool changed)"
+         landmarkType = "5">
+      </FileBreakpoint>
+   </FileBreakpoints>
+   <ExceptionBreakpoints>
+      <ExceptionBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         condition = "On Throw"
+         continueAfterRunningActions = "No"
+         scope = "2"
+         stopOnStyle = "0">
+      </ExceptionBreakpoint>
+      <ExceptionBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         scope = "1"
+         stopOnStyle = "0">
+      </ExceptionBreakpoint>
+   </ExceptionBreakpoints>
+</Bucket>

@@ -1,0 +1,399 @@
+
+
+
+  
+  
+ 
+  
+  
+ 
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting Started With the Image Hand Assets &mdash; Leap Motion Python SDK v2.3 documentation</title>
+    
+    <link rel="stylesheet" href="../../cpp/_static/bootstrap-3.0.0/css/documentation-bundle.1439949735.css" type="text/css" />
+    
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+      <script type="text/javascript" src="../../cpp/_static/bootstrap-3.0.0/js/documentation-bundle.1439949735.js"></script>
+    <link rel="top" title="Leap Motion Python SDK v2.3 documentation" href="../index.html" />
+<script type="text/javascript" src="/assets/standalone-header.js?r9"></script>
+<link rel="stylesheet" href="/assets/standalone-header.css?r9" type="text/css" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-31536531-1']);
+  _gaq.push(['_setDomainName', 'leapmotion.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+ 
+
+<script>
+
+    function getQueryValue(variable)
+    {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+        var relPath = "../../";
+
+    var requestedAPI = getQueryValue("proglang");
+    if(requestedAPI == "current") requestedAPI = localStorage["currentAPI"];
+    var pageAPI = 'python';
+    var hasAPI = {};
+    hasAPI.unity = true;
+
+    if(requestedAPI && (requestedAPI != pageAPI))
+    {
+        if(pageAPI != 'none'){
+            var redirectedLocation = relPath + 'python/unity/Unity_Image_Hand.html';
+            if( requestedAPI == 'cpp' && hasAPI.cpp){
+                redirectedLocation = relPath + "cpp/unity/Unity_Image_Hand.html";
+            }
+            else if( requestedAPI == 'csharp' && hasAPI.csharp){
+                redirectedLocation = relPath + "csharp/unity/Unity_Image_Hand.html";
+            }
+            else if( requestedAPI == 'unity' && hasAPI.unity){
+                redirectedLocation = relPath + "unity/unity/Unity_Image_Hand.html";
+            }
+            else if( requestedAPI == 'objc' && hasAPI.objc){
+                redirectedLocation = relPath + "objc/unity/Unity_Image_Hand.html";
+            }
+            else if( requestedAPI == 'java' && hasAPI.java) {
+                redirectedLocation = relPath + "java/unity/Unity_Image_Hand.html";
+            }
+            else if( requestedAPI == 'javascript' && hasAPI.javascript){
+                redirectedLocation = relPath + "javascript/unity/Unity_Image_Hand.html";
+            }
+            else if( requestedAPI == 'python' && hasAPI.python){
+                redirectedLocation = relPath + "python/unity/Unity_Image_Hand.html";
+            }
+            else if( requestedAPI == 'unreal' && hasAPI.unreal) {
+                redirectedLocation = relPath + "unreal/unity/Unity_Image_Hand.html";
+            } else {
+
+                    if( requestedAPI == 'cpp'){
+                        redirectedLocation = relPath + "cpp/index.html?proglang=cpp";
+                    }
+                    else if( requestedAPI == 'csharp'){
+                        redirectedLocation = relPath + "csharp/index.html?proglang=csharp";
+                    }
+                    else if( requestedAPI == 'unity'){
+                        redirectedLocation = relPath + "unity/index.html?proglang=unity";
+                    }
+                    else if( requestedAPI == 'objc'){
+                        redirectedLocation = relPath + "objc/index.html?proglang=objc";
+                    }
+                    else if( requestedAPI == 'java') {
+                        redirectedLocation = relPath + "java/index.html?proglang=java";
+                    }
+                    else if( requestedAPI == 'javascript'){
+                        redirectedLocation = relPath + "javascript/index.html?proglang=javascript";
+                    }
+                    else if( requestedAPI == 'python'){
+                        redirectedLocation = relPath + "python/index.html?proglang=python";
+                    }
+                    else if( requestedAPI == 'unreal') {
+                        redirectedLocation = relPath + "unreal/index.html?proglang=unreal";
+                    } else {
+                        redirectedLocation = relPath + "index.html";
+                    }
+            }
+
+            //Guard against redirecting to the same page (infinitely)
+            if(relPath + 'python/unity/Unity_Image_Hand.html' != redirectedLocation) window.location.replace(redirectedLocation);
+        }
+    }
+
+</script>
+
+<script>
+window.addEventListener('keyup', handleKeyInput);
+function handleKeyInput(e)
+{
+    var code;
+    if (!e) var e = window.event;
+    if (e.keyCode) code = e.keyCode;
+    else if (e.which) code = e.which;
+    var character = String.fromCharCode(code);
+    if( character == "J" & e.altKey){    }
+    else if( character == "K" & e.altKey){
+    }
+
+}
+</script>
+
+
+  </head>
+  <body role="document">
+
+<div class="developer-portal-styles">
+  <header class="navbar navbar-static-top developer-navbar header beta-header">
+    <nav class="container pr">
+      <a class="logo-link pull-left" href="/">
+        <img alt="Leap Motion Developers" class="media-object pull-left white-background" src="../_static/logo.png" />
+      </a>
+      <span class="inline-block hidden-phone developer-logo-text">
+        <div class="text">
+          <a href="/">
+            <span class="more-than-1199">Developer Portal</span>
+
+          </a>
+        </div>
+      </span>
+
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <!-- Everything within here will be hidden at 940px or less, accessible via a button. -->
+      <div class="nav-collapse">
+        <ul class="nav header-navigation developer-links">
+          <li class="external-link"><a href="https://developer.leapmotion.com/features">What's new</a> </li>
+          <li class="external-link"><a href="https://developer.leapmotion.com/downloads/skeletal-beta" class="">Getting Started</a></li>
+          <li><a class="active" href="#" class="">Documentation</a></li>
+          <li class="external-link"> <a href="https://developer.leapmotion.com/gallery" class="">Examples</a> </li>
+          <li class="external-link"> <a href="https://www.leapmotion.com/blog/category/labs/" class="" target="_blank">Blog <i class='fa fa-external-link'></i></a> </li>
+          <li class="external-link"> <a href="https://community.leapmotion.com/category/beta" class="" target="_blank">Community <i class='fa fa-external-link'></i></a> </li>
+        </ul>
+      </div>
+
+    </nav>
+  </header>
+</div>
+<section class="main-wrap">
+  <div data-swiftype-index="true">
+    <div class="second_navigation">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            
+              
+
+<ul>
+  <li>
+      <a href="../../javascript/index.html?proglang=javascript" onclick="localStorage['currentAPI'] = 'javascript'">JavaScript</a>
+    
+  </li>
+  <li>
+      <a href="../../unity/unity/Unity_Image_Hand.html?proglang=unity" onclick="localStorage['currentAPI'] = 'unity'">Unity</a>
+    
+  </li>
+  <li>
+      <a href="../../csharp/index.html?proglang=csharp" onclick="localStorage['currentAPI'] = 'csharp'">C#</a>
+    
+  </li>
+  <li>
+      <a href="../../cpp/index.html?proglang=cpp" onclick="localStorage['currentAPI'] = 'cpp'">C++</a>
+    
+  </li>
+  <li>
+      <a href="../../java/index.html?proglang=java" onclick="localStorage['currentAPI'] = 'java'">Java</a>
+    
+  </li>
+  <li>
+      Python
+    
+  </li>
+  <li>
+      <a href="../../objc/index.html?proglang=objc" onclick="localStorage['currentAPI'] = 'objc'">Objective-C</a>
+    
+  </li>
+  <li>
+      <a href="../../unreal/index.html?proglang=unreal" onclick="localStorage['currentAPI'] = 'unreal'">Unreal</a>
+    
+  </li>
+</ul>
+            
+          </div>
+          <div class="col-md-4 search">
+            
+              <script>
+function storeThisPage(){
+    sessionStorage["pageBeforeSearch"] = window.location;
+    return true;
+}
+function doneWithSearch(){
+    var storedPage = sessionStorage["pageBeforeSearch"];
+    if(storedPage){
+        window.location = storedPage;
+    } else {
+        window.location = "index.html"; //fallback
+    }
+    return false;
+}
+</script>
+<div  style="margin-top:-4px">
+<ul style="display:inline; white-space:nowrap"><li>
+<form class="navbar-form" action="../search.html" method="get" onsubmit="storeThisPage()">
+ <div class="form-group">
+  <input type="search" results="5" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form></li>
+</ul>
+</div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+        //Remove dev portal header and footer when viewing from file system
+       if(window.location.protocol == 'file:'){
+            var navNode = document.querySelector(".developer-links");
+            navNode.parentNode.removeChild(navNode);
+        }
+
+    </script>
+
+
+<div id="wrap" data-spy="scroll" data-target="#sidebar">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 pull-right">
+        <!-- 
+ 
+<span id="breadcrumbs">
+  <a href="../index.html">Home</a>&raquo;
+  Getting Started With the Image Hand Assets
+</span> -->
+        
+  <div class="section" id="getting-started-with-the-image-hand-assets">
+<h1>Getting Started With the Image Hand Assets<a class="headerlink" href="#getting-started-with-the-image-hand-assets" title="Permalink to this headline">¶</a></h1>
+<p>The Image Hand asset is a blend between Augmented Reality (AR) and Virtual Reality (VR). It displays images of your real hands from the camera sensors with the physicality and interactivity of motion-controlled 3D hands.</p>
+<blockquote>
+<div><img alt="unity/../../../images/unity/ImageHand_Balls.jpg" src="unity/../../../images/unity/ImageHand_Balls.jpg" />
+</div></blockquote>
+<p>The image hands can add to the immersiveness of your VR or AR applications. The hands are properly depth-sorted so they appear behind closer objects and in front of those more distant. When the hands touch or penetrate an object, a highlight is applied to the intersection point to provide a depth cue. A glow effect is applied to the hand to indicate a high-confidence pose.</p>
+<div class="section" id="trying-out-the-image-hands">
+<h2>Trying Out The Image Hands<a class="headerlink" href="#trying-out-the-image-hands" title="Permalink to this headline">¶</a></h2>
+<p>The Leap Motion Core Asset package includes several demo scenes to demonstrate the Image Hand assets.</p>
+<blockquote>
+<div><img alt="unity/../../../images/unity/ImageHands_DemoScene.png" src="unity/../../../images/unity/ImageHands_DemoScene.png" />
+</div></blockquote>
+<p>You can find the main demo scene, ImageHandsTouchCubes, in the Assets folder <tt class="docutils literal"><span class="pre">LeapMotion+OVR/scenes</span></tt>. The 500Blocks, MovingDemo, and QuickSwitchDemo scenes have also been updated to use the Image Hands.</p>
+<p>The <tt class="docutils literal"><span class="pre">LeapMotion/scenes</span></tt> folder also includes a desktop-mode demo, <tt class="docutils literal"><span class="pre">ImageHands</span></tt>. Note, however, that the Image Hand assets aren&#8217;t well suited to non-VR/AR use. This is because the viewpoint of the scene cameras must match those of the Leap Motion cameras; in desktop mode, the Leap Motion cameras are looking upward &#8211; not typically a useful viewpoint for an application.</p>
+<p>To try out these scenes, create a new project and import the latest <a class="reference external" href="https://developer.leapmotion.com/downloads/unity">Leap Motion Core Asset package</a>. Then open the desired scene.</p>
+</div>
+<div class="section" id="adding-image-hands-to-a-scene">
+<h2>Adding Image Hands to a Scene<a class="headerlink" href="#adding-image-hands-to-a-scene" title="Permalink to this headline">¶</a></h2>
+<p>To use the Image Hands, add the LeapOVRCameraRig or LeapOVRPlayerController prefab to the scene:</p>
+<ol class="arabic">
+<li><p class="first">Import the latest Leap Motion Core Asset package.</p>
+</li>
+<li><p class="first">Create a new Unity scene.</p>
+</li>
+<li><p class="first">In the Project tab, navigate to <tt class="docutils literal"><span class="pre">LeapMotion+OVR/Prefabs</span></tt>.</p>
+</li>
+<li><p class="first">Drag one of the LeapOVR prefabs into the scene:</p>
+<p>For a stationary camera, use <tt class="docutils literal"><span class="pre">LeapOVRCameraRig</span></tt>.</p>
+<p>For a camera that moves with a 1st-person avatar, use <tt class="docutils literal"><span class="pre">LeapOVRPlayerController</span></tt>.</p>
+<p>These rigs are based on the standard Oculus VR SDK prefabs.</p>
+<img alt="unity/../../../images/unity/ImageHands_AddRig.png" src="unity/../../../images/unity/ImageHands_AddRig.png" />
+<p>Doublecheck that the graphics hand models are set to &#8216;&#8217;ImageFullLeft&#8217;&#8217; and <tt class="docutils literal"><span class="pre">ImageFullRight</span></tt>.</p>
+</li>
+<li><p class="first">Position the controller in your scene as appropriate.</p>
+</li>
+<li><p class="first">Turn off the Skybox:</p>
+<ol class="loweralpha simple">
+<li>Open the Lighting settings panel with Window &gt; Lighting menu command.</li>
+<li>Change the Skybox material from &#8220;Default-Skybox&#8221; to &#8220;None&#8221;.</li>
+</ol>
+</li>
+<li><p class="first">Play the scene. You should see something like:</p>
+<img alt="unity/../../../images/unity/ImageHand_AddFinal.png" src="unity/../../../images/unity/ImageHand_AddFinal.png" />
+</li>
+</ol>
+<p>Now you can add your other objects to the scene. The Image Hand is life-sized to match the camera images. Thus your other objects should be scaled appropriately. For you to reach an object with a virtual hand, that object must be within an arm&#8217;s reach away from the controller (i.e. less than about .7 meters).</p>
+<p>In general, we recommend using the LeapOVRCameraRig or LeapOVRPlayerController as is or with only simple, easily repeatable modifications. The structure of the game objects, scripts, and shaders may change in future releases.</p>
+</div>
+<div class="section" id="known-issues">
+<h2>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
+<p>There are few known issues with the Image Hand asset related to rendering:</p>
+<ol class="arabic simple">
+<li>Use point lights for shadows. When casting shadows with the Image Hand, do not use directional lighting – use point lights instead. If dynamic directional lighting is used, shadows (not lighting) will be occluded in the vicinity of the hand.</li>
+<li>Avoid legacy Unity GUI Skins due to issues with intersection and occlusion of the hand by the GUI layers.</li>
+<li>The hand glow effect can bleed into bright areas of the scene near the hand.</li>
+<li>The linear color space is recommended for rendering. This is not the default setting of the Unity engine. (It can be changed by opening the Player Settings panel using the Edit&gt;Project Settings&gt;Player menu command and selecting the Linear option for Color Space under Other Settings.)</li>
+</ol>
+</div>
+</div>
+
+
+           <!-- get_disqus_sso -->
+      </div>
+      <div id="sidebar" class="col-md-3">
+        <div class="well-sidebar" data-offset-top="188">
+          <ul>
+            <li><a href="../index.html" title="Home">Python Docs (v2.3)</a></li>
+          </ul><ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Intro_Skeleton_API.html">Introducing the Skeletal Tracking Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Leap_Overview.html">API Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practices/Leap_Practices.html">Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Leap_Guides.html">Application Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Leap_Guides2.html">Using the Tracking API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Leap_Classes.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplements/Leap_Supplements.html">Appendices</a></li>
+</ul>
+
+
+        </div>
+      </div>
+        
+    </div>
+  </div>
+</div>
+<!--
+
+<div class="ribbon">
+    <p>Python</p>
+</div>
+
+
+<footer>
+  <div id="footer" class="container">
+    <div class="container">
+      <div class="copyright">
+        <span>Copyright &copy; 2012 - 2014, Leap Motion, Inc.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

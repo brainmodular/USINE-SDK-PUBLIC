@@ -1,0 +1,794 @@
+
+
+
+  
+  
+ 
+  
+  
+ 
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Image &mdash; Leap Motion Objective-C SDK v2.3 documentation</title>
+    
+    <link rel="stylesheet" href="../../cpp/_static/bootstrap-3.0.0/css/documentation-bundle.1439949735.css" type="text/css" />
+    
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+      <script type="text/javascript" src="../../cpp/_static/bootstrap-3.0.0/js/documentation-bundle.1439949735.js"></script>
+    <link rel="top" title="Leap Motion Objective-C SDK v2.3 documentation" href="../index.html" />
+    <link rel="up" title="API Reference" href="Leap_Classes.html" />
+    <link rel="next" title="InteractionBox" href="Leap.InteractionBox.html" />
+    <link rel="prev" title="Hand" href="Leap.Hand.html" />
+<script type="text/javascript" src="/assets/standalone-header.js?r9"></script>
+<link rel="stylesheet" href="/assets/standalone-header.css?r9" type="text/css" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-31536531-1']);
+  _gaq.push(['_setDomainName', 'leapmotion.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+ 
+
+<script>
+
+    function getQueryValue(variable)
+    {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+        var relPath = "../../";
+
+    var requestedAPI = getQueryValue("proglang");
+    if(requestedAPI == "current") requestedAPI = localStorage["currentAPI"];
+    var pageAPI = 'objc';
+    var hasAPI = {};
+    hasAPI.cpp = true;
+    hasAPI.csharp = true;
+    hasAPI.objc = true;
+    hasAPI.java = true;
+    hasAPI.python = true;
+    hasAPI.unity = true;
+
+    if(requestedAPI && (requestedAPI != pageAPI))
+    {
+        if(pageAPI != 'none'){
+            var redirectedLocation = relPath + 'objc/api/Leap.Image.html';
+            if( requestedAPI == 'cpp' && hasAPI.cpp){
+                redirectedLocation = relPath + "cpp/api/Leap.Image.html";
+            }
+            else if( requestedAPI == 'csharp' && hasAPI.csharp){
+                redirectedLocation = relPath + "csharp/api/Leap.Image.html";
+            }
+            else if( requestedAPI == 'unity' && hasAPI.unity){
+                redirectedLocation = relPath + "unity/api/Leap.Image.html";
+            }
+            else if( requestedAPI == 'objc' && hasAPI.objc){
+                redirectedLocation = relPath + "objc/api/Leap.Image.html";
+            }
+            else if( requestedAPI == 'java' && hasAPI.java) {
+                redirectedLocation = relPath + "java/api/Leap.Image.html";
+            }
+            else if( requestedAPI == 'javascript' && hasAPI.javascript){
+                redirectedLocation = relPath + "javascript/api/Leap.Image.html";
+            }
+            else if( requestedAPI == 'python' && hasAPI.python){
+                redirectedLocation = relPath + "python/api/Leap.Image.html";
+            }
+            else if( requestedAPI == 'unreal' && hasAPI.unreal) {
+                redirectedLocation = relPath + "unreal/api/Leap.Image.html";
+            } else {
+                    redirectedLocation ="Leap_Classes.html";
+            }
+
+            //Guard against redirecting to the same page (infinitely)
+            if(relPath + 'objc/api/Leap.Image.html' != redirectedLocation) window.location.replace(redirectedLocation);
+        }
+    }
+
+</script>
+
+<script>
+window.addEventListener('keyup', handleKeyInput);
+function handleKeyInput(e)
+{
+    var code;
+    if (!e) var e = window.event;
+    if (e.keyCode) code = e.keyCode;
+    else if (e.which) code = e.which;
+    var character = String.fromCharCode(code);
+    if( character == "J" & e.altKey){
+            window.location.assign("Leap.Hand.html");    }
+    else if( character == "K" & e.altKey){
+            window.location.assign("Leap.InteractionBox.html");
+    }
+
+}
+</script>
+
+
+  </head>
+  <body role="document">
+
+<div class="developer-portal-styles">
+  <header class="navbar navbar-static-top developer-navbar header beta-header">
+    <nav class="container pr">
+      <a class="logo-link pull-left" href="/">
+        <img alt="Leap Motion Developers" class="media-object pull-left white-background" src="../_static/logo.png" />
+      </a>
+      <span class="inline-block hidden-phone developer-logo-text">
+        <div class="text">
+          <a href="/">
+            <span class="more-than-1199">Developer Portal</span>
+
+          </a>
+        </div>
+      </span>
+
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <!-- Everything within here will be hidden at 940px or less, accessible via a button. -->
+      <div class="nav-collapse">
+        <ul class="nav header-navigation developer-links">
+          <li class="external-link"><a href="https://developer.leapmotion.com/features">What's new</a> </li>
+          <li class="external-link"><a href="https://developer.leapmotion.com/downloads/skeletal-beta" class="">Getting Started</a></li>
+          <li><a class="active" href="#" class="">Documentation</a></li>
+          <li class="external-link"> <a href="https://developer.leapmotion.com/gallery" class="">Examples</a> </li>
+          <li class="external-link"> <a href="https://www.leapmotion.com/blog/category/labs/" class="" target="_blank">Blog <i class='fa fa-external-link'></i></a> </li>
+          <li class="external-link"> <a href="https://community.leapmotion.com/category/beta" class="" target="_blank">Community <i class='fa fa-external-link'></i></a> </li>
+        </ul>
+      </div>
+
+    </nav>
+  </header>
+</div>
+<section class="main-wrap">
+  <div data-swiftype-index="true">
+    <div class="second_navigation">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            
+              
+
+<ul>
+  <li>
+      <a href="Leap_Classes.html?proglang=current" onclick="localStorage['currentAPI'] = 'javascript'">JavaScript</a>
+    
+  </li>
+  <li>
+      <a href="../../unity/api/Leap.Image.html?proglang=unity" onclick="localStorage['currentAPI'] = 'unity'">Unity</a>
+    
+  </li>
+  <li>
+      <a href="../../csharp/api/Leap.Image.html?proglang=csharp" onclick="localStorage['currentAPI'] = 'csharp'">C#</a>
+    
+  </li>
+  <li>
+      <a href="../../cpp/api/Leap.Image.html?proglang=cpp" onclick="localStorage['currentAPI'] = 'cpp'">C++</a>
+    
+  </li>
+  <li>
+      <a href="../../java/api/Leap.Image.html?proglang=java" onclick="localStorage['currentAPI'] = 'java'">Java</a>
+    
+  </li>
+  <li>
+      <a href="../../python/api/Leap.Image.html?proglang=python" onclick="localStorage['currentAPI'] = 'python'">Python</a>
+    
+  </li>
+  <li>
+      Objective-C
+    
+  </li>
+  <li>
+      <a href="Leap_Classes.html?proglang=current" onclick="localStorage['currentAPI'] = 'unreal'">Unreal</a>
+    
+  </li>
+</ul>
+            
+          </div>
+          <div class="col-md-4 search">
+            
+              <script>
+function storeThisPage(){
+    sessionStorage["pageBeforeSearch"] = window.location;
+    return true;
+}
+function doneWithSearch(){
+    var storedPage = sessionStorage["pageBeforeSearch"];
+    if(storedPage){
+        window.location = storedPage;
+    } else {
+        window.location = "index.html"; //fallback
+    }
+    return false;
+}
+</script>
+<div  style="margin-top:-4px">
+<ul style="display:inline; white-space:nowrap"><li>
+<form class="navbar-form" action="../search.html" method="get" onsubmit="storeThisPage()">
+ <div class="form-group">
+  <input type="search" results="5" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form></li>
+</ul>
+</div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+        //Remove dev portal header and footer when viewing from file system
+       if(window.location.protocol == 'file:'){
+            var navNode = document.querySelector(".developer-links");
+            navNode.parentNode.removeChild(navNode);
+        }
+
+    </script>
+
+
+<div id="wrap" data-spy="scroll" data-target="#sidebar">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 pull-right">
+        <!-- 
+ 
+<span id="breadcrumbs">
+  <a href="../index.html">Home</a>&raquo;
+    <a href="Leap_Classes.html" accesskey="U">API Reference</a>&raquo;
+  Image
+</span> -->
+        
+  <div class="section" id="leapimage">
+<h1>LeapImage<a class="headerlink" href="#leapimage" title="Permalink to this headline">¶</a></h1>
+</div>
+<style>.members {
+     -webkit-column-count:2; /* Chrome, Safari, Opera */
+     -moz-column-count:2; /* Firefox */
+     column-count:2;
+     }
+     strong {color:gray;}
+</style><p><strong>Properties:</strong></p>
+<div class="members container">
+<ul class="simple">
+<li><a class="reference external" href="#objcinterface_leap_image_1ad2558aa54a4437f36caf6b03bc636a87">bytesPerPixel</a></li>
+<li><a class="reference external" href="#objcinterface_leap_image_1afb8a18b1a8a5a679a5c4bbb52769b49e">data</a></li>
+<li><a class="reference external" href="#objcinterface_leap_image_1a802ef81437901ef823f6746b4ed7d186">distortion</a></li>
+<li><a class="reference external" href="#objcinterface_leap_image_1acedca65498fbfc0b2cf324312a051bf6">distortionHeight</a></li>
+<li><a class="reference external" href="#objcinterface_leap_image_1a098f33267c7a528d1d7985bb2ff5c3fc">distortionWidth</a></li>
+<li><a class="reference external" href="#objcinterface_leap_image_1adef3feb8b7402f74146736bf55503e16">format</a></li>
+<li><a class="reference external" href="#objcinterface_leap_image_1ad12fc34ce789bce6c8a05d8a17138534">height</a></li>
+<li><a class="reference external" href="#objcinterface_leap_image_1a91f519457eca93f08fa8e441047f271f">isValid</a></li>
+<li><a class="reference external" href="#objcinterface_leap_image_1aa6ee2b9a91a7b1083ee67f283c950bce">rayOffsetX</a></li>
+<li><a class="reference external" href="#objcinterface_leap_image_1ab9fd46bccfb3767e57e72ce3a330d6da">rayOffsetY</a></li>
+<li><a class="reference external" href="#objcinterface_leap_image_1ad751dbb03bb1e0cdc74e7a6ac6b07df3">rayScaleX</a></li>
+<li><a class="reference external" href="#objcinterface_leap_image_1afe85ca62fcddac108e73c33f0c080344">rayScaleY</a></li>
+<li><a class="reference external" href="#objcinterface_leap_image_1a8a591d341723df9496cda98e225b25b4">timestamp</a></li>
+<li><a class="reference external" href="#objcinterface_leap_image_1a2474a5474cbff19523a51eb1de01cda4">width</a></li>
+</ul>
+</div>
+<p><strong>Methods:</strong></p>
+<div class="members container">
+<ul class="simple">
+<li><a class="reference external" href="#objcinterface_leap_image_1a8551faf6d9cdd579c51b1cc79e4aa4cd">equals:</a></li>
+<li><a class="reference external" href="#objcinterface_leap_image_1ac6dcf184ee44e021ffaf512eb614f251">id</a></li>
+<li><a class="reference external" href="#objcinterface_leap_image_1ab740ebfcbc90ac8ee028670ddadc1eb8">invalid</a></li>
+<li><a class="reference external" href="#objcinterface_leap_image_1afbedd710537f8983a0a9b686fa010712">rectify:</a></li>
+<li><a class="reference external" href="#objcinterface_leap_image_1ae628b2705ebb15d4b6a0c196161b2017">sequenceId</a></li>
+<li><a class="reference external" href="#objcinterface_leap_image_1a29b61da75260a4b66842ee4a91c0417e">warp:</a></li>
+</ul>
+</div>
+<div class="line-block" id="objcinterface_leap_image">
+<div class="line"><em>class</em> <strong>LeapImage</strong></div>
+</div>
+<blockquote>
+<div><p>The <a class="reference internal" href="#objcinterface_leap_image"><em>LeapImage</em></a> class represents a single greyscale image from one of the the Leap Motion cameras. </p>
+<p><p>In addition to image data, the <a class="reference internal" href="#objcinterface_leap_image"><em>LeapImage</em></a> object provides a distortion map for correcting lens distortion.</p>
+<p>Note that <a class="reference internal" href="#objcinterface_leap_image"><em>LeapImage</em></a> objects can be invalid, which means that they do not contain valid image data. Get valid <a class="reference internal" href="#objcinterface_leap_image"><em>LeapImage</em></a> objects from [<a class="reference internal" href="Leap.Frame.html#objcinterface_leap_frame"><em>LeapFrame</em></a> frames:]. Test for validity with the <a class="reference internal" href="#objcinterface_leap_image_1a91f519457eca93f08fa8e441047f271f"><em>LeapImage.isValid</em></a>. <dl class="docutils">
+<dt><strong>Since</strong></dt>
+<dd>2.1.5 </dd>
+</dl>
+</p>
+</p>
+<em>Public Functions</em><blockquote>
+<div><p><span class="target" id="objcinterface_leap_image_1a8551faf6d9cdd579c51b1cc79e4aa4cd"></span><div class="line-block">
+<div class="line"><div class="line"><br /></div>
+- (BOOL) <strong>equals</strong>:(const  <a class="reference internal" href="#objcinterface_leap_image"><em>LeapImage</em></a>  *) other </div>
+</div>
+</p>
+<blockquote>
+<div><p>Compare <a class="reference internal" href="#objcinterface_leap_image"><em>LeapImage</em></a> object equality. </p>
+<p>Two <a class="reference internal" href="#objcinterface_leap_image"><em>LeapImage</em></a> objects are equal if and only if both objects represent the exact same image and both <a class="reference internal" href="#objcinterface_leap_image"><em>LeapImage</em></a> objects are valid. <dl class="docutils">
+<dt><strong>Since</strong></dt>
+<dd>2.1.5 </dd>
+</dl>
+</p>
+</div></blockquote>
+<p><span class="target" id="objcinterface_leap_image_1ac6dcf184ee44e021ffaf512eb614f251"></span><div class="line-block">
+<div class="line"><div class="line"><br /></div>
+- (int32_t)  <strong>id</strong></div>
+</div>
+</p>
+<blockquote>
+<div><p>The image ID. </p>
+<p><p>Images with ID of 0 are from the left camera; those with an ID of 1 are from the right camera (with the device in its standard operating position with the green LED facing the operator).</p>
+<p><dl class="docutils">
+<dt><strong>Since</strong></dt>
+<dd>2.1.5 </dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+<p><span class="target" id="objcinterface_leap_image_1afbedd710537f8983a0a9b686fa010712"></span><div class="line-block">
+<div class="line"><div class="line"><br /></div>
+- (<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a>  *) <strong>rectify</strong>:(<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a>  *) uv </div>
+</div>
+</p>
+<blockquote>
+<div><p>Provides the corrected camera ray intercepting the specified point on the image. </p>
+<p><p>Given a point on the image, <tt class="docutils literal"><span class="pre">rectify:</span></tt> corrects for camera distortion and returns the true direction from the camera to the source of that image point within the Leap Motion field of view.</p>
+<p>This direction vector has an x and y component with the third element always zero: i.e. [x, y, 0]. Note that this vector uses the 2D camera coordinate system where the x-axis parallels the longer (typically horizontal) dimension and the y-axis parallels the shorter (vertical) dimension. The camera coordinate system does not correlate to the Leap Motion 3D coordinate system.</p>
+<p><pre class="literal-block">
+<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> *feature = [[<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> alloc] initWithX:127 y:68 z:0];
+<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> *slopes = [image rectify:feature];
+</pre>
+</p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>A <a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> containing the ray direction (the z-component of the vector is always 0). </dd>
+<dt><strong>Since</strong></dt>
+<dd>2.1.5 </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">uv</span></tt> - <p>A <a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> containing the position of a pixel in the image. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+<p><span class="target" id="objcinterface_leap_image_1ae628b2705ebb15d4b6a0c196161b2017"></span><div class="line-block">
+<div class="line"><div class="line"><br /></div>
+- (int64_t)  <strong>sequenceId</strong></div>
+</div>
+</p>
+<blockquote>
+<div><p>The image sequence ID. </p>
+<p><p><pre class="literal-block">
+long lastImage = 0;
+while(!done){
+    <a class="reference internal" href="#objcinterface_leap_image"><em>LeapImage</em></a> *leftImage = [controller.<a class="reference internal" href="Leap.Controller.html#objcinterface_leap_controller_1acb512cefc78858ff20629976bed66e13"><em>images</em></a> objectAtIndex:0];
+    if(leftImage.<a class="reference internal" href="#objcinterface_leap_image_1ae628b2705ebb15d4b6a0c196161b2017"><em>sequenceId</em></a> != lastImage){
+        <a class="reference internal" href="#objcinterface_leap_image"><em>LeapImage</em></a> *rightImage = [controller.<a class="reference internal" href="Leap.Controller.html#objcinterface_leap_controller_1acb512cefc78858ff20629976bed66e13"><em>images</em></a> objectAtIndex:1];
+        lastImage = leftImage.<a class="reference internal" href="#objcinterface_leap_image_1ae628b2705ebb15d4b6a0c196161b2017"><em>sequenceId</em></a>;
+        // Use images...
+    }
+}
+</pre>
+</p>
+<p><dl class="docutils">
+<dt><strong>Since</strong></dt>
+<dd>2.2.1 </dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+<p><span class="target" id="objcinterface_leap_image_1a29b61da75260a4b66842ee4a91c0417e"></span><div class="line-block">
+<div class="line"><div class="line"><br /></div>
+- (<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a>  *) <strong>warp</strong>:(<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a>  *) xy </div>
+</div>
+</p>
+<blockquote>
+<div><p>Provides the point in the image corresponding to a ray projecting from the camera. </p>
+<p><p>Given a ray projected from the camera in the specified direction, <tt class="docutils literal"><span class="pre">warp:</span></tt> corrects for camera distortion and returns the corresponding pixel coordinates in the image.</p>
+<p>The ray direction is specified in relationship to the camera. The first vector element corresponds to the &#8220;horizontal&#8221; view angle; the second corresponds to the &#8220;vertical&#8221; view angle.</p>
+<p><pre class="literal-block">
+float horizontal_slope = tan(65 * LEAP_DEG_TO_RAD);
+float vertical_slope = tan(15 * LEAP_DEG_TO_RAD);
+<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> *pixel = [image warp:[[<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> alloc] initWithX:horizontal_slope y: vertical_slope z:0]];
+if(pixel.<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector_1ad0da36b2558901e21e7a30f6c227a45e"><em>x</em></a> &gt;= 0 &amp;&amp; pixel.<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector_1aa4f0d3eebc3c443f9be81bf48561a217"><em>y</em></a> &gt;= 0 &amp;&amp; pixel.<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector_1ad0da36b2558901e21e7a30f6c227a45e"><em>x</em></a> &lt;= image.<a class="reference internal" href="#objcinterface_leap_image_1a2474a5474cbff19523a51eb1de01cda4"><em>width</em></a> &amp;&amp; pixel.<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector_1aa4f0d3eebc3c443f9be81bf48561a217"><em>y</em></a> &lt;= image.<a class="reference internal" href="#objcinterface_leap_image_1ad12fc34ce789bce6c8a05d8a17138534"><em>height</em></a>){
+    int data_index = floor(pixel.<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector_1aa4f0d3eebc3c443f9be81bf48561a217"><em>y</em></a>) * image.<a class="reference internal" href="#objcinterface_leap_image_1a2474a5474cbff19523a51eb1de01cda4"><em>width</em></a> + floor(pixel.<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector_1ad0da36b2558901e21e7a30f6c227a45e"><em>x</em></a>);
+    unsigned char brightness = image.<a class="reference internal" href="#objcinterface_leap_image_1afb8a18b1a8a5a679a5c4bbb52769b49e"><em>data</em></a>[data_index];
+}
+</pre>
+</p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>A <a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> containing the pixel coordinates [x, y, 0] (with z always zero). </dd>
+<dt><strong>Since</strong></dt>
+<dd>2.1.5 </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">xy</span></tt> - <p>A <a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> containing the ray direction. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+</div></blockquote>
+<em>Property</em><blockquote>
+<div><p><span class="target" id="objcinterface_leap_image_1ad2558aa54a4437f36caf6b03bc636a87"></span><div class="line"><div class="line"><br /></div>
+- (int)  <strong>bytesPerPixel</strong></div>
+ <strong>bytesPerPixel</strong></p>
+<blockquote>
+<div><p>The number of bytes per pixel. </p>
+<p><p><pre class="literal-block">
+int bufferSize = image.<a class="reference internal" href="#objcinterface_leap_image_1ad2558aa54a4437f36caf6b03bc636a87"><em>bytesPerPixel</em></a> * image.<a class="reference internal" href="#objcinterface_leap_image_1a2474a5474cbff19523a51eb1de01cda4"><em>width</em></a> * image.<a class="reference internal" href="#objcinterface_leap_image_1ad12fc34ce789bce6c8a05d8a17138534"><em>height</em></a>;
+</pre>
+</p>
+<p><dl class="docutils">
+<dt><strong>Since</strong></dt>
+<dd>2.2.0 </dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+<p><span class="target" id="objcinterface_leap_image_1afb8a18b1a8a5a679a5c4bbb52769b49e"></span><div class="line"><div class="line"><br /></div>
+- (const unsigned char *)  <strong>data</strong></div>
+ <strong>data</strong></p>
+<blockquote>
+<div><p>A pointer to the image data. </p>
+<p><p>The image data is a set of 8-bit intensity values. The size of the buffer is <tt class="docutils literal"><span class="pre">image.width</span> <span class="pre">*</span> <span class="pre">image.height</span></tt> bytes.</p>
+<p><pre class="literal-block">
+const unsigned char* image_buffer = image.<a class="reference internal" href="#objcinterface_leap_image_1afb8a18b1a8a5a679a5c4bbb52769b49e"><em>data</em></a>;
+</pre>
+</p>
+<p>Where convenient, you can wrap the image data in an NSData object:</p>
+<p><pre class="literal-block">
+NSData * asNSData = [[NSData alloc] initWithBytesNoCopy:(void *)image.<a class="reference internal" href="#objcinterface_leap_image_1afb8a18b1a8a5a679a5c4bbb52769b49e"><em>data</em></a>
+                length:image.<a class="reference internal" href="#objcinterface_leap_image_1a2474a5474cbff19523a51eb1de01cda4"><em>width</em></a> * image.<a class="reference internal" href="#objcinterface_leap_image_1ad12fc34ce789bce6c8a05d8a17138534"><em>height</em></a>
+                deallocator:^void (void * bytes, NSUInteger length) {}];
+                //No need to deallocate
+</pre>
+</p>
+<p><dl class="docutils">
+<dt><strong>Since</strong></dt>
+<dd>2.1.5 </dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+<p><span class="target" id="objcinterface_leap_image_1a802ef81437901ef823f6746b4ed7d186"></span><div class="line"><div class="line"><br /></div>
+- (const float *)  <strong>distortion</strong></div>
+ <strong>distortion</strong></p>
+<blockquote>
+<div><p>A pointer to the distortion calibration map. </p>
+<p><p>The calibration map is a 64x64 grid of points. Each point is defined by a pair of 32-bit floating point values. Thus the size of the buffer is <tt class="docutils literal"><span class="pre">(image.distortionWidth</span> <span class="pre">*</span> <span class="pre">2)</span> <span class="pre">*</span> <span class="pre">image.distortionHeight</span> <span class="pre">*</span> <span class="pre">4</span> <span class="pre">bytes</span></tt>. Currently the size is not dynamic and evaluates to: <tt class="docutils literal"><span class="pre">64</span> <span class="pre">*</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">64</span> <span class="pre">*</span> <span class="pre">4</span> <span class="pre">=</span> <span class="pre">32768</span> <span class="pre">bytes</span></tt>. A future device or change in the API, however, could result in a different size for the calibration map. You should always use the <tt class="docutils literal"><span class="pre">image.distortionWidth</span></tt> and <tt class="docutils literal"><span class="pre">image.distortionHeight</span></tt> properties to calculate the buffer size.</p>
+<p>Each point in the map represents a ray projected into the camera. The value of a grid point defines the pixel in the image data containing the brightness value produced by the light entering along the corresponding ray. By interpolating between grid data points, you can find the brightness value for any projected ray. Grid values that fall outside the range [0..1] do not correspond to a value in the image data and those points should be ignored.</p>
+<p><pre class="literal-block">
+const float* distortion_buffer = image.<a class="reference internal" href="#objcinterface_leap_image_1a802ef81437901ef823f6746b4ed7d186"><em>distortion</em></a>;
+</pre>
+</p>
+<p>The calibration map can be used to render an undistorted image as well as to find the true angle from the camera to a feature in the raw image. The distortion map itself is designed to be used with GLSL shader programs. In other contexts, it may be more convenient to use the [<a class="reference internal" href="#objcinterface_leap_image"><em>LeapImage</em></a> rectify:] and [<a class="reference internal" href="#objcinterface_leap_image"><em>LeapImage</em></a> warp:] functions.</p>
+<p>Distortion is caused by the lens geometry as well as imperfections in the lens and sensor window. The calibration map is created by the calibration process run for each device at the factory (and which can be rerun by the user).</p>
+<p><dl class="docutils">
+<dt><strong>Since</strong></dt>
+<dd>2.1.5 </dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+<p><span class="target" id="objcinterface_leap_image_1acedca65498fbfc0b2cf324312a051bf6"></span><div class="line"><div class="line"><br /></div>
+- (int)  <strong>distortionHeight</strong></div>
+ <strong>distortionHeight</strong></p>
+<blockquote>
+<div><p>The distortion map height. </p>
+<p><p>Currently fixed at 64.</p>
+<p><pre class="literal-block">
+int correctionGridHeight = image.<a class="reference internal" href="#objcinterface_leap_image_1acedca65498fbfc0b2cf324312a051bf6"><em>distortionHeight</em></a>;
+</pre>
+</p>
+<p><dl class="docutils">
+<dt><strong>Since</strong></dt>
+<dd>2.1.5 </dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+<p><span class="target" id="objcinterface_leap_image_1a098f33267c7a528d1d7985bb2ff5c3fc"></span><div class="line"><div class="line"><br /></div>
+- (int)  <strong>distortionWidth</strong></div>
+ <strong>distortionWidth</strong></p>
+<blockquote>
+<div><p>The stride of the distortion map. </p>
+<p><p>Since each point on the 64x64 element distortion map has two values in the buffer, the stride is 2 times the size of the grid. (Stride is currently fixed at 2 * 64 = 128).</p>
+<p><pre class="literal-block">
+int correctionGridWidth = image.<a class="reference internal" href="#objcinterface_leap_image_1a098f33267c7a528d1d7985bb2ff5c3fc"><em>distortionWidth</em></a>;
+</pre>
+</p>
+<p><dl class="docutils">
+<dt><strong>Since</strong></dt>
+<dd>2.1.5 </dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+<p><span class="target" id="objcinterface_leap_image_1adef3feb8b7402f74146736bf55503e16"></span><div class="line"><div class="line"><br /></div>
+- (LeapImageFormatType)  <strong>format</strong></div>
+ <strong>format</strong></p>
+<blockquote>
+<div><p>The image format. </p>
+<p><p><pre class="literal-block">
+if(image.<a class="reference internal" href="#objcinterface_leap_image_1adef3feb8b7402f74146736bf55503e16"><em>format</em></a> == LEAP_IMAGE_FORMAT_TYPE_INFRARED){
+    NSString *openGL_format = &#64;&quot;GL_RED&quot;;
+    NSString *openGL_type = &#64;&quot;GL_UNSIGNED_BYTE&quot;;
+}
+</pre>
+</p>
+<p><dl class="docutils">
+<dt><strong>Since</strong></dt>
+<dd>2.2.0 </dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+<p><span class="target" id="objcinterface_leap_image_1ad12fc34ce789bce6c8a05d8a17138534"></span><div class="line"><div class="line"><br /></div>
+- (int)  <strong>height</strong></div>
+ <strong>height</strong></p>
+<blockquote>
+<div><p>The image height. </p>
+<p><p><pre class="literal-block">
+int <a class="reference internal" href="#objcinterface_leap_image_1ad12fc34ce789bce6c8a05d8a17138534"><em>height</em></a> = image.<a class="reference internal" href="#objcinterface_leap_image_1ad12fc34ce789bce6c8a05d8a17138534"><em>height</em></a>;
+</pre>
+</p>
+<p><dl class="docutils">
+<dt><strong>Since</strong></dt>
+<dd>2.1.5 </dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+<p><span class="target" id="objcinterface_leap_image_1a91f519457eca93f08fa8e441047f271f"></span><div class="line"><div class="line"><br /></div>
+- (BOOL)  <strong>isValid</strong></div>
+ <strong>isValid</strong></p>
+<blockquote>
+<div><p>Reports whether this <a class="reference internal" href="#objcinterface_leap_image"><em>LeapImage</em></a> instance contains valid data. </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>true, if and only if the image is valid. </dd>
+<dt><strong>Since</strong></dt>
+<dd>2.1.5 </dd>
+</dl>
+</p>
+</div></blockquote>
+<p><span class="target" id="objcinterface_leap_image_1aa6ee2b9a91a7b1083ee67f283c950bce"></span><div class="line"><div class="line"><br /></div>
+- (float)  <strong>rayOffsetX</strong></div>
+ <strong>rayOffsetX</strong></p>
+<blockquote>
+<div><p>The horizontal ray offset. </p>
+<p><p>Used to convert between normalized coordinates in the range [0..1] and the ray slope range [-4..4].</p>
+<p><pre class="literal-block">
+<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> *raySlopes = [[<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> alloc] initWithX:-3.28 y:1.76 z:0];
+<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> *normRay =
+    [[<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> alloc] initWithX:raySlopes.<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector_1ad0da36b2558901e21e7a30f6c227a45e"><em>x</em></a> * image.<a class="reference internal" href="#objcinterface_leap_image_1ad751dbb03bb1e0cdc74e7a6ac6b07df3"><em>rayScaleX</em></a> + image.<a class="reference internal" href="#objcinterface_leap_image_1aa6ee2b9a91a7b1083ee67f283c950bce"><em>rayOffsetX</em></a>
+                                y:raySlopes.<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector_1aa4f0d3eebc3c443f9be81bf48561a217"><em>y</em></a> * image.<a class="reference internal" href="#objcinterface_leap_image_1afe85ca62fcddac108e73c33f0c080344"><em>rayScaleY</em></a> + image.<a class="reference internal" href="#objcinterface_leap_image_1ab9fd46bccfb3767e57e72ce3a330d6da"><em>rayOffsetY</em></a>
+                                z:0];
+</pre>
+</p>
+<p><dl class="docutils">
+<dt><strong>Since</strong></dt>
+<dd>2.1.5 </dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+<p><span class="target" id="objcinterface_leap_image_1ab9fd46bccfb3767e57e72ce3a330d6da"></span><div class="line"><div class="line"><br /></div>
+- (float)  <strong>rayOffsetY</strong></div>
+ <strong>rayOffsetY</strong></p>
+<blockquote>
+<div><p>The vertical ray offset. </p>
+<p><p>Used to convert between normalized coordinates in the range [0..1] and the ray slope range [-4..4].</p>
+<p><pre class="literal-block">
+<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> *normSlopes = [[<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> alloc] initWithX:.09 y:.72 z:0];
+<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> *slope =
+    [[<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> alloc] initWithX:(normSlopes.<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector_1ad0da36b2558901e21e7a30f6c227a45e"><em>x</em></a> - image.<a class="reference internal" href="#objcinterface_leap_image_1aa6ee2b9a91a7b1083ee67f283c950bce"><em>rayOffsetX</em></a>)/image.<a class="reference internal" href="#objcinterface_leap_image_1ad751dbb03bb1e0cdc74e7a6ac6b07df3"><em>rayScaleX</em></a>
+                                y:(normSlopes.<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector_1aa4f0d3eebc3c443f9be81bf48561a217"><em>y</em></a> - image.<a class="reference internal" href="#objcinterface_leap_image_1ab9fd46bccfb3767e57e72ce3a330d6da"><em>rayOffsetY</em></a>)/image.<a class="reference internal" href="#objcinterface_leap_image_1afe85ca62fcddac108e73c33f0c080344"><em>rayScaleY</em></a>
+                                z:0];
+</pre>
+</p>
+<p><dl class="docutils">
+<dt><strong>Since</strong></dt>
+<dd>2.1.5 </dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+<p><span class="target" id="objcinterface_leap_image_1ad751dbb03bb1e0cdc74e7a6ac6b07df3"></span><div class="line"><div class="line"><br /></div>
+- (float)  <strong>rayScaleX</strong></div>
+ <strong>rayScaleX</strong></p>
+<blockquote>
+<div><p>The horizontal ray scale factor. </p>
+<p><p>Used to convert between normalized coordinates in the range [0..1] and the ray slope range [-4..4].</p>
+<p><pre class="literal-block">
+<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> *raySlopes = [[<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> alloc] initWithX:-3.28 y:1.76 z:0];
+<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> *normRay =
+    [[<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> alloc] initWithX:raySlopes.<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector_1ad0da36b2558901e21e7a30f6c227a45e"><em>x</em></a> * image.<a class="reference internal" href="#objcinterface_leap_image_1ad751dbb03bb1e0cdc74e7a6ac6b07df3"><em>rayScaleX</em></a> + image.<a class="reference internal" href="#objcinterface_leap_image_1aa6ee2b9a91a7b1083ee67f283c950bce"><em>rayOffsetX</em></a>
+                                y:raySlopes.<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector_1aa4f0d3eebc3c443f9be81bf48561a217"><em>y</em></a> * image.<a class="reference internal" href="#objcinterface_leap_image_1afe85ca62fcddac108e73c33f0c080344"><em>rayScaleY</em></a> + image.<a class="reference internal" href="#objcinterface_leap_image_1ab9fd46bccfb3767e57e72ce3a330d6da"><em>rayOffsetY</em></a>
+                                z:0];
+</pre>
+</p>
+<p><dl class="docutils">
+<dt><strong>Since</strong></dt>
+<dd>2.1.5 </dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+<p><span class="target" id="objcinterface_leap_image_1afe85ca62fcddac108e73c33f0c080344"></span><div class="line"><div class="line"><br /></div>
+- (float)  <strong>rayScaleY</strong></div>
+ <strong>rayScaleY</strong></p>
+<blockquote>
+<div><p>The vertical ray scale factor. </p>
+<p><p>Used to convert between normalized coordinates in the range [0..1] and the ray slope range [-4..4].</p>
+<p><pre class="literal-block">
+<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> *normSlopes = [[<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> alloc] initWithX:.09 y:.72 z:0];
+<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> *slope =
+    [[<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector"><em>LeapVector</em></a> alloc] initWithX:(normSlopes.<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector_1ad0da36b2558901e21e7a30f6c227a45e"><em>x</em></a> - image.<a class="reference internal" href="#objcinterface_leap_image_1aa6ee2b9a91a7b1083ee67f283c950bce"><em>rayOffsetX</em></a>)/image.<a class="reference internal" href="#objcinterface_leap_image_1ad751dbb03bb1e0cdc74e7a6ac6b07df3"><em>rayScaleX</em></a>
+                                y:(normSlopes.<a class="reference internal" href="Leap.Vector.html#objcinterface_leap_vector_1aa4f0d3eebc3c443f9be81bf48561a217"><em>y</em></a> - image.<a class="reference internal" href="#objcinterface_leap_image_1ab9fd46bccfb3767e57e72ce3a330d6da"><em>rayOffsetY</em></a>)/image.<a class="reference internal" href="#objcinterface_leap_image_1afe85ca62fcddac108e73c33f0c080344"><em>rayScaleY</em></a>
+                                z:0];
+</pre>
+</p>
+<p><dl class="docutils">
+<dt><strong>Since</strong></dt>
+<dd>2.1.5 </dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+<p><span class="target" id="objcinterface_leap_image_1a8a591d341723df9496cda98e225b25b4"></span><div class="line"><div class="line"><br /></div>
+- (int64_t)  <strong>timestamp</strong></div>
+ <strong>timestamp</strong></p>
+<blockquote>
+<div><p>Returns a timestamp indicating when this frame began being captured on the device. </p>
+<p><dl class="docutils">
+<dt><strong>Since</strong></dt>
+<dd>2.2.7 </dd>
+</dl>
+</p>
+</div></blockquote>
+<p><span class="target" id="objcinterface_leap_image_1a2474a5474cbff19523a51eb1de01cda4"></span><div class="line"><div class="line"><br /></div>
+- (int)  <strong>width</strong></div>
+ <strong>width</strong></p>
+<blockquote>
+<div><p>The image width. </p>
+<p><p><pre class="literal-block">
+int width = image.<a class="reference internal" href="#objcinterface_leap_image_1a2474a5474cbff19523a51eb1de01cda4"><em>width</em></a>;
+</pre>
+</p>
+<p><dl class="docutils">
+<dt><strong>Since</strong></dt>
+<dd>2.1.5 </dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+</div></blockquote>
+<em>Public Static Functions</em><blockquote>
+<div><p><span class="target" id="objcinterface_leap_image_1ab740ebfcbc90ac8ee028670ddadc1eb8"></span><div class="line-block">
+<div class="line"><div class="line"><br /></div>
++ (<a class="reference internal" href="#objcinterface_leap_image"><em>LeapImage</em></a>  *)  <strong>invalid</strong></div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns an invalid Image object. </p>
+<p><p>You can use the instance returned by this function in comparisons testing whether a given Image instance is valid or invalid. (You can also use the <a class="reference internal" href="#objcinterface_leap_image_1a91f519457eca93f08fa8e441047f271f"><em>LeapImage.isValid</em></a> property.)</p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>The invalid <a class="reference internal" href="#objcinterface_leap_image"><em>LeapImage</em></a> instance. </dd>
+<dt><strong>Since</strong></dt>
+<dd>2.1.5 </dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+
+
+           <!-- get_disqus_sso -->
+      </div>
+      <div id="sidebar" class="col-md-3">
+        <div class="well-sidebar" data-offset-top="188">
+          <ul>
+            <li><a href="../index.html" title="Home">Objective-C Docs (v2.3)</a></li>
+          </ul><ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Intro_Skeleton_API.html">Introducing the Skeletal Tracking Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Leap_Overview.html">API Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practices/Leap_Practices.html">Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Leap_Guides.html">Application Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Leap_Guides2.html">Using the Tracking API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Leap_Classes.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Leap.Arm.html#leaparm">LeapArm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.Bone.html#leapbone">LeapBone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.CircleGesture.html#leapcirclegesture">LeapCircleGesture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.Config.html#leapconfig">LeapConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.Controller.html#leapcontroller">LeapController</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.Delegate.html">LeapDelegate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.Device.html#leapdevice">LeapDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.Finger.html#leapfinger">LeapFinger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.Frame.html#leapframe">LeapFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.Gesture.html#leapgesture">LeapGesture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.Hand.html#leaphand">LeapHand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#leapimage">LeapImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.InteractionBox.html#leapinteractionbox">LeapInteractionBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.KeyTapGesture.html#leapkeytapgesture">LeapKeyTapGesture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.Listener.html#leaplistener-protocol">LeapListener Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.Matrix.html#leapmatrix">LeapMatrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.Pointable.html#leappointable">LeapPointable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.PointableList.html#leappointableorhandlist-category">LeapPointableOrHandList Category</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.ScreenTapGesture.html#leapscreentapgesture">LeapScreenTapGesture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.SwipeGesture.html#leapswipegesture">LeapSwipeGesture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.Tool.html#leaptool">LeapTool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Leap.Vector.html#leapvector">LeapVector</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../supplements/Leap_Supplements.html">Appendices</a></li>
+</ul>
+
+
+        </div>
+      </div>
+        
+    </div>
+  </div>
+</div>
+<!--
+
+<div class="ribbon">
+    <p>Objective-C</p>
+</div>
+
+
+<footer>
+  <div id="footer" class="container">
+    <div class="container">
+      <div class="copyright">
+        <span>Copyright &copy; 2012 - 2014, Leap Motion, Inc.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

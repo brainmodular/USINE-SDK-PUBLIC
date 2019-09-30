@@ -1,0 +1,54 @@
+PC boost build process :
+bcp algorithm/string asio format atomic date_time context exception regex thread chrono system build toto
+
+bootstrap
+
+b2 link=static threading=multi runtime-link=static address-model=32 --stagedir=stage_x32 --build-dir=usine_boost install --prefix=usine_dist --layout=versioned
+
+
+
+MAC boost build process :
+./bcp algorithm/string asio format atomic date_time context exception regex thread chrono system build toto
+
+./bootstrap.sh
+
+./b2 link=static threading=multi runtime-link=shared address-model=32 architecture=x86 --stagedir=stage_x32 --build-dir=usine_boost install --prefix=usine_dist --layout=versioned
+
+
+
+
+
+
+
+
+b2 install --prefix=usine_dist --layout=versioned
+
+
+
+
+
+bcp asio asio/serial_port asio/streambuf bind algorithm/string format thread toto
+
+bcp --scan SerialDevice.h SerialDevice.cpp SerialManager.h SerialManager.cpp toto
+
+bcp asio format atomic date_time exception regex thread chrono system build toto
+
+bjam install link=static threading=multi runtime-link=static variant=debug,release address-model=32,64
+
+
+b2 asio asio/serial_port asio/streambuf bind algorithm/string format thread link=static threading=multi runtime-link=static variant=debug,release address-model=32,64 msvc stage
+b2 link=static threading=multi runtime-link=static address-model=32 --stagedir=stage_x32 --build-dir=usine_boost --prefix=usine_dist --layout=versioned
+
+cd D:\Z_Store\Dev\Cpp\boost\boost_1_54_0
+
+
+
+
+
+
+
+
+
+ -fpermissive
+ 
+  BOOST_DISABLE_ASSERTS=1

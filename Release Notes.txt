@@ -1,0 +1,133 @@
+This is the release notes for the Sensomusic SDK
+
+SDK code is under the MIT licence.
+All dependencies are under there own licence.
+
+The API Reference Documentation is available online http://www.sensomusic.org/sdkdoc/
+
+To discuss about the SDK, please visit http://www.sensomusic.com/forums/viewforum.php?id=7
+To report bug, please create a ticket at http://www.sensomusic.org/support/
+
+Olivier Sens & the Sensomusic Team
+
+________________________________________________________________________________
+CPP SDK [7.10.001] 2019/09/15
+changes
+  * Add compatibily with HH4
+
+________________________________________________________________________________
+CPP SDK [7.00.006] 2018/05/15
+changes
+  * recreateParam procedure added 
+  * new ptBitwise parameter's type
+
+________________________________________________________________________________
+CPP SDK [7.00.004] 2017/11/18
+changes
+  * ReleaseFrame procedure added 
+  * changes in the video protocols, need recompilation
+  * sdkDialogInputBox added
+________________________________________________________________________________
+CPP SDK [7.00.003] 2017/10/31
+changes
+  * ptFileName parameter type added
+
+________________________________________________________________________________
+CPP SDK [7.00.002] 2016/09/20
+changes
+  * add MousePressed event array in Mouse-Multi procedures
+    void MouseMoveMulti (void* pModule, TShiftState Shift, UsineEventPtr X, UsineEventPtr Y, UsineEventPtr Pressed);
+    void MouseDownMulti (void* pModule, TMouseButton MouseButton, TShiftState Shift, UsineEventPtr X, UsineEventPtr Y, UsineEventPtr Pressed);
+    void MouseUpMulti (void* pModule, TMouseButton MouseButton, TShiftState Shift, UsineEventPtr X, UsineEventPtr Y, UsineEventPtr Pressed);
+
+________________________________________________________________________________
+CPP SDK [7.00.001] 2017/07/02
+changes
+  * Adapted to HH3
+  * TUsineColorSet modified to fit to the new UsineColor set
+improvements 
+  * onSetQuickColor implemented
+  
+________________________________________________________________________________
+CPP SDK [6.05.001] 2016/15/01
+improvements
+  * MAC    - partial migration to xcode 7
+fixed
+  * ALL   - corrected all onMouseXXXMulti callbacks in UserModule
+  
+________________________________________________________________________________
+CPP SDK [6.04.005] 2015/06/01
+improvements
+  * ALL   - sdkGetUsineVersionType() and TUsineVersionType enum to get the flavor of the usine distrib
+  * PC    - update to visual studio 2013 runtime libraries
+  
+________________________________________________________________________________
+CPP SDK [6.04.004] 2015/06/01
+improvements
+  * ALL   - added a int universeNum parameter to onDMXSendOut callback for DMX device who can deal with more than 1 DMX universs
+  
+________________________________________________________________________________
+CPP SDK [6.04.003] 2015/05/13
+improvements
+  * ALL   - added onMouseWheel callback to receive infos about the mouse wheel
+  * ALL   - added GetBrowserInfo global function to optimize the browser info collect about user's modules
+  * ALL   - added UserModuleBase::MODULE_NAME, UserModuleBase::MODULE_DESC and UserModuleBase::MODULE_VERSION to be used in GetBrowserInfo and onGetModuleInfo
+
+________________________________________________________________________________
+CPP SDK [6.04.002] 2015/03/23
+improvements
+  * ALL   - refactored (AinsiCharPtr to AnsiCharPtr, sdkAudioQueryXXX helpers)
+  * ALL   - added ModuleInfo::CanBeRandomized
+  * ALL   - added sdkGetUsineLanguage() to know in what language usine is running
+  * ALL   - added NOTIFY_MSG_USINE_CALLBACK to filter Message->message in onCallback
+  * ALL   - added Translate to ParamInfos to enable auto translate by Usine
+  * ALL   - added Translate parameters to settings and commands function
+  * ALL   - added mtDeviceDMX to TModuleType enum
+  * ALL   - Randomize API function
+  * ALL   - OpenDMXSendOut API function
+  * ALL   - Update the UsineColorSet enum with ne usine color theme
+  * ALL   - added sdkGetUsineVersionNum()
+  * ALL   - added sdkGetUsineVersionType()
+  * ALL   - added sdkGetUsineLanguage()
+  * ALL   - added sdkGetUsineSaveVersion()
+  * ALL   - added sdkGetUsineMaxPolyphony()
+changes
+  * All	  - changed ParamInfo::DisplayOrder now deprecated
+  * All	  - changed sdkGetMaxAudioInputs() to sdkGetUsineMaxAudioInputs()
+  * All	  - changed sdkGetMaxAudioOutputs() to sdkGetUsineMaxAudioOutputs()
+  * All	  - changed sdkGetMaxMidiDevices() to sdkGetUsineMaxMidiDevices()
+other
+  * ALL   - added 5 modules example
+
+_______________________________________________________________________________
+CPP SDK [6.03.001] 2014/10/08
+improvements
+  * ALL   - added draw path functionnality with methods sdkDrawPathClear, sdkDrawPathMoveTo, sdkDrawPathLineTo, sdkDrawPathClose, sdkDrawPathDraw and sdkDrawPathFill
+  * ALL   - added methods sdkGetEvtNbLines, sdkSetEvtNbLines and  sdkPatchIsRunning
+  * ALL   - added UsineMidiCode constantes
+fixed
+  * ALL   - corrected typo in UserModule, sdkCreateDeskWindow ()instead of  sdkCreatDeskeWindow()
+  
+_______________________________________________________________________________
+CPP SDK [6.02.011] 2013/09/13
+improvements
+  * ALL   - added 'sdkAudioQueryToNbChannels', 'sdkGetAudioChannelNamesAinsi' and 'MasterInfo::AudioModulesQueryList' 
+			to help when the query system is used for audio channels config
+  * ALL   - added a basic template (TemplateModuleSimple) ready for simple modules like script conversion
+  * ALL   - TemplateModule is now ready to compile with a textfield "hello world" example
+  * ALL   - implementation of sysex and midi array callback
+fixed
+  * ALL   - corrected typo in TScale enum (members now begin with sc instead of ls)
+  
+_______________________________________________________________________________
+CPP SDK [6.01.001] 2013/06/24
+improvements
+  * ALL   - added optionalContent string parameter to CreateModule (used only by PluginWrapper for now)
+  
+_______________________________________________________________________________
+CPP SDK [6.00.234] 2013/05/24 
+improvements
+  * ALL   - added LONGBOOL showInSplashForm parameter in sdkTraceLogChar
+  
+_______________________________________________________________________________
+CPP SDK [6.00.229] 2013/05/15 first public beta release

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="MatrixMidi.cpp" />
+    <ClCompile Include="..\..\sdk\UserUtils.cpp">
+      <Filter>sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdk\UserModule.cpp">
+      <Filter>sdk</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MatrixMidi.h" />
+    <ClInclude Include="..\..\sdk\UserDefinitions.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdk\UserModule.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdk\UserUtils.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdk\UsineDefinitions.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="sdk">
+      <UniqueIdentifier>{0e6d8cdb-1b35-4a7c-a3eb-2ddb8516444c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="sdk">
+      <UniqueIdentifier>{1a81cf20-52d7-48f6-9fe8-5dc1edac517c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\sdk\UserUtils.cpp">
+      <Filter>sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdk\UserModule.cpp">
+      <Filter>sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioVolumeExample.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\sdk\UserDefinitions.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdk\UserModule.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdk\UserUtils.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdk\UsineDefinitions.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioVolumeExample.h" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,60 @@
+﻿  classic.c
+  dynamics.c
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\corecrt_math.h(274): warning C4005: 'isinf': macro redefinition
+  c:\users\senso\dropbox\usine\usine development\hh3 sdk\libs\wiiuse\src\definitions_os.h(46): note: see previous definition of 'isinf'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\corecrt_math.h(275): warning C4005: 'isnan': macro redefinition
+  c:\users\senso\dropbox\usine\usine development\hh3 sdk\libs\wiiuse\src\definitions_os.h(45): note: see previous definition of 'isnan'
+  events.c
+  guitar_hero_3.c
+  io.c
+  ir.c
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\corecrt_math.h(274): warning C4005: 'isinf': macro redefinition
+  c:\users\senso\dropbox\usine\usine development\hh3 sdk\libs\wiiuse\src\definitions_os.h(46): note: see previous definition of 'isinf'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\corecrt_math.h(275): warning C4005: 'isnan': macro redefinition
+  c:\users\senso\dropbox\usine\usine development\hh3 sdk\libs\wiiuse\src\definitions_os.h(45): note: see previous definition of 'isnan'
+..\..\libs\wiiuse\src\ir.c(712): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+  motion_plus.c
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\corecrt_math.h(274): warning C4005: 'isinf': macro redefinition
+  c:\users\senso\dropbox\usine\usine development\hh3 sdk\libs\wiiuse\src\definitions_os.h(46): note: see previous definition of 'isinf'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\corecrt_math.h(275): warning C4005: 'isnan': macro redefinition
+  c:\users\senso\dropbox\usine\usine development\hh3 sdk\libs\wiiuse\src\definitions_os.h(45): note: see previous definition of 'isnan'
+  nunchuk.c
+  os_win.c
+  util.c
+  wiiboard.c
+  wiiuse.c
+  UserModule.cpp
+  UserUtils.cpp
+  WiimoteManager.cpp
+c:\users\senso\dropbox\usine\usine development\hh3 sdk\libs\wiiuse\src\definitions.h(87): warning C4005: 'WCONST': macro redefinition
+  C:\Users\Senso\Dropbox\Usine\Usine Development\HH3 SDK\libs\wiiuse\src\wiiuse.h(106): note: see previous definition of 'WCONST'
+  Wiimote.cpp
+c:\users\senso\dropbox\usine\usine development\hh3 sdk\libs\wiiuse\src\definitions.h(87): warning C4005: 'WCONST': macro redefinition
+  C:\Users\Senso\Dropbox\Usine\Usine Development\HH3 SDK\libs\wiiuse\src\wiiuse.h(106): note: see previous definition of 'WCONST'
+Wiimote.cpp(967): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+Wiimote.cpp(1154): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+Wiimote.cpp(1155): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+Wiimote.cpp(1156): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+Wiimote.cpp(1205): warning C4244: 'argument': conversion from 'double' to 'TPrecision', possible loss of data
+  juce_audio_basics.cpp
+  juce_audio_devices.cpp
+  juce_audio_formats.cpp
+  juce_audio_processors.cpp
+  juce_core.cpp
+  juce_cryptography.cpp
+  juce_data_structures.cpp
+  juce_events.cpp
+  juce_graphics.cpp
+  juce_gui_basics.cpp
+  juce_gui_extra.cpp
+  juce_opengl.cpp
+  juce_video.cpp
+     Creating library ..\..\temp\Release\Wiimote\Wiimote.lib and object ..\..\temp\Release\Wiimote\Wiimote.exp
+  Generating code
+c:\users\senso\dropbox\usine\usine development\hh3 sdk\libs\juce_v3\jucelibrarycode\modules\juce_audio_basics\sources\juce_bufferingaudiosource.cpp(50): warning C4722: 'juce::BufferingAudioSource::~BufferingAudioSource': destructor never returns, potential memory leak
+  Finished generating code
+  Wiimote.vcxproj -> C:\Users\Senso\Dropbox\Usine\Usine Development\HH3 SDK\modules\Wiimote\..\..\temp\Release\Wiimote\Wiimote.usr-win64
+  ..\..\temp\Release\Wiimote\Wiimote.usr-win64
+  1 File(s) copied
+  ..\..\temp\Release\Wiimote\Wiimote.usr-win64
+  1 File(s) copied

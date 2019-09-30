@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="eU86BL" name="Juce_v4" projectType="guiapp" version="1.0.0"
+              bundleIdentifier="com.yourcompany.JuceModuleTemplate" includeBinaryInAppConfig="0"
+              jucerVersion="4.0.2">
+  <MAINGROUP id="Xyu9Ls" name="Juce_v4">
+    <GROUP id="{D455EE4D-A9C6-EA5D-15B3-47EEC9B22A8A}" name="Source"/>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
+                       isDebug="1" optimisation="1" targetName="JuceModuleTemplate"/>
+        <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
+                       isDebug="0" optimisation="3" targetName="JuceModuleTemplate"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_events" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_graphics" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_data_structures" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_gui_basics" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_gui_extra" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_cryptography" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_video" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_opengl" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_audio_basics" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_audio_devices" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_audio_formats" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_audio_processors" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+    <VS2013 targetFolder="Builds/VisualStudio2013" vstFolder="..\..\..\..\libs\VST3 SDK"
+            vst3Folder="..\..\..\..\libs\VST3 SDK">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="1" optimisation="1" targetName="JuceModuleTemplate"
+                       headerPath="..\..\..\..\libs\VST3 SDK&#10;..\..\..\..\libs\ASIOSDK2.3\common"
+                       characterSet="Unicode" useRuntimeLibDLL="0"/>
+        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="0" optimisation="3" targetName="Juce_v4" headerPath="..\..\..\..\libs\VST3 SDK&#10;..\..\..\..\libs\ASIOSDK2.3\common"
+                       characterSet="Unicode"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_events" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_graphics" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_data_structures" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_gui_basics" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_gui_extra" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_cryptography" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_video" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_opengl" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_audio_basics" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_audio_devices" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_audio_formats" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+        <MODULEPATH id="juce_audio_processors" path="E:\Perso\Dev\Juce\JUCE_4_2015_11_19\modules"/>
+      </MODULEPATHS>
+    </VS2013>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="1"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_ASIO="enabled" JUCE_WASAPI="enabled" JUCE_WASAPI_EXCLUSIVE="enabled"
+               JUCE_DIRECTSOUND="enabled" JUCE_PLUGINHOST_VST="enabled" JUCE_PLUGINHOST_VST3="enabled"
+               JUCE_PLUGINHOST_AU="enabled" JUCE_ALSA="disabled" JUCE_USE_ANDROID_OPENSLES="disabled"
+               JUCE_USE_CDREADER="disabled" JUCE_USE_CDBURNER="disabled" JUCE_USE_FLAC="disabled"
+               JUCE_USE_OGGVORBIS="disabled" JUCE_USE_MP3AUDIOFORMAT="disabled"
+               JUCE_USE_LAME_AUDIO_FORMAT="disabled" JUCE_USE_WINDOWS_MEDIA_FORMAT="disabled"
+               JUCE_WEB_BROWSER="disabled" JUCE_ENABLE_LIVE_CONSTANT_EDITOR="disabled"
+               JUCE_DIRECTSHOW="disabled" JUCE_MEDIAFOUNDATION="disabled" JUCE_QUICKTIME="disabled"
+               JUCE_USE_CAMERA="disabled" JUCE_USE_DIRECTWRITE="enabled"/>
+</JUCERPROJECT>

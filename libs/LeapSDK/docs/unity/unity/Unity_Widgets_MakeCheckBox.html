@@ -1,0 +1,473 @@
+
+
+
+  
+  
+ 
+  
+  
+ 
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Making a Checkbox Widget &mdash; Leap Motion Unity SDK v2.3 documentation</title>
+    
+    <link rel="stylesheet" href="../../cpp/_static/bootstrap-3.0.0/css/documentation-bundle.1439949735.css" type="text/css" />
+    
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+      <script type="text/javascript" src="../../cpp/_static/bootstrap-3.0.0/js/documentation-bundle.1439949735.js"></script>
+    <link rel="top" title="Leap Motion Unity SDK v2.3 documentation" href="../index.html" />
+    <link rel="up" title="Widgets" href="Unity_Widgets.html" />
+    <link rel="next" title="DemoSlider Widget" href="Unity_Widgets_DemoSlider.html" />
+    <link rel="prev" title="DemoToggleButton Widget" href="Unity_Widgets_DemoToggleButton.html" />
+<script type="text/javascript" src="/assets/standalone-header.js?r9"></script>
+<link rel="stylesheet" href="/assets/standalone-header.css?r9" type="text/css" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-31536531-1']);
+  _gaq.push(['_setDomainName', 'leapmotion.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+ 
+
+<script>
+
+    function getQueryValue(variable)
+    {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+        var relPath = "../../";
+
+    var requestedAPI = getQueryValue("proglang");
+    if(requestedAPI == "current") requestedAPI = localStorage["currentAPI"];
+    var pageAPI = 'unity';
+    var hasAPI = {};
+    hasAPI.unity = true;
+
+    if(requestedAPI && (requestedAPI != pageAPI))
+    {
+        if(pageAPI != 'none'){
+            var redirectedLocation = relPath + 'unity/unity/Unity_Widgets_MakeCheckBox.html';
+            if( requestedAPI == 'cpp' && hasAPI.cpp){
+                redirectedLocation = relPath + "cpp/unity/Unity_Widgets_MakeCheckBox.html";
+            }
+            else if( requestedAPI == 'csharp' && hasAPI.csharp){
+                redirectedLocation = relPath + "csharp/unity/Unity_Widgets_MakeCheckBox.html";
+            }
+            else if( requestedAPI == 'unity' && hasAPI.unity){
+                redirectedLocation = relPath + "unity/unity/Unity_Widgets_MakeCheckBox.html";
+            }
+            else if( requestedAPI == 'objc' && hasAPI.objc){
+                redirectedLocation = relPath + "objc/unity/Unity_Widgets_MakeCheckBox.html";
+            }
+            else if( requestedAPI == 'java' && hasAPI.java) {
+                redirectedLocation = relPath + "java/unity/Unity_Widgets_MakeCheckBox.html";
+            }
+            else if( requestedAPI == 'javascript' && hasAPI.javascript){
+                redirectedLocation = relPath + "javascript/unity/Unity_Widgets_MakeCheckBox.html";
+            }
+            else if( requestedAPI == 'python' && hasAPI.python){
+                redirectedLocation = relPath + "python/unity/Unity_Widgets_MakeCheckBox.html";
+            }
+            else if( requestedAPI == 'unreal' && hasAPI.unreal) {
+                redirectedLocation = relPath + "unreal/unity/Unity_Widgets_MakeCheckBox.html";
+            } else {
+                    redirectedLocation ="Unity_Widgets.html";
+            }
+
+            //Guard against redirecting to the same page (infinitely)
+            if(relPath + 'unity/unity/Unity_Widgets_MakeCheckBox.html' != redirectedLocation) window.location.replace(redirectedLocation);
+        }
+    }
+
+</script>
+
+<script>
+window.addEventListener('keyup', handleKeyInput);
+function handleKeyInput(e)
+{
+    var code;
+    if (!e) var e = window.event;
+    if (e.keyCode) code = e.keyCode;
+    else if (e.which) code = e.which;
+    var character = String.fromCharCode(code);
+    if( character == "J" & e.altKey){
+            window.location.assign("Unity_Widgets_DemoToggleButton.html");    }
+    else if( character == "K" & e.altKey){
+            window.location.assign("Unity_Widgets_DemoSlider.html");
+    }
+
+}
+</script>
+
+
+  </head>
+  <body role="document">
+
+<div class="developer-portal-styles">
+  <header class="navbar navbar-static-top developer-navbar header beta-header">
+    <nav class="container pr">
+      <a class="logo-link pull-left" href="/">
+        <img alt="Leap Motion Developers" class="media-object pull-left white-background" src="../_static/logo.png" />
+      </a>
+      <span class="inline-block hidden-phone developer-logo-text">
+        <div class="text">
+          <a href="/">
+            <span class="more-than-1199">Developer Portal</span>
+
+          </a>
+        </div>
+      </span>
+
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <!-- Everything within here will be hidden at 940px or less, accessible via a button. -->
+      <div class="nav-collapse">
+        <ul class="nav header-navigation developer-links">
+          <li class="external-link"><a href="https://developer.leapmotion.com/features">What's new</a> </li>
+          <li class="external-link"><a href="https://developer.leapmotion.com/downloads/skeletal-beta" class="">Getting Started</a></li>
+          <li><a class="active" href="#" class="">Documentation</a></li>
+          <li class="external-link"> <a href="https://developer.leapmotion.com/gallery" class="">Examples</a> </li>
+          <li class="external-link"> <a href="https://www.leapmotion.com/blog/category/labs/" class="" target="_blank">Blog <i class='fa fa-external-link'></i></a> </li>
+          <li class="external-link"> <a href="https://community.leapmotion.com/category/beta" class="" target="_blank">Community <i class='fa fa-external-link'></i></a> </li>
+        </ul>
+      </div>
+
+    </nav>
+  </header>
+</div>
+<section class="main-wrap">
+  <div data-swiftype-index="true">
+    <div class="second_navigation">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            
+              
+
+<ul>
+  <li>
+      <a href="Unity_Widgets.html?proglang=current" onclick="localStorage['currentAPI'] = 'javascript'">JavaScript</a>
+    
+  </li>
+  <li>
+      Unity
+    
+  </li>
+  <li>
+      <a href="Unity_Widgets.html?proglang=current" onclick="localStorage['currentAPI'] = 'csharp'">C#</a>
+    
+  </li>
+  <li>
+      <a href="Unity_Widgets.html?proglang=current" onclick="localStorage['currentAPI'] = 'cpp'">C++</a>
+    
+  </li>
+  <li>
+      <a href="Unity_Widgets.html?proglang=current" onclick="localStorage['currentAPI'] = 'java'">Java</a>
+    
+  </li>
+  <li>
+      <a href="Unity_Widgets.html?proglang=current" onclick="localStorage['currentAPI'] = 'python'">Python</a>
+    
+  </li>
+  <li>
+      <a href="Unity_Widgets.html?proglang=current" onclick="localStorage['currentAPI'] = 'objc'">Objective-C</a>
+    
+  </li>
+  <li>
+      <a href="Unity_Widgets.html?proglang=current" onclick="localStorage['currentAPI'] = 'unreal'">Unreal</a>
+    
+  </li>
+</ul>
+            
+          </div>
+          <div class="col-md-4 search">
+            
+              <script>
+function storeThisPage(){
+    sessionStorage["pageBeforeSearch"] = window.location;
+    return true;
+}
+function doneWithSearch(){
+    var storedPage = sessionStorage["pageBeforeSearch"];
+    if(storedPage){
+        window.location = storedPage;
+    } else {
+        window.location = "index.html"; //fallback
+    }
+    return false;
+}
+</script>
+<div  style="margin-top:-4px">
+<ul style="display:inline; white-space:nowrap"><li>
+<form class="navbar-form" action="../search.html" method="get" onsubmit="storeThisPage()">
+ <div class="form-group">
+  <input type="search" results="5" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form></li>
+</ul>
+</div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+        //Remove dev portal header and footer when viewing from file system
+       if(window.location.protocol == 'file:'){
+            var navNode = document.querySelector(".developer-links");
+            navNode.parentNode.removeChild(navNode);
+        }
+
+    </script>
+
+
+<div id="wrap" data-spy="scroll" data-target="#sidebar">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 pull-right">
+        <!-- 
+ 
+<span id="breadcrumbs">
+  <a href="../index.html">Home</a>&raquo;
+    <a href="Unity_Widgets.html" accesskey="U">Widgets</a>&raquo;
+  Making a Checkbox Widget
+</span> -->
+        
+  <div class="section" id="making-a-checkbox-widget">
+<h1>Making a Checkbox Widget<a class="headerlink" href="#making-a-checkbox-widget" title="Permalink to this headline">¶</a></h1>
+<p>The following discussion walks through the steps required to customize the graphics of the DemoToggleButton widget. We will create a checkbox-style widget, but you can use the same techniques to create any kind of two-state button. After creating a checkbox, we will hook up the button to the <tt class="docutils literal"><span class="pre">Render.enabled</span></tt> property of a game object so that the object is only shown when the button is checked.</p>
+<div class="section" id="create-a-scene-for-constructing-the-widget">
+<h2>Create a Scene for Constructing the Widget<a class="headerlink" href="#create-a-scene-for-constructing-the-widget" title="Permalink to this headline">¶</a></h2>
+<p>First create a new project and scene for constructing the checkbox. You can save the end result as a prefab and use it in other projects. For convenience, we will start with the existing Widget scene because it already has a DemoToggleButton and camera setup. We will be revising this button object to create the checkbox-style button.</p>
+<ol class="arabic">
+<li><p class="first">Create a new project</p>
+</li>
+<li><p class="first">Import the latest Leap Motion Core Asset package.</p>
+</li>
+<li><p class="first">Locate and open the Widgets scene under <tt class="docutils literal"><span class="pre">Assets/LeapMotion/Widgets/Scenes</span></tt>.</p>
+</li>
+<li><p class="first">Rename the scene.</p>
+</li>
+<li><p class="first">Delete the DemoSlider object. We won’t be using it.</p>
+<blockquote>
+<div><p>At this point, your scene should look like this:</p>
+</div></blockquote>
+<img alt="unity/../../../images/unity/Widget_Checkbox_Start.png" src="unity/../../../images/unity/Widget_Checkbox_Start.png" />
+</li>
+</ol>
+</div>
+<div class="section" id="customize-the-graphic-elements-of-the-button">
+<h2>Customize the Graphic elements of the Button<a class="headerlink" href="#customize-the-graphic-elements-of-the-button" title="Permalink to this headline">¶</a></h2>
+<p>For our Checkbox, we are only going to use the <tt class="docutils literal"><span class="pre">OnGraphics</span></tt> and <tt class="docutils literal"><span class="pre">BotGraphics</span></tt> layers, replacing the existing prefab’s graphic elements with our own.</p>
+<ol class="arabic">
+<li><p class="first">Delete all the child graphic elements of the button’s graphics layers. Don’t delete the <tt class="docutils literal"><span class="pre">OffGraphics</span></tt> or <tt class="docutils literal"><span class="pre">MidGraphics</span></tt> containers themselves; these are required for the button to function.</p>
+</li>
+<li><p class="first">Add the button background:</p>
+<blockquote>
+<div><ol class="loweralpha">
+<li><p class="first">Select the <tt class="docutils literal"><span class="pre">BotGraphics</span></tt> object in the hierarchy.</p>
+</li>
+<li><p class="first">Add a <tt class="docutils literal"><span class="pre">2D</span> <span class="pre">Object</span> <span class="pre">&gt;</span> <span class="pre">Sprite</span></tt>.</p>
+</li>
+<li><p class="first">Rename the new Spite as “Background”.</p>
+</li>
+<li><p class="first">In the Sprite Renderer Inspector, click the object picker button next to the Sprite property to open the <strong>Select Sprite</strong> dialog. Choose the sprite named “Background” (which is a built-in sprite automatically included with Unity).</p>
+<blockquote>
+<div><p>Note: to use your own background, first create it as a bitmap and then import it as a Sprite asset into Unity.</p>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+</li>
+<li><p class="first">Add the check mark sprite as the <tt class="docutils literal"><span class="pre">OnGraphics</span></tt> element.</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li>Select the <tt class="docutils literal"><span class="pre">OnGraphics</span></tt> object in the hierarchy.</li>
+<li>Add a <tt class="docutils literal"><span class="pre">2D</span> <span class="pre">Object</span> <span class="pre">&gt;</span> <span class="pre">Sprite</span></tt>.</li>
+<li>Rename the new Spite as “Checkmark”.</li>
+<li>Set the Sprite property in the inspector panel to the sprite named “Checkmark”.</li>
+</ol>
+</div></blockquote>
+</li>
+<li><p class="first">Scale the button graphics up a bit to make the button an appropriate size:</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li>Select the Canvas element in the hierarchy.</li>
+<li>Set the x and y scale to 3.</li>
+</ol>
+</div></blockquote>
+</li>
+<li><p class="first">Add a label. Since we want the label text to be the same for both the on and off states of the button and do want the color to change, we will add the text to the BotGraphics layer.</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li>Select the BotGraphics object in the hierarchy.</li>
+<li>Add a <tt class="docutils literal"><span class="pre">UI</span> <span class="pre">&gt;</span> <span class="pre">Text</span></tt> object.</li>
+<li>Rename the new Text object as “Label”.</li>
+<li>In the Inspector, set the text to “Label” and set the position and scale as desired.</li>
+</ol>
+</div></blockquote>
+</li>
+</ol>
+<p>Your button should look like the following (when checked on):</p>
+<img alt="unity/../../../images/unity/Widget_Checkbox_Finished.png" src="unity/../../../images/unity/Widget_Checkbox_Finished.png" />
+<ol class="arabic simple" start="6">
+<li>Rename the altered DemoToggleButton object to “Checkbox”.</li>
+<li>Save the Checkbox as a prefab by dragging it to the project panel.</li>
+</ol>
+</div>
+<div class="section" id="connect-a-checkbox-to-the-property-of-a-gameobject">
+<h2>Connect a Checkbox to the Property of a GameObject<a class="headerlink" href="#connect-a-checkbox-to-the-property-of-a-gameobject" title="Permalink to this headline">¶</a></h2>
+<p>In order to actually use the button, we need to bind it to a property of another object. For this tutorial, we will simply enable and disable the renderer of a cube object according to the state of the checkbox.</p>
+<ol class="arabic">
+<li><p class="first">Add a 3D Cube and position it so that you can see the cube in the Game view.</p>
+</li>
+<li><p class="first">Add a new script component to the cube and name it “CheckboxDataBinder”.</p>
+</li>
+<li><p class="first">Edit the CheckboxDataBinder script:</p>
+<ol class="loweralpha">
+<li><p class="first">Add the “using LMWidgets” declaration</p>
+</li>
+<li><p class="first">Change the class so that it extends <tt class="docutils literal"><span class="pre">DataBinderToggle</span></tt> rather than <tt class="docutils literal"><span class="pre">MonoBehavior</span></tt>.</p>
+<p>Note that there is a specific <tt class="docutils literal"><span class="pre">DataBinder</span></tt> class for each type of widget. These are defined at the end of the <tt class="docutils literal"><span class="pre">DataBinder.cs</span></tt> file.</p>
+</li>
+<li><p class="first">Add the override for setDataModel():</p>
+<div class="code c# highlight-python"><div class="highlight"><pre>override protected void setDataModel(bool value) {
+   Renderer target = GetComponent&lt;Renderer&gt; ();
+   if (target) {
+        target.enabled = value;
+    }
+}
+</pre></div>
+</div>
+</li>
+<li><p class="first">Add the override for GetCurrentData:</p>
+<div class="code c# highlight-python"><div class="highlight"><pre>override public bool GetCurrentData() {
+    Renderer target = GetComponent&lt;Renderer&gt; ();
+    if (target) {
+        return target.enabled;
+    } else {
+        return false;
+    }
+}
+</pre></div>
+</div>
+</li>
+</ol>
+</li>
+<li><p class="first">Connect the widget to the data binding script.</p>
+<p>The DataBinding class requires that the widgets bound to your data model to be hooked up through the Inspector panel. To do this, drag the Button object, which has the ButtonDemoToggle script, to the Widgets property of your data binding script.</p>
+<ol class="loweralpha">
+<li><p class="first">Open the Checkbox object in the hierarchy, if necessary, so that the Button object is visible.</p>
+</li>
+<li><p class="first">Select the Cube object.</p>
+</li>
+<li><p class="first">Drag the Button object over the Widgets property. Release when the mouse cursor displays the green + icon.</p>
+<img alt="unity/../../../images/unity/Widget_AddToDataBinder.png" src="unity/../../../images/unity/Widget_AddToDataBinder.png" />
+</li>
+</ol>
+<p>The Button object is added to the Widgets list. You can add multiple widgets to the list and they will all reflect the value of the data model.</p>
+</li>
+</ol>
+</div>
+</div>
+
+
+           <!-- get_disqus_sso -->
+      </div>
+      <div id="sidebar" class="col-md-3">
+        <div class="well-sidebar" data-offset-top="188">
+          <ul>
+            <li><a href="../index.html" title="Home">Unity Docs (v2.3)</a></li>
+          </ul><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Unity_Overview.html">Unity Plugin Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Unity_Image_Hand.html">Getting Started With the Image Hand Assets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Unity_Hand_Assets.html">Hand Assets</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Unity_Widgets.html">Widgets</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Unity_Widgets.html#adding-a-widget-to-a-scene">Adding a Widget to a Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unity_Widgets.html#hooking-a-widget-to-an-object-property">Hooking a Widget to an Object Property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unity_Widgets.html#hooking-up-events">Hooking Up Events</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="Unity_Widgets.html#widget-properties">Widget Properties</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="Unity_Widgets_DemoToggleButton.html">DemoToggleButton Widget</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">Making a Checkbox Widget</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#create-a-scene-for-constructing-the-widget">Create a Scene for Constructing the Widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#customize-the-graphic-elements-of-the-button">Customize the Graphic elements of the Button</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#connect-a-checkbox-to-the-property-of-a-gameobject">Connect a Checkbox to the Property of a GameObject</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Unity_Widgets_DemoSlider.html">DemoSlider Widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Unity_Widgets_CustomSlider.html">Customizing the Slider Widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Unity_Widgets_DemoDial.html">DemoDial Widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Unity_Widgets_DemoScrollText.html">DemoScrollText Widget</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Unity_Classes.html">Unity Script Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Leap_Classes.html">C# API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practices/Leap_Practices.html">Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Leap_Guides.html">Application Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplements/Leap_Supplements.html">Appendices</a></li>
+</ul>
+
+
+        </div>
+      </div>
+        
+    </div>
+  </div>
+</div>
+<!--
+
+
+<footer>
+  <div id="footer" class="container">
+    <div class="container">
+      <div class="copyright">
+        <span>Copyright &copy; 2012 - 2014, Leap Motion, Inc.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

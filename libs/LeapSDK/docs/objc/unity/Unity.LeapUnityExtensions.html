@@ -1,0 +1,471 @@
+
+
+
+  
+  
+ 
+  
+  
+ 
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>LeapUnityExtensions &mdash; Leap Motion Objective-C SDK v2.3 documentation</title>
+    
+    <link rel="stylesheet" href="../../cpp/_static/bootstrap-3.0.0/css/documentation-bundle.1439949735.css" type="text/css" />
+    
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+      <script type="text/javascript" src="../../cpp/_static/bootstrap-3.0.0/js/documentation-bundle.1439949735.js"></script>
+    <link rel="top" title="Leap Motion Objective-C SDK v2.3 documentation" href="../index.html" />
+<script type="text/javascript" src="/assets/standalone-header.js?r9"></script>
+<link rel="stylesheet" href="/assets/standalone-header.css?r9" type="text/css" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-31536531-1']);
+  _gaq.push(['_setDomainName', 'leapmotion.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+ 
+
+<script>
+
+    function getQueryValue(variable)
+    {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+        var relPath = "../../";
+
+    var requestedAPI = getQueryValue("proglang");
+    if(requestedAPI == "current") requestedAPI = localStorage["currentAPI"];
+    var pageAPI = 'objc';
+    var hasAPI = {};
+    hasAPI.unity = true;
+
+    if(requestedAPI && (requestedAPI != pageAPI))
+    {
+        if(pageAPI != 'none'){
+            var redirectedLocation = relPath + 'objc/unity/Unity.LeapUnityExtensions.html';
+            if( requestedAPI == 'cpp' && hasAPI.cpp){
+                redirectedLocation = relPath + "cpp/unity/Unity.LeapUnityExtensions.html";
+            }
+            else if( requestedAPI == 'csharp' && hasAPI.csharp){
+                redirectedLocation = relPath + "csharp/unity/Unity.LeapUnityExtensions.html";
+            }
+            else if( requestedAPI == 'unity' && hasAPI.unity){
+                redirectedLocation = relPath + "unity/unity/Unity.LeapUnityExtensions.html";
+            }
+            else if( requestedAPI == 'objc' && hasAPI.objc){
+                redirectedLocation = relPath + "objc/unity/Unity.LeapUnityExtensions.html";
+            }
+            else if( requestedAPI == 'java' && hasAPI.java) {
+                redirectedLocation = relPath + "java/unity/Unity.LeapUnityExtensions.html";
+            }
+            else if( requestedAPI == 'javascript' && hasAPI.javascript){
+                redirectedLocation = relPath + "javascript/unity/Unity.LeapUnityExtensions.html";
+            }
+            else if( requestedAPI == 'python' && hasAPI.python){
+                redirectedLocation = relPath + "python/unity/Unity.LeapUnityExtensions.html";
+            }
+            else if( requestedAPI == 'unreal' && hasAPI.unreal) {
+                redirectedLocation = relPath + "unreal/unity/Unity.LeapUnityExtensions.html";
+            } else {
+
+                    if( requestedAPI == 'cpp'){
+                        redirectedLocation = relPath + "cpp/index.html?proglang=cpp";
+                    }
+                    else if( requestedAPI == 'csharp'){
+                        redirectedLocation = relPath + "csharp/index.html?proglang=csharp";
+                    }
+                    else if( requestedAPI == 'unity'){
+                        redirectedLocation = relPath + "unity/index.html?proglang=unity";
+                    }
+                    else if( requestedAPI == 'objc'){
+                        redirectedLocation = relPath + "objc/index.html?proglang=objc";
+                    }
+                    else if( requestedAPI == 'java') {
+                        redirectedLocation = relPath + "java/index.html?proglang=java";
+                    }
+                    else if( requestedAPI == 'javascript'){
+                        redirectedLocation = relPath + "javascript/index.html?proglang=javascript";
+                    }
+                    else if( requestedAPI == 'python'){
+                        redirectedLocation = relPath + "python/index.html?proglang=python";
+                    }
+                    else if( requestedAPI == 'unreal') {
+                        redirectedLocation = relPath + "unreal/index.html?proglang=unreal";
+                    } else {
+                        redirectedLocation = relPath + "index.html";
+                    }
+            }
+
+            //Guard against redirecting to the same page (infinitely)
+            if(relPath + 'objc/unity/Unity.LeapUnityExtensions.html' != redirectedLocation) window.location.replace(redirectedLocation);
+        }
+    }
+
+</script>
+
+<script>
+window.addEventListener('keyup', handleKeyInput);
+function handleKeyInput(e)
+{
+    var code;
+    if (!e) var e = window.event;
+    if (e.keyCode) code = e.keyCode;
+    else if (e.which) code = e.which;
+    var character = String.fromCharCode(code);
+    if( character == "J" & e.altKey){    }
+    else if( character == "K" & e.altKey){
+    }
+
+}
+</script>
+
+
+  </head>
+  <body role="document">
+
+<div class="developer-portal-styles">
+  <header class="navbar navbar-static-top developer-navbar header beta-header">
+    <nav class="container pr">
+      <a class="logo-link pull-left" href="/">
+        <img alt="Leap Motion Developers" class="media-object pull-left white-background" src="../_static/logo.png" />
+      </a>
+      <span class="inline-block hidden-phone developer-logo-text">
+        <div class="text">
+          <a href="/">
+            <span class="more-than-1199">Developer Portal</span>
+
+          </a>
+        </div>
+      </span>
+
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <!-- Everything within here will be hidden at 940px or less, accessible via a button. -->
+      <div class="nav-collapse">
+        <ul class="nav header-navigation developer-links">
+          <li class="external-link"><a href="https://developer.leapmotion.com/features">What's new</a> </li>
+          <li class="external-link"><a href="https://developer.leapmotion.com/downloads/skeletal-beta" class="">Getting Started</a></li>
+          <li><a class="active" href="#" class="">Documentation</a></li>
+          <li class="external-link"> <a href="https://developer.leapmotion.com/gallery" class="">Examples</a> </li>
+          <li class="external-link"> <a href="https://www.leapmotion.com/blog/category/labs/" class="" target="_blank">Blog <i class='fa fa-external-link'></i></a> </li>
+          <li class="external-link"> <a href="https://community.leapmotion.com/category/beta" class="" target="_blank">Community <i class='fa fa-external-link'></i></a> </li>
+        </ul>
+      </div>
+
+    </nav>
+  </header>
+</div>
+<section class="main-wrap">
+  <div data-swiftype-index="true">
+    <div class="second_navigation">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            
+              
+
+<ul>
+  <li>
+      <a href="../../javascript/index.html?proglang=javascript" onclick="localStorage['currentAPI'] = 'javascript'">JavaScript</a>
+    
+  </li>
+  <li>
+      <a href="../../unity/unity/Unity.LeapUnityExtensions.html?proglang=unity" onclick="localStorage['currentAPI'] = 'unity'">Unity</a>
+    
+  </li>
+  <li>
+      <a href="../../csharp/index.html?proglang=csharp" onclick="localStorage['currentAPI'] = 'csharp'">C#</a>
+    
+  </li>
+  <li>
+      <a href="../../cpp/index.html?proglang=cpp" onclick="localStorage['currentAPI'] = 'cpp'">C++</a>
+    
+  </li>
+  <li>
+      <a href="../../java/index.html?proglang=java" onclick="localStorage['currentAPI'] = 'java'">Java</a>
+    
+  </li>
+  <li>
+      <a href="../../python/index.html?proglang=python" onclick="localStorage['currentAPI'] = 'python'">Python</a>
+    
+  </li>
+  <li>
+      Objective-C
+    
+  </li>
+  <li>
+      <a href="../../unreal/index.html?proglang=unreal" onclick="localStorage['currentAPI'] = 'unreal'">Unreal</a>
+    
+  </li>
+</ul>
+            
+          </div>
+          <div class="col-md-4 search">
+            
+              <script>
+function storeThisPage(){
+    sessionStorage["pageBeforeSearch"] = window.location;
+    return true;
+}
+function doneWithSearch(){
+    var storedPage = sessionStorage["pageBeforeSearch"];
+    if(storedPage){
+        window.location = storedPage;
+    } else {
+        window.location = "index.html"; //fallback
+    }
+    return false;
+}
+</script>
+<div  style="margin-top:-4px">
+<ul style="display:inline; white-space:nowrap"><li>
+<form class="navbar-form" action="../search.html" method="get" onsubmit="storeThisPage()">
+ <div class="form-group">
+  <input type="search" results="5" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form></li>
+</ul>
+</div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+        //Remove dev portal header and footer when viewing from file system
+       if(window.location.protocol == 'file:'){
+            var navNode = document.querySelector(".developer-links");
+            navNode.parentNode.removeChild(navNode);
+        }
+
+    </script>
+
+
+<div id="wrap" data-spy="scroll" data-target="#sidebar">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 pull-right">
+        <!-- 
+ 
+<span id="breadcrumbs">
+  <a href="../index.html">Home</a>&raquo;
+  LeapUnityExtensions
+</span> -->
+        
+  <div class="section" id="leapunityextensions">
+<h1>LeapUnityExtensions<a class="headerlink" href="#leapunityextensions" title="Permalink to this headline">¶</a></h1>
+<div class="line-block" id="unitycorea00032">
+<div class="line"><em>class</em> <strong>Leap::UnityVectorExtension</strong></div>
+</div>
+<blockquote>
+<div><p>Extends the Leap Motion Vector class to converting points and directions from the Leap Motion coordinate system into the Unity coordinate system. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><p><span class="target" id="unitycorea00032_1a20db9294c0720346ace7729ec115caa2"></span>const float <strong>INPUT_SCALE</strong></p>
+<blockquote>
+<div><p>Scale factor from Leap units (millimeters) to Unity units (meters). </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Public Static Functions</em><blockquote>
+<div><p><span class="target" id="unitycorea00032_1a715d6dd98f30b891ead79643eccd9076"></span><div class="line-block">
+<div class="line">Vector3 <strong>ToUnity</strong>(this Vector leap_vector, bool mirror = false)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Converts a direction vector from Leap to Unity. </p>
+<p><p>(Does not scale.)</p>
+<p>Changes from the Leap Motion right-hand coordinate convention to the Unity left-handed convention by negating the z-coordinate.</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">mirror</span></tt> - <p>If true, the vector is reflected along the z axis. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">leap_vector</span></tt> - <p>the Leap.Vector object to convert. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00032_1ab890e6c960076c5c4d17f873b7e989cc"></span><div class="line-block">
+<div class="line">Vector3 <strong>ToUnityScaled</strong>(this Vector leap_vector, bool mirror = false)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Converts a point from Leap to Unity. </p>
+<p><p>(Scales.)</p>
+<p>Changes from the Leap Motion right-hand coordinate convention to the Unity left-handed convention by negating the z-coordinate. Also scales from Leap Motion millimeter units to Unity meter units by multiplying the vector by .001.</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">mirror</span></tt> - <p>If true, the vector is reflected along the z axis. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">leap_vector</span></tt> - <p>the Leap.Vector object to convert. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</p>
+</div></blockquote>
+</div></blockquote>
+<em>Public Static Attributes</em><blockquote>
+<div><p><span class="target" id="unitycorea00032_1a4ed1bd75d476c9e10fe385d5c4338e71"></span>readonly Vector3 <strong>Z_FLIP</strong></p>
+<blockquote>
+<div><p>Constant used when converting from right-handed to left-handed axes. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="unitycorea00031">
+<div class="line"><em>class</em> <strong>Leap::UnityMatrixExtension</strong></div>
+</div>
+<blockquote>
+<div><p>Extends the Leap Mition Matrix class to convert Leap Matrix objects to to Unity Quaternion rotations and translations. </p>
+<p></p>
+<em>Public Static Functions</em><blockquote>
+<div><p><span class="target" id="unitycorea00031_1a1b2aa4e40b1adf4618a0c66ec86170dd"></span><div class="line-block">
+<div class="line">Quaternion <strong>Rotation</strong>(this Matrix matrix, bool mirror = false)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Converts a Leap Matrix object representing a rotation to a Unity Quaternion. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">matrix</span></tt> - <p>The Leap.Matrix to convert. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">mirror</span></tt> - <p>If true, the operation is reflected along the z axis. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00031_1aaa307afc80ad9f0a26c2f38c4b448b83"></span><div class="line-block">
+<div class="line">Vector3 <strong>Translation</strong>(this Matrix matrix, bool mirror = false)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Converts a Leap Matrix object representing a translation to a Unity Vector3 object. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">matrix</span></tt> - <p>The Leap.Matrix to convert. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">mirror</span></tt> - <p>If true, the operation is reflected along the z axis. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</div></blockquote>
+</div></blockquote>
+<em>Public Static Attributes</em><blockquote>
+<div><p><span class="target" id="unitycorea00031_1af93ca46705f0cfa57639ab6137c1e72a"></span>readonly Vector <strong>LEAP_FORWARD</strong></p>
+<blockquote>
+<div><p>Forward in the Leap coordinate system. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00031_1a2ba7f5978a8dbd480d1931179e6b8c87"></span>readonly Vector <strong>LEAP_ORIGIN</strong></p>
+<blockquote>
+<div><p>The origin point in the Leap coordinate system. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="unitycorea00031_1a1b63162fea9dd10a22bae25a76294a44"></span>readonly Vector <strong>LEAP_UP</strong></p>
+<blockquote>
+<div><p>Up in the Leap coordinate system. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<blockquote>
+<div></div></blockquote>
+</div>
+
+
+           <!-- get_disqus_sso -->
+      </div>
+      <div id="sidebar" class="col-md-3">
+        <div class="well-sidebar" data-offset-top="188">
+          <ul>
+            <li><a href="../index.html" title="Home">Objective-C Docs (v2.3)</a></li>
+          </ul><ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Intro_Skeleton_API.html">Introducing the Skeletal Tracking Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Leap_Overview.html">API Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practices/Leap_Practices.html">Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Leap_Guides.html">Application Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Leap_Guides2.html">Using the Tracking API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Leap_Classes.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplements/Leap_Supplements.html">Appendices</a></li>
+</ul>
+
+
+        </div>
+      </div>
+        
+    </div>
+  </div>
+</div>
+<!--
+
+<div class="ribbon">
+    <p>Objective-C</p>
+</div>
+
+
+<footer>
+  <div id="footer" class="container">
+    <div class="container">
+      <div class="copyright">
+        <span>Copyright &copy; 2012 - 2014, Leap Motion, Inc.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

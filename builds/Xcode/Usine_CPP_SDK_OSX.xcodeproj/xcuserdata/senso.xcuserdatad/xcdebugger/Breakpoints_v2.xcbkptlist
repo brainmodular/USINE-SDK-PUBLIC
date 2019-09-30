@@ -1,0 +1,773 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+            timestampString = "539784070.875824"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1348"
+            endingLineNumber = "1348"
+            landmarkName = "PluginWrapper::setVisible(LongBool isVisible)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+            timestampString = "539785995.8040529"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "616"
+            endingLineNumber = "616"
+            landmarkName = "PluginWrapper::onCallBack (UsineMessage *Message)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+            timestampString = "539787320.4306509"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "613"
+            endingLineNumber = "613"
+            landmarkName = "PluginWrapper::onCallBack (UsineMessage *Message)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper/PluginWrapper.cpp"
+            timestampString = "539787423.9409"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "645"
+            endingLineNumber = "645"
+            landmarkName = "PluginWrapper::onCallBack (UsineMessage *Message)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper/JucePluginWindow.cpp"
+            timestampString = "539794011.747481"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "PluginWindow::getWindowFor (PluginWrapper* module, AudioPluginInstance* plugin, void *nativeWindowToAttachTo)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../libs/Juce_v3/JuceLibraryCode/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+            timestampString = "539794228.118874"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2649"
+            endingLineNumber = "2649"
+            landmarkName = "VSTPluginInstance::createEditor()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_5 v2/JucePluginWindow.cpp"
+            timestampString = "568716515.761605"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "PluginWindow::PluginWindow(PluginWrapper* module_, AudioPluginInstance* owner_, void *nativeWindowToAttachTo)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_5 v2/JucePluginWindow.cpp"
+            timestampString = "568716530.347082"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "PluginWindow::PluginWindow(PluginWrapper* module_, AudioPluginInstance* owner_, void *nativeWindowToAttachTo)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_5 v2/JucePluginWindow.cpp"
+            timestampString = "568718483.560431"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "PluginWindow::~PluginWindow()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_5 v2/JucePluginWindow.cpp"
+            timestampString = "568718493.667102"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
+            landmarkName = "PluginWindow::closeWindow()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PluginWindow::closeWindow()"
+                  moduleName = "PluginWrapper v2.usr-osx32"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/HH3%20SDK/modules/PluginWrapper-juce_5%20v2/JucePluginWindow.cpp"
+                  timestampString = "568719115.482453"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "177"
+                  endingLineNumber = "177"
+                  offsetFromSymbolStart = "15">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PluginWindow::userTriedToCloseWindow()"
+                  moduleName = "PluginWrapper v2.usr-osx32"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/HH3%20SDK/modules/PluginWrapper-juce_5%20v2/JucePluginWindow.cpp"
+                  timestampString = "568719115.484761"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "177"
+                  endingLineNumber = "177"
+                  offsetFromSymbolStart = "15">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_5 v2/JucePluginWindow.cpp"
+            timestampString = "568718501.640132"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
+            landmarkName = "PluginWindow::userTriedToCloseWindow()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_5 v2/PluginWrapper.cpp"
+            timestampString = "568718657.286669"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "DestroyModule (void* pModule)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_5 v2/PluginWrapper.cpp"
+            timestampString = "568718763.825188"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "DestroyModule (void* pModule)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginLister-juce_5/JuceUtils.h"
+            timestampString = "579942051.893165"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "AudioSampleBufferFifo(int numChannels_, int numSamples)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/Serial-Port/Serial-Port.cpp"
+            timestampString = "588249710.889514"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "CreateModule (void* &amp;pModule, AnsiCharPtr optionalString, LongBool Flag, MasterInfo* pMasterInfo, AnsiCharPtr optionalContent)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/Leap-Motion/Leap-Motion.cpp"
+            timestampString = "588251335.170254"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "LeapMotion::LeapMotion()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/Leap-Motion/Leap-Motion.cpp"
+            timestampString = "588251918.376644"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "CreateModule (void* &amp;pModule, AnsiCharPtr optionalString, LongBool Flag, MasterInfo* pMasterInfo, AnsiCharPtr optionalContent)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginLister-juce_54/PluginLister.cpp"
+            timestampString = "591119095.2993881"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
+            landmarkName = "PluginLister::onCallBack (UsineMessage* Message)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginLister-juce_54/PluginLister.cpp"
+            timestampString = "591122860.828213"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "560"
+            endingLineNumber = "560">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../libs/juce_v54/modules/juce_core/files/juce_File.cpp"
+            timestampString = "591111193.329205"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
+            landmarkName = "File::parseAbsolutePath (const String&amp; p)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "juce::File::parseAbsolutePath(juce::String const&amp;)"
+                  moduleName = "DeviceAudio_4.0_1.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/HH3%20SDK/builds/Xcode/../../libs/juce_v54/modules/juce_core/files/juce_File.cpp"
+                  timestampString = "591111193.3741241"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "197"
+                  endingLineNumber = "197"
+                  offsetFromSymbolStart = "436">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "juce::File::parseAbsolutePath(juce::String const&amp;)"
+                  moduleName = "PluginLister_4.0_1.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/HH3%20SDK/builds/Xcode/../../libs/juce_v54/modules/juce_core/files/juce_File.cpp"
+                  timestampString = "591111193.3761671"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "197"
+                  endingLineNumber = "197"
+                  offsetFromSymbolStart = "647">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../libs/juce_v54/modules/juce_core/files/juce_File.cpp"
+            timestampString = "591111284.9286799"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
+            landmarkName = "File::parseAbsolutePath (const String&amp; p)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginLister-juce_54/PluginLister.cpp"
+            timestampString = "591122860.828213"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "559"
+            endingLineNumber = "559">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../libs/juce_v54/modules/juce_audio_processors/scanning/juce_PluginDirectoryScanner.cpp"
+            timestampString = "591116158.651443"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "PluginDirectoryScanner::scanNextFile (bool dontRescanIfAlreadyInList, String&amp; nameOfPluginBeingScanned)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "juce::PluginDirectoryScanner::scanNextFile(bool, juce::String&amp;)"
+                  moduleName = "DeviceAudio_4.0_1.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/HH3%20SDK/builds/Xcode/../../libs/juce_v54/modules/juce_audio_processors/scanning/juce_PluginDirectoryScanner.cpp"
+                  timestampString = "591117415.469586"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
+                  offsetFromSymbolStart = "279">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "juce::PluginDirectoryScanner::scanNextFile(bool, juce::String&amp;)"
+                  moduleName = "PluginLister_4.0_1.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/HH3%20SDK/builds/Xcode/../../libs/juce_v54/modules/juce_audio_processors/scanning/juce_PluginDirectoryScanner.cpp"
+                  timestampString = "591117416.209717"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
+                  offsetFromSymbolStart = "283">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../libs/juce_v54/modules/juce_core/text/juce_CharacterFunctions.h"
+            timestampString = "591116313.980388"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "570"
+            endingLineNumber = "570">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "int juce::CharacterFunctions::compare&lt;juce::CharPointer_UTF8, juce::CharPointer_ASCII&gt;(juce::CharPointer_UTF8, juce::CharPointer_ASCII)"
+                  moduleName = "DeviceAudio_4.0_1.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/HH3%20SDK/builds/Xcode/../../libs/juce_v54/modules/juce_core/text/juce_CharacterFunctions.h"
+                  timestampString = "591116314.057492"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "571"
+                  endingLineNumber = "571"
+                  offsetFromSymbolStart = "103">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "int juce::CharacterFunctions::compare&lt;juce::CharPointer_UTF8, juce::CharPointer_UTF8&gt;(juce::CharPointer_UTF8, juce::CharPointer_UTF8)"
+                  moduleName = "DeviceAudio_4.0_1.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/HH3%20SDK/builds/Xcode/../../libs/juce_v54/modules/juce_core/text/juce_CharacterFunctions.h"
+                  timestampString = "591116314.059019"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "571"
+                  endingLineNumber = "571"
+                  offsetFromSymbolStart = "116">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "int juce::CharacterFunctions::compare&lt;juce::CharPointer_UTF8, juce::CharPointer_UTF16&gt;(juce::CharPointer_UTF8, juce::CharPointer_UTF16)"
+                  moduleName = "DeviceAudio_4.0_1.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/HH3%20SDK/builds/Xcode/../../libs/juce_v54/modules/juce_core/text/juce_CharacterFunctions.h"
+                  timestampString = "591116314.060576"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "571"
+                  endingLineNumber = "571"
+                  offsetFromSymbolStart = "164">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "int juce::CharacterFunctions::compare&lt;juce::CharPointer_UTF8, juce::CharPointer_UTF32&gt;(juce::CharPointer_UTF8, juce::CharPointer_UTF32)"
+                  moduleName = "DeviceAudio_4.0_1.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/HH3%20SDK/builds/Xcode/../../libs/juce_v54/modules/juce_core/text/juce_CharacterFunctions.h"
+                  timestampString = "591116314.062265"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "571"
+                  endingLineNumber = "571"
+                  offsetFromSymbolStart = "101">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "int juce::CharacterFunctions::compare&lt;juce::CharPointer_UTF8, juce::CharPointer_UTF8&gt;(juce::CharPointer_UTF8, juce::CharPointer_UTF8)"
+                  moduleName = "PluginLister_4.0_1.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/HH3%20SDK/builds/Xcode/../../libs/juce_v54/modules/juce_core/text/juce_CharacterFunctions.h"
+                  timestampString = "591116314.0638421"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "571"
+                  endingLineNumber = "571"
+                  offsetFromSymbolStart = "105">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "int juce::CharacterFunctions::compare&lt;juce::CharPointer_UTF8, juce::CharPointer_UTF16&gt;(juce::CharPointer_UTF8, juce::CharPointer_UTF16)"
+                  moduleName = "PluginLister_4.0_1.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/HH3%20SDK/builds/Xcode/../../libs/juce_v54/modules/juce_core/text/juce_CharacterFunctions.h"
+                  timestampString = "591116314.06534"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "571"
+                  endingLineNumber = "571"
+                  offsetFromSymbolStart = "105">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "int juce::CharacterFunctions::compare&lt;juce::CharPointer_UTF8, juce::CharPointer_UTF32&gt;(juce::CharPointer_UTF8, juce::CharPointer_UTF32)"
+                  moduleName = "PluginLister_4.0_1.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/HH3%20SDK/builds/Xcode/../../libs/juce_v54/modules/juce_core/text/juce_CharacterFunctions.h"
+                  timestampString = "591116314.066754"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "571"
+                  endingLineNumber = "571"
+                  offsetFromSymbolStart = "105">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "int juce::CharacterFunctions::compare&lt;juce::CharPointer_UTF8, juce::CharPointer_ASCII&gt;(juce::CharPointer_UTF8, juce::CharPointer_ASCII)"
+                  moduleName = "PluginLister_4.0_1.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/HH3%20SDK/builds/Xcode/../../libs/juce_v54/modules/juce_core/text/juce_CharacterFunctions.h"
+                  timestampString = "591116314.068137"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "571"
+                  endingLineNumber = "571"
+                  offsetFromSymbolStart = "105">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../libs/juce_v54/modules/juce_audio_processors/scanning/juce_KnownPluginList.cpp"
+            timestampString = "591116374.086223"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "KnownPluginList::getTypeForFile (const String&amp; fileOrIdentifier)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "juce::KnownPluginList::getTypeForFile(juce::String const&amp;) const"
+                  moduleName = "DeviceAudio_4.0_1.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/HH3%20SDK/builds/Xcode/../../libs/juce_v54/modules/juce_audio_processors/scanning/juce_KnownPluginList.cpp"
+                  timestampString = "591116374.091719"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "107">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "juce::KnownPluginList::getTypeForFile(juce::String const&amp;) const"
+                  moduleName = "PluginLister_4.0_1.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/HH3%20SDK/builds/Xcode/../../libs/juce_v54/modules/juce_audio_processors/scanning/juce_KnownPluginList.cpp"
+                  timestampString = "591116374.093683"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "119">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../libs/juce_v54/modules/juce_audio_processors/scanning/juce_KnownPluginList.cpp"
+            timestampString = "591116444.750854"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "KnownPluginList::scanAndAddFile (const String&amp; fileOrIdentifier, const bool dontRescanIfAlreadyInList, OwnedArray&lt;PluginDescription&gt;&amp; typesFound, AudioPluginFormat&amp; format)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "juce::KnownPluginList::scanAndAddFile(juce::String const&amp;, bool, juce::OwnedArray&lt;juce::PluginDescription, juce::DummyCriticalSection&gt;&amp;, juce::AudioPluginFormat&amp;)"
+                  moduleName = "DeviceAudio_4.0_1.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/HH3%20SDK/builds/Xcode/../../libs/juce_v54/modules/juce_audio_processors/scanning/juce_KnownPluginList.cpp"
+                  timestampString = "591121143.7204159"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "165"
+                  endingLineNumber = "165"
+                  offsetFromSymbolStart = "451">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "juce::KnownPluginList::scanAndAddFile(juce::String const&amp;, bool, juce::OwnedArray&lt;juce::PluginDescription, juce::DummyCriticalSection&gt;&amp;, juce::AudioPluginFormat&amp;)"
+                  moduleName = "PluginLister_4.0_1.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/HH3%20SDK/builds/Xcode/../../libs/juce_v54/modules/juce_audio_processors/scanning/juce_KnownPluginList.cpp"
+                  timestampString = "591121144.2454571"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "165"
+                  endingLineNumber = "165"
+                  offsetFromSymbolStart = "501">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginLister-juce_54/PluginLister.cpp"
+            timestampString = "591122860.828213"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "456"
+            endingLineNumber = "456">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginLister-juce_54/PluginLister.cpp"
+            timestampString = "591120494.455595"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "403"
+            endingLineNumber = "403"
+            landmarkName = "PluginLister::confirmRescanPopup (int option)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginLister-juce_54/PluginLister.cpp"
+            timestampString = "591120343.640004"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "PluginLister::onInitModule (MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginLister-juce_54/PluginLister.cpp"
+            timestampString = "591122860.828213"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "553"
+            endingLineNumber = "553">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginLister-juce_54/PluginLister.cpp"
+            timestampString = "591122860.828213"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "457"
+            endingLineNumber = "457">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

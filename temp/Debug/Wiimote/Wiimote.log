@@ -1,0 +1,9 @@
+﻿  WiimoteManager.cpp
+c:\users\senso\dropbox\usine\usine development\hh3 sdk\libs\wiiuse\src\definitions.h(87): warning C4005: 'WCONST': macro redefinition
+  C:\Users\Senso\Dropbox\Usine\Usine Development\HH3 SDK\libs\wiiuse\src\wiiuse.h(106): note: see previous definition of 'WCONST'
+     Creating library ..\..\temp\Debug\Wiimote\Wiimote.lib and object ..\..\temp\Debug\Wiimote\Wiimote.exp
+  Wiimote.vcxproj -> C:\Users\Senso\Dropbox\Usine\Usine Development\HH3 SDK\modules\Wiimote\..\..\temp\Debug\Wiimote\Wiimote.usr-win64
+  ..\..\temp\Debug\Wiimote\Wiimote.usr-win64
+  1 File(s) copied
+  ..\..\temp\Debug\Wiimote\Wiimote.usr-win64
+  1 File(s) copied

@@ -1,0 +1,19 @@
+Matrix - Midi Mix [1.1] 2011/11/25
+changes 
+  * corrected a bug in the chunk system (preset/conductor/pat/wkp) when num of cols/rows change.
+  
+_______________________________________________________________________________
+Matrix - Midi Mix [1.02] 2011/09/26
+changes 
+  * corrected a bug when mixing midi input with length greater than 1
+ 
+_______________________________________________________________________________ 
+Matrix - Midi Mix [1.01] 2011/09/12
+changes 
+  * corrected a bug in NOTE_ON velocity
+  * corrected a routing bug when matrix isn't max size
+ 
+_______________________________________________________________________________ 
+Matrix - Midi Mix [1.0] 2011/08/05
+  * First release for the V5.10 
+

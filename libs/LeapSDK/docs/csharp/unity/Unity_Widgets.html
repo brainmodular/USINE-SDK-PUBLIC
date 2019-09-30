@@ -1,0 +1,472 @@
+
+
+
+  
+  
+ 
+  
+  
+ 
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Widgets &mdash; Leap Motion C# SDK v2.3 documentation</title>
+    
+    <link rel="stylesheet" href="../../cpp/_static/bootstrap-3.0.0/css/documentation-bundle.1439949735.css" type="text/css" />
+    
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+      <script type="text/javascript" src="../../cpp/_static/bootstrap-3.0.0/js/documentation-bundle.1439949735.js"></script>
+    <link rel="top" title="Leap Motion C# SDK v2.3 documentation" href="../index.html" />
+<script type="text/javascript" src="/assets/standalone-header.js?r9"></script>
+<link rel="stylesheet" href="/assets/standalone-header.css?r9" type="text/css" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-31536531-1']);
+  _gaq.push(['_setDomainName', 'leapmotion.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+ 
+
+<script>
+
+    function getQueryValue(variable)
+    {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+        var relPath = "../../";
+
+    var requestedAPI = getQueryValue("proglang");
+    if(requestedAPI == "current") requestedAPI = localStorage["currentAPI"];
+    var pageAPI = 'csharp';
+    var hasAPI = {};
+    hasAPI.unity = true;
+
+    if(requestedAPI && (requestedAPI != pageAPI))
+    {
+        if(pageAPI != 'none'){
+            var redirectedLocation = relPath + 'csharp/unity/Unity_Widgets.html';
+            if( requestedAPI == 'cpp' && hasAPI.cpp){
+                redirectedLocation = relPath + "cpp/unity/Unity_Widgets.html";
+            }
+            else if( requestedAPI == 'csharp' && hasAPI.csharp){
+                redirectedLocation = relPath + "csharp/unity/Unity_Widgets.html";
+            }
+            else if( requestedAPI == 'unity' && hasAPI.unity){
+                redirectedLocation = relPath + "unity/unity/Unity_Widgets.html";
+            }
+            else if( requestedAPI == 'objc' && hasAPI.objc){
+                redirectedLocation = relPath + "objc/unity/Unity_Widgets.html";
+            }
+            else if( requestedAPI == 'java' && hasAPI.java) {
+                redirectedLocation = relPath + "java/unity/Unity_Widgets.html";
+            }
+            else if( requestedAPI == 'javascript' && hasAPI.javascript){
+                redirectedLocation = relPath + "javascript/unity/Unity_Widgets.html";
+            }
+            else if( requestedAPI == 'python' && hasAPI.python){
+                redirectedLocation = relPath + "python/unity/Unity_Widgets.html";
+            }
+            else if( requestedAPI == 'unreal' && hasAPI.unreal) {
+                redirectedLocation = relPath + "unreal/unity/Unity_Widgets.html";
+            } else {
+
+                    if( requestedAPI == 'cpp'){
+                        redirectedLocation = relPath + "cpp/index.html?proglang=cpp";
+                    }
+                    else if( requestedAPI == 'csharp'){
+                        redirectedLocation = relPath + "csharp/index.html?proglang=csharp";
+                    }
+                    else if( requestedAPI == 'unity'){
+                        redirectedLocation = relPath + "unity/index.html?proglang=unity";
+                    }
+                    else if( requestedAPI == 'objc'){
+                        redirectedLocation = relPath + "objc/index.html?proglang=objc";
+                    }
+                    else if( requestedAPI == 'java') {
+                        redirectedLocation = relPath + "java/index.html?proglang=java";
+                    }
+                    else if( requestedAPI == 'javascript'){
+                        redirectedLocation = relPath + "javascript/index.html?proglang=javascript";
+                    }
+                    else if( requestedAPI == 'python'){
+                        redirectedLocation = relPath + "python/index.html?proglang=python";
+                    }
+                    else if( requestedAPI == 'unreal') {
+                        redirectedLocation = relPath + "unreal/index.html?proglang=unreal";
+                    } else {
+                        redirectedLocation = relPath + "index.html";
+                    }
+            }
+
+            //Guard against redirecting to the same page (infinitely)
+            if(relPath + 'csharp/unity/Unity_Widgets.html' != redirectedLocation) window.location.replace(redirectedLocation);
+        }
+    }
+
+</script>
+
+<script>
+window.addEventListener('keyup', handleKeyInput);
+function handleKeyInput(e)
+{
+    var code;
+    if (!e) var e = window.event;
+    if (e.keyCode) code = e.keyCode;
+    else if (e.which) code = e.which;
+    var character = String.fromCharCode(code);
+    if( character == "J" & e.altKey){    }
+    else if( character == "K" & e.altKey){
+    }
+
+}
+</script>
+
+
+  </head>
+  <body role="document">
+
+<div class="developer-portal-styles">
+  <header class="navbar navbar-static-top developer-navbar header beta-header">
+    <nav class="container pr">
+      <a class="logo-link pull-left" href="/">
+        <img alt="Leap Motion Developers" class="media-object pull-left white-background" src="../_static/logo.png" />
+      </a>
+      <span class="inline-block hidden-phone developer-logo-text">
+        <div class="text">
+          <a href="/">
+            <span class="more-than-1199">Developer Portal</span>
+
+          </a>
+        </div>
+      </span>
+
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <!-- Everything within here will be hidden at 940px or less, accessible via a button. -->
+      <div class="nav-collapse">
+        <ul class="nav header-navigation developer-links">
+          <li class="external-link"><a href="https://developer.leapmotion.com/features">What's new</a> </li>
+          <li class="external-link"><a href="https://developer.leapmotion.com/downloads/skeletal-beta" class="">Getting Started</a></li>
+          <li><a class="active" href="#" class="">Documentation</a></li>
+          <li class="external-link"> <a href="https://developer.leapmotion.com/gallery" class="">Examples</a> </li>
+          <li class="external-link"> <a href="https://www.leapmotion.com/blog/category/labs/" class="" target="_blank">Blog <i class='fa fa-external-link'></i></a> </li>
+          <li class="external-link"> <a href="https://community.leapmotion.com/category/beta" class="" target="_blank">Community <i class='fa fa-external-link'></i></a> </li>
+        </ul>
+      </div>
+
+    </nav>
+  </header>
+</div>
+<section class="main-wrap">
+  <div data-swiftype-index="true">
+    <div class="second_navigation">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            
+              
+
+<ul>
+  <li>
+      <a href="../../javascript/index.html?proglang=javascript" onclick="localStorage['currentAPI'] = 'javascript'">JavaScript</a>
+    
+  </li>
+  <li>
+      <a href="../../unity/unity/Unity_Widgets.html?proglang=unity" onclick="localStorage['currentAPI'] = 'unity'">Unity</a>
+    
+  </li>
+  <li>
+      C#
+    
+  </li>
+  <li>
+      <a href="../../cpp/index.html?proglang=cpp" onclick="localStorage['currentAPI'] = 'cpp'">C++</a>
+    
+  </li>
+  <li>
+      <a href="../../java/index.html?proglang=java" onclick="localStorage['currentAPI'] = 'java'">Java</a>
+    
+  </li>
+  <li>
+      <a href="../../python/index.html?proglang=python" onclick="localStorage['currentAPI'] = 'python'">Python</a>
+    
+  </li>
+  <li>
+      <a href="../../objc/index.html?proglang=objc" onclick="localStorage['currentAPI'] = 'objc'">Objective-C</a>
+    
+  </li>
+  <li>
+      <a href="../../unreal/index.html?proglang=unreal" onclick="localStorage['currentAPI'] = 'unreal'">Unreal</a>
+    
+  </li>
+</ul>
+            
+          </div>
+          <div class="col-md-4 search">
+            
+              <script>
+function storeThisPage(){
+    sessionStorage["pageBeforeSearch"] = window.location;
+    return true;
+}
+function doneWithSearch(){
+    var storedPage = sessionStorage["pageBeforeSearch"];
+    if(storedPage){
+        window.location = storedPage;
+    } else {
+        window.location = "index.html"; //fallback
+    }
+    return false;
+}
+</script>
+<div  style="margin-top:-4px">
+<ul style="display:inline; white-space:nowrap"><li>
+<form class="navbar-form" action="../search.html" method="get" onsubmit="storeThisPage()">
+ <div class="form-group">
+  <input type="search" results="5" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form></li>
+</ul>
+</div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+        //Remove dev portal header and footer when viewing from file system
+       if(window.location.protocol == 'file:'){
+            var navNode = document.querySelector(".developer-links");
+            navNode.parentNode.removeChild(navNode);
+        }
+
+    </script>
+
+
+<div id="wrap" data-spy="scroll" data-target="#sidebar">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 pull-right">
+        <!-- 
+ 
+<span id="breadcrumbs">
+  <a href="../index.html">Home</a>&raquo;
+  Widgets
+</span> -->
+        
+  <div class="section" id="widgets">
+<h1>Widgets<a class="headerlink" href="#widgets" title="Permalink to this headline">¶</a></h1>
+<p>The Leap Motion Core Assets include four UI controls, or widgets, that can be used as is or customized. These widgets include:</p>
+<ul>
+<li><p class="first"><a class="reference internal" href="Unity_Widgets_DemoDial.html"><em>DemoDial</em></a> &#8211; a scrolling list</p>
+<blockquote>
+<div><img alt="unity/../../../images/unity/Widget_DemoDial.png" src="unity/../../../images/unity/Widget_DemoDial.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference internal" href="Unity_Widgets_DemoScrollText.html"><em>DemoScrollText</em></a> &#8211; a scrolling text box</p>
+<blockquote>
+<div><img alt="unity/../../../images/unity/Widget_DemoScroll.png" src="unity/../../../images/unity/Widget_DemoScroll.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference internal" href="Unity_Widgets_DemoSlider.html"><em>DemoSlider</em></a> &#8211; a slider control</p>
+<blockquote>
+<div><img alt="unity/../../../images/unity/Widget_DemoSlider.png" src="unity/../../../images/unity/Widget_DemoSlider.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference internal" href="Unity_Widgets_DemoToggleButton.html"><em>DemoToggleButton</em></a> &#8211; a two-state button</p>
+<blockquote>
+<div><img alt="unity/../../../images/unity/Widget_DemoToggle_On.png" src="unity/../../../images/unity/Widget_DemoToggle_On.png" />
+</div></blockquote>
+</li>
+</ul>
+<p>The prefabs for these widgets can be found in the <tt class="docutils literal"><span class="pre">LeapMotion/Widgets/Prefabs</span></tt> folder of the core assets package.</p>
+<p>Note the widgets do not support mouse or touch screen interaction.</p>
+<div class="section" id="adding-a-widget-to-a-scene">
+<h2>Adding a Widget to a Scene<a class="headerlink" href="#adding-a-widget-to-a-scene" title="Permalink to this headline">¶</a></h2>
+<p>To add a widget to a scene, simply drag the desired prefab into the scene view and set the position and scaling as appropriate. The main considerations for placing and sizing widgets are that you can easily reach the functional parts of your UI with the Leap Motion-generated hands and that multiple controls are large enough and spaced out enough that you can easily use one widget without accidentally touching another.</p>
+<p>One technical consideration to note is that some of the widgets use Unity Canvas objects internally. If you place these widgets inside another canvas, you might have to play with the scaling manually because Unity only applies the scaling assigned to the outermost Canvas object.</p>
+<p>There are two scenes demonstrating widgets included in the core asset package. The scene in <tt class="docutils literal"><span class="pre">LeapMotion/Widgets/Scenes</span></tt> illustrates a non-VR layout. The scene in <tt class="docutils literal"><span class="pre">LeapMotion+OVR/Widgets/Scenes</span></tt> illustrates a VR layout for the Oculus Rift.</p>
+</div>
+<div class="section" id="hooking-a-widget-to-an-object-property">
+<h2>Hooking a Widget to an Object Property<a class="headerlink" href="#hooking-a-widget-to-an-object-property" title="Permalink to this headline">¶</a></h2>
+<p>Three of the widgets, DemoDial, DemoSlider, and DemoToggleButton, represent a value: the dial menu selection, the slider numeric value, and the toggle button state, respectively. The widget library defines an abstract <tt class="docutils literal"><span class="pre">DataBinder</span></tt> class that you must implement to hook up the widget to the property of an object in your scene.</p>
+<p>The <tt class="docutils literal"><span class="pre">DataBinder</span></tt> class is a generic type; a specific class type is defined for each of the widgets. These are defined at the end of the <tt class="docutils literal"><span class="pre">DataBinder.cs</span></tt> file (in <tt class="docutils literal"><span class="pre">LeapMotion/Widgets/Scripts/Interfaces</span></tt>):</p>
+<div class="code c# highlight-python"><div class="highlight"><pre>public abstract class DataBinderSlider : DataBinder&lt;SliderBase, float&gt; {};
+public abstract class DataBinderToggle : DataBinder&lt;ButtonToggleBase, bool&gt; {};
+public abstract class DataBinderDial : DataBinder&lt;DialGraphics, string&gt; {};
+</pre></div>
+</div>
+<p>In your concrete class, you implement two functions: one returns the current value of the property that serves as the data model for the widget; the other updates the value of that property and is called when you change the value of the bound control. For example, a <tt class="docutils literal"><span class="pre">DataBinderSlider</span></tt> implementation could look like this:</p>
+<div class="code c# highlight-python"><div class="highlight"><pre>using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+using LMWidgets;
+
+public class SliderDataModel : DataBinderSlider {
+    [SerializeField]
+    float sliderValue = 0; //Data model
+
+    override protected void setDataModel(float value) {
+        sliderValue = value;
+    }
+
+    override public float GetCurrentData() {
+        return sliderValue;
+    }
+}
+</pre></div>
+</div>
+<p>This example defines the data model property itself (<tt class="docutils literal"><span class="pre">sliderValue</span></tt>), but you could use the existing property of some scene object instead. In fact, the data model doesn&#8217;t need to be a simple property at all. It just needs to map to the widget&#8217;s data type. Your databinder script can be attached to any convenient object, such as the one that has the property used as the data model.</p>
+<p>Additional examples of data binder scripts can be found in the core asset package in <tt class="docutils literal"><span class="pre">LeapMotion+OVR/Widgets/Scripts/DataBinderExamples</span></tt>.</p>
+<p>After defining your databinder class and adding it to an object, you must drag the widget (the component containing the main script for the widget) to the <tt class="docutils literal"><span class="pre">Widgets</span></tt> property of your object in the Unity inspector.</p>
+<img alt="unity/../../../images/unity/Widget_AddToDataBinder.png" src="unity/../../../images/unity/Widget_AddToDataBinder.png" />
+</div>
+<div class="section" id="hooking-up-events">
+<h2>Hooking Up Events<a class="headerlink" href="#hooking-up-events" title="Permalink to this headline">¶</a></h2>
+<p>If you are interested in the interaction events of a widget in addition to its value, you can add event handlers. The widget library defines the following event handles:</p>
+<ul class="simple">
+<li>StartHandler &#8211; buttons, sliders, and dials</li>
+<li>EndHandler &#8211; buttons, sliders, and dials</li>
+<li>ChangeHandler &#8211; sliders and dials</li>
+</ul>
+<p>Note that the scroll widget does not dispatch events.</p>
+<p>To add an event handler, define an event handler function with the correct signature and add a function reference to the widget&#8217;s event handle. The signature of the event handler looks like:</p>
+<div class="code c# highlight-python"><div class="highlight"><pre>void FunctionName(object sender, LMWidgets.EventArg&lt;T&gt; arg)
+</pre></div>
+</div>
+<p>Where <tt class="docutils literal"><span class="pre">T</span></tt> is the type of the data associated with the widget. <tt class="docutils literal"><span class="pre">T</span></tt> will be <tt class="docutils literal"><span class="pre">bool</span></tt> for toggle buttons, <tt class="docutils literal"><span class="pre">float</span></tt> for sliders, and <tt class="docutils literal"><span class="pre">int</span></tt> for dials.</p>
+<p>For example, you could define and register a function to handle the change event of a slider widget as follows:</p>
+<div class="code c# highlight-python"><div class="highlight"><pre>public SliderDemo slider = null; //Set in inspector
+
+void Start(){
+    slider.ChangeHandler += OnSliderChange;
+}
+
+private void OnSliderChange(object sender, LMWidgets.EventArg&lt;float&gt; eventData){
+    Debug.Log (&quot;Slider changed to: &quot; + eventData.CurrentValue);
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="widget-properties">
+<h2>Widget Properties<a class="headerlink" href="#widget-properties" title="Permalink to this headline">¶</a></h2>
+<p>The following articles discuss how to set widget properties:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Unity_Widgets_DemoToggleButton.html">DemoToggleButton Widget</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Unity_Widgets_DemoToggleButton.html#button-graphics">Button Graphics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unity_Widgets_DemoToggleButton.html#button-behavior">Button Behavior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unity_Widgets_DemoToggleButton.html#controlling-a-property-with-the-button">Controlling a Property with the Button</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Unity_Widgets_MakeCheckBox.html">Making a Checkbox Widget</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Unity_Widgets_MakeCheckBox.html#create-a-scene-for-constructing-the-widget">Create a Scene for Constructing the Widget</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unity_Widgets_MakeCheckBox.html#customize-the-graphic-elements-of-the-button">Customize the Graphic elements of the Button</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unity_Widgets_MakeCheckBox.html#connect-a-checkbox-to-the-property-of-a-gameobject">Connect a Checkbox to the Property of a GameObject</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Unity_Widgets_DemoSlider.html">DemoSlider Widget</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Unity_Widgets_DemoSlider.html#slider-properies">Slider Properies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unity_Widgets_DemoSlider.html#controlling-a-property-with-the-slider">Controlling a Property with the Slider</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Unity_Widgets_CustomSlider.html">Customizing the Slider Widget</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Unity_Widgets_CustomSlider.html#create-a-scene-for-constructing-the-widget">Create a Scene for Constructing the Widget</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unity_Widgets_CustomSlider.html#customize-the-graphic-elements-of-the-button">Customize the Graphic elements of the Button</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unity_Widgets_CustomSlider.html#connect-a-slider-to-the-property-of-a-gameobject">Connect a Slider to the Property of a GameObject</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Unity_Widgets_DemoDial.html">DemoDial Widget</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Unity_Widgets_DemoDial.html#dial-graphics">Dial Graphics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unity_Widgets_DemoDial.html#dial-properies">Dial Properies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unity_Widgets_DemoDial.html#controlling-a-property-with-the-dial">Controlling a Property with the Dial</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Unity_Widgets_DemoScrollText.html">DemoScrollText Widget</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           <!-- get_disqus_sso -->
+      </div>
+      <div id="sidebar" class="col-md-3">
+        <div class="well-sidebar" data-offset-top="188">
+          <ul>
+            <li><a href="../index.html" title="Home">C# Docs (v2.3)</a></li>
+          </ul><ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Intro_Skeleton_API.html">Introducing the Skeletal Tracking Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Leap_Overview.html">API Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practices/Leap_Practices.html">Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Leap_Guides.html">Application Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Leap_Guides2.html">Using the Tracking API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Leap_Classes.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplements/Leap_Supplements.html">Appendices</a></li>
+</ul>
+
+
+        </div>
+      </div>
+        
+    </div>
+  </div>
+</div>
+<!--
+
+<div class="ribbon">
+    <p>C# and Unity</p>
+</div>
+
+
+<footer>
+  <div id="footer" class="container">
+    <div class="container">
+      <div class="copyright">
+        <span>Copyright &copy; 2012 - 2014, Leap Motion, Inc.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>
