@@ -1,5 +1,0 @@
-
-		VST3 - voir taille de la fenetre accueillant le plugin
-	VST2/VST3 - mettre verif de taille minimum de la fenetre accueillant le plugin
-OK		VST3 - voir nom du preset dans le titre de la fenêtre
-	 
