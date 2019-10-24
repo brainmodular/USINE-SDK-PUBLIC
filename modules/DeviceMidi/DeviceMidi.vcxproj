@@ -1564,20 +1564,20 @@
     <RootNamespace>UserModule</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <ProjectName>DeviceMidi</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -1716,8 +1716,8 @@ xcopy /e /i /y "$(OutDir)$(TargetFileName)" "$(USINE_32_DEVICES_PATH)"</Command>
       <UACUIAccess>true</UACUIAccess>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /e /i /y "$(OutDir)$(TargetFileName)" "..\..\bin\Devices\"
-xcopy /e /i /y "$(OutDir)$(TargetFileName)" "$(USINE_64_DEVICES_PATH)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
@@ -1803,8 +1803,8 @@ xcopy /e /i /y "$(OutDir)$(TargetFileName)" "$(USINE_32_DEVICES_PATH)"</Command>
       </IgnoreSpecificDefaultLibraries>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /e /i /y "$(OutDir)$(TargetFileName)" "..\..\bin\Devices\"
-xcopy /e /i /y "$(OutDir)$(TargetFileName)" "$(USINE_64_DEVICES_PATH)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>

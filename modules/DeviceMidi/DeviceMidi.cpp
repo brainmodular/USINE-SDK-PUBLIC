@@ -327,6 +327,7 @@ void DeviceMidi::onCallBack (UsineMessage* Message)
 	else if ((ParamIndex == 1) && (Message->lParam == MSG_CHANGE))
 	{
 		rescanMidi();
+		resetMidi();
 	}
 	// m_btnResetAllMidiDevices
 	else if ((ParamIndex == 2) && (Message->lParam == MSG_CHANGE))

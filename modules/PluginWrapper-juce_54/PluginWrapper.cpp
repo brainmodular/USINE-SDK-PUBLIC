@@ -1792,10 +1792,15 @@ void PluginWrapper::createPlugin (String optionalString, LongBool Flag, String o
 					StringArray plugInfos;
 					plug.readLines(plugInfos);
 					pluginDescription.fileOrIdentifier = plugInfos[1];
-					
+					if (pluginDescription.fileOrIdentifier == String())
+                    {
+                        pluginDescription.fileOrIdentifier = plugInfos[0];
+                       
+                    }
+                    pluginDescription.pluginFormatName = plugTypeName;
 					pluginInstance = createPluginInstanceFromDesc (pluginDescription);
 				}
-				}
+              }
 				
 			}
 

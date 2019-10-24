@@ -240,7 +240,7 @@ void PluginLister::onCallBack (UsineMessage* Message)
 				String pathUser(sdkGetEvtPChar(m_folderPluginsPath.getUnchecked((int)Message->wParam)));
 				filelistUserPluginsLocations.remove ((int)Message->wParam);
 				
-				if (pathUser != String::empty )
+				if (pathUser != String() )
 					filelistUserPluginsLocations.add (File(pathUser),(int)Message->wParam);
 
 				crcSaveSettings();
@@ -477,7 +477,7 @@ bool PluginLister::rescanPlugins () noexcept
 		{
 			AudioPluginFormat* currentFormat = pluginFormatManager->getFormat (i);
 
-			PluginDirectoryScanner scanner(knownPluginList, *currentFormat, searchLocations, true, fileCorruptedPlugs);
+			PluginDirectoryScanner scanner(knownPluginList, *currentFormat, searchLocations, true, fileCorruptedPlugs, true);
 		
 			String nextPlug;
 			String currentPlug;
@@ -489,7 +489,7 @@ bool PluginLister::rescanPlugins () noexcept
 			{
 				nextPlug = scanner.getNextPluginFileThatWillBeScanned ();
 
-				if (nextPlug == String::empty)
+				if (nextPlug == String())
 				{
 					scan = false;
 					break;
@@ -530,13 +530,13 @@ bool PluginLister::rescanPlugins () noexcept
                     {
                         // trace to log + splash screen
                         scanningMessage << " " << currentFormat->getName();
-                        if (nextPlug != String::empty)
+                        if (nextPlug != String())
                         {
                             scanningMessage << " ("  << (int)(scanner.getProgress()*100)  << "%) : " << nextPlug;
                             
                             sdkTraceLogChar ((AnsiCharPtr)scanningMessage.toUTF8().getAddress(), TRUE);
                             // trace to log
-                            scanningMessage = String::empty;
+                            scanningMessage = String();
                             scanningMessage << nextPlug;
                             sdkTraceLogChar ((AnsiCharPtr)scanningMessage.toUTF8().getAddress(), FALSE);
                         }
@@ -581,9 +581,9 @@ bool PluginLister::rescanPlugins () noexcept
 					}
 
 
-					knownPluginList.clearBlacklistedFiles();		
+					knownPluginList.clearBlacklistedFiles();
 					xmlKnownPluginList = knownPluginList.createXml ();
-					xmlKnownPluginList->writeToFile (fileKnownPlugs, String::empty);
+					xmlKnownPluginList->writeToFile (fileKnownPlugs, String());
 					
                     
 
@@ -656,7 +656,7 @@ bool PluginLister::rescanPlugins () noexcept
 		{
 			knownPluginList.clearBlacklistedFiles();
 			xmlKnownPluginList = knownPluginList.createXml ();
-			xmlKnownPluginList->writeToFile (fileKnownPlugs, String::empty);
+			xmlKnownPluginList->writeToFile (fileKnownPlugs, String());
 		}
 
         String message;
@@ -683,7 +683,7 @@ bool PluginLister::rescanPlugins () noexcept
 							    String subPath = filePlug.getRelativePathFrom(searchLocations[i]);
 
 							    if (subPath == filePlug.getFileName())
-								    subPath = String::empty;
+								    subPath = String();
 							    else
 								    subPath = subPath.upToLastOccurrenceOf("\\", true, true);
 
@@ -706,8 +706,8 @@ bool PluginLister::rescanPlugins () noexcept
 								plugFormat << "vst3";
 
 									
-							if (desc->category != String::empty)
-                                pathPlugDescText << "/" << desc->pluginFormatName << "/" + desc->category << "/" + plugFileName << plugFormat << PLUG_INS_EXT;
+							if (desc->manufacturerName!= String())
+                                pathPlugDescText << "/" << desc->pluginFormatName << "/" + desc->manufacturerName.replaceCharacters ("\"#@,;:<>*^|?\\/", "--------------") << "/" + plugFileName << plugFormat << PLUG_INS_EXT;
                             else
                                 pathPlugDescText << "/" << desc->pluginFormatName << "/" + plugFileName << plugFormat << PLUG_INS_EXT;
                         }
@@ -728,7 +728,7 @@ bool PluginLister::rescanPlugins () noexcept
 					    content << desc->name << newLine << desc->fileOrIdentifier << newLine << String::toHexString (desc->uid) << newLine << desc->pluginFormatName;
 					    filePlugDescText.appendText(content, true, true); 
 
-                        message = String::empty;
+                        message = String();
 					    message << "create .plugin file: " << plugName;
 						
 					    // trace to log
@@ -801,7 +801,7 @@ void PluginLister::crcLoadSettings()
 			{
 				String pathUserPlugLoc(listCrcTextInfo[i+2]);
 					
-				if (pathUserPlugLoc != String::empty)
+				if (pathUserPlugLoc != String())
 				{					
 					if (File::isAbsolutePath(pathUserPlugLoc))
 					{
@@ -879,7 +879,7 @@ void PluginLister::crcSaveSettings()
 		filelistUserPluginsLocations.remove(i);
 
 		String pathUser(sdkGetEvtPChar(m_folderPluginsPath.getUnchecked(i)));
-		if (pathUser != String::empty)
+		if (pathUser != String())
 		{
 			filelistUserPluginsLocations.add(File(pathUser), i);
 		}
@@ -966,7 +966,7 @@ unsigned short int PluginLister::crcComputeFromCurrentSettings()
 //
 char* PluginLister::getDefaultPluginsLocation(int Index)
 {
-	captionDefaultPluginsPath[Index] = String::empty;
+	captionDefaultPluginsPath[Index] = String();
 	caDefaultPluginsPath[Index] = "";
 	int numOfPaths = defaultPluginsLocation.getNumPaths();
 

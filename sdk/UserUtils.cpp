@@ -146,10 +146,10 @@ TColorUsine sdkColorArgbToAlphaColor( TColorArgb c1 )
 {
     TColorUsine c2 = 0;
 
-    c2 += ((int)(c1.b * 255.0f)) << 0;
-    c2 += ((int)(c1.g * 255.0f)) << 8;
-    c2 += ((int)(c1.r * 255.0f)) << 16;
-    c2 += ((int)(c1.a * 255.0f)) << 24;
+    c2 += ((uint8_t)(c1.b * 255.0f)) << 0;
+    c2 += ((uint8_t)(c1.g * 255.0f)) << 8;
+    c2 += ((uint8_t)(c1.r * 255.0f)) << 16;
+    c2 += ((uint8_t)(c1.a * 255.0f)) << 24;
 
     return c2;
 }

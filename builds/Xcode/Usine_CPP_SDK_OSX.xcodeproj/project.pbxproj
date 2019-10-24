@@ -2715,7 +2715,7 @@
 					};
 					74C57A9315751E2C004A6BE1 = {
 						DevelopmentTeam = ZKQCVWSS5R;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					74F4BA2816DCAC0C00632763 = {
 						DevelopmentTeam = ZKQCVWSS5R;
@@ -4079,7 +4079,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZKQCVWSS5R;
-				DSTROOT = "/Users/senso/Dropbox/Usine/Usine Development/HH3 SDK/temp/$(PROJECT_NAME).dst";
+				DSTROOT = "/Users/senso/Dropbox/Usine/Usine Development/Usine-SDK/temp/$(PROJECT_NAME).dst";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				ENABLE_OPENMP_SUPPORT = YES;
@@ -4097,8 +4097,8 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_LINK_WITH_DYNAMIC_LIBRARIES = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 1;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
@@ -4134,13 +4134,14 @@
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = NO;
-				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = macosx;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
+				SDKROOT = "";
 				SKIP_INSTALL = YES;
-				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/HH3 SDK/temp";
-				TEST_HOST = "/Users/senso/PAServer/scratch-dir/SENSO-Usine7/Usine.app";
+				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/Usine-SDK/temp";
+				TEST_HOST = "/Users/senso/PAServer/scratch-dir/SENSO-OSX64/Usine.app";
 				"TEST_HOST[sdk=*]" = "";
 				VALID_ARCHS = x86_64;
+				ZERO_LINK = NO;
 			};
 			name = Debug;
 		};
@@ -4158,7 +4159,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZKQCVWSS5R;
-				DSTROOT = "/Users/senso/Dropbox/Usine/Usine Development/HH3 SDK/temp/$(PROJECT_NAME).dst";
+				DSTROOT = "/Users/senso/Dropbox/Usine/Usine Development/Usine-SDK/temp/$(PROJECT_NAME).dst";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				ENABLE_TESTABILITY = NO;
@@ -4172,7 +4173,7 @@
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_LINK_WITH_DYNAMIC_LIBRARIES = YES;
-				GCC_MODEL_TUNING = "";
+				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
@@ -4197,6 +4198,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MODULE_DEV_VERSION = 1;
 				MODULE_USER_VERSION = 4.0;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-Wno-write-strings",
@@ -4207,11 +4209,11 @@
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = NO;
-				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = macosx;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
+				SDKROOT = "";
 				SKIP_INSTALL = YES;
-				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/HH3 SDK/temp";
-				TEST_HOST = "/Users/senso/PAServer/scratch-dir/SENSO-Usine7/Usine.app";
+				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/Usine-SDK/temp";
+				TEST_HOST = "/Users/senso/PAServer/scratch-dir/SENSO-OSX64/Usine.app";
 				VALID_ARCHS = x86_64;
 				ZERO_LINK = NO;
 			};
@@ -4225,6 +4227,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_X86_VECTOR_INSTRUCTIONS = default;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -4232,6 +4235,7 @@
 				DSTROOT = "/Users/senso/NextCloud/Usine/Usine Development/HH3 SDK/temp/$(PROJECT_NAME).dst";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_TESTABILITY = YES;
 				EXECUTABLE_EXTENSION = "usr-osx64";
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -4241,7 +4245,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 1;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -4250,6 +4254,7 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GENERATE_PROFILING_CODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../../libs/juce_v54/modules\"",
@@ -4269,14 +4274,33 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
-					"-Wno-write-strings",
-					"-mstackrealign",
-					"$(OTHER_CFLAGS)",
+					"-Wall",
+					"-Wshorten-64-to-32",
+					"-Wstrict-aliasing",
+					"-Wuninitialized",
+					"-Wunused-parameter",
+					"-Wconversion",
+					"-Wsign-compare",
+					"-Wint-conversion",
+					"-Wconditional-uninitialized",
+					"-Woverloaded-virtual",
+					"-Wreorder",
+					"-Wconstant-conversion",
+					"-Wsign-conversion",
+					"-Wunused-private-field",
+					"-Wbool-conversion",
+					"-Wextra-semi",
+					"-Wunreachable-code",
+					"-Wcast-align",
+					"-Wshift-sign-overflow",
+					"-Wnullable-to-nonnull-conversion",
+					"-Wno-missing-field-initializers",
+					"-Wno-ignored-qualifiers",
 				);
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.12;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
 				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/HH3 SDK/temp";
@@ -4293,6 +4317,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_X86_VECTOR_INSTRUCTIONS = default;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -4315,6 +4340,7 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GENERATE_PROFILING_CODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../../libs/juce_v54/modules\"",
@@ -4334,14 +4360,33 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
-					"-Wno-write-strings",
-					"-mstackrealign",
-					"$(OTHER_CFLAGS)",
+					"-Wall",
+					"-Wshorten-64-to-32",
+					"-Wstrict-aliasing",
+					"-Wuninitialized",
+					"-Wunused-parameter",
+					"-Wconversion",
+					"-Wsign-compare",
+					"-Wint-conversion",
+					"-Wconditional-uninitialized",
+					"-Woverloaded-virtual",
+					"-Wreorder",
+					"-Wconstant-conversion",
+					"-Wsign-conversion",
+					"-Wunused-private-field",
+					"-Wbool-conversion",
+					"-Wextra-semi",
+					"-Wunreachable-code",
+					"-Wcast-align",
+					"-Wshift-sign-overflow",
+					"-Wnullable-to-nonnull-conversion",
+					"-Wno-missing-field-initializers",
+					"-Wno-ignored-qualifiers",
 				);
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.12;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
 				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/HH3 SDK/temp";
@@ -5091,7 +5136,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -5126,7 +5172,7 @@
 					"\"../../libs/VST3 SDK\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				MODULE_DEV_VERSION = 1;
+				MODULE_DEV_VERSION = 2;
 				MODULE_USER_VERSION = 4.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
@@ -5137,7 +5183,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = DeviceMidi;
-				SDKROOT = macosx10.12;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
 				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/HH3 SDK/temp";
@@ -5153,7 +5199,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -5185,7 +5232,7 @@
 					"\"../../libs/VST3 SDK\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				MODULE_DEV_VERSION = 1;
+				MODULE_DEV_VERSION = 2;
 				MODULE_USER_VERSION = 4.0;
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -5195,7 +5242,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = DeviceMidi;
-				SDKROOT = macosx10.12;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
 				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/HH3 SDK/temp";

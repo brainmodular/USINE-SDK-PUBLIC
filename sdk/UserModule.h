@@ -147,12 +147,12 @@ public:
 	/// Deprecated in HH3, use ModuleInfo::EventPtr
     /// @param ParamIndex The index of the parameter.
     /// @param pEvent Handle to the event of the parameter.
-    virtual void onSetEventAddress (int ParamIndex, UsineEventPtr pEvent){};
+    virtual void onSetEventAddress (int ParamIndex, UsineEventPtr pEvent){}
 	
 
     /// Usine call it to inform the module something happened. 
     /// @param Message Provide various infos about what happened.
-	virtual void onCallBack (UsineMessage *Message){};
+	virtual void onCallBack (UsineMessage *Message){}
     /// @}
 	
     //-----------------------------------------------------------------------------
@@ -166,13 +166,13 @@ public:
 	virtual int  onGetNumberOfParams( int queryIndex)
 	{
 		return m_moduleInfo->NumberOfParams;
-	};
+	}
 	
 	/// Usine call it after the query pop-up is closed. It let you do some things depending of the query choice.  
     /// @param pMasterInfo The MasterInfo structure.
     /// @param pModuleInfo The ModuleInfo structure.
     /// @param queryIndex The index of the choice made in the query pop-up
-	virtual void onAfterQuery (MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo, int queryIndex) {};
+	virtual void onAfterQuery (MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo, int queryIndex) {}
     /// @}
 
 	//-----------------------------------------------------------------------------
@@ -185,13 +185,13 @@ public:
 	/// Be careful here because it's called from the audio thread at each audio tick of the audio engine. 
 	/// Keep it optimized and try to avoid any memory allocation.
     /// @see ModuleInfo::DontProcess
-	virtual void onProcess (){};
+	virtual void onProcess (){}
     /// @}
 	
 	/// Called by the the video thread to process video frames only for ModuleInfo::ModuleType == mtVideo  
 	/// Don't process video outside this procedure.
 	/// @see ModuleInfo::ModuleType
-	virtual void onProcessVideo() {};
+	virtual void onProcessVideo() {}
 	/// @}
 
 	//-----------------------------------------------------------------------------
@@ -204,18 +204,18 @@ public:
 	/// To get the chunk length estimation
 	/// @param Preset Tell if it's a preset or a patch chunk. TRUE = preset chunk, FALSE = .pat/.wkp chunk.
 	/// @return The estimated size of the chunk in byte.
-	virtual int  onGetChunkLen (LongBool Preset){return 0;};
+	virtual int  onGetChunkLen (LongBool Preset){return 0;}
 	
 	/// Provide a chunk handle to fill with additional info's.
 	/// @param chunk The chunk pointer to fill.
 	/// @param Preset Tell if it's a preset or a patch chunk. TRUE = preset chunk, FALSE = .pat/.wkp chunk.
-	virtual void onGetChunk (void* chunk, LongBool Preset){};
+	virtual void onGetChunk (void* chunk, LongBool Preset){}
 	
 	/// Provide a chunk handle filled by Usine to restore them into the module.
 	/// @param chunk The chunk pointer to read from.
 	/// @param sizeInBytes The size of the chunk.
 	/// @param Preset Tell if it's a preset or a patch chunk. TRUE = preset chunk, FALSE = .pat/.wkp chunk.
-	virtual void onSetChunk (const void* chunk, int sizeInBytes, LongBool Preset){};
+	virtual void onSetChunk (const void* chunk, int sizeInBytes, LongBool Preset){}
     /// @}
 
 	//-----------------------------------------------------------------------------
@@ -225,10 +225,10 @@ public:
 	
 	/// To add some entries in the Settings panel.
 	/// Typical use is some calls to Settings options functions 
-	virtual void onCreateSettings () {};
+	virtual void onCreateSettings () {}
 	
 	/// Called when something change in one of entries.
-	virtual void onSettingsHasChanged () {};
+	virtual void onSettingsHasChanged () {}
 	/// @}
 
 	//-----------------------------------------------------------------------------
@@ -239,12 +239,12 @@ public:
 	/// Called when Usine resize the Graphic canvas
 	/// @param contentWidth the new width of the canvas.
 	/// @param contentHeight the new height of the canvas.
-    virtual void onResize (float contentWidth, float contentHeight) {};
+    virtual void onResize (float contentWidth, float contentHeight) {}
 	
 	/// Called before Usine draw the module canvas
 	/// Use it to draw the module canvas.
 	/// @see Graphic Canvas
-	virtual void onPaint () {};
+	virtual void onPaint () {}
     /// @}
 
 	//-----------------------------------------------------------------------------
@@ -254,7 +254,7 @@ public:
 	
 	/// To add some entries in the Contextual Menu.
 	/// Typical use is some calls to Contextual Menus commands 
-    virtual void onCreateCommands () {};
+    virtual void onCreateCommands () {}
     /// @}
 
 	//-----------------------------------------------------------------------------
@@ -266,7 +266,7 @@ public:
     /// @param X New value of the first curve.
     /// @param Y New value of the second curve.
     /// @param Z New value of the third curve.
-	virtual void onSetRecordedValue (TPrecision X, TPrecision Y, TPrecision Z){};
+	virtual void onSetRecordedValue (TPrecision X, TPrecision Y, TPrecision Z){}
     /// @}
 	
     //-----------------------------------------------------------------------------
@@ -275,7 +275,7 @@ public:
  	/// @{
 	
 	/// Activate it with pModuleInfo->CanBeRandomized = TRUE in onGetModuleInfo.
-	virtual void onRandomize (){};
+	virtual void onRandomize (){}
     /// @}
 
 	//-----------------------------------------------------------------------------
@@ -284,7 +284,7 @@ public:
 	/// @{
 
 	/// Activate it with pModuleInfo->CanBeReset = TRUE in onGetModuleInfo.
-	virtual void onReset() {};
+	virtual void onReset() {}
 	/// @}
 
 	//-----------------------------------------------------------------------------
@@ -292,7 +292,7 @@ public:
 	/// @name SetQuickColor Callback
 	/// @{
 	/// @param color choosen color in the quick color menu.
-	virtual void onSetQuickColor(TColorUsine color) {};
+	virtual void onSetQuickColor(TColorUsine color) {}
 	/// @}
     
 	//-----------------------------------------------------------------------------
@@ -625,26 +625,26 @@ public:
 	/// @name Frame manipulation 
 	/// @{
 	inline void sdkGetInputFrame(int numInput, PTUsineFrame frame) { m_masterInfo->GetInputFrame(m_moduleInfo, numInput, frame); };
-	inline void sdkSetOutputFrame(int numOutput, PTUsineFrame frame) { m_masterInfo->SetOutputFrame(m_moduleInfo, numOutput, frame); };
-	inline void sdkClearFrame(PTUsineFrame frame, TColorUsine color) { m_masterInfo->ClearFrame(m_moduleInfo, color, frame); };
-	inline void sdkReleaseFrame(PTUsineFrame frame) { m_masterInfo->ReleaseFrame(m_moduleInfo, frame); };
-	inline void sdkGetNewFrame(PTUsineFrame frame, int width, int height, LongBool permanent) { m_masterInfo->GetNewFrame(m_moduleInfo, width, height, permanent, frame); };
-	inline void sdkCopyFrame(PTUsineFrame srcFrame, PTUsineFrame destFrame) { m_masterInfo->CopyFrame(srcFrame,destFrame); };
-	inline void sdkSetDimmerFrame(PTUsineFrame frame, float dimmer) { m_masterInfo->SetDimmerFrame(m_moduleInfo, dimmer, frame); };
+	inline void sdkSetOutputFrame(int numOutput, PTUsineFrame frame) { m_masterInfo->SetOutputFrame(m_moduleInfo, numOutput, frame); }
+	inline void sdkClearFrame(PTUsineFrame frame, TColorUsine color) { m_masterInfo->ClearFrame(m_moduleInfo, color, frame); }
+	inline void sdkReleaseFrame(PTUsineFrame frame) { m_masterInfo->ReleaseFrame(m_moduleInfo, frame); }
+	inline void sdkGetNewFrame(PTUsineFrame frame, int width, int height, LongBool permanent) { m_masterInfo->GetNewFrame(m_moduleInfo, width, height, permanent, frame); }
+	inline void sdkCopyFrame(PTUsineFrame srcFrame, PTUsineFrame destFrame) { m_masterInfo->CopyFrame(srcFrame,destFrame); }
+	inline void sdkSetDimmerFrame(PTUsineFrame frame, float dimmer) { m_masterInfo->SetDimmerFrame(m_moduleInfo, dimmer, frame); }
 	inline void sdkSetPixel(PTUsineFrame frame, int X, int Y, TUsinePixel pixel)
 	{
 		PTUsinePixel pix = frame->Pixels;
 		pix = pix + frame->Width*Y + X;
 		*pix = pixel;
-	};
+	}
 	inline TUsinePixel sdkGetPixel(PTUsineFrame frame, int X, int Y)
 	{
 		PTUsinePixel pix = frame->Pixels;
 		pix = pix + frame->Width*Y + X;
 		return *pix;
-	};
-	inline TUsinePixel sdkColorToPixel(TColorUsine color) { return m_masterInfo->ColorToPixel(color); };
-	inline TColorUsine sdkPixelToColor(TUsinePixel pixel) { return m_masterInfo->PixelToColor(pixel); };
+	}
+	inline TUsinePixel sdkColorToPixel(TColorUsine color) { return m_masterInfo->ColorToPixel(color); }
+	inline TColorUsine sdkPixelToColor(TUsinePixel pixel) { return m_masterInfo->PixelToColor(pixel); }
 
 	/// @}
 
@@ -756,20 +756,20 @@ public:
 	/// @{   
 	
     // evt data manipulation
-    inline void  sdkAddEvt3( UsineEventPtr in1, UsineEventPtr in2, UsineEventPtr out )          { m_masterInfo->AddEvt3( in1, in2, out ); };
-    inline void  sdkAddEvt2( UsineEventPtr in1, UsineEventPtr in2 )                             { m_masterInfo->AddEvt2( in1, in2 ); };
-    inline void  sdkSubEvt3( UsineEventPtr in1, UsineEventPtr in2, UsineEventPtr out )          { m_masterInfo->SubEvt3( in1, in2, out ); };
-    inline void  sdkSubEvt2( UsineEventPtr in1, UsineEventPtr in2 )                             { m_masterInfo->SubEvt2( in1, in2 ); };
-    inline void  sdkDivEvt3( UsineEventPtr in1, UsineEventPtr in2, UsineEventPtr out )          { m_masterInfo->DivEvt3( in1, in2, out ); };
-    inline void  sdkMultEvt3( UsineEventPtr in1, UsineEventPtr in2, UsineEventPtr out )         { m_masterInfo->MultEvt3( in1, in2, out ); };
-    inline void  sdkMultEvt2( UsineEventPtr in1, UsineEventPtr in2 )                            { m_masterInfo->MultEvt2( in1, in2 ); };
-    inline void  sdkMultEvt2Audio( UsineEventPtr in1, UsineEventPtr in2 )                       { m_masterInfo->MultEvt2( in1, in2 ); };
-    inline void  sdkMultEvt1( TPrecision m, UsineEventPtr out )                                 { m_masterInfo->MultEvt1( m, out ); };
-    inline void  sdkModEvt3( UsineEventPtr in1, UsineEventPtr in2, UsineEventPtr out )          { m_masterInfo->ModEvt3( in1, in2, out ); };
-    inline void  sdkPowerEvt3( UsineEventPtr in1, UsineEventPtr in2, UsineEventPtr out )        { m_masterInfo->PowerEvt3( in1, in2, out ); };
-    inline void  sdkExpEvt1( UsineEventPtr in1 )                                                { m_masterInfo->ExpEvt1( in1 ); };
-    inline void  sdkSqrtEvt1( UsineEventPtr in1 )                                               { m_masterInfo->SqrtEvt1( in1 ); };
-    inline void  sdkSetEvtNbLines( UsineEventPtr in1, int nbLines)                              { m_masterInfo->SetEvtNbLines( in1, nbLines); };
+    inline void  sdkAddEvt3( UsineEventPtr in1, UsineEventPtr in2, UsineEventPtr out )          { m_masterInfo->AddEvt3( in1, in2, out ); }
+    inline void  sdkAddEvt2( UsineEventPtr in1, UsineEventPtr in2 )                             { m_masterInfo->AddEvt2( in1, in2 ); }
+    inline void  sdkSubEvt3( UsineEventPtr in1, UsineEventPtr in2, UsineEventPtr out )          { m_masterInfo->SubEvt3( in1, in2, out ); }
+    inline void  sdkSubEvt2( UsineEventPtr in1, UsineEventPtr in2 )                             { m_masterInfo->SubEvt2( in1, in2 ); }
+    inline void  sdkDivEvt3( UsineEventPtr in1, UsineEventPtr in2, UsineEventPtr out )          { m_masterInfo->DivEvt3( in1, in2, out ); }
+    inline void  sdkMultEvt3( UsineEventPtr in1, UsineEventPtr in2, UsineEventPtr out )         { m_masterInfo->MultEvt3( in1, in2, out ); }
+    inline void  sdkMultEvt2( UsineEventPtr in1, UsineEventPtr in2 )                            { m_masterInfo->MultEvt2( in1, in2 ); }
+    inline void  sdkMultEvt2Audio( UsineEventPtr in1, UsineEventPtr in2 )                       { m_masterInfo->MultEvt2( in1, in2 ); }
+    inline void  sdkMultEvt1( TPrecision m, UsineEventPtr out )                                 { m_masterInfo->MultEvt1( m, out ); }
+    inline void  sdkModEvt3( UsineEventPtr in1, UsineEventPtr in2, UsineEventPtr out )          { m_masterInfo->ModEvt3( in1, in2, out ); }
+    inline void  sdkPowerEvt3( UsineEventPtr in1, UsineEventPtr in2, UsineEventPtr out )        { m_masterInfo->PowerEvt3( in1, in2, out ); }
+    inline void  sdkExpEvt1( UsineEventPtr in1 )                                                { m_masterInfo->ExpEvt1( in1 ); }
+    inline void  sdkSqrtEvt1( UsineEventPtr in1 )                                               { m_masterInfo->SqrtEvt1( in1 ); }
+    inline void  sdkSetEvtNbLines( UsineEventPtr in1, int nbLines)                              { m_masterInfo->SetEvtNbLines( in1, nbLines); }
     inline int   sdkGetEvtNbLines( UsineEventPtr in1)                                           { return m_masterInfo->GetEvtNbLines( in1); };
 
     inline TPrecision	sdkMaxEvt1( UsineEventPtr in1 )                                         { return m_masterInfo->MaxEvt1( in1 ); };
@@ -793,7 +793,7 @@ public:
     inline void sdkSmoothEvent ( TPrecision& oldValue, UsineEventPtr currentEvent, TPrecision target, TPrecision factor ) 
 	{ 
 		return m_masterInfo->SmoothEvent  ( oldValue, currentEvent, target, factor ); 
-	};
+	}
     /// @}
         
     //----------------------------------------------------------------------------

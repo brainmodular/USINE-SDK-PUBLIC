@@ -97,7 +97,7 @@ private:
 	int start1, size1, start2, size2;
 	AudioSampleBuffer buffer;
 
-	JUCE_DECLARE_NON_COPYABLE (AudioSampleBufferFifo);
+	JUCE_DECLARE_NON_COPYABLE (AudioSampleBufferFifo)
 };
 
 //-------------------------------------------------------------------------
