@@ -554,7 +554,7 @@ bool PluginLister::rescanPlugins () noexcept
                        scan = scanner.scanNextFile(true, currentPlug);
                         
 					}
-					catch ( std::exception& e)
+					catch (...)
 					{
 						sdkTraceLogChar("in PluginLister::PluginLister:rescanPlugins::scanNextFile", FALSE);
 						continue;

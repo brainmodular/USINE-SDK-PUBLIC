@@ -109,6 +109,7 @@
 		4F08CF202003BEF100AF0091 /* Touch_Fader_Tools.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F08CF062003BEF100AF0091 /* Touch_Fader_Tools.h */; };
 		4F08CF212003BEF100AF0091 /* XYpad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F08CF072003BEF100AF0091 /* XYpad.cpp */; };
 		4F08CF222003BEF100AF0091 /* XYpad.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F08CF082003BEF100AF0091 /* XYpad.h */; };
+		4F182E1E238671B20034BB1A /* Reverb.usr-osx64 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4F3A27F9231140A200142A33 /* Reverb.usr-osx64 */; };
 		4F1A2AED206564030022B13C /* UsineDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7486BAAD15764FFB00B92BD8 /* UsineDefinitions.h */; };
 		4F1A2AEF206564030022B13C /* UserDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7486BAA715764FFB00B92BD8 /* UserDefinitions.h */; };
 		4F1A2AF2206564030022B13C /* UserModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 7486BAAA15764FFB00B92BD8 /* UserModule.h */; };
@@ -127,6 +128,11 @@
 		4F2B5BE72003C7540086734A /* UserUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7486BAAB15764FFB00B92BD8 /* UserUtils.cpp */; };
 		4F2B5BE82003C7570086734A /* UserUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 7486BAAC15764FFB00B92BD8 /* UserUtils.h */; };
 		4F2B5BE92003C7590086734A /* UsineDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7486BAAD15764FFB00B92BD8 /* UsineDefinitions.h */; };
+		4F606E45239A6C5D00401FF2 /* include_juce_cryptography.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE58230FEA97003C3CF9 /* include_juce_cryptography.mm */; };
+		4F606E46239A6C6300401FF2 /* include_juce_gui_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE60230FEA97003C3CF9 /* include_juce_gui_basics.mm */; };
+		4F606E47239A6C6700401FF2 /* include_juce_gui_extra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE62230FEA97003C3CF9 /* include_juce_gui_extra.mm */; };
+		4F606E48239A6C6A00401FF2 /* include_juce_opengl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE64230FEA97003C3CF9 /* include_juce_opengl.mm */; };
+		4F606E49239A6C6D00401FF2 /* include_juce_video.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE66230FEA97003C3CF9 /* include_juce_video.mm */; };
 		4F8E3806230E8F2000163089 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F1A2B6C20656A120022B13C /* CoreMedia.framework */; };
 		4F8E381B230EAD6500163089 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD46A0E229ED0AA00077AEE /* CoreAudio.framework */; };
 		4F8E381C230EAD6E00163089 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F1A2B6720656A120022B13C /* AVFoundation.framework */; };
@@ -283,7 +289,6 @@
 		4FBDEE6A230FEA97003C3CF9 /* AppConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBDEE4A230FEA97003C3CF9 /* AppConfig.h */; };
 		4FBDEE6B230FEA97003C3CF9 /* AppConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBDEE4A230FEA97003C3CF9 /* AppConfig.h */; };
 		4FBDEE6E230FEA97003C3CF9 /* AppConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBDEE4A230FEA97003C3CF9 /* AppConfig.h */; };
-		4FBDEE6F230FEA97003C3CF9 /* AppConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBDEE4A230FEA97003C3CF9 /* AppConfig.h */; };
 		4FBDEE70230FEA97003C3CF9 /* AppConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBDEE4A230FEA97003C3CF9 /* AppConfig.h */; };
 		4FBDEE71230FEA97003C3CF9 /* AppConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBDEE4A230FEA97003C3CF9 /* AppConfig.h */; };
 		4FBDEE72230FEA97003C3CF9 /* AppConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBDEE4A230FEA97003C3CF9 /* AppConfig.h */; };
@@ -297,7 +302,6 @@
 		4FBDEE8E230FEA97003C3CF9 /* include_juce_audio_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE4C230FEA97003C3CF9 /* include_juce_audio_basics.mm */; };
 		4FBDEE8F230FEA97003C3CF9 /* include_juce_audio_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE4C230FEA97003C3CF9 /* include_juce_audio_basics.mm */; };
 		4FBDEE92230FEA97003C3CF9 /* include_juce_audio_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE4C230FEA97003C3CF9 /* include_juce_audio_basics.mm */; };
-		4FBDEE93230FEA97003C3CF9 /* include_juce_audio_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE4C230FEA97003C3CF9 /* include_juce_audio_basics.mm */; };
 		4FBDEE94230FEA97003C3CF9 /* include_juce_audio_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE4C230FEA97003C3CF9 /* include_juce_audio_basics.mm */; };
 		4FBDEE95230FEA97003C3CF9 /* include_juce_audio_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE4C230FEA97003C3CF9 /* include_juce_audio_basics.mm */; };
 		4FBDEE96230FEA97003C3CF9 /* include_juce_audio_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE4C230FEA97003C3CF9 /* include_juce_audio_basics.mm */; };
@@ -311,7 +315,6 @@
 		4FBDEEB2230FEA97003C3CF9 /* include_juce_audio_devices.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE4E230FEA97003C3CF9 /* include_juce_audio_devices.mm */; };
 		4FBDEEB3230FEA97003C3CF9 /* include_juce_audio_devices.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE4E230FEA97003C3CF9 /* include_juce_audio_devices.mm */; };
 		4FBDEEB6230FEA97003C3CF9 /* include_juce_audio_devices.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE4E230FEA97003C3CF9 /* include_juce_audio_devices.mm */; };
-		4FBDEEB7230FEA97003C3CF9 /* include_juce_audio_devices.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE4E230FEA97003C3CF9 /* include_juce_audio_devices.mm */; };
 		4FBDEEB8230FEA97003C3CF9 /* include_juce_audio_devices.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE4E230FEA97003C3CF9 /* include_juce_audio_devices.mm */; };
 		4FBDEEB9230FEA97003C3CF9 /* include_juce_audio_devices.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE4E230FEA97003C3CF9 /* include_juce_audio_devices.mm */; };
 		4FBDEEBA230FEA97003C3CF9 /* include_juce_audio_devices.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE4E230FEA97003C3CF9 /* include_juce_audio_devices.mm */; };
@@ -325,7 +328,6 @@
 		4FBDEED6230FEA97003C3CF9 /* include_juce_audio_formats.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE50230FEA97003C3CF9 /* include_juce_audio_formats.mm */; };
 		4FBDEED7230FEA97003C3CF9 /* include_juce_audio_formats.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE50230FEA97003C3CF9 /* include_juce_audio_formats.mm */; };
 		4FBDEEDA230FEA97003C3CF9 /* include_juce_audio_formats.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE50230FEA97003C3CF9 /* include_juce_audio_formats.mm */; };
-		4FBDEEDB230FEA97003C3CF9 /* include_juce_audio_formats.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE50230FEA97003C3CF9 /* include_juce_audio_formats.mm */; };
 		4FBDEEDC230FEA97003C3CF9 /* include_juce_audio_formats.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE50230FEA97003C3CF9 /* include_juce_audio_formats.mm */; };
 		4FBDEEDD230FEA97003C3CF9 /* include_juce_audio_formats.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE50230FEA97003C3CF9 /* include_juce_audio_formats.mm */; };
 		4FBDEEDE230FEA97003C3CF9 /* include_juce_audio_formats.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE50230FEA97003C3CF9 /* include_juce_audio_formats.mm */; };
@@ -339,7 +341,6 @@
 		4FBDEEFA230FEA97003C3CF9 /* include_juce_audio_processors.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE52230FEA97003C3CF9 /* include_juce_audio_processors.mm */; };
 		4FBDEEFB230FEA97003C3CF9 /* include_juce_audio_processors.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE52230FEA97003C3CF9 /* include_juce_audio_processors.mm */; };
 		4FBDEEFE230FEA97003C3CF9 /* include_juce_audio_processors.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE52230FEA97003C3CF9 /* include_juce_audio_processors.mm */; };
-		4FBDEEFF230FEA97003C3CF9 /* include_juce_audio_processors.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE52230FEA97003C3CF9 /* include_juce_audio_processors.mm */; };
 		4FBDEF00230FEA97003C3CF9 /* include_juce_audio_processors.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE52230FEA97003C3CF9 /* include_juce_audio_processors.mm */; };
 		4FBDEF01230FEA97003C3CF9 /* include_juce_audio_processors.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE52230FEA97003C3CF9 /* include_juce_audio_processors.mm */; };
 		4FBDEF02230FEA97003C3CF9 /* include_juce_audio_processors.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE52230FEA97003C3CF9 /* include_juce_audio_processors.mm */; };
@@ -353,7 +354,6 @@
 		4FBDEF1E230FEA97003C3CF9 /* include_juce_audio_utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE54230FEA97003C3CF9 /* include_juce_audio_utils.mm */; };
 		4FBDEF1F230FEA97003C3CF9 /* include_juce_audio_utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE54230FEA97003C3CF9 /* include_juce_audio_utils.mm */; };
 		4FBDEF22230FEA97003C3CF9 /* include_juce_audio_utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE54230FEA97003C3CF9 /* include_juce_audio_utils.mm */; };
-		4FBDEF23230FEA97003C3CF9 /* include_juce_audio_utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE54230FEA97003C3CF9 /* include_juce_audio_utils.mm */; };
 		4FBDEF24230FEA97003C3CF9 /* include_juce_audio_utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE54230FEA97003C3CF9 /* include_juce_audio_utils.mm */; };
 		4FBDEF25230FEA97003C3CF9 /* include_juce_audio_utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE54230FEA97003C3CF9 /* include_juce_audio_utils.mm */; };
 		4FBDEF26230FEA97003C3CF9 /* include_juce_audio_utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE54230FEA97003C3CF9 /* include_juce_audio_utils.mm */; };
@@ -367,7 +367,6 @@
 		4FBDEF42230FEA97003C3CF9 /* include_juce_core.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE56230FEA97003C3CF9 /* include_juce_core.mm */; };
 		4FBDEF43230FEA97003C3CF9 /* include_juce_core.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE56230FEA97003C3CF9 /* include_juce_core.mm */; };
 		4FBDEF46230FEA97003C3CF9 /* include_juce_core.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE56230FEA97003C3CF9 /* include_juce_core.mm */; };
-		4FBDEF47230FEA97003C3CF9 /* include_juce_core.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE56230FEA97003C3CF9 /* include_juce_core.mm */; };
 		4FBDEF48230FEA97003C3CF9 /* include_juce_core.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE56230FEA97003C3CF9 /* include_juce_core.mm */; };
 		4FBDEF49230FEA97003C3CF9 /* include_juce_core.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE56230FEA97003C3CF9 /* include_juce_core.mm */; };
 		4FBDEF4A230FEA97003C3CF9 /* include_juce_core.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE56230FEA97003C3CF9 /* include_juce_core.mm */; };
@@ -381,7 +380,6 @@
 		4FBDEF66230FEA97003C3CF9 /* include_juce_cryptography.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE58230FEA97003C3CF9 /* include_juce_cryptography.mm */; };
 		4FBDEF67230FEA97003C3CF9 /* include_juce_cryptography.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE58230FEA97003C3CF9 /* include_juce_cryptography.mm */; };
 		4FBDEF6A230FEA97003C3CF9 /* include_juce_cryptography.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE58230FEA97003C3CF9 /* include_juce_cryptography.mm */; };
-		4FBDEF6B230FEA97003C3CF9 /* include_juce_cryptography.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE58230FEA97003C3CF9 /* include_juce_cryptography.mm */; };
 		4FBDEF6C230FEA97003C3CF9 /* include_juce_cryptography.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE58230FEA97003C3CF9 /* include_juce_cryptography.mm */; };
 		4FBDEF6D230FEA97003C3CF9 /* include_juce_cryptography.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE58230FEA97003C3CF9 /* include_juce_cryptography.mm */; };
 		4FBDEF6E230FEA97003C3CF9 /* include_juce_cryptography.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE58230FEA97003C3CF9 /* include_juce_cryptography.mm */; };
@@ -395,7 +393,6 @@
 		4FBDEF8A230FEA97003C3CF9 /* include_juce_data_structures.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5A230FEA97003C3CF9 /* include_juce_data_structures.mm */; };
 		4FBDEF8B230FEA97003C3CF9 /* include_juce_data_structures.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5A230FEA97003C3CF9 /* include_juce_data_structures.mm */; };
 		4FBDEF8E230FEA97003C3CF9 /* include_juce_data_structures.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5A230FEA97003C3CF9 /* include_juce_data_structures.mm */; };
-		4FBDEF8F230FEA97003C3CF9 /* include_juce_data_structures.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5A230FEA97003C3CF9 /* include_juce_data_structures.mm */; };
 		4FBDEF90230FEA97003C3CF9 /* include_juce_data_structures.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5A230FEA97003C3CF9 /* include_juce_data_structures.mm */; };
 		4FBDEF91230FEA97003C3CF9 /* include_juce_data_structures.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5A230FEA97003C3CF9 /* include_juce_data_structures.mm */; };
 		4FBDEF92230FEA97003C3CF9 /* include_juce_data_structures.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5A230FEA97003C3CF9 /* include_juce_data_structures.mm */; };
@@ -409,7 +406,6 @@
 		4FBDEFAE230FEA97003C3CF9 /* include_juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5C230FEA97003C3CF9 /* include_juce_events.mm */; };
 		4FBDEFAF230FEA97003C3CF9 /* include_juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5C230FEA97003C3CF9 /* include_juce_events.mm */; };
 		4FBDEFB2230FEA97003C3CF9 /* include_juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5C230FEA97003C3CF9 /* include_juce_events.mm */; };
-		4FBDEFB3230FEA97003C3CF9 /* include_juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5C230FEA97003C3CF9 /* include_juce_events.mm */; };
 		4FBDEFB4230FEA97003C3CF9 /* include_juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5C230FEA97003C3CF9 /* include_juce_events.mm */; };
 		4FBDEFB5230FEA97003C3CF9 /* include_juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5C230FEA97003C3CF9 /* include_juce_events.mm */; };
 		4FBDEFB6230FEA97003C3CF9 /* include_juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5C230FEA97003C3CF9 /* include_juce_events.mm */; };
@@ -423,7 +419,6 @@
 		4FBDEFD2230FEA97003C3CF9 /* include_juce_graphics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5E230FEA97003C3CF9 /* include_juce_graphics.mm */; };
 		4FBDEFD3230FEA97003C3CF9 /* include_juce_graphics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5E230FEA97003C3CF9 /* include_juce_graphics.mm */; };
 		4FBDEFD6230FEA97003C3CF9 /* include_juce_graphics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5E230FEA97003C3CF9 /* include_juce_graphics.mm */; };
-		4FBDEFD7230FEA97003C3CF9 /* include_juce_graphics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5E230FEA97003C3CF9 /* include_juce_graphics.mm */; };
 		4FBDEFD8230FEA97003C3CF9 /* include_juce_graphics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5E230FEA97003C3CF9 /* include_juce_graphics.mm */; };
 		4FBDEFD9230FEA97003C3CF9 /* include_juce_graphics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5E230FEA97003C3CF9 /* include_juce_graphics.mm */; };
 		4FBDEFDA230FEA97003C3CF9 /* include_juce_graphics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE5E230FEA97003C3CF9 /* include_juce_graphics.mm */; };
@@ -437,7 +432,6 @@
 		4FBDEFF6230FEA97003C3CF9 /* include_juce_gui_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE60230FEA97003C3CF9 /* include_juce_gui_basics.mm */; };
 		4FBDEFF7230FEA97003C3CF9 /* include_juce_gui_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE60230FEA97003C3CF9 /* include_juce_gui_basics.mm */; };
 		4FBDEFFA230FEA97003C3CF9 /* include_juce_gui_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE60230FEA97003C3CF9 /* include_juce_gui_basics.mm */; };
-		4FBDEFFB230FEA97003C3CF9 /* include_juce_gui_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE60230FEA97003C3CF9 /* include_juce_gui_basics.mm */; };
 		4FBDEFFC230FEA97003C3CF9 /* include_juce_gui_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE60230FEA97003C3CF9 /* include_juce_gui_basics.mm */; };
 		4FBDEFFD230FEA97003C3CF9 /* include_juce_gui_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE60230FEA97003C3CF9 /* include_juce_gui_basics.mm */; };
 		4FBDEFFE230FEA97003C3CF9 /* include_juce_gui_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE60230FEA97003C3CF9 /* include_juce_gui_basics.mm */; };
@@ -451,7 +445,6 @@
 		4FBDF01A230FEA97003C3CF9 /* include_juce_gui_extra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE62230FEA97003C3CF9 /* include_juce_gui_extra.mm */; };
 		4FBDF01B230FEA97003C3CF9 /* include_juce_gui_extra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE62230FEA97003C3CF9 /* include_juce_gui_extra.mm */; };
 		4FBDF01E230FEA97003C3CF9 /* include_juce_gui_extra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE62230FEA97003C3CF9 /* include_juce_gui_extra.mm */; };
-		4FBDF01F230FEA97003C3CF9 /* include_juce_gui_extra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE62230FEA97003C3CF9 /* include_juce_gui_extra.mm */; };
 		4FBDF020230FEA97003C3CF9 /* include_juce_gui_extra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE62230FEA97003C3CF9 /* include_juce_gui_extra.mm */; };
 		4FBDF021230FEA97003C3CF9 /* include_juce_gui_extra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE62230FEA97003C3CF9 /* include_juce_gui_extra.mm */; };
 		4FBDF022230FEA97003C3CF9 /* include_juce_gui_extra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE62230FEA97003C3CF9 /* include_juce_gui_extra.mm */; };
@@ -465,7 +458,6 @@
 		4FBDF03E230FEA97003C3CF9 /* include_juce_opengl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE64230FEA97003C3CF9 /* include_juce_opengl.mm */; };
 		4FBDF03F230FEA97003C3CF9 /* include_juce_opengl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE64230FEA97003C3CF9 /* include_juce_opengl.mm */; };
 		4FBDF042230FEA97003C3CF9 /* include_juce_opengl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE64230FEA97003C3CF9 /* include_juce_opengl.mm */; };
-		4FBDF043230FEA97003C3CF9 /* include_juce_opengl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE64230FEA97003C3CF9 /* include_juce_opengl.mm */; };
 		4FBDF044230FEA97003C3CF9 /* include_juce_opengl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE64230FEA97003C3CF9 /* include_juce_opengl.mm */; };
 		4FBDF045230FEA97003C3CF9 /* include_juce_opengl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE64230FEA97003C3CF9 /* include_juce_opengl.mm */; };
 		4FBDF046230FEA97003C3CF9 /* include_juce_opengl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE64230FEA97003C3CF9 /* include_juce_opengl.mm */; };
@@ -479,7 +471,6 @@
 		4FBDF062230FEA97003C3CF9 /* include_juce_video.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE66230FEA97003C3CF9 /* include_juce_video.mm */; };
 		4FBDF063230FEA97003C3CF9 /* include_juce_video.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE66230FEA97003C3CF9 /* include_juce_video.mm */; };
 		4FBDF066230FEA97003C3CF9 /* include_juce_video.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE66230FEA97003C3CF9 /* include_juce_video.mm */; };
-		4FBDF067230FEA97003C3CF9 /* include_juce_video.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE66230FEA97003C3CF9 /* include_juce_video.mm */; };
 		4FBDF068230FEA97003C3CF9 /* include_juce_video.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE66230FEA97003C3CF9 /* include_juce_video.mm */; };
 		4FBDF069230FEA97003C3CF9 /* include_juce_video.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE66230FEA97003C3CF9 /* include_juce_video.mm */; };
 		4FBDF06A230FEA97003C3CF9 /* include_juce_video.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDEE66230FEA97003C3CF9 /* include_juce_video.mm */; };
@@ -493,7 +484,6 @@
 		4FBDF074230FEA97003C3CF9 /* JuceHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBDEE67230FEA97003C3CF9 /* JuceHeader.h */; };
 		4FBDF075230FEA97003C3CF9 /* JuceHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBDEE67230FEA97003C3CF9 /* JuceHeader.h */; };
 		4FBDF078230FEA97003C3CF9 /* JuceHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBDEE67230FEA97003C3CF9 /* JuceHeader.h */; };
-		4FBDF079230FEA97003C3CF9 /* JuceHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBDEE67230FEA97003C3CF9 /* JuceHeader.h */; };
 		4FBDF07A230FEA97003C3CF9 /* JuceHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBDEE67230FEA97003C3CF9 /* JuceHeader.h */; };
 		4FBDF07B230FEA97003C3CF9 /* JuceHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBDEE67230FEA97003C3CF9 /* JuceHeader.h */; };
 		4FBDF07C230FEA97003C3CF9 /* JuceHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBDEE67230FEA97003C3CF9 /* JuceHeader.h */; };
@@ -884,6 +874,7 @@
 			dstPath = "$(SRCROOT)/../../bin/All Modules/Audio";
 			dstSubfolderSpec = 0;
 			files = (
+				4F182E1E238671B20034BB1A /* Reverb.usr-osx64 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2126,9 +2117,7 @@
 				4EC96B7A17D3A49500F63E38 /* comb.hpp in Headers */,
 				4EC96B7B17D3A49500F63E38 /* denormals.h in Headers */,
 				4EC96B7D17D3A49500F63E38 /* Reverb.h in Headers */,
-				4FBDEE6F230FEA97003C3CF9 /* AppConfig.h in Headers */,
 				4EC96B7E17D3A49500F63E38 /* tuning.h in Headers */,
-				4FBDF079230FEA97003C3CF9 /* JuceHeader.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2798,7 +2787,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo ---------------------------------\necho ------ post build script --------\necho ---------------------------------\n\nNewName=$PRODUCT_NAME\"_\"$MODULE_USER_VERSION\"_\"$MODULE_DEV_VERSION.$EXECUTABLE_EXTENSION\n\ncp -f \"$CONFIGURATION_BUILD_DIR/$PRODUCT_NAME.$EXECUTABLE_EXTENSION\" \"$SRCROOT/../../Bin/Devices/$NewName\"";
+			shellScript = "echo ---------------------------------\necho ------ post build script --------\necho ---------------------------------\n\nNewName=$PRODUCT_NAME\"_\"$MODULE_USER_VERSION\"_\"$MODULE_DEV_VERSION.$EXECUTABLE_EXTENSION\n\ncp -f \"$CONFIGURATION_BUILD_DIR/$PRODUCT_NAME.$EXECUTABLE_EXTENSION\" \"$SRCROOT/../../Bin/Devices/$NewName\"\n";
 		};
 		4F8E384C230ECF4300163089 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2824,7 +2813,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo ---------------------------------\necho ------ post build script --------\necho ---------------------------------\n\nNewName=$PRODUCT_NAME.$EXECUTABLE_EXTENSION\n\ncp -f \"$CONFIGURATION_BUILD_DIR/$PRODUCT_NAME.$EXECUTABLE_EXTENSION\" \"$SRCROOT/../../Bin/Devices/$NewName\"";
+			shellScript = "echo ---------------------------------\necho ------ post build script --------\necho ---------------------------------\n\nNewName=$PRODUCT_NAME.$EXECUTABLE_EXTENSION\n\ncp -f \"$CONFIGURATION_BUILD_DIR/$PRODUCT_NAME.$EXECUTABLE_EXTENSION\" \"$SRCROOT/../../Bin/Devices/$NewName\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2952,25 +2941,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FBDEF23230FEA97003C3CF9 /* include_juce_audio_utils.mm in Sources */,
 				4EC96B8417D3A4D900F63E38 /* UserModule.cpp in Sources */,
-				4FBDEEB7230FEA97003C3CF9 /* include_juce_audio_devices.mm in Sources */,
-				4FBDEEFF230FEA97003C3CF9 /* include_juce_audio_processors.mm in Sources */,
-				4FBDF01F230FEA97003C3CF9 /* include_juce_gui_extra.mm in Sources */,
-				4FBDEFD7230FEA97003C3CF9 /* include_juce_graphics.mm in Sources */,
-				4FBDEFFB230FEA97003C3CF9 /* include_juce_gui_basics.mm in Sources */,
-				4FBDEEDB230FEA97003C3CF9 /* include_juce_audio_formats.mm in Sources */,
-				4FBDEF8F230FEA97003C3CF9 /* include_juce_data_structures.mm in Sources */,
 				4EC96B8517D3A4D900F63E38 /* UserUtils.cpp in Sources */,
 				4EC96B7717D3A49500F63E38 /* allpass.cpp in Sources */,
-				4FBDEFB3230FEA97003C3CF9 /* include_juce_events.mm in Sources */,
-				4FBDEE93230FEA97003C3CF9 /* include_juce_audio_basics.mm in Sources */,
-				4FBDF067230FEA97003C3CF9 /* include_juce_video.mm in Sources */,
 				4EC96B7917D3A49500F63E38 /* comb.cpp in Sources */,
 				4EC96B7C17D3A49500F63E38 /* Reverb.cpp in Sources */,
-				4FBDEF6B230FEA97003C3CF9 /* include_juce_cryptography.mm in Sources */,
-				4FBDEF47230FEA97003C3CF9 /* include_juce_core.mm in Sources */,
-				4FBDF043230FEA97003C3CF9 /* include_juce_opengl.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3198,6 +3173,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FBAD7C4231AD29C007CF2AE /* include_juce_graphics.mm in Sources */,
+				4F606E48239A6C6A00401FF2 /* include_juce_opengl.mm in Sources */,
+				4F606E46239A6C6300401FF2 /* include_juce_gui_basics.mm in Sources */,
+				4F606E47239A6C6700401FF2 /* include_juce_gui_extra.mm in Sources */,
 				4FBAD7B8231ACFC3007CF2AE /* include_juce_audio_utils.mm in Sources */,
 				4FBAD7BB231ACFC3007CF2AE /* include_juce_data_structures.mm in Sources */,
 				7486BAB215764FFB00B92BD8 /* UserUtils.cpp in Sources */,
@@ -3210,6 +3188,8 @@
 				4FBAD7B5231ACFC3007CF2AE /* include_juce_audio_devices.mm in Sources */,
 				4FBAD7B9231ACFC3007CF2AE /* include_juce_core.mm in Sources */,
 				4F8ED9FA21F0C8E800287706 /* JuceUtils.cpp in Sources */,
+				4F606E45239A6C5D00401FF2 /* include_juce_cryptography.mm in Sources */,
+				4F606E49239A6C6D00401FF2 /* include_juce_video.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3489,7 +3469,7 @@
 					"\"../../libs/VST3 SDK\"",
 					"\"../../libs/FTDI\"/**",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MODULE_DEV_VERSION = 1;
 				MODULE_USER_VERSION = 4.0;
 				ONLY_ACTIVE_ARCH = YES;
@@ -3549,7 +3529,7 @@
 					"\"../../libs/VST3 SDK\"",
 					"\"../../libs/FTDI\"/**",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MODULE_DEV_VERSION = 1;
 				MODULE_USER_VERSION = 4.0;
 				OTHER_CFLAGS = "";
@@ -3922,8 +3902,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_CXX_LIBRARY = "libc++";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DSTROOT = "/Users/senso/NextCloud/Usine/Usine Development/Usine-SDK/temp/$(PROJECT_NAME).dst";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = "usr-osx64";
@@ -3935,9 +3917,19 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../../libs/juce_v5/modules\"",
+					"\"../../libs/VST3 SDK\"",
+				);
 				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../../libs/juce_v5/modules\"",
+					"\"../../libs/VST3 SDK\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				MODULE_DEV_VERSION = 1;
+				MODULE_DEV_VERSION = 2;
 				MODULE_USER_VERSION = 4.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -3948,7 +3940,8 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = Reverb;
-				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/HH3 SDK/temp";
+				SDKROOT = macosx10.11;
+				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/Usine-SDK/temp";
 				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
@@ -3959,8 +3952,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_CXX_LIBRARY = "libc++";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DSTROOT = "/Users/senso/NextCloud/Usine/Usine Development/Usine-SDK/temp/$(PROJECT_NAME).dst";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = "usr-osx64";
@@ -3971,9 +3966,19 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../../libs/juce_v5/modules\"",
+					"\"../../libs/VST3 SDK\"",
+				);
 				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../../libs/juce_v5/modules\"",
+					"\"../../libs/VST3 SDK\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				MODULE_DEV_VERSION = 1;
+				MODULE_DEV_VERSION = 2;
 				MODULE_USER_VERSION = 4.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -3984,7 +3989,8 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = Reverb;
-				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/HH3 SDK/temp";
+				SDKROOT = macosx10.11;
+				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/Usine-SDK/temp";
 				VALID_ARCHS = x86_64;
 				ZERO_LINK = NO;
 			};
@@ -4073,12 +4079,13 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_PRAGMA_PACK = NO;
 				CLANG_X86_VECTOR_INSTRUCTIONS = default;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = ZKQCVWSS5R;
+				DEVELOPMENT_TEAM = "";
 				DSTROOT = "/Users/senso/Dropbox/Usine/Usine Development/Usine-SDK/temp/$(PROJECT_NAME).dst";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -4135,7 +4142,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
-				SDKROOT = "";
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/Usine-SDK/temp";
 				TEST_HOST = "/Users/senso/PAServer/scratch-dir/SENSO-OSX64/Usine.app";
@@ -4153,12 +4160,13 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_PRAGMA_PACK = NO;
 				CLANG_X86_VECTOR_INSTRUCTIONS = default;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = ZKQCVWSS5R;
+				DEVELOPMENT_TEAM = "";
 				DSTROOT = "/Users/senso/Dropbox/Usine/Usine Development/Usine-SDK/temp/$(PROJECT_NAME).dst";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -4210,7 +4218,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
-				SDKROOT = "";
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/Usine-SDK/temp";
 				TEST_HOST = "/Users/senso/PAServer/scratch-dir/SENSO-OSX64/Usine.app";
@@ -4232,7 +4240,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZKQCVWSS5R;
-				DSTROOT = "/Users/senso/NextCloud/Usine/Usine Development/HH3 SDK/temp/$(PROJECT_NAME).dst";
+				DSTROOT = "/Users/senso/NextCloud/Usine/Usine Development/Usine-SDK/temp/$(PROJECT_NAME).dst";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				ENABLE_TESTABILITY = YES;
@@ -4322,7 +4330,7 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZKQCVWSS5R;
-				DSTROOT = "/Users/senso/NextCloud/Usine/Usine Development/HH3 SDK/temp/$(PROJECT_NAME).dst";
+				DSTROOT = "/Users/senso/NextCloud/Usine/Usine Development/Usine-SDK/temp/$(PROJECT_NAME).dst";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = "usr-osx64";
@@ -4995,12 +5003,12 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_X86_VECTOR_INSTRUCTIONS = default;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = ZKQCVWSS5R;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = "usr-osx64";
@@ -5039,10 +5047,10 @@
 					"\"../../libs/VST3 SDK\"",
 					"\"../../libs/vstsdk2.4/\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				MODULE_DEV_VERSION = 1;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULE_DEV_VERSION = 2;
 				MODULE_USER_VERSION = 4.0;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-Wno-write-strings",
@@ -5051,10 +5059,11 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = DeviceAudio;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.12;
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
-				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/HH3 SDK/temp";
+				SUPPORTED_PLATFORMS = macosx;
+				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/Usine-SDK/temp";
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = x86_64;
 			};
@@ -5069,11 +5078,11 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_X86_VECTOR_INSTRUCTIONS = default;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = ZKQCVWSS5R;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = "usr-osx64";
@@ -5108,10 +5117,10 @@
 					"\"../../libs/VST3 SDK\"",
 					"\"../../libs/vstsdk2.4/\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				MODULE_DEV_VERSION = 1;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULE_DEV_VERSION = 2;
 				MODULE_USER_VERSION = 4.0;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-Wno-write-strings",
@@ -5120,9 +5129,10 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = DeviceAudio;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.12;
 				SKIP_INSTALL = YES;
-				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/HH3 SDK/temp";
+				SUPPORTED_PLATFORMS = macosx;
+				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/Usine-SDK/temp";
 				VALID_ARCHS = x86_64;
 				ZERO_LINK = NO;
 			};

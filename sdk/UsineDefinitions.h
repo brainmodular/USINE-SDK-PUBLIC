@@ -878,7 +878,7 @@ typedef void(*FuncSetParamVisible)	    (ModuleInfo* pModuleInfo, int numParam, L
 typedef void(*FuncRecreateParam)	    (ModuleInfo* pModuleInfo, int numParam, TParamInfo* pParamInfo);
 typedef void (*FuncRepaintParam)		(ModuleInfo* pModuleInfo, int numParam);
 typedef void (*FuncSetParamValueText)	(ModuleInfo* pModuleInfo, int numParam, AnsiCharPtr valueText);
-
+typedef LongBool (*FuncLoading)	    (ModuleInfo* pModuleInfo);
 
 // audio callbacks
 typedef void (*FuncAudioDeviceIOCallback)	(const float** inputChannelData, int numInputChannels, float** outputChannelData, int numOutputChannels, int numSamples);
@@ -1223,7 +1223,7 @@ struct MasterInfo
 	// various
 	FuncDialogInputBox              DialogInputBox;
 	FuncRecreateParam               RecreateParam;
-	LongBoolPtr                     PatchLoading;
+	FuncLoading                     PatchLoading;
 };
 
 //-----------------------------------------------------------------------------

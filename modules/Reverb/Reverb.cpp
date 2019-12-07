@@ -439,21 +439,23 @@ void Reverb::onProcess ()
         int va = v * numallpasses; 
         TPrecision* processInputPtr = sdkGetEvtDataAddr (processInput[v]);
         TPrecision* processOutputPtr = sdkGetEvtDataAddr (processOutput[v]);
-
-        for (int s = 0; s < sampleFrames; ++s)
+        if ((processOutputPtr != NULL) && (processInputPtr != NULL))
         {
-            // Accumulate comb filters in parallel
-            for(int c = 0; c < numcombs; ++c)
+            for (int s = 0; s < sampleFrames; ++s)
             {
-                // sdkSetEvtArrayData (processOutput[v], s, *(processOutputPtr + s) + combvoices[vc + c].process(*(processInputPtr + s)));
-                *(processOutputPtr + s) = *(processOutputPtr + s) + combvoices[vc + c].process(*(processInputPtr + s));
-            }
-            
-            // Feed through allpasses in series
-            for(int a = 0; a < numallpasses; ++a)
-            {
-                // sdkSetEvtArrayData (processOutput[v], s, allpassvoices[va + a].process(*(processOutputPtr + s)));
-                *(processOutputPtr + s) = allpassvoices[va + a].process(*(processOutputPtr + s));
+                // Accumulate comb filters in parallel
+                for(int c = 0; c < numcombs; ++c)
+                {
+                    // sdkSetEvtArrayData (processOutput[v], s, *(processOutputPtr + s) + combvoices[vc + c].process(*(processInputPtr + s)));
+                    *(processOutputPtr + s) = *(processOutputPtr + s) + combvoices[vc + c].process(*(processInputPtr + s));
+                }
+                
+                // Feed through allpasses in series
+                for(int a = 0; a < numallpasses; ++a)
+                {
+                    // sdkSetEvtArrayData (processOutput[v], s, allpassvoices[va + a].process(*(processOutputPtr + s)));
+                    *(processOutputPtr + s) = allpassvoices[va + a].process(*(processOutputPtr + s));
+                }
             }
         }
     }

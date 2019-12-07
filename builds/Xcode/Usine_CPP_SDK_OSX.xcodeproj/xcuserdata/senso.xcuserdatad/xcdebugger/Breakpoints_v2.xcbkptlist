@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Bucket
+   uuid = "D7822A99-B95A-4F00-9690-2F378D837FB7"
    type = "1"
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "45EB1FD9-B25B-4668-8AC5-75BCD79ADA6D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -22,6 +24,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "04706C29-464D-4240-8E5D-749E09808BEC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -38,6 +41,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "D044D14E-209F-465B-83EA-9D1CC5EEB389"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -54,6 +58,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "54C1236E-EE8D-4D3E-95B7-ECD1206E76BE"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -70,6 +75,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "42FDF509-901C-4F2B-A060-9E3C9590E2FC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -86,6 +92,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "5C2BF80C-F074-4407-AF15-78F5DDA3231F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -102,6 +109,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "15B35B94-FEAF-4210-80C0-117A81479203"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -118,6 +126,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "48D6A2D6-23C9-420F-ABFA-7AA1A2B99FA7"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -134,6 +143,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "841CA90B-F654-4E6A-8D3F-EA94E7A09B74"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -150,6 +160,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "CD6966E7-D30B-469A-A91A-68903665ED32"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -163,6 +174,7 @@
             landmarkType = "7">
             <Locations>
                <Location
+                  uuid = "CD6966E7-D30B-469A-A91A-68903665ED32 - d9be3fd5abb4f448"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -178,6 +190,7 @@
                   offsetFromSymbolStart = "15">
                </Location>
                <Location
+                  uuid = "CD6966E7-D30B-469A-A91A-68903665ED32 - b63d4f3f49551727"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -198,6 +211,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "0C8ABBB5-6AAD-4979-81F8-2FEFA0B28704"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -214,6 +228,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "4E4AB5E7-226D-4F7E-BAC3-8FBD9E5B24F6"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -230,6 +245,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "F369F267-38E8-4B58-A72C-E07131573478"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -246,6 +262,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "6FD4BBF4-8BF7-4DC4-B17A-CCF2E550FDA6"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -262,6 +279,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "83A57FFB-EC07-4D3C-9EF3-0C7993E7D89B"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -278,6 +296,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "230D0D88-1DF6-4F49-BDED-BE87B1B4788D"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -294,6 +313,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "615D5D88-0DAF-41E6-8EFF-19AA902FF172"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -310,6 +330,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "B603AD48-5613-4204-9285-ACDDCE7FF732"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -326,6 +347,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "0D59DAAE-859D-4251-AFA9-13C6A4B83922"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -340,6 +362,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "6F64C5A2-02FC-4A3A-A469-1FEC9D8D2359"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -353,6 +376,7 @@
             landmarkType = "7">
             <Locations>
                <Location
+                  uuid = "6F64C5A2-02FC-4A3A-A469-1FEC9D8D2359 - dd75aa9000a3ccca"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -368,6 +392,7 @@
                   offsetFromSymbolStart = "436">
                </Location>
                <Location
+                  uuid = "6F64C5A2-02FC-4A3A-A469-1FEC9D8D2359 - 49e54a45abafba65"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -388,6 +413,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "14DA88A9-167F-4A70-9297-6D4BA0F5E2A4"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -404,6 +430,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "F4AA5605-88F3-4395-AF56-94BFBEA2A347"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -418,6 +445,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "F7301918-3349-45E0-89BC-426905AD9DB7"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -431,6 +459,7 @@
             landmarkType = "7">
             <Locations>
                <Location
+                  uuid = "F7301918-3349-45E0-89BC-426905AD9DB7 - 2f9773c1c71a300f"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -446,6 +475,7 @@
                   offsetFromSymbolStart = "279">
                </Location>
                <Location
+                  uuid = "F7301918-3349-45E0-89BC-426905AD9DB7 - bb0793146c1646a0"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -466,6 +496,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "CCD4FFED-1BAB-43D9-9ADB-030866554DED"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -477,6 +508,7 @@
             endingLineNumber = "570">
             <Locations>
                <Location
+                  uuid = "CCD4FFED-1BAB-43D9-9ADB-030866554DED - e9968dd4c7187e60"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -492,6 +524,7 @@
                   offsetFromSymbolStart = "103">
                </Location>
                <Location
+                  uuid = "CCD4FFED-1BAB-43D9-9ADB-030866554DED - ccc8c81cb238c4dc"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -507,6 +540,7 @@
                   offsetFromSymbolStart = "116">
                </Location>
                <Location
+                  uuid = "CCD4FFED-1BAB-43D9-9ADB-030866554DED - f9bba5e291b695eb"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -522,6 +556,7 @@
                   offsetFromSymbolStart = "164">
                </Location>
                <Location
+                  uuid = "CCD4FFED-1BAB-43D9-9ADB-030866554DED - f9bba5e296b496e5"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -537,6 +572,7 @@
                   offsetFromSymbolStart = "101">
                </Location>
                <Location
+                  uuid = "CCD4FFED-1BAB-43D9-9ADB-030866554DED - 585828c91934b273"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -552,6 +588,7 @@
                   offsetFromSymbolStart = "105">
                </Location>
                <Location
+                  uuid = "CCD4FFED-1BAB-43D9-9ADB-030866554DED - 6d2b45373abae344"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -567,6 +604,7 @@
                   offsetFromSymbolStart = "105">
                </Location>
                <Location
+                  uuid = "CCD4FFED-1BAB-43D9-9ADB-030866554DED - 6d2b45373db8e04a"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -582,6 +620,7 @@
                   offsetFromSymbolStart = "105">
                </Location>
                <Location
+                  uuid = "CCD4FFED-1BAB-43D9-9ADB-030866554DED - 7d066d016c1408cf"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -602,6 +641,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "CC1A0715-2C11-4B9E-859D-14CE50C94327"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -615,6 +655,7 @@
             landmarkType = "7">
             <Locations>
                <Location
+                  uuid = "CC1A0715-2C11-4B9E-859D-14CE50C94327 - 490c929fcd48e147"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -630,6 +671,7 @@
                   offsetFromSymbolStart = "107">
                </Location>
                <Location
+                  uuid = "CC1A0715-2C11-4B9E-859D-14CE50C94327 - dd9c724a664497e8"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -650,6 +692,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "7836AFFF-845B-470C-96DE-AC99026A1F16"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -663,6 +706,7 @@
             landmarkType = "7">
             <Locations>
                <Location
+                  uuid = "7836AFFF-845B-470C-96DE-AC99026A1F16 - 501b982953f4a1a4"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -678,6 +722,7 @@
                   offsetFromSymbolStart = "451">
                </Location>
                <Location
+                  uuid = "7836AFFF-845B-470C-96DE-AC99026A1F16 - c48b78fcf8f8d70b"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -698,6 +743,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "FE936CDD-44EE-4D71-AD80-9DD3E0CF2F60"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -712,6 +758,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "CC614B89-2E3C-4037-81BD-4EAE6D697F44"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -728,6 +775,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "E1F88749-BA9C-4294-8701-A46AD926C0AA"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -744,6 +792,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "C5BE3854-7939-4000-B35F-FB3438AD7C9F"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -758,6 +807,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "F310A0A4-CECA-4F18-8F1E-4708CDA488B4"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -772,7 +822,8 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            uuid = "2B84D601-F14E-4954-9E1F-8F8A3966CEDC"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../modules/PluginWrapper-juce_54/PluginWrapper.cpp"
@@ -781,14 +832,15 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1224"
             endingLineNumber = "1224"
-            landmarkName = "PluginWrapper::onSetChunk (const void* chunk, int sizeInBytes, LongBool isPreset)"
+            landmarkName = "PluginWrapper::onSetChunk(chunk, sizeInBytes, isPreset)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            uuid = "DFA72955-EA30-41F2-8917-2867C70A94C1"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../modules/PluginWrapper-juce_54/PluginWrapper.cpp"
@@ -797,13 +849,14 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1196"
             endingLineNumber = "1196"
-            landmarkName = "PluginWrapper::onSetChunk (const void* chunk, int sizeInBytes, LongBool isPreset)"
+            landmarkName = "PluginWrapper::onGetChunk(chunk, isPreset)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "D27966B8-753F-4E8E-A3E8-FC07554567C4"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -813,13 +866,14 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "672"
             endingLineNumber = "672"
-            landmarkName = "PluginWrapper::onCallBack (UsineMessage *Message)"
+            landmarkName = "PluginWrapper::onSetEventAddress(numParam, pEvent)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "BC1E2FAF-8B30-402A-A45C-6172BB778E63"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -827,15 +881,16 @@
             timestampString = "592314645.632503"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1724"
-            endingLineNumber = "1724"
-            landmarkName = "PluginWrapper::createPlugin (String optionalString, LongBool Flag, String optionalContent )"
+            startingLineNumber = "1733"
+            endingLineNumber = "1733"
+            landmarkName = "PluginWrapper::updateModuleParamsName()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "C850F7C6-423A-4BD6-86D9-093A2E55F904"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -843,15 +898,16 @@
             timestampString = "592315435.577188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1709"
-            endingLineNumber = "1709"
-            landmarkName = "PluginWrapper::createPlugin (String optionalString, LongBool Flag, String optionalContent )"
+            startingLineNumber = "1718"
+            endingLineNumber = "1718"
+            landmarkName = "PluginWrapper::updateModuleParamsName()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "95CFBCD4-9687-4071-B0E7-700B45DEFBB4"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -866,6 +922,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "5D875BE9-7942-4A61-A585-78FAEC5865BB"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -880,6 +937,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "CE2E9EC0-7BBB-4127-A6D4-938521150FEB"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -894,6 +952,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "42996748-AB3F-4C66-B48A-A1C4908E0CBA"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -908,6 +967,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "E3B4385A-ADE9-4F60-8756-6C63C73F6A33"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -924,6 +984,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "51619AEC-C534-4705-A119-95FCD2BD0A42"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -935,59 +996,29 @@
             endingLineNumber = "3483"
             landmarkName = "createAndUpdateDesc (VSTPluginFormat&amp; format, PluginDescription&amp; desc)"
             landmarkType = "9">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "juce::createAndUpdateDesc(juce::VSTPluginFormat&amp;, juce::PluginDescription&amp;)"
-                  moduleName = "PluginLister_4.0_1.usr-osx64"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/Usine-SDK/builds/Xcode/../../libs/juce_v54/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
-                  timestampString = "592390747.0447659"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "3483"
-                  endingLineNumber = "3483"
-                  offsetFromSymbolStart = "29">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "juce::createAndUpdateDesc(juce::VSTPluginFormat&amp;, juce::PluginDescription&amp;)"
-                  moduleName = "PluginLister_4.0_1.usr-osx64"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/Usine-SDK/builds/Xcode/../../libs/juce_v54/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
-                  timestampString = "592390747.048566"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "3483"
-                  endingLineNumber = "3483"
-                  offsetFromSymbolStart = "62">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "B928EB9E-672D-45D4-927F-60FF6383A2E8"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../libs/juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+            filePath = "../../libs/Juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
             timestampString = "592331760.95953"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1193"
             endingLineNumber = "1193"
-            landmarkName = "initialise (double initialSampleRate, int initialBlockSize)"
-            landmarkType = "9">
+            landmarkName = "initialise(initialSampleRate, initialBlockSize)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "E6AEC9BB-C781-4166-A15D-932705F63794"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1004,6 +1035,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "FA1066DF-DF01-4FA2-8DA4-8C355AED2D44"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1015,43 +1047,12 @@
             endingLineNumber = "1148"
             landmarkName = "create (const ModuleHandle::Ptr&amp; newModule, double initialSampleRate, int initialBlockSize)"
             landmarkType = "9">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "juce::VSTPluginInstance::create(juce::ReferenceCountedObjectPtr&lt;juce::ModuleHandle&gt; const&amp;, double, int)"
-                  moduleName = "PluginLister_4.0_1.usr-osx64"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/Usine-SDK/builds/Xcode/../../libs/juce_v54/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
-                  timestampString = "592390747.061136"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1148"
-                  endingLineNumber = "1148"
-                  offsetFromSymbolStart = "23">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "juce::VSTPluginInstance::create(juce::ReferenceCountedObjectPtr&lt;juce::ModuleHandle&gt; const&amp;, double, int)"
-                  moduleName = "PluginLister_4.0_1.usr-osx64"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/Usine-SDK/builds/Xcode/../../libs/juce_v54/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
-                  timestampString = "592390747.0628951"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1148"
-                  endingLineNumber = "1148"
-                  offsetFromSymbolStart = "41">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "1DCC3B84-48BB-401E-BEA1-050303492C5D"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1059,15 +1060,16 @@
             timestampString = "592381028.099833"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1747"
-            endingLineNumber = "1747"
-            landmarkName = "PluginWrapper::createPlugin (String optionalString, LongBool Flag, String optionalContent )"
+            startingLineNumber = "1756"
+            endingLineNumber = "1756"
+            landmarkName = "PluginWrapper::createPlugin(optionalString, Flag, optionalContent)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "ACD9A6CC-2FE8-4168-8D44-4279D3B0EA35"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1075,15 +1077,16 @@
             timestampString = "592382065.0643049"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1779"
-            endingLineNumber = "1779"
-            landmarkName = "PluginWrapper::createPlugin (String optionalString, LongBool Flag, String optionalContent )"
+            startingLineNumber = "1788"
+            endingLineNumber = "1788"
+            landmarkName = "PluginWrapper::createPlugin(optionalString, Flag, optionalContent)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "47D8B4ED-FF29-4003-BF47-ED254949359A"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1091,15 +1094,16 @@
             timestampString = "592382565.9045"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1787"
-            endingLineNumber = "1787"
-            landmarkName = "PluginWrapper::createPlugin (String optionalString, LongBool Flag, String optionalContent )"
+            startingLineNumber = "1796"
+            endingLineNumber = "1796"
+            landmarkName = "PluginWrapper::createPlugin(optionalString, Flag, optionalContent)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "01000667-1956-4F39-9E66-334AEB959313"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1107,15 +1111,16 @@
             timestampString = "592383438.879899"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1801"
-            endingLineNumber = "1801"
-            landmarkName = "PluginWrapper::createPlugin (String optionalString, LongBool Flag, String optionalContent )"
+            startingLineNumber = "1810"
+            endingLineNumber = "1810"
+            landmarkName = "PluginWrapper::createPlugin(optionalString, Flag, optionalContent)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "C146BCAE-080E-4DE9-A11F-15A9A75541BD"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1125,10 +1130,11 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "126"
             endingLineNumber = "126"
-            landmarkName = "AudioPluginFormatManager::createPluginInstance (const PluginDescription&amp; description, double rate, int blockSize, String&amp; errorMessage)"
+            landmarkName = "AudioPluginFormatManager::createPluginInstance(description, rate, blockSize, errorMessage)"
             landmarkType = "7">
             <Locations>
                <Location
+                  uuid = "C146BCAE-080E-4DE9-A11F-15A9A75541BD - 5a903b96a24508f1"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -1144,6 +1150,7 @@
                   offsetFromSymbolStart = "31">
                </Location>
                <Location
+                  uuid = "C146BCAE-080E-4DE9-A11F-15A9A75541BD - 5a903b96a24508f1"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -1164,188 +1171,233 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            uuid = "4C5339E4-0F1E-44DB-9DEC-74F3FCA892DE"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../libs/juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+            filePath = "../../libs/Juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
             timestampString = "592389654.946512"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3346"
             endingLineNumber = "3346"
-            landmarkName = "VSTPluginFormat::createPluginInstance (const PluginDescription&amp; desc, double sampleRate, int blockSize, void* userData, void (*callback) (void*, AudioPluginInstance*, const String&amp;))"
+            landmarkName = "VSTPluginFormat::createPluginInstance(desc, sampleRate, blockSize, userData)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "A7771354-B66E-4197-ACCD-82E3A6AA5935"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../libs/juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+            filePath = "../../libs/Juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
             timestampString = "592389654.946512"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3344"
             endingLineNumber = "3344"
-            landmarkName = "VSTPluginFormat::createPluginInstance (const PluginDescription&amp; desc, double sampleRate, int blockSize, void* userData, void (*callback) (void*, AudioPluginInstance*, const String&amp;))"
+            landmarkName = "VSTPluginFormat::createPluginInstance(desc, sampleRate, blockSize, userData)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "4799F424-94F8-4081-BFAF-C212C6FFD16C"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../libs/juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+            filePath = "../../libs/Juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
             timestampString = "592389654.946512"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3340"
             endingLineNumber = "3340"
-            landmarkName = "VSTPluginFormat::createPluginInstance (const PluginDescription&amp; desc, double sampleRate, int blockSize, void* userData, void (*callback) (void*, AudioPluginInstance*, const String&amp;))"
+            landmarkName = "VSTPluginFormat::createPluginInstance(desc, sampleRate, blockSize, userData)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            uuid = "BC832D73-F737-4A74-883B-C78E998F6F67"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../libs/juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+            filePath = "../../libs/Juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
             timestampString = "592389308.27382"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1127"
             endingLineNumber = "1127"
-            landmarkName = "create (const ModuleHandle::Ptr&amp; newModule, double initialSampleRate, int initialBlockSize)"
-            landmarkType = "9">
+            landmarkName = "create(newModule, initialSampleRate, initialBlockSize)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BC832D73-F737-4A74-883B-C78E998F6F67 - e054d2917bac711a"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "juce::VSTPluginInstance::create(juce::ReferenceCountedObjectPtr&lt;juce::ModuleHandle&gt; const&amp;, double, int)"
+                  moduleName = "PluginWrapper.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/Usine-SDK/libs/juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1127"
+                  endingLineNumber = "1127"
+                  offsetFromSymbolStart = "31">
+               </Location>
+               <Location
+                  uuid = "BC832D73-F737-4A74-883B-C78E998F6F67 - e054d2917bac711a"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "juce::VSTPluginInstance::create(juce::ReferenceCountedObjectPtr&lt;juce::ModuleHandle&gt; const&amp;, double, int)"
+                  moduleName = "PluginWrapper.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/Usine-SDK/libs/juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1127"
+                  endingLineNumber = "1127"
+                  offsetFromSymbolStart = "39">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "99210C4F-90BC-448A-B3C7-D87777875239"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../libs/juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+            filePath = "../../libs/Juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
             timestampString = "592389654.946512"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2050"
             endingLineNumber = "2050"
-            landmarkName = "constructEffect (const ModuleHandle::Ptr&amp; module)"
-            landmarkType = "9">
+            landmarkName = "constructEffect(module)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            uuid = "0ED4237C-7E1C-4BCE-81C3-83F6C3CD99BF"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../libs/juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+            filePath = "../../libs/Juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
             timestampString = "592390941.44971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "646"
             endingLineNumber = "646"
             landmarkName = "open()"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "64F642A6-E6CE-44AE-99E8-B88C3A018457"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../libs/juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+            filePath = "../../libs/Juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
             timestampString = "592391936.877775"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "743"
             endingLineNumber = "743"
             landmarkName = "open()"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            uuid = "91DE4432-4E5F-419E-9887-7557D8DA453D"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../libs/juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+            filePath = "../../libs/Juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
             timestampString = "592392253.9471999"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2047"
             endingLineNumber = "2047"
-            landmarkName = "constructEffect (const ModuleHandle::Ptr&amp; module)"
-            landmarkType = "9">
+            landmarkName = "constructEffect(module)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "96E3BA37-A0E3-40B8-94B6-34717C22F33D"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../libs/juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+            filePath = "../../libs/Juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
             timestampString = "592392612.733369"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3240"
             endingLineNumber = "3240"
-            landmarkName = "audioMaster (VstEffectInterface* effect, int32 opcode, int32 index, pointer_sized_int value, void* ptr, float opt)"
+            landmarkName = "audioMaster(effect, opcode, index, value, ptr, opt)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "9406287D-D940-41A0-940E-A51B0AB6FA13"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../libs/juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+            filePath = "../../libs/Juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
             timestampString = "592392704.214801"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1644"
             endingLineNumber = "1644"
-            landmarkName = "handleGeneralCallback (int32 opcode, int32 /*index*/, pointer_sized_int /*value*/, void* ptr"
-            landmarkType = "9">
+            landmarkName = "handleGeneralCallback(opcode, ptr)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            uuid = "95B64D67-BA40-46CC-B412-97E331FA8817"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../libs/juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+            filePath = "../../libs/Juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
             timestampString = "592392705.472102"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1643"
             endingLineNumber = "1643"
-            landmarkName = "handleGeneralCallback (int32 opcode, int32 /*index*/, pointer_sized_int /*value*/, void* ptr"
-            landmarkType = "9">
+            landmarkName = "handleGeneralCallback(opcode, ptr)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.AddressBreakpoint">
          <BreakpointContent
+            uuid = "E820DC32-2E8C-4A0D-89F5-ADE7B6904E8E"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             symbolName = "*0x12158a377">
             <Locations>
                <Location
+                  uuid = "E820DC32-2E8C-4A0D-89F5-ADE7B6904E8E - 57980d61f56d4f4e"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -1360,38 +1412,41 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "7E42750A-3EE9-4F20-8099-D190F9C7CD01"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../libs/juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+            filePath = "../../libs/Juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
             timestampString = "592394301.177695"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1977"
             endingLineNumber = "1977"
-            landmarkName = "getHostName (char* name)"
-            landmarkType = "9">
+            landmarkName = "getHostName(name)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            uuid = "9BC6B8C8-7E34-4D88-9E96-52435430981C"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../libs/juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+            filePath = "../../libs/Juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
             timestampString = "592394493.18181"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1975"
             endingLineNumber = "1975"
-            landmarkName = "getHostName (char* name)"
-            landmarkType = "9">
+            landmarkName = "getHostName(name)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.AddressBreakpoint">
          <BreakpointContent
+            uuid = "16BD24E0-68AA-40D6-A151-1CE0446E72CF"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1401,10 +1456,8 @@
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Flux::CVST2Wrapper::CVST2Wrapper(long long (*)(AEffect*, int, int, long long, void*, float))"
-                  moduleName = "TemplatePlugin-x64"
                   usesParentBreakpointCondition = "Yes"
-                  offsetFromSymbolStart = "2120">
+                  offsetFromSymbolStart = "0">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1412,6 +1465,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.AddressBreakpoint">
          <BreakpointContent
+            uuid = "B1A3A346-09A7-425A-86C0-DD060AD888A4"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1421,10 +1475,8 @@
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Flux::CVST2Wrapper::CVST2Wrapper(long long (*)(AEffect*, int, int, long long, void*, float))"
-                  moduleName = "TemplatePlugin-x64"
                   usesParentBreakpointCondition = "Yes"
-                  offsetFromSymbolStart = "1625">
+                  offsetFromSymbolStart = "0">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1432,6 +1484,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "D574E24B-3DC8-43E2-882B-7E0100215E59"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1441,7 +1494,343 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "303"
             endingLineNumber = "303"
-            landmarkName = "PluginWrapper::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "82A5804C-1081-444B-93F7-0397E42A8C31"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../libs/Juce_v5/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "707"
+            endingLineNumber = "707"
+            landmarkName = "ModuleHandle"
+            landmarkType = "14">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BD8A4AC4-DC47-4E62-9AB3-B6BDBD2D6D6E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../sdk/UserModule.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "293"
+            endingLineNumber = "293"
+            landmarkName = "CallBack(pModule, Message)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5D1007CF-C2B5-4778-BD0D-71EFF075AD53"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../sdk/UserModule.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
+            landmarkName = "CallBack(pModule, Message)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EEFC8843-91BB-417D-B283-5049200224FE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_54/PluginWrapper.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1866"
+            endingLineNumber = "1866"
+            landmarkName = "PluginWrapper::createPluginInstanceFromDesc(plugDesc)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9BB71125-8A9C-4416-8347-3BD9AB3FA47B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_54/JucePluginWindow.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "PluginWindow::PluginWindow(module_, owner_, nativeWindowToAttachTo)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "07952759-73DE-4248-B9D0-D4F4DC308933"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_54/PluginWrapper.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
+            landmarkName = "PluginWrapper::onGetModuleInfo(pMasterInfo, pModuleInfo)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "70517B40-3013-4528-B298-DDA2E085BB5E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_54/PluginWrapper.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1891"
+            endingLineNumber = "1891"
+            landmarkName = "PluginWrapper::getPluginWindow()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E8D8435C-B6F1-45B3-ABC5-9041D152D0F4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_54/PluginWrapper.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1631"
+            endingLineNumber = "1631"
+            landmarkName = "PluginWrapper::setVisible(isVisible)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B250935D-C814-4DA1-ADDA-D50CE03CEC66"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../libs/Juce_v5/modules/juce_gui_basics/components/juce_Component.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "484"
+            endingLineNumber = "484"
+            landmarkName = "Component::~Component()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "38B2D69F-A381-440E-9A64-598311CA5008"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_54/PluginWrapper.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "695"
+            endingLineNumber = "695"
+            landmarkName = "PluginWrapper::onCallBack(Message)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9AD5AE08-0BD9-4E73-915C-18735D84A0CF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_54/PluginWrapper.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1885"
+            endingLineNumber = "1885"
+            landmarkName = "PluginWrapper::getPluginWindow()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "13623DE2-3AF3-4814-9208-452071ECA07A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_54/PluginWrapper.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "768"
+            endingLineNumber = "768"
+            landmarkName = "PluginWrapper::onCallBack(Message)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C3694801-C34C-4552-86F1-B09D32E11422"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_54/JucePluginWindow.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
+            landmarkName = "PluginWindow::paint(g)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "72842A41-A4CE-41E3-BDDB-20A178108565"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_54/JucePluginWindow.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
+            landmarkName = "PluginWindow::getNativeHandle()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6FC1ECFE-9B65-4BB6-B67E-73E645569D0A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_54/PluginWrapper.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2172"
+            endingLineNumber = "2172"
+            landmarkName = "PluginWrapper::keyPressed(key, originatingComponent)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9344988E-21B4-4369-8CD7-AEF573C8A7C5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../libs/Juce_v5/modules/juce_gui_basics/native/juce_mac_NSViewComponentPeer.mm"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1605"
+            endingLineNumber = "1605"
+            landmarkName = "mouseDown(self, s, ev)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D29136D8-4DB1-4A37-AD2F-76CF21B25402"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../libs/Juce_v5/modules/juce_gui_basics/native/juce_mac_NSViewComponentPeer.mm"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1618"
+            endingLineNumber = "1618"
+            landmarkName = "mouseUp(self, s, ev)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "08E3E285-35A4-4615-9D20-3574A6EAB94D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../libs/Juce_v5/modules/juce_gui_basics/native/juce_mac_NSViewComponentPeer.mm"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1659"
+            endingLineNumber = "1659"
+            landmarkName = "keyDown(self, ev)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5C109C5E-DB4E-4CCB-90A7-7F688C0FDE13"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../libs/Juce_v5/modules/juce_gui_basics/windows/juce_ComponentPeer.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "ComponentPeer::handleMouseEvent(type, pos, newMods, newPressure, newOrientation, time, pen, touchIndex)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "58A19CCA-8298-41DF-96EB-C9335D0F40D9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../libs/Juce_v5/modules/juce_gui_basics/windows/juce_ComponentPeer.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "ComponentPeer::handleKeyPress(keyInfo)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F8BA1AB5-A42B-4652-BFCE-5F1637EFE2D4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../libs/Juce_v5/modules/juce_gui_basics/native/juce_mac_NSViewComponentPeer.mm"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "715"
+            endingLineNumber = "715"
+            landmarkName = "handleKeyEvent(ev, isKeyDown)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

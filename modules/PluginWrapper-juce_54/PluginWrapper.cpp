@@ -215,14 +215,37 @@ void PluginWrapper::onGetModuleInfo (MasterInfo* pMasterInfo, ModuleInfo* pModul
 		{
 			//pluginName = pluginInstance->getName ();
 			caPluginName = pluginName.toUTF8 ();
+			int maxIn =  2;
+			int maxOut = 2;
 			//if (pluginInstance->vstEffect != NULL) 
-			pluginInstance->enableAllBuses();
+			try
+			{
+				if (pluginInstance->getBus(true, 0) != nullptr)
+				{
+					maxIn = pluginInstance->getBus(true, 0)->getMaxSupportedChannels(64);
+				}
+				else maxIn = 0;
+				if (pluginInstance->getBus(false, 0) != nullptr)
+				{
+					maxOut = pluginInstance->getBus(false, 0)->getMaxSupportedChannels(64);
+				}
+				else maxOut = 0;
+			}
+			catch (...)
+			{
+				maxIn = pluginInstance->getTotalNumInputChannels();
+				maxOut = pluginInstance->getTotalNumOutputChannels();
+			}
+
+
 
 			pluginInstance->setPlayConfigDetails(
-				std::max(2, pluginInstance->getTotalNumInputChannels()),
-				std::max(2, pluginInstance->getTotalNumOutputChannels()),
+				std::max(1, maxIn ),
+				std::max(1, maxOut ),  
 				sdkGetSampleRate(), 
 				sdkGetBlocSize());
+
+			pluginInstance->enableAllBuses();
 			numOfAudioIn = pluginInstance->getTotalNumInputChannels();
 			numOfAudioOut = pluginInstance->getTotalNumOutputChannels();
 
@@ -693,6 +716,7 @@ void PluginWrapper::onCallBack (UsineMessage *Message)
 		// show editor in
 		if (Message->wParam < offsetVisibleIn)
 		{
+            
 			int  visible =  (int)sdkGetEvtData (m_visibleEditor);
 			if (visible != TRUE)
 			{
@@ -720,6 +744,7 @@ void PluginWrapper::onCallBack (UsineMessage *Message)
 					pluginWindow->setVisible (true);
 					pluginWindow->setTopLeftPosition(lastEditorPosX, lastEditorPosY);
 					sdkTraceLogChar("call getPluginWindow ok");
+					pluginWindow->sendOnTop();
                 
                 }
 			}
@@ -760,6 +785,7 @@ void PluginWrapper::onCallBack (UsineMessage *Message)
                     sdkTraceLogChar("call getPluginWindow");
                     pluginWindow = getPluginWindow();
                     sdkTraceLogChar("call getPluginWindow ok");
+					pluginWindow->sendOnTop();
                     //addActionListener(pluginWindow);
                     //MessageManager::getInstance()->registerBroadcastListener(pluginWindow);
                 }
@@ -1341,11 +1367,15 @@ void PluginWrapper::onSetChunk (const void* chunk, int sizeInBytes, LongBool isP
 
 void PluginWrapper::onOpenEditor()
 {
+    if (pluginInstance.get () == nullptr)
+    return;
+    
     if(pluginWindow == nullptr)
     {
     sdkTraceLogChar("call getPluginWindow");
     pluginWindow = getPluginWindow();
     sdkTraceLogChar("call getPluginWindow ok");
+	pluginWindow->sendOnTop();
     //addActionListener(pluginWindow);
     }
 	else
@@ -1363,6 +1393,9 @@ void PluginWrapper::updateName()
 
 void PluginWrapper::sendOnTop()
 {
+    if (pluginInstance.get () == nullptr)
+    return;
+    
 	if (
 		(pluginInstance->hasEditor()) 
 		&& (pluginWindow != nullptr) 
@@ -1373,6 +1406,9 @@ void PluginWrapper::sendOnTop()
 
 void PluginWrapper::sendToBack()
 {
+    if (pluginInstance.get () == nullptr)
+    return;
+    
 	if (
 		(pluginInstance->hasEditor()) 
 		&& (pluginWindow != nullptr) 
@@ -1384,6 +1420,9 @@ void PluginWrapper::sendToBack()
 
 void PluginWrapper::onBringToFront()
 {
+    if (pluginInstance.get () == nullptr)
+    return;
+    
 	try
 	{
 		if (pluginInstance->hasEditor() && pluginWindow != nullptr)
@@ -1609,6 +1648,7 @@ void PluginWrapper::setVisible(LongBool isVisible)
 				    sdkTraceLogChar("call getPluginWindow");
                     pluginWindow = getPluginWindow();
                     sdkTraceLogChar("call getPluginWindow ok");
+					pluginWindow->sendOnTop();
                 }
                 sdkSetEvtData (m_visibleEditor, 1.0);
                 sdkTraceLogChar("call pluginWindow->toFront");
@@ -1754,7 +1794,7 @@ void PluginWrapper::createPlugin (String optionalString, LongBool Flag, String o
 
 			plugTypeName = plugTypeName.upToFirstOccurrenceOf("/", false, true);
 
-			if (plugTypeName != String::empty)
+			if (plugTypeName != String())
 			{
 				
 				//-----------------------------------------------------------------------------
@@ -1847,6 +1887,7 @@ AudioPluginInstance* PluginWrapper::createPluginInstanceFromDesc (PluginDescript
 
 PluginWindow* PluginWrapper::getPluginWindow()
 {
+    //return NULL;
 	void* nativeWindowHandle = nullptr;
 
 //-----------------------------------------------------------------------------
@@ -1938,7 +1979,7 @@ void PluginWrapper::tryToLocatePlug()
 		{
 			result = missingPlugName + " : " + String("found in") + " " + pluginsBasePath;
 			isPlugMissing = false;
-			missingPlugDesc = String::empty;
+			missingPlugDesc = String();
 		}
 	}
 
@@ -1964,7 +2005,7 @@ void PluginWrapper::tryToLocatePlug()
 			{
 				result = missingPlugName + " : " + String("found in") + " " + pluginsBasePath;
 				isPlugMissing = false;
-				missingPlugDesc = String::empty;
+				missingPlugDesc = String();
 			}
 		}	
 	}
@@ -1991,7 +2032,7 @@ void PluginWrapper::tryToLocatePlug()
 			{
 				result = missingPlugName + " : " + String("found in ") + " " + pluginsBasePath;
 				isPlugMissing = false;
-				missingPlugDesc = String::empty;
+				missingPlugDesc = String();
 			}
 		}
 	}
@@ -2019,7 +2060,7 @@ void PluginWrapper::tryToLocatePlug()
 				{
 					result = missingPlugName + " : " + String("found in ") + " " + pluginsBasePath;
 					isPlugMissing = false;
-					missingPlugDesc = String::empty;
+					missingPlugDesc = String();
 				}
 			}
 		}

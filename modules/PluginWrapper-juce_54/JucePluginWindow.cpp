@@ -105,16 +105,17 @@ PluginWindow::PluginWindow(PluginWrapper* module_, AudioPluginInstance* owner_, 
 		setVisible(true);
         module->sdkTraceLogChar("call toFront");
 		toFront(true);
-        module->sdkTraceLogChar("call setAlwaysOnTop");
-		setAlwaysOnTop(true);
-        module->sdkTraceLogChar("call grabKeyboardFocus");
+        module->sdkTraceLogChar("call sendOnTop");
+		sendOnTop();
+		
+		module->sdkTraceLogChar("call grabKeyboardFocus");
 		grabKeyboardFocus();
-//		setWindowZOrder(HWND hwnd, HWND insertAfter)
-
         module->sdkTraceLogChar("call setWantsKeyboardFocus");
 		setWantsKeyboardFocus(true);
         module->sdkTraceLogChar("call addKeyListener");
 		addKeyListener(module);
+        
+        
 		module->sdkTraceLogChar("call activePluginWindows");
 		activePluginWindows.add(this);
         if ((module->lastEditorPosX!=0) && (module->lastEditorPosX!=0))
@@ -152,12 +153,12 @@ PluginWindow::~PluginWindow()
 //-----------------------------------------------------------------------------
 void PluginWindow::focusGained (FocusChangeType cause)
 {
-    setAlwaysOnTop(false);
+    //setAlwaysOnTop(false);
 }
 
 void PluginWindow::focusLost (FocusChangeType cause)
 {
-    setAlwaysOnTop(true);
+    //setAlwaysOnTop(true);
 }
 
 //-----------------------------------------------------------------------------
@@ -227,3 +228,24 @@ void PluginWindow::userTriedToCloseWindow()
 }
 
 
+
+void PluginWindow::sendOnTop()
+{
+#if (defined (USINE_OSX64))
+	setAlwaysOnTop(true);
+#endif
+
+#if (defined (USINE_WIN32) || defined (USINE_WIN64))
+	//HWND hnd;
+	//hnd = (HWND)module->sdkGetUsineMainWindow();
+	//SetWindowPos((HWND)getNativeHandle(), HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE );
+	//SetWindowLong((HWND)getNativeHandle(), -8, (LONG)hnd);
+	setAlwaysOnTop(true);
+#endif
+}
+
+void PluginWindow::sendToBack()
+{
+
+  setAlwaysOnTop(false);
+}

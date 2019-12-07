@@ -927,7 +927,7 @@ public:
     inline LongBool	sdkPatchIsRunning    () { return m_masterInfo->PatchIsRunning (m_moduleInfo); };
     
 	/// To check if the patch containing the module is loading.
-	inline LongBool sdkPatchLoading() { return *m_masterInfo->PatchLoading; }
+	inline LongBool sdkPatchLoading() { return m_masterInfo->PatchLoading(m_moduleInfo); }
 
 	//-----------------------------------------------------------------------------
     // wrappers for ModuleInfo functions

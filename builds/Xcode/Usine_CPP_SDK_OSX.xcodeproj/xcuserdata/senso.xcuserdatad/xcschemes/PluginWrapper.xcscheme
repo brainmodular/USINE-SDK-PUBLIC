@@ -27,8 +27,6 @@
       selectedDebuggerIdentifier = ""
       selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       shouldUseLaunchSchemeArgsEnv = "NO">
-      <Testables>
-      </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -40,17 +38,7 @@
       </MacroExpansion>
       <AdditionalOptions>
          <AdditionalOption
-            key = "DYLD_PRINT_LIBRARIES"
-            value = ""
-            isEnabled = "YES">
-         </AdditionalOption>
-         <AdditionalOption
-            key = "DYLD_INSERT_LIBRARIES"
-            value = "/usr/lib/libgmalloc.dylib"
-            isEnabled = "YES">
-         </AdditionalOption>
-         <AdditionalOption
-            key = "DYLD_PRINT_APIS"
+            key = "MallocGuardEdges"
             value = ""
             isEnabled = "YES">
          </AdditionalOption>
@@ -60,8 +48,8 @@
             isEnabled = "YES">
          </AdditionalOption>
          <AdditionalOption
-            key = "MallocGuardEdges"
-            value = ""
+            key = "DYLD_INSERT_LIBRARIES"
+            value = "/usr/lib/libgmalloc.dylib"
             isEnabled = "YES">
          </AdditionalOption>
          <AdditionalOption
@@ -70,9 +58,11 @@
             isEnabled = "YES">
          </AdditionalOption>
       </AdditionalOptions>
+      <Testables>
+      </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -95,8 +85,6 @@
             ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Debug"

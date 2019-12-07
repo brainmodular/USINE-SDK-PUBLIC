@@ -16,10 +16,10 @@
       <Filter>sdk</Filter>
     </ClInclude>
     <ClInclude Include="PluginWrapper.h" />
-    <ClInclude Include="JuceLibraryCode\JuceHeader.h">
+    <ClInclude Include="..\..\libs\juce_v54\JuceLibraryCode\AppConfig.h">
       <Filter>JuceLibraryCode</Filter>
     </ClInclude>
-    <ClInclude Include="JuceLibraryCode\AppConfig.h">
+    <ClInclude Include="..\..\libs\juce_v54\JuceLibraryCode\JuceHeader.h">
       <Filter>JuceLibraryCode</Filter>
     </ClInclude>
   </ItemGroup>
@@ -33,43 +33,46 @@
     <ClCompile Include="..\..\sdk\UserModule.cpp">
       <Filter>sdk</Filter>
     </ClCompile>
-    <ClCompile Include="JuceLibraryCode\include_juce_audio_devices.cpp">
+    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_basics.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="JuceLibraryCode\include_juce_audio_formats.cpp">
+    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_devices.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="JuceLibraryCode\include_juce_audio_processors.cpp">
+    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_formats.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="JuceLibraryCode\include_juce_audio_utils.cpp">
+    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_processors.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="JuceLibraryCode\include_juce_core.cpp">
+    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_utils.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="JuceLibraryCode\include_juce_cryptography.cpp">
+    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_core.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="JuceLibraryCode\include_juce_data_structures.cpp">
+    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_cryptography.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="JuceLibraryCode\include_juce_events.cpp">
+    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_data_structures.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="JuceLibraryCode\include_juce_graphics.cpp">
+    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_events.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="JuceLibraryCode\include_juce_gui_basics.cpp">
+    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_graphics.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="JuceLibraryCode\include_juce_gui_extra.cpp">
+    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_gui_basics.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="JuceLibraryCode\include_juce_opengl.cpp">
+    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_gui_extra.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="JuceLibraryCode\include_juce_audio_basics.cpp">
+    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_opengl.cpp">
+      <Filter>JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_video.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
   </ItemGroup>
@@ -78,52 +81,55 @@
       <UniqueIdentifier>{f9bd3acb-31c2-43a3-ba90-5b3e6ea83a6d}</UniqueIdentifier>
     </Filter>
     <Filter Include="JuceLibraryCode">
-      <UniqueIdentifier>{46969cf9-1182-4519-861f-dd54ff23647a}</UniqueIdentifier>
+      <UniqueIdentifier>{5932617b-e1bf-478f-aeb7-b3098c319a0d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="JuceLibraryCode\include_juce_audio_devices.mm">
+    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_basics.mm">
       <Filter>JuceLibraryCode</Filter>
     </None>
-    <None Include="JuceLibraryCode\include_juce_audio_formats.mm">
+    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_devices.mm">
       <Filter>JuceLibraryCode</Filter>
     </None>
-    <None Include="JuceLibraryCode\include_juce_audio_processors.mm">
+    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_formats.mm">
       <Filter>JuceLibraryCode</Filter>
     </None>
-    <None Include="JuceLibraryCode\include_juce_audio_utils.mm">
+    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_processors.mm">
       <Filter>JuceLibraryCode</Filter>
     </None>
-    <None Include="JuceLibraryCode\include_juce_core.mm">
+    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_utils.mm">
       <Filter>JuceLibraryCode</Filter>
     </None>
-    <None Include="JuceLibraryCode\include_juce_cryptography.mm">
+    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_core.mm">
       <Filter>JuceLibraryCode</Filter>
     </None>
-    <None Include="JuceLibraryCode\include_juce_data_structures.mm">
+    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_cryptography.mm">
       <Filter>JuceLibraryCode</Filter>
     </None>
-    <None Include="JuceLibraryCode\include_juce_events.mm">
+    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_data_structures.mm">
       <Filter>JuceLibraryCode</Filter>
     </None>
-    <None Include="JuceLibraryCode\include_juce_graphics.mm">
+    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_events.mm">
       <Filter>JuceLibraryCode</Filter>
     </None>
-    <None Include="JuceLibraryCode\include_juce_gui_basics.mm">
+    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_graphics.mm">
       <Filter>JuceLibraryCode</Filter>
     </None>
-    <None Include="JuceLibraryCode\include_juce_gui_extra.mm">
+    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_gui_basics.mm">
       <Filter>JuceLibraryCode</Filter>
     </None>
-    <None Include="JuceLibraryCode\include_juce_opengl.mm">
+    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_gui_extra.mm">
       <Filter>JuceLibraryCode</Filter>
     </None>
-    <None Include="JuceLibraryCode\include_juce_audio_basics.mm">
+    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_opengl.mm">
+      <Filter>JuceLibraryCode</Filter>
+    </None>
+    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_video.mm">
       <Filter>JuceLibraryCode</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="JuceLibraryCode\ReadMe.txt">
+    <Text Include="..\..\libs\juce_v54\JuceLibraryCode\ReadMe.txt">
       <Filter>JuceLibraryCode</Filter>
     </Text>
   </ItemGroup>

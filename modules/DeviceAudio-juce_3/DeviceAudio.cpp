@@ -1262,7 +1262,7 @@ void DeviceAudio::applyDevice(int deriverID)
 
 	traceLog("  driver index: ", deriverID);
 	traceLog("  indexSelectedDeviceDriver: ", indexSelectedDeviceDriver);
-
+	closeDevice();
 	if (indexSelectedDeviceDriver < 0) // pass ici la première fois
 	{
 		// faire un truc pour choisir la device par defaut
@@ -1273,7 +1273,7 @@ void DeviceAudio::applyDevice(int deriverID)
 		// create thread
 		traceLog("  NO AUDIO selected");
 		// use a thread to call sdkUsineAudioDeviceIOCallback with empty buffers but actual buffersize value
-		closeDevice();
+		
 		updateParamsVisibility();
 		startThread(10);
 	}
@@ -1724,8 +1724,9 @@ void DeviceAudio::closeDevice()
 		traceLog("--close audio device--");
 		traceLog("  current device: ", currentDevice);
 
-		deviceManager.closeAudioDevice();
+		
 	}
+	deviceManager.closeAudioDevice();
 
 	sdkRepaintParam(PARAMS_BEFORE_INS_OUTS - 6);
 	sdkRepaintParam(PARAMS_BEFORE_INS_OUTS - 5);

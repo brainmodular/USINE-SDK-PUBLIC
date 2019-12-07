@@ -95,6 +95,9 @@ public:
 
     void* getNativeHandle();
 
+	void sendOnTop();
+	void sendToBack();
+
   // trick needed on PC only to let usines windows go in front of the plug window
     // on MAC, it work without that
 	//-----------------------------------------------------------------------------
