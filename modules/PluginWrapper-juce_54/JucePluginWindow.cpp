@@ -95,6 +95,7 @@ PluginWindow::PluginWindow(PluginWrapper* module_, AudioPluginInstance* owner_, 
 //			ui->addToDesktop(getDesktopWindowStyleFlags(), nativeWindowToAttachTo);
 			module->sdkTraceLogChar("call setContentOwned");
 			setContentOwned(ui, true);
+            //setInterceptsMouseClicks(true, true);
 //			ui->addToDesktop(ComponentPeer::windowHasDropShadow | ComponentPeer::windowHasTitleBar | ComponentPeer::windowHasCloseButton | ComponentPeer::windowIsResizable | ComponentPeer::windowRepaintedExplictly, nativeWindowToAttachTo);
 			
 
@@ -104,7 +105,7 @@ PluginWindow::PluginWindow(PluginWrapper* module_, AudioPluginInstance* owner_, 
         module->sdkTraceLogChar("call setVisible");
 		setVisible(true);
         module->sdkTraceLogChar("call toFront");
-		toFront(true);
+		//toFront(true);
         module->sdkTraceLogChar("call sendOnTop");
 		sendOnTop();
 		
@@ -238,14 +239,14 @@ void PluginWindow::sendOnTop()
 #if (defined (USINE_WIN32) || defined (USINE_WIN64))
 	//HWND hnd;
 	//hnd = (HWND)module->sdkGetUsineMainWindow();
-	//SetWindowPos((HWND)getNativeHandle(), HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE );
-	//SetWindowLong((HWND)getNativeHandle(), -8, (LONG)hnd);
+	//SetWindowPos((HWND)getNativeHandle(), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE );
+//	SetWindowPos((HWND)getNativeHandle(), (HWND)module->sdkGetUsineMainWindow(), 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOSENDCHANGING);
 	setAlwaysOnTop(true);
+	//SetForegroundWindow((HWND)getNativeHandle());
 #endif
 }
 
 void PluginWindow::sendToBack()
 {
-
   setAlwaysOnTop(false);
 }

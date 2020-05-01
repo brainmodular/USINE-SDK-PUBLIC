@@ -923,7 +923,7 @@ typedef TColorUsine (*FuncGetUsineColor) ( int colorName);
 
 typedef void  (*FuncAddCommand)           (ModuleInfo* pModuleInfo, AnsiCharPtr name, NativeInt CallbackId, LongBool Translate);
 typedef void  (*FuncAddCommandSeparator)  (ModuleInfo* pModuleInfo, AnsiCharPtr name, LongBool Translate);
-typedef void* (*FuncGetUsineMainWindow) (); // NSWindow sur mac
+typedef NativeInt (*FuncGetUsineMainWindow) (); // NSWindow sur mac
 typedef void* (*FuncGetMacNSView) (); // NSView sur mac
 
 typedef void*  (*FuncNeedRemoteUpdate)          (ModuleInfo* pModuleInfo, int numParam);

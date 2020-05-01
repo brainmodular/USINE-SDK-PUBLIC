@@ -60,7 +60,7 @@ void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, Ma
 {
     pMasterInfo->TraceLogChar ("PluginWrapper : start CreateModule", FALSE);
     pMasterInfo->TraceLogChar ("PluginWrapper : start init juce", FALSE);
-//	initialiseJuce_GUI ();
+	//initialiseJuce_GUI ();
     pMasterInfo->TraceLogChar ("PluginWrapper : end init juce", FALSE);
     pMasterInfo->TraceLogChar ("PluginWrapper : start create module", FALSE);
 	pModule = new PluginWrapper(optionalString, Flag, pMasterInfo, optionalContent);
@@ -158,7 +158,7 @@ PluginWrapper::PluginWrapper (AnsiCharPtr optionalString, LongBool Flag, MasterI
     
     
     
-	activePlugins.add (this);
+//	activePlugins.add (this);
 };
 
 // destructor
@@ -172,8 +172,8 @@ PluginWrapper::~PluginWrapper ()
 		pluginInstance->removeListener (this);
     }
     
-    jassert (activePlugins.contains (this));
-    activePlugins.removeFirstMatchingValue (this);
+  //  jassert (activePlugins.contains (this));
+  //  activePlugins.removeFirstMatchingValue (this);
     
 };
 
@@ -1425,8 +1425,8 @@ void PluginWrapper::onBringToFront()
     
 	try
 	{
-		if (pluginInstance->hasEditor() && pluginWindow != nullptr)
-			pluginWindow->toFront(true);
+		//if (pluginInstance->hasEditor() && pluginWindow != nullptr)
+		//	pluginWindow->toFront(true);
 
 	}
 	catch (...)
@@ -1462,10 +1462,10 @@ void PluginWrapper::onSampleRateChange (double SampleRate)
 //
 
 void PluginWrapper::showModuleParam (int paramIndex)
-{ 
+{
 	if (   listVisiblePlugParamsIndex.size() < PLUG_MAX_PARAMS_VISIBLE
         && ! listVisiblePlugParamsIndex.contains(paramIndex)
-        && pluginInstance->hasEditor ()
+        //&& pluginInstance->hasEditor ()
         && pluginWindow != nullptr)
 	{
 		sdkSetParamVisible (offsetParamsInOut + paramIndex, TRUE);
@@ -1476,7 +1476,7 @@ void PluginWrapper::showModuleParam (int paramIndex)
 void PluginWrapper::hideModuleParam (int paramIndex)
 {    
 	if (   listVisiblePlugParamsIndex.contains(paramIndex)
-        && pluginInstance->hasEditor ()
+        //&& pluginInstance->hasEditor ()
         && pluginWindow != nullptr)
 	{
 		sdkSetParamVisible (offsetParamsInOut + paramIndex, FALSE);
@@ -1652,7 +1652,7 @@ void PluginWrapper::setVisible(LongBool isVisible)
                 }
                 sdkSetEvtData (m_visibleEditor, 1.0);
                 sdkTraceLogChar("call pluginWindow->toFront");
-                pluginWindow->toFront(true);
+               // pluginWindow->toFront(true);
                 sdkTraceLogChar("call pluginWindow->toFront ok");
                 sdkRepaintParam(offsetVisibleIn);
             }

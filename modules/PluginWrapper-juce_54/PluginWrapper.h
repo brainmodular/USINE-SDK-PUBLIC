@@ -65,7 +65,7 @@
  each plug instance share the same juce instance, so we have to check the 
  number of plug instance before closing juce
  */
-static Array<void*> activePlugins;
+//static Array<void*> activePlugins;
 //-----------------------------------------------------------------------------
 // defines and constantes
 //-----------------------------------------------------------------------------

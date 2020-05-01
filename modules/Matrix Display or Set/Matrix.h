@@ -277,6 +277,7 @@ private:
     int numOfLinesColors; 
 	
 	int         settingsCellsCaptionVertAlign;
+	int         settingsCellsCaptionHorizAlign;
 	float       settingsCellsCaptionFontSize;
 	TColorUsine settingsCellsCaptionColor;
 

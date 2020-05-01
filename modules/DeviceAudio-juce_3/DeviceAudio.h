@@ -58,7 +58,7 @@
 #include <limits>
 #include <algorithm>
 #include <JuceHeader.h>
-#include "JuceUtils.h"
+//#include "JuceUtils.h"
 
 
 //-----------------------------------------------------------------------------
@@ -115,7 +115,7 @@ static const NativeInt MSG_CHANGE_DRIVERS_REQUEST = 0xFAB100;
 
 //-----------------------------------------------------------------------------
 // the audio device module class
-class DeviceAudio : public UserModuleBase, Thread, AudioIODeviceCallback, ChangeListener, Logger
+class DeviceAudio : public UserModuleBase, Thread, AudioIODeviceCallback
 {
 	//-------------------------------------------------------------------------
 	// public members
@@ -207,7 +207,7 @@ protected:
 	//-------------------------------------------------------------------------
 	juce::AudioDeviceManager deviceManager;
 
-	CriticalSection lock;
+	//CriticalSection lock;
 
 	// device drivers
 	int indexSelectedDeviceDriver;
@@ -365,6 +365,9 @@ private:
 	//
 	void notifyChangeDriverSettings();
 
+	//
+	void notifyChangeSampleRate();
+
 
 	//----------------------------------------------------------------------------
 	// from Thread
@@ -388,8 +391,8 @@ private:
 	void traceLog(AnsiCharPtr traceMsg, int value);
 	void traceLog(AnsiCharPtr traceMsg, String value);
 
-private:
-	JUCE_LEAK_DETECTOR(DeviceAudio);
+//private:
+	//JUCE_LEAK_DETECTOR(DeviceAudio);
 
 }; // class DeviceAudio
 

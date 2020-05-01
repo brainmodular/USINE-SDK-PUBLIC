@@ -101,15 +101,5 @@ private:
 	JUCE_DECLARE_NON_COPYABLE (AudioSampleBufferFifo);
 };
 
-//-------------------------------------------------------------------------
-static void  StringArrayToCommaString (String& result, StringArray list/*, bool noneatfirst = true*/)
-{
-	//StringArray tmpList(list);
-	//if (noneatfirst)
-	//	tmpList.insert (0, "NO AUDIO!");
-	//	
-	//result = tmpList.joinIntoString("\",\"").quoted();
-	result = list.joinIntoString("\",\"").quoted();
-};
 
 #endif //__JUCEUTILS_H__

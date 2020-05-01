@@ -197,6 +197,7 @@ void TMatrixModule::onInitModule (MasterInfo* pMasterInfo, ModuleInfo* pModuleIn
     posCursor = 0;
     
 	settingsCellsCaptionVertAlign = 0;
+	settingsCellsCaptionHorizAlign = 0;
 	settingsCellsCaptionFontSize = 0.5f;
 	settingsCellsCaptionColor = sdkGetUsineColor(clFontLight);
 		
@@ -636,6 +637,7 @@ void TMatrixModule::onCallBack (UsineMessage *Message)
 	{
         //
         arrayInChange();
+		updateCursorInfos();
 	}
     
 	// output of the matrix
@@ -921,7 +923,8 @@ void TMatrixModule::onCreateSettings()
     }
 		
 	sdkAddSettingLineCaption (DESIGN_TAB_NAME, "cells caption");
-	sdkAddSettingLineCombobox (DESIGN_TAB_NAME, &(settingsCellsCaptionVertAlign), "vertical align", "\"center\",\"top\",\"bottom\"");
+	sdkAddSettingLineCombobox(DESIGN_TAB_NAME, &(settingsCellsCaptionVertAlign), "vertical align", "\"center\",\"top\",\"bottom\"");
+	sdkAddSettingLineCombobox(DESIGN_TAB_NAME, &(settingsCellsCaptionHorizAlign), "horizontal align", "\"center\",\"left\",\"right\"");
 	sdkAddSettingLineSingle  (DESIGN_TAB_NAME, &(settingsCellsCaptionFontSize), "cells caption size", 0.0f, 1.0f, scLinear, "%", DEFAULT_FORMAT_FLOAT_2, 0.5f);
 	sdkAddSettingLineColor   (DESIGN_TAB_NAME, &(settingsCellsCaptionColor), "cells caption color");
 	
@@ -991,7 +994,7 @@ void TMatrixModule::onPaint ()
 			// draw cell caption
 			if (! m_vectCellsCaptions[CellIndex].empty())	
 			{
-				sdkFillText( m_tabCellsGuiData[CellIndex].dim, (AnsiCharPtr)(m_vectCellsCaptions[CellIndex].c_str()), m_tabCellsGuiData[CellIndex].captionColor, m_tabCellsGuiData[CellIndex].captionSize, FALSE, FALSE, taCenter, m_tabCellsGuiData[CellIndex].alignVertical);
+				sdkFillText( m_tabCellsGuiData[CellIndex].dim, (AnsiCharPtr)(m_vectCellsCaptions[CellIndex].c_str()), m_tabCellsGuiData[CellIndex].captionColor, m_tabCellsGuiData[CellIndex].captionSize, FALSE, FALSE, m_tabCellsGuiData[CellIndex].alignHorizontal, m_tabCellsGuiData[CellIndex].alignVertical);
 			}
 		}
 	}
@@ -1159,6 +1162,7 @@ void TMatrixModule::updateNumOfCols (int NewNumOfCols)
 	updateCellsDatas();
 	updateCellsValues();
 	updateCellsColor();
+	updateCursorInfos();
 };	
 
 //-------------------------------------------------------------------------
@@ -1186,6 +1190,7 @@ void TMatrixModule::updateNumOfRows (int NewNumOfRows)
   	// ask to update the datas and repaint the module
 	updateCellsDatas();
 	updateCellsValues();
+	updateCursorInfos();
 	updateCellsColor();
 };
 
@@ -1207,6 +1212,7 @@ void TMatrixModule::resetCells()
     // update matrix content
     sdkNeedRemoteUpdate (13);
 	updateCellsColor();
+	updateCursorInfos();
 };
 
 //-------------------------------------------------------------------------
@@ -1246,6 +1252,7 @@ void TMatrixModule::randomizeCells()
 	// update matrix content
 	sdkNeedRemoteUpdate(13);
 	updateCellsColor();
+	updateCursorInfos();
 };
 
 void TMatrixModule::updateCursorInfos()
@@ -1392,6 +1399,7 @@ void TMatrixModule::updateCellsDatas()
 			m_tabCellsGuiData[cellIndex].cornerRadius = sdkPixelToHeightPercent(settingsCellsRoundedSize);
 			m_tabCellsGuiData[cellIndex].captionColor = settingsCellsCaptionColor;
 			m_tabCellsGuiData[cellIndex].alignVertical = (TTextAlign)settingsCellsCaptionVertAlign;
+			m_tabCellsGuiData[cellIndex].alignHorizontal = (TTextAlign)settingsCellsCaptionHorizAlign;
 
             if (sdkHeightPercentToPixel(cellDim.bottom - cellDim.top) >= sdkWidthPercentToPixel(cellDim.right - cellDim.left))
 			     m_tabCellsGuiData[cellIndex].captionSize = sdkPixelToHeightPercent(settingsCellsCaptionFontSize * sdkWidthPercentToPixel(cellDim.right - cellDim.left));
@@ -1434,6 +1442,7 @@ void TMatrixModule::arrayInChange()
 	// ask to update the datas and repaint the module
 	updateCellsColor();
 	updateCellsDatas();
+	updateCursorInfos();
     // update matrix content
     sdkNeedRemoteUpdate (13);
 }
@@ -1453,6 +1462,7 @@ void TMatrixModule::arrayOutChange()
 	// ask to update the datas and repaint the module
 	updateCellsColor();
 	updateCellsDatas();
+	updateCursorInfos();
 }
 
 
@@ -1548,6 +1558,8 @@ void TMatrixModule::mouseToggleCell( int CellIndex)
 	sdkSetEvtArrayData( m_arrMatrixOutput, CellIndex, NewThreshold );
     // update matrix content
     sdkNeedRemoteUpdate (13);
+	updateCursorInfos();
+
 		
 	// update opt faders
 	if ( CellIndex < m_numOfOptFaders)
@@ -1580,6 +1592,7 @@ void TMatrixModule::mouseFadeCell( int CellIndex, TShiftState Shift, float X, fl
 	sdkSetEvtArrayData( m_arrMatrixOutput, CellIndex, NewThreshold );
     // update matrix content
     sdkNeedRemoteUpdate (13);
+	updateCursorInfos();
 		
 	// update opt fader
 	if ( CellIndex < m_numOfOptFaders)

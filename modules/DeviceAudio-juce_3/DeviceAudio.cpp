@@ -53,6 +53,12 @@
 //-----------------------------------------------------------------------------
 #include "DeviceAudio.h"
 
+//-------------------------------------------------------------------------
+static void  StringArrayToCommaString (String& result, StringArray list/*, bool noneatfirst = true*/)
+{
+
+    result = list.joinIntoString("\",\"").quoted();
+};
 
 
 //----------------------------------------------------------------------------
@@ -119,8 +125,10 @@ DeviceAudio::~DeviceAudio()
 {
 	try
 	{
-		deviceManager.closeAudioDevice();
 		deviceManager.removeAudioCallback(this);
+		wait(200);
+		deviceManager.closeAudioDevice();
+		
 
 	}
 	catch (...)
@@ -164,7 +172,7 @@ void DeviceAudio::onGetModuleInfo(MasterInfo* pMasterInfo, ModuleInfo* pModuleIn
 	pModuleInfo->Version = MODULE_VERSION;
 	pModuleInfo->CanBeSavedInPreset = FALSE;
 
-	Logger::setCurrentLogger(this);
+	//Logger::setCurrentLogger(this);
 }
 
 //-----------------------------------------------------------------------------
@@ -1258,11 +1266,12 @@ void DeviceAudio::showDriverPanel()
 //
 void DeviceAudio::applyDevice(int deriverID)
 {
+//	return;
 	traceLog("--applyDevice--");
 
 	traceLog("  driver index: ", deriverID);
 	traceLog("  indexSelectedDeviceDriver: ", indexSelectedDeviceDriver);
-	closeDevice();
+
 	if (indexSelectedDeviceDriver < 0) // pass ici la première fois
 	{
 		// faire un truc pour choisir la device par defaut
@@ -1270,6 +1279,7 @@ void DeviceAudio::applyDevice(int deriverID)
 	}
 	else if (indexSelectedDeviceDriver == 0)
 	{
+		closeDevice();
 		// create thread
 		traceLog("  NO AUDIO selected");
 		// use a thread to call sdkUsineAudioDeviceIOCallback with empty buffers but actual buffersize value
@@ -1279,18 +1289,16 @@ void DeviceAudio::applyDevice(int deriverID)
 	}
 	else if (setupLoaded)
 	{
-		stopThread(100);
+		//closeDevice();
+		//stopThread(100);
 
 		// if we change device type, do some default value stuff
 		if (deviceManager.getCurrentAudioDeviceType().compare(listDeviceDriversNames[indexSelectedDeviceDriver]) != 0)
 		{
 			deviceManager.setCurrentAudioDeviceType(listDeviceDriversNames[indexSelectedDeviceDriver], true);
-
 		}
 
-
 		checkAudioDrivers();
-
 
 		AudioDeviceManager::AudioDeviceSetup audioSetup = getAudioSetupFromUser();
 
@@ -1299,6 +1307,7 @@ void DeviceAudio::applyDevice(int deriverID)
 		updateParameters();
 		deviceManager.removeAudioCallback(this);
 		deviceManager.addAudioCallback(this);
+		notifyChangeSampleRate();
 	}
 }
 
@@ -1765,8 +1774,7 @@ void DeviceAudio::changeSampleRate()
 
 	int driverID = static_cast<int>(sdkGetEvtData(m_lboxDeviceDrivers));
 	applyDevice(driverID);
-
-	sdkNotifyUsine(NOTIFY_TARGET_SETUP, NOTIFY_MSG_SAMPLE_RATE_CHANGED, (NativeInt)currentAudioDeviceSetup.sampleRate, 0);
+	
 }
 
 #if (defined (USINE_OSX32) || defined (USINE_OSX64))
@@ -1811,6 +1819,15 @@ void DeviceAudio::changeBufferSize()
 void DeviceAudio::notifyChangeDriverSettings()
 {
 	sdkNotifyUsine(NOTIFY_TARGET_USER_MODULE, NOTIFY_MSG_USINE_CALLBACK, MSG_CHANGE_DRIVERS_REQUEST, MSG_CHANGE);
+}
+
+//-------------------------------------------------------------------------
+void DeviceAudio::notifyChangeSampleRate()
+{
+	if ((NativeInt)deviceManager.getCurrentAudioDevice() != NULL)
+	{
+		sdkNotifyUsine(NOTIFY_TARGET_SETUP, NOTIFY_MSG_SAMPLE_RATE_CHANGED, (NativeInt)deviceManager.getCurrentAudioDevice()->getCurrentSampleRate(), 0);
+	}
 }
 
 //-------------------------------------------------------------------------
@@ -1867,7 +1884,7 @@ void DeviceAudio::traceLog(AnsiCharPtr traceMsg, int value)
 
 void DeviceAudio::traceLog(AnsiCharPtr traceMsg, String value)
 {
-	traceString = String::empty;
+	traceString = String();
 	traceString << "[" << m_moduleInfo->Name << "]" << " " << traceMsg << " " << value;
 	sdkTraceLogChar(traceString.toUTF8().getAddress());
 }

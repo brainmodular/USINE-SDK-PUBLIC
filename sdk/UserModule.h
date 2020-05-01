@@ -299,11 +299,11 @@ public:
 	/// Implement them if the  module type is mtControl and need to be informed of mouse and/or multi-touch events.
 	/// @name Mouse and Multi-touch Callbacks
 	/// @{
-	virtual void onMouseMove (TShiftState Shift, float X, float Y){};
+	virtual void onMouseMove (TShiftState Shift, float X, float Y){}
 	
-	virtual void onMouseDown (TMouseButton MouseButton, TShiftState Shift, float X,float Y){};
+	virtual void onMouseDown (TMouseButton MouseButton, TShiftState Shift, float X,float Y){}
 	
-	virtual void onMouseUp (TMouseButton MouseButton, TShiftState Shift, float X,float Y){};
+	virtual void onMouseUp (TMouseButton MouseButton, TShiftState Shift, float X,float Y){}
 
 	virtual void onMouseWheel (TShiftState Shift, int WheelDelta){};
 	
@@ -897,7 +897,7 @@ public:
 	inline double	sdkGetSampleRate()			  { return m_masterInfo->GetSampleRate(); };
 	    
     /// PC only, Usine mainform handle (THandle)
-    inline void* sdkGetUsineMainWindow()          { return m_masterInfo->GetUsineMainWindow(); };
+    inline NativeInt sdkGetUsineMainWindow()          { return m_masterInfo->GetUsineMainWindow(); };
 	
     /// MAC only, Usine NSView
     inline void* sdkGetUsineNSView()              { return m_masterInfo->GetMacNSView(); };

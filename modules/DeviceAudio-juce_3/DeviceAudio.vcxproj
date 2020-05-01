@@ -1632,11 +1632,13 @@
     <OutDir>..\..\bin\Devices\</OutDir>
     <IntDir>$(SDK_TMP)\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)_$(ModuleUserVersion)_$(ModuleDevVersion)</TargetName>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>..\..\bin\Devices\</OutDir>
     <IntDir>$(SDK_TMP)\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)_$(ModuleUserVersion)_$(ModuleDevVersion)</TargetName>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <TargetName>$(ProjectName)_$(ModuleUserVersion)_$(ModuleDevVersion)</TargetName>
