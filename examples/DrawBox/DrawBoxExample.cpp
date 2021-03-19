@@ -297,9 +297,9 @@ void DrawBoxExample::onMouseWheel (TShiftState Shift, int WheelDelta)
 void DrawBoxExample::onRandomize ()
 {
     boxCoords.left = (float)(rand() / (float)(RAND_MAX));
-    boxCoords.right = (float)(rand() / (float)(RAND_MAX));
-    boxCoords.top = (float)(rand() / (float)(RAND_MAX));
-    boxCoords.bottom = (float)(rand() / (float)(RAND_MAX));
+	boxCoords.right = (float)(boxCoords.left + ((1 - boxCoords.left) * (rand() / (float)(RAND_MAX))));
+	boxCoords.top = (float)(rand() / (float)(RAND_MAX));
+	boxCoords.bottom = (float)(boxCoords.top + ((1 - boxCoords.top) * (rand() / (float)(RAND_MAX))));
     
 	// Ask to repaint the module
 	sdkRepaintPanel();

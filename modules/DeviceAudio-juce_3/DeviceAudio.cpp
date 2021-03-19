@@ -438,6 +438,7 @@ void DeviceAudio::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->DefaultValue = 1;
 		pParamInfo->CallBackType = ctNormal;
 		pParamInfo->Translate = FALSE;
+        pParamInfo->DontSave = FALSE;
 	}
 	// default case
 	else {}
@@ -650,11 +651,14 @@ void DeviceAudio::onCallBack(UsineMessage* Message)
 				&& Message->wParam < (PARAMS_BEFORE_INS_OUTS + maxAudioInputs + maxAudioOutputs + 1)
 				)
 		{
-			setupLoaded = true;
-			traceLog("CALLBACK m_ledSetupLoaded CHANGED received");
-			int driverID = static_cast<int>(sdkGetEvtData(m_lboxDeviceDrivers));
-			applyDevice(driverID);
-			updateParamsVisibility();
+            if (setupLoaded==false)
+            {
+                setupLoaded = true;
+			    traceLog("CALLBACK m_ledSetupLoaded CHANGED received");
+			    int driverID = static_cast<int>(sdkGetEvtData(m_lboxDeviceDrivers));
+			    applyDevice(driverID);
+			    updateParamsVisibility();
+            }
 		}
 		else
 		{
@@ -1289,8 +1293,8 @@ void DeviceAudio::applyDevice(int deriverID)
 	}
 	else if (setupLoaded)
 	{
-		//closeDevice();
-		//stopThread(100);
+		closeDevice();
+		stopThread(100);
 
 		// if we change device type, do some default value stuff
 		if (deviceManager.getCurrentAudioDeviceType().compare(listDeviceDriversNames[indexSelectedDeviceDriver]) != 0)

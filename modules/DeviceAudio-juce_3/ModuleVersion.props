@@ -3,7 +3,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
     <ModuleUserVersion>4.0</ModuleUserVersion>
-    <ModuleDevVersion>2</ModuleDevVersion>
+    <ModuleDevVersion>3</ModuleDevVersion>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup />
