@@ -53,7 +53,6 @@
 #include <algorithm>
 #include <sstream>
 #include <iomanip>
-
 #include "UsineDefinitions.h"
 #include "UserUtils.h"
 //using namespace std;
@@ -216,6 +215,11 @@ public:
 	/// @param sizeInBytes The size of the chunk.
 	/// @param Preset Tell if it's a preset or a patch chunk. TRUE = preset chunk, FALSE = .pat/.wkp chunk.
 	virtual void onSetChunk (const void* chunk, int sizeInBytes, LongBool Preset){}
+
+	/// Called after the module is loaded in Usine.
+	virtual void onAfterLoading() {}
+
+
     /// @}
 
 	//-----------------------------------------------------------------------------
@@ -795,7 +799,17 @@ public:
 		return m_masterInfo->SmoothEvent  ( oldValue, currentEvent, target, factor ); 
 	}
     /// @}
-        
+
+	//----------------------------------------------------------------------------
+	/// Critical sections functions to protect patches calculation.
+	/// @name Critical Sections 
+	/// @{
+	inline void	sdkLockPatch() { m_masterInfo->LockPatch(m_moduleInfo); };
+	inline void	sdkUnLockPatch() { m_masterInfo->unLockPatch(m_moduleInfo); };
+
+	/// @}
+
+
     //----------------------------------------------------------------------------
  	/// Utils functions to update some Parameter property other than the Event data.
     /// @name Parameters setters 
@@ -1024,8 +1038,9 @@ public:
     // audio files
     inline AudioFilePtr	sdkCreateAudioFile          ()																    { return m_masterInfo->CreateAudioFile(); };
     inline void			sdkDestroyAudioFile         (AudioFilePtr audiofile)											{ m_masterInfo->DestroyAudioFile( audiofile); };
-    inline TPrecision   sdkGetSampleAudioFile       (AudioFilePtr audiofile, int channel, int pos)						{ return m_masterInfo->GetSampleAudioFile		( audiofile, channel, pos); };
-    inline void			sdkGetBlocSampleAudioFile   (AudioFilePtr audiofile, int channel, int pos, UsineEventPtr evt)	{ m_masterInfo->GetBlocSampleAudioFile			(audiofile, channel, pos, evt); };
+	inline TPrecision   sdkGetSampleAudioFile       (AudioFilePtr audiofile, int channel, int pos)                      { return m_masterInfo->GetSampleAudioFile(audiofile, channel, pos); };
+	inline TPrecision*  sdkGetSampleArrayAudioFile  (AudioFilePtr audiofile, int channel)                               { return m_masterInfo->GetSampleArrayAudioFile(audiofile, channel); };
+	inline void			sdkGetBlocSampleAudioFile   (AudioFilePtr audiofile, int channel, int pos, UsineEventPtr evt)	{ m_masterInfo->GetBlocSampleAudioFile			(audiofile, channel, pos, evt); };
     inline int			sdkGetSizeAudioFile         (AudioFilePtr audiofile)											{ return m_masterInfo->GetSizeAudioFile			(audiofile); };
     inline int			sdkGetChannelAudioFile      (AudioFilePtr audiofile)											{ return m_masterInfo->GetChannelAudioFile		( audiofile); };
     inline int			sdkGetSampleRateAudioFile   (AudioFilePtr audiofile)											{ return m_masterInfo->GetSampleRateAudioFile	( audiofile); };
@@ -1037,8 +1052,9 @@ public:
     inline void			sdkSetChannelsAudioFile     (AudioFilePtr audiofile, int nbChannels)							{ m_masterInfo->SetChannelsAudioFile		( audiofile, nbChannels); };
     inline void			sdkSetSizeAudioFile         (AudioFilePtr audiofile, int size)									{ m_masterInfo->SetSizeAudioFile			( audiofile, size); };
     inline void			sdkSetSampleAudioFile       (AudioFilePtr audiofile, int channel, int pos, TPrecision sample)	{ m_masterInfo->SetSampleAudioFile		( audiofile, channel, pos, sample); };
-    inline void			sdkClearAudioFile           (AudioFilePtr audiofile)											{ m_masterInfo->ClearAudioFile			( audiofile); };    
-    /// @}	
+	inline void			sdkClearAudioFile           (AudioFilePtr audiofile)                                            { m_masterInfo->ClearAudioFile(audiofile); };
+	inline void			sdkResampleAudioFile        (AudioFilePtr audiofile, TPrecision factor)                         { m_masterInfo->resampleAudioFile(audiofile,factor); };
+	/// @}	
 
     //----------------------------------------------------------------------------
     /// @name Math utils 

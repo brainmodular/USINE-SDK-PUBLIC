@@ -227,6 +227,14 @@ static const NativeInt NOTIFY_MSG_TO_BACK               = 0xFAB67B;  ///< need a
 static const NativeInt CALLBACK_WPARAM_LIMIT = 0xF000000;
 /// @}
 
+
+//----------------------------------------------------------------------------
+/// Number of audio in or out channels in Usine
+/// @name AUDIO_INS_OUTS_MAX
+/// @{
+#define AUDIO_INS_OUTS_MAX 64
+/// @}
+
 //----------------------------------------------------------------------------
 /// keys state modifier.
 /// @see MouseEventsCallbacks
@@ -281,82 +289,48 @@ typedef void* AudioFilePtr;
 /// Colorset used by Usine.
 typedef enum TUsineColorSet
 {
+	g0, g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, clWhite, cl0,
+	cl1, cl2, cl3, cl4, cl5, cl6, cl7, cl8, cl9, cl10, cl11, cl12, cl13, cl14,
+	cl15, cl16, cl17, cl18, cl19, cl20, cl21, cl22, cl23, clURed,
 
-	g0, g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, clWhite,
-	cl0, cl1, cl2, cl3, cl4, cl5, cl6, cl7, cl8, cl9, cl10, cl11, cl12, cl13, cl14, cl15,
-	cl16, cl17, cl18, cl19, cl20, cl21, cl22, cl23,
-	clURed,
-
-	clMainBack,
-	clDarkPanelBack,
-	clLiterPanelBack,
-	clMoreLitePanelBack,
+	clMainBack, clDarkPanelBack, clLiterPanelBack, clMoreLitePanelBack,
 	clVeryLitePanelBack,
 
-	clFontLight,
-	clFontLow,
-	clFontMedium,
-	clFontColored,
+	clFontLight, clFontLow, clFontMedium, clFontColored,
+	clSwitchOnColored, clButton,
 
-	clSwitchOnColored,
-	clButton,
+	clDataFlow, clMIDIFlow, clAudioFlow, clArrayFlow, clTextFlow, clColorFlow,
+	clPointerFlow, clVuMeterMIDI, clVuMeterAudio, clBitwiseFlow,
+	clVideoFlow, clSwitchFlow, clTriggerFlow, clListboxflow,
 
-	clDataFlow,
-	clMidiFlow,
-	clAudioFlow,
-	clArrayFlow,
-	clTextFlow,
-	clColorFlow,
-	clBitmapFlow,
-	clVuMeterMidi,
-	clVuMeterAudio,
-	clLightFlow,
-	clBitwiseFlow,
-	clVideoFlow,
+	clSelected, clDragOver, clMouseOver,
 
-	clSelected,
-	clDragOver,
-	clMouseOver,
-
-	clMIDIlearning,
-	clMIDILearnedIcon,
-	clQuantizedIcon,
+	clMIDIlearning, clMIDILearnedIcon, clQuantizedIcon,
 
 	clNotStoredIcon,
 
-	clCursor,
-	clInvalidLink,
+	clCursor, clInvalidLink,
 
-	clInterfaceDesignModuleColor,
-	clVideoModuleColor,
-	clAudioModuleColor,
-	clPluginModuleColor,
-	clMidiModuleColor,
-	clEventModuleColor,
-	clDataModuleColor,
-	clArrayModuleColor,
-	clMathModuleColor,
-	clSubPatchModuleColor,
-	clScriptModuleColor,
-	clOSCModuleColor,
-	clInterfaceCtrlModuleColor,
-	clTextModuleColor,
-	clFixtureModuleColor,
+	clInterfaceDesignModuleColor, clVideoModuleColor, clAudioModuleColor,
+	clPluginModuleColor, clMIDIModuleColor, clEventModuleColor,
+	clDataModuleColor, clArrayModuleColor, clMathModuleColor,
+	clSubPatchModuleColor, clScriptModuleColor, clNetworkModuleColor,
+	clInterfaceCtrlModuleColor, clTextModuleColor, clFixtureModuleColor,
 	clColorModuleColor,
 
-	clLiterAUDIOflow,
-	clLiterMIDIflow,
-	clLiterDATAflow,
-	clLiterARRAYflow,
-	clLiterTextflow,
-	clLiterColorflow,
-	clLiterBitmapflow
+	clLiterAUDIOflow, clLiterMIDIflow, clLiterDATAflow, clLiterARRAYflow,
+	clLiterTextflow, clLiterColorflow, clLiterPointerFlow, clLiterBitwiseFlow,
+	clLiterVideoFlow, clLiterSwitchflow, clLiterTriggerflow, clLiterListboxflow,
+	clMenuForeGroundColor, clMenuMouseOverColor, clGridColor
+
+	
 } TUsineColorSet;
 
 //-----------------------------------------------------------------------------
 // Event associated to the parameter
 // used in MultiTouch function declaration (see end of file)
 struct UsineEvent;
+#define MAX_AUDIO_EVT_SIZE 1024
 
 /// Handle to a paramerer event.
 /// @see onGetParamEvent
@@ -795,7 +769,7 @@ typedef TColorUsine     (*FuncGetEvtColor)         (UsineEventPtr ev);
 typedef void            (*FuncSetEvtArrayMidi)     (UsineEventPtr ev, int idx, UsineMidiCode midi);
 typedef UsineMidiCode   (*FuncGetEvtArrayMidi)     (UsineEventPtr ev, int idx);
 typedef  void           (*FuncSetEvtPChar)         (UsineEventPtr ev, AnsiCharPtr delphistring);
-typedef AnsiCharPtr    (*FuncGetEvtPChar)         (UsineEventPtr ev);
+typedef AnsiCharPtr    (*FuncGetEvtPChar)          (UsineEventPtr ev);
 typedef TPrecision*     (*FuncGetEvtDataAddr)      (UsineEventPtr ev);
 
 // evt data manipulation
@@ -834,6 +808,8 @@ typedef void  (*FuncClearAudioEvt)   (UsineEventPtr in1);
 typedef AudioFilePtr    (*FuncCreateAudioFile)          ();
 typedef void            (*FuncDestroyAudioFile)         (AudioFilePtr audiofile);
 typedef TPrecision      (*FuncGetSampleAudioFile)       (AudioFilePtr audiofile, int channel, int pos);
+typedef TPrecision*     (*FuncGetSampleArrayAudioFile)  (AudioFilePtr audiofile, int channel);
+typedef void            (*FuncResampleAudioFile)        (AudioFilePtr audiofile, TPrecision factor);
 typedef void            (*FuncGetBlocSampleAudioFile)   (AudioFilePtr audiofile, int channel, int pos, UsineEventPtr evt);
 typedef int             (*FuncGetSizeAudioFile)         (AudioFilePtr audiofile);
 typedef int             (*FuncGetChannelAudioFile)      (AudioFilePtr audiofile);
@@ -963,6 +939,8 @@ typedef TUsinePixel (*FuncColorToPixel) (TColorUsine color);
 typedef TColorUsine (*FuncPixelToColor) (TUsinePixel pixel);
 typedef void(*FuncReleaseFrame)	(ModuleInfo* pModuleInfo, PTUsineFrame frame);
 typedef void(*FuncSetDimmerFrame) (ModuleInfo* pModuleInfo, float dimmer, PTUsineFrame frame);
+typedef void(*FuncLockPatch)   (ModuleInfo* pModuleInfo);
+
 
 //-----------------------------------------------------------------------------
 /// @addtogroup Datatypes
@@ -1224,6 +1202,11 @@ struct MasterInfo
 	FuncDialogInputBox              DialogInputBox;
 	FuncRecreateParam               RecreateParam;
 	FuncLoading                     PatchLoading;
+	FuncGetSampleArrayAudioFile     GetSampleArrayAudioFile;
+	FuncLockPatch                   LockPatch;
+	FuncLockPatch                   unLockPatch;
+	FuncResampleAudioFile           resampleAudioFile;
+
 };
 
 //-----------------------------------------------------------------------------
@@ -1418,7 +1401,10 @@ USINE_MODULE_EXPORT int GetChunkLen (void* pModule, LongBool Preset);
 // ! : all parameters values are strored automatically by Usine
 USINE_MODULE_EXPORT void GetChunk (void* pModule, void* chunk, LongBool Preset);
 // chunk string send by Usine when loading
-USINE_MODULE_EXPORT void SetChunk (void* pModule, const void* chunk, LongBool Preset, int sizeInBytes);
+USINE_MODULE_EXPORT void SetChunk(void* pModule, const void* chunk, LongBool Preset, int sizeInBytes);
+
+// called after the module is loaded
+USINE_MODULE_EXPORT void AfterLoading (void* pModule);
 
 //-----------------------------------------------------------------------------
 // layout option and commands

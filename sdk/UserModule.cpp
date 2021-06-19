@@ -429,6 +429,19 @@ void SetChunk (void* pModule, const void* chunk, LongBool Preset, int sizeInByte
 	}
 }
 
+void AfterLoading(void* pModule)
+{
+	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
+
+	try
+	{
+		userModule->onAfterLoading();
+	}
+	catch (...) // std::exception& e
+	{
+		userModule->sdkTraceErrorChar(" in AfterLoading");
+	}
+}
 
 //-----------------------------------------------------------------------------
 // layout

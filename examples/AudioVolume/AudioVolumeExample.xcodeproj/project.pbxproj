@@ -273,6 +273,7 @@
 				PRODUCT_NAME = AudioVolumeExample;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/Usine-SDK/temp";
 				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
@@ -309,6 +310,7 @@
 				PRODUCT_NAME = AudioVolumeExample;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/Usine-SDK/temp";
 				VALID_ARCHS = x86_64;
 				ZERO_LINK = NO;
 			};
