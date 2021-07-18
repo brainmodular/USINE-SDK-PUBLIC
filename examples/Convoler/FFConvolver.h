@@ -55,7 +55,7 @@
 #include "../../sdk/UserDefinitions.h" 
 
 #include "FFTConvolver.h"
-#include "TwoStageFFTConvolver.h"
+//#include "TwoStageFFTConvolver.h"
 #include "CookbookEq.h"
 #include <vector>
 
@@ -146,7 +146,7 @@ private:
 	void clearAudioOut();
 	
 
-	fftconvolver::TwoStageFFTConvolver  Convolver[AUDIO_INS_OUTS_MAX];
+	fftconvolver::FFTConvolver  Convolver[AUDIO_INS_OUTS_MAX];
 	AudioFilePtr irFile;
 	int irFileSize;
 	int irNumChannels;

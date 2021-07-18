@@ -449,7 +449,7 @@ void FFConvolver::loadIR()
 					{
 						int j = ch % irNumChannels;
 						::memcpy(&finalIR[preDelaySize], irDataPointer[j], irFileSize * sizeof(TPrecision));
-						Convolver[ch].init(sdkGetBlocSize() * int(8), sdkGetBlocSize() * int(8), &finalIR[0], irFinalSize, true);
+						Convolver[ch].init(sdkGetBlocSize() * int(8), &finalIR[0], irFinalSize, true);
 					}
 					delete[] finalIR;
 

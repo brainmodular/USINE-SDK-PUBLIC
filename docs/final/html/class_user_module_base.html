@@ -21,7 +21,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-site.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Usine SDK
-   &#160;<span id="projectnumber">HH4-200501</span>
+   &#160;<span id="projectnumber">HH5-210717</span>
    </div>
    <div id="projectbrief">Create user modules for Usine Software</div>
   </td>
@@ -122,6 +122,10 @@ Chunk System Callbacks</h2></td></tr>
 <tr class="memitem:a6973e7d6d6155690415d4d1599449522"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_user_module_base.html#a6973e7d6d6155690415d4d1599449522">onSetChunk</a> (const void *chunk, int sizeInBytes, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> Preset)</td></tr>
 <tr class="memdesc:a6973e7d6d6155690415d4d1599449522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provide a chunk handle filled by Usine to restore them into the module.  <a href="#a6973e7d6d6155690415d4d1599449522">More...</a><br /></td></tr>
 <tr class="separator:a6973e7d6d6155690415d4d1599449522"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8b0524e04f0894a63552bd4b759903b"><td class="memItemLeft" align="right" valign="top"><a id="aa8b0524e04f0894a63552bd4b759903b"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_user_module_base.html#aa8b0524e04f0894a63552bd4b759903b">onAfterLoading</a> ()</td></tr>
+<tr class="memdesc:aa8b0524e04f0894a63552bd4b759903b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called after the module is loaded in Usine. <br /></td></tr>
+<tr class="separator:aa8b0524e04f0894a63552bd4b759903b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Settings Callbacks</h2></td></tr>
@@ -607,6 +611,17 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sdkSmoothEvent</b> (<
 <tr class="separator:a1a3d10fee358a3a5df2bf13f6ec37f1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Critical Sections</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp8519ec8627e503a7510b987eaa982ff7"></a>Critical sections functions to protect patches calculation. </p>
+</td></tr>
+<tr class="memitem:a948153ae61c80d181ef2ee7390d0e8e1"><td class="memItemLeft" align="right" valign="top"><a id="a948153ae61c80d181ef2ee7390d0e8e1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>sdkLockPatch</b> ()</td></tr>
+<tr class="separator:a948153ae61c80d181ef2ee7390d0e8e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab29d8b9fddcf817c670c48cf5e50d3e"><td class="memItemLeft" align="right" valign="top"><a id="aab29d8b9fddcf817c670c48cf5e50d3e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>sdkUnLockPatch</b> ()</td></tr>
+<tr class="separator:aab29d8b9fddcf817c670c48cf5e50d3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Parameters setters</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp9faf7f710c4bf020d8666314526fac35"></a>Utils functions to update some Parameter property other than the Event data.</p>
 </td></tr>
@@ -830,6 +845,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sdkDestroyAudioFile</
 <tr class="memitem:a1df656636fa28239859081420786e0de"><td class="memItemLeft" align="right" valign="top"><a id="a1df656636fa28239859081420786e0de"></a>
 <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td><td class="memItemRight" valign="bottom"><b>sdkGetSampleAudioFile</b> (<a class="el" href="group___datatypes.html#gad5f8be044994b15f07e28a6ef6d2b95e">AudioFilePtr</a> audiofile, int channel, int pos)</td></tr>
 <tr class="separator:a1df656636fa28239859081420786e0de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae572022a9cee9f74e0f2661e2e5632d3"><td class="memItemLeft" align="right" valign="top"><a id="ae572022a9cee9f74e0f2661e2e5632d3"></a>
+<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>sdkGetSampleArrayAudioFile</b> (<a class="el" href="group___datatypes.html#gad5f8be044994b15f07e28a6ef6d2b95e">AudioFilePtr</a> audiofile, int channel)</td></tr>
+<tr class="separator:ae572022a9cee9f74e0f2661e2e5632d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4a36b9f130b7757e5a4f52a9bb90e30"><td class="memItemLeft" align="right" valign="top"><a id="ae4a36b9f130b7757e5a4f52a9bb90e30"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>sdkGetBlocSampleAudioFile</b> (<a class="el" href="group___datatypes.html#gad5f8be044994b15f07e28a6ef6d2b95e">AudioFilePtr</a> audiofile, int channel, int pos, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> evt)</td></tr>
 <tr class="separator:ae4a36b9f130b7757e5a4f52a9bb90e30"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -869,6 +887,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sdkSetSampleAudioFile
 <tr class="memitem:ae99a676ee3b0a13e041bb5e3d8869a5e"><td class="memItemLeft" align="right" valign="top"><a id="ae99a676ee3b0a13e041bb5e3d8869a5e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>sdkClearAudioFile</b> (<a class="el" href="group___datatypes.html#gad5f8be044994b15f07e28a6ef6d2b95e">AudioFilePtr</a> audiofile)</td></tr>
 <tr class="separator:ae99a676ee3b0a13e041bb5e3d8869a5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21fa20e36f8042e20545665b17755dfa"><td class="memItemLeft" align="right" valign="top"><a id="a21fa20e36f8042e20545665b17755dfa"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>sdkResampleAudioFile</b> (<a class="el" href="group___datatypes.html#gad5f8be044994b15f07e28a6ef6d2b95e">AudioFilePtr</a> audiofile, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> factor)</td></tr>
+<tr class="separator:a21fa20e36f8042e20545665b17755dfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Math utils</h2></td></tr>
@@ -2848,7 +2869,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>sdkWidthPercentToPix
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri May 1 2020 18:38:00 for Usine SDK by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jul 18 2021 12:23:48 for Usine SDK by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.12
 </small></address>

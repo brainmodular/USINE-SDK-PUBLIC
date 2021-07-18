@@ -171,9 +171,9 @@ void FFConvolver::onInitModule (MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo
 		HiPassFilter[i]->setType(CookbookEq::HiPass2);
 		HiPassFilter[i]->setFreq(LOW_CUT_FREQ_DEFAULT);
 	}
-	ImpulseLowPassFilter = new CookbookEq(CookbookEq::LoPass1, DAMPING_FREQ_MAX, 1);
+	ImpulseLowPassFilter = new CookbookEq(CookbookEq::LoPass2, DAMPING_FREQ_MAX, 1);
 	ImpulseLowPassFilter->prepareToPlay(sdkGetSampleRate(), sdkGetBlocSize());
-	ImpulseLowPassFilter->setType(CookbookEq::LoPass1);
+	ImpulseLowPassFilter->setType(CookbookEq::LoPass2);
 	ImpulseLowPassFilter->setFreq(DAMPING_FREQ_MAX);
 	cptDeactivation = 0;
 	irFinalSize = 0;
@@ -460,7 +460,8 @@ void FFConvolver::createAndLoadIR()
 			int preDelaySize = int(sdkGetEvtData(fdrPreDelay) * sdkGetSampleRate() / 1000.0f);
 			irFinalSize = preDelaySize + irSize;
 
-			TPrecision* IR = new TPrecision[irSize];
+			TPrecision* IRFiltered = new TPrecision[irSize];
+			TPrecision* IRNoFiltered = new TPrecision[irSize];
 			TPrecision* finalIR = new TPrecision[irFinalSize];
 			::memset(finalIR, 0, irFinalSize * sizeof(TPrecision));
 
@@ -471,7 +472,7 @@ void FFConvolver::createAndLoadIR()
 			for (int ch = 0; ch < numOfAudiotInsOuts; ch++)
 			{
 				
-				::memset(IR, 0, irSize * sizeof(TPrecision));
+				::memset(IRNoFiltered, 0, irSize * sizeof(TPrecision));
 				
 				float v;
 
@@ -484,22 +485,40 @@ void FFConvolver::createAndLoadIR()
 						v = float(AWGN_generator());// float(rand()) / float((RAND_MAX));
 						v = float(2.0f * v - 1);
 						v = v * pow(1.0f - float(i) / float(irSize), decaycoeff);
-						IR[i] = v;
+						IRNoFiltered[i] = v;
 					}
 					else
 					{
 //						oldv = 0;
 					}
 				}
+
+				::memcpy(&IRFiltered[0], &IRNoFiltered[0], irSize * sizeof(TPrecision));
+
+				// one impulse is filtered 12db/oct
 				ImpulseLowPassFilter->cleanup();
 				ImpulseLowPassFilter->setFreq(sdkGetEvtData(fdrDampingFreq));
-				ImpulseLowPassFilter->filterOut(&IR[0], irSize);
+				ImpulseLowPassFilter->filterOut(&IRFiltered[0], irSize);
+
+				// one impulse is filtered 6db/oct
+				ImpulseLowPassFilter->setType(CookbookEq::LoPass1);
+				ImpulseLowPassFilter->cleanup();
+				ImpulseLowPassFilter->setFreq(sdkGetEvtData(fdrDampingFreq));
+				ImpulseLowPassFilter->filterOut(&IRNoFiltered[0], irSize);
+
+
+				// cross fade between IRNoFiltered and IRFiltered
+				for (int i = 0; i < irSize; i++)
+				{
+					IRFiltered[i] = IRFiltered[i] * (float(i) / float(irSize)) +IRNoFiltered[i] * (float(irSize) - float(i)) / float(irSize);
+				}
+
 
 				// normalization
 				float sumofsquare = 0;
 				for (int i = 0; i < irSize; i++)
 				{
-					sumofsquare += IR[i] * IR[i];
+					sumofsquare += IRFiltered[i] * IRFiltered[i];
 				}
 
 				if (sumofsquare > 0)
@@ -507,16 +526,16 @@ void FFConvolver::createAndLoadIR()
 					sumofsquare = 1 / sqrt(sumofsquare);
 					for (int i = 0; i < irSize; i++)
 					{
-						IR[i] = IR[i]*sumofsquare;
+						IRFiltered[i] = IRFiltered[i]*sumofsquare;
 					}
 				}
-				::memcpy(&finalIR[preDelaySize], &IR[0], irSize * sizeof(TPrecision));
-				Convolver[ch].init(sdkGetBlocSize() * int(8), sdkGetBlocSize() * int(8), &finalIR[0], irFinalSize, true);
+				::memcpy(&finalIR[preDelaySize], &IRFiltered[0], irSize * sizeof(TPrecision));
+				Convolver[ch].init(sdkGetBlocSize() * int(8), &finalIR[0], irFinalSize, true);
 
 			}
   		    
 			delete[] finalIR;
-			delete[] IR;
+			delete[] IRFiltered;
 
 	}
 	catch(...)
