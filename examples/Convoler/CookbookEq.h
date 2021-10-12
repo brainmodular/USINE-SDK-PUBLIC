@@ -47,19 +47,19 @@ public:
     HiShelf
   };
   
-  CookbookEq(Type type, float freq, float q);
+  CookbookEq(Type type, double freq, double q);
   virtual ~CookbookEq();
   
-  void prepareToPlay(float sampleRate, int samplesPerBlock);
+  void prepareToPlay(double sampleRate, int samplesPerBlock);
   void releaseResources();
   
-  void filterOut(float *smp, int numSamples);
+  void filterOut(float*smp, int numSamples);
   
-  void setFreq(float freq);
-  void setFreqAndQ(float freq, float q);
-  void setQ(float q);
+  void setFreq(double freq);
+  void setFreqAndQ(double freq, double q);
+  void setQ(double q);
   void setType(Type type);
-  void setGain(float gainDb);
+  void setGain(double gainDb);
   void setStages(int stages);
   
   void cleanup();
@@ -67,31 +67,31 @@ public:
 private:
   static inline double Pi()                  { return 3.1415926535897932384626433832795; }
   static inline double Log10()               { return 2.302585093;                       }
-  static inline bool Equal(float a, float b) { return ::fabs(a-b) < 0.00001f;            }
+  static inline bool Equal(double a, double b) { return ::abs(a-b) < 0.00001;            }
 
   struct Stage
   {
-    float c1, c2;
+    double c1, c2;
   };
   
   void singleFilterOut (float *smp,
                         Stage &x,
                         Stage &y,
-                        float *c,
-                        float *d,
+                        double *c,
+                        double *d,
                         int numSamples);
   
   void computeFilterCoefs ();
   
   Type _type;                              // The type of the filter
   int _order;                              // the order of the filter (number of poles)
-  float _freq;                             // Frequency given in Hz
-  float _q;                                // Q factor (resonance or Q factor)
-  float _gainDb;                           // the gain of the filter (if are shelf/peak) filters
-  float _c[3], _d[3];                      // coefficients
-  float _oldc[3], _oldd[3];                // old coefficients(used only if some filter paremeters changes very fast, and it needs interpolation)
+  double _freq;                             // Frequency given in Hz
+  double _q;                                // Q factor (resonance or Q factor)
+  double _gainDb;                           // the gain of the filter (if are shelf/peak) filters
+  double _c[3], _d[3];                      // coefficients
+  double _oldc[3], _oldd[3];                // old coefficients(used only if some filter paremeters changes very fast, and it needs interpolation)
   Stage _x, _y, _oldx, _oldy;
-  std::vector<float> _interpolationBuffer; // used if it needs interpolation
+  std::vector<double> _interpolationBuffer; // used if it needs interpolation
   int _sampleRate;
   bool _needsInterpolation;
   bool _firstTime;

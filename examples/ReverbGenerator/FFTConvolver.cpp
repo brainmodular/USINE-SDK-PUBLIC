@@ -90,13 +90,13 @@ bool FFTConvolver::init(size_t blockSize, const Sample* ir, size_t irLen, bool d
   {
     return false;
   }
-  
+ 
   // Ignore zeros at the end of the impulse response because they only waste computation time
-  while (irLen > 0 && ::fabs(ir[irLen-1]) < 0.000001f)
+  while (irLen > 0 && ::fabs(ir[irLen-1]) < 0.00001f)
   {
     --irLen;
   }
-
+  
   if (irLen == 0)
   {
     return true;

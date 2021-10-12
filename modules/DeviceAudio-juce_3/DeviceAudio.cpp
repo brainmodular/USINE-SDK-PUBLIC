@@ -1550,7 +1550,15 @@ String DeviceAudio::doChangeDriverSettings(AudioDeviceManager::AudioDeviceSetup 
 	String result;
 
 	traceAudioSetup(audioSetup);
-
+    if (audioSetup.inputChannels == 0)
+    {
+        audioSetup.inputChannels = 1;
+    }
+    if (audioSetup.outputChannels == 0)
+    {
+        audioSetup.outputChannels = 1;
+    }
+    
 	result = deviceManager.setAudioDeviceSetup(audioSetup, true);
 
 	if (result.isNotEmpty())
@@ -1563,7 +1571,7 @@ String DeviceAudio::doChangeDriverSettings(AudioDeviceManager::AudioDeviceSetup 
 		lastErrorMessage = result;
 	}
 	// tell to usine settings have changed
-	else if (deviceManager.getCurrentAudioDevice() != nullptr)
+	if (deviceManager.getCurrentAudioDevice() != nullptr)
 	{
 		sdkNotifyUsine(NOTIFY_TARGET_SETUP, NOTIFY_MSG_AUDIO_DRIVER_CHANGED, 0, 0);
 		updateInsOutsCaptions();

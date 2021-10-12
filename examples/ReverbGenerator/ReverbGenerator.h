@@ -65,7 +65,7 @@
 
 static const NativeInt NOTIFY_START_LOAD_IR = 0x78AB0;
 static const NativeInt NOTIFY_LOAD_IR_FINISHED = 0x78AB1;
-typedef enum class TLoadingIRState
+enum class TLoadingIRState
 {
    lsProcessing,
    lsAsked,
@@ -130,6 +130,8 @@ private:
 	UsineEventPtr fdrOnOff;
 	UsineEventPtr fdrDensity;
 	UsineEventPtr fdrDampingFreq;
+	UsineEventPtr fdrAirAbsorption;
+	UsineEventPtr fdrEarlySize;
 	UsineEventPtr fdrSize;
 	UsineEventPtr fdrDecay;
 	UsineEventPtr fdrHiPassFreq;
@@ -137,7 +139,7 @@ private:
 
 
 	//-------------------------------------------------------------------------
-    static const int numOfParamAfterAudiotInOut = 8;
+    static const int numOfParamAfterAudiotInOut = 10;
 
 	int queryIndex;
 	int numOfAudiotInsOuts;

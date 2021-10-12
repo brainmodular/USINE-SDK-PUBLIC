@@ -159,7 +159,7 @@ void FFConvolver::onInitModule (MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo
 	for (int i = 0; i < numOfAudiotInsOuts; i++)
 	{
 		HiPassFilter[i] = new CookbookEq(CookbookEq::HiPass2, LOW_CUT_FREQ_DEFAULT, 1);
-		HiPassFilter[i]->prepareToPlay(sdkGetSampleRate(), sdkGetBlocSize());
+		HiPassFilter[i]->prepareToPlay(float(sdkGetSampleRate()), sdkGetBlocSize());
 		HiPassFilter[i]->setType(CookbookEq::HiPass2);
 		HiPassFilter[i]->setFreq(LOW_CUT_FREQ_DEFAULT);
 	}
@@ -174,7 +174,7 @@ void FFConvolver::onBlocSizeChange(int BlocSize)
 	sdkLockPatch();
 	for (int i = 0; i < numOfAudiotInsOuts; i++)
 	{
-		HiPassFilter[i]->prepareToPlay(sdkGetSampleRate(), sdkGetBlocSize());
+		HiPassFilter[i]->prepareToPlay(float(sdkGetSampleRate()), sdkGetBlocSize());
 	}
 	sdkUnLockPatch();
 };
@@ -185,7 +185,7 @@ void FFConvolver::onSampleRateChange(double SampleRate)
 	sdkLockPatch();
 	for (int i = 0; i < numOfAudiotInsOuts; i++)
 	{
-		HiPassFilter[i]->prepareToPlay(sdkGetSampleRate(), sdkGetBlocSize());
+		HiPassFilter[i]->prepareToPlay(float(sdkGetSampleRate()), sdkGetBlocSize());
 	}
 	sdkUnLockPatch();
 };
@@ -336,6 +336,25 @@ void FFConvolver::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->Symbol = "";
 		pParamInfo->Format = "%.2f";
 	}
+	// fdrImpulseDur
+	else if (ParamIndex == (numOfAudiotInsOuts * 2) + 6)
+	{
+	pParamInfo->ParamType = ptDataField;
+	pParamInfo->Caption = "impulse duration";
+	pParamInfo->IsInput = FALSE;
+	pParamInfo->IsOutput = TRUE;
+	pParamInfo->IsSeparator = FALSE;
+	pParamInfo->CallBackType = ctNormal;
+	pParamInfo->CallBackId = -1;
+	pParamInfo->EventPtr = &fdrImpulseDur;
+	pParamInfo->DefaultValue = 0.0f;
+	pParamInfo->Scale = scLinear;
+	pParamInfo->MinValue = 0.0f;
+	pParamInfo->MaxValue = float(INT32_MAX);
+	pParamInfo->Symbol = "ms";
+	pParamInfo->Format = "%.1f";
+	}
+
 
 }
 
@@ -351,7 +370,7 @@ void FFConvolver::loadIR()
 		if (sdkGetSizeAudioFile(irFile) > 0)
 		{
 
-			sdkResampleAudioFile(irFile, sdkGetSampleRate() / sdkGetSampleRateAudioFile(irFile));
+			sdkResampleAudioFile(irFile, float(sdkGetSampleRate()) / float(sdkGetSampleRateAudioFile(irFile)));
 
 			irFileSize = sdkGetSizeAudioFile(irFile);
 			irNumChannels = sdkGetChannelAudioFile(irFile);
@@ -365,6 +384,7 @@ void FFConvolver::loadIR()
 			float sumofsquare;
 			TPrecision correctionsum;
 
+			sdkSetEvtData(fdrImpulseDur, sdkGetEvtData(fdrSizeFactor)*1000.0f * float(irFileSize) / float(sdkGetSampleRate()));
 
 			for (int ch = 0; ch < irNumChannels; ch++)
 			{
@@ -373,7 +393,7 @@ void FFConvolver::loadIR()
 
 				if (coeffcurve != 2.0f)
 				{
-					// calcul de la somme des sample
+					// calcul de la somme des samples
 					suminitial = 0;
 					psample = irDataPointer[ch];
 					for (int i = 0; i < irFileSize; i++)
@@ -449,7 +469,23 @@ void FFConvolver::loadIR()
 					{
 						int j = ch % irNumChannels;
 						::memcpy(&finalIR[preDelaySize], irDataPointer[j], irFileSize * sizeof(TPrecision));
-						Convolver[ch].init(sdkGetBlocSize() * int(8), &finalIR[0], irFinalSize, true);
+						int blocSize;
+						if (sdkGetSampleRate() >= 176400.0)
+						{
+							blocSize = sdkGetBlocSize() * int(32);
+						}
+						else
+						if (sdkGetSampleRate() >= 88200.0)
+						{
+							blocSize = sdkGetBlocSize() * int(16);
+						}
+						else
+						{
+							blocSize = sdkGetBlocSize() * int(8);
+						}
+
+
+						Convolver[ch].init(blocSize, &finalIR[0], irFinalSize, true);
 					}
 					delete[] finalIR;
 
@@ -554,11 +590,16 @@ void FFConvolver::clearAudioOut()
 // Process
 void FFConvolver::onProcess ()
 {
-	int j;
+	
 	if ((irNumChannels > 0) && (loadingIRSate != TLoadingIRState::lsLoading))
 	{
+		float dryWet = sdkGetEvtData(fdrDryWet);
 		float onoffstate = sdkGetEvtData(fdrOnOff);
-
+		// denormalization
+		for (int i = 0; i < numOfAudiotInsOuts; i++)
+		{
+			sdkDenormalizeAudioEvt(audioInputs[i]);
+		}
 		if ((onoffstate == 1.0f) || (cptDeactivation > 0))
 		{
 			for (int i = 0; i < numOfAudiotInsOuts; i++)
@@ -575,9 +616,12 @@ void FFConvolver::onProcess ()
 
 				Convolver[i].process(sdkGetEvtDataAddr(audioOutputs[i]), &audioOutTmp[0], sdkGetBlocSize());
 				::memcpy(sdkGetEvtDataAddr(audioOutputs[i]), &audioOutTmp[0], sdkGetBlocSize() * sizeof(TPrecision));
-				sdkMultEvt1(1.0f - sdkGetEvtData(fdrDryWet), audioInputs[i]);
-				sdkMultEvt1(sdkGetEvtData(fdrDryWet), audioOutputs[i]);
-				sdkAddEvt2(audioInputs[i], audioOutputs[i]);
+				if (dryWet < 1.0)
+				{
+					sdkMultEvt1(1.0f - dryWet, audioInputs[i]);
+					sdkMultEvt1(dryWet, audioOutputs[i]);
+					sdkAddEvt2(audioInputs[i], audioOutputs[i]);
+				}
 			}
 			if (onoffstate != 1.0f)
 			{
@@ -589,7 +633,10 @@ void FFConvolver::onProcess ()
 			for (int i = 0; i < numOfAudiotInsOuts; i++)
 			{
 				sdkCopyEvt(audioInputs[i], audioOutputs[i]);
-				sdkMultEvt1(1.0f - sdkGetEvtData(fdrDryWet), audioOutputs[i]);
+				if (dryWet < 1.0)
+				{
+					sdkMultEvt1(1.0f - sdkGetEvtData(fdrDryWet), audioOutputs[i]);
+				}
 			}
 		}
 	}

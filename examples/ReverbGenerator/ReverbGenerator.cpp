@@ -55,6 +55,9 @@
 #define LOW_CUT_FREQ_DEFAULT 20.0f
 #define DAMPING_FREQ_MAX 15000.0f
 #define DAMPING_FREQ_MIN 200.0f
+#define LN4 1.386294361119f
+#define EARLYDENSITY 0.01f
+
 
 
 //----------------------------------------------------------------------------
@@ -167,12 +170,12 @@ void FFConvolver::onInitModule (MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo
 	for (int i = 0; i < numOfAudiotInsOuts; i++)
 	{
 		HiPassFilter[i] = new CookbookEq(CookbookEq::HiPass2, LOW_CUT_FREQ_DEFAULT, 1);
-		HiPassFilter[i]->prepareToPlay(sdkGetSampleRate(), sdkGetBlocSize());
+		HiPassFilter[i]->prepareToPlay(float(sdkGetSampleRate()), sdkGetBlocSize());
 		HiPassFilter[i]->setType(CookbookEq::HiPass2);
 		HiPassFilter[i]->setFreq(LOW_CUT_FREQ_DEFAULT);
 	}
 	ImpulseLowPassFilter = new CookbookEq(CookbookEq::LoPass2, DAMPING_FREQ_MAX, 1);
-	ImpulseLowPassFilter->prepareToPlay(sdkGetSampleRate(), sdkGetBlocSize());
+	ImpulseLowPassFilter->prepareToPlay(float(sdkGetSampleRate()), sdkGetBlocSize());
 	ImpulseLowPassFilter->setType(CookbookEq::LoPass2);
 	ImpulseLowPassFilter->setFreq(DAMPING_FREQ_MAX);
 	cptDeactivation = 0;
@@ -188,9 +191,9 @@ void FFConvolver::onBlocSizeChange(int BlocSize)
 	sdkLockPatch();
 	for (int i = 0; i < numOfAudiotInsOuts; i++)
 	{
-		HiPassFilter[i]->prepareToPlay(sdkGetSampleRate(), sdkGetBlocSize());
+		HiPassFilter[i]->prepareToPlay(float(sdkGetSampleRate()), sdkGetBlocSize());
 	}
-	ImpulseLowPassFilter->prepareToPlay(sdkGetSampleRate(), sdkGetBlocSize());
+	ImpulseLowPassFilter->prepareToPlay(float(sdkGetSampleRate()), sdkGetBlocSize());
 	sdkUnLockPatch();
 };
 
@@ -200,9 +203,9 @@ void FFConvolver::onSampleRateChange(double SampleRate)
 	sdkLockPatch();
 	for (int i = 0; i < numOfAudiotInsOuts; i++)
 	{
-		HiPassFilter[i]->prepareToPlay(sdkGetSampleRate(), sdkGetBlocSize());
+		HiPassFilter[i]->prepareToPlay(float(sdkGetSampleRate()), sdkGetBlocSize());
 	}
-	ImpulseLowPassFilter->prepareToPlay(sdkGetSampleRate(), sdkGetBlocSize());
+	ImpulseLowPassFilter->prepareToPlay(float(sdkGetSampleRate()), sdkGetBlocSize());
 	sdkUnLockPatch();
 };
 
@@ -387,6 +390,44 @@ void FFConvolver::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->Symbol = "ms";
 		pParamInfo->Format = "%.0f";
 	}
+	//fdrAirAbsorption
+	else if (ParamIndex == (numOfAudiotInsOuts * 2) + 8)
+	{
+	pParamInfo->ParamType = ptDataFader;
+	pParamInfo->Caption = "air absorption";
+	pParamInfo->IsInput = TRUE;
+	pParamInfo->IsOutput = FALSE;
+	pParamInfo->IsSeparator = FALSE;
+	pParamInfo->CallBackType = ctNormal;
+	pParamInfo->CallBackId = 0xFFB;
+	pParamInfo->EventPtr = &fdrAirAbsorption;
+	pParamInfo->DefaultValue = 1.0f;
+	pParamInfo->Scale = scLinear;
+	pParamInfo->MinValue = 0.0f;
+	pParamInfo->MaxValue = 1.0f;
+	pParamInfo->Symbol = "";
+	pParamInfo->Format = "%.2f";
+	}
+
+	//fdrEarlyAmount
+	else 
+	if (ParamIndex == (numOfAudiotInsOuts * 2) + 9)
+	{
+	pParamInfo->ParamType = ptDataFader;
+	pParamInfo->Caption = "early size";
+	pParamInfo->IsInput = TRUE;
+	pParamInfo->IsOutput = FALSE;
+	pParamInfo->IsSeparator = FALSE;
+	pParamInfo->CallBackType = ctNormal;
+	pParamInfo->CallBackId = 0xFFB;
+	pParamInfo->EventPtr = &fdrEarlySize;
+	pParamInfo->DefaultValue = 0.05f;
+	pParamInfo->Scale = scLog;
+	pParamInfo->MinValue = 0.0f;
+	pParamInfo->MaxValue = 1.0f;
+	pParamInfo->Symbol = "";
+	pParamInfo->Format = "%.2f";
+	}
 
 }
 
@@ -399,19 +440,19 @@ void FFConvolver::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 
 #define PI 3.1415926536
 
-double AWGN_generator()
+float AWGN_generator()
 {/* Generates additive white Gaussian Noise samples with zero mean and a standard deviation of 1. */
 
-	double temp1;
-	double temp2;
-	double result;
+	float temp1;
+	float temp2;
+	float result;
 	int p;
 
 	p = 1;
 
 	while (p > 0)
 	{
-		temp2 = (rand() / ((double)RAND_MAX)); /*  rand() function generates an
+		temp2 = (rand() / ((float)RAND_MAX)); /*  rand() function generates an
 														   integer between 0 and  RAND_MAX,
 														   which is defined in stdlib.h.
 													   */
@@ -427,18 +468,18 @@ double AWGN_generator()
 
 	}// end while()
 
-	temp1 = cos((2.0 * (double)PI) * rand() / ((double)RAND_MAX));
-	result = sqrt(-2.0 * log(temp2)) * temp1;
+	temp1 = cosf((2.0f * (float)PI) * rand() / ((float)RAND_MAX));
+	result = sqrtf(-2.0f * log(temp2)) * temp1;
 
 	return result;	// return the generated random sample to the caller
 
 }// end AWGN_generator()
 
-//double b0, b1, b2;
+//float b0, b1, b2;
 //
-//double PinkNoise()
+//float PinkNoise()
 //{
-//	double white = AWGN_generator();
+//	float white = AWGN_generator();
 //    b0 = 0.99765 * b0 + white * 0.0990460;
 //    b1 = 0.96300 * b1 + white * 0.2965164;
 //    b2 = 0.57000 * b2 + white * 1.0526913;
@@ -455,50 +496,75 @@ void FFConvolver::createAndLoadIR()
 	{
 
 			irSize = int(sdkGetSampleRate()*sdkGetEvtData(fdrSize)/1000.0f);
-		
 
 			int preDelaySize = int(sdkGetEvtData(fdrPreDelay) * sdkGetSampleRate() / 1000.0f);
 			irFinalSize = preDelaySize + irSize;
+			int earlySize = int(float(irSize) * sdkGetEvtData(fdrEarlySize));
+
+			float airAbsorption = sdkGetEvtData(fdrAirAbsorption);
+			// air absorption formula power coeff =exp(2*fdrAirAbsorption-1)*ln(4)
+			float powcoeff = expf((2.0f * airAbsorption - 1) * LN4);
 
 			TPrecision* IRFiltered = new TPrecision[irSize];
 			TPrecision* IRNoFiltered = new TPrecision[irSize];
-			TPrecision* finalIR = new TPrecision[irFinalSize];
-			::memset(finalIR, 0, irFinalSize * sizeof(TPrecision));
 
-			float decaycoeff = 1.0f + 4.0f * sdkGetEvtData(fdrDecay);
+
+			TPrecision* finalIR = new TPrecision[irFinalSize];
+
+			float decaycoeff = (sdkGetEvtData(fdrDecay));
 			float density =sdkGetEvtData(fdrDensity);
+			float exponentialFactor = float(decaycoeff) + 1.71828182845904f;
+			float endvalue = 1.0f / powf(exponentialFactor, 10.0f);
 			
 
 			for (int ch = 0; ch < numOfAudiotInsOuts; ch++)
 			{
 				
 				::memset(IRNoFiltered, 0, irSize * sizeof(TPrecision));
+				::memset(finalIR, 0, irFinalSize * sizeof(TPrecision));
+				::memset(IRFiltered, 0, irSize * sizeof(TPrecision));
 				
-				float v;
 
+				float v;
+				float dens;
 				// generate impulse
 				for (int i = 0; i < irSize; i++)
-				{
-					if (float(rand()) / float((RAND_MAX)) < pow(density+(1.0f-density)*float(i)/float(irSize),3.0f))
-					{
+				{	
+					float iss = float(i) / float(irSize);
+					dens = density + (1.0f - density) * iss;
+					dens = dens * dens;
 
-						v = float(AWGN_generator());// float(rand()) / float((RAND_MAX));
-						v = float(2.0f * v - 1);
-						v = v * pow(1.0f - float(i) / float(irSize), decaycoeff);
-						IRNoFiltered[i] = v;
+					v = 0;
+					if (i < earlySize)						
+					{
+						float earlycurve = float(i) / float(earlySize);
+						float rnd = AWGN_generator();
+						if (abs(rnd) < EARLYDENSITY)
+						{
+							v = 16.0f*(1 - earlycurve);
+							if (rnd < 0)
+							{
+								v = -v;
+							}								
+						}
+						else
+						{
+							if (abs(AWGN_generator()) < dens)
+							{
+								v = AWGN_generator() *  earlycurve;
+							}
+						}																				
 					}
 					else
 					{
-//						oldv = 0;
+						if (abs(AWGN_generator()) < dens)
+						{
+							v = AWGN_generator();
+						}
 					}
+					v = v / powf(exponentialFactor,10.0f*iss)-endvalue;
+					IRNoFiltered[i] = v;					
 				}
-
-				::memcpy(&IRFiltered[0], &IRNoFiltered[0], irSize * sizeof(TPrecision));
-
-				// one impulse is filtered 12db/oct
-				ImpulseLowPassFilter->cleanup();
-				ImpulseLowPassFilter->setFreq(sdkGetEvtData(fdrDampingFreq));
-				ImpulseLowPassFilter->filterOut(&IRFiltered[0], irSize);
 
 				// one impulse is filtered 6db/oct
 				ImpulseLowPassFilter->setType(CookbookEq::LoPass1);
@@ -506,16 +572,24 @@ void FFConvolver::createAndLoadIR()
 				ImpulseLowPassFilter->setFreq(sdkGetEvtData(fdrDampingFreq));
 				ImpulseLowPassFilter->filterOut(&IRNoFiltered[0], irSize);
 
-
-				// cross fade between IRNoFiltered and IRFiltered
-				for (int i = 0; i < irSize; i++)
+				// apply a smooth on the IR
+				// the smooth is stronger at the end of the IR
+				float val,oldv,smooth;
+				oldv = IRNoFiltered[0];
+				for (int i = 1; i < irSize; i++)
 				{
-					IRFiltered[i] = IRFiltered[i] * (float(i) / float(irSize)) +IRNoFiltered[i] * (float(irSize) - float(i)) / float(irSize);
+					smooth = float(irSize - i) / float(irSize);
+					smooth = powf(smooth, powcoeff);
+					
+					val = oldv * (1.0f - smooth);
+					val = val + float(IRNoFiltered[i]) * smooth;
+					oldv = val;
+					IRFiltered[i] = float(val);	
 				}
-
+				IRFiltered[irSize - 1] = 0.0f;
 
 				// normalization
-				float sumofsquare = 0;
+				float sumofsquare = 0.0f;
 				for (int i = 0; i < irSize; i++)
 				{
 					sumofsquare += IRFiltered[i] * IRFiltered[i];
@@ -530,12 +604,29 @@ void FFConvolver::createAndLoadIR()
 					}
 				}
 				::memcpy(&finalIR[preDelaySize], &IRFiltered[0], irSize * sizeof(TPrecision));
-				Convolver[ch].init(sdkGetBlocSize() * int(8), &finalIR[0], irFinalSize, true);
+				int blocSize;
+				if (sdkGetSampleRate() >= 176400.0)
+				{
+					blocSize = sdkGetBlocSize() * int(32);
+				}
+				else
+					if (sdkGetSampleRate() >= 88200.0)
+					{
+						blocSize = sdkGetBlocSize() * int(16);
+					}
+					else
+					{
+						blocSize = sdkGetBlocSize() * int(8);
+					}
+
+
+				Convolver[ch].init(blocSize, &finalIR[0], irFinalSize, true);
 
 			}
   		    
 			delete[] finalIR;
 			delete[] IRFiltered;
+			delete[] IRNoFiltered;
 
 	}
 	catch(...)
@@ -612,7 +703,14 @@ void FFConvolver::onProcess ()
 {
 	if ((numOfAudiotInsOuts > 0) && (loadingIRSate != TLoadingIRState::lsLoading))
 	{
+		float dryWet = sdkGetEvtData(fdrDryWet);
 		float onoffstate = sdkGetEvtData(fdrOnOff);
+
+		// denormalization
+		for (int i = 0; i < numOfAudiotInsOuts; i++)
+		{
+			sdkDenormalizeAudioEvt(audioInputs[i]);
+		}
 
 		if ((onoffstate == 1.0f) || (cptDeactivation > 0))
 		{
@@ -630,9 +728,13 @@ void FFConvolver::onProcess ()
 
 				Convolver[i].process(sdkGetEvtDataAddr(audioOutputs[i]), &audioOutTmp[0], sdkGetBlocSize());
 				::memcpy(sdkGetEvtDataAddr(audioOutputs[i]), &audioOutTmp[0], sdkGetBlocSize() * sizeof(TPrecision));
-				sdkMultEvt1(1.0f - sdkGetEvtData(fdrDryWet), audioInputs[i]);
-				sdkMultEvt1(sdkGetEvtData(fdrDryWet), audioOutputs[i]);
-				sdkAddEvt2(audioInputs[i], audioOutputs[i]);
+
+				if (dryWet < 1.0f)
+				{
+					sdkMultEvt1(1.0f - dryWet, audioInputs[i]);
+					sdkMultEvt1(dryWet, audioOutputs[i]);
+					sdkAddEvt2(audioInputs[i], audioOutputs[i]);
+				}
 			}
 			if (onoffstate != 1.0f)
 			{
@@ -644,7 +746,10 @@ void FFConvolver::onProcess ()
 			for (int i = 0; i < numOfAudiotInsOuts; i++)
 			{
 				sdkCopyEvt(audioInputs[i], audioOutputs[i]);
-				sdkMultEvt1(1.0f - sdkGetEvtData(fdrDryWet), audioOutputs[i]);
+				if (dryWet < 1.0)
+				{
+					sdkMultEvt1(1.0f - dryWet, audioOutputs[i]);
+				}
 			}
 		}
 	}

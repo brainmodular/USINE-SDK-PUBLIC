@@ -407,9 +407,9 @@ struct TParamInfo
 	AnsiCharPtr	      SeparatorCaption;     ///< optional, if isSeparator,  show a section name
 	NativeInt         CallBackId;           ///< the id of the param for the callback, setEvent and param (choose a value up to 0x00000FFE)
 	LongBool		  IsVisibleByDefault;   ///< TRUE by default
-	LongBool		  IsShared;             ///< FALSE by default. Activate the LAN Remote mode for the parameter. @see sdkNeedRemoteUpdate
+	LongBool		  NotUsed;              ///< Not used anymore
 	LongBool		  Translate;            ///< usine autu translate
-	UsineEventPtr*     EventPtr;             ///< Pointer to Event set by Usine to acces to the value of the parameter, introduced 
+	UsineEventPtr*     EventPtr;            ///< Pointer to Event set by Usine to acces to the value of the parameter, introduced 
 											///< in HH3. Replace the deprecaded SetEventAddress
 	AnsiCharPtr       FileNameFilter;       ///< optional: filter used to open file when ParamType = ptFileName
 											///< ie: "All files (*.*)|*.*" or "'All Images |*.png; *.jpg; *.jpeg; *.bmp; *.tiff; *.gif"
@@ -802,7 +802,8 @@ typedef void  (*FuncMixMidiEvt3)     (UsineEventPtr in1, UsineEventPtr in2, Usin
 typedef void  (*FuncMixMidiEvt2)     (UsineEventPtr in1, UsineEventPtr in2);
 typedef void  (*FuncFadeInAudioEvt)  (UsineEventPtr TPCMin);
 typedef void  (*FuncFadeOutAudioEvt) (UsineEventPtr TPCMin);
-typedef void  (*FuncClearAudioEvt)   (UsineEventPtr in1);
+typedef void  (*FuncClearAudioEvt)   (UsineEventPtr in1); 
+typedef void  (*FuncDenormalizeAudioEvt)   (UsineEventPtr in1);
 
 // Audio File manipulation
 typedef AudioFilePtr    (*FuncCreateAudioFile)          ();
@@ -1036,7 +1037,8 @@ struct MasterInfo
     FuncMixMidiEvt2     MixMidiEvt2;
     FuncFadeInAudioEvt  FadeInAudioEvt;
     FuncFadeOutAudioEvt FadeOutAudioEvt;
-    FuncClearAudioEvt   ClearAudioEvt;
+	FuncClearAudioEvt   ClearAudioEvt;
+	
 
     // Audio File manipulation
     FuncCreateAudioFile            CreateAudioFile;	
@@ -1206,6 +1208,7 @@ struct MasterInfo
 	FuncLockPatch                   LockPatch;
 	FuncLockPatch                   unLockPatch;
 	FuncResampleAudioFile           resampleAudioFile;
+	FuncDenormalizeAudioEvt         DenormalizeAudioEvt;
 
 };
 

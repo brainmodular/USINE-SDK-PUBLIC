@@ -788,6 +788,7 @@ public:
     inline void  sdkFadeInAudioEvt( UsineEventPtr TPCMin )                                 { m_masterInfo->FadeInAudioEvt( TPCMin ); };
     inline void  sdkFadeOutAudioEvt( UsineEventPtr TPCMin )                                { m_masterInfo->FadeOutAudioEvt( TPCMin ); };
     inline void  sdkClearAudioEvt( UsineEventPtr in1 )                                     { m_masterInfo->ClearAudioEvt( in1 ); }; 
+	inline void  sdkDenormalizeAudioEvt(UsineEventPtr in1)                                 { m_masterInfo->DenormalizeAudioEvt(in1); };
 
     // smooth functions
     inline void sdkSmoothPrecision ( TPrecision& oldValue, UsineEventPtr currentEvent, TPrecision factor )
