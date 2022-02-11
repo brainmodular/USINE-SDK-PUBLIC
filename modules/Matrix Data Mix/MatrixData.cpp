@@ -473,8 +473,7 @@ void MatrixDataModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->Symbol			= "";
 		pParamInfo->Format			= "%.2f";
 		pParamInfo->ReadOnly		= FALSE;
-        pParamInfo->DisplayOrder    = 8; 
-		pParamInfo->IsShared		= TRUE;
+        pParamInfo->DisplayOrder    = 8;
 		pParamInfo->IsSeparator     = TRUE;
 	}
 	// last clicked cell data field output
@@ -525,7 +524,6 @@ void MatrixDataModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly		= FALSE;
 		pParamInfo->CallBackType    = ctImmediate;
 		pParamInfo->IsSeparator     = TRUE;
-		pParamInfo->IsShared		= TRUE;
 	}
 	// cells val output of the matrix
 	else if (ParamIndex == m_numOfOptInOut + 12)
@@ -538,7 +536,6 @@ void MatrixDataModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->MaxValue		= 1;
 		pParamInfo->ReadOnly		= TRUE;
 		pParamInfo->CallBackType    = ctImmediate;
-		pParamInfo->IsShared		= TRUE;
 	}
 	// default case
 	else

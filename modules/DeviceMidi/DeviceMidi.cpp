@@ -52,7 +52,6 @@
 // Create
 void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, MasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
- //   initialiseJuce_GUI ();
 	pModule = new DeviceMidi();
 }
 
@@ -120,7 +119,7 @@ void DeviceMidi::onGetModuleInfo (MasterInfo* pMasterInfo, ModuleInfo* pModuleIn
 	{
 		maxMidiInputs			= sdkGetUsineMaxMidiDevices();
 		maxMidiOutputs			= sdkGetUsineMaxMidiDevices();
-		pModuleInfo->BackColor  = sdkGetUsineColor(clMidiModuleColor);
+		pModuleInfo->BackColor  = sdkGetUsineColor(clMIDIModuleColor);
 	}
 	else
 	{
@@ -476,7 +475,7 @@ int DeviceMidi::onGetChunkLen (LongBool Preset)
 			}
 			else
 			{
-				listMidiInputChoiceNames.set(i, String::empty);
+				listMidiInputChoiceNames.set(i, String());
 			}
 		}
 
@@ -497,7 +496,7 @@ int DeviceMidi::onGetChunkLen (LongBool Preset)
 			}
 			else
 			{
-				listMidiOutputChoiceNames.set(i, String::empty);
+				listMidiOutputChoiceNames.set(i, String());
 			}
 		}
 
@@ -648,7 +647,7 @@ void DeviceMidi::onSetChunk (const void* chunk, int sizeInBytes, LongBool Preset
 
 			// for inputs
 			listMidiInputWantedNames.clear();
-			listMidiInputWantedNames.addTokens(qsMidiInsNames, ",", String::empty);
+			listMidiInputWantedNames.addTokens(qsMidiInsNames, ",", String());
 
 			if (listMidiInputWantedNames.size() != maxMidiInputs)
 				sdkTraceErrorChar("Midi ins corrupted, check setup.");
@@ -680,7 +679,7 @@ void DeviceMidi::onSetChunk (const void* chunk, int sizeInBytes, LongBool Preset
 			
 			// for outputs
 			listMidiOutputWantedNames.clear();
-			listMidiOutputWantedNames.addTokens(qsMidiOutsNames, ",", String::empty);
+			listMidiOutputWantedNames.addTokens(qsMidiOutsNames, ",", String());
 			
 			if (listMidiOutputWantedNames.size() != maxMidiOutputs)
 				sdkTraceErrorChar("Midi outs corrupted, check setup");
@@ -914,14 +913,14 @@ void DeviceMidi::setOutputMidiDevice (int numOutput)
 		StringArray midiOutsDevices = MidiOutput::getDevices();
 
 		// remember the numoutput = 0 is our virtual midi lan
-		if ((midiOutputDeviceName != String::empty) && numOutput > 0)
+		if ((midiOutputDeviceName != String()) && numOutput > 0)
 		{
 			if (state && (arrayMidiOutputDevices[numOutput] == nullptr))
 			{
                 // use of numOutput - 1 because midilan isn't part of juce, but usine internal
-				MidiOutput* outputDevice = MidiOutput::openDevice (numOutput - 1);
-				arrayMidiOutputDevices.set(numOutput, outputDevice);
-				outputDevice->startBackgroundThread ();
+                //std::unique_ptr<MidiOutput> outputDevice = MidiOutput::openDevice (numOutput - 1);
+                arrayMidiOutputDevices.set(numOutput, MidiOutput::openDevice (numOutput - 1));
+                arrayMidiOutputDevices[numOutput]->startBackgroundThread ();
 			}
 			else if (!state && (arrayMidiOutputDevices[numOutput] != nullptr))
 			{

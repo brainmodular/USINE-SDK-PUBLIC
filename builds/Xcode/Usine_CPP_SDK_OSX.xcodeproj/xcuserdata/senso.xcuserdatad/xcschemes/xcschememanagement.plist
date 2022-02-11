@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>14</integer>
 		</dict>
+		<key>DeviceAudio Intel.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>23</integer>
+		</dict>
 		<key>DeviceAudio.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -18,6 +23,11 @@
 		<dict>
 			<key>orderHint</key>
 			<integer>2</integer>
+		</dict>
+		<key>DeviceDMX.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>19</integer>
 		</dict>
 		<key>DeviceMidi.xcscheme</key>
 		<dict>
@@ -34,10 +44,15 @@
 			<key>orderHint</key>
 			<integer>11</integer>
 		</dict>
+		<key>Leap-Motion.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>20</integer>
+		</dict>
 		<key>Leap-motion.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>18</integer>
 		</dict>
 		<key>Matrix - Audio Mix.xcscheme</key>
 		<dict>
@@ -69,10 +84,20 @@
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
+		<key>PluginLister Intel.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>25</integer>
+		</dict>
 		<key>PluginLister.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>17</integer>
+		</dict>
+		<key>PluginWrapper Intel.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>24</integer>
 		</dict>
 		<key>PluginWrapper.xcscheme</key>
 		<dict>
@@ -84,10 +109,20 @@
 			<key>orderHint</key>
 			<integer>6</integer>
 		</dict>
+		<key>Reverb.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>21</integer>
+		</dict>
 		<key>Serial-Port.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>12</integer>
+		</dict>
+		<key>Touch Fader.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>22</integer>
 		</dict>
 		<key>TouchFader.xcscheme</key>
 		<dict>
@@ -153,6 +188,11 @@
 			<true/>
 		</dict>
 		<key>4F1A2AEB206564030022B13C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4F3962C127A2845D005DFB7D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

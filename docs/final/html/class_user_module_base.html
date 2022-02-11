@@ -270,6 +270,15 @@ MIDI Out Callbacks</h2></td></tr>
 <tr class="separator:a5c9c5467b0b726f9ade2db2b8954952b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+ILDA Out Callback</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp15a0ce5d88f62c579f51f95b80c7716d"></a>Usine call it to send ILDA frame to a ILDA Out Device.</p>
+<p>Not for public use. </p>
+</td></tr>
+<tr class="memitem:a334b433f9c49c5ab4502c0818971d4d8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_user_module_base.html#a334b433f9c49c5ab4502c0818971d4d8">onILDASendOut</a> (int DeviceID, <a class="el" href="struct_t_usine_i_l_d_a_point.html">TUsineILDAPoint</a> **arrayPoint, int arraySize, int speedPPS)</td></tr>
+<tr class="memdesc:a334b433f9c49c5ab4502c0818971d4d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send an ILDA frame.  <a href="#a334b433f9c49c5ab4502c0818971d4d8">More...</a><br /></td></tr>
+<tr class="separator:a334b433f9c49c5ab4502c0818971d4d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 DMX Out Callback</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp17834ee18a6792a3f24c65d4a3dcaace"></a>Usine call it to send DMX packet to a Dmx Out Device.</p>
 <p>Not for public use. </p>
@@ -742,6 +751,10 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_user_module_base.html#a417c377b0fcd69a574293de182952edd">sdkPatchLoading</a> ()</td></tr>
 <tr class="memdesc:a417c377b0fcd69a574293de182952edd"><td class="mdescLeft">&#160;</td><td class="mdescRight">To check if the patch containing the module is loading. <br /></td></tr>
 <tr class="separator:a417c377b0fcd69a574293de182952edd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf2bc81518eebaf26c1b7dfd5d8e261b"><td class="memItemLeft" align="right" valign="top"><a id="aaf2bc81518eebaf26c1b7dfd5d8e261b"></a>
+<a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_user_module_base.html#aaf2bc81518eebaf26c1b7dfd5d8e261b">sdkPatchJustActivated</a> ()</td></tr>
+<tr class="memdesc:aaf2bc81518eebaf26c1b7dfd5d8e261b"><td class="mdescLeft">&#160;</td><td class="mdescRight">To check if the patch has just started. <br /></td></tr>
+<tr class="separator:aaf2bc81518eebaf26c1b7dfd5d8e261b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b5dac14d3ed2f67a63f49dac51f3163"><td class="memItemLeft" align="right" valign="top"><a id="a4b5dac14d3ed2f67a63f49dac51f3163"></a>
 void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_user_module_base.html#a4b5dac14d3ed2f67a63f49dac51f3163">sdkGetUsineUserModule</a> ()</td></tr>
 <tr class="memdesc:a4b5dac14d3ed2f67a63f49dac51f3163"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the pointer of the module. <br /></td></tr>
@@ -1888,6 +1901,64 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>sdkWidthPercentToPix
 
 </div>
 </div>
+<a id="a334b433f9c49c5ab4502c0818971d4d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a334b433f9c49c5ab4502c0818971d4d8">&sect;&nbsp;</a></span>onILDASendOut()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void UserModuleBase::onILDASendOut </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>DeviceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_t_usine_i_l_d_a_point.html">TUsineILDAPoint</a> **&#160;</td>
+          <td class="paramname"><em>arrayPoint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>arraySize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>speedPPS</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Send an ILDA frame. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">DeviceID</td><td>Index of the device to address. </td></tr>
+    <tr><td class="paramname">arrayPoint</td><td>The array of ILDAPoints to send. </td></tr>
+    <tr><td class="paramname">arraySize</td><td>The size of the ILDAPoints array. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a78e74197170afc143cacd8e0e88ad137"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a78e74197170afc143cacd8e0e88ad137">&sect;&nbsp;</a></span>onDMXSendOut()</h2>
 
@@ -2872,7 +2943,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>sdkWidthPercentToPix
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 12 2021 17:16:54 for Usine SDK by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Feb 11 2022 18:12:55 for Usine SDK by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.12
 </small></address>

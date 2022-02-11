@@ -21,24 +21,24 @@
   <ItemGroup>
     <ClCompile Include="..\..\sdk\UserModule.cpp" />
     <ClCompile Include="..\..\sdk\UserUtils.cpp" />
-    <ClCompile Include="AudioFFT.cpp" />
-    <ClCompile Include="CookbookEq.cpp" />
+    <ClCompile Include="..\libs\AudioFFT.cpp" />
+    <ClCompile Include="..\libs\CookbookEq.cpp" />
+    <ClCompile Include="..\libs\FFTConvolver.cpp" />
+    <ClCompile Include="..\libs\TwoStageFFTConvolver.cpp" />
+    <ClCompile Include="..\libs\Utilities.cpp" />
     <ClCompile Include="FFConvolver.cpp" />
-    <ClCompile Include="FFTConvolver.cpp" />
-    <ClCompile Include="TwoStageFFTConvolver.cpp" />
-    <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sdk\UserDefinitions.h" />
     <ClInclude Include="..\..\sdk\UserModule.h" />
     <ClInclude Include="..\..\sdk\UserUtils.h" />
     <ClInclude Include="..\..\sdk\UsineDefinitions.h" />
-    <ClInclude Include="AudioFFT.h" />
-    <ClInclude Include="CookbookEq.h" />
+    <ClInclude Include="..\libs\AudioFFT.h" />
+    <ClInclude Include="..\libs\CookbookEq.h" />
+    <ClInclude Include="..\libs\FFTConvolver.h" />
+    <ClInclude Include="..\libs\TwoStageFFTConvolver.h" />
+    <ClInclude Include="..\libs\Utilities.h" />
     <ClInclude Include="FFConvolver.h" />
-    <ClInclude Include="FFTConvolver.h" />
-    <ClInclude Include="TwoStageFFTConvolver.h" />
-    <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7CC44A31-FF62-405B-9B64-69AC50ACDD50}</ProjectGuid>
@@ -158,7 +158,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <ExceptionHandling>Async</ExceptionHandling>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\libs\</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -229,7 +229,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Async</ExceptionHandling>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\libs\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)$(ProjectName)$(TargetExt)</OutputFile>

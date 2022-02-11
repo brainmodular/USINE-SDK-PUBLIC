@@ -372,10 +372,10 @@
             timestampString = "591111193.329205"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
-            landmarkName = "File::parseAbsolutePath (const String&amp; p)"
-            landmarkType = "7">
+            startingLineNumber = "197"
+            endingLineNumber = "197"
+            landmarkName = "unknown"
+            landmarkType = "0">
             <Locations>
                <Location
                   uuid = "6F64C5A2-02FC-4A3A-A469-1FEC9D8D2359 - dd75aa9000a3ccca"
@@ -423,10 +423,10 @@
             timestampString = "591111284.9286799"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
-            landmarkName = "File::parseAbsolutePath (const String&amp; p)"
-            landmarkType = "7">
+            startingLineNumber = "198"
+            endingLineNumber = "198"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1014,6 +1014,38 @@
             endingLineNumber = "3483"
             landmarkName = "createAndUpdateDesc(format, desc)"
             landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "51619AEC-C534-4705-A119-95FCD2BD0A42 - 51faff6d95af067b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "juce::createAndUpdateDesc(juce::VSTPluginFormat&amp;, juce::PluginDescription&amp;)"
+                  moduleName = "PluginWrapper.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/Usine-SDK/libs/juce_v54/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "3483"
+                  endingLineNumber = "3483"
+                  offsetFromSymbolStart = "30">
+               </Location>
+               <Location
+                  uuid = "51619AEC-C534-4705-A119-95FCD2BD0A42 - 51faff6d95af067b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "juce::createAndUpdateDesc(juce::VSTPluginFormat&amp;, juce::PluginDescription&amp;)"
+                  moduleName = "PluginWrapper.usr-osx64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/Usine-SDK/libs/juce_v54/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "3483"
+                  endingLineNumber = "3483"
+                  offsetFromSymbolStart = "74">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1542,7 +1574,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1891"
             endingLineNumber = "1891"
-            landmarkName = "PluginWrapper::getPluginWindow()"
+            landmarkName = "PluginWrapper::createPluginInstanceFromDesc(plugDesc)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1606,8 +1638,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "214"
             endingLineNumber = "214"
-            landmarkName = "PluginWindow::paint(g)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1622,7 +1654,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "202"
             endingLineNumber = "202"
-            landmarkName = "PluginWindow::getNativeHandle()"
+            landmarkName = "PluginWindow::updateName()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1638,8 +1670,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2172"
             endingLineNumber = "2172"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "PluginWrapper::audioProcessorChanged(processor)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1828,9 +1860,137 @@
             filePath = "../../modules/DeviceAudio-juce_3/DeviceAudio.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1737"
-            endingLineNumber = "1737"
+            startingLineNumber = "1745"
+            endingLineNumber = "1745"
             landmarkName = "DeviceAudio::closeDevice()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DCD886C7-A2A1-4976-A7B9-971A0FD16ADB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/DeviceAudio-juce_3/DeviceAudio.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1604"
+            endingLineNumber = "1604"
+            landmarkName = "DeviceAudio::updateInsOutsCaptions()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E9AC88FC-0061-49C0-88BB-9CEC0B0378B9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/DeviceAudio-juce_3/DeviceAudio.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1576"
+            endingLineNumber = "1576"
+            landmarkName = "DeviceAudio::doChangeDriverSettings(audioSetup)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A8D12B04-450D-4025-81E5-84C0CD73FD55"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/DeviceAudio-juce_3/DeviceAudio.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1549"
+            endingLineNumber = "1549"
+            landmarkName = "DeviceAudio::doChangeDriverSettings(audioSetup)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "024B4A83-2C6C-4CE8-9958-316A223A8C7F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/DeviceAudio-juce_3/DeviceAudio.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1562"
+            endingLineNumber = "1562"
+            landmarkName = "DeviceAudio::doChangeDriverSettings(audioSetup)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A85D9485-28B8-42F0-AEAB-76307BC11552"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_54/PluginWrapper.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1815"
+            endingLineNumber = "1815"
+            landmarkName = "PluginWrapper::createPlugin(optionalString, Flag, optionalContent)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9DD130BF-021F-48E0-9FE5-F23472BCCCBA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_54/PluginWrapper.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1858"
+            endingLineNumber = "1858"
+            landmarkName = "PluginWrapper::createPlugin(optionalString, Flag, optionalContent)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F2C5C1D2-6B86-4885-9875-A86BA19549E9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_54/PluginWrapper.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1746"
+            endingLineNumber = "1746"
+            landmarkName = "PluginWrapper::createPlugin(optionalString, Flag, optionalContent)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "529668ED-7321-4496-832D-F825B362DE79"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/PluginWrapper-juce_54/JucePluginWindow.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "PluginWindow::PluginWindow(module_, owner_, nativeWindowToAttachTo)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

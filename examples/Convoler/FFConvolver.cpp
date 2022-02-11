@@ -1,18 +1,15 @@
 //-----------------------------------------------------------------------------
 //@file  
-//	AudioVolumeExample.cpp
+//	AudioConvolverExample.cpp
 //
 //@author
-//	Martin FLEURENT aka 'martignasse'
+//	Olivier Sens aka 'senso'
 //
 //@brief 
-//	Implementation of the AudioVolumeExample class.
+//	Implementation of the convolution Reverb class.
 //
 //  Example user module to show how to process audio buffers.
 //
-//@historic 
-//	2015/02/23
-//    first release for Hollyhock CPP SDK 6.04.001
 //
 //@IMPORTANT
 //	This file is part of the Usine Hollyhock CPP SDK
@@ -354,7 +351,20 @@ void FFConvolver::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 	pParamInfo->Symbol = "ms";
 	pParamInfo->Format = "%.1f";
 	}
-
+	// fdrNormalize
+	else if (ParamIndex == (numOfAudiotInsOuts * 2) + 7)
+	{
+	pParamInfo->ParamType = ptRightLed;
+	pParamInfo->Caption = "normalize";
+	pParamInfo->IsInput = TRUE;
+	pParamInfo->IsOutput = FALSE;
+	pParamInfo->IsSeparator = FALSE;
+	pParamInfo->CallBackType = ctNormal;
+	pParamInfo->CallBackId = 0xFFB;
+	pParamInfo->EventPtr = &fdrNormalize;
+	pParamInfo->DefaultValue = 1.0f;
+	pParamInfo->Scale = scLinear;
+	}
 
 }
 
@@ -432,24 +442,26 @@ void FFConvolver::loadIR()
 						}
 					}
 				}
-
-				// normalization
-				sumofsquare = 0;
-				psample = irDataPointer[ch];
-				for (int i = 0; i < irFileSize; i++)
+				if (sdkGetEvtData(fdrNormalize) == 1.0f)
 				{
-					sumofsquare += (*psample) * (*psample);
-					psample++;
-				}
-
-				if (sumofsquare > 0)
-				{
-					sumofsquare = 1 / sqrt(sumofsquare);
+					// normalization
+					sumofsquare = 0;
 					psample = irDataPointer[ch];
 					for (int i = 0; i < irFileSize; i++)
 					{
-						*psample *= sumofsquare;
+						sumofsquare += (*psample) * (*psample);
 						psample++;
+					}
+
+					if (sumofsquare > 0)
+					{
+						sumofsquare = 1 / sqrt(sumofsquare);
+						psample = irDataPointer[ch];
+						for (int i = 0; i < irFileSize; i++)
+						{
+							*psample *= sumofsquare;
+							psample++;
+						}
 					}
 				}
 			}
@@ -593,6 +605,14 @@ void FFConvolver::onProcess ()
 	
 	if ((irNumChannels > 0) && (loadingIRSate != TLoadingIRState::lsLoading))
 	{
+		if (sdkPatchJustActivated())
+		{
+			for (int i = 0; i < numOfAudiotInsOuts; i++)
+			{
+				Convolver[i].clear();
+			}
+		}
+
 		float dryWet = sdkGetEvtData(fdrDryWet);
 		float onoffstate = sdkGetEvtData(fdrOnOff);
 		// denormalization
@@ -632,11 +652,12 @@ void FFConvolver::onProcess ()
 		{
 			for (int i = 0; i < numOfAudiotInsOuts; i++)
 			{
-				sdkCopyEvt(audioInputs[i], audioOutputs[i]);
 				if (dryWet < 1.0)
 				{
-					sdkMultEvt1(1.0f - sdkGetEvtData(fdrDryWet), audioOutputs[i]);
+					sdkCopyEvt(audioInputs[i], audioOutputs[i]);
+					sdkMultEvt1(1.0f - dryWet, audioOutputs[i]);
 				}
+				else sdkClearAudioEvt(audioOutputs[i]);
 			}
 		}
 	}

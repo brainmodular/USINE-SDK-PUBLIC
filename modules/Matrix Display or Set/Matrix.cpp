@@ -250,7 +250,6 @@ void TMatrixModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->Format			= "%.0f";
 		pParamInfo->ReadOnly		= FALSE;
 		pParamInfo->CallBackType    = ctImmediate;
-		pParamInfo->IsShared		= TRUE;
 	}	
 	// num of rows data fader input/output
 	else if (ParamIndex == 2)
@@ -266,7 +265,6 @@ void TMatrixModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->Format			= "%.0f";
 		pParamInfo->ReadOnly		= FALSE;
 		pParamInfo->CallBackType    = ctImmediate;
-		pParamInfo->IsShared		= TRUE;
 	}
 	// mouse mode listbox input
 	else if (ParamIndex == 3)
@@ -327,7 +325,6 @@ void TMatrixModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->Symbol			= "";
 		pParamInfo->Format			= "%.2f";
 		pParamInfo->ReadOnly		= FALSE;
-		pParamInfo->IsShared		= TRUE;
 	}	
 	// value for reset input
 	else if (ParamIndex == 8)
@@ -403,7 +400,6 @@ void TMatrixModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->MinValue		= - FLT_MAX;
 		pParamInfo->MaxValue		= FLT_MAX;
 		pParamInfo->CallBackType    = ctImmediate;
-		pParamInfo->IsShared		= TRUE;
 	}
     // position of the cel surrouding cursor
 	if (ParamIndex == 14)
@@ -420,7 +416,6 @@ void TMatrixModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly		    = FALSE;
         pParamInfo->IsSeparator         = TRUE;
 		pParamInfo->CallBackType        = ctImmediate;
-		pParamInfo->IsShared		    = TRUE;
 	}
 	// output at cursor pos
 	else if (ParamIndex == 15)

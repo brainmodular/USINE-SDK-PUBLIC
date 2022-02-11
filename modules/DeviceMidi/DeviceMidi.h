@@ -235,7 +235,7 @@ private:
 	//
 	void resetMidi();
 
-		//
+    //
 	void setInputMidiDevice (int numInput);
 		
 	//

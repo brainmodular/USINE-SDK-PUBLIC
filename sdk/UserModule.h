@@ -377,6 +377,20 @@ public:
     /// @}
 	
 	//-----------------------------------------------------------------------------
+	/// Usine call it to send ILDA frame to a ILDA Out Device.
+	/// Not for public use.
+	/// @name ILDA Out Callback
+	/// @{
+
+	/// Send an ILDA frame. 
+	/// @param DeviceID Index of the device to address.
+	/// @param arrayPoint The array of ILDAPoints to send.
+	/// @param arraySize The size of the ILDAPoints array.
+	virtual void onILDASendOut(int DeviceID, TUsineILDAPoint** arrayPoint, int arraySize, int speedPPS) {};
+	/// @}
+
+
+	//-----------------------------------------------------------------------------
 	/// Usine call it to send DMX packet to a Dmx Out Device.
 	/// Not for public use.
 	/// @name DMX Out Callback
@@ -537,7 +551,7 @@ public:
 	inline void sdkStopRecord ()             
 	{ 
 		m_masterInfo->StopRecord( m_moduleInfo);
-	};
+	}
 
     //
 	inline void sdkProcessRecord(TPrecision X, TPrecision Y, TPrecision Z )             
@@ -943,6 +957,10 @@ public:
     
 	/// To check if the patch containing the module is loading.
 	inline LongBool sdkPatchLoading() { return m_masterInfo->PatchLoading(m_moduleInfo); }
+
+	/// To check if the patch has just started.
+	inline LongBool	sdkPatchJustActivated() { return m_masterInfo->PatchJustActivated(m_moduleInfo); };
+
 
 	//-----------------------------------------------------------------------------
     // wrappers for ModuleInfo functions

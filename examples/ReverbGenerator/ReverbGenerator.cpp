@@ -1,18 +1,15 @@
 //-----------------------------------------------------------------------------
 //@file  
-//	AudioVolumeExample.cpp
+//	ReverbGenerator.cpp
 //
 //@author
-//	Martin FLEURENT aka 'martignasse'
+//	Olivier Sens aka 'senso'
 //
 //@brief 
-//	Implementation of the AudioVolumeExample class.
+//	Implementation of the convolution Reverb generator class.
 //
 //  Example user module to show how to process audio buffers.
 //
-//@historic 
-//	2015/02/23
-//    first release for Hollyhock CPP SDK 6.04.001
 //
 //@IMPORTANT
 //	This file is part of the Usine Hollyhock CPP SDK
@@ -706,6 +703,14 @@ void FFConvolver::onProcess ()
 		float dryWet = sdkGetEvtData(fdrDryWet);
 		float onoffstate = sdkGetEvtData(fdrOnOff);
 
+		if (sdkPatchJustActivated())
+		{
+			for (int i = 0; i < numOfAudiotInsOuts; i++)
+			{
+				Convolver[i].clear();
+			}
+
+		}
 		// denormalization
 		for (int i = 0; i < numOfAudiotInsOuts; i++)
 		{
@@ -745,11 +750,12 @@ void FFConvolver::onProcess ()
 		{
 			for (int i = 0; i < numOfAudiotInsOuts; i++)
 			{
-				sdkCopyEvt(audioInputs[i], audioOutputs[i]);
 				if (dryWet < 1.0)
 				{
+					sdkCopyEvt(audioInputs[i], audioOutputs[i]);
 					sdkMultEvt1(1.0f - dryWet, audioOutputs[i]);
 				}
+				else sdkClearAudioEvt(audioOutputs[i]);
 			}
 		}
 	}

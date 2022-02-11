@@ -146,7 +146,7 @@ TColorUsine sdkColorArgbToAlphaColor( TColorArgb c1 )
 {
     TColorUsine c2 = 0;
 
-    c2 += ((uint8_t)(c1.b * 255.0f)) << 0;
+    c2 += ((uint8_t)(c1.b * 255.0f));
     c2 += ((uint8_t)(c1.g * 255.0f)) << 8;
     c2 += ((uint8_t)(c1.r * 255.0f)) << 16;
     c2 += ((uint8_t)(c1.a * 255.0f)) << 24;
@@ -573,15 +573,16 @@ catch_exception_raise(
     thread_state_flavor_t flavor = PPC_EXCEPTION_STATE;
     mach_msg_type_number_t exc_state_count = PPC_EXCEPTION_STATE_COUNT;
     ppc_exception_state_t exc_state;
-#else
-#if 1
+#elif defined(__x86_64__)
     thread_state_flavor_t flavor = x86_EXCEPTION_STATE;
     mach_msg_type_number_t exc_state_count = x86_EXCEPTION_STATE_COUNT;
     x86_exception_state_t exc_state;
-#else
-#	error FIXME for non-ppc darwin
+#elif defined(__arm64__)
+    thread_state_flavor_t flavor = ARM_EXCEPTION_STATE64;
+    mach_msg_type_number_t exc_state_count = ARM_EXCEPTION_STATE64_COUNT;
+    arm_exception_state_t exc_state;
 #endif
-#endif
+
     
     
     /* we should never get anything that isn't EXC_BAD_ACCESS, but just in case */
@@ -602,12 +603,10 @@ catch_exception_raise(
     addr = (char*)
 #ifdef __POWERPC__
     exc_state.dar;
-#else
-#if 1
+#elif defined(__x86_64__)
     exc_state.ues.es64.__faultvaddr;
-#else
-    0;
-#endif
+#elif defined(__arm64__)
+    exc_state.__far;
 #endif
     
     /* you could just as easily put your code in here, I'm just doing this to
@@ -654,14 +653,14 @@ static int my_handle_exn(char *addr, integer_t code)
             fprintf(stderr,"Tried to dereference NULL");
             exit(1);
         }
-        if(addr == data)
+        else //if(addr == data)
         {
             fprintf(stderr,"Making data (%p) writeable\n",addr);
             if(mprotect(addr,4096,PROT_READ|PROT_WRITE) < 0) DIE("mprotect");
             return 1; // we handled it
         }
-        fprintf(stderr,"Got KERN_PROTECTION_FAILURE at %p\n",addr);
-        return 0; // forward it
+        //fprintf(stderr,"Got KERN_PROTECTION_FAILURE at %p\n",addr);
+        //return 0; // forward it
     }
     
     /* You should filter out anything you don't want in the catch_exception_raise... above

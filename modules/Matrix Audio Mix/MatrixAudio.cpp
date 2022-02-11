@@ -501,8 +501,7 @@ void MatrixAudioModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->Symbol			= "";
 		pParamInfo->Format			= "%.2f";
 		pParamInfo->ReadOnly		= FALSE;
-        pParamInfo->DisplayOrder    = 8; 
-		pParamInfo->IsShared		= TRUE;
+        pParamInfo->DisplayOrder    = 8;
 	}	
 	// last clicked cell data field output
 	else if (ParamIndex == m_numOfOptInOut + 8)
@@ -553,7 +552,6 @@ void MatrixAudioModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly		= FALSE;
 		pParamInfo->CallBackType    = ctImmediate;
         pParamInfo->IsSeparator     = TRUE;
-		pParamInfo->IsShared		= TRUE;
 	}
 	// cells val output of the matrix
 	else if (ParamIndex == m_numOfOptInOut + 12)
@@ -565,7 +563,6 @@ void MatrixAudioModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->MinValue		= 0;
 		pParamInfo->MaxValue		= 1;
 		pParamInfo->CallBackType    = ctImmediate;
-		pParamInfo->IsShared		= TRUE;
 	}
 	else
 	{

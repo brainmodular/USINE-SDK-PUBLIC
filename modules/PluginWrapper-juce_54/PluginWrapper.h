@@ -105,7 +105,7 @@ public:
 	PluginWrapper(AnsiCharPtr optionalString, LongBool Flag, MasterInfo* pMasterInfo, AnsiCharPtr optionalContent);
 
     // destructor
-	virtual~PluginWrapper();
+	virtual ~PluginWrapper();
 
 	//-------------------------------------------------------------------------
 	// public methodes inherited from UserModule
@@ -223,13 +223,14 @@ private:
 	Array <UsineEventPtr> m_fdrParamsInsOuts; 
 		
 	UsineEventPtr m_lledKeysToUsine;
+	UsineEventPtr m_lledClientWindow;
 
 	int currentSampleRate;
 	int currentUsineBlockSize;
 
-	ScopedPointer <UsineLook> usineLook;
-	ScopedPointer <AudioPluginFormatManager> pluginFormatManager;
-    ScopedPointer <AudioPluginInstance> pluginInstance;
+    std::unique_ptr <UsineLook> usineLook;
+    ScopedPointer<AudioPluginFormatManager> pluginFormatManager;
+    AudioPluginInstance* pluginInstance;
     //AudioPluginInstance* pluginInstance;
 	PluginDescription pluginDescription;
 	String pluginName;
@@ -370,7 +371,7 @@ private:
 	void updateModuleParamsName ();
     void setModuleParamValue (int index, TPrecision newValue);
 	void createPlugin (String optionalString, LongBool Flag, String optionalContent);
-	AudioPluginInstance* createPluginInstanceFromDesc (PluginDescription& plugDesc);
+    AudioPluginInstance* createPluginInstanceFromDesc (PluginDescription& plugDesc);
 	PluginWindow* getPluginWindow();
 
 	// convert usine midi event in juce message and add them to bufferMidiMessages
@@ -380,20 +381,23 @@ private:
 	// try to locate it in default location
 	void tryToLocatePlug();
 
-    PluginDescription* getDescriptionFromIdentifierString (const KnownPluginList& knownPluginList, const String& identifierString, const String& plugFormatName) const;
+    juce::PluginDescription* getDescriptionFromIdentifierString (KnownPluginList& knownPluginList, const String& identifierString, const String& plugFormatName) const;
 	//-------------------------------------------------------------------------
 	// from AudioProcessorListener interface
-	void audioProcessorParameterChanged (AudioProcessor *processor, int parameterIndex, float newValue);
+	virtual void audioProcessorParameterChanged (AudioProcessor *processor, int parameterIndex, float newValue);
 	// from AudioProcessorListener interface
-	void audioProcessorChanged (AudioProcessor *processor);
+    virtual void audioProcessorChanged (AudioProcessor *processor , const ChangeDetails& details);
     
 	// reimpl from KeyListener
     // Called to indicate that a key has been pressed.
-    bool keyPressed (const KeyPress &key, Component *originatingComponent);
+    virtual bool keyPressed (const KeyPress &key, Component *originatingComponent);
  
 	// reimpl from KeyListener
     // Called when any key is pressed or released. 
-    bool keyStateChanged (bool isKeyDown, Component *originatingComponent);
+    virtual bool keyStateChanged (bool isKeyDown, Component *originatingComponent);
+    
+    virtual void handleMessage (const Message &message) {}
+    
 	
 }; // class PluginWrapper
 

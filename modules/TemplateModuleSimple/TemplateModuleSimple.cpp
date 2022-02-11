@@ -56,7 +56,7 @@
 
 //-----------------------------------------------------------------------------
 // Create
-void CreateModule (void* &pModule, AinsiCharPtr optionalString, LongBool Flag, MasterInfo* pMasterInfo, AinsiCharPtr optionalContent)
+void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, MasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new TemplateModuleSimple();
 }
@@ -84,18 +84,29 @@ TemplateModuleSimple::~TemplateModuleSimple()
 	// 
 }
 
+// module constants for browser info and module info
+const AnsiCharPtr UserModuleBase::MODULE_NAME = "Template Simple";
+const AnsiCharPtr UserModuleBase::MODULE_DESC = "Template Simple";
+const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
+// browser info
+void GetBrowserInfo(ModuleInfo* pModuleInfo)
+{
+	pModuleInfo->Name = UserModuleBase::MODULE_NAME;
+	pModuleInfo->Description = UserModuleBase::MODULE_DESC;
+	pModuleInfo->Version = UserModuleBase::MODULE_VERSION;
+}
 
 //void TemplateModuleSimple::onCreate(AinsiCharPtr optionalString);
 //void TemplateModuleSimple::onDestroy(); 
 void TemplateModuleSimple::onGetModuleInfo (MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo)
 {
-	pModuleInfo->Name				= "Template simple";
-	pModuleInfo->Description		= "Template simple user module";
+	pModuleInfo->Name				= MODULE_NAME;
+	pModuleInfo->Description		= MODULE_DESC;
 	pModuleInfo->ModuleType         = mtSimple;
 	pModuleInfo->BackColor          = sdkGetUsineColor(clDataModuleColor);
 	pModuleInfo->NumberOfParams     = 2;
-	pModuleInfo->Version			= "1.0";
+	pModuleInfo->Version			= MODULE_VERSION;
 	pModuleInfo->DontProcess		= TRUE;
 }
 

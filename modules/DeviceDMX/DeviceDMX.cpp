@@ -393,7 +393,7 @@ int DeviceDMX::onGetChunkLen (LongBool Preset)
 		}
 		else
 		{
-			listDmxOutputChoiceNames.set(i, String::empty);
+			listDmxOutputChoiceNames.set(i, String());
 		}
 	}
 
@@ -498,7 +498,7 @@ void DeviceDMX::onSetChunk (const void* chunk, int sizeInBytes, LongBool Preset)
 			
 		// for outputs
 		listDmxOutputWantedNames.clear();
-		listDmxOutputWantedNames.addTokens(qsDmxOutsNames, ",", String::empty);
+		listDmxOutputWantedNames.addTokens(qsDmxOutsNames, ",", String());
 			
 		if (listDmxOutputWantedNames.size() != maxDmxOutputs)
 			sdkTraceErrorChar("DMX outs corrupted, check setup");
@@ -560,11 +560,11 @@ void DeviceDMX::rescanDmxDevices()
         }
 		infos->handle = nullptr;
 		infos->isActive = false;
-		infos->vendor = String::empty;
-		infos->description = String::empty;
+		infos->vendor = String();
+		infos->description = String();
 		infos->deviceType = dtUnknown;
-		infos->serial = String::empty;
-		infos->name = String::empty;
+		infos->serial = String();
+		infos->name = String();
 		infos->params = nullptr;
 		infos->latencyTimer = 0;
     }
@@ -611,11 +611,11 @@ void DeviceDMX::openDmxDevices()
 
 		infos->handle = nullptr;
 		infos->isActive = false;
-		infos->vendor = String::empty;
-		infos->description = String::empty;
+		infos->vendor = String();
+		infos->description = String();
 		infos->deviceType = dtUnknown;
-		infos->serial = String::empty;
-		infos->name = String::empty;
+		infos->serial = String();
+		infos->name = String();
 		infos->params = nullptr;
 		infos->latencyTimer = 0;
 
@@ -687,9 +687,9 @@ void DeviceDMX::openDmxDevices()
         }
         else
         {
-            listDeviceInfos.getUnchecked(i)->vendor = String::empty;
-            listDeviceInfos.getUnchecked(i)->description = String::empty;
-            listDeviceInfos.getUnchecked(i)->serial = String::empty;
+            listDeviceInfos.getUnchecked(i)->vendor = String();
+            listDeviceInfos.getUnchecked(i)->description = String();
+            listDeviceInfos.getUnchecked(i)->serial = String();
 
             sdkTraceLogChar("no Dmx devices found");
         }
@@ -744,7 +744,7 @@ int DeviceDMX::identifyDmxDevice (int index)
         else
         {
             infos->deviceType = dtUnknown;
-            infos->name = String::empty;
+            infos->name = String();
         }
     }
     else

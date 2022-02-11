@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "74F4BA2016DCABBC00632763"
-               BuildableName = "Phase-Vocoder-Forw.usr-osx64"
+               BuildableName = "Phase-Vocoder-Forw.usr-osxarm64"
                BlueprintName = "Phase-Vocoder-Forw"
                ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
             </BuildableReference>
@@ -29,8 +29,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Release"
@@ -46,13 +44,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "74F4BA2016DCABBC00632763"
-            BuildableName = "Phase-Vocoder-Forw.usr-osx64"
+            BuildableName = "Phase-Vocoder-Forw.usr-osxarm64"
             BlueprintName = "Phase-Vocoder-Forw"
             ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -64,7 +60,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "74F4BA2016DCABBC00632763"
-            BuildableName = "Phase-Vocoder-Forw.usr-osx64"
+            BuildableName = "Phase-Vocoder-Forw.usr-osxarm64"
             BlueprintName = "Phase-Vocoder-Forw"
             ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
          </BuildableReference>

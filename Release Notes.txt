@@ -12,6 +12,16 @@ Olivier Sens & the BrainModular Team
 
 
 ________________________________________________________________________________
+CPP SDK [HH5-220211] 2022/02/11
+changes
+  * improved Convolution examples
+  * added sdkGetSampleArrayAudioFile()
+	* added sdkLockPatch()
+	* added sdkunLockPatch()
+	* added resampleAudioFile()
+	* added sdkDenormalizeAudioEvt()
+	* added sdkPatchJustActivated()
+
 CPP SDK [HH5-210706] 2021/07/06
 changes
   * compatibility with HH5

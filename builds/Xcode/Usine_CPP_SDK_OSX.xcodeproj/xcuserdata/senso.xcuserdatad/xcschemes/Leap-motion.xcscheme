@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4FBDEDE5230FE450003C3CF9"
-               BuildableName = "Leap-Motion.usr-osx64"
+               BuildableName = "Leap-Motion.usr-osxarm64"
                BlueprintName = "Leap-Motion"
                ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
             </BuildableReference>
@@ -49,7 +49,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4FBDEDE5230FE450003C3CF9"
-            BuildableName = "Leap-Motion.usr-osx64"
+            BuildableName = "Leap-Motion.usr-osxarm64"
             BlueprintName = "Leap-Motion"
             ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
          </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4FBDEDE5230FE450003C3CF9"
-            BuildableName = "Leap-Motion.usr-osx64"
+            BuildableName = "Leap-Motion.usr-osxarm64"
             BlueprintName = "Leap-Motion"
             ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
          </BuildableReference>

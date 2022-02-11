@@ -463,8 +463,7 @@ void MatrixMidiModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->Symbol			= "";
 		pParamInfo->Format			= "%.2f";
 		pParamInfo->ReadOnly		= FALSE;
-        pParamInfo->DisplayOrder    = 8; 
-		pParamInfo->IsShared		= TRUE;
+        pParamInfo->DisplayOrder    = 8;
 	}
 	// last clicked cell data field output
 	else if (ParamIndex == m_numOfOptInOut + 8)
@@ -515,7 +514,6 @@ void MatrixMidiModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly		= FALSE;
 		pParamInfo->CallBackType    = ctImmediate;
 		pParamInfo->IsSeparator     = TRUE;
-		pParamInfo->IsShared		= TRUE;
 	}
 	// cells val output of the matrix
 	else if (ParamIndex == m_numOfOptInOut + 12)
@@ -528,7 +526,6 @@ void MatrixMidiModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->MaxValue		= 1;
 		pParamInfo->ReadOnly		= TRUE;
 		pParamInfo->CallBackType    = ctImmediate;
-		pParamInfo->IsShared		= TRUE;
 	}
 	// default case
 	else
@@ -1461,7 +1458,7 @@ void MatrixMidiModule::whenArrayOutChange ()
 void MatrixMidiModule::resizeSettingsLinesColors ()
 {
     numOfLinesColors = max(m_colsMax, m_rowsMax);
-    settingsLinesColorsOn.resize(numOfLinesColors, sdkGetUsineColor(clMidiFlow));
+    settingsLinesColorsOn.resize(numOfLinesColors, sdkGetUsineColor(clMIDIFlow));
     settingsLinesColorsOff.resize(numOfLinesColors, sdkAlphaColor(0, 0, 0));
 
     //stringstream Stream; 

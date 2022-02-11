@@ -14,18 +14,18 @@
 		4EAD149C1A9E2E6500784045 /* UserUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD14961A9E2E6500784045 /* UserUtils.cpp */; };
 		4EAD149D1A9E2E6500784045 /* UserUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14971A9E2E6500784045 /* UserUtils.h */; };
 		4EAD149E1A9E2E6500784045 /* UsineDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14981A9E2E6500784045 /* UsineDefinitions.h */; };
-		4FF97A3D2679F708007FD8A8 /* FFTConvolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FF97A362679F707007FD8A8 /* FFTConvolver.h */; };
+		4F2EE6A927B6C9E200A26857 /* TwoStageFFTConvolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2EE69F27B6C9E200A26857 /* TwoStageFFTConvolver.h */; };
+		4F2EE6AA27B6C9E200A26857 /* CookbookEq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F2EE6A027B6C9E200A26857 /* CookbookEq.cpp */; };
+		4F2EE6AB27B6C9E200A26857 /* CookbookEq.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2EE6A127B6C9E200A26857 /* CookbookEq.h */; };
+		4F2EE6AC27B6C9E200A26857 /* FFTConvolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2EE6A227B6C9E200A26857 /* FFTConvolver.h */; };
+		4F2EE6AD27B6C9E200A26857 /* AudioFFT.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2EE6A327B6C9E200A26857 /* AudioFFT.h */; };
+		4F2EE6AE27B6C9E200A26857 /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2EE6A427B6C9E200A26857 /* Utilities.h */; };
+		4F2EE6AF27B6C9E200A26857 /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F2EE6A527B6C9E200A26857 /* Utilities.cpp */; };
+		4F2EE6B027B6C9E200A26857 /* TwoStageFFTConvolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F2EE6A627B6C9E200A26857 /* TwoStageFFTConvolver.cpp */; };
+		4F2EE6B127B6C9E200A26857 /* AudioFFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F2EE6A727B6C9E200A26857 /* AudioFFT.cpp */; };
+		4F2EE6B227B6C9E200A26857 /* FFTConvolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F2EE6A827B6C9E200A26857 /* FFTConvolver.cpp */; };
 		4FF97A3E2679F708007FD8A8 /* FFConvolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FF97A372679F708007FD8A8 /* FFConvolver.h */; };
 		4FF97A3F2679F708007FD8A8 /* FFConvolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FF97A382679F708007FD8A8 /* FFConvolver.cpp */; };
-		4FF97A402679F708007FD8A8 /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FF97A392679F708007FD8A8 /* Utilities.h */; };
-		4FF97A412679F708007FD8A8 /* TwoStageFFTConvolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FF97A3A2679F708007FD8A8 /* TwoStageFFTConvolver.cpp */; };
-		4FF97A422679F708007FD8A8 /* FFTConvolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FF97A3B2679F708007FD8A8 /* FFTConvolver.cpp */; };
-		4FF97A432679F708007FD8A8 /* TwoStageFFTConvolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FF97A3C2679F708007FD8A8 /* TwoStageFFTConvolver.h */; };
-		4FF97A492679F715007FD8A8 /* AudioFFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FF97A442679F715007FD8A8 /* AudioFFT.cpp */; };
-		4FF97A4A2679F715007FD8A8 /* AudioFFT.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FF97A452679F715007FD8A8 /* AudioFFT.h */; };
-		4FF97A4B2679F715007FD8A8 /* CookbookEq.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FF97A462679F715007FD8A8 /* CookbookEq.h */; };
-		4FF97A4C2679F715007FD8A8 /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FF97A472679F715007FD8A8 /* Utilities.cpp */; };
-		4FF97A4D2679F715007FD8A8 /* CookbookEq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FF97A482679F715007FD8A8 /* CookbookEq.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -50,39 +50,30 @@
 		4EAD14971A9E2E6500784045 /* UserUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserUtils.h; sourceTree = "<group>"; };
 		4EAD14981A9E2E6500784045 /* UsineDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineDefinitions.h; sourceTree = "<group>"; };
 		4EAD15021A9E367300784045 /* Usine_CPP_SDKProj.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Usine_CPP_SDKProj.xcconfig; path = ../../builds/Xcode/Usine_CPP_SDKProj.xcconfig; sourceTree = SOURCE_ROOT; };
-		4FF97A362679F707007FD8A8 /* FFTConvolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFTConvolver.h; sourceTree = "<group>"; };
+		4F2EE69F27B6C9E200A26857 /* TwoStageFFTConvolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoStageFFTConvolver.h; sourceTree = "<group>"; };
+		4F2EE6A027B6C9E200A26857 /* CookbookEq.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CookbookEq.cpp; sourceTree = "<group>"; };
+		4F2EE6A127B6C9E200A26857 /* CookbookEq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CookbookEq.h; sourceTree = "<group>"; };
+		4F2EE6A227B6C9E200A26857 /* FFTConvolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFTConvolver.h; sourceTree = "<group>"; };
+		4F2EE6A327B6C9E200A26857 /* AudioFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFFT.h; sourceTree = "<group>"; };
+		4F2EE6A427B6C9E200A26857 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		4F2EE6A527B6C9E200A26857 /* Utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utilities.cpp; sourceTree = "<group>"; };
+		4F2EE6A627B6C9E200A26857 /* TwoStageFFTConvolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwoStageFFTConvolver.cpp; sourceTree = "<group>"; };
+		4F2EE6A727B6C9E200A26857 /* AudioFFT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFFT.cpp; sourceTree = "<group>"; };
+		4F2EE6A827B6C9E200A26857 /* FFTConvolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FFTConvolver.cpp; sourceTree = "<group>"; };
 		4FF97A372679F708007FD8A8 /* FFConvolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFConvolver.h; sourceTree = "<group>"; };
 		4FF97A382679F708007FD8A8 /* FFConvolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FFConvolver.cpp; sourceTree = "<group>"; };
-		4FF97A392679F708007FD8A8 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
-		4FF97A3A2679F708007FD8A8 /* TwoStageFFTConvolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwoStageFFTConvolver.cpp; sourceTree = "<group>"; };
-		4FF97A3B2679F708007FD8A8 /* FFTConvolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FFTConvolver.cpp; sourceTree = "<group>"; };
-		4FF97A3C2679F708007FD8A8 /* TwoStageFFTConvolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoStageFFTConvolver.h; sourceTree = "<group>"; };
-		4FF97A442679F715007FD8A8 /* AudioFFT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFFT.cpp; sourceTree = "<group>"; };
-		4FF97A452679F715007FD8A8 /* AudioFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFFT.h; sourceTree = "<group>"; };
-		4FF97A462679F715007FD8A8 /* CookbookEq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CookbookEq.h; sourceTree = "<group>"; };
-		4FF97A472679F715007FD8A8 /* Utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utilities.cpp; sourceTree = "<group>"; };
-		4FF97A482679F715007FD8A8 /* CookbookEq.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CookbookEq.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		4EAD14081A9E2A8F00784045 = {
 			isa = PBXGroup;
 			children = (
-				4FF97A442679F715007FD8A8 /* AudioFFT.cpp */,
-				4FF97A452679F715007FD8A8 /* AudioFFT.h */,
-				4FF97A482679F715007FD8A8 /* CookbookEq.cpp */,
-				4FF97A462679F715007FD8A8 /* CookbookEq.h */,
-				4FF97A472679F715007FD8A8 /* Utilities.cpp */,
 				4FF97A382679F708007FD8A8 /* FFConvolver.cpp */,
 				4FF97A372679F708007FD8A8 /* FFConvolver.h */,
-				4FF97A3B2679F708007FD8A8 /* FFTConvolver.cpp */,
-				4FF97A362679F707007FD8A8 /* FFTConvolver.h */,
-				4FF97A3A2679F708007FD8A8 /* TwoStageFFTConvolver.cpp */,
-				4FF97A3C2679F708007FD8A8 /* TwoStageFFTConvolver.h */,
-				4FF97A392679F708007FD8A8 /* Utilities.h */,
 				4EAD14921A9E2E6500784045 /* sdk */,
 				4EAD15021A9E367300784045 /* Usine_CPP_SDKProj.xcconfig */,
 				4EAD14881A9E2D8400784045 /* Products */,
+				4F2EE69E27B6C9E200A26857 /* libs */,
 			);
 			sourceTree = "<group>";
 		};
@@ -108,6 +99,24 @@
 			path = ../../sdk;
 			sourceTree = SOURCE_ROOT;
 		};
+		4F2EE69E27B6C9E200A26857 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				4F2EE69F27B6C9E200A26857 /* TwoStageFFTConvolver.h */,
+				4F2EE6A027B6C9E200A26857 /* CookbookEq.cpp */,
+				4F2EE6A127B6C9E200A26857 /* CookbookEq.h */,
+				4F2EE6A227B6C9E200A26857 /* FFTConvolver.h */,
+				4F2EE6A327B6C9E200A26857 /* AudioFFT.h */,
+				4F2EE6A427B6C9E200A26857 /* Utilities.h */,
+				4F2EE6A527B6C9E200A26857 /* Utilities.cpp */,
+				4F2EE6A627B6C9E200A26857 /* TwoStageFFTConvolver.cpp */,
+				4F2EE6A727B6C9E200A26857 /* AudioFFT.cpp */,
+				4F2EE6A827B6C9E200A26857 /* FFTConvolver.cpp */,
+			);
+			name = libs;
+			path = ../libs;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -115,16 +124,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FF97A432679F708007FD8A8 /* TwoStageFFTConvolver.h in Headers */,
+				4F2EE6AB27B6C9E200A26857 /* CookbookEq.h in Headers */,
 				4EAD14991A9E2E6500784045 /* UserDefinitions.h in Headers */,
-				4FF97A402679F708007FD8A8 /* Utilities.h in Headers */,
+				4F2EE6AC27B6C9E200A26857 /* FFTConvolver.h in Headers */,
 				4FF97A3E2679F708007FD8A8 /* FFConvolver.h in Headers */,
+				4F2EE6A927B6C9E200A26857 /* TwoStageFFTConvolver.h in Headers */,
+				4F2EE6AD27B6C9E200A26857 /* AudioFFT.h in Headers */,
 				4EAD149B1A9E2E6500784045 /* UserModule.h in Headers */,
-				4FF97A4A2679F715007FD8A8 /* AudioFFT.h in Headers */,
 				4EAD149D1A9E2E6500784045 /* UserUtils.h in Headers */,
-				4FF97A3D2679F708007FD8A8 /* FFTConvolver.h in Headers */,
 				4EAD149E1A9E2E6500784045 /* UsineDefinitions.h in Headers */,
-				4FF97A4B2679F715007FD8A8 /* CookbookEq.h in Headers */,
+				4F2EE6AE27B6C9E200A26857 /* Utilities.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,14 +191,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F2EE6AA27B6C9E200A26857 /* CookbookEq.cpp in Sources */,
 				4EAD149A1A9E2E6500784045 /* UserModule.cpp in Sources */,
-				4FF97A422679F708007FD8A8 /* FFTConvolver.cpp in Sources */,
-				4FF97A412679F708007FD8A8 /* TwoStageFFTConvolver.cpp in Sources */,
-				4FF97A492679F715007FD8A8 /* AudioFFT.cpp in Sources */,
-				4FF97A4D2679F715007FD8A8 /* CookbookEq.cpp in Sources */,
 				4FF97A3F2679F708007FD8A8 /* FFConvolver.cpp in Sources */,
 				4EAD149C1A9E2E6500784045 /* UserUtils.cpp in Sources */,
-				4FF97A4C2679F715007FD8A8 /* Utilities.cpp in Sources */,
+				4F2EE6AF27B6C9E200A26857 /* Utilities.cpp in Sources */,
+				4F2EE6B027B6C9E200A26857 /* TwoStageFFTConvolver.cpp in Sources */,
+				4F2EE6B127B6C9E200A26857 /* AudioFFT.cpp in Sources */,
+				4F2EE6B227B6C9E200A26857 /* FFTConvolver.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

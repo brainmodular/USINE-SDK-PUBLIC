@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4EC96B6B17D3A46B00F63E38"
-               BuildableName = "Reverb.usr-osx64"
+               BuildableName = "Reverb.usr-osxarm64"
                BlueprintName = "Reverb"
                ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
             </BuildableReference>
@@ -44,7 +44,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4EC96B6B17D3A46B00F63E38"
-            BuildableName = "Reverb.usr-osx64"
+            BuildableName = "Reverb.usr-osxarm64"
             BlueprintName = "Reverb"
             ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
          </BuildableReference>
@@ -60,7 +60,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4EC96B6B17D3A46B00F63E38"
-            BuildableName = "Reverb.usr-osx64"
+            BuildableName = "Reverb.usr-osxarm64"
             BlueprintName = "Reverb"
             ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
          </BuildableReference>

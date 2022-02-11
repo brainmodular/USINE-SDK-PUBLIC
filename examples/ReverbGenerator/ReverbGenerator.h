@@ -1,18 +1,15 @@
 //-----------------------------------------------------------------------------
 //@file  
-//	AudioVolumeExample.h
+//	ReverbGenerator.h
 //
 //@author
-//	Martin FLEURENT aka 'martignasse'
+//	Olivier Sens aka 'senso'
 //
 //@brief 
-//	Definitions of the AudioVolumeExample class.
+//	Implementation of the convolution Reverb generator class.
 //
 //  Example user module to show how to process audio buffers.
 //
-//@historic 
-//	2015/02/23
-//    first release for Hollyhock CPP SDK 6.04.001
 //
 //@IMPORTANT
 //	This file is part of the Usine Hollyhock CPP SDK
@@ -23,7 +20,7 @@
 // All dependencies are under there own licence.
 //
 //@LICENCE
-// Copyright (C) 2013, 2014, 2015 BrainModular
+// Copyright (C) 2013, 2014, 2015 Brainmodular
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of 
 // this software and associated documentation files (the "Software"), 
@@ -44,6 +41,7 @@
 // SOFTWARE.
 //
 //-----------------------------------------------------------------------------
+
 
 // include once, no more
 #ifndef __FF_CONVOLVER_H__

@@ -29,6 +29,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>DeviceDMX.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>22</integer>
+		</dict>
 		<key>DeviceMidi.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -44,10 +49,20 @@
 			<key>orderHint</key>
 			<integer>9</integer>
 		</dict>
+		<key>HID-Device.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>24</integer>
+		</dict>
 		<key>HSLAColor.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>11</integer>
+		</dict>
+		<key>Leap-Motion.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>23</integer>
 		</dict>
 		<key>Matrix - Audio Mix.xcscheme</key>
 		<dict>
@@ -79,10 +94,20 @@
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
+		<key>PluginLister copy.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>26</integer>
+		</dict>
 		<key>PluginLister.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>2</integer>
+		</dict>
+		<key>PluginWrapper copy.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>27</integer>
 		</dict>
 		<key>PluginWrapper.xcscheme</key>
 		<dict>
@@ -96,10 +121,25 @@
 			<key>orderHint</key>
 			<integer>10</integer>
 		</dict>
+		<key>Reverb.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>20</integer>
+		</dict>
 		<key>RollAray.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>7</integer>
+		</dict>
+		<key>Serial-Port.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>25</integer>
+		</dict>
+		<key>Touch Fader.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>21</integer>
 		</dict>
 		<key>Wiimote.xcscheme</key>
 		<dict>
@@ -109,12 +149,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>4E013CEE1A51903B0014ECB1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>4E96DD05174E04C000E28918</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>4EB03942175771AB0090B5F7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4EC96B6B17D3A46B00F63E38</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4F08CEDD2003BE9E00AF0091</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4FBDEDE5230FE450003C3CF9</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -23,7 +23,7 @@
     <RootNamespace>UserModule</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <ProjectName>PluginWrapper</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -36,7 +36,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -48,7 +48,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -101,7 +101,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>.\JuceLibraryCode;../../libs/Juce_v54/modules;../../libs/ASIOSDK2.3/common;../../libs/VST3 SDK;../../libs/vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\JuceLibraryCode;../../libs/Juce_v612/modules;../../libs/ASIOSDK2.3/common;../../libs/VST3 SDK;../../libs/vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -137,7 +137,7 @@ xcopy /e /i /y "$(OutDir)$(ProjectName)$(TargetExt)" "C:\Users\Senso\NextCloud\U
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>../../libs/Juce_v54/JuceLibraryCode;../../libs/Juce_v54/modules;../../libs/ASIOSDK2.3/common;../../libs/VST3 SDK;../../libs/vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../libs/Juce_v612/JuceLibraryCode;../../libs/Juce_v612/modules;../../libs/ASIOSDK2.3/common;../../libs/VST3 SDK 373;../../libs/vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -177,7 +177,7 @@ xcopy /e /i /y "$(OutDir)$(ProjectName)$(TargetExt)" "C:\Users\Senso\NextCloud\U
       <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>.\JuceLibraryCode;../../libs/Juce_v54/modules;../../libs/ASIOSDK2.3/common;../../libs/VST3 SDK;../../libs/vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\JuceLibraryCode;../../libs/Juce_v612/modules;../../libs/ASIOSDK2.3/common;../../libs/VST3 SDK;../../libs/vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -221,7 +221,7 @@ xcopy /e /i /y "$(OutDir)$(ProjectName)$(TargetExt)" "C:\Users\Senso\NextCloud\U
       <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>../../libs/Juce_v54/JuceLibraryCode;../../libs/Juce_v54/modules;../../libs/ASIOSDK2.3/common;../../libs/VST3 SDK;../../libs/vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../libs/Juce_v612/JuceLibraryCode;../../libs/Juce_v612/modules;../../libs/ASIOSDK2.3/common;../../libs/VST3 SDK 373;../../libs/vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -249,8 +249,8 @@ xcopy /e /i /y "$(OutDir)$(ProjectName)$(TargetExt)" "C:\Users\Senso\NextCloud\U
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\libs\juce_v54\JuceLibraryCode\AppConfig.h" />
-    <ClInclude Include="..\..\libs\juce_v54\JuceLibraryCode\JuceHeader.h" />
+    <ClInclude Include="..\..\libs\juce_v612\JuceLibraryCode\AppConfig.h" />
+    <ClInclude Include="..\..\libs\juce_v612\JuceLibraryCode\JuceHeader.h" />
     <ClInclude Include="..\..\sdk\UserDefinitions.h" />
     <ClInclude Include="..\..\sdk\UserModule.h" />
     <ClInclude Include="..\..\sdk\UserUtils.h" />
@@ -260,44 +260,25 @@ xcopy /e /i /y "$(OutDir)$(ProjectName)$(TargetExt)" "C:\Users\Senso\NextCloud\U
     <ClInclude Include="JuceUtils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_basics.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_devices.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_formats.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_processors.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_utils.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_core.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_cryptography.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_data_structures.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_events.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_graphics.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_gui_basics.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_gui_extra.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_opengl.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_video.cpp" />
+    <ClCompile Include="..\..\libs\juce_v612\JuceLibraryCode\include_juce_audio_basics.cpp" />
+    <ClCompile Include="..\..\libs\juce_v612\JuceLibraryCode\include_juce_audio_devices.cpp" />
+    <ClCompile Include="..\..\libs\juce_v612\JuceLibraryCode\include_juce_audio_formats.cpp" />
+    <ClCompile Include="..\..\libs\juce_v612\JuceLibraryCode\include_juce_audio_processors.cpp" />
+    <ClCompile Include="..\..\libs\juce_v612\JuceLibraryCode\include_juce_audio_utils.cpp" />
+    <ClCompile Include="..\..\libs\juce_v612\JuceLibraryCode\include_juce_core.cpp" />
+    <ClCompile Include="..\..\libs\juce_v612\JuceLibraryCode\include_juce_cryptography.cpp" />
+    <ClCompile Include="..\..\libs\juce_v612\JuceLibraryCode\include_juce_data_structures.cpp" />
+    <ClCompile Include="..\..\libs\juce_v612\JuceLibraryCode\include_juce_events.cpp" />
+    <ClCompile Include="..\..\libs\juce_v612\JuceLibraryCode\include_juce_graphics.cpp" />
+    <ClCompile Include="..\..\libs\juce_v612\JuceLibraryCode\include_juce_gui_basics.cpp" />
+    <ClCompile Include="..\..\libs\juce_v612\JuceLibraryCode\include_juce_gui_extra.cpp" />
+    <ClCompile Include="..\..\libs\juce_v612\JuceLibraryCode\include_juce_opengl.cpp" />
+    <ClCompile Include="..\..\libs\juce_v612\JuceLibraryCode\include_juce_video.cpp" />
     <ClCompile Include="..\..\sdk\UserModule.cpp" />
     <ClCompile Include="..\..\sdk\UserUtils.cpp" />
     <ClCompile Include="JucePluginWindow.cpp" />
     <ClCompile Include="PluginWrapper.cpp" />
     <ClCompile Include="JuceUtils.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_basics.mm" />
-    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_devices.mm" />
-    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_formats.mm" />
-    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_processors.mm" />
-    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_utils.mm" />
-    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_core.mm" />
-    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_cryptography.mm" />
-    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_data_structures.mm" />
-    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_events.mm" />
-    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_graphics.mm" />
-    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_gui_basics.mm" />
-    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_gui_extra.mm" />
-    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_opengl.mm" />
-    <None Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_video.mm" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\..\libs\juce_v54\JuceLibraryCode\ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

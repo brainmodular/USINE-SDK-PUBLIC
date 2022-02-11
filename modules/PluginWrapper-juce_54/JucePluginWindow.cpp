@@ -54,7 +54,9 @@
 //-----------------------------------------------------------------------------
 #if (defined (USINE_WIN32) || defined (USINE_WIN64))
 //-----------------------------------------------------------------------------
-#include <Windows.h>  
+#include <Windows.h>
+#include <WinUser.h>
+#include <Winbase.h>
 #undef min
 #undef max
 
@@ -102,26 +104,23 @@ PluginWindow::PluginWindow(PluginWrapper* module_, AudioPluginInstance* owner_, 
 		}
         module->sdkTraceLogChar("call owner_->getName");
 		setName(owner_->getName());
-        module->sdkTraceLogChar("call setVisible");
-		setVisible(true);
         module->sdkTraceLogChar("call toFront");
 		//toFront(true);
-        module->sdkTraceLogChar("call sendOnTop");
-		sendOnTop();
-		
+        
 		module->sdkTraceLogChar("call grabKeyboardFocus");
 		grabKeyboardFocus();
         module->sdkTraceLogChar("call setWantsKeyboardFocus");
 		setWantsKeyboardFocus(true);
         module->sdkTraceLogChar("call addKeyListener");
 		addKeyListener(module);
-        
+		addToDesktop(getDesktopWindowStyleFlags(), nativeWindowToAttachTo);
+
         
 		module->sdkTraceLogChar("call activePluginWindows");
 		activePluginWindows.add(this);
-        if ((module->lastEditorPosX!=0) && (module->lastEditorPosX!=0))
+        if ((module->lastEditorPosX!=0) && (module->lastEditorPosY!=0))
         {
-            module_->sdkTraceLogChar("call setTopLeftPosition");
+            module->sdkTraceLogChar("call setTopLeftPosition");
             setTopLeftPosition(module->lastEditorPosX, module->lastEditorPosY);
         }
         else
@@ -131,6 +130,11 @@ PluginWindow::PluginWindow(PluginWrapper* module_, AudioPluginInstance* owner_, 
         }
 	}
     module_->sdkTraceLogChar("create PluginWindow done");
+	module->sdkTraceLogChar("call sendOnTop");
+	sendOnTop();
+	module->sdkTraceLogChar("call setVisible");
+	setVisible(true);
+
 
 }
 
@@ -219,8 +223,11 @@ void PluginWindow::paint (Graphics& g)
 
 void PluginWindow::moved ()
 {
-	module->lastEditorPosX = getPosition().getX();
-	module->lastEditorPosY = getPosition().getY();
+	if (isVisible())
+	{
+		module->lastEditorPosX = getPosition().getX();
+		module->lastEditorPosY = getPosition().getY();
+	}
 }
 
 void PluginWindow::userTriedToCloseWindow()
@@ -237,12 +244,35 @@ void PluginWindow::sendOnTop()
 #endif
 
 #if (defined (USINE_WIN32) || defined (USINE_WIN64))
-	//HWND hnd;
-	//hnd = (HWND)module->sdkGetUsineMainWindow();
+	HWND hnd;
+	hnd = (HWND)module->sdkGetUsineMainWindow();
 	//SetWindowPos((HWND)getNativeHandle(), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE );
 //	SetWindowPos((HWND)getNativeHandle(), (HWND)module->sdkGetUsineMainWindow(), 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOSENDCHANGING);
-	setAlwaysOnTop(true);
+//	setAlwaysOnTop(true);
+//	sendOnTop();
+//	if (SetWindowLong((HWND)getNativeHandle(), -8, (long)hnd) == 0)
+//	{
+//		int i = GetLastError();
+		//module->sdkTraceInt(i);
+	    if (1 == (int)module->sdkGetEvtData(module->m_lledClientWindow))
+    		SetParent((HWND)getNativeHandle(), hnd);
+	    else setAlwaysOnTop(true);
+
+		if ((module->lastEditorPosX != 0) && (module->lastEditorPosY != 0))
+		{
+			module->sdkTraceLogChar("call setTopLeftPosition");
+			setTopLeftPosition(std::max(module->lastEditorPosX,100), std::max(module->lastEditorPosY,100));
+		}
+		else
+		{
+			module->sdkTraceLogChar("call centreWithSize");
+			centreWithSize(100, 100);
+		}
+
+	//}
+
 	//SetForegroundWindow((HWND)getNativeHandle());
+	//addToDesktop(getDesktopWindowStyleFlags(), hnd);
 #endif
 }
 

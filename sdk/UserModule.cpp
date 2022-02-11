@@ -370,6 +370,21 @@ void MidiSysexSendOut (void* pModule, int DeviceID,  char** Sysex, int sysexSize
 	} 
 }
 
+void ILDASendOut(void* pModule, int DeviceID, TUsineILDAPoint** arrayPoint, int arraySize, int speedPPS)
+{
+	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
+
+	try
+	{
+		userModule->onILDASendOut(DeviceID, arrayPoint, arraySize, speedPPS);
+	}
+	catch (...) // std::exception& e
+	{
+		userModule->sdkTraceErrorChar(" in ILDASendOut");
+	}
+}
+
+
 void DMXSendOut (void* pModule, int deviceId, char* ByteArray, int len, int universeNum)
 {	
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);

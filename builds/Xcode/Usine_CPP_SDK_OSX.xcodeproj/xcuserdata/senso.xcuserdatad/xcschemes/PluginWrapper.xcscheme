@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4F1A2AEB206564030022B13C"
-               BuildableName = "PluginWrapper.usr-osx64"
+               BuildableName = "PluginWrapper.usr-osxarm64"
                BlueprintName = "PluginWrapper"
                ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
             </BuildableReference>
@@ -31,7 +31,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F1A2AEB206564030022B13C"
-            BuildableName = "PluginWrapper.usr-osx64"
+            BuildableName = "PluginWrapper.usr-osxarm64"
             BlueprintName = "PluginWrapper"
             ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
          </BuildableReference>
@@ -62,9 +62,9 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = ""
+      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -73,14 +73,14 @@
       allowLocationSimulation = "YES">
       <PathRunnable
          runnableDebuggingMode = "0"
-         BundleIdentifier = "Usine"
-         FilePath = "/Users/senso/PAServer/scratch-dir/Senso-OSX64/Usine.app">
+         BundleIdentifier = "com.brainmodular.usine"
+         FilePath = "/Users/senso/PAServer/scratch-dir/senso-OSX64-HH5/Usine.app">
       </PathRunnable>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F1A2AEB206564030022B13C"
-            BuildableName = "PluginWrapper.usr-osx64"
+            BuildableName = "PluginWrapper.usr-osxarm64"
             BlueprintName = "PluginWrapper"
             ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
          </BuildableReference>
@@ -96,7 +96,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F1A2AEB206564030022B13C"
-            BuildableName = "PluginWrapper.usr-osx64"
+            BuildableName = "PluginWrapper.usr-osxarm64"
             BlueprintName = "PluginWrapper"
             ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
          </BuildableReference>

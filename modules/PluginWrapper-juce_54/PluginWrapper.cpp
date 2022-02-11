@@ -63,7 +63,7 @@ void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, Ma
 	//initialiseJuce_GUI ();
     pMasterInfo->TraceLogChar ("PluginWrapper : end init juce", FALSE);
     pMasterInfo->TraceLogChar ("PluginWrapper : start create module", FALSE);
-	pModule = new PluginWrapper(optionalString, Flag, pMasterInfo, optionalContent);
+	pModule =  new PluginWrapper(optionalString, Flag, pMasterInfo, optionalContent);
     pMasterInfo->TraceLogChar ("PluginWrapper : end create module", FALSE);
     pMasterInfo->TraceLogChar ("PluginWrapper : end CreateModule", FALSE);
 }
@@ -108,7 +108,7 @@ void GetBrowserInfo(ModuleInfo* pModuleInfo)
 // module constructor/destructor
 //-------------------------------------------------------------------------
 // constructor
-PluginWrapper::PluginWrapper (AnsiCharPtr optionalString, LongBool Flag, MasterInfo* pMasterInfo, AnsiCharPtr optionalContent) 
+PluginWrapper::PluginWrapper (AnsiCharPtr optionalString, LongBool Flag, MasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 	: pluginInstance (nullptr)
 	, pluginWindow (nullptr)
 	, offsetVisibleIn (1)
@@ -292,7 +292,7 @@ void PluginWrapper::onGetModuleInfo (MasterInfo* pMasterInfo, ModuleInfo* pModul
 		pModuleInfo->Description		= MODULE_DESC;
 		pModuleInfo->ModuleType         = pluginType;
 		pModuleInfo->BackColor          = pluginColor;
-		pModuleInfo->NumberOfParams     = offsetParamsInOut + numOfParamsInOut + 1;
+		pModuleInfo->NumberOfParams     = offsetParamsInOut + numOfParamsInOut + 2;
 		pModuleInfo->QueryString		= "";
 		pModuleInfo->QueryListValues	= "";
 		pModuleInfo->QueryDefaultIdx	= 1;
@@ -621,7 +621,18 @@ void PluginWrapper::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 			pParamInfo->Format				= "%.5f";
 			pParamInfo->DontSave			= TRUE;
 		}
-        // m_lledKeysToUsine
+		// m_lledClientWindow
+		else if (ParamIndex >= offsetParamsInOut + numOfParamsInOut + 1)
+		{
+			pParamInfo->ParamType = ptLeftLed;
+			pParamInfo->Caption = "client window";
+			pParamInfo->DefaultValue = 0;
+			pParamInfo->IsInput = FALSE;
+			pParamInfo->IsOutput = FALSE;
+			pParamInfo->IsSeparator = TRUE;
+			pParamInfo->SeparatorCaption = "appearance";
+		}
+		// m_lledKeysToUsine
 		else if ( ParamIndex >= offsetParamsInOut + numOfParamsInOut )
 		{			
             pParamInfo->ParamType		 = ptLeftLed;
@@ -680,9 +691,13 @@ void PluginWrapper::onSetEventAddress (int numParam, UsineEventPtr pEvent)
 	//  params in out
 	else if ( numParam >= offsetParamsInOut && numParam < offsetParamsInOut + numOfParamsInOut )
 		m_fdrParamsInsOuts.set (numParam - offsetParamsInOut, pEvent);
-    // m_lledKeysToUsine
-	else if ( numParam >= offsetParamsInOut + numOfParamsInOut )
+	// m_lledClientWindow
+	else if (numParam >= offsetParamsInOut + numOfParamsInOut + 1)
+		m_lledClientWindow = pEvent;
+	// m_lledKeysToUsine
+	else if (numParam >= offsetParamsInOut + numOfParamsInOut)
 		m_lledKeysToUsine = pEvent;
+
 
 }
 
@@ -692,7 +707,7 @@ void PluginWrapper::onSetEventAddress (int numParam, UsineEventPtr pEvent)
 void PluginWrapper::onCallBack (UsineMessage *Message)
 {
  
-    if (pluginInstance.get () == nullptr)
+    if (pluginInstance == nullptr)
         return;
 	if (Message->message == NOTIFY_MSG_ON_TOP)
 	{
@@ -814,10 +829,7 @@ void PluginWrapper::onCallBack (UsineMessage *Message)
 		// load bank
 		else if (Message->wParam >= offsetLoadBank && Message->wParam < offsetSaveBank)
 		{
-			FileChooser bankChooser("Please select the bank you want to load...",
-				File::nonexistent,
-				"*.fxb");
-
+			   FileChooser bankChooser("Please select the bank you want to load...",File(),"*.fxb");
 			if (bankChooser.browseForFileToOpen())
 			{
 				File bankFile(bankChooser.getResult());
@@ -832,7 +844,7 @@ void PluginWrapper::onCallBack (UsineMessage *Message)
 		else if (Message->wParam >= offsetSaveBank && Message->wParam < offsetLoadPreset)
 		{
 			FileChooser bankChooser("Please select the bank you want to save...",
-				File::nonexistent,
+				File(),
 				"*.fxb");
 
 			if (bankChooser.browseForFileToSave(true))
@@ -849,7 +861,7 @@ void PluginWrapper::onCallBack (UsineMessage *Message)
 		else if (Message->wParam >= offsetLoadPreset && Message->wParam < offsetSavePreset)
 		{
 			FileChooser presetChooser("Please select the preset you want to load...",
-				File::nonexistent,
+				File(),
 				"*.fxp");
 
 			if (presetChooser.browseForFileToOpen())
@@ -865,7 +877,7 @@ void PluginWrapper::onCallBack (UsineMessage *Message)
 		else if (Message->wParam >= offsetSavePreset && Message->wParam < offsetPrevPreset)
 		{
 			FileChooser presetChooser("Please select the preset you want to save...",
-				File::nonexistent,
+				File(),
 				"*.fxp");
 
 			if (presetChooser.browseForFileToSave(true))
@@ -1367,7 +1379,7 @@ void PluginWrapper::onSetChunk (const void* chunk, int sizeInBytes, LongBool isP
 
 void PluginWrapper::onOpenEditor()
 {
-    if (pluginInstance.get () == nullptr)
+    if (pluginInstance == nullptr)
     return;
     
     if(pluginWindow == nullptr)
@@ -1393,7 +1405,7 @@ void PluginWrapper::updateName()
 
 void PluginWrapper::sendOnTop()
 {
-    if (pluginInstance.get () == nullptr)
+    if (pluginInstance == nullptr)
     return;
     
 	if (
@@ -1406,7 +1418,7 @@ void PluginWrapper::sendOnTop()
 
 void PluginWrapper::sendToBack()
 {
-    if (pluginInstance.get () == nullptr)
+    if (pluginInstance == nullptr)
     return;
     
 	if (
@@ -1420,7 +1432,7 @@ void PluginWrapper::sendToBack()
 
 void PluginWrapper::onBringToFront()
 {
-    if (pluginInstance.get () == nullptr)
+    if (pluginInstance == nullptr)
     return;
     
 	try
@@ -1616,7 +1628,7 @@ void PluginWrapper::initBuffers ()
 			pluginInstance->addListener (this);
 			pluginInstance->suspendProcessing (false);
 		}
-		else if (lastError != String::empty)
+		else if (lastError != String())
 		{
 			//pluginName
 			sdkTraceErrorChar ((AnsiCharPtr)lastError.toUTF8().getAddress());
@@ -1650,8 +1662,9 @@ void PluginWrapper::setVisible(LongBool isVisible)
                     sdkTraceLogChar("call getPluginWindow ok");
 					pluginWindow->sendOnTop();
                 }
-                sdkSetEvtData (m_visibleEditor, 1.0);
+                
                 sdkTraceLogChar("call pluginWindow->toFront");
+                sdkSetEvtData (m_visibleEditor, 1.0);
                // pluginWindow->toFront(true);
                 sdkTraceLogChar("call pluginWindow->toFront ok");
                 sdkRepaintParam(offsetVisibleIn);
@@ -1760,11 +1773,11 @@ void PluginWrapper::createPlugin (String optionalString, LongBool Flag, String o
                 File fileKnownPlugs = pathKnownPlugs;
 				
 				//sdkTraceChar((AnsiCharPtr)plugFormatString.toUTF8().getAddress());
-				
+            //    sdkTraceLogChar("a");
                 if (fileKnownPlugs.existsAsFile())
                 {
                     KnownPluginList knownPluginList;
-                    ScopedPointer<XmlElement> xmlKnownPluginList (XmlDocument::parse(fileKnownPlugs));
+                    std::unique_ptr<XmlElement> xmlKnownPluginList (XmlDocument::parse(fileKnownPlugs));
                     if (xmlKnownPluginList != nullptr)
                         knownPluginList.recreateFromXml(*xmlKnownPluginList);
 
@@ -1793,7 +1806,6 @@ void PluginWrapper::createPlugin (String optionalString, LongBool Flag, String o
 			plugTypeName = plugTypeName.trimCharactersAtStart("/");
 
 			plugTypeName = plugTypeName.upToFirstOccurrenceOf("/", false, true);
-
 			if (plugTypeName != String())
 			{
 				
@@ -1811,35 +1823,39 @@ void PluginWrapper::createPlugin (String optionalString, LongBool Flag, String o
 #error "condidionnal compilation error!"
 #endif
 				//------------------------------------------------------------------------------
-				
 				File plug (validPlugPathName);
 				//plug.getChildFile(plugTypeName);
 				
 				int whatToLookFor = juce::File::findFiles + juce::File::ignoreHiddenFiles;
 				Array< juce::File > resultsDescTextFiles;
 				plug.findChildFiles (resultsDescTextFiles, whatToLookFor, true, plugFileName);
-				
 				// we found it
 				if (resultsDescTextFiles.size() > 0)
 				{
-					plug = resultsDescTextFiles[0].getFullPathName();
-				
-				String toto = plug.getFullPathName();
-				sdkTraceLogChar ((AnsiCharPtr)toto.toUTF8().getAddress(), FALSE);
-				
-				if ((plug.existsAsFile()) && (plug.getFileExtension() == PLUG_INS_EXT))	
-				{
-					StringArray plugInfos;
-					plug.readLines(plugInfos);
-					pluginDescription.fileOrIdentifier = plugInfos[1];
-					if (pluginDescription.fileOrIdentifier == String())
-                    {
-                        pluginDescription.fileOrIdentifier = plugInfos[0];
-                       
-                    }
-                    pluginDescription.pluginFormatName = plugTypeName;
-					pluginInstance = createPluginInstanceFromDesc (pluginDescription);
-				}
+					for (int i = 0; i < resultsDescTextFiles.size(); i++)
+					{
+						plug = resultsDescTextFiles[i].getFullPathName();
+
+						//String toto = plug.getFullPathName();
+						//sdkTraceLogChar((AnsiCharPtr)toto.toUTF8().getAddress(), FALSE);
+						if ((plug.existsAsFile()) && (plug.getFileExtension() == PLUG_INS_EXT))
+						{
+							StringArray plugInfos;
+							plug.readLines(plugInfos);
+							pluginDescription.fileOrIdentifier = plugInfos[1];
+							pluginDescription.name = plugInfos[0];
+							if (plugInfos[3] == plugTypeName)
+							{
+								if (pluginDescription.fileOrIdentifier == String())
+								{
+									pluginDescription.fileOrIdentifier = plugInfos[0];
+
+								}
+								pluginDescription.pluginFormatName = plugTypeName;
+								pluginInstance = createPluginInstanceFromDesc(pluginDescription);
+							}
+						}
+					}
               }
 				
 			}
@@ -1859,6 +1875,7 @@ void PluginWrapper::createPlugin (String optionalString, LongBool Flag, String o
                 listVisiblePlugParamsIndex.addIfNotAlreadyThere(i);
             }
         }
+        
 	}
 	catch (...)
 	{
@@ -1868,7 +1885,7 @@ void PluginWrapper::createPlugin (String optionalString, LongBool Flag, String o
 
 AudioPluginInstance* PluginWrapper::createPluginInstanceFromDesc (PluginDescription& plugDesc)
 {
-	AudioPluginInstance* plugInstance = pluginFormatManager->createPluginInstance (plugDesc, sdkGetSampleRate(), sdkGetBlocSize(), lastError);
+    AudioPluginInstance* plugInstance = pluginFormatManager->createPluginInstance (plugDesc, sdkGetSampleRate(), sdkGetBlocSize(), lastError).release();
 	if (plugInstance != nullptr)
 	{
 		//plugInstance->enableAllBuses();
@@ -1897,7 +1914,7 @@ PluginWindow* PluginWrapper::getPluginWindow()
 //-----------------------------------------------------------------------------
 #elif (defined (USINE_OSX32) || defined (USINE_OSX64))
 //-----------------------------------------------------------------------------
-	nativeWindowHandle = (void*)sdkGetUsineNSView();
+    nativeWindowHandle = (void*)sdkGetUsineNSView();
 //-----------------------------------------------------------------------------
 #else
   #error "condidionnal compilation error!"
@@ -2085,13 +2102,15 @@ void PluginWrapper::tryToLocatePlug()
 
 }
 
-PluginDescription* PluginWrapper::getDescriptionFromIdentifierString (const KnownPluginList& knownPluginList, const String& identifierString, const String& plugFormatName) const
+juce::PluginDescription* PluginWrapper::getDescriptionFromIdentifierString (KnownPluginList& knownPluginList, const String& identifierString, const String& plugFormatName) const
 {  
     
     int fallbackUid = -1;
     for (int i = 0; i < knownPluginList.getNumTypes (); ++i)
     {
-        String uid = String::toHexString (knownPluginList.getType(i)->uid);
+		String uid = String::toHexString(knownPluginList.getType(i)->uniqueId);
+		String foi = knownPluginList.getType(i)->fileOrIdentifier;
+
         if ( uid == identifierString)
         {
             if (knownPluginList.getType(i)->pluginFormatName == plugFormatName)
@@ -2133,7 +2152,10 @@ void PluginWrapper::audioProcessorParameterChanged (AudioProcessor *processor, i
         //sdkTraceLogChar ((AnsiCharPtr) stringTrace.c_str());
 
         timeLastParameterChanged = newTime;
-        audioProcessorChanged (pluginInstance);
+        ChangeDetails changeDetails;
+        changeDetails.parameterInfoChanged = TRUE;
+        
+        audioProcessorChanged (pluginInstance,changeDetails);
     }
 
     // update value
@@ -2143,7 +2165,7 @@ void PluginWrapper::audioProcessorParameterChanged (AudioProcessor *processor, i
 }
 	
 // from AudioProcessorListener interface
-void PluginWrapper::audioProcessorChanged (AudioProcessor *processor)
+void PluginWrapper::audioProcessorChanged (AudioProcessor *processor, const ChangeDetails& details)
 {
     sdkTraceLogChar ("audioProcessorChanged");
     populateProgramsNameList ();

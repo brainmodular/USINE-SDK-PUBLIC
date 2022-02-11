@@ -582,7 +582,7 @@ bool PluginLister::rescanPlugins () noexcept
 
 
 					knownPluginList.clearBlacklistedFiles();
-					xmlKnownPluginList = knownPluginList.createXml ();
+                    xmlKnownPluginList = knownPluginList.createXml();
 					xmlKnownPluginList->writeToFile (fileKnownPlugs, String());
 					
                     
@@ -648,7 +648,7 @@ bool PluginLister::rescanPlugins () noexcept
 			PluginDescription* desc = knownPluginList.getType(j);
 			if (! pluginFormatManager->doesPluginStillExist(*desc))
 			{
-				knownPluginList.removeType(j);
+				knownPluginList.removeType(*desc);
 				needRecreate = true;
 			}
 		}
@@ -718,6 +718,7 @@ bool PluginLister::rescanPlugins () noexcept
     #endif
     //-----------------------------------------------------------------------------
 
+                
 					    File filePlugDescText(pathPlugDescText);
 
 					    filePlugDescText.deleteFile();
@@ -725,7 +726,7 @@ bool PluginLister::rescanPlugins () noexcept
             
                         // content of the .plugin file used by usine and the browser
 					    String content;
-					    content << desc->name << newLine << desc->fileOrIdentifier << newLine << String::toHexString (desc->uid) << newLine << desc->pluginFormatName;
+					    content << desc->name << newLine << desc->fileOrIdentifier << newLine << String::toHexString (desc->uniqueId) << newLine << desc->pluginFormatName;
 					    filePlugDescText.appendText(content, true, true); 
 
                         message = String();

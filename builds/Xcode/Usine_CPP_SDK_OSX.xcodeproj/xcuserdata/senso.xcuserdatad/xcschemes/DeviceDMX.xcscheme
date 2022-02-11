@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4E013CEE1A51903B0014ECB1"
-               BuildableName = "DeviceDMX.usr-osx64"
+               BuildableName = "DeviceDMX.usr-osxarm64"
                BlueprintName = "DeviceDMX"
                ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
             </BuildableReference>
@@ -29,8 +29,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Release"
@@ -46,13 +44,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4E013CEE1A51903B0014ECB1"
-            BuildableName = "DeviceDMX.usr-osx64"
+            BuildableName = "DeviceDMX.usr-osxarm64"
             BlueprintName = "DeviceDMX"
             ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -64,7 +60,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4E013CEE1A51903B0014ECB1"
-            BuildableName = "DeviceDMX.usr-osx64"
+            BuildableName = "DeviceDMX.usr-osxarm64"
             BlueprintName = "DeviceDMX"
             ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
          </BuildableReference>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>45D79B6C-1D2B-414E-83A9-9EF69259C7A5</string>
+	<key>IDESourceControlProjectName</key>
+	<string>AudioVolumeExample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>a9b00595-b7a5-2841-82ab-c57ad9f7cd28++1806</key>
+		<string>http://192.168.0.12/svn/hollyhock/trunk/sdk</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>examples/AudioVolume/AudioVolumeExample.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>a9b00595-b7a5-2841-82ab-c57ad9f7cd28++1806</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>a9b00595-b7a5-2841-82ab-c57ad9f7cd28++1806</key>
+		<string>http://192.168.0.12/svn/hollyhock</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>http://192.168.0.12/svn/hollyhock/trunk/sdk/examples/AudioVolume/AudioVolumeExample.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>a9b00595-b7a5-2841-82ab-c57ad9f7cd28++1806</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>a9b00595-b7a5-2841-82ab-c57ad9f7cd28++1806</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Usine%206%20SDK</string>
+		</dict>
+	</array>
+</dict>
+</plist>

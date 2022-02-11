@@ -243,9 +243,9 @@ private:
 
 	StringArray listcorruptedPlugs;
     KnownPluginList knownPluginList;
-	ScopedPointer <XmlElement> xmlKnownPluginList;
+    std::unique_ptr<XmlElement> xmlKnownPluginList;
 	
-    PluginDescription* desc;
+    std::unique_ptr<PluginDescription> desc;
 
 	//bool needRescan;
     StringArray listErrorPlugs;

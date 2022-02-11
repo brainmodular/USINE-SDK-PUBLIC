@@ -147,7 +147,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>../../libs/Juce_v54/JuceLibraryCode;../../libs/Juce_v54/modules;../../libs/ASIOSDK2.3/common;../../libs/vstsdk2.4;../../libs/VST3 SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../libs/Juce_v612/JuceLibraryCode;../../libs/Juce_v612/modules;../../libs/ASIOSDK2.3/common;../../libs/vstsdk2.4;../../libs/VST3 SDK 373;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -227,7 +227,7 @@
       <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>../../libs/Juce_v54/JuceLibraryCode;../../libs/Juce_v54/modules;../../libs/ASIOSDK2.3/common;../../libs/vstsdk2.4;../../libs/VST3 SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../libs/Juce_v612/JuceLibraryCode;../../libs/Juce_v612/modules;../../libs/ASIOSDK2.3/common;../../libs/vstsdk2.4;../../libs/VST3 SDK 373;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
@@ -252,28 +252,28 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_basics.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_devices.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_formats.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_processors.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_audio_utils.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_core.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_cryptography.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_data_structures.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_events.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_graphics.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_gui_basics.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_gui_extra.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_opengl.cpp" />
-    <ClCompile Include="..\..\libs\juce_v54\JuceLibraryCode\include_juce_video.cpp" />
+    <ClCompile Include="..\..\libs\Juce_v612\JuceLibraryCode\include_juce_audio_basics.cpp" />
+    <ClCompile Include="..\..\libs\Juce_v612\JuceLibraryCode\include_juce_audio_devices.cpp" />
+    <ClCompile Include="..\..\libs\Juce_v612\JuceLibraryCode\include_juce_audio_formats.cpp" />
+    <ClCompile Include="..\..\libs\Juce_v612\JuceLibraryCode\include_juce_audio_processors.cpp" />
+    <ClCompile Include="..\..\libs\Juce_v612\JuceLibraryCode\include_juce_audio_utils.cpp" />
+    <ClCompile Include="..\..\libs\Juce_v612\JuceLibraryCode\include_juce_core.cpp" />
+    <ClCompile Include="..\..\libs\Juce_v612\JuceLibraryCode\include_juce_cryptography.cpp" />
+    <ClCompile Include="..\..\libs\Juce_v612\JuceLibraryCode\include_juce_data_structures.cpp" />
+    <ClCompile Include="..\..\libs\Juce_v612\JuceLibraryCode\include_juce_events.cpp" />
+    <ClCompile Include="..\..\libs\Juce_v612\JuceLibraryCode\include_juce_graphics.cpp" />
+    <ClCompile Include="..\..\libs\Juce_v612\JuceLibraryCode\include_juce_gui_basics.cpp" />
+    <ClCompile Include="..\..\libs\Juce_v612\JuceLibraryCode\include_juce_gui_extra.cpp" />
+    <ClCompile Include="..\..\libs\Juce_v612\JuceLibraryCode\include_juce_opengl.cpp" />
+    <ClCompile Include="..\..\libs\Juce_v612\JuceLibraryCode\include_juce_video.cpp" />
     <ClCompile Include="..\..\sdk\UserModule.cpp" />
     <ClCompile Include="..\..\sdk\UserUtils.cpp" />
     <ClCompile Include="JuceUtils.cpp" />
     <ClCompile Include="PluginLister.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\libs\juce_v54\JuceLibraryCode\AppConfig.h" />
-    <ClInclude Include="..\..\libs\juce_v54\JuceLibraryCode\JuceHeader.h" />
+    <ClInclude Include="..\..\libs\Juce_v612\JuceLibraryCode\AppConfig.h" />
+    <ClInclude Include="..\..\libs\Juce_v612\JuceLibraryCode\JuceHeader.h" />
     <ClInclude Include="..\..\sdk\UserDefinitions.h" />
     <ClInclude Include="..\..\sdk\UserModule.h" />
     <ClInclude Include="..\..\sdk\UserUtils.h" />

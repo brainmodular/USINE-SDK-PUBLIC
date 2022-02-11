@@ -162,6 +162,7 @@ typedef LongBool* LongBoolPtr;
 typedef const char* AnsiCharPtr;
 
 
+
 #if (defined (USINE_WIN32) || defined (USINE_WIN64))
 typedef unsigned char BYTE;
 #elif (defined (USINE_OSX32) || defined (USINE_OSX64))
@@ -408,7 +409,7 @@ struct TParamInfo
 	NativeInt         CallBackId;           ///< the id of the param for the callback, setEvent and param (choose a value up to 0x00000FFE)
 	LongBool		  IsVisibleByDefault;   ///< TRUE by default
 	LongBool		  NotUsed;              ///< Not used anymore
-	LongBool		  Translate;            ///< usine autu translate
+	LongBool		  Translate;            ///< usine auto translate
 	UsineEventPtr*     EventPtr;            ///< Pointer to Event set by Usine to acces to the value of the parameter, introduced 
 											///< in HH3. Replace the deprecaded SetEventAddress
 	AnsiCharPtr       FileNameFilter;       ///< optional: filter used to open file when ParamType = ptFileName
@@ -468,6 +469,18 @@ typedef struct TUsineFrame
 
 } TUsineFrame;
 typedef TUsineFrame* PTUsineFrame;
+
+//-----------------------------------------------------------------------------
+/// Data type for ILDA Frames 
+typedef struct TUsineILDAPoint
+{
+	float x;  ///< point x coordinate
+	float y;  ///< point y coordinate
+	float z;  ///< point z coordinate
+	TColorUsine       Color; ///< point color	
+} TUsineILDAPoint;
+//typedef TUsineILDAPoint* PTUsineILDAPoint;
+
 
 //-----------------------------------------------------------------------------
 /// Usine Midi code format.
@@ -912,7 +925,9 @@ typedef void*  (*FuncShowDeskWindow)            (ModuleInfo* pModuleInfo);
 typedef void   (*FuncHideDeskWindow)            (ModuleInfo* pModuleInfo);
 typedef void   (*FuncSetDeskWindowCaption)      (ModuleInfo* pModuleInfo, AnsiCharPtr name);
 
-typedef LongBool   (*FuncPatchIsRunning)      (ModuleInfo* pModuleInfo);
+typedef LongBool(*FuncPatchIsRunning)           (ModuleInfo* pModuleInfo);
+typedef LongBool(*FuncPatchJustActivated)       (ModuleInfo* pModuleInfo);
+
 
 // setter and getter for the name of the module (as it appear in the patch, on the module title)
 typedef void(*FuncSetModuleUserName)			(ModuleInfo* pModuleInfo, AnsiCharPtr name);
@@ -1092,16 +1107,16 @@ struct MasterInfo
     int MAX_MIDI_DEVICES;
     int MULTIPHONY_MAX;
 
-	FuncSetListBoxCommatext	        SetListBoxCommatext;
+	FuncSetListBoxCommatext	    SetListBoxCommatext;
     AnsiCharPtr					UsineTempPath;
-	FuncAudioDeviceIOCallback	    AudioDeviceIOCallback;
+	FuncAudioDeviceIOCallback	AudioDeviceIOCallback;
 
-	FuncMidiDeviceCallback			MidiDeviceCallback;
-	FuncMidiSysexDeviceCallback	    MidiSysexDeviceCallback;
+	FuncMidiDeviceCallback		MidiDeviceCallback;
+	FuncMidiSysexDeviceCallback	MidiSysexDeviceCallback;
 	
-	FuncSetParamCaption	            SetParamCaption;
+	FuncSetParamCaption	        SetParamCaption;
 
-	FuncGetTranslationSDK	        GetTranslation;
+	FuncGetTranslationSDK	    GetTranslation;
    
 	FuncTraceErrorChar  TraceWarningChar;
 	FuncSetParamVisible	SetParamVisible;
@@ -1110,7 +1125,7 @@ struct MasterInfo
 	FuncGetSampleRate	GetSampleRate;
 	FuncGetVstTimeInfo	GetVstTimeInfo;
     
-    AnsiCharPtr            GlobalApplicationPath;
+    AnsiCharPtr             GlobalApplicationPath;
     FuncCreatePlugInsTree   CreatePlugInsTree;
     FuncNotifyUsine         NotifyUsine;
 
@@ -1132,7 +1147,7 @@ struct MasterInfo
 	FuncFillText		FillText;
 		
 	FuncAddSettingLineSingle	AddSettingLineSingle;
-    AnsiCharPtr				PlugInsPath;
+    AnsiCharPtr				    PlugInsPath;
 	FuncSetEvtColor		        SetEvtColor;
 	FuncGetEvtColor		        GetEvtColor;
     
@@ -1146,7 +1161,7 @@ struct MasterInfo
 	FuncAddSettingLineCombobox  AddSettingLineCombobox;
     FuncNeedRemoteUpdate        NeedRemoteUpdate;
     
-    AnsiCharPtr                UsineVersion; // 6.00.193alpha  -> major minor build
+    AnsiCharPtr                 UsineVersion; // 6.00.193alpha  -> major minor build
     FuncSetParamValueText       SetParamValueText;
     FuncGetTimeMs               GetTimeMs;
     FuncSetDeskWindowClientSize SetDeskWindowClientSize;
@@ -1159,7 +1174,7 @@ struct MasterInfo
     // audio multi channels 
     FuncGetAudioQueryToNbChannels   AudioQueryToNbChannels;
     FuncGetAudioQueryChannelNames   AudioQueryChannelNames;
-    AnsiCharPtr                    AudioQueryChannelList; // commatext to put in the query choice;
+    AnsiCharPtr                     AudioQueryChannelList; // commatext to put in the query choice;
 
     int                             UsineSaveVersion;
     // draw path functions
@@ -1209,6 +1224,7 @@ struct MasterInfo
 	FuncLockPatch                   unLockPatch;
 	FuncResampleAudioFile           resampleAudioFile;
 	FuncDenormalizeAudioEvt         DenormalizeAudioEvt;
+	FuncPatchJustActivated          PatchJustActivated;
 
 };
 
@@ -1226,6 +1242,7 @@ typedef enum TModuleType
 	mtPluginWrapper,    ///< not for public use
     mtPluginLister,     ///< not for public use
     mtDeviceDMX,        ///< not for public use
+	mtDeviceILDA,       ///< not for public use
 	mtOther             ///< not for public use
 } TModuleType;
 
@@ -1395,6 +1412,13 @@ USINE_MODULE_EXPORT void MidiSysexSendOut (void* pModule, int DeviceID, char** S
 
 // called by Usine to send out OSC messages
 USINE_MODULE_EXPORT void DMXSendOut (void* pModule, int deviceId, char* ByteArray, int len, int universeNum);
+
+//-----------------------------------------------------------------------------
+// midi out callbacks
+// called by Usine to send out midi
+USINE_MODULE_EXPORT void ILDASendOut(void* pModule, int DeviceID, TUsineILDAPoint** arrayPoint, int arraySize, int speedPPS);
+
+
 
 //-----------------------------------------------------------------------------
 // chunk system

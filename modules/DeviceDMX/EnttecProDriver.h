@@ -10,7 +10,7 @@
 //#include <tchar.h>
 #include <time.h>
 //#include <conio.h>
-#include "Ftd2xx.h"
+#include "ftdi.h"
 
 //#ifdef _MSC_VER
 //	#include "ms_stdint.h"

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4F95C2852068E31000AF4852"
-               BuildableName = "PluginLister.usr-osx64"
+               BuildableName = "PluginLister.usr-osxarm64"
                BlueprintName = "PluginLister"
                ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
             </BuildableReference>
@@ -49,7 +49,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F95C2852068E31000AF4852"
-            BuildableName = "PluginLister.usr-osx64"
+            BuildableName = "PluginLister.usr-osxarm64"
             BlueprintName = "PluginLister"
             ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
          </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F95C2852068E31000AF4852"
-            BuildableName = "PluginLister.usr-osx64"
+            BuildableName = "PluginLister.usr-osxarm64"
             BlueprintName = "PluginLister"
             ReferencedContainer = "container:Usine_CPP_SDK_OSX.xcodeproj">
          </BuildableReference>
