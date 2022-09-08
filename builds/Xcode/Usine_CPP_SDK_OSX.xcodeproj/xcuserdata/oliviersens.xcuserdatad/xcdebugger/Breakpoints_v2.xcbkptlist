@@ -16,7 +16,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1740"
             endingLineNumber = "1740"
-            landmarkName = "PluginWrapper::createPlugin(optionalString, Flag, optionalContent)"
+            landmarkName = "PluginWrapper::updateModuleParamsName()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

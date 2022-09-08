@@ -382,11 +382,11 @@ public:
 	/// @name ILDA Out Callback
 	/// @{
 
-	/// Send an ILDA frame. 
+	/// Send an Laser frame. 
 	/// @param DeviceID Index of the device to address.
 	/// @param arrayPoint The array of ILDAPoints to send.
 	/// @param arraySize The size of the ILDAPoints array.
-	virtual void onILDASendOut(int DeviceID, TUsineILDAPoint** arrayPoint, int arraySize, int speedPPS) {};
+	virtual void onLaserSendOut(int DeviceID, TUsineILDAPoint** arrayPoint, int arraySize, int speedPPS) {};
 	/// @}
 
 
@@ -961,7 +961,7 @@ public:
 	/// To check if the patch has just started.
 	inline LongBool	sdkPatchJustActivated() { return m_masterInfo->PatchJustActivated(m_moduleInfo); };
 
-
+	
 	//-----------------------------------------------------------------------------
     // wrappers for ModuleInfo functions
     //-----------------------------------------------------------------------------

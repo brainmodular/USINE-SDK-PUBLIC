@@ -180,7 +180,7 @@ void DeviceAudio::onGetModuleInfo(MasterInfo* pMasterInfo, ModuleInfo* pModuleIn
 void DeviceAudio::onInitModule(MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo)
 {
 #if (defined (USINE_WIN32) || defined (USINE_WIN64))
-	indexSelectedDeviceDriver = listDeviceDriversNames.indexOf(DRIVER_NAME_DIRECT_SOUND);
+	indexSelectedDeviceDriver = listDeviceDriversNames.indexOf(DRIVER_NAME_WINDOWS_AUDIO);
 #elif (defined (USINE_OSX32) || defined (USINE_OSX64))
 	indexSelectedDeviceDriver = listDeviceDriversNames.indexOf(DRIVER_NAME_CORE_AUDIO);
 #endif			
@@ -439,6 +439,8 @@ void DeviceAudio::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->CallBackType = ctNormal;
 		pParamInfo->Translate = FALSE;
         pParamInfo->DontSave = FALSE;
+		pParamInfo->CallBackId = 0xF135B;
+
 	}
 	// default case
 	else {}
@@ -647,9 +649,7 @@ void DeviceAudio::onCallBack(UsineMessage* Message)
 		}
 		// m_ledSetupLoaded
 		else if
-			(Message->wParam >= (PARAMS_BEFORE_INS_OUTS + maxAudioInputs + maxAudioOutputs)
-				&& Message->wParam < (PARAMS_BEFORE_INS_OUTS + maxAudioInputs + maxAudioOutputs + 1)
-				)
+			(Message->wParam == 0xF135B)
 		{
             if (setupLoaded==false)
             {
@@ -657,7 +657,7 @@ void DeviceAudio::onCallBack(UsineMessage* Message)
 			    traceLog("CALLBACK m_ledSetupLoaded CHANGED received");
 			    int driverID = static_cast<int>(sdkGetEvtData(m_lboxDeviceDrivers));
 			    applyDevice(driverID);
-			    updateParamsVisibility();
+			    updateParamsVisibility();			
             }
 		}
 		else
@@ -983,7 +983,8 @@ void DeviceAudio::onSetChunk(const void* chunk, int sizeInBytes, LongBool isPres
 	{
 		// error with version header
 	}
-
+	int driverID = static_cast<int>(sdkGetEvtData(m_lboxDeviceDrivers));
+	applyDevice(driverID);
 }
 
 //-------------------------------------------------------------------------
@@ -1179,22 +1180,10 @@ int DeviceAudio::getNumOfActiveInputs()
 	return result;
 }
 
-//// 
-//void DeviceAudio::activeAtLeastOneInput()
-//{
-//	if (setupLoaded == true && getNumOfActiveInputs() == 0 && !isThreadRunning())
-//	{
-//		int newInput = 0;
-//		sdkSetEvtData(m_ledAudioDeviceInputNames[newInput], TRUE);
-//		sdkRepaintParam(newInput);
-//	}
-//}
 
 // senso
 BigInteger DeviceAudio::getStateInputs()
 {
-	//activeAtLeastOneInput();
-
 	BigInteger stateIns;
 	stateIns.clear();
 	for (int i = 0; i < numOfInputs; i++)
@@ -1233,7 +1222,6 @@ int DeviceAudio::getNumOfActiveOutputs()
 // 
 BigInteger DeviceAudio::getStateOutputs()
 {
-	// activeAtLeastOneOutput();
 
 	BigInteger stateOuts;
 	stateOuts.clear();
@@ -1736,6 +1724,7 @@ void DeviceAudio::changeListenerCallback(ChangeBroadcaster *source)
 //
 void DeviceAudio::closeDevice()
 {
+
 	String currentDevice("null");
 
 	if (deviceManager.getCurrentAudioDevice() != nullptr)
@@ -1748,6 +1737,7 @@ void DeviceAudio::closeDevice()
 		
 	}
 	deviceManager.closeAudioDevice();
+
 
 	sdkRepaintParam(PARAMS_BEFORE_INS_OUTS - 6);
 	sdkRepaintParam(PARAMS_BEFORE_INS_OUTS - 5);

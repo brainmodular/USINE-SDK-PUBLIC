@@ -24,6 +24,11 @@
 			<key>orderHint</key>
 			<integer>6</integer>
 		</dict>
+		<key>DeviceAudio Intel.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>24</integer>
+		</dict>
 		<key>DeviceAudio.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -33,6 +38,11 @@
 		<dict>
 			<key>orderHint</key>
 			<integer>22</integer>
+		</dict>
+		<key>DeviceMidi Intel.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>25</integer>
 		</dict>
 		<key>DeviceMidi.xcscheme</key>
 		<dict>
@@ -52,7 +62,7 @@
 		<key>HID-Device.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>24</integer>
+			<integer>26</integer>
 		</dict>
 		<key>HSLAColor.xcscheme</key>
 		<dict>
@@ -134,7 +144,7 @@
 		<key>Serial-Port.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>25</integer>
+			<integer>27</integer>
 		</dict>
 		<key>Touch Fader.xcscheme_^#shared#^_</key>
 		<dict>
@@ -235,6 +245,11 @@
 			<true/>
 		</dict>
 		<key>749069F016A3EFE300319C0D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>74B000182864916200A0C2B7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

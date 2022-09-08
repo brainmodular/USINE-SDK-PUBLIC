@@ -29,6 +29,16 @@
 			<key>orderHint</key>
 			<integer>19</integer>
 		</dict>
+		<key>DeviceMidi Intel.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>24</integer>
+		</dict>
+		<key>DeviceMidi copy.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>26</integer>
+		</dict>
 		<key>DeviceMidi.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -87,7 +97,7 @@
 		<key>PluginLister Intel.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>25</integer>
+			<integer>26</integer>
 		</dict>
 		<key>PluginLister.xcscheme</key>
 		<dict>
@@ -97,7 +107,7 @@
 		<key>PluginWrapper Intel.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>24</integer>
+			<integer>25</integer>
 		</dict>
 		<key>PluginWrapper.xcscheme</key>
 		<dict>

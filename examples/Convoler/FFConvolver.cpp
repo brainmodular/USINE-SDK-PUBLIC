@@ -159,9 +159,12 @@ void FFConvolver::onInitModule (MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo
 		HiPassFilter[i]->prepareToPlay(float(sdkGetSampleRate()), sdkGetBlocSize());
 		HiPassFilter[i]->setType(CookbookEq::HiPass2);
 		HiPassFilter[i]->setFreq(LOW_CUT_FREQ_DEFAULT);
+		calcDispatchCpt[i] = rand() % 16;
+
 	}
 	cptDeactivation = 0;
 	irFinalSize = 0;
+	dispatchCpt = 0;
 	loadingIRSate = TLoadingIRState::lsProcessing;
 }
 
@@ -365,6 +368,21 @@ void FFConvolver::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 	pParamInfo->DefaultValue = 1.0f;
 	pParamInfo->Scale = scLinear;
 	}
+	// fdrThreaded
+	else if (ParamIndex == (numOfAudiotInsOuts * 2) + 8)
+	{
+	pParamInfo->ParamType = ptLeftLed;
+	pParamInfo->Caption = "threaded";
+	pParamInfo->IsInput = TRUE;
+	pParamInfo->IsOutput = FALSE;
+	pParamInfo->IsSeparator = TRUE;
+	pParamInfo->CallBackType = ctImmediate;
+	pParamInfo->CallBackId = 0xFFD;
+	pParamInfo->EventPtr = &fdrThreaded;
+	pParamInfo->DefaultValue = 1.0f;
+	pParamInfo->SeparatorCaption = "";
+	}
+
 
 }
 
@@ -473,32 +491,30 @@ void FFConvolver::loadIR()
 
 				if (irFileSize > 0)
 				{
+					float durationmms = float(irFileSize / sdkGetSampleRate());
+					int tailSize;
+					if (durationmms >= 6.0f)  tailSize = 2048;
+					else
+					if (durationmms >= 1.0f)  tailSize = 1024;
+					else
+					if (durationmms >= 0.25f)  tailSize = 512;
+					else
+					if (durationmms >= 0.03f)  tailSize = 256;
+					else tailSize = 256;
+
+
 					int preDelaySize = int(sdkGetEvtData(fdrPreDelay) * sdkGetSampleRate() / 1000.0f);
 					irFinalSize = preDelaySize + irFileSize;
 					TPrecision* finalIR = new TPrecision[irFinalSize];
 					::memset(finalIR, 0, irFinalSize * sizeof(TPrecision));
+                    //#pragma omp parallel for num_threads(4)
 					for (int ch = 0; ch < numOfAudiotInsOuts; ch++)
 					{
 						int j = ch % irNumChannels;
 						::memcpy(&finalIR[preDelaySize], irDataPointer[j], irFileSize * sizeof(TPrecision));
-						int blocSize;
-						if (sdkGetSampleRate() >= 176400.0)
-						{
-							blocSize = sdkGetBlocSize() * int(32);
-						}
-						else
-						if (sdkGetSampleRate() >= 88200.0)
-						{
-							blocSize = sdkGetBlocSize() * int(16);
-						}
-						else
-						{
-							blocSize = sdkGetBlocSize() * int(8);
-						}
-
-
-						Convolver[ch].init(blocSize, &finalIR[0], irFinalSize, true);
+						Convolver[ch].init(sdkGetBlocSize(),tailSize, &finalIR[0], irFinalSize, true);
 					}
+					
 					delete[] finalIR;
 
 				}
@@ -535,6 +551,7 @@ void FFConvolver::loadIR()
 		sdkTraceErrorChar("unable to load convolution file");
 	}
 	sdkNotifyUsine(NOTIFY_TARGET_USER_MODULE, NOTIFY_MSG_USINE_CALLBACK, NOTIFY_LOAD_IR_FINISHED);
+	dispatchCpt = 0;
 }
 
 
@@ -609,8 +626,9 @@ void FFConvolver::onProcess ()
 		{
 			for (int i = 0; i < numOfAudiotInsOuts; i++)
 			{
-				Convolver[i].clear();
+				needClearChannel[i] = true;
 			}
+			dispatchCpt = 0;
 		}
 
 		float dryWet = sdkGetEvtData(fdrDryWet);
@@ -622,6 +640,7 @@ void FFConvolver::onProcess ()
 		}
 		if ((onoffstate == 1.0f) || (cptDeactivation > 0))
 		{
+			bool threaded = (sdkGetEvtData(fdrThreaded) == 1.0f);
 			for (int i = 0; i < numOfAudiotInsOuts; i++)
 			{
 				sdkCopyEvt(audioInputs[i], audioOutputs[i]);
@@ -629,13 +648,22 @@ void FFConvolver::onProcess ()
 				{
 					sdkClearAudioEvt(audioOutputs[i]);
 				}
+
 				if (sdkGetEvtData(fdrHiPassFreq) > LOW_CUT_FREQ_DEFAULT)
 				{
 					HiPassFilter[i]->filterOut(sdkGetEvtDataAddr(audioOutputs[i]), sdkGetBlocSize());
 				}
+				if (dispatchCpt > calcDispatchCpt[i])
+				{
+					if (needClearChannel[i])
+					{
+						Convolver[i].clear();
+						needClearChannel[i] = false;
+					}
 
-				Convolver[i].process(sdkGetEvtDataAddr(audioOutputs[i]), &audioOutTmp[0], sdkGetBlocSize());
-				::memcpy(sdkGetEvtDataAddr(audioOutputs[i]), &audioOutTmp[0], sdkGetBlocSize() * sizeof(TPrecision));
+					Convolver[i].process(sdkGetEvtDataAddr(audioOutputs[i]), &audioOutTmp[0], sdkGetBlocSize(),threaded);
+					::memcpy(sdkGetEvtDataAddr(audioOutputs[i]), &audioOutTmp[0], sdkGetBlocSize() * sizeof(TPrecision));
+				}
 				if (dryWet < 1.0)
 				{
 					sdkMultEvt1(1.0f - dryWet, audioInputs[i]);
@@ -647,6 +675,7 @@ void FFConvolver::onProcess ()
 			{
 				cptDeactivation -= sdkGetBlocSize();
 			}
+			dispatchCpt += 1;
 		}
 		else
 		{
@@ -659,6 +688,7 @@ void FFConvolver::onProcess ()
 				}
 				else sdkClearAudioEvt(audioOutputs[i]);
 			}
+			dispatchCpt = 0;
 		}
 	}
 	else clearAudioOut();

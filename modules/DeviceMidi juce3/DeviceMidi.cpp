@@ -120,7 +120,7 @@ void DeviceMidi::onGetModuleInfo (MasterInfo* pMasterInfo, ModuleInfo* pModuleIn
 	{
 		maxMidiInputs			= sdkGetUsineMaxMidiDevices();
 		maxMidiOutputs			= sdkGetUsineMaxMidiDevices();
-		pModuleInfo->BackColor  = sdkGetUsineColor(clMidiModuleColor);
+		pModuleInfo->BackColor  = sdkGetUsineColor(clMIDIModuleColor);
 	}
 	else
 	{

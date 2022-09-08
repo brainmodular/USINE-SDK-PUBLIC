@@ -43,7 +43,7 @@
       <PathRunnable
          runnableDebuggingMode = "0"
          BundleIdentifier = "com.brainmodular.usine"
-         FilePath = "/Users/senso/PAServer/scratch-dir/senso-OSX64-HH5/Usine.app">
+         FilePath = "/Users/senso/PAServer/scratch-dir/senso-Intel-HH6/Usine MacOS-Intel 5.2.220218.app">
       </PathRunnable>
    </LaunchAction>
    <ProfileAction

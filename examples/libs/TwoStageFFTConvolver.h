@@ -24,9 +24,20 @@
 
 #include "FFTConvolver.h"
 #include "Utilities.h"
+#include <functional>
+#include <memory>
+#include <mutex>
+#include <thread>
+#include <list>
+
+namespace thd = std;
+
 
 
 namespace fftconvolver
+
+
+
 { 
 
 /**
@@ -52,8 +63,44 @@ namespace fftconvolver
 * allocations, locking, API calls, etc. are performed during processing (all
 * necessary allocations and preparations take place during initialization).
 */
+
+	
+	
 class TwoStageFFTConvolver
 {  
+public:
+	typedef int job_t;
+
+	void addJob(job_t job)
+	{
+		thd::lock_guard<thd::mutex> lock(queueMutex);
+		jobQueue.push_back(job);
+		queuePending.notify_one();
+	}
+
+
+private:
+	void Entry()
+	{
+		job_t job;
+
+		while (true)
+		{
+			{
+				thd::unique_lock<thd::mutex> lock(queueMutex);
+				queuePending.wait(lock, [&]() { return wantExit || !jobQueue.empty(); });
+
+				if (wantExit)
+					return;
+
+				job = jobQueue.front();
+				jobQueue.pop_front();
+			}
+
+			doBackgroundProcessing();
+		}
+	}
+
 public:
   TwoStageFFTConvolver();  
   virtual ~TwoStageFFTConvolver();
@@ -75,13 +122,15 @@ public:
   * @param output The convolution result
   * @param len Number of input/output samples
   */
-  void process(const Sample* input, Sample* output, size_t len);
+  void process(const Sample* input, Sample* output, size_t len, bool threaded);
 
   /**
   * @brief Resets the convolver and discards the set impulse response
   */
   void reset();
-  void clearBuffer();
+
+
+  void clear();
   
 protected:
   /**
@@ -124,8 +173,17 @@ private:
   // Prevent uncontrolled usage
   TwoStageFFTConvolver(const TwoStageFFTConvolver&);
   TwoStageFFTConvolver& operator=(const TwoStageFFTConvolver&);
+
+  bool processFinished,started;
+
+private:
+	std::unique_ptr<thd::thread>    thread;
+	thd::condition_variable         queuePending;
+	thd::mutex                      queueMutex;
+	std::list<job_t>                jobQueue;
+	bool                            wantExit;
 };
-  
+
 } // End of namespace fftconvolver
 
 #endif // Header guard

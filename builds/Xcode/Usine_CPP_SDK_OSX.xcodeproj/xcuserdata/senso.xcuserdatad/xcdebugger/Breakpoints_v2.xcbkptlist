@@ -1014,38 +1014,6 @@
             endingLineNumber = "3483"
             landmarkName = "createAndUpdateDesc(format, desc)"
             landmarkType = "9">
-            <Locations>
-               <Location
-                  uuid = "51619AEC-C534-4705-A119-95FCD2BD0A42 - 51faff6d95af067b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "juce::createAndUpdateDesc(juce::VSTPluginFormat&amp;, juce::PluginDescription&amp;)"
-                  moduleName = "PluginWrapper.usr-osx64"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/Usine-SDK/libs/juce_v54/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "3483"
-                  endingLineNumber = "3483"
-                  offsetFromSymbolStart = "30">
-               </Location>
-               <Location
-                  uuid = "51619AEC-C534-4705-A119-95FCD2BD0A42 - 51faff6d95af067b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "juce::createAndUpdateDesc(juce::VSTPluginFormat&amp;, juce::PluginDescription&amp;)"
-                  moduleName = "PluginWrapper.usr-osx64"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/senso/Dropbox/Usine/Usine%20Development/Usine-SDK/libs/juce_v54/modules/juce_audio_processors/format_types/juce_VSTPluginFormat.cpp"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "3483"
-                  endingLineNumber = "3483"
-                  offsetFromSymbolStart = "74">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1862,7 +1830,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1745"
             endingLineNumber = "1745"
-            landmarkName = "DeviceAudio::closeDevice()"
+            landmarkName = "DeviceAudio::changeListenerCallback(source)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1878,7 +1846,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1604"
             endingLineNumber = "1604"
-            landmarkName = "DeviceAudio::updateInsOutsCaptions()"
+            landmarkName = "DeviceAudio::doChangeDriverSettings(audioSetup)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1910,7 +1878,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1549"
             endingLineNumber = "1549"
-            landmarkName = "DeviceAudio::doChangeDriverSettings(audioSetup)"
+            landmarkName = "DeviceAudio::getDeviceNamesOutputs()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1926,7 +1894,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1562"
             endingLineNumber = "1562"
-            landmarkName = "DeviceAudio::doChangeDriverSettings(audioSetup)"
+            landmarkName = "DeviceAudio::traceAudioSetup(audioSetup)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1991,6 +1959,70 @@
             startingLineNumber = "113"
             endingLineNumber = "113"
             landmarkName = "PluginWindow::PluginWindow(module_, owner_, nativeWindowToAttachTo)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "82DC0E98-4B94-40D5-85C0-B79A8A708E88"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/DeviceAudio-juce_3/DeviceAudio.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "DeviceAudio::~DeviceAudio()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D939A2F6-1330-440C-8DC8-2FA4A1C70994"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/DeviceMidi/DeviceMidi.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "DeviceMidi::DeviceMidi()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D572DBDB-AD6B-4EBE-B38A-A6594A9B9CC1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/DeviceMidi/DeviceMidi.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "DeviceMidi::onInitModule(pMasterInfo, pModuleInfo)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9CC32F40-2417-43DB-AF16-8B053F02AAA4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../modules/DeviceMidi/DeviceMidi.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "DeviceMidi::onInitModule(pMasterInfo, pModuleInfo)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

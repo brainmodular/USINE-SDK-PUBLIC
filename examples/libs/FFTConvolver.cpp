@@ -23,6 +23,7 @@
 
 #include <cassert>
 #include <cmath>
+//#include <ppl.h>
 
 #if defined (FFTCONVOLVER_USE_SSE)
   #include <xmmintrin.h>
@@ -105,7 +106,7 @@ bool FFTConvolver::init(size_t blockSize, const Sample* ir, size_t irLen, bool d
   }
  
   // Ignore zeros at the end of the impulse response because they only waste computation time
-  while (irLen > 0 && ::fabs(ir[irLen-1]) < 0.00001f)
+  while (irLen > 0 && ::fabs(ir[irLen-1]) < 0.0000001f)
   {
     --irLen;
   }
@@ -177,17 +178,27 @@ void FFTConvolver::process(const Sample* input, Sample* output, size_t len)
     CopyAndPad(_fftBuffer, &_inputBuffer[0], _blockSize); 
     _fft.fft(_fftBuffer.data(), _segments[_current]->re(), _segments[_current]->im());
 
-    // Complex multiplication
+	
+    
+	// Complex multiplication
     if (inputBufferWasEmpty)
     {
       _preMultiplied.setZero();
-      for (size_t i=1; i<_segCount; ++i)
-      {
-        const size_t indexIr = i;
-        const size_t indexAudio = (_current + i) % _segCount;
-        ComplexMultiplyAccumulate(_preMultiplied, *_segmentsIR[indexIr], *_segments[indexAudio]);
-      }
+	  { 
+              //#pragma omp parallel for num_threads(4)
+			  for (int i = 1; i < _segCount; ++i)
+			  {
+				  const size_t indexIr = i;
+				  const size_t indexAudio = (_current + i) % _segCount;                  
+				  ComplexMultiplyAccumulate(_preMultiplied, *_segmentsIR[indexIr], *_segments[indexAudio]);
+			  }
+		 
+	  }
     }
+	
+
+
+		
     _conv.copyFrom(_preMultiplied);
     ComplexMultiplyAccumulate(_conv, *_segments[_current], *_segmentsIR[0]);
 

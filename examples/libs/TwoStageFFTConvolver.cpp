@@ -19,11 +19,15 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ==================================================================================
 
-#include "TwoStageFFTConvolver.h"
 
+#include "TwoStageFFTConvolver.h"
+//#define NOMINMAX
+//#include <windows.h>
 #include <algorithm>
 #include <cmath>
+#include <thread>
 
+//#include <processthreadsapi.h>
 
 namespace fftconvolver
 {
@@ -43,12 +47,20 @@ TwoStageFFTConvolver::TwoStageFFTConvolver() :
   _precalculatedPos(0),
   _backgroundProcessingInput()
 {
+	started = false;
+	wantExit = false;
+	thread = std::unique_ptr<thd::thread>(new thd::thread(std::bind(&TwoStageFFTConvolver::Entry, this)));
+	
 }
 
   
 TwoStageFFTConvolver::~TwoStageFFTConvolver()
 {
   reset();
+  wantExit = true;
+  // we add a dummy job
+  addJob(1);
+  thread->join();
 }
 
   
@@ -68,6 +80,22 @@ void TwoStageFFTConvolver::reset()
   _tailInputFill = 0;
   _precalculatedPos = 0;
   _backgroundProcessingInput.clear();
+}
+
+void TwoStageFFTConvolver::clear()
+{
+	_headConvolver.clear();
+	_tailConvolver0.clear();
+	_tailConvolver.clear();
+	_tailInputFill = 0;
+	_tailInputFill = 0;
+	_precalculatedPos = 0;
+	_tailPrecalculated0.setZero();
+	_tailOutput0.setZero();
+	_tailOutput.setZero();
+	_tailPrecalculated.setZero();
+	_tailInput.setZero();
+	_backgroundProcessingInput.setZero();
 }
 
   
@@ -95,7 +123,7 @@ bool TwoStageFFTConvolver::init(size_t headBlockSize,
   }
   
   // Ignore zeros at the end of the impulse response because they only waste computation time
-  while (irLen > 0 && ::fabs(ir[irLen-1]) < 0.000001f)
+  while (irLen > 0 && ::fabs(ir[irLen-1]) < 0.00000001f)
   {
     --irLen;
   }
@@ -139,7 +167,7 @@ bool TwoStageFFTConvolver::init(size_t headBlockSize,
 }
 
 
-void TwoStageFFTConvolver::process(const Sample* input, Sample* output, size_t len)
+void TwoStageFFTConvolver::process(const Sample* input, Sample* output, size_t len, bool threaded)
 {
   // Head
   _headConvolver.process(input, output, len);
@@ -206,10 +234,22 @@ void TwoStageFFTConvolver::process(const Sample* input, Sample* output, size_t l
           _backgroundProcessingInput.size() == _tailBlockSize &&
           _tailOutput.size() == _tailBlockSize)
       {
-        waitForBackgroundProcessing();
+		if (threaded)
+		{
+		   waitForBackgroundProcessing();
+		}
+
         SampleBuffer::Swap(_tailPrecalculated, _tailOutput);
         _backgroundProcessingInput.copyFrom(_tailInput);
-        startBackgroundProcessing();
+        
+		if (threaded)
+		{
+			startBackgroundProcessing();
+		}
+		else
+		{
+			doBackgroundProcessing();
+		}
       }
         
       if (_tailInputFill == _tailBlockSize)
@@ -226,18 +266,43 @@ void TwoStageFFTConvolver::process(const Sample* input, Sample* output, size_t l
 
 void TwoStageFFTConvolver::startBackgroundProcessing()
 {
-  doBackgroundProcessing();
+	addJob(1);
 }
 
 
 void TwoStageFFTConvolver::waitForBackgroundProcessing()
 {
+	
+	if (started)
+	{
+		while (!processFinished)
+		{
+			//std::this_thread::sleep_for(std::chrono::nanoseconds(1000));
+			std::this_thread::yield();
+	    }
+		processFinished = false;
+    }
 }
 
 
 void TwoStageFFTConvolver::doBackgroundProcessing()
 {
-  _tailConvolver.process(_backgroundProcessingInput.data(), _tailOutput.data(), _tailBlockSize);
+	try
+	{
+		
+		started = true;		
+//		SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_LOWEST);
+
+		_tailConvolver.process(_backgroundProcessingInput.data(), _tailOutput.data(), _tailBlockSize);
+	}
+   catch (...)
+   {
+	   
+   }
+   processFinished = true;
 }
-    
+
+
+
+
 } // End of namespace fftconvolver

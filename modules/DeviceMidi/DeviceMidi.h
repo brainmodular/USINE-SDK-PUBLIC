@@ -56,7 +56,7 @@
 #include <iostream>
 #include <cmath>
 #include <limits>
-#include <JuceHeader.h>
+#include "JuceLibraryCode/JuceHeader.h"
 
 //-----------------------------------------------------------------------------
 // defines and constantes

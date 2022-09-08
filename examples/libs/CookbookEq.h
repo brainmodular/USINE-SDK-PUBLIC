@@ -67,7 +67,7 @@ public:
 private:
   static inline double Pi()                  { return 3.1415926535897932384626433832795; }
   static inline double Log10()               { return 2.302585093;                       }
-  static inline bool Equal(double a, double b) { return ::abs(a-b) < 0.00001;            }
+  static inline bool Equal(double a, double b) { return ::abs(a-b) < 0.0000001;            }
 
   struct Stage
   {

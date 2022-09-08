@@ -370,17 +370,17 @@ void MidiSysexSendOut (void* pModule, int DeviceID,  char** Sysex, int sysexSize
 	} 
 }
 
-void ILDASendOut(void* pModule, int DeviceID, TUsineILDAPoint** arrayPoint, int arraySize, int speedPPS)
+void LaserSendOut(void* pModule, int DeviceID, TUsineILDAPoint** arrayPoint, int arraySize, int speedPPS)
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
 
 	try
 	{
-		userModule->onILDASendOut(DeviceID, arrayPoint, arraySize, speedPPS);
+		userModule->onLaserSendOut(DeviceID, arrayPoint, arraySize, speedPPS);
 	}
 	catch (...) // std::exception& e
 	{
-		userModule->sdkTraceErrorChar(" in ILDASendOut");
+		userModule->sdkTraceErrorChar(" in LaserSendOut");
 	}
 }
 

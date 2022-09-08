@@ -52,7 +52,7 @@
 #include "../../sdk/UserDefinitions.h" 
 
 #include "FFTConvolver.h"
-//#include "TwoStageFFTConvolver.h"
+#include "TwoStageFFTConvolver.h"
 #include "CookbookEq.h"
 #include <vector>
 
@@ -134,19 +134,20 @@ private:
 	UsineEventPtr fdrPreDelay;
 	UsineEventPtr fdrImpulseDur;
 	UsineEventPtr fdrNormalize;
+	UsineEventPtr fdrThreaded;
 
 
 
 
 	//-------------------------------------------------------------------------
-    static const int numOfParamAfterAudiotInOut = 8;
+    static const int numOfParamAfterAudiotInOut = 9;
 
 	int queryIndex;
 	int numOfAudiotInsOuts;
 	void clearAudioOut();
 	
 
-	fftconvolver::FFTConvolver  Convolver[AUDIO_INS_OUTS_MAX];
+	fftconvolver::TwoStageFFTConvolver  Convolver[AUDIO_INS_OUTS_MAX];
 	AudioFilePtr irFile;
 	int irFileSize;
 	int irNumChannels;
@@ -158,6 +159,10 @@ private:
 	TLoadingIRState loadingIRSate;
 	int cptDeactivation;
 	int irFinalSize;
+
+	bool  needClearChannel[AUDIO_INS_OUTS_MAX];
+	uint64_t calcDispatchCpt[AUDIO_INS_OUTS_MAX];
+	uint64_t dispatchCpt;
 
 }; // class AudioVolumeExample
 

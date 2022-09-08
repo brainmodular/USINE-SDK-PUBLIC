@@ -278,7 +278,7 @@ xcopy /e /i /y "$(OutDir)$(TargetFileName)" "$(USINE_32_DEVICES_PATH)"</Command>
       <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>../../libs/Juce_v3/JuceLibraryCode;../../libs/ASIOSDK2.3/common;../../libs/VST3 SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../libs/Juce_v612/modules;../../libs/ASIOSDK2.3/common;../../libs/VST3 SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>

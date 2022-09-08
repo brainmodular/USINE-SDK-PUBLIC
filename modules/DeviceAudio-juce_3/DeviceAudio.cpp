@@ -125,8 +125,10 @@ DeviceAudio::~DeviceAudio()
 {
 	try
 	{
+        traceLog("DESTRUCTOR removeAudioCallback");
 		deviceManager.removeAudioCallback(this);
 		wait(200);
+        traceLog("DESTRUCTOR closeAudioDevice");
 		deviceManager.closeAudioDevice();
 		
 
@@ -140,7 +142,16 @@ DeviceAudio::~DeviceAudio()
 
 	//stop the NoAudioThread in case we was in NO AUDIO mode
 	if (isThreadRunning())
-		stopThread(1000);
+    {
+	    traceLog("DESTRUCTOR stopThread");
+        try
+        {
+        stopThread(1000);
+        }
+        catch (...)
+        {
+        }
+    }
 };
 
 
@@ -1293,8 +1304,20 @@ void DeviceAudio::applyDevice(int deriverID)
 	}
 	else if (setupLoaded)
 	{
-		closeDevice();
-		stopThread(100);
+       /*
+		if (isThreadRunning())
+        {
+            traceLog("  stopThread");
+            try
+            {
+            stopThread(1000);
+            }
+            catch (...)
+            {
+            }
+        }
+        */
+        closeDevice();
 
 		// if we change device type, do some default value stuff
 		if (deviceManager.getCurrentAudioDeviceType().compare(listDeviceDriversNames[indexSelectedDeviceDriver]) != 0)
@@ -1745,9 +1768,10 @@ void DeviceAudio::closeDevice()
 		traceLog("--close audio device--");
 		traceLog("  current device: ", currentDevice);
 
+        deviceManager.closeAudioDevice();
 		
 	}
-	deviceManager.closeAudioDevice();
+	
 
 	sdkRepaintParam(PARAMS_BEFORE_INS_OUTS - 6);
 	sdkRepaintParam(PARAMS_BEFORE_INS_OUTS - 5);
@@ -1869,9 +1893,14 @@ void DeviceAudio::audioDeviceError(const String& errorMessage)
 void DeviceAudio::run()
 {
 	while (!threadShouldExit())
+           
 	{
+        if (indexSelectedDeviceDriver == 0)
+        {
 		sdkUsineAudioDeviceIOCallback(nullptr, 0, nullptr, 0, sdkGetBlocSize());
 		wait(std::max(1, (int)(sdkGetBlocSize() / 44.1)));
+        }
+        else wait(1000);
 	}
 }
 

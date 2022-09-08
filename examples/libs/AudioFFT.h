@@ -89,6 +89,7 @@
 
 #include <cstddef>
 #include <memory>
+//#define AUDIOFFT_FFTW3
 
 
 namespace audiofft

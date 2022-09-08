@@ -99,7 +99,17 @@ DeviceMidi::~DeviceMidi ()
 {	
 	listMidiInputDevicesNames.clear();
 	listMidiOutputDevicesNames.clear();
-	
+
+	for (int i = 0; i < maxMidiInputs; ++i)
+	{
+		if (arrayMidiInputDevices[i] != nullptr)
+		{
+			arrayMidiInputDevices[i]->stop();
+		}
+	}
+
+	arrayMidiInputDevices.clear();
+
 	//
 	for (int i = 0; i < maxMidiOutputs; ++i)
 	{
@@ -109,6 +119,7 @@ DeviceMidi::~DeviceMidi ()
 		}
 	}
 	arrayMidiOutputDevices.clear();
+	
 }
 
 //-----------------------------------------------------------------------------
@@ -397,7 +408,7 @@ void DeviceMidi::onMidiSendOutArray (int DeviceID, UsineMidiCode** arrayCode, in
                     midiOutArrayCode = constructJuceMidiMessage ((*arrayCode)[i]);
                     midiBufferSendOutArray.addEvent (midiOutArrayCode, 0);
                 }
-                midiOutput->sendBlockOfMessages (midiBufferSendOutArray, Time::getMillisecondCounter(), 32);
+                midiOutput->sendBlockOfMessages (midiBufferSendOutArray, Time::getMillisecondCounter(), 8192);
 			}
 			else
 			{
@@ -433,7 +444,7 @@ void DeviceMidi::onMidiSysexSendOut (int DeviceID, char** Sysex, int sysexSize)
 				MidiMessage tmpMessage = MidiMessage::createSysExMessage ((uint8*)Sysex[0], sysexSize);
                 bufferOutput.addEvent (tmpMessage, 0);
 
-                midiOutput->sendBlockOfMessages (bufferOutput, Time::getMillisecondCounter(), 32);
+                midiOutput->sendBlockOfMessages (bufferOutput, Time::getMillisecondCounter(), 8192);
 			}
 			else
 			{
@@ -701,6 +712,7 @@ void DeviceMidi::onSetChunk (const void* chunk, int sizeInBytes, LongBool Preset
 //
 void DeviceMidi::initDeviceMidiModule()
 {
+
 	caMidiInputsCaptions.resize (maxMidiInputs);
 	captionMidiInputsSavedName.resize (maxMidiInputs);
 	caMidiInputsSavedName.resize (maxMidiInputs);
@@ -858,7 +870,8 @@ void DeviceMidi::rescanMidi()
 			//sdkSetEvtData(m_ledMidiDeviceOutputNames[i], 0);
         }
 	}
-	sdkNotifyUsine(NOTIFY_TARGET_SETUP, NOTIFY_MSG_MIDI_DRIVER_CHANGED, 0, 0);
+	//sdkNotifyUsine(NOTIFY_TARGET_SETUP, NOTIFY_MSG_MIDI_DRIVER_CHANGED, 0, 0);
+	sdkNotifyUsine(NOTIFY_TARGET_SETUP, NOTIFY_MSG_RESCAN_MIDI_DEVICES, 0, 0);
 	sdkTraceLogChar("finish rescan midi devices");
 
 }
@@ -1129,6 +1142,7 @@ void DeviceMidi::collectMidiInputsDeviceNames()
 		if (arrayMidiInputDevices[i] != nullptr)
 		{
 			arrayMidiInputDevices[i]->stop();
+			
 			arrayMidiInputDevices.remove(i, true);
 		}
 	}
@@ -1142,6 +1156,11 @@ void DeviceMidi::collectMidiInputsDeviceNames()
 	for (int i = 0; i < listMidiInputDevicesNames.size(); i++)
 	{
 		arrayMidiInputDevices.set(i, MidiInput::openDevice(i - 1, this));
+		/* if (arrayMidiInputDevices[i] != nullptr)
+		{
+			arrayMidiInputDevices[i]->start();
+		}
+		*/
 	}
     // in case two midi devices with the same name
     listMidiInputDevicesNames.appendNumbersToDuplicates (false, true,  CharPointer_UTF8 ("("),  CharPointer_UTF8 (")"));

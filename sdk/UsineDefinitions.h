@@ -224,6 +224,8 @@ static const NativeInt NOTIFY_MSG_USINE_LOADED	        = 0xFAB009;  ///< param1 
 static const NativeInt NOTIFY_MSG_USINE_CALLBACK        = 0xFAB679;  ///< identify a Message->message as a callback for user module
 static const NativeInt NOTIFY_MSG_ON_TOP                = 0xFAB67A;  ///< need all windows on top
 static const NativeInt NOTIFY_MSG_TO_BACK               = 0xFAB67B;  ///< need all windows to back
+static const NativeInt NOTIFY_MSG_RESCAN_MIDI_DEVICES   = 0xFAB67D;  ///< tell Usine that Midi devices have been rescaned
+static const NativeInt NOTIFY_MSG_RESET_MIDI_DEVICES    = 0xFAB67E;  ///< tell Usine that Midi devices have been reset
 
 static const NativeInt CALLBACK_WPARAM_LIMIT = 0xF000000;
 /// @}
@@ -233,7 +235,7 @@ static const NativeInt CALLBACK_WPARAM_LIMIT = 0xF000000;
 /// Number of audio in or out channels in Usine
 /// @name AUDIO_INS_OUTS_MAX
 /// @{
-#define AUDIO_INS_OUTS_MAX 64
+#define AUDIO_INS_OUTS_MAX 128
 /// @}
 
 //----------------------------------------------------------------------------
@@ -479,7 +481,7 @@ typedef struct TUsineILDAPoint
 	float z;  ///< point z coordinate
 	TColorUsine       Color; ///< point color	
 } TUsineILDAPoint;
-//typedef TUsineILDAPoint* PTUsineILDAPoint;
+
 
 
 //-----------------------------------------------------------------------------
@@ -1242,7 +1244,7 @@ typedef enum TModuleType
 	mtPluginWrapper,    ///< not for public use
     mtPluginLister,     ///< not for public use
     mtDeviceDMX,        ///< not for public use
-	mtDeviceILDA,       ///< not for public use
+	mtDeviceLaser,       ///< not for public use
 	mtOther             ///< not for public use
 } TModuleType;
 
@@ -1414,9 +1416,9 @@ USINE_MODULE_EXPORT void MidiSysexSendOut (void* pModule, int DeviceID, char** S
 USINE_MODULE_EXPORT void DMXSendOut (void* pModule, int deviceId, char* ByteArray, int len, int universeNum);
 
 //-----------------------------------------------------------------------------
-// midi out callbacks
-// called by Usine to send out midi
-USINE_MODULE_EXPORT void ILDASendOut(void* pModule, int DeviceID, TUsineILDAPoint** arrayPoint, int arraySize, int speedPPS);
+// Laser out callbacks
+// called by Usine to send ILDA frames
+USINE_MODULE_EXPORT void LaserSendOut(void* pModule, int DeviceID, TUsineILDAPoint** arrayPoint, int arraySize, int speedPPS);
 
 
 

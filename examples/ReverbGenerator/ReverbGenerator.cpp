@@ -472,17 +472,6 @@ float AWGN_generator()
 
 }// end AWGN_generator()
 
-//float b0, b1, b2;
-//
-//float PinkNoise()
-//{
-//	float white = AWGN_generator();
-//    b0 = 0.99765 * b0 + white * 0.0990460;
-//    b1 = 0.96300 * b1 + white * 0.2965164;
-//    b2 = 0.57000 * b2 + white * 1.0526913;
-//    return (b0 + b1 + b2 + white * 0.1848) / 4.0;
-//
-//}
 
 
 //-----------------------------------------------------------------------------
@@ -513,7 +502,7 @@ void FFConvolver::createAndLoadIR()
 			float exponentialFactor = float(decaycoeff) + 1.71828182845904f;
 			float endvalue = 1.0f / powf(exponentialFactor, 10.0f);
 			
-
+            //#pragma omp parallel for num_threads(4)
 			for (int ch = 0; ch < numOfAudiotInsOuts; ch++)
 			{
 				
@@ -601,23 +590,20 @@ void FFConvolver::createAndLoadIR()
 					}
 				}
 				::memcpy(&finalIR[preDelaySize], &IRFiltered[0], irSize * sizeof(TPrecision));
-				int blocSize;
-				if (sdkGetSampleRate() >= 176400.0)
-				{
-					blocSize = sdkGetBlocSize() * int(32);
-				}
+
+				float durationmms = float(irFinalSize / sdkGetSampleRate());
+
+				int tailSize;
+				if (durationmms >= 6.0f)  tailSize = 2048;
 				else
-					if (sdkGetSampleRate() >= 88200.0)
-					{
-						blocSize = sdkGetBlocSize() * int(16);
-					}
-					else
-					{
-						blocSize = sdkGetBlocSize() * int(8);
-					}
+				if (durationmms >= 1.0f)  tailSize = 1024;
+				else
+				if (durationmms >= 0.25f)  tailSize = 512;
+				else
+				if (durationmms >= 0.03f)  tailSize = 256;
+				else tailSize = 256;
 
-
-				Convolver[ch].init(blocSize, &finalIR[0], irFinalSize, true);
+				Convolver[ch].init(sdkGetBlocSize(),tailSize, &finalIR[0], irFinalSize, true);
 
 			}
   		    
@@ -703,14 +689,6 @@ void FFConvolver::onProcess ()
 		float dryWet = sdkGetEvtData(fdrDryWet);
 		float onoffstate = sdkGetEvtData(fdrOnOff);
 
-		if (sdkPatchJustActivated())
-		{
-			for (int i = 0; i < numOfAudiotInsOuts; i++)
-			{
-				Convolver[i].clear();
-			}
-
-		}
 		// denormalization
 		for (int i = 0; i < numOfAudiotInsOuts; i++)
 		{

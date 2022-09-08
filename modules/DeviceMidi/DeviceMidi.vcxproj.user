@@ -21,7 +21,7 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerCommand>$(USINE_64_APP)</LocalDebuggerCommand>
+    <LocalDebuggerCommand>C:\Users\senso\Dropbox\Usine\Usine Development\HH6\Usine.exe</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>
