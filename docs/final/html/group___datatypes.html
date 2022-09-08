@@ -21,7 +21,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-site.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Usine SDK
-   &#160;<span id="projectnumber">HH5-210717</span>
+   &#160;<span id="projectnumber">HH5-220211</span>
    </div>
    <div id="projectbrief">Create user modules for Usine Software</div>
   </td>
@@ -253,7 +253,7 @@ Enumerations</h2></td></tr>
 <a class="el" href="group___datatypes.html#ggaedd08b97cca5254f3376ea98c47fda13a9f61f32212f5167da51d60431a4e7e59">mtPluginLister</a>, 
 <br />
 &#160;&#160;<a class="el" href="group___datatypes.html#ggaedd08b97cca5254f3376ea98c47fda13a63d43c7a16bab755056c7488f7d71574">mtDeviceDMX</a>, 
-<a class="el" href="group___datatypes.html#ggaedd08b97cca5254f3376ea98c47fda13a4296c21787000f3d5aa6c02c78e0fd17">mtDeviceILDA</a>, 
+<a class="el" href="group___datatypes.html#ggaedd08b97cca5254f3376ea98c47fda13a021f264573326a4ac16c94689b9c09d2">mtDeviceLaser</a>, 
 <a class="el" href="group___datatypes.html#ggaedd08b97cca5254f3376ea98c47fda13aa4739177faee3bd18f784bc34216cbcd">mtOther</a>
 <br />
  }<tr class="memdesc:gaedd08b97cca5254f3376ea98c47fda13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible type of user modules.  <a href="group___datatypes.html#gaedd08b97cca5254f3376ea98c47fda13">More...</a><br /></td></tr>
@@ -372,6 +372,14 @@ static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a cla
 static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gab7766732d54537560e72aadd539b9ff2">NOTIFY_MSG_TO_BACK</a> = 0xFAB67B</td></tr>
 <tr class="memdesc:gab7766732d54537560e72aadd539b9ff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">need all windows to back <br /></td></tr>
 <tr class="separator:gab7766732d54537560e72aadd539b9ff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1866b91110eb20ff971f70efc617d218"><td class="memItemLeft" align="right" valign="top"><a id="ga1866b91110eb20ff971f70efc617d218"></a>
+static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga1866b91110eb20ff971f70efc617d218">NOTIFY_MSG_RESCAN_MIDI_DEVICES</a> = 0xFAB67D</td></tr>
+<tr class="memdesc:ga1866b91110eb20ff971f70efc617d218"><td class="mdescLeft">&#160;</td><td class="mdescRight">tell Usine that Midi devices have been rescaned <br /></td></tr>
+<tr class="separator:ga1866b91110eb20ff971f70efc617d218"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga81bb35583e087f5f81e4e53b73ea65c1"><td class="memItemLeft" align="right" valign="top"><a id="ga81bb35583e087f5f81e4e53b73ea65c1"></a>
+static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga81bb35583e087f5f81e4e53b73ea65c1">NOTIFY_MSG_RESET_MIDI_DEVICES</a> = 0xFAB67E</td></tr>
+<tr class="memdesc:ga81bb35583e087f5f81e4e53b73ea65c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">tell Usine that Midi devices have been reset <br /></td></tr>
+<tr class="separator:ga81bb35583e087f5f81e4e53b73ea65c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga06826c33e3d2ca733fc2f8a53c10aa89"><td class="memItemLeft" align="right" valign="top"><a id="ga06826c33e3d2ca733fc2f8a53c10aa89"></a>
 static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><b>CALLBACK_WPARAM_LIMIT</b> = 0xF000000</td></tr>
 <tr class="separator:ga06826c33e3d2ca733fc2f8a53c10aa89"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -381,7 +389,7 @@ AUDIO_INS_OUTS_MAX</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpff2f97d55cd59caf2488c796d02c3430"></a>Number of audio in or out channels in Usine </p>
 </td></tr>
 <tr class="memitem:gae6c391435bc4f9b1c99c106ed3280d3b"><td class="memItemLeft" align="right" valign="top"><a id="gae6c391435bc4f9b1c99c106ed3280d3b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>AUDIO_INS_OUTS_MAX</b>&#160;&#160;&#160;64</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>AUDIO_INS_OUTS_MAX</b>&#160;&#160;&#160;128</td></tr>
 <tr class="separator:gae6c391435bc4f9b1c99c106ed3280d3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
@@ -913,7 +921,7 @@ static const <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e
 </td></tr>
 <tr><td class="fieldname"><a id="ggaedd08b97cca5254f3376ea98c47fda13a63d43c7a16bab755056c7488f7d71574"></a>mtDeviceDMX&#160;</td><td class="fielddoc"><p>not for public use </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggaedd08b97cca5254f3376ea98c47fda13a4296c21787000f3d5aa6c02c78e0fd17"></a>mtDeviceILDA&#160;</td><td class="fielddoc"><p>not for public use </p>
+<tr><td class="fieldname"><a id="ggaedd08b97cca5254f3376ea98c47fda13a021f264573326a4ac16c94689b9c09d2"></a>mtDeviceLaser&#160;</td><td class="fielddoc"><p>not for public use </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ggaedd08b97cca5254f3376ea98c47fda13aa4739177faee3bd18f784bc34216cbcd"></a>mtOther&#160;</td><td class="fielddoc"><p>not for public use </p>
 </td></tr>
@@ -924,7 +932,7 @@ static const <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Feb 11 2022 18:12:55 for Usine SDK by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Sep 8 2022 14:36:55 for Usine SDK by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.12
 </small></address>
