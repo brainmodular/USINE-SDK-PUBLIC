@@ -9,31 +9,12 @@
 
 # Precompiled Headers
 *.gch
-*.pch
+*.ipch
+*.db
+*.pdb
+*.ilk
 
 # Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
 
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
-# libs
-#/libs/
-#/temp/
-#/releases/
 #/docs/
 /.vc/

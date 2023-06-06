@@ -3,7 +3,7 @@
 //	UserUtils.cpp
 //
 //@author
-//	Martin FLEURENT aka 'martignasse'
+//	BrainModular team
 //
 //@brief  
 //	Utilities global functions implementation
@@ -16,7 +16,7 @@
 //	This file is part of the Usine Hollyhock CPP SDK
 //
 //  Please, report bugs and patch to Usine forum :
-//  support@brainmodular.org 
+//  support@brainmodular.com 
 //
 // All dependencies are under there own licence.
 //
@@ -142,9 +142,9 @@ TColorArgb sdkColorAhslToColorArgb(TColorAhsl c1)
 
 //-----------------------------------------------------------------------------
 // RGB color to Usine color format
-TColorUsine sdkColorArgbToAlphaColor( TColorArgb c1 )
+TUsineColor sdkColorArgbToAlphaColor( TColorArgb c1 )
 {
-    TColorUsine c2 = 0;
+    TUsineColor c2 = 0;
 
     c2 += ((uint8_t)(c1.b * 255.0f));
     c2 += ((uint8_t)(c1.g * 255.0f)) << 8;
@@ -156,7 +156,7 @@ TColorUsine sdkColorArgbToAlphaColor( TColorArgb c1 )
 
 //-----------------------------------------------------------------------------
 // Usine color format to RGB color
-TColorArgb sdkAlphaColorToColorArgb(TColorUsine c1)
+TColorArgb sdkAlphaColorToColorArgb(TUsineColor c1)
 {
     TColorArgb c2;
 
@@ -170,15 +170,15 @@ TColorArgb sdkAlphaColorToColorArgb(TColorUsine c1)
 
 //-----------------------------------------------------------------------------
 // HSL color to Usine color format
-TColorUsine sdkColorAhslToAlphaColor(TColorAhsl c1)
+TUsineColor sdkColorAhslToAlphaColor(TColorAhsl c1)
 {
-    TColorUsine c2 = sdkColorArgbToAlphaColor( sdkColorAhslToColorArgb( c1 ) );
+    TUsineColor c2 = sdkColorArgbToAlphaColor( sdkColorAhslToColorArgb( c1 ) );
     return c2;
 }
 
 //-----------------------------------------------------------------------------
 // Usine color format to HSL color
-TColorAhsl sdkAlphaColorToColorAhsl(TColorUsine c1)
+TColorAhsl sdkAlphaColorToColorAhsl(TUsineColor c1)
 {
     TColorAhsl c2 = sdkColorArgbToColorAhsl( sdkAlphaColorToColorArgb( c1 ) );
     return c2;
@@ -214,9 +214,9 @@ TColorAhsl sdkColorAhsl(float h, float s, float l, float a)
 
 //-----------------------------------------------------------------------------
 // Usine color constructor
-TColorUsine sdkAlphaColor(  float r, float g, float b, float a)
+TUsineColor sdkAlphaColor(  float r, float g, float b, float a)
 {
-    TColorUsine c2 = 0;
+    TUsineColor c2 = 0;
 
     c2 = sdkColorArgbToAlphaColor(sdkColorAgrb(r, g, b, a));
 
@@ -225,9 +225,9 @@ TColorUsine sdkAlphaColor(  float r, float g, float b, float a)
 
 //-----------------------------------------------------------------------------
 // Usine color constructor
-TColorUsine sdkAlphaColor( int r, int g, int b, int a)
+TUsineColor sdkAlphaColor( int r, int g, int b, int a)
 {
-    TColorUsine c2 = 0;
+    TUsineColor c2 = 0;
 
     c2 = sdkColorArgbToAlphaColor(sdkColorAgrb(r / 255.f, g / 255.f, b / 255.f, a / 255.f));
 

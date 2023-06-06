@@ -6,21 +6,29 @@ All dependencies are under there own licence.
 The API Reference Documentation is available online http://www.brainmodular.org/sdkdoc/
 
 To discuss about the SDK, please visit http://www.brainmodular.com/forum/
-To report bug, please send mail to support@brainmodular.org
+To report bug, please send mail to support@brainmodular.com
 
 Olivier Sens & the BrainModular Team
 
 
 ________________________________________________________________________________
+CPP SDK [HH6-230128] 2023/01/128
+changes
+  * massive refactoring, potentially some code update needed
+  * remove unnecessary functions
+  * add global-array's functions
+  * add usine-object's functions
+  * new set of examples
+
 CPP SDK [HH5-220211] 2022/02/11
 changes
   * improved Convolution examples
   * added sdkGetSampleArrayAudioFile()
-	* added sdkLockPatch()
-	* added sdkunLockPatch()
-	* added resampleAudioFile()
-	* added sdkDenormalizeAudioEvt()
-	* added sdkPatchJustActivated()
+  * added sdkLockPatch()
+  * added sdkUnLockPatch()
+  * added sdkResampleAudioFile()
+  * added sdkDenormalizeAudioEvt()
+  * added sdkPatchJustActivated()
 
 CPP SDK [HH5-210706] 2021/07/06
 changes

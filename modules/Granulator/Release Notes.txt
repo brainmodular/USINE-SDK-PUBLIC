@@ -1,3 +1,0 @@
-Granulator [1.0] 2011/08/05
- - First release for the V5.70 
-

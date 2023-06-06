@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Encoder.cpp" />
+    <ClCompile Include="Fader.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ListBox.cpp" />
+    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="Preset_Manager.cpp" />
+    <ClCompile Include="RangeFader.cpp" />
+    <ClCompile Include="TFParamTypes.cpp" />
+    <ClCompile Include="TouchFader.cpp" />
+    <ClCompile Include="TouchFader_Tools.cpp" />
+    <ClCompile Include="XYpad.cpp" />
+    <ClCompile Include="..\..\sdk\UserModule.cpp">
+      <Filter>sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdk\UserUtils.cpp">
+      <Filter>sdk</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="Encoder.h" />
+    <ClInclude Include="Fader.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="ListBox.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Preset_Manager.h" />
+    <ClInclude Include="RangeFader.h" />
+    <ClInclude Include="TFParamTypes.h" />
+    <ClInclude Include="TouchFader.h" />
+    <ClInclude Include="TouchFader_Tools.h" />
+    <ClInclude Include="XYpad.h" />
+    <ClInclude Include="..\..\sdk\UserDefinitions.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdk\UserModule.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdk\UserUtils.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdk\UsineDefinitions.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="sdk">
+      <UniqueIdentifier>{e7bb1268-1e20-44ef-96ca-57c35f444770}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

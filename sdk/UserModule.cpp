@@ -3,7 +3,7 @@
 //	UserModule.cpp
 //
 //@author
-//	Martin FLEURENT aka 'martignasse'
+//	BrainModular team
 //
 //@brief  
 //	Implementation of the abstract class provided to derive user modules from.
@@ -16,7 +16,7 @@
 //	This file is part of the Usine CPP SDK Version 6
 //
 //  Please, report bugs and patch to Usine forum :
-//  support@brainmodular.org 
+//  support@brainmodular.com 
 //
 // All dependencies are under there own licence.
 //
@@ -66,7 +66,7 @@ UserModuleBase::~UserModuleBase() {};
 //-----------------------------------------------------------------------------
 // module initialisation
 
-void UserModuleBase::AfterQueryPopup (MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo, int queryIndex)
+void UserModuleBase::AfterQueryPopup (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryIndex)
 {
 	InitInfosStructures (pMasterInfo, pModuleInfo);
     
@@ -75,7 +75,7 @@ void UserModuleBase::AfterQueryPopup (MasterInfo* pMasterInfo, ModuleInfo* pModu
 }
 
 // IMPORTANT : it's up to you to initialize the user module before further use
-void UserModuleBase::Init(MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo) 
+void UserModuleBase::Init(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
 { 
 	InitInfosStructures (pMasterInfo, pModuleInfo);
 
@@ -85,7 +85,7 @@ void UserModuleBase::Init(MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo)
 };
 
 // IMPORTANT : it's up to you to initialize the user module before further use
-void UserModuleBase::InitInfosStructures(MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo)
+void UserModuleBase::InitInfosStructures(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
 	if (pMasterInfo != nullptr)
 	{
@@ -98,7 +98,7 @@ void UserModuleBase::InitInfosStructures(MasterInfo* pMasterInfo, ModuleInfo* pM
     
 };
 
-void UserModuleBase::CallBack (UsineMessage *Message)
+void UserModuleBase::CallBack (TUsineMessage *Message)
 {
     try
 	{
@@ -133,7 +133,7 @@ int GetSDKVersion(void)
 }
 
 //
-void Create(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, MasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void Create(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 { 
 	//UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
     
@@ -155,7 +155,7 @@ void Create(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, MasterInf
 
     //if (pModule != nullptr)
     //{
-    //    // TODO : affect pMasterInfo to pModule->masterInfo ??
+    //    // TODO : affect pMasterInfo to pModule->TMasterInfo ??
     //}
 
 }
@@ -174,7 +174,7 @@ void Destroy(void* pModule)
 	}   
 } 
 //
-void BrowserInfo(ModuleInfo* pModuleInfo)
+void BrowserInfo(TModuleInfo* pModuleInfo)
 { 
 	try
 	{
@@ -188,7 +188,7 @@ void BrowserInfo(ModuleInfo* pModuleInfo)
 } 
 
 //
-void GetModuleInfo (void* pModule, MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo)
+void GetModuleInfo (void* pModule, TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 { 
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
 
@@ -226,7 +226,7 @@ int GetNumberOfParams(void* pModule,  int queryIndex)
 	} 
 }
 
-void AfterQuery (void* pModule, MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo, int queryIndex)
+void AfterQuery (void* pModule, TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryIndex)
 {	
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
 
@@ -240,7 +240,7 @@ void AfterQuery (void* pModule, MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo
 	} 
 }
 
-void InitModule (void* pModule, MasterInfo* pMasterInfo, ModuleInfo* pModuleInfo)
+void InitModule (void* pModule, TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {	
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
 
@@ -284,7 +284,7 @@ void SetEventAddress (void* pModule, int ParamIndex, UsineEventPtr pEvent)
 	} 
 }
 
-void CallBack (void* pModule, UsineMessage *Message)
+void CallBack (void* pModule, TUsineMessage *Message)
 {	
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
 
@@ -328,7 +328,7 @@ void ProcessVideo(void* pModule)
 
 //-----------------------------------------------------------------------------
 // midi out callbacks
-void MidiSendOut (void* pModule, int DeviceID, UsineMidiCode Code)
+void MidiSendOut (void* pModule, int DeviceID, TUsineMidiCode Code)
 {	
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
 
@@ -342,7 +342,7 @@ void MidiSendOut (void* pModule, int DeviceID, UsineMidiCode Code)
 	} 
 }
 
-void MidiSendOutArray (void* pModule, int DeviceID, UsineMidiCode** arrayCode, int arraySize)
+void MidiSendOutArray (void* pModule, int DeviceID, TUsineMidiCode** arrayCode, int arraySize)
 {	
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
 
@@ -768,7 +768,7 @@ void Reset(void* pModule)
 
 //-----------------------------------------------------------------------------
 // usine set quick color
-void SetQuickColor(void* pModule, TColorUsine color)
+void SetQuickColor(void* pModule, TUsineColor color)
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
 

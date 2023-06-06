@@ -2,7 +2,7 @@
 /// @file UserDefinitions.h
 //
 //@author
-//	Martin FLEURENT aka 'martignasse'
+//	BrainModular team
 //
 /// @brief  
 //	All includes for making a user module
@@ -15,12 +15,12 @@
 //	This file is part of the Usine Hollyhock CPP SDK
 //
 //  Please, report bugs and patch to Usine forum :
-//  http://www.sensomusic.org/support/ 
+//  support@brainModular.com 
 //  
 // All dependencies are under there own licence.
 //
 //@copyright
-// Copyright (C) 2013 Sensomusic
+// Copyright (C) 2013 BrainModular
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of 
 // this software and associated documentation files (the "Software"), 
@@ -69,19 +69,16 @@
      - From simple typedef and constant to structure that define entire part of the module.
     
 
-    <br>To learn about practical use, <b>five module examples</b> are provided with the SDK distrib downloadable <a href="https://sourceforge.net/projects/sensomusicsdk/">here</a>. <br>
-
     Developping a module for Usine can become very addictive and complex.  <br>
-    You can discuss about the SDK on the <a href="http://www.sensomusic.org/forums/viewforum.php?id=7">official forum section</a>
+    You can discuss about the SDK on the <a href="https://www.brainmodular.com/forums/viewforum.php?f=7">official forum section</a>
 
     Happy coding. <br>
-    Martin Fleurent & the Sensomusic Team
+    Olivier SENS & the BrainModular Team
     @defgroup Globals Global functions
    
     @defgroup Datatypes Datatypes
 */
 
-//    Examples are reviewed in the <b>User's Manual</b>, also in the distrib and downloadable separatly <a href="http://www.sensomusic.org/download.php">here</a>. <br>
 
 
 #endif // _USERDEFINITIONS_H_

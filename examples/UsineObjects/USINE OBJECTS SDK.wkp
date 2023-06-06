@@ -1,0 +1,6695 @@
+[VERSION]
+save version=121
+usine version=HH6
+date usine=230126
+
+[WK-INFO]
+thumbnail image=89504E470D0A1A0A0000000D49484452000000640000003E0806000000DDF7BEC5000000017352474200AECE1CE90000000467414D410000B18F0BFC6105000004AC49444154785EED9CDB6B237514C7BF3369D34B7A4DDA44DBD27653425AD9ED956211591B155216F64D1117B6C8C2B2A2F850A46F7DE88382A2B0A8EFFB2088D07F40441605A10F8B88B0202ADA0BED76D3F4624DDB4D736BCC39998931DB6CDBF497ED3C9C0F1C66CE6F26F3D06FCFEFFC2E67460B0683E98585059442B3BB0E8B7FAC626363C36811CE8ADED1D181DEE00CBE989BC34CB01737666EA0B7B212952730775B131F057568C3C3C3E9868606ECEDED194DC58946A348A7D38697656767076B6B6B86279C15DDE5BA82A90FA630EE3B3A0AF24DD775E36742B9D0C6C6C6D2757575D8DFDF379A8A4351944AA50C2F8B44885A74EA864E2286F074903EC8628820164304B1187A757535EAEBEB71787878ACD5D6D6F2BDA6B57A9CC6630455D8FCFE5767FD2F05F1EEF43B78D3EB40E4C245741FFC8607119D87B9C5ACC66187EBD97AAC2E85B0BBBB6B3C4E382BDAC8C848BAA6A68623A01496969664D8AB109EA9D3A4EFE474E38D0F6FA27F7D1DEB1E607A725A0451080BE272B90CF7C9B4B4B47044985054ADACAC88200AD1696D8A268727B1ADAD2D5ECB32CD66B3198F1154C182D0D24932993CD6229188F1B32CA5E61DA138DAE0E060FAD6675FE185A6A4D1F438F7BFBC89CF7F349C02565757A5CB52080B42739152FFDB4510B5F04CBD500C87C301BBDD6E7859F27DBFDF6F9C09AAC92D9DD01FBCAAAA0A6EB71BEDEDEDA0A821489C9E9E1E0C0C0CB010E4D32C5D280F2C080940435A8FC7C34298A3279FCFC74622102484D7EBE573A13CB0204EA713B48D7B1A344D7BAC5B13CE0E277533024A6171715192BA423842AE38A2EC08E70F47C8FB9F7C0A7F6D0C5AF2008EA40DA1FD3D68CD6D70363C04D2D588FFFE2DDEFEF81EDC8331EC2D34C2F577140F3341D5F448C3FD70582244212C48A73709472A01973D8E67B675FC9C88E1AF5413AEBFB685CD500D56FEA9C4BDEFA27871761B8B5FF762E89735FCD0ADE1B90715F83E91104114921BF60AD64004B1182288C510412C0627752A5E28059A1CCA3C442D2CC8E4E4343CFD9770C94D4D6184C36EB8F93CE385913B67320D99CB9963F69E8989091144212C08153994CAF2F2B208A210CE21D4F59462827AB8C86168688897DE0BA1CA768A80272139442DB6AEAEAE59AFF7795C7EEB75BC3C144020D087BEBE0B48FDBA8088DD8E502864DC7A34249A14CAA9837308ED851C1C1C184DFF41EF8250114431A8DB921CA21616E4D6EDDBF0A59C686DCD6EE752A928BDC719FAA678718389ECA9AB8505191F1FC7FCFC3C37D0888B6AB0081286AA1A63B118FBB493486D8944827D4204514B6E946552387A2ABC56785D504B6EE9C47CB133FFBCA2A28205307D33424C9F4C508BAC65598C9C209417CCDC609E53F9288DB24C9F465D94F44D9F4C500B27F5402060B8A783C49A9B9B93A4AE10CDE7F39DF2FD90FF23EFA9AB457288C510412C8608623144108B2182580C11C4628820164304B1182288C510412C86DEDCDC8CB6B636FED2CF71464BEF4279D11B1B1B71F195F7F0D19D3B981AF7E1DAD435F8F2F63BF24D36A7CA8F363A3ACA1FC13CAAC8A110F90866F9D1E3F1F889C4109E0E9C14E8FD732A9623A32E4C383F5890CECE4E5CBE7A15FD99A30872BEF0D780B6B7B7F1D3DDBBF87373335702249C07C0BF5FA60FE3C190D3190000000049454E44AE426082
+thumbnail=
+usine version=Usine HH6 6.0.230126 EXPERT
+patch version=121
+date usine=230126
+
+[WKSE]
+UID=6923589643247580442
+PRESETUID=626413932088388217
+show presets panel=0
+time control enabled=0
+time start=00:00:00
+time end=00:00:00
+on top=0
+opacity=1
+zoom scale=1
+can zoom=1
+left=1
+top=1
+width=1058
+height=660
+resize grip enabled=0
+transparent=0
+background color=$FF000000
+hilited color=$FF828282
+frames count=1
+frames alignment=0
+fit size=1
+show border=0
+border color=$FF696969
+border width=0
+round size=0
+don't draw selection border=1
+show caption=0
+caption font color=$FFDDDDDD
+caption font size factor=0.600000023841858
+caption align=1
+caption V align=0
+caption font bold=0
+caption font italic=0
+caption font underline=0
+show header=0
+header height=20
+header color=$FF515151
+plain header=0
+auto reorganize=1
+reorganize margin=1
+reorganize interspace V=1
+reorganize interspace H=2
+show H scroller=1
+H scroller height=14
+H scroller color=$FF515151
+H scroller back color=$00000000
+H scroller opacity=1
+
+[PLOT]
+UID=405200464687031171
+PRESETUID=8236329350413050767
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+
+[PLOTSE]
+UID=405200464687031171
+PRESETUID=8236329350413050767
+saved in preset=1
+fade preset=1
+show panic=1
+
+[PLOTPLOT0]
+UID=2100827753279286592
+PRESETUID=6720970197240278340
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT0SE]
+UID=2100827753279286592
+PRESETUID=6720970197240278340
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 1
+master dimmer=1
+universe num=0
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT0PRESETS]
+UID=9134441257928388022
+PRESETUID=3749873636907838906
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT0PRESETSSE]
+UID=9134441257928388022
+PRESETUID=3749873636907838906
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT0PRESETSSTORENEWBTNnewSE]
+UID=7018137066747622398
+PRESETUID=7531056488031089668
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT0PRESETSREWRITEBTNwriteSE]
+UID=9035070154379001636
+PRESETUID=5863296278695149353
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT0PRESETSNEXTBTNnext buttonSE]
+UID=6834487428414086615
+PRESETUID=3958636198129212892
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT0PRESETSPREVIOUSBTNprevious buttonSE]
+UID=3084149076053108343
+PRESETUID=8477460176746489469
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT0PRESETSLISTPRESETCBpresetsSE]
+UID=8308300239798700483
+PRESETUID=6697418050435451336
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT0PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT0plot 1SE]
+UID=7138431724102298922
+PRESETUID=7627589032662215985
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT1]
+UID=7799235169411347359
+PRESETUID=1686759274203526053
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT1SE]
+UID=7799235169411347359
+PRESETUID=1686759274203526053
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 2
+master dimmer=1
+universe num=1
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT1PRESETS]
+UID=8187855413207577591
+PRESETUID=6040057111608505338
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT1PRESETSSE]
+UID=8187855413207577591
+PRESETUID=6040057111608505338
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT1PRESETSSTORENEWBTNnewSE]
+UID=7239518460928014741
+PRESETUID=952795106866313628
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT1PRESETSREWRITEBTNwriteSE]
+UID=714785671637582964
+PRESETUID=3823901927297467513
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT1PRESETSNEXTBTNnext buttonSE]
+UID=448225095563829750
+PRESETUID=248859890573861372
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT1PRESETSPREVIOUSBTNprevious buttonSE]
+UID=8947497710391355697
+PRESETUID=2459856061100681526
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT1PRESETSLISTPRESETCBpresetsSE]
+UID=2961690326411988880
+PRESETUID=6682949888310726550
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT1PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT1plot 2SE]
+UID=3173554064474495252
+PRESETUID=7174875438584420652
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT2]
+UID=3181069645209657155
+PRESETUID=1561772395142831945
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT2SE]
+UID=3181069645209657155
+PRESETUID=1561772395142831945
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 3
+master dimmer=1
+universe num=2
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT2PRESETS]
+UID=6924713891607863183
+PRESETUID=5166960175956877202
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT2PRESETSSE]
+UID=6924713891607863183
+PRESETUID=5166960175956877202
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT2PRESETSSTORENEWBTNnewSE]
+UID=283185256318625064
+PRESETUID=4022635052687942956
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT2PRESETSREWRITEBTNwriteSE]
+UID=2541842779860889817
+PRESETUID=1161756671102415070
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT2PRESETSNEXTBTNnext buttonSE]
+UID=7578199150731202054
+PRESETUID=7619137761089424907
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT2PRESETSPREVIOUSBTNprevious buttonSE]
+UID=2685068012058318183
+PRESETUID=8713040623285835117
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT2PRESETSLISTPRESETCBpresetsSE]
+UID=430488486949157804
+PRESETUID=5351610024126839729
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT2PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT2plot 3SE]
+UID=9100256850862966264
+PRESETUID=2308392531873793533
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT3]
+UID=8792123662833585269
+PRESETUID=2527294797916441723
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT3SE]
+UID=8792123662833585269
+PRESETUID=2527294797916441723
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 4
+master dimmer=1
+universe num=3
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT3PRESETS]
+UID=4094880527922793665
+PRESETUID=1213013800802880709
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT3PRESETSSE]
+UID=4094880527922793665
+PRESETUID=1213013800802880709
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT3PRESETSSTORENEWBTNnewSE]
+UID=7410637925165077158
+PRESETUID=4250360388442428076
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT3PRESETSREWRITEBTNwriteSE]
+UID=9179438846457191938
+PRESETUID=8365731981987716615
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT3PRESETSNEXTBTNnext buttonSE]
+UID=4222428822399663080
+PRESETUID=511011306908728301
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT3PRESETSPREVIOUSBTNprevious buttonSE]
+UID=3099444534778577659
+PRESETUID=4581158718040752895
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT3PRESETSLISTPRESETCBpresetsSE]
+UID=7385573088731113740
+PRESETUID=3634030906429188373
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT3PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT3plot 4SE]
+UID=5838664400734598114
+PRESETUID=1149500329088332776
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT4]
+UID=8866409316253514223
+PRESETUID=9129774387266927094
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT4SE]
+UID=8866409316253514223
+PRESETUID=9129774387266927094
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 5
+master dimmer=1
+universe num=4
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT4PRESETS]
+UID=5158481034341333563
+PRESETUID=5197634742190684734
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT4PRESETSSE]
+UID=5158481034341333563
+PRESETUID=5197634742190684734
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT4PRESETSSTORENEWBTNnewSE]
+UID=8773640618967646201
+PRESETUID=6109389593994412030
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT4PRESETSREWRITEBTNwriteSE]
+UID=2781185033635974035
+PRESETUID=9181916413374319512
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT4PRESETSNEXTBTNnext buttonSE]
+UID=4622438284377811223
+PRESETUID=4594067701810424093
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT4PRESETSPREVIOUSBTNprevious buttonSE]
+UID=1902200387163746390
+PRESETUID=3420214929637077085
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT4PRESETSLISTPRESETCBpresetsSE]
+UID=3563854299761039059
+PRESETUID=6887902796360799961
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT4PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT4plot 5SE]
+UID=4541375252021765838
+PRESETUID=5594491384640956131
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT5]
+UID=1514961402702458628
+PRESETUID=7989139712499642123
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT5SE]
+UID=1514961402702458628
+PRESETUID=7989139712499642123
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 6
+master dimmer=1
+universe num=5
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT5PRESETS]
+UID=2659189985843998568
+PRESETUID=4305412755256635245
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT5PRESETSSE]
+UID=2659189985843998568
+PRESETUID=4305412755256635245
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT5PRESETSSTORENEWBTNnewSE]
+UID=7527936604460152176
+PRESETUID=7212127156674098550
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT5PRESETSREWRITEBTNwriteSE]
+UID=6207205749731492116
+PRESETUID=6739232844859703580
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT5PRESETSNEXTBTNnext buttonSE]
+UID=6721030732657074135
+PRESETUID=3442685318061498336
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT5PRESETSPREVIOUSBTNprevious buttonSE]
+UID=7988781321101125735
+PRESETUID=1483649259311081583
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT5PRESETSLISTPRESETCBpresetsSE]
+UID=539286603479256095
+PRESETUID=974430884361014309
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT5PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT5plot 6SE]
+UID=98378381958181
+PRESETUID=9004801084597902379
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT6]
+UID=7436894765347676896
+PRESETUID=5878230702469849831
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT6SE]
+UID=7436894765347676896
+PRESETUID=5878230702469849831
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 7
+master dimmer=1
+universe num=6
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT6PRESETS]
+UID=709337172762862390
+PRESETUID=7020709421445718841
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT6PRESETSSE]
+UID=709337172762862390
+PRESETUID=7020709421445718841
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT6PRESETSSTORENEWBTNnewSE]
+UID=4938939967075428597
+PRESETUID=4475746053647411454
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT6PRESETSREWRITEBTNwriteSE]
+UID=3484757761131197614
+PRESETUID=8480348499303642292
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT6PRESETSNEXTBTNnext buttonSE]
+UID=8741543295425106685
+PRESETUID=7164598992742044418
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT6PRESETSPREVIOUSBTNprevious buttonSE]
+UID=5276428893648247343
+PRESETUID=195824217063873076
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT6PRESETSLISTPRESETCBpresetsSE]
+UID=7514280843989401498
+PRESETUID=5817123928564481952
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT6PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT6plot 7SE]
+UID=6462218625477724416
+PRESETUID=4057358491034274055
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT7]
+UID=2125661922052493115
+PRESETUID=5625755046441602880
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT7SE]
+UID=2125661922052493115
+PRESETUID=5625755046441602880
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 8
+master dimmer=1
+universe num=7
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT7PRESETS]
+UID=116915516681179016
+PRESETUID=5304441110586937227
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT7PRESETSSE]
+UID=116915516681179016
+PRESETUID=5304441110586937227
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT7PRESETSSTORENEWBTNnewSE]
+UID=4113856857372841292
+PRESETUID=8509768542097462609
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT7PRESETSREWRITEBTNwriteSE]
+UID=1167220399931613251
+PRESETUID=8552908812821160008
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT7PRESETSNEXTBTNnext buttonSE]
+UID=5017164683178901160
+PRESETUID=4258825736770780846
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT7PRESETSPREVIOUSBTNprevious buttonSE]
+UID=7662442898427970988
+PRESETUID=5921853607258588594
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT7PRESETSLISTPRESETCBpresetsSE]
+UID=1394639850262719165
+PRESETUID=803145831955000001
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT7PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT7plot 8SE]
+UID=8274874777077019879
+PRESETUID=5108765550939731199
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT8]
+UID=7899443497378511803
+PRESETUID=137949354509204419
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT8SE]
+UID=7899443497378511803
+PRESETUID=137949354509204419
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 9
+master dimmer=1
+universe num=8
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT8PRESETS]
+UID=2861418578958351378
+PRESETUID=1120908057489177622
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT8PRESETSSE]
+UID=2861418578958351378
+PRESETUID=1120908057489177622
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT8PRESETSSTORENEWBTNnewSE]
+UID=6369763838761632196
+PRESETUID=6817310284387189194
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT8PRESETSREWRITEBTNwriteSE]
+UID=4695798982230936899
+PRESETUID=6496523149893700938
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT8PRESETSNEXTBTNnext buttonSE]
+UID=1178890075183000324
+PRESETUID=8747348313092926217
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT8PRESETSPREVIOUSBTNprevious buttonSE]
+UID=237818569038246686
+PRESETUID=6064218091502711591
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT8PRESETSLISTPRESETCBpresetsSE]
+UID=2903658237989754917
+PRESETUID=6354225682171828266
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT8PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT8plot 9SE]
+UID=5096557181562825037
+PRESETUID=6609208220416518483
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT9]
+UID=6622700810784780269
+PRESETUID=3984758212846202868
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT9SE]
+UID=6622700810784780269
+PRESETUID=3984758212846202868
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 10
+master dimmer=1
+universe num=9
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT9PRESETS]
+UID=2408076055639535680
+PRESETUID=9042929384037855300
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT9PRESETSSE]
+UID=2408076055639535680
+PRESETUID=9042929384037855300
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT9PRESETSSTORENEWBTNnewSE]
+UID=1909402388041872928
+PRESETUID=8342489388508558885
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT9PRESETSREWRITEBTNwriteSE]
+UID=3057564626503123333
+PRESETUID=6091026923029578122
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT9PRESETSNEXTBTNnext buttonSE]
+UID=3784310070507265956
+PRESETUID=4584768859244126122
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT9PRESETSPREVIOUSBTNprevious buttonSE]
+UID=5404333773490022214
+PRESETUID=6869640185249064779
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT9PRESETSLISTPRESETCBpresetsSE]
+UID=4627034191442529384
+PRESETUID=9060040752788458606
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT9PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT9plot 10SE]
+UID=3700440431642106670
+PRESETUID=5312435764859329332
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT10]
+UID=1471492805351530973
+PRESETUID=6641818532705559012
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT10SE]
+UID=1471492805351530973
+PRESETUID=6641818532705559012
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 11
+master dimmer=1
+universe num=10
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT10PRESETS]
+UID=3624119880699437618
+PRESETUID=3360379953530364469
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT10PRESETSSE]
+UID=3624119880699437618
+PRESETUID=3360379953530364469
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT10PRESETSSTORENEWBTNnewSE]
+UID=3217514729786664988
+PRESETUID=6284901925012203552
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT10PRESETSREWRITEBTNwriteSE]
+UID=7481809967813850017
+PRESETUID=6773410702100362149
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT10PRESETSNEXTBTNnext buttonSE]
+UID=976814677109871222
+PRESETUID=3296569338798379643
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT10PRESETSPREVIOUSBTNprevious buttonSE]
+UID=3514137832812026256
+PRESETUID=4180327285221857686
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT10PRESETSLISTPRESETCBpresetsSE]
+UID=3871737625920765796
+PRESETUID=8856169729820557162
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT10PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT10plot 11SE]
+UID=4948803911374211609
+PRESETUID=2377856017204906545
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT11]
+UID=7182820565441712227
+PRESETUID=1751422201573544042
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT11SE]
+UID=7182820565441712227
+PRESETUID=1751422201573544042
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 12
+master dimmer=1
+universe num=11
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT11PRESETS]
+UID=8578121512094404787
+PRESETUID=1963050107276759222
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT11PRESETSSE]
+UID=8578121512094404787
+PRESETUID=1963050107276759222
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT11PRESETSSTORENEWBTNnewSE]
+UID=6671175999973365368
+PRESETUID=8038580831243343485
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT11PRESETSREWRITEBTNwriteSE]
+UID=7465499969093771698
+PRESETUID=1797941986641453494
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT11PRESETSNEXTBTNnext buttonSE]
+UID=3578682064465444764
+PRESETUID=2810430264818679714
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT11PRESETSPREVIOUSBTNprevious buttonSE]
+UID=5824494820441605823
+PRESETUID=4643353606878545604
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT11PRESETSLISTPRESETCBpresetsSE]
+UID=5368636706860182660
+PRESETUID=7962535695078534281
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT11PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT11plot 12SE]
+UID=1975620989073406485
+PRESETUID=1666343482169932318
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT12]
+UID=6457945090068758708
+PRESETUID=4394036708170449082
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT12SE]
+UID=6457945090068758708
+PRESETUID=4394036708170449082
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 13
+master dimmer=1
+universe num=12
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT12PRESETS]
+UID=6723787964222456065
+PRESETUID=6124689053482139909
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT12PRESETSSE]
+UID=6723787964222456065
+PRESETUID=6124689053482139909
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT12PRESETSSTORENEWBTNnewSE]
+UID=3302564475341031095
+PRESETUID=3214756853976581820
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT12PRESETSREWRITEBTNwriteSE]
+UID=2870952581721936603
+PRESETUID=7303165209773265632
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT12PRESETSNEXTBTNnext buttonSE]
+UID=2721227013158793621
+PRESETUID=6224199844400394650
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT12PRESETSPREVIOUSBTNprevious buttonSE]
+UID=4592299328483555945
+PRESETUID=1945893377229126255
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT12PRESETSLISTPRESETCBpresetsSE]
+UID=7874661143091273182
+PRESETUID=3467400857690496482
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT12PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT12plot 13SE]
+UID=6638720259262475771
+PRESETUID=4418075841989668354
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT13]
+UID=6632697080878429486
+PRESETUID=5069009572711593270
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT13SE]
+UID=6632697080878429486
+PRESETUID=5069009572711593270
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 14
+master dimmer=1
+universe num=13
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT13PRESETS]
+UID=6352847068536993161
+PRESETUID=3294502712204817804
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT13PRESETSSE]
+UID=6352847068536993161
+PRESETUID=3294502712204817804
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT13PRESETSSTORENEWBTNnewSE]
+UID=3769834362125122410
+PRESETUID=8927532473312050032
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT13PRESETSREWRITEBTNwriteSE]
+UID=5512161895278675576
+PRESETUID=1131007125477623421
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT13PRESETSNEXTBTNnext buttonSE]
+UID=2163624150139642872
+PRESETUID=1799816467135833084
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT13PRESETSPREVIOUSBTNprevious buttonSE]
+UID=3740964846091873073
+PRESETUID=7451758294244764472
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT13PRESETSLISTPRESETCBpresetsSE]
+UID=1793851000227336611
+PRESETUID=574335971861434792
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT13PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT13plot 14SE]
+UID=184697155096155958
+PRESETUID=7106545094475913036
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT14]
+UID=4225585427941694930
+PRESETUID=2686673129384189402
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT14SE]
+UID=4225585427941694930
+PRESETUID=2686673129384189402
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 15
+master dimmer=1
+universe num=14
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT14PRESETS]
+UID=262843625485377058
+PRESETUID=8711468154154917414
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT14PRESETSSE]
+UID=262843625485377058
+PRESETUID=8711468154154917414
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT14PRESETSSTORENEWBTNnewSE]
+UID=5781478530391483339
+PRESETUID=7397127540747805648
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT14PRESETSREWRITEBTNwriteSE]
+UID=384798234012823605
+PRESETUID=9086549787008315451
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT14PRESETSNEXTBTNnext buttonSE]
+UID=9213238233327488158
+PRESETUID=5742812999262424228
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT14PRESETSPREVIOUSBTNprevious buttonSE]
+UID=3007373189858218974
+PRESETUID=3968079819748955108
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT14PRESETSLISTPRESETCBpresetsSE]
+UID=7803638339819027138
+PRESETUID=8455243457681177287
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT14PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT14plot 15SE]
+UID=6078365698743648067
+PRESETUID=7049686996709064520
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT15]
+UID=8179659376509371758
+PRESETUID=7696106012428256629
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT15SE]
+UID=8179659376509371758
+PRESETUID=7696106012428256629
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 16
+master dimmer=1
+universe num=15
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT15PRESETS]
+UID=8591496134743606719
+PRESETUID=2847963135762548161
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT15PRESETSSE]
+UID=8591496134743606719
+PRESETUID=2847963135762548161
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT15PRESETSSTORENEWBTNnewSE]
+UID=6553945340075625325
+PRESETUID=4347673567002413938
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT15PRESETSREWRITEBTNwriteSE]
+UID=3476555372176135706
+PRESETUID=8665223977138443807
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT15PRESETSNEXTBTNnext buttonSE]
+UID=2132988436180169572
+PRESETUID=1425235408425907049
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT15PRESETSPREVIOUSBTNprevious buttonSE]
+UID=5127412239502473782
+PRESETUID=927902769204492860
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT15PRESETSLISTPRESETCBpresetsSE]
+UID=8394222458567712975
+PRESETUID=5844840316746129620
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT15PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT15plot 16SE]
+UID=8453962938951755610
+PRESETUID=4911620212681959264
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT16]
+UID=7342526340920864220
+PRESETUID=4647092633607957986
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT16SE]
+UID=7342526340920864220
+PRESETUID=4647092633607957986
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 17
+master dimmer=1
+universe num=16
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT16PRESETS]
+UID=8626071851984580139
+PRESETUID=44671149548334638
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT16PRESETSSE]
+UID=8626071851984580139
+PRESETUID=44671149548334638
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT16PRESETSSTORENEWBTNnewSE]
+UID=7274638251741770687
+PRESETUID=5898679434756060100
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT16PRESETSREWRITEBTNwriteSE]
+UID=4891848897670512244
+PRESETUID=1213548981645835898
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT16PRESETSNEXTBTNnext buttonSE]
+UID=7952893991715445634
+PRESETUID=2832794668482796425
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT16PRESETSPREVIOUSBTNprevious buttonSE]
+UID=6975656593195639445
+PRESETUID=8114371441203978907
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT16PRESETSLISTPRESETCBpresetsSE]
+UID=4806887834600966488
+PRESETUID=4205479640204675424
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT16PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT16plot 17SE]
+UID=7206148824191602968
+PRESETUID=9169012628663177513
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT17]
+UID=3111989578052540205
+PRESETUID=1396195974896555827
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT17SE]
+UID=3111989578052540205
+PRESETUID=1396195974896555827
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 18
+master dimmer=1
+universe num=17
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT17PRESETS]
+UID=661055209858537340
+PRESETUID=2180922309165586304
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT17PRESETSSE]
+UID=661055209858537340
+PRESETUID=2180922309165586304
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT17PRESETSSTORENEWBTNnewSE]
+UID=4160991284473502987
+PRESETUID=2618454170957126927
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT17PRESETSREWRITEBTNwriteSE]
+UID=6062131383789824101
+PRESETUID=2147283962094561385
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT17PRESETSNEXTBTNnext buttonSE]
+UID=8984210740798440773
+PRESETUID=1663151767418455370
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT17PRESETSPREVIOUSBTNprevious buttonSE]
+UID=132474224689958062
+PRESETUID=637696016606973108
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT17PRESETSLISTPRESETCBpresetsSE]
+UID=5659279810955457297
+PRESETUID=7847081566798492438
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT17PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT17plot 18SE]
+UID=1587903506600868523
+PRESETUID=5478901258369284785
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT18]
+UID=3257439901809557992
+PRESETUID=8196923300350968306
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT18SE]
+UID=3257439901809557992
+PRESETUID=8196923300350968306
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 19
+master dimmer=1
+universe num=18
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT18PRESETS]
+UID=8770720213005681225
+PRESETUID=7730929173472657997
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT18PRESETSSE]
+UID=8770720213005681225
+PRESETUID=7730929173472657997
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT18PRESETSSTORENEWBTNnewSE]
+UID=8716268707821307979
+PRESETUID=4573488144821438544
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT18PRESETSREWRITEBTNwriteSE]
+UID=6339804947223859997
+PRESETUID=3028936013038408482
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT18PRESETSNEXTBTNnext buttonSE]
+UID=3339331240083517571
+PRESETUID=2103537014355456136
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT18PRESETSPREVIOUSBTNprevious buttonSE]
+UID=4544104370879002519
+PRESETUID=6517633627118565277
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT18PRESETSLISTPRESETCBpresetsSE]
+UID=723361241712221680
+PRESETUID=8048443182109351413
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT18PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT18plot 19SE]
+UID=1565518723317195916
+PRESETUID=3327492304466044050
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT19]
+UID=7687115816949213985
+PRESETUID=3439368795855743783
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+NBOBJECTS=0
+NBVIRTUALS=0
+
+[PLOTPLOT19SE]
+UID=7687115816949213985
+PRESETUID=3439368795855743783
+zoom scale=1
+can zoom=1
+left=0
+top=0
+width=200
+height=200
+resize grip enabled=0
+snap to grid=1
+grid size=2
+enabled=1
+caption=plot 20
+master dimmer=1
+universe num=19
+always send=0
+send ArtNet=1
+ArtNet IP address=127.0.0.1
+ArtNet broadcast=0
+ArtNet broadcast mask=255.255.255.255
+send sACN=0
+sACN mode=0
+sACN unicast IP=127.0.0.1
+sACN broadcast mask=255.255.255.255
+sACN priority=100
+DMX USB device=1
+
+[PLOTPLOT19PRESETS]
+UID=4067736162814094195
+PRESETUID=5237781165159181174
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[PLOTPLOT19PRESETSSE]
+UID=4067736162814094195
+PRESETUID=5237781165159181174
+is visible=1
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[PLOTPLOT19PRESETSSTORENEWBTNnewSE]
+UID=2068888383602258254
+PRESETUID=4171852337642172754
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT19PRESETSREWRITEBTNwriteSE]
+UID=9016354711980964882
+PRESETUID=1159119460251696151
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT19PRESETSNEXTBTNnext buttonSE]
+UID=4701514591564961951
+PRESETUID=168206911631235237
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT19PRESETSPREVIOUSBTNprevious buttonSE]
+UID=4902980157969244016
+PRESETUID=4510759565495345014
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT19PRESETSLISTPRESETCBpresetsSE]
+UID=7837396054768846605
+PRESETUID=8435344025942984465
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[PLOTPLOT19PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[PLOTPLOT19plot 20SE]
+UID=402990590197507484
+PRESETUID=51165969028752821
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WK]
+CNT=1
+
+[WKRAD1IN]
+UID=5343382228361914084
+PRESETUID=5519860265596069610
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+CNT=0
+
+[WKRAD1INSE]
+UID=5343382228361914084
+PRESETUID=5519860265596069610
+on top=0
+opacity=1
+transparent=0
+background color=$FF393939
+hilited color=$FFB1B1B1
+frames count=1
+frames alignment=0
+fit size=1
+show border=0
+border color=$FF888888
+border width=2
+round size=3
+don't draw selection border=0
+show caption=1
+caption font color=$BBFFFFFF
+caption font size factor=0.600000023841858
+caption align=1
+caption V align=0
+caption font bold=1
+caption font italic=0
+caption font underline=0
+show header=1
+header height=18
+header color=$FF888888
+plain header=0
+show toolbar=1
+toolbar size factor=1
+minimized=0
+HeightBeforeMinimize=0
+WidthBeforeMinimize=0
+saved in rack preset=1
+fade preset=1
+show controls=1
+
+[WKRAD1INTBMINIMIZESE]
+UID=3876688883616213948
+PRESETUID=1703317247225129922
+USERADDR=
+
+[WKRAD1INGAINgainSE]
+UID=6117124222426132049
+PRESETUID=6993764512539455060
+USERADDR=
+name=1 rack
+saved in preset=1
+zoom scale=1
+can zoom=0
+left=2
+top=2
+width=106
+height=25
+resize grip enabled=0
+touch hi precision=0
+precision factor=8
+mouse mode=0
+circular mouse=0
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+range min=0
+range max=1
+curve=2
+coeff=1
+auto record on click=0
+
+[WKRAD1INGAIN]
+Vgain=0
+
+[WKRAD1OUT]
+UID=8265172776737158417
+PRESETUID=8436523310214657302
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+CNT=0
+
+[WKRAD1OUTSE]
+UID=8265172776737158417
+PRESETUID=8436523310214657302
+on top=0
+opacity=1
+transparent=0
+background color=$FF393939
+hilited color=$FFB1B1B1
+frames count=1
+frames alignment=0
+fit size=1
+show border=0
+border color=$FF888888
+border width=2
+round size=3
+don't draw selection border=0
+show caption=1
+caption font color=$BBFFFFFF
+caption font size factor=0.600000023841858
+caption align=1
+caption V align=0
+caption font bold=1
+caption font italic=0
+caption font underline=0
+show header=1
+header height=18
+header color=$FF888888
+plain header=0
+show toolbar=1
+toolbar size factor=1
+minimized=0
+HeightBeforeMinimize=0
+WidthBeforeMinimize=0
+saved in rack preset=1
+fade preset=1
+show controls=1
+always at bottom=1
+
+[WKRAD1OUTTBMINIMIZESE]
+UID=3368597555329270018
+PRESETUID=5170689532636856583
+USERADDR=
+
+[WKRAD1OUTGAINgainSE]
+UID=976571040864254835
+PRESETUID=7411993369668598646
+USERADDR=
+name=1 rack
+saved in preset=1
+zoom scale=1
+can zoom=0
+left=-45
+top=47
+width=130
+height=40
+resize grip enabled=0
+touch hi precision=0
+precision factor=8
+mouse mode=0
+circular mouse=0
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+range min=0
+range max=1
+curve=2
+coeff=1
+auto record on click=0
+
+[WKRAD1OUTGAIN]
+Vgain=0
+
+[WKRAD1OUTSOLOSSE]
+UID=5913391761545622035
+PRESETUID=380558485032923672
+USERADDR=
+saved in preset=1
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=2
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+key mode=1
+mouse mode=1
+time code ON=0
+time code OFF=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+auto record on click=0
+
+[WKRAD1OUTSOLO]
+VS=0
+
+[WKRAD1OUTMUTEMSE]
+UID=4246303583594998854
+PRESETUID=506297941148167243
+USERADDR=
+saved in preset=1
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=2
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+key mode=1
+mouse mode=1
+time code ON=0
+time code OFF=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+auto record on click=0
+
+[WKRAD1OUTMUTE]
+VM=0
+
+[WKRAD1OUTONOFFONSE]
+UID=5836103614600701281
+PRESETUID=3889996186947806566
+USERADDR=
+zoom scale=1
+can zoom=0
+left=2
+top=20
+width=35
+height=25
+resize grip enabled=0
+saved in preset=1
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=2
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+key mode=1
+mouse mode=1
+time code ON=0
+time code OFF=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+auto record on click=0
+
+[WKRAD1OUTONOFF]
+VON=1
+
+[WKPRESETS]
+UID=2784197377668150152
+PRESETUID=5429851426177938320
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[WKPRESETSSE]
+UID=2784197377668150152
+PRESETUID=5429851426177938320
+is visible=0
+global color=$FF515151
+ignored in parent global color=1
+selected=0
+fade duration=0
+scope=0
+
+[WKPRESETSSTORENEWBTNnewSE]
+UID=6314708585728965331
+PRESETUID=6710820908199312089
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKPRESETSREWRITEBTNwriteSE]
+UID=153696493469697683
+PRESETUID=1853402411855251097
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKPRESETSNEXTBTNnext buttonSE]
+UID=5954301148876514491
+PRESETUID=4253464803688588479
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKPRESETSPREVIOUSBTNprevious buttonSE]
+UID=5619795813677673742
+PRESETUID=797586780621384980
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKPRESETSLISTPRESETCBpresetsSE]
+UID=2362952134942265791
+PRESETUID=6823785978377540037
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKPRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[WKRA1-INFO]
+thumbnail image=89504E470D0A1A0A0000000D49484452000000640000017A0806000000EF49FD0B000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000190A49444154785EED9D0B5054579AC7FF088828282AD09156D33E62541E464B45079DD95156CDFAC84C952C333B86ADACA3D9942CA9DAD92D4A8D71B296BAD6D4A676295D0BADD94931B16629C96CAD43C624A593CCAA99215A92089368CC447C40687CA122F266CF77FB76D3B7EF451B68E80FFAFB5947CEE3DEDBA7CFFF9EEF9C3EF7DC73C266CD9AF54F616161BB008C504E08129D9D9D6DEACFDB61B367CF7EB460C18211E3C68D73A528CE9E3D8B3B77EEE821612019A69C2686CD66F3B8C8C84857AA30E09020C20031C13116AFFEDB1AFCEB3B2F6A7F13ECA3F5942E1E23C832E41F3982FC657AD00F96E5BF8917A7E901C1444EFE5F68A210F4372BF75B9ADF9BC708F23B94BCE7D4FD2E96E51FC191236FE2CD37492825D89B2F62D98B2AFCE28B4ABC7C2CA083BE958F233D51314418357A04C626C6E82117936724E8BE2E7A68B29C78EFF57FC4817227D2366E449A2D090B9280F28F7F897D3FDA87B3B061D5AA345C38FB3BFD78C1CDC3FB4D7850FF480FB9B8597D5FF775D1AB36E4E9249BEE036A6A8055FF4235876A0809F63A6AD6E42B8327F872E467FF87FBB71B35FFDDBA06FCF77F9CD2FCDE50B7B773E5CA955AEFCACDFBEFBF0FA7D368AE84C0111B176DAA2D6EA4971504BA1383104198A199AC69D3A62126A6AB07F0E73FFF190D0D0D7A481848344174BFC0009320C38685A615EBECECD45CB0F10842428C1A352AA40579F4E8115A5B5BF598E0E01164C48811484B4BC3CC9933B504E2E2C58BB874E9921E1AFAB4B7B707BDEDF4548750AD19DE848585E9BEE0212A30430461865F8238B2762137C3F5B730370B59BB7621CBA1270A01A5C735A4A2FC28CE5E006C763D42082862B298E1E9F68E1C391229292921DDEDEDE8E8C083070FF45070901AC20C1184190693151F1F8F3163C66809C4BD7BF734172A7030590641427D3E96B42182091184192208334410668820CC1041982182304304618608C20C1184192208334410668820CC1041982182304304618608C20C1184192208334410668820CC1041982182304304618608C20C8F20346B2FD4E1F05AB44790969696901685C4686E6ED643C1C333B7D78D2C1C105C3C82D02BC1F4AE7A44448496200C0CF46E3C2D58E0BE193C8244454561E2C489183F7EBC9640DCBE7D5B968B1D00C8543636BA1636F3D827AA19B4B4466262A2C75158E87FC2C3C3759F747B0784A71C63F037FFBC182FEDFC3616AE98AAC75AD367411CEBDFC0960C3DA0631517AA8C1A1D851FFC6431263D3B1E899346E3BB7F3D1BCF7DE7693DD54C784242C24FC9337CF870D00AD7BEAFB4DDBF7F1F195B0E62DBC26844AFC9C6ECAA8F30F64707B16E783D16FE781D66D8A620655A34EAE3B3F1E3D9F148FE87EF62CC955158343DDE73FCE7F5FA054390A9A98948593C510FB9A00ED4E765D57AC8F51B907E76107ED6903A9C7CB704251FD42175BE03D5CE3AA46CD8809444C0595187CA0F4A001B5071AE04075E398073EA8CCA4F4B70AE4216187870A749F775F1E06E9FD75C4CC4F2FC8338B82151157A15EC36A58417292BD6D392BEAE630E6EC17C3D5E006ABEBE8BCF4E5DD343CAEADC6AC4C7EF7EA587CC78BABDD4A3A2B517274F9EAC2510D7AE5DC3F5EBD795C97A0313DEDD89922A3D41E83109F658444547A2F66A3DDA5A8D23226D6D6D9E974DFDAA21670E88187DE566F503DCF8EA8E490C5FA4DBCB0C8320F48B917A556EC761B02DD430B421D4F515069E1EB721C2C0218230C364B2E857A33C3DEC7FE8B993FBD953B726CB2F3196E4E1D0A1DDC8EE66CD4547765EB769430A4736761F3AA4CA220F4BF42862491EC5B9DC6E55108EECDD7AD8781C95B3D50331430DA121788F2054F03929CA731327F76C47B1F63B6409F20EE5200595282A0272BCD2CBD27763DBF204DCBC59890B870B503CD1787E597A36D6D99603E737A3E0345D6B70B3246F37ECC754B9201B79E9652870159007477636261617C3F3555579E6A1C0F0DDDDB5C4AF469D6EF29B9A2F0136CFD8D869141455A2B2A8003754A82B7D892AECE3D8BC79338E3B5D1BC32C9947621009484BA7ABA50D19315C38514D1A5455D3A89111557BD6A1CC2386564B9E77E2981FDFBD5B4126CE038EAB02DEAC04B0A2BBF41B9E9D79542DA274E5B66B778F134E5271C860839DEE33879DC6550D2C5967C379BDC6504D4A2FDB8ECD8781757ED8F26E05B9A1EEF41CB27DCAECD8B44F36624CBF8163CEE7355BB96DB92B7BA7CF2B93A6D9CE43C8F3369E4384D3C72E206D9BFA7EDBF4C22793A47D4F07ECCEF39EDAD1755C1A9C6546B36645F76D88D0EFF4A80D11828308C20C11C40B321FD3A74FD716930ED6B89E08E2C58C1933307FFE7C3CF7DC73506DAB1E3BB05836EAB4646C28CE605CB870A1B67631515757878F3EFA48F3071AF7B455AB46DD5290A4A4246D2663A8316BD62C8C1EEDDA52FBE6CD9BF8FDEF7FAFF9030D89415348A59735081041986169B268AE2955A550233535556BD889AB57AFE28F7FFCA3E60F34EE515EBFDB9050853A33D4C3A272282F2FF714527F218230C34A10835DE2B08F5FA863A821EE47B8564FB284C042373FD50EA25B9325D3808283FC0E618CA1864C993205767BD7FB0334D19A265C0B8187CC95FB5536A9210CE8AE376BA8210E87437B13D78DA18638B2B167BB0DC73715E09416DC83ED9909AE34DCC489DDDB50966E8ED31E2D1BCE75207BCF76D88E6F42C1A92EFFB124EF732B50A47F8ED5B99EC3DC9F0163DE060BEE3DBFBC6B88E195B6B8B838CFE01A4113AEDDBBB439562E87FDE1539830FC24CA94467129C968F9D56BD8FBCBDFE03715F1589EFE10976037C595FDA9DEE7DC7AFCE9643DD2777C0F8E91DFC11CE7BF63CF6FEB7DAEE7C0F75676772EA58FC494965FE1B5BDEF401D62CADB60C16DB2A8B6F4F095B6A55897998AD4D404A43E9FAD4D11029E42E6F6C3387C58B9ED73F407F8567156E79E4241119039E7331CF299CFA4515503D826298FD5B9BEF873CCE0C12F411CD973E1DCBD099B366D42516D26D62DA5D85A652E28AE4819985AD468E56A8EB33E5771AA1C273E2B83851CEAA424C079BDFB73BDF0E798C1841F8238906E73C23D83E55479857627D2FDEBC275B7E7ECB18ACBC33A8B73ADEF62EFDA654379312C3FD778AE75DE06732DF1BF5117028E55A32EDD5E668820CC1041986110847E7350BBE176F5F521BC2646903034EAF443451E500D1CD2A80F024410668820CC104198218230437A59BD848698A2A3A3F5908BDADA5A4F6FC91FA4971540C68E1D6B58C1959CAF40BD21E8823CFBECB3DA3B19DECE7BEDE05023E882D0934A7AF5C1DBB99FA4F517BE9F478ECB24C1903459BE35921C973969D2863063C07A59347982265178D3D0D0A0CD03F39E58415CBE7C597BA5ACAFD0EB0556D77EE69967F45017972E5DD2DA336F6845BD73E768D15B33DD5DBB27F90E6A2F8BC498346992C18572E3DD1D43C264D16B14BE8DB4FBEEEB2BFD796D2BFA64B23232CC0BBC5315B75A3C93D603A65AE10D556FDAB3A4AF55BFA7D7EE89C9A2EBF457BE07FD0F439A0FEB7BB70EB519FB834A909898185377352D2D4D4F1D1A18042193E57B07F6A7BD14CC1804A105037CEF409AAB250C1C43A2973594F04B101A6AA69E89B78B8D8DD5538540E29720FD35D42C981193C50C1184192208334410668820CC1041028CEF480739DA1B920662BD1DFDE8B642040930BE231DE47A32FC147041E8C37D7FB3C88328FF310812889917F49CC0F7573D2DD9D153E81987AFEBEFD9281C303CA092D5808283CC5C648C419067225BF157A31E791C858581C520C8D2E8266C1B5BEF71141606163159CC3034EA7F1FDF8CBF1BDDA02510FF753F4639D7730FDAE47E85731F769654C1B1FE0DE42FD7B7F0AE3B89B72B52B1C12BBC6F6709EC9EE381F56FBC04FC62274AB01E9AF7031BF237E87B54D1F1DE6154E2ED570EA07AFD7AD84B4A7086A232B6E0A029DD9807FA4CCB75530601BD68D433304115EE07B6D5CA4754A8427905AFEC3B89BABA6F50ED13AE321C5F85929DBF00566FC196D5A48B126B8213FBE87872BEE17D4E4CF0995D946199EEFB994303BF0471AC5F81E5CBF3B1212505CF6985A16AC4C1833898BF1C759FD23D6C0C9B8F57A27CEA84F35DFD2EB6D9D0B590A0C23B6CB79936D9B24EF7CDC3D0C00F93958AF55BE6E3DC012A4C87E6FF863662D3CC890A2B1B64ABABC0A72ADD15CEC772B84D88EB78EDDC8CF5585F5DE2DA97DDA14C972A4897C1512648DDF52BDC61DDFCA80BE926A90E27DFAE40EA06DF74B74973E541338983B49A789B2CBFDB10A1FF901F868C1141986130591BE25BF0FDD8875A02F1EB8691F8F5C351A0F9D761EA9F2FC3C3DB745F179DEAB8CE76B3CE912A25DC6222F7FDB030B45A2C6D3E5C9DE14B7844076262CDA3072D2DE1686B35E7AF435DB6D362BCB4B9D1FC79C3223A1135C69CBF8EE608B4379907352369871C8B7C3FB218691FA60E8B3417155A235CDB4A75DB868CB7B563D498462DC19BA67B51E8683517F27349E656B4A979041A1F8CD3435D4C6A6C42729BEB43BD79A32312B561E6DC3ED33A55F775E198D680BFDD7C510F7571BE2C01D7AFC4E8A12EEE7484A123DC5C681FFFAFF93B262603F372CD33D7EB4E272967E8136ACCFCE61B8C6E328F641C9F6E1635EE510466D698F371599F152A6D08634410668820CC1041982182304304618608C20C1184192208334410668820CC1041982182304304618608C20C1184192208334410668820CC1041982182304304618608C20C1184192208334410668820CC1041982182304304618608C20C11841906413ADAC3D0DE36CCE43ADA95A3975F7C5C536BA4C935B745A0B56398C93DEA0CC7BDCE08930B0F0B4784FAEBEB68A9285F476F49D5DF8D32B9C6471168690D37B9B69661686B363BDA13C4D78575A873EA879B5C7BB3EB2D275F5AC3C3D1ACCEF375E188343984A9325169BECE0AC31B54B23C53709037A81863A821B43C5FA7C58B8C42FF401BD410DDBEF46916C481AC5D1B819FEF40CD9A42AC72EEC58E9A35289C5B8EBDCE55D89AE95A8B01154528420E7252DDC197B11FB9287447A002452FEF47356D9174E68CE5BA248EAC5DD8889FAB7F1B5DD7AD3B81BD3B8E4265408BDF71B4EB2C475616EC478FA2DA2B2D43C525D96CA8D9BFDFB5608D1719B985C6BCE907B8AF4341EBF3339095558D1ADB56D7F994A7F76CD84A01F59DF73AE762C1D9FD386AD7BFAB7739D455A86F0D94EFA0EB6520775712CA2FA42147FF6E45CAFF877776D2871804094F4848F82979A8FDA0350D29F3AF6D5C8BB58EBB28AD1B8DB1118D88ADF91CEF7D508A2BC93FC1BEE9A7F1B2FA4671C9F1B8B26F1FFEB3B4147717BE00EC7F1DBF8D76A0B9F875BCA57292B1E869FC56A5BFADD24B2B9FC6A2E4CF1136F7057C67E1466CA4EBAF75B9F4E84A7CD8F897D86077E26BD4E0E31A3BD6CEB1A1EE0FC5F81FAFF8B1CBF6B9F2951E8D6664627A6429BE8C8D4704E621B9F1133CB02723362606B14FAFC5ABCB5A549E5EF31C4FF938ED9D37FA8E6BA371C5A90AE8D51F68F99813F335BE7EB818DFD7CFA9FCF073D4633292931FE0BDB7DE46E95D07D21B3F4279EC522C9D3A4A15EA6738FD7002EC359FA071E65A4FDC67CE9BAECF8B7F1A0FCB633077F227F864F20B58F8D55B78E7BD0F5149F9287D0B17EDF1B8F7C5179A08B4EF574B4B8BE637B521674A4F805E0EAE735603556770A6C6154FB56581CDA9544F523E3FE8764119AA2D7B71A242DD6DEAEF05AC41EED64CA46666223353F9939C2AFE65ADA6147AE237AADA59849755FCDE0B74AD1328D76FE39AA3A5C01A75776BA15475AC1345FBAB91E475FC025386551E54EDAB569F5EA48EA1E38A2EE8F1E477FA2C8EA3C840B9CAD30255A376B8AEAB6AC71AFD4B5579C525A9F2DA5858A86AB94A3C530A67520632D4772AD5F2ABCA505DC7ABB29B300992B126535BE425D1E69D25DD7495EEC77EF5FD37EE52551DEAEE521F5CA8DC2A67A9C94C9C297562959E5EB8CA9D212BCAB15F2B94229C38A16A93BAEE56FA42691734615CF164CA5669D7DA9AE644B9BAB35765B94BB90AA4896B2B2A2AD072CCDDB540D5A9AEE3CFF662519AB9AA161516E6C056A3CC2199BC9C1C752D20498B77E7C3752CA5BBE36A92D25C8BE45494AB32A9C259958F55EA7F5716A84CD58DAE61BD77D6C035EA8E2CB89AA3A3966D4828D28B465DE84FAC0431992C21B88820CC1041982182304304618608C20C1184192208334410668820CC104198218230C334B8280C1C349386E876B457669D040719ED654CB73564E4C89198306182F697C366F67417353434A0BEBE1E7575E615A807334F345924C4C489133D368E1B94F9CB972F6B5F6428F0589315171787499326F92546FCE2C57856F75B11BF783516C777FD0D14B1B1B1983AD5BC36FC50C0300D88E6B8AA1AE379B4F824462AE1D2E6BC80152B6620E24A059AE6ACC69CA6CBB831693556C7DFC5C8E42598373D1131631D98353D0257BE9984EFBFF402BEBDD07DFC8FF0D20BDFC6423D7CC3BC467EB7D016AF0F1F3E4493C582F8838D6EA701515B41A2F88FBA4BBF3A8003C55F636ABA6F5DB985CB5F57E1FCFBEFA24CFBFB078C4F1F8773075CC78F7B86AA4C3DCE17ABF0897A8CEBC5FEC5B42DF650C3200835E03DA31E776EEB3EB76700E1D0D9083406417AD3484E5DB9055BB2A7E2CEE55BB875079897ADC299AE39535A78E56240FF7BBBEC0EE66FE93ABEAF0C9546DD1B432F8B6AC8BC79F3B484C1C0B56BD7505B5BAB87062FDDF6B228E1CE1D753B0F02DADBDB074D5E7B82A93B75E5CA154F8BCF99C192CF9E621284EEBCCACA4AB6775F737333BEF8E28B21593B88C70E2E522FC6ED820D99531A3A79F4E891D66F1F4A78B72132DACB806E1B7521F8186AC894295360B777BD1772FDFA75AD6B29F40FEE0782DDD610791521F8186A88C3E1D086DDDDB86AC83064EFD98ECC043D1237515101A4A6BA236EE2C4EE6D289E94873C14A0E094C3707C45D126CBB863497BB0DD7351D735CAD2CD71C543F8ED1EAB1AE28720BAC97264232FBD0C05AA841CD979482F2B7015963BBE669D260815F4BA9A6D4A04D7694BB3B3D5FF7330D714674392FB1A3A96D71DC28A3CD164F9CF53C8DC7E18870F2BB77D0E9C655D8536C9568B722A7855A07B547A4EA60D732DE292BCAF71380F4BB5B3BBBF6EA8D04B416A9539D9844D9B8A50A1FC355EE576DDF914E652E9561563DBA64D2852E6CD6911D7750D720570559EEEAF1B2AF4B1DB7B0A054540CE9E6CCFABD255C5DB503ED77DE71FC6F3CE6328B6882B33D490C3C87355111DF3754305FFDB1021E004B00D11FA0B1184198F15A467CFD71F4F7F4E291AACD7B6C220084D40AB50BFFADC6EFCF8F18636A52FD02C91FE62B05EDB0A8320F4ACE1FEFDFB1E477787BF53829E84D410FF903684192208334410668820CC1041982182304304618608C20C1184192208334410668820CC1041986112844637DDCE37DC1717C86BF9BAC17C6D5F0CCFD469ECDF7BB83D2D2D0DB76FDF4675B57B79ECDE4319E8AF999183F5DAF42CDDFDD772A21CED8EE03DD57FD1A245703A9DDACB317D855E976B6CECC17BCF3D60B05E5B26390C024410668820CC1041982182304304618608C20C1184192208334410668820CC104198218230C320487763F4C2C061187E9F366D9A61DDC5D1A3476BAF289023E85989F7F07C4FC234B44FCF157CD3693928F78DD0DB30BD58447F7B73FE93F24FC7D239EEF0E38EA763BD9F9D3C297CE9D225EDAFE5F31012222A2A4A8B140696D6D6566DE929C263B286E2EA6C830512C48DA786083C905E16334410668820CC1041982182304304618608C20C1184192208334410668820CC1041982182304304618608C20C1184192208334410668820CC1041982182304304618608C20C1184192208334410668820CC1041982182304304618608C20C1184192208334410668820CC1041982182304304618608C20C1184192208334410668820CC1041982182304304618608C20C1184192208334410668820CC1041982182304304618608C20C1184192208334410668820CC1041982182304304618608C20C1184192208334410668820CC30EC4145DBBAD15670A188EF967EC1C22308ED3318171787E1C3876B0904ED1EE6BD83D85087F66B6C6A6AD243C1C123487474345253533173E64C2D81B878F1A267F3C350806A887B83C760E1B14F64AE84E0238D3A33FC142403B98585C8CDD0837E9091BB0B590E3D20F84D784242C24FC913191989C4C444C4C7C76B09C4AD5BB770FBF66DE5BB8EBAE874CC78F0213EB9EE4ACBC82DC46B1BD3919EFE0324B7DCC5C2CD8B1019FF436C4E8E47F2ABCB30A12E060FC724E3D5659128759FC41CEA69057B0BDA3E98AC3A9CD8BB033FBF5087D49C1CA426DA30D7065C387B14FB5FDE8F72242233331515E567F4E3057FE8731B62B725EA3EC0E90432B716A2B030177335C1F6C2B92A57193CC15F0CDB77A7A4A448B7974BB757E08108C20C83C92247BD2D37A13674C2CE6451E13736367A5C2889C1053159CC1041982182304304618608C20C1184192208334410668820CC104198218230C330B8E83DB018131383C99327232A2A4A8FE91D345877F5EAD541312EC66170D152109A12B462C50A8C1831420BF795EAEA6A9C3B774E0FF185ED03AA71E3C6054C0C62ECD8B1BA4F78129682C8A4B9E0D1A7463D6ECE6A2C95B95701A5D7823896FE10CFCF1EAD878440D14B4154B5B8FE2B1CFFFCBE1E1602452F05A9425595EE15024A9FDA1021F08820CC104198D12741EA3F7B17A7A42D09285243986129C8BD7BF7B4719D404193EE04FFF00C2ED2A8AEF7F895DD6ED7467BFBFA9A34BD00F3E5975F6A2273A7BDBD1D0D0D0D7A28387804A1F12B1AF10DE5F7D4E995E8B6B6363D263878041178304CDD19A775BF10643A3B3B6BFF1F810454615A226D730000000049454E44AE426082
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+patch version=121
+old preset uid=
+
+[WKRA1]
+UID=6269853377583472144
+PRESETUID=739635650254691861
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+RACKIOINVISIBEBEFOREREDUCED=0
+CNT=1
+
+[WKRA1SE]
+UID=6269853377583472144
+PRESETUID=739635650254691861
+where=0
+also visible in IB=0
+enabled=1
+on top=0
+opacity=1
+zoom scale=1
+can zoom=1
+left=1
+top=1
+width=174
+height=658
+resize grip enabled=0
+IB left=0
+IB top=0
+IB width=0
+IB height=0
+location left=32345
+location top=32345
+location width=0
+location height=0
+memo minimized in IB=0
+memo minimized=0
+memo reduced=0
+transparent=0
+background color=$FF2A2A2A
+hilited color=$FFB1B1B1
+frames count=1
+frames alignment=0
+fit size=1
+show border=0
+border color=$FF888888
+border width=2
+round size=2
+don't draw selection border=0
+show caption=1
+caption font color=$BBFFFFFF
+caption font size factor=0.600000023841858
+caption align=1
+caption V align=0
+caption font bold=1
+caption font italic=0
+caption font underline=0
+show rack number=1
+show header=1
+header height=18
+header color=$FF888888
+plain header=0
+show toolbar=1
+toolbar size factor=1
+minimized=0
+HeightBeforeMinimize=0
+WidthBeforeMinimize=0
+auto resize=0
+auto resize margin=2
+auto reorganize=1
+reorganize margin=2
+reorganize interspace V=2
+reorganize interspace H=2
+saved in workspace preset=1
+name=rack
+always calculated=0
+calculated at the end=0
+calculation mode=0
+can be randomized=0
+can be reset=0
+rack input=1
+rack output=1
+presets panel=0
+show when active on grid=1
+fit grid line number=0
+keep the wkp height=0
+
+[WKRA1TBENABLESE]
+UID=2446252484552196576
+PRESETUID=7866825220142039525
+USERADDR=
+
+[WKRA1TBMINIMIZESE]
+UID=1799207060737786458
+PRESETUID=5846659939839672925
+USERADDR=
+
+[WKRA1TBREDUCESE]
+UID=6827737623237657552
+PRESETUID=1820696528023880659
+USERADDR=
+
+[WKRA1TBPRESETSE]
+UID=6317902918333141024
+PRESETUID=5351115035658063912
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=2
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+key mode=1
+mouse mode=1
+time code ON=0
+time code OFF=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKRA1PRESETS]
+UID=8587136914805843179
+PRESETUID=5266768664012874992
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[WKRA1PRESETSSE]
+UID=8587136914805843179
+PRESETUID=5266768664012874992
+also visible in IB=0
+is visible=0
+global color=$FF515151
+ignored in parent global color=1
+zoom scale=1
+can zoom=1
+left=0
+top=20
+width=160
+height=33
+resize grip enabled=1
+IB left=0
+IB top=0
+IB width=0
+IB height=0
+location left=32345
+location top=32345
+location width=0
+location height=0
+memo minimized in IB=0
+memo minimized=0
+memo reduced=0
+selected=0
+fade duration=0
+scope=0
+
+[WKRA1PRESETSSTORENEWBTNnewSE]
+UID=6113768847945591441
+PRESETUID=2150191070907296407
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKRA1PRESETSREWRITEBTNwriteSE]
+UID=2306090403702863798
+PRESETUID=6964644320739948475
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKRA1PRESETSNEXTBTNnext buttonSE]
+UID=2860170311207589017
+PRESETUID=6423449860584084638
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKRA1PRESETSPREVIOUSBTNprevious buttonSE]
+UID=11428409836412245
+PRESETUID=4175520712228183388
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKRA1PRESETSLISTPRESETCBpresetsSE]
+UID=7942629737206481504
+PRESETUID=7876810716309979749
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKRA1PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[WKRA1E1-INFO]
+thumbnail image=89504E470D0A1A0A0000000D4948445200000064000000DE0806000000CBB3A547000000017352474200AECE1CE90000000467414D410000B18F0BFC6105000014B249444154785EED9D7D5094479EC7BF03C3ABA06890E14561421963E445312AAB60B6B270C69C8ABB555A5CDD5AD4791EA628536C5DDD6D594A4C2E9752CBBB3FEE8A83E5D4DA33C571B54599ADAD7231C9A6A44C4A499668C4087AB935173905E20CBE8C867706B8FEF53CCFCCF3CC3C80A233D3407FAC76FAF9F50BFDF4F7E9EEE7A59F7E4CEBD7AF5F0DE05F4C26533EFB95048F6F9806BF2441CEA7A7A7E7C7C4C42876C066B3C16EB72B5B9200D211422D83C4983B77AEDB45444428E19361C5F6ED798A5FF20C5814A278A646DE66145814BF06EBF677F1EE76ABB22551497DF139FCE52FD761D73BAF20AF682942424C4A8807535E5EDE585656166F192AB76EDDC2EDDBB779C5EE2B487019DBEA507665256A7666B20D3B1A8F9E0476ED0305B7353622A1A0000968435D59353A59BA5D5940420205B274D54DAE3C6631CF25C5E0AFDE7E05E6304F1BB870FA4F68624ECBA42DC4DE781465657568CB5C89BC4E36B6706B022C29EDF8E093365EE1572C05B0D795E168630236AA2DA3F524CA8E36C29E90C43A36C9D255893A3188A539898ACFC3A482245852141FB072B3ABE2EB980E46B47F6FD7C59778E8EF19567C1E06FB7C6D938F21993B5153B313996D5770C666679B35D898C02A3E4939EE59F84A1BEBB298BD6667021ACFC8EEC9886B7FECC0BDEF7B942D6074740C5F7CF8ADB2E561D23164174EE29D0FDA9510C9D31016118A65AB93111165C6FFFDF75D7477FEA0847898501049E099BCCB920414298860F02E2B2C2C0CA1A1A18A09181E1EC6C8C888B2250924BC8590000303036E27C5081EB2CB120CDE65297E8C8DB9BD92006132E9EF6771414888D1D1512948102041424242DCC2F02E4B8A113CA8DEB575FFF863487E398E1F3F84E271EE145A8BCBC70D9BD1588B71E8F8715637E5D03E72CD2F279BCB1D6215632D3EA46CEBE3115A4178974567556E23557C09DD62EF46E3E10AD4F3BB26F9283F5E824CB4A1B61628D18437E71EC2818285E8EE6EC3D51395A85FA44FDF9C5B8C224B0170790F2A2F505E338BFCF2434839CDEA09C528CF6D46A5ABC2DC588B8BB1A8BE1EEE5D67F55B8E4A5D5D5077A55E76F8B4103AC8BBB96F212C8BB887710195B56D68ABAD4407DBF284E7B3CAFE087BF6ECC14736D793AAFC552406B110D9B9945BF68C15C3850D9DA4417B27F379C15A4F119ADD62F056F2BA0DA727A80B1F4116AD023E6215BC870960C478E11D36B538AC1551387315FC68B1C1462ACE582C48A1E3CE9AC27C7AF28B2CB8ACB4186A49B9CD15D87302289AA06FF711A4831DE925D4D7B16EC7C2FF921E7D78074EDB5EE77DE301E559EE85CBAC4BE37DE57194CF82792C174E5F45F601B6BF0794CAA72E89EFB71529B6CBEED6E189970D5BB3BE5BD3E23B864802CE84638824B84841BCA08BB4254B967047FE402305F162F9F2E558BD7A35772FBEF8A2620D1CBA31243232D2E7DECA6CA3B0B01073E6CCE17E9ABD79EEDC39EEF71754EFDA314427C8E2C58B61369B79C06C65E5CA95EE999BDDDDDDF8ECB3CFB8DF5F389D4E39A88B8C144430745D164DBA0EC6998548AC5FBF1E717171DCDFD9D989A626FFCE33A33BEDE38E2112F07174DDBA75DCFFF9E79FA3A3C3FFF77DA42093A00EEA838383FCD7DFC8417D12488840894190202A5C90D93E6E041BAD20BCCB52FCB2DB0A025A31089D2092E023FB2AC1E02DE4A5975E426C6CAC62029FF94E33E0258181CEB0D4719CFF2FC78EE0A2AD7FD9650906EFB2962D5BA67B6147D765598B71B8C2828F4A2B719E6F1E4645E1425718BA71F6D00134E7FADAF8B37D5D5A2B8A0F57C0F251292ACF7BFCA793B5695B51ABFC1DA3B4EE68EADF80BE6CD315EAAED40BC3D0D4D4D47F888F8FD72D16F0E8D1233C7CF890FBADAF1520A5371149E18D68661AC5656660E8376FE1C87FFE1EBF6F8D47416E2FFE07293EB6E66B0EAFB40E5C6B7420F7E04F618DFE3156D8FE15873F7478E567C54F5F1B2F2D8547E3F9A1DFE0AD23BF058BE253B6E90A9DFAEAC690F1D980A2C22C64652D44D6EBC5CAEBCD8928AC3881132798AB58A1CCA030B219A53D8FCA5AA070C5D738EE35A18CD3DE055816338F515A6F1E27CEF4634241ACC539B01D2A456969296AEF14A2680359EFB0EE826CB5AC83B9832E5EAFBE36E3B48CF32D38FB75330CE460899201DBEDF1D36A789C38D3910904B122D762833A85E87C4B2B3F12E9F875E13ADA4B0E1BD9CA516490D6F828D6B62E0B5AEA61F877F5698DCB36135AC9E483BAC4EF68077579DA2B185210C1E082381C0E3EE545753D3D9E25202481858F21F4C4909EED4A82831C4304460A22185210C190820886144430A4204F41787838BFC3E1ED9E0679DAFB14D0AAAB2FBCF082B2E5E149A79F0A73DA1B1D1DED7374A9EF66CC56822A484A4A0A687941AD4B4F4F57426727B3720CA196989A9AAA734949494A6870999582D0EB0634CB5DEBA8B58AC08C1684E609788F51DAF967DE18C527174802729665B1587C76ACBFBF1F515151AEF5E135D0048BD6D65665EBE9A0AE888E7E2D34AB9DEE683FAE9D18EFAC69DA9E6591185478AD9B3F7FBE122AD13225416815536ADE5A471749C1C2A8AB99A86B7A528CF227E70FA62488D56A75BF5C1FCC97EC55A84BF43E7D7E96E531CA9F9C3F985683BAD185E4B36C092230AD0431BA900C66CBF407D34A90D9001724232303ECF457E78C4EE724FE47B610C1985010BA5690D70F81654241162D5AC4BB2EAD239BC47FC82E4B30A420822105110C298860484104430A1240689151EFCB08725AA4207E806E787A5F2E90A39BA146762D52103FA03E099DA8258CC73315842E1ABDEFC6CEF6693D4F0A17C47BCDA6A9424786F7F38AA94C7C7BFEF9E77D1E806567672BA1330F75D100824F7250FC120190638860F016B233B607A966A76202CEF747E2FC40A4B2250924BC85E4460EE1CFE7F4BBDD0BE1BE5FC2970406DE42FE6DE17DE444789645FD8F4731CC299307ACDBF1EE3E0B3E29AB064DFFA28FDEEF2B504FE1EC683CFA0E2EADF6B5F16FE2EBD25AB1FDDD7DB07C5286EA265FBF2B791BEA3471D52CDBEACA7026692F565FAA76E5CB318A334E39A6117C79266A154966CF07895B06C399732DD7642D7C15297D09480CFF14176F0371CB333078EA1DFCF37F9DC1996BF17875751F6E20C5C776F1BAC32BAD03D73F7560ED8122A445E523CB5E857FFA038BB3FD6F91F3F5DFE39D1A4A9B86A2C23E742FDFE5B19DB986B4BFF93992EDAC305D17C1B275954B9BCE1DA717370DCA319D986450CFC3E6824C6466262073E3766571970414ECAB414D0D73FBB260BB4487A091CD286D13AAEB8082AC569C540EDD148B1D57D49997ED1FA09AD97536B4E3522BCD8D5236158CE31895637A31A120D6ED2B613B5A86B2B232D4D90BB0398FACD41590AD8E7530767CCFF7D9D7669C96D174058DAD97DCCB3375DA12B0520DA32E6E6F9EDEC6A45C9D05B8BFCAA7601CC7A86CD38B0904613B69B1413DC89AAEB4F123DD3369DF75B4EF7CD7C8B6179B0DD21A2D9FD4FEC149D836AA47351B6FAA9BF4B61A1A6BAA7149DB0A9968C671543C659B6E4B364D3EA84B028ABC30140C298860484104838F2199090F3127C273EBE4FE6808EE8D8462B8371CA323BE778217463FC4DCC83E65CB436FDF5C8C3A7DDF13491B1880656440D9F2F0BBB15076B6E5FBE6D6FCD138CC198B56B63CE4BD7A074B96BA96AFD5F2BFDFCCC3F79D51CA9687BE511386437DEF9DDEB9398A7B5DBE772352F38791B8C677ADB007ADF17030E7CDBC7E76FDE6F0BDCEB9131B825BF33CD7752AF3FB4291F4C0B73CBD515178306F1EF7F30B4367EC107AC247F190B51772436C2742CDA3181D0E8189A50F61FF69DD82E81FF0DC9C5E44860DEBDCD87004CCACD185878CEADCE2E17EA48DF5639EC9A9737F6479DF310DC2C9FC5A173D168588315F6157ADB98B65CB1F206EFEA0CE39EE4760A0CF8C08B60F5A37661E8329720466E6D73A87CD09C7DD418C389D3A9794338CF89C87089F37A47303F668F4DEF27D4167EEE020121F3D42044BAB758EC83174470DB243CDA97331FD6358F86818612C8ED639CD66F446BB0E40D9650986144430A420822105110C298860484104430A22185210C190820886144430A420822105110C298860484104430A22185210C190820886144430A420822105110C298860484104430A22185210C190820886144430A420822105110C298860484104430A22185210C1908208067F83CA1CEE04C64C187186EA9C73300CA3A321181BD3BBF01027FB050686C374AE77301A43CE300CB3345A47D98F8C9AF008613AF70D73BD30B3FFF5FFA2C7A211CEFE811656D3B878CB20424201872342E7BA6EC7E0DEBD080C0D85EA5C1FFD3A43E064BF5AD7E308C1507F08CC66B3CEC5584C88883161F86184CED1DB53F41695376123236CDF9C186469B5EE8748337A224311CAF645EB224798739AF91B535A371011818148D7EA4B720133C1905D9660F016C2503625C1425DF7D22D885E142B76BCB71BF8F541746D39864DB62338D8B505C7725A70C4B609FB0B9535A95A6B518B1294281F2C6BAD7D03557813C754035A51FB46153AF3F280A626F782335AAC3BDEC36EFC9AFDDBEDCAD77E16470E9E022B00B71F3CE54965DDB10329A74EA1531396C76CC9160BBAAAAAE0FD39C7BC378FE9CBA64450F3A14DE3F479D8B1A3135D96FDAEF454A68F2DD84F1B6C9F8FD872B0E662154EA528FBAAAD077B2BDB6BA0E520E5978737DF4B46CBD56C9428FB56ABFA094D3A5AA487E0833A79A8F06FEDDE8AADD60768B0CFC57C731F62BBAEE3E34F1A7033E3EF7074C905BCC1F6282E231E378F1EC5AF1A1AF060ED36A0EA6D7C1865C560FDDB789F9524EF4769F89085D7B1F086B634FC28E33A4C39DBF0E3B5BBB19BF2DFEA72B9516D38D7F767D89962C377E8C2E75D29D8BAC202FB17F5F89DC63EFF27475DE5CA8DC2200AB124AC017F8A8D67A702AB90D1F7257E48C9406C4C0C62D3B6E2173F1962657ACB1D9FCA71415B36DAC7AD51B8696395F28BBFE0E55811F31DBEEB5D879F2969DACE5D8703A9C8C8F8011FBF5F87860756E4F67D8A96D80DD8903E8755EAD7B8D09B8494AE2FD1B76CABDBF6B5ADDBF5F7E2D3D0DB12839CD42FF165EA36ACFDF67DFCF6E37368A37234BC8F6F527CEBAFE6CC35D6425CEFDFBBC790A686B3A035C2ECB64EA0BD094D5D2E3BB59635161B533DF9F156D661479B7B75A0140B3CCB5C516B3982B3ADEC6863BF57B1056FEE2F445661210A0B993FD9C6EC6FF09672CC6DDFCD5A672DDE60F6235729AFB368510EE3AE530DC0167674F3AD2C16D786DAAA4E246BE2AFF129302B036B7D9DECAFD7B23814AFF6AA6227BF4D5376853CB4B032AD612DEAA02B5FD63AB6283BD5AEB125B3FADA7DEC186BE52CB0A901B6E43CE4B17D6AE0E56575C8F2D134760DAC37FAC7BF56FC1A41F2B614821A5282455B24A5EB6AA84215DBFFDDEFB1A60E7674B13F7C8CB94DB6069F6EA2A9C1864D4AF8B14D6A818C684115AF945A9C3DCB5A13CB773FED50F6552E8CCB4E5DD9269ED7FE6C1B5AD891BD69875ACBED204D5CCBF95285B620E7BD35AC4D79E25F34AC8089C961ADE8D8B11258BA5877485D5E4909CB0B48E676B51CAEB814AEDABA92B379FDA1B585D5493B2EB2726C62FFBB8A4075CA0E748EBEFED8518902CDAAD7E38C21CF10EB0EB886A353866388C435A04F32A84B02895610791D22185210C190820886144430A420822105110C298860484104430A22185210C190820886144430A42082219FA90B82EEF63BF7498440765982E1D342C2C3C3111F1F8F989818FE295551E8EFEF474F4F0FEEDEBD8BA1A121C53AF3D00962B158F80786434343158B788C8C8CA0A3A30336EF8F52CD10DC5DD682050B90969626B41804958FCA49E59D89704168A2B1D5FA649FCF8A5FB70E2F2A7E23E2D76DC6BA78CFEFB386CA2BFAC13315F844B9B8B8383E6E3C09D18B17237BC5366CDCB814E69BAD1858B1192B066EA063F1666C8E7F80E88C7CAC5A928098F956BCB4C48C9BDF2FC6CF766DC32B6BD5F83FC7AE6DAF60ADB2DDE1FB7D9809A14F5EF7F5F5F1B16526C15B486CEC54BEC8960E7C5B8DEAFAEF909EEBDD56EEE2C677EDB8FC873368E6BF5FE0B9DC05B854ED8ABFE00512DF81CBF56CFBAC030B9E73A57A52A6566EB1E182A817254F8603F7EF293ED51360A6566EB1E18250D39F0AE9AFEDC5DEE274DCBF711777EF03AB8AD976A16B2CE2DBAFAD0394DF7BCDF7B17AAF27FEB3A0B7B757F1CD1CF8692F5D6F6466664EAB238E6EF7B4B5B5CDCC3184766ABA9DD75379679A18041784A08BAD870F7D3F4927220E8783977726E273EB844E7FE98A3D3A3A5AA82E8CBA281AEBA865D0ED9399CAB8777BE93C3F2C2C4CD90A3EC3C3C3181DF5FD08E54C635C4124C1810B42DD54444484FB95041A4B1E3D7AC4FD12FF423D917668E0822C5BB60C73E77A3E2D7AFBF66DDCBA754BD992F81BBA2747C210EEB32C49F0D03E42978208C6045D56088A0F57A070A16244375A5B81AC2CD5D08DB3870EA07E7139CA5189CAF3565DFCD6DA5243DBE9E4C3A87067EACAA339D7D7563F8B5E48A4EE4A7D9430F918622D46796E332A590D598BCB91DB5CE9AA2CD5DE55C405A18A2EEA3AC0447025DB505CCCFE5F811C1F9B05C96A1E0A86F9CE2245B4823C61979588C28A13387182B98A15B0357B2A6DB1E50E5AA8E259851E66E1258516E418D892B5799C28C7069E7AFC7C671B4F28C81DD69D94A2B4B416ADCCDFA5A9B7DBB644E450EDB6D7E34069296A59F76633B079F220570957E3193FDFD9C61407F5F3A8AC054A0E17BB577768AF3F80961CF5C83F81D76DA7516F606BD6B590132877351105DF7C671BF23A44009E620C91F81B2988607041E8F982DD6E77BBC4C4441EF82CA0FB34341BD29F4CF7FCB570413A3B3B71E3C60DB77BD6B7DDFD3D7F8AE695F9137FE7AF457659822105110C298860484104430A22183E8204F28C42E28B8F20FE3E45954C8C6197458F1403793124F130EE18321367964F07E4A02E185210C190820886144430A420822105110CFE4C9DAECED5D35CBAFE58BE7C39AE5FBF3EA397B01009BAEE733A9DDCCF05A1E52AD4772F6816FCCB2FBF8CAFBEFA0A838383DCF63490D09191917E7DFD8C5E2E9AEA8BAB8F83BFF397931C04460A22183E82C87B58C1C54710EAF3B5EF2B48028BECB204430A22185210C1301484C61091DE519F4D8CDB42D4B742258145D6BA60484104430A22185210C190820886144400B453AEF8F390A54B97F229A41440A7BBF4FC626060802FEBADDEDBD2FE12DE36FA258CE2539ECF2A2FA330ADFD71E24F16E66D53FDE3C5A75FC2DB36517C6D182DC8A62EB1685ABF7EFD03668CE35B92A0C244725297F5EFAE4D49B031994C0DFF0F0790B66B0154C2E40000000049454E44AE426082
+usine version=Usine HH6 6.0.230126 EXPERT
+date usine=230126
+description=
+filename=
+patch version=121
+
+[WKRA1E1-PRESETS]
+UID=2122653830106984201
+PRESETUID=7013730043824582412
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+VERSION=121
+NBPRESETS=0
+CURRENT NUM=0
+
+[WKRA1E1-PRESETSSE]
+UID=2122653830106984201
+PRESETUID=7013730043824582412
+also visible in IB=0
+is visible=0
+global color=$FF515151
+ignored in parent global color=1
+zoom scale=1
+can zoom=1
+left=2
+top=0
+width=160
+height=33
+resize grip enabled=1
+IB left=0
+IB top=0
+IB width=0
+IB height=0
+location left=32345
+location top=32345
+location width=0
+location height=0
+memo minimized in IB=0
+memo minimized=0
+memo reduced=0
+selected=0
+fade duration=0
+scope=0
+
+[WKRA1E1-PRESETSSTORENEWBTNnewSE]
+UID=6685944212877620350
+PRESETUID=8222843898350154882
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKRA1E1-PRESETSREWRITEBTNwriteSE]
+UID=4969831777119387605
+PRESETUID=7530662626714861529
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKRA1E1-PRESETSNEXTBTNnext buttonSE]
+UID=1388544814997724254
+PRESETUID=5709693316806106211
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKRA1E1-PRESETSPREVIOUSBTNprevious buttonSE]
+UID=4776295117628007264
+PRESETUID=356100589754934118
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKRA1E1-PRESETSLISTPRESETCBpresetsSE]
+UID=1347922264840358472
+PRESETUID=1795988435868469835
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKRA1E1-PRESETSLISTPRESETCB]
+INDEXpresets=0
+
+[WKRA1E1-PASE]
+where=0
+name=patch
+saved in rack preset=1
+show when active on grid=1
+can be randomized=1
+can be reset=1
+fast graphic render=0
+undo enabled=1
+presets panel=0
+also visible in IB=0
+enabled=1
+is visible=1
+ignored in parent global color=0
+on top=0
+opacity=1
+zoom scale=1
+can zoom=1
+left=4
+top=96
+width=166
+height=369
+resize grip enabled=1
+IB left=0
+IB top=0
+IB width=0
+IB height=0
+location left=32345
+location top=32345
+location width=0
+location height=0
+memo minimized in IB=0
+memo minimized=0
+memo reduced=0
+resizable left=0
+resizable right=0
+resizable top=0
+resizable bottom=0
+transparent=0
+background color=$FF3B3B3B
+hilited color=$FF999999
+frames count=1
+frames alignment=0
+fit size=1
+show border=0
+border color=$FF767676
+border width=2
+round size=3
+don't draw selection border=0
+show caption=1
+caption font color=$BBFFFFFF
+caption font size factor=0.600000023841858
+caption align=1
+caption V align=0
+caption font bold=1
+caption font italic=0
+caption font underline=0
+show header=1
+header height=18
+header color=$FF767676
+plain header=0
+show toolbar=1
+toolbar size factor=0.999999940395355
+minimized=0
+HeightBeforeMinimize=0
+WidthBeforeMinimize=0
+snap to grid=1
+grid size=2
+auto resize=1
+auto resize margin=2
+show H scroller=1
+H scroller height=14
+H scroller color=$FF515151
+H scroller back color=$00000000
+H scroller opacity=1
+
+[WKRA1E1-]
+UID=1464999733992232333
+PRESETUID=1756746258135258513
+PATCHTYPE=0
+ORIGINDEVICE=
+NBPG=7
+OFFSETX=76
+OFFSETY=106
+ID0=3
+L0=298
+T0=-97
+QIDX1NEW1=0
+QIDX2NEW1=0
+ID1=260
+L1=278
+T1=-58
+QIDX2NEW2=0
+ID2=95
+L2=89
+T2=108
+USR2=C:\Users\senso\Dropbox\Usine\Usine Development\Usine-SDK\bin\SDK Examples\UsineObjects.usr-win64
+ID3=585
+L3=273
+T3=104
+ID4=79
+L4=315
+T4=212
+ID5=8
+L5=31
+T5=298
+QIDX1NEW6=1
+QIDX2NEW6=0
+ID6=672
+L6=228
+T6=317
+C0=0500010006000100
+CSRCNAME0=BUTTON
+CTARGNAME0=VALUE 1
+NBCO=1
+
+[WKRA1E1-0]
+UID=1372855705466301561
+PRESETUID=1503484039102721161
+USERADDR=
+saved in preset=1
+fade preset=1
+can be randomized=1
+can be reset=1
+set only if has changed=0
+init with default value=0
+INDEXvisible=1
+Vfader=0.731986463069916
+Vmin=0
+Vmax=1
+Tcaption=a fader
+Tsymbol=
+INDEXprec=2
+INDEXlogscale=0
+Vdefault val=0
+Vinc/dec val=1
+INDEXwrap mode=0
+Vauto reset=0
+Vallow drop=0
+USERNAME=FADERDATA
+COLLAPS=1
+
+[WKRA1E1-0faderSE]
+UID=4294048149580806307
+PRESETUID=1650143793437997227
+USERADDR=
+also visible in IB=0
+edition enabled=1
+is visible=1
+ignored in parent global color=0
+on top=0
+opacity=1
+blur softness=0
+vertical=0
+rotation angle=0
+zoom scale=1
+can zoom=0
+left=2
+top=26
+width=160
+height=34
+resize grip enabled=1
+IB left=0
+IB top=0
+IB width=0
+IB height=0
+location left=32345
+location top=32345
+location width=0
+location height=0
+memo minimized in IB=0
+memo minimized=0
+memo reduced=0
+floating x=0
+floating y=0
+floating content parent X=1
+floating content parent Y=1
+resizable left=0
+resizable right=0
+resizable top=0
+resizable bottom=0
+ignored in physical engine=0
+collide=0
+collide info=0
+speed x=0
+speed y=0
+angular speed=0
+transparent=0
+background color=$FF373737
+hilited color=$FF8F8F8F
+frames count=1
+frames alignment=0
+fit size=1
+show border=0
+border color=$BBFFFFFF
+border width=3
+round size=3
+don't draw selection border=0
+show caption=1
+caption font color=$BBFFFFFF
+caption font size factor=0.860000014305115
+caption align=1
+caption V align=0
+caption font bold=0
+caption font italic=0
+caption font underline=0
+text align=1
+show fader=1
+mouse active=1
+mouse wheel enabled=1
+fader color=$FF585858
+line thickness=6
+fader layout=2
+round border=3
+fader width factor=0.522727727890015
+symetric fader=0
+show cursor=1
+cursor color=$FF8F8F8F
+cursor width=6
+show cursor inner line=0
+cursor inner line color=$FF4D4D4D
+show value=1
+show symbol=1
+show value and symbol on click=1
+hint value on mouse down=0
+edit with simple click=0
+display array values=0
+value font color=$BBFFFFFF
+value font size factor=0.880000054836273
+value font bold=0
+value align=2
+value V align=0
+touch hi precision=0
+precision factor=8
+mouse mode=0
+circular mouse=0
+keyboard arrows enabled=0
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+range min=0
+range max=1
+curve=2
+coeff=1
+auto record on click=0
+mouse over=0
+selected=0
+
+[WKRA1E1-1]
+UID=5373094609481417106
+PRESETUID=4881353302567338397
+saved in preset=1
+fade preset=1
+can be randomized=1
+can be reset=1
+INDEXvisible=1
+TABinL=16
+TABinV=E62623426A25054226FE52424D69A640C2D070421605934241BF204079943C4268305442AE3F7742421589420FAD7742C99D54424D5C9E42CF8827419B924D41
+TABoutL=16
+TABoutV=E62623426A25054226FE52424D69A640C2D070421605934241BF204079943C4268305442AE3F7742421589420FAD7742C99D54424D5C9E42CF8827419B924D41
+Tcaption=ARRAYDATA
+Vnum=16
+Vminval=0
+Vmaxval=100
+INDEXprec=2
+Vreset val=60
+Vallow drop=0
+USERNAME=ARRAYDATA
+
+[WKRA1E1-1CTRL]
+UID=6706525575137708085
+PRESETUID=7101177076151470137
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+TABV=E62623426A25054226FE52424D69A640C2D070421605934241BF204079943C4268305442AE3F7742421589420FAD7742C99D54424D5C9E42CF8827419B924D41
+TABL=16
+
+[WKRA1E1-1CTRLSE]
+UID=6706525575137708085
+PRESETUID=7101177076151470137
+also visible in IB=0
+edition enabled=1
+is visible=1
+ignored in parent global color=0
+on top=0
+opacity=1
+blur softness=0
+vertical=0
+rotation angle=0
+zoom scale=1
+can zoom=0
+left=2
+top=64
+width=160
+height=77
+resize grip enabled=1
+IB left=0
+IB top=0
+IB width=0
+IB height=0
+location left=32345
+location top=32345
+location width=0
+location height=0
+memo minimized in IB=0
+memo minimized=0
+memo reduced=0
+floating x=0
+floating y=0
+floating content parent X=1
+floating content parent Y=1
+resizable left=0
+resizable right=0
+resizable top=0
+resizable bottom=0
+ignored in physical engine=0
+collide=0
+collide info=0
+speed x=0
+speed y=0
+angular speed=0
+transparent=0
+background color=$FF363636
+hilited color=$FF939393
+frames count=1
+frames alignment=0
+fit size=1
+show border=0
+border color=$FF717171
+border width=0
+round size=3
+don't draw selection border=0
+show caption=1
+caption font color=$BBFFFFFF
+caption font size factor=0.600000023841858
+caption align=1
+caption V align=0
+caption font bold=0
+caption font italic=0
+caption font underline=0
+show header=1
+header height=20
+header color=$FF717171
+plain header=0
+show toolbar=1
+toolbar size factor=1
+mouse over=0
+selected=0
+vertical lock=0
+draw mode=0
+step color=$FF717171
+big step color=$FFB5B5B5
+step opacity=1
+big step interval=0
+show step border=0
+step border color=$FF939393
+show grid=0
+show mouse cross=0
+grid color=$FF404040
+full grid size=1
+V divisions=0
+H divisions=8
+display value on mouse over=1
+show cursor=1
+cursor color=$FFD7D7D7
+cursor width=2
+full cursor width=0
+horizontal scale=0
+vertical scale=0
+
+[WKRA1E1-1CTRLTBLOCKSE]
+UID=6298410118302649292
+PRESETUID=6257804221880978388
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=2
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+key mode=1
+mouse mode=1
+time code ON=0
+time code OFF=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKRA1E1-1CTRLTBRANDOMIZESE]
+UID=7863373921098656749
+PRESETUID=4721990082950065141
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKRA1E1-1CTRLTBRESETSE]
+UID=1105137617636687349
+PRESETUID=8964685735024655870
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKRA1E1-1DISPLAY (ARRAYDATA)]
+UID=6706525575137708085
+PRESETUID=7101177076151470137
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+TABV=E62623426A25054226FE52424D69A640C2D070421605934241BF204079943C4268305442AE3F7742421589420FAD7742C99D54424D5C9E42CF8827419B924D41
+TABL=16
+
+[WKRA1E1-1DISPLAY (ARRAYDATA)SE]
+UID=6706525575137708085
+PRESETUID=7101177076151470137
+also visible in IB=0
+edition enabled=1
+is visible=1
+ignored in parent global color=0
+on top=0
+opacity=1
+blur softness=0
+vertical=0
+rotation angle=0
+zoom scale=1
+can zoom=0
+left=2
+top=64
+width=160
+height=77
+resize grip enabled=1
+IB left=0
+IB top=0
+IB width=0
+IB height=0
+location left=32345
+location top=32345
+location width=0
+location height=0
+memo minimized in IB=0
+memo minimized=0
+memo reduced=0
+floating x=0
+floating y=0
+floating content parent X=1
+floating content parent Y=1
+resizable left=0
+resizable right=0
+resizable top=0
+resizable bottom=0
+ignored in physical engine=0
+collide=0
+collide info=0
+speed x=0
+speed y=0
+angular speed=0
+transparent=0
+background color=$FF363636
+hilited color=$FF939393
+frames count=1
+frames alignment=0
+fit size=1
+show border=0
+border color=$FF717171
+border width=0
+round size=3
+don't draw selection border=0
+show caption=1
+caption font color=$BBFFFFFF
+caption font size factor=0.600000023841858
+caption align=1
+caption V align=0
+caption font bold=0
+caption font italic=0
+caption font underline=0
+show header=1
+header height=20
+header color=$FF717171
+plain header=0
+show toolbar=1
+toolbar size factor=1
+mouse over=0
+selected=0
+vertical lock=0
+draw mode=0
+step color=$FF717171
+big step color=$FFB5B5B5
+step opacity=1
+big step interval=0
+show step border=0
+step border color=$FF939393
+show grid=0
+show mouse cross=0
+grid color=$FF404040
+full grid size=1
+V divisions=0
+H divisions=8
+display value on mouse over=1
+show cursor=1
+cursor color=$FFD7D7D7
+cursor width=2
+full cursor width=0
+horizontal scale=0
+vertical scale=0
+
+[WKRA1E1-1DISPLAY (ARRAYDATA)TBLOCKSE]
+UID=6298410118302649292
+PRESETUID=6257804221880978388
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=2
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+key mode=1
+mouse mode=1
+time code ON=0
+time code OFF=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKRA1E1-1DISPLAY (ARRAYDATA)TBRANDOMIZESE]
+UID=7863373921098656749
+PRESETUID=4721990082950065141
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKRA1E1-1DISPLAY (ARRAYDATA)TBRESETSE]
+UID=1105137617636687349
+PRESETUID=8964685735024655870
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKRA1E1-2]
+UID=1439198315844904928
+PRESETUID=4408583205008353262
+
+[WKRA1E1-2SE]
+UID=1439198315844904928
+PRESETUID=4408583205008353262
+
+[WKRA1E1-3]
+UID=7517592704474939772
+PRESETUID=5372229614972961161
+INDEXvisible=1
+Vnum of rows=16
+Vnum of lines=1
+INDEXscan direction=0
+Tcaption=ARRAYCOLOR
+Vallow drop=0
+USERNAME=ARRAYCOLOR
+
+[WKRA1E1-3CTRL]
+UID=3271802872060970318
+PRESETUID=4422621075348391250
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+
+[WKRA1E1-3CTRLSE]
+UID=3271802872060970318
+PRESETUID=4422621075348391250
+also visible in IB=0
+edition enabled=1
+is visible=1
+ignored in parent global color=0
+on top=0
+opacity=1
+blur softness=0
+vertical=0
+rotation angle=0
+zoom scale=1
+can zoom=0
+left=2
+top=145
+width=160
+height=77
+resize grip enabled=1
+IB left=0
+IB top=0
+IB width=0
+IB height=0
+location left=32345
+location top=32345
+location width=0
+location height=0
+memo minimized in IB=0
+memo minimized=0
+memo reduced=0
+floating x=0
+floating y=0
+floating content parent X=1
+floating content parent Y=1
+resizable left=0
+resizable right=0
+resizable top=0
+resizable bottom=0
+ignored in physical engine=0
+collide=0
+collide info=0
+speed x=0
+speed y=0
+angular speed=0
+transparent=0
+background color=$00000000
+hilited color=$FFFF9979
+frames count=1
+frames alignment=0
+fit size=1
+show border=0
+border color=$FFFF5722
+border width=0
+round size=0
+don't draw selection border=0
+show caption=1
+caption font color=$BBFFFFFF
+caption font size factor=0.600000023841858
+caption align=1
+caption V align=0
+caption font bold=0
+caption font italic=0
+caption font underline=0
+show header=1
+header height=18
+header color=$FFFF5722
+plain header=0
+show toolbar=1
+toolbar size factor=1
+mouse over=0
+selected=1
+
+[WKRA1E1-4]
+UID=9154893753634129712
+PRESETUID=4943177883201701690
+text editor=s1XDTOjm484otNkoTrHhJ35I59V7D23iL2kY2QXTCk4KihKX4q
+INDEXvisible=1
+Tstring out=s1XDTOjm484otNkoTrHhJ35I59V7D23iL2kY2QXTCk4KihKX4q
+COLcolor=$FF393939
+COLfont color=$BBFFFFFF
+Vallow drop=0
+Voverlay=0
+USERNAME=STRING
+TXT=s1XDTOjm484otNkoTrHhJ35I59V7D23iL2kY2QXTCk4KihKX4q
+
+[WKRA1E1-4CTRL]
+UID=4092378216580123330
+PRESETUID=4362481301006977735
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+
+[WKRA1E1-4CTRLSE]
+UID=4092378216580123330
+PRESETUID=4362481301006977735
+also visible in IB=0
+edition enabled=1
+is visible=1
+ignored in parent global color=0
+on top=0
+opacity=1
+blur softness=0
+vertical=0
+rotation angle=0
+zoom scale=1
+can zoom=0
+left=2
+top=226
+width=160
+height=34
+resize grip enabled=1
+IB left=0
+IB top=0
+IB width=0
+IB height=0
+location left=32345
+location top=32345
+location width=0
+location height=0
+memo minimized in IB=0
+memo minimized=0
+memo reduced=0
+floating x=0
+floating y=0
+floating content parent X=1
+floating content parent Y=1
+resizable left=0
+resizable right=0
+resizable top=0
+resizable bottom=0
+ignored in physical engine=0
+collide=0
+collide info=0
+speed x=0
+speed y=0
+angular speed=0
+transparent=0
+background color=$FF393939
+hilited color=$FF7D7D7D
+frames count=1
+frames alignment=0
+fit size=1
+show border=0
+border color=$FF606060
+border width=0
+round size=0
+don't draw selection border=0
+mouse over=0
+selected=0
+text font size=10
+text font color=$BBFFFFFF
+text left margin=0
+
+[WKRA1E1-5]
+UID=225429300730197126
+PRESETUID=4597487870964200596
+USERADDR=
+set only if has changed=0
+INDEXvisible=1
+Tcaption=button
+VON value=1
+VOFF value=0
+Vnull evt if OFF=0
+Vallow drop=0
+USERNAME=TRIGGER
+
+[WKRA1E1-5buttonSE]
+UID=7617473088396787630
+PRESETUID=8337947817871736761
+USERADDR=
+also visible in IB=0
+edition enabled=1
+is visible=1
+ignored in parent global color=0
+on top=0
+opacity=1
+blur softness=0
+vertical=0
+rotation angle=0
+zoom scale=1
+can zoom=0
+left=2
+top=264
+width=77
+height=20
+resize grip enabled=1
+IB left=0
+IB top=0
+IB width=0
+IB height=0
+location left=32345
+location top=32345
+location width=0
+location height=0
+memo minimized in IB=0
+memo minimized=0
+memo reduced=0
+floating x=0
+floating y=0
+floating content parent X=1
+floating content parent Y=1
+resizable left=0
+resizable right=0
+resizable top=0
+resizable bottom=0
+ignored in physical engine=0
+collide=0
+collide info=0
+speed x=0
+speed y=0
+angular speed=0
+transparent=0
+background color=$FF717171
+hilited color=$FF939393
+frames count=1
+frames alignment=0
+fit size=1
+show border=0
+border color=$BBFFFFFF
+border width=1
+round size=10
+don't draw selection border=1
+show caption=1
+caption font color=$BBFFFFFF
+caption font size factor=0.699999928474426
+caption align=0
+caption V align=0
+caption font bold=0
+caption font italic=0
+caption font underline=0
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+auto record on click=0
+mouse over=0
+selected=0
+
+[WKRA1E1-6]
+UID=929430163570571334
+PRESETUID=1089190762159552590
+INDEXvisible=1
+Vmin=0
+Vmax=1
+Vduration=1000
+Tcaption=TRIGGER
+COLcolor=$FF8BC34A
+Vauto scale=0
+Vallow drop=0
+
+[WKRA1E1-6CTRL]
+UID=2774379809196227938
+PRESETUID=4685612145355275623
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+
+[WKRA1E1-6CTRLSE]
+UID=2774379809196227938
+PRESETUID=4685612145355275623
+also visible in IB=0
+edition enabled=1
+is visible=1
+ignored in parent global color=0
+on top=0
+opacity=1
+blur softness=0
+vertical=0
+rotation angle=0
+zoom scale=1
+can zoom=0
+left=2
+top=288
+width=160
+height=77
+resize grip enabled=1
+IB left=0
+IB top=0
+IB width=0
+IB height=0
+location left=32345
+location top=32345
+location width=0
+location height=0
+memo minimized in IB=0
+memo minimized=0
+memo reduced=0
+floating x=0
+floating y=0
+floating content parent X=1
+floating content parent Y=1
+resizable left=0
+resizable right=0
+resizable top=0
+resizable bottom=0
+ignored in physical engine=0
+collide=0
+collide info=0
+speed x=0
+speed y=0
+angular speed=0
+transparent=0
+background color=$FF363636
+hilited color=$FF939393
+frames count=1
+frames alignment=0
+fit size=1
+show border=0
+border color=$FF717171
+border width=0
+round size=3
+don't draw selection border=0
+show caption=1
+caption font color=$BBFFFFFF
+caption font size factor=0.600000023841858
+caption align=1
+caption V align=0
+caption font bold=0
+caption font italic=0
+caption font underline=0
+show header=1
+header height=20
+header color=$FF717171
+plain header=0
+show toolbar=1
+toolbar size factor=1
+mouse over=0
+selected=1
+pixel color 1=$FF717171
+pixel size=1
+mode fill 1=0
+fill opacity=0.699999988079071
+grid color=$FF404040
+show grid=1
+show cursor=0
+cursor color=$FF939393
+cursor width=2
+
+[WKRA1E1-CPSE]
+where=0
+also visible in IB=0
+enabled=1
+is visible=1
+ignored in parent global color=0
+on top=0
+opacity=1
+zoom scale=1
+can zoom=1
+left=4
+top=96
+width=166
+height=369
+resize grip enabled=1
+IB left=0
+IB top=0
+IB width=0
+IB height=0
+location left=32345
+location top=32345
+location width=0
+location height=0
+memo minimized in IB=0
+memo minimized=0
+memo reduced=0
+resizable left=0
+resizable right=0
+resizable top=0
+resizable bottom=0
+transparent=0
+background color=$FF3B3B3B
+hilited color=$FF999999
+frames count=1
+frames alignment=0
+fit size=1
+show border=0
+border color=$FF767676
+border width=2
+round size=3
+don't draw selection border=0
+show caption=1
+caption font color=$BBFFFFFF
+caption font size factor=0.600000023841858
+caption align=1
+caption V align=0
+caption font bold=1
+caption font italic=0
+caption font underline=0
+show header=1
+header height=18
+header color=$FF767676
+plain header=0
+show toolbar=1
+toolbar size factor=0.999999940395355
+minimized=0
+HeightBeforeMinimize=0
+WidthBeforeMinimize=0
+snap to grid=1
+grid size=2
+auto resize=1
+auto resize margin=2
+show H scroller=1
+H scroller height=14
+H scroller color=$FF515151
+H scroller back color=$00000000
+H scroller opacity=1
+name=patch
+saved in rack preset=1
+show when active on grid=1
+can be randomized=1
+can be reset=1
+fast graphic render=0
+undo enabled=1
+presets panel=0
+
+[WKRA1E1-CPTOOLBARTBENABLESE]
+UID=5167482652355599984
+PRESETUID=2577372194659507828
+USERADDR=
+
+[WKRA1E1-CPTOOLBARTBMINIMIZESE]
+UID=5009761761652776713
+PRESETUID=2867993061561343756
+USERADDR=
+
+[WKRA1E1-CPTOOLBARTBREDUCESE]
+UID=9143021992770170058
+PRESETUID=2005132654326213838
+USERADDR=
+
+[WKRA1E1-CPTOOLBARTBPRESETSE]
+UID=5176611214501224303
+PRESETUID=1761921015122108275
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+mode=2
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+key mode=1
+mouse mode=1
+time code ON=0
+time code OFF=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+
+[WKRA1E1-MODULARWIRES]
+CNT=0
+[WKRA1MODULARWIRES]
+CNT=0
+
+[GRID]
+UID=3636013826257291619
+PRESETUID=9116715863472965993
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+enabled=1
+NBLINES=5
+NBROWS=5
+HEIGHT=200.000030517578
+LASTZOOMWIDTH=0
+CNT=0
+LINEHEIGHT0=26.4883365631104
+LINETOP0=53
+LINEHEIGHT1=26.4883365631104
+LINETOP1=79.4883346557617
+LINEHEIGHT2=26.4883365631104
+LINETOP2=105.976669311523
+LINEHEIGHT3=26.4883365631104
+LINETOP3=132.46501159668
+LINEHEIGHT4=26.4883365631104
+LINETOP4=158.953338623047
+LINEHEADERWIDTH=40
+
+[GRIDSE]
+UID=3636013826257291619
+PRESETUID=9116715863472965993
+number of lines=5
+descriptions height=60
+show section number in caption=1
+load next playlist=0
+fades also on backward=0
+
+[GRIDBTN-0SE]
+UID=2845620671335732676
+PRESETUID=1557569389538678220
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+loop=1
+repeat=1
+duration=10
+format=0
+restart synchro=1
+synchro active=1
+set tempo=0
+tempo=120
+next mode=0
+next section number=0
+background color=$FF242424
+width=219.999984741211
+
+[GRIDBTN-1SE]
+UID=6044441521598082278
+PRESETUID=97410670030073069
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+loop=1
+repeat=1
+duration=10
+format=0
+restart synchro=1
+synchro active=1
+set tempo=0
+tempo=120
+next mode=0
+next section number=0
+background color=$FF242424
+width=219.999984741211
+
+[GRIDBTN-2SE]
+UID=8372983843140517447
+PRESETUID=600061874628312654
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+loop=1
+repeat=1
+duration=10
+format=0
+restart synchro=1
+synchro active=1
+set tempo=0
+tempo=120
+next mode=0
+next section number=0
+background color=$FF242424
+width=219.999984741211
+
+[GRIDBTN-3SE]
+UID=8239299762679566789
+PRESETUID=8145689039202800077
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+loop=1
+repeat=1
+duration=10
+format=0
+restart synchro=1
+synchro active=1
+set tempo=0
+tempo=120
+next mode=0
+next section number=0
+background color=$FF242424
+width=219.999984741211
+
+[GRIDBTN-4SE]
+UID=2386794683813192664
+PRESETUID=6561597311791260640
+USERADDR=
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+time code=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+loop=1
+repeat=1
+duration=10
+format=0
+restart synchro=1
+synchro active=1
+set tempo=0
+tempo=120
+next mode=0
+next section number=0
+background color=$FF242424
+width=219.999984741211
+
+[HEADER-0]
+UID=9088290384781113109
+PRESETUID=6640760884123268891
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+
+[HEADER-0SE]
+UID=9088290384781113109
+PRESETUID=6640760884123268891
+on top=0
+opacity=1
+transparent=0
+background color=$FF242424
+hilited color=$FF393939
+frames count=1
+frames alignment=0
+fit size=1
+show border=1
+border color=$FF1E1E1E
+border width=1
+round size=0
+don't draw selection border=0
+show caption=1
+caption font color=$FFC0C0C0
+caption font size factor=0.600000023841858
+caption align=0
+caption V align=0
+caption font bold=0
+caption font italic=0
+caption font underline=0
+show header=0
+header height=20
+header color=$FF606060
+plain header=0
+active=1
+memo line height=40
+
+[HEADER-1]
+UID=5391503866510048909
+PRESETUID=5164374274931818132
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+
+[HEADER-1SE]
+UID=5391503866510048909
+PRESETUID=5164374274931818132
+on top=0
+opacity=1
+transparent=0
+background color=$FF242424
+hilited color=$FF393939
+frames count=1
+frames alignment=0
+fit size=1
+show border=1
+border color=$FF1E1E1E
+border width=1
+round size=0
+don't draw selection border=0
+show caption=1
+caption font color=$FFC0C0C0
+caption font size factor=0.600000023841858
+caption align=0
+caption V align=0
+caption font bold=0
+caption font italic=0
+caption font underline=0
+show header=0
+header height=20
+header color=$FF606060
+plain header=0
+active=1
+memo line height=40
+
+[HEADER-2]
+UID=493133357432261498
+PRESETUID=5860120345870420871
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+
+[HEADER-2SE]
+UID=493133357432261498
+PRESETUID=5860120345870420871
+on top=0
+opacity=1
+transparent=0
+background color=$FF242424
+hilited color=$FF393939
+frames count=1
+frames alignment=0
+fit size=1
+show border=1
+border color=$FF1E1E1E
+border width=1
+round size=0
+don't draw selection border=0
+show caption=1
+caption font color=$FFC0C0C0
+caption font size factor=0.600000023841858
+caption align=0
+caption V align=0
+caption font bold=0
+caption font italic=0
+caption font underline=0
+show header=0
+header height=20
+header color=$FF606060
+plain header=0
+active=1
+memo line height=40
+
+[HEADER-3]
+UID=8171295576309453154
+PRESETUID=4417165744931164520
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+
+[HEADER-3SE]
+UID=8171295576309453154
+PRESETUID=4417165744931164520
+on top=0
+opacity=1
+transparent=0
+background color=$FF242424
+hilited color=$FF393939
+frames count=1
+frames alignment=0
+fit size=1
+show border=1
+border color=$FF1E1E1E
+border width=1
+round size=0
+don't draw selection border=0
+show caption=1
+caption font color=$FFC0C0C0
+caption font size factor=0.600000023841858
+caption align=0
+caption V align=0
+caption font bold=0
+caption font italic=0
+caption font underline=0
+show header=0
+header height=20
+header color=$FF606060
+plain header=0
+active=1
+memo line height=40
+
+[HEADER-4]
+UID=9177137804912973516
+PRESETUID=936824902405936849
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+
+[HEADER-4SE]
+UID=9177137804912973516
+PRESETUID=936824902405936849
+on top=0
+opacity=1
+transparent=0
+background color=$FF242424
+hilited color=$FF393939
+frames count=1
+frames alignment=0
+fit size=1
+show border=1
+border color=$FF1E1E1E
+border width=1
+round size=0
+don't draw selection border=0
+show caption=1
+caption font color=$FFC0C0C0
+caption font size factor=0.600000023841858
+caption align=0
+caption V align=0
+caption font bold=0
+caption font italic=0
+caption font underline=0
+show header=0
+header height=20
+header color=$FF606060
+plain header=0
+active=1
+memo line height=40
+
+[IB]
+UID=2602498708901517752
+PRESETUID=5458239261629012435
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+
+[IBSE]
+UID=2602498708901517752
+PRESETUID=5458239261629012435
+is visible=0
+opacity=1
+transparent=0
+background color=$00000000
+hilited color=$FF696969
+frames count=1
+frames alignment=0
+fit size=1
+show border=0
+border color=$FF515151
+border width=0
+round size=0
+don't draw selection border=1
+snap to grid=0
+grid size=2
+auto reorganize=0
+reorganize margin=2
+reorganize interspace V=1
+reorganize interspace H=1
+show H scroller=1
+H scroller height=14
+H scroller color=$FF515151
+H scroller back color=$00000000
+H scroller opacity=1
+zoom scale=1
+can zoom=1
+width=1100
+height=680
+
+[MIXER]
+UID=3957512523015385395
+PRESETUID=8738349759606944066
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+COUNT=0
+
+[MIXERSE]
+UID=3957512523015385395
+PRESETUID=8738349759606944066
+
+[MODULARWIRES]
+CNT=0
+
+[GLOBSYNC]
+VERSION=121
+UID=8174123960380048696
+PRESETUID=1632738320162637119
+VISIBLE=1
+MINIMIZED=0
+MOREWASVISIBLE=0
+
+[GLOBSYNCSE]
+UID=8174123960380048696
+PRESETUID=1632738320162637119
+saved in preset=1
+fade preset=1
+bar list=4/4,4/4
+auto restart=1
+perfect synchro=0
+linked to main ON-OFF=1
+large scale=0
+frame rate=24
+start main engine on receive=1
+smpte offset=0
+show on-off=1
+show tempo=1
+
+[GLOBSYNCTEMPOtempoSE]
+UID=473870233618502662
+PRESETUID=4077041542319461386
+USERADDR=
+touch hi precision=0
+precision factor=8
+mouse mode=0
+circular mouse=0
+remote active=1
+active mode=0
+inverse=0
+quantize=0
+mode=0
+channel=1
+control type=0
+control num=0
+motorized=0
+mackie mode=0
+soft take over=0
+short cut=0
+osc tag order=1
+osc mode=0
+osc feedback=0
+osc feedback port=2002
+dmx universe=0
+dmx channel=0
+range min=0
+range max=1
+curve=2
+coeff=1
+
+[GLOBSYNCTEMPO]
+Vtempo=120
+
+[DIRECTTODISK]
+UID=2781684862607733703
+PRESETUID=1614057918260360147
+VISIBLE=0
+MINIMIZED=0
+MOREWASVISIBLE=0
+ITEM-0=Stereo Out
+COUNT=1
+
+[DIRECTTODISKSE]
+UID=2781684862607733703
+PRESETUID=1614057918260360147
+record format=0
