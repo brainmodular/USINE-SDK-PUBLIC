@@ -16,7 +16,7 @@
 		4EAD149C1A9E2E6500784045 /* UserUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD14961A9E2E6500784045 /* UserUtils.cpp */; };
 		4EAD149D1A9E2E6500784045 /* UserUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14971A9E2E6500784045 /* UserUtils.h */; };
 		4EAD149E1A9E2E6500784045 /* UsineDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14981A9E2E6500784045 /* UsineDefinitions.h */; };
-		62299FE12B175E15007F7F15 /* UsineEventClass.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 62299FE02B175E15007F7F15 /* UsineEventClass.hpp */; };
+		62299FE12B175E15007F7F15 /* UsineEventClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 62299FE02B175E15007F7F15 /* UsineEventClass.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,8 +43,7 @@
 		4EAD14961A9E2E6500784045 /* UserUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserUtils.cpp; sourceTree = "<group>"; };
 		4EAD14971A9E2E6500784045 /* UserUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserUtils.h; sourceTree = "<group>"; };
 		4EAD14981A9E2E6500784045 /* UsineDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineDefinitions.h; sourceTree = "<group>"; };
-		4EAD15021A9E367300784045 /* Usine_CPP_SDKProj.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Usine_CPP_SDKProj.xcconfig; path = ../../builds/Xcode/Usine_CPP_SDKProj.xcconfig; sourceTree = SOURCE_ROOT; };
-		62299FE02B175E15007F7F15 /* UsineEventClass.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UsineEventClass.hpp; sourceTree = "<group>"; };
+		62299FE02B175E15007F7F15 /* UsineEventClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineEventClass.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -54,7 +53,6 @@
 				4E2705001A9E39F300104AD4 /* DataOscilloscope.cpp */,
 				4E2705011A9E39F300104AD4 /* DataOscilloscope.h */,
 				4EAD14921A9E2E6500784045 /* sdk */,
-				4EAD15021A9E367300784045 /* Usine_CPP_SDKProj.xcconfig */,
 				4EAD14881A9E2D8400784045 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,7 +68,7 @@
 		4EAD14921A9E2E6500784045 /* sdk */ = {
 			isa = PBXGroup;
 			children = (
-				62299FE02B175E15007F7F15 /* UsineEventClass.hpp */,
+				62299FE02B175E15007F7F15 /* UsineEventClass.h */,
 				4EAD14931A9E2E6500784045 /* UserDefinitions.h */,
 				4EAD14941A9E2E6500784045 /* UserModule.cpp */,
 				4EAD14951A9E2E6500784045 /* UserModule.h */,
@@ -90,7 +88,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EAD14991A9E2E6500784045 /* UserDefinitions.h in Headers */,
-				62299FE12B175E15007F7F15 /* UsineEventClass.hpp in Headers */,
+				62299FE12B175E15007F7F15 /* UsineEventClass.h in Headers */,
 				4EAD149B1A9E2E6500784045 /* UserModule.h in Headers */,
 				4EAD149D1A9E2E6500784045 /* UserUtils.h in Headers */,
 				4EAD149E1A9E2E6500784045 /* UsineDefinitions.h in Headers */,
@@ -196,7 +194,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = NO;
-				SDKROOT = macosx;
+				SDKROOT = macosx13.0;
 				SYMROOT = /tmp;
 				VALID_ARCHS = arm64;
 			};
@@ -204,7 +202,6 @@
 		};
 		4EAD140C1A9E2A8F00784045 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EAD15021A9E367300784045 /* Usine_CPP_SDKProj.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
@@ -237,7 +234,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = NO;
-				SDKROOT = macosx;
+				SDKROOT = macosx13.0;
 				SYMROOT = /tmp;
 				VALID_ARCHS = arm64;
 			};
@@ -277,7 +274,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = DataOscilloscope;
-				SDKROOT = macosx;
+				SDKROOT = macosx13.0;
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				SYMROOT = /tmp;
@@ -318,7 +315,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = DataOscilloscope;
-				SDKROOT = macosx;
+				SDKROOT = macosx13.0;
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				SYMROOT = /tmp;

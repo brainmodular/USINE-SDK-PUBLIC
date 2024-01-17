@@ -238,7 +238,7 @@ void RingMod::onProcess ()
 		
 		// Mixing 
 		// Dry
-		bufferTemp.copy(audioInputs[i]);
+		bufferTemp.copyfrom(audioInputs[i]);
 		bufferTemp.mult(1.0f - coeffMix);
 		// Wet
 		audioOutputs[i].mult(coeffMix);

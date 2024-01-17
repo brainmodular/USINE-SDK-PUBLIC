@@ -230,7 +230,7 @@ void AudioVolume::onProcess ()
 {
 	for (int i = 0; i < numOfAudiotInsOuts; i++)
     {
-		audioOutputs[i].copy(audioInputs[i]);
+		audioOutputs[i].copyfrom(audioInputs[i]);
         audioOutputs[i].mult(coeffGain);
     }
 }

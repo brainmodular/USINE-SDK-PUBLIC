@@ -138,7 +138,7 @@ void processThread1(void* pModule, TThreadPtr pThread)
 	try
 	{
 		module->sdkCriticalSectionLock(module->criticalSection);
-		module->sdkTraceChar("thread 1");
+		sdkTraceChar("thread 1");
 	}
 	catch (...)
 	{
@@ -153,8 +153,8 @@ void processThread2(void* pModule, TThreadPtr pThread)
 	MultiThreading* module = static_cast<MultiThreading*>(pModule);
 	try
 	{
-		module->sdkCriticalSectionLock(module->criticalSection);
-		module->sdkTraceChar("thread 2");
+        module->sdkCriticalSectionLock(module->criticalSection);
+		sdkTraceChar("thread 2");
 	}
 	catch (...)
 	{

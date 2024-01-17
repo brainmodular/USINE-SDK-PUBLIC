@@ -100,8 +100,8 @@ public:
 private:
 	//-------------------------------------------------------------------------
 	// parameters events
-    UsineEventClass audioInputs[AUDIO_INS_OUTS_MAX];     // audio input
-    UsineEventClass audioOutputs[AUDIO_INS_OUTS_MAX];    // audio output
+    UsineEventClass audioInputs[USINE_MAX_AUDIO_INPUTS];     // audio input
+    UsineEventClass audioOutputs[USINE_MAX_AUDIO_OUTPUTS];    // audio output
 	UsineEventClass fdrGain;
 	UsineEventClass switchMute;
 	

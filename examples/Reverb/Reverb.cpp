@@ -103,7 +103,7 @@ Reverb::Reverb()
 // destructor
 Reverb::~Reverb()
 {
-    for(int v = 0; v < AUDIO_INS_OUTS_MAX; ++v)
+    for(int v = 0; v < numOfAudiotInsOuts; ++v)
     {
         if (temp[v] != nullptr)
             temp[v].destroyEvent();
@@ -166,7 +166,7 @@ void Reverb::onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, i
 void Reverb::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
 {
 	
-    for(int v = 0; v < AUDIO_INS_OUTS_MAX; ++v)
+    for(int v = 0; v < numOfAudiotInsOuts; ++v)
     {
         temp[v].createEvent(1);
         temp2[v].createEvent(1);
@@ -353,14 +353,14 @@ void Reverb::onProcess ()
 
     for(int v = 0; v < numOfAudiotInsOuts; ++v)
     {
-        processInput[v].copy(audioInputs[v]);
+        processInput[v].copyfrom(audioInputs[v]);
         processInput[v].mult(coeffwet1);
         processOutput[v].clearAudio();
 
         // dry part
         if (currentdry != 0)
         {
-            audioOutputs[v].copy(audioInputs[v]);
+            audioOutputs[v].copyfrom(audioInputs[v]);
             audioOutputs[v].mult(currentdry);
         }
         else
@@ -374,7 +374,7 @@ void Reverb::onProcess ()
     {
         for(int v = 0; v < numOfAudiotInsOuts; ++v)
         {
-            temp[v].copy(audioInputs[v]);
+            temp[v].copyfrom(audioInputs[v]);
             temp[v].mult(coeffwet2);       
         }
         for(int v = 0; v < numOfAudiotInsOuts; ++v)
@@ -428,7 +428,7 @@ void Reverb::onProcess ()
 
         for(int v = 0; v < numOfAudiotInsOuts; ++v)
         {
-            temp[v].copy(audioOutputs[v]);
+            temp[v].copyfrom(audioOutputs[v]);
             temp[v].mult(currentwet2);
         }
 

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		629CA0C12B15000000BD4832 /* UsineEventClass.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 629CA0C02B15000000BD4832 /* UsineEventClass.hpp */; };
+		629CA0C12B15000000BD4832 /* UsineEventClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 629CA0C02B15000000BD4832 /* UsineEventClass.h */; };
 		62C2EA5F2B07AD1F00A282C6 /* UserDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14931A9E2E6500784045 /* UserDefinitions.h */; };
 		62C2EA602B07AD1F00A282C6 /* UserModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14951A9E2E6500784045 /* UserModule.h */; };
 		62C2EA612B07AD1F00A282C6 /* UserUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14971A9E2E6500784045 /* UserUtils.h */; };
@@ -41,8 +41,7 @@
 		4EAD14981A9E2E6500784045 /* UsineDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineDefinitions.h; sourceTree = "<group>"; };
 		4EAD149F1A9E2E8800784045 /* ArrayDelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ArrayDelay.cpp; sourceTree = "<group>"; };
 		4EAD14A01A9E2E8800784045 /* ArrayDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayDelay.h; sourceTree = "<group>"; };
-		4EAD15021A9E367300784045 /* Usine_CPP_SDKProj.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Usine_CPP_SDKProj.xcconfig; path = ../../builds/Xcode/Usine_CPP_SDKProj.xcconfig; sourceTree = SOURCE_ROOT; };
-		629CA0C02B15000000BD4832 /* UsineEventClass.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UsineEventClass.hpp; sourceTree = "<group>"; };
+		629CA0C02B15000000BD4832 /* UsineEventClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineEventClass.h; sourceTree = "<group>"; };
 		62C2EA6D2B07AD1F00A282C6 /* ArrayDelay.usr-macos64uni */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "ArrayDelay.usr-macos64uni"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -53,7 +52,6 @@
 				4EAD149F1A9E2E8800784045 /* ArrayDelay.cpp */,
 				4EAD14A01A9E2E8800784045 /* ArrayDelay.h */,
 				4EAD14921A9E2E6500784045 /* sdk */,
-				4EAD15021A9E367300784045 /* Usine_CPP_SDKProj.xcconfig */,
 				4EAD14881A9E2D8400784045 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -69,7 +67,7 @@
 		4EAD14921A9E2E6500784045 /* sdk */ = {
 			isa = PBXGroup;
 			children = (
-				629CA0C02B15000000BD4832 /* UsineEventClass.hpp */,
+				629CA0C02B15000000BD4832 /* UsineEventClass.h */,
 				4EAD14931A9E2E6500784045 /* UserDefinitions.h */,
 				4EAD14941A9E2E6500784045 /* UserModule.cpp */,
 				4EAD14951A9E2E6500784045 /* UserModule.h */,
@@ -89,7 +87,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				62C2EA5F2B07AD1F00A282C6 /* UserDefinitions.h in Headers */,
-				629CA0C12B15000000BD4832 /* UsineEventClass.hpp in Headers */,
+				629CA0C12B15000000BD4832 /* UsineEventClass.h in Headers */,
 				62C2EA602B07AD1F00A282C6 /* UserModule.h in Headers */,
 				62C2EA612B07AD1F00A282C6 /* UserUtils.h in Headers */,
 				62C2EA622B07AD1F00A282C6 /* UsineDefinitions.h in Headers */,
@@ -206,7 +204,6 @@
 		};
 		4EAD140C1A9E2A8F00784045 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EAD15021A9E367300784045 /* Usine_CPP_SDKProj.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";

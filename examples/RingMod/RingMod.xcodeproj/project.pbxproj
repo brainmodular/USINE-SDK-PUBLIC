@@ -14,7 +14,7 @@
 		4EAD149D1A9E2E6500784045 /* UserUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14971A9E2E6500784045 /* UserUtils.h */; };
 		4EAD149E1A9E2E6500784045 /* UsineDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14981A9E2E6500784045 /* UsineDefinitions.h */; };
 		624DEC4B2B176EB400FAD546 /* UserDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 624DEC492B176EB400FAD546 /* UserDefinitions.h */; };
-		624DEC4C2B176EB400FAD546 /* UsineEventClass.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 624DEC4A2B176EB400FAD546 /* UsineEventClass.hpp */; };
+		624DEC4C2B176EB400FAD546 /* UsineEventClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 624DEC4A2B176EB400FAD546 /* UsineEventClass.h */; };
 		FC84A3182A2F841D007E1227 /* RingMod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FC84A3162A2F841D007E1227 /* RingMod.cpp */; };
 		FC84A3192A2F841D007E1227 /* RingMod.h in Headers */ = {isa = PBXBuildFile; fileRef = FC84A3172A2F841D007E1227 /* RingMod.h */; };
 /* End PBXBuildFile section */
@@ -40,7 +40,7 @@
 		4EAD14971A9E2E6500784045 /* UserUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserUtils.h; sourceTree = "<group>"; };
 		4EAD14981A9E2E6500784045 /* UsineDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineDefinitions.h; sourceTree = "<group>"; };
 		624DEC492B176EB400FAD546 /* UserDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefinitions.h; sourceTree = "<group>"; };
-		624DEC4A2B176EB400FAD546 /* UsineEventClass.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UsineEventClass.hpp; sourceTree = "<group>"; };
+		624DEC4A2B176EB400FAD546 /* UsineEventClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineEventClass.h; sourceTree = "<group>"; };
 		FC84A3162A2F841D007E1227 /* RingMod.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RingMod.cpp; sourceTree = "<group>"; };
 		FC84A3172A2F841D007E1227 /* RingMod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RingMod.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,7 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				624DEC492B176EB400FAD546 /* UserDefinitions.h */,
-				624DEC4A2B176EB400FAD546 /* UsineEventClass.hpp */,
+				624DEC4A2B176EB400FAD546 /* UsineEventClass.h */,
 				4EAD14941A9E2E6500784045 /* UserModule.cpp */,
 				4EAD14951A9E2E6500784045 /* UserModule.h */,
 				4EAD14961A9E2E6500784045 /* UserUtils.cpp */,
@@ -87,7 +87,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC84A3192A2F841D007E1227 /* RingMod.h in Headers */,
-				624DEC4C2B176EB400FAD546 /* UsineEventClass.hpp in Headers */,
+				624DEC4C2B176EB400FAD546 /* UsineEventClass.h in Headers */,
 				624DEC4B2B176EB400FAD546 /* UserDefinitions.h in Headers */,
 				4EAD149B1A9E2E6500784045 /* UserModule.h in Headers */,
 				4EAD149D1A9E2E6500784045 /* UserUtils.h in Headers */,
@@ -200,11 +200,11 @@
 					"-mstackrealign",
 					"$(OTHER_CFLAGS)",
 				);
-				SDKROOT = macosx;
+				SDKROOT = macosx13.0;
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				SYMROOT = /tmp;
-				VALID_ARCHS = "arm64 arm64e i386";
+				VALID_ARCHS = "x86_64 arm64";
 			};
 			name = Debug;
 		};
@@ -249,11 +249,11 @@
 					"-mstackrealign",
 					"$(OTHER_CFLAGS)",
 				);
-				SDKROOT = macosx;
+				SDKROOT = macosx13.0;
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				SYMROOT = /tmp;
-				VALID_ARCHS = "arm64 arm64e i386";
+				VALID_ARCHS = "x86_64 arm64";
 			};
 			name = Release;
 		};
@@ -279,7 +279,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/lib;
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-Wno-write-strings",
@@ -288,7 +288,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = RingMod;
-				SDKROOT = macosx;
+				SDKROOT = macosx13.0;
 				SKIP_INSTALL = YES;
 				SYMROOT = /tmp;
 				VALID_ARCHS = "x86_64 arm64";
@@ -316,7 +316,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/lib;
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-Wno-write-strings",
@@ -325,7 +325,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = RingMod;
-				SDKROOT = macosx;
+				SDKROOT = macosx13.0;
 				SKIP_INSTALL = YES;
 				SYMROOT = /tmp;
 				VALID_ARCHS = "x86_64 arm64";

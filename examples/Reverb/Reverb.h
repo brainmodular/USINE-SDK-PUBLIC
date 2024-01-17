@@ -118,8 +118,8 @@ protected:
 protected:
 	//-------------------------------------------------------------------------
 	// parameters events
-    UsineEventClass audioInputs[AUDIO_INS_OUTS_MAX];     // audio input
-    UsineEventClass audioOutputs[AUDIO_INS_OUTS_MAX];    // audio output
+    UsineEventClass audioInputs[USINE_MAX_AUDIO_INPUTS];     // audio input
+    UsineEventClass audioOutputs[USINE_MAX_AUDIO_OUTPUTS];    // audio output
 	UsineEventClass swtchMode;
 	UsineEventClass fdrRoomSize;
 	UsineEventClass fdrDamping;
@@ -132,16 +132,16 @@ protected:
 	int numOfAudiotInsOuts;
 	int numOfParamAfterAudiotInOut;
     
-    TPrecision* audioInputsPointers[AUDIO_INS_OUTS_MAX];
-    TPrecision* audioOutputsPointers[AUDIO_INS_OUTS_MAX];
+    TPrecision* audioInputsPointers[USINE_MAX_AUDIO_INPUTS];
+    TPrecision* audioOutputsPointers[USINE_MAX_AUDIO_OUTPUTS];
 
     // reverb stuff
 	//revmodel*	reverbModel;
-    UsineEventClass temp[AUDIO_INS_OUTS_MAX];
-    UsineEventClass temp2[AUDIO_INS_OUTS_MAX];
+    UsineEventClass temp[USINE_MAX_AUDIO_INPUTS];
+    UsineEventClass temp2[USINE_MAX_AUDIO_OUTPUTS];
 
-    UsineEventClass processOutput[AUDIO_INS_OUTS_MAX];
-    UsineEventClass processInput[AUDIO_INS_OUTS_MAX];
+    UsineEventClass processOutput[USINE_MAX_AUDIO_INPUTS];
+    UsineEventClass processInput[USINE_MAX_AUDIO_OUTPUTS];
 
     // default values for the reverb model param
     // !!!!! in module scale (not between 0 and 1)

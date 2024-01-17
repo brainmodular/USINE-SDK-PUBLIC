@@ -177,7 +177,7 @@ void Grain::getSample(TPrecision* audioBlock)
             int i2 = (i1 + 1) % bufferSize;
             int i3 = (i2 + 1) % bufferSize;
 
-            audioBlock[0] += module->sdkCubicInterpolation (x , buffer[im1], buffer[i1], buffer[i2], buffer[i3]) * amp;
+            audioBlock[0] += sdkCubicInterpolation (x , buffer[im1], buffer[i1], buffer[i2], buffer[i3]) * amp;
         }
         // pitch from -24 to +48
         else

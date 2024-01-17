@@ -14,7 +14,7 @@
       <Filter>sdk</Filter>
     </ClInclude>
     <ClInclude Include="DataOscilloscope.h" />
-    <ClInclude Include="..\..\sdk\UsineEventClass.hpp">
+    <ClInclude Include="..\..\sdk\UsineEventClass.h">
       <Filter>sdk</Filter>
     </ClInclude>
   </ItemGroup>

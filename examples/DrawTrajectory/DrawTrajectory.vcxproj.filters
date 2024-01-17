@@ -14,7 +14,7 @@
       <Filter>sdk</Filter>
     </ClInclude>
     <ClInclude Include="DrawTrajectory.h" />
-    <ClInclude Include="..\..\sdk\UsineEventClass.hpp">
+    <ClInclude Include="..\..\sdk\UsineEventClass.h">
       <Filter>sdk</Filter>
     </ClInclude>
   </ItemGroup>

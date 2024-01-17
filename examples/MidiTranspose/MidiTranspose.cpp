@@ -155,7 +155,7 @@ void MidiTransposeExample::onProcess ()
 
     if (sizeMidiIn > 0)
     {
-        midiOut.copy(midiIn);
+        midiOut.copyfrom(midiIn);
         int pitch = (int)fdrPitch.getData();
 
 	    for (int i = 0; i < sizeMidiIn; i++)

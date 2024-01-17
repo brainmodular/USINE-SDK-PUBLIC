@@ -28,7 +28,7 @@
     <ClInclude Include="..\..\sdk\UserModule.h" />
     <ClInclude Include="..\..\sdk\UserUtils.h" />
     <ClInclude Include="..\..\sdk\UsineDefinitions.h" />
-    <ClInclude Include="..\..\sdk\UsineEventClass.hpp" />
+    <ClInclude Include="..\..\sdk\UsineEventClass.h" />
     <ClInclude Include="GlobalArray.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

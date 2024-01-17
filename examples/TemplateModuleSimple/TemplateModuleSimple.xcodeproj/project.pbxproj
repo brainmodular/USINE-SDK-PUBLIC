@@ -16,6 +16,7 @@
 		4EAD149C1A9E2E6500784045 /* UserUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD14961A9E2E6500784045 /* UserUtils.cpp */; };
 		4EAD149D1A9E2E6500784045 /* UserUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14971A9E2E6500784045 /* UserUtils.h */; };
 		4EAD149E1A9E2E6500784045 /* UsineDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14981A9E2E6500784045 /* UsineDefinitions.h */; };
+		74B30E142B58027B007B95E4 /* UsineEventClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 74B30E132B58027B007B95E4 /* UsineEventClass.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,6 +42,7 @@
 		4EAD14961A9E2E6500784045 /* UserUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserUtils.cpp; sourceTree = "<group>"; };
 		4EAD14971A9E2E6500784045 /* UserUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserUtils.h; sourceTree = "<group>"; };
 		4EAD14981A9E2E6500784045 /* UsineDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineDefinitions.h; sourceTree = "<group>"; };
+		74B30E132B58027B007B95E4 /* UsineEventClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineEventClass.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -71,6 +73,7 @@
 				4EAD14961A9E2E6500784045 /* UserUtils.cpp */,
 				4EAD14971A9E2E6500784045 /* UserUtils.h */,
 				4EAD14981A9E2E6500784045 /* UsineDefinitions.h */,
+				74B30E132B58027B007B95E4 /* UsineEventClass.h */,
 			);
 			name = sdk;
 			path = ../../sdk;
@@ -86,6 +89,7 @@
 				4EAD14991A9E2E6500784045 /* UserDefinitions.h in Headers */,
 				4EAD149B1A9E2E6500784045 /* UserModule.h in Headers */,
 				4EAD149D1A9E2E6500784045 /* UserUtils.h in Headers */,
+				74B30E142B58027B007B95E4 /* UsineEventClass.h in Headers */,
 				4EAD149E1A9E2E6500784045 /* UsineDefinitions.h in Headers */,
 				4E2705211A9E3AA600104AD4 /* TemplateModuleSimple.h in Headers */,
 			);
@@ -236,6 +240,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
@@ -278,6 +283,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";

@@ -16,7 +16,7 @@
     <ClInclude Include="Envelopes.h" />
     <ClInclude Include="Grain.h" />
     <ClInclude Include="Granulator.h" />
-    <ClInclude Include="..\..\sdk\UsineEventClass.hpp">
+    <ClInclude Include="..\..\sdk\UsineEventClass.h">
       <Filter>sdk</Filter>
     </ClInclude>
   </ItemGroup>

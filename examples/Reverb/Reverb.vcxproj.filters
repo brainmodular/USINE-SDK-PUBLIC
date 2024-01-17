@@ -34,7 +34,7 @@
     <ClInclude Include="comb.hpp" />
     <ClInclude Include="denormals.h" />
     <ClInclude Include="tuning.h" />
-    <ClInclude Include="..\..\sdk\UsineEventClass.hpp">
+    <ClInclude Include="..\..\sdk\UsineEventClass.h">
       <Filter>sdk</Filter>
     </ClInclude>
   </ItemGroup>

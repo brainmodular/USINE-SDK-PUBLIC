@@ -160,7 +160,7 @@ void GranulatorModule::onInitModule (MasterInfo* pMasterInfo, TModuleInfo* pModu
         }
 	}
 
-    onSampleRateChange(sdkGetVstTimeInfo()->sampleRate);
+    onSampleRateChange(sdkGetSampleRate());
     changeDuration();
     changePitch();
 }

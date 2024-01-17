@@ -20,7 +20,7 @@
 		4F5A611229D4770B00AB9052 /* Envelopes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F5A610E29D4770B00AB9052 /* Envelopes.cpp */; };
 		4F5A611329D4770B00AB9052 /* Envelopes.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F5A610F29D4770B00AB9052 /* Envelopes.h */; };
 		4F5A611429D4770B00AB9052 /* Grain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F5A611029D4770B00AB9052 /* Grain.cpp */; };
-		62299FA52B174717007F7F15 /* UsineEventClass.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 62299FA42B174717007F7F15 /* UsineEventClass.hpp */; };
+		62299FA52B174717007F7F15 /* UsineEventClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 62299FA42B174717007F7F15 /* UsineEventClass.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,7 +51,7 @@
 		4F5A610E29D4770B00AB9052 /* Envelopes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Envelopes.cpp; sourceTree = "<group>"; };
 		4F5A610F29D4770B00AB9052 /* Envelopes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Envelopes.h; sourceTree = "<group>"; };
 		4F5A611029D4770B00AB9052 /* Grain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Grain.cpp; sourceTree = "<group>"; };
-		62299FA42B174717007F7F15 /* UsineEventClass.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UsineEventClass.hpp; sourceTree = "<group>"; };
+		62299FA42B174717007F7F15 /* UsineEventClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineEventClass.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -80,7 +80,7 @@
 		4EAD14921A9E2E6500784045 /* sdk */ = {
 			isa = PBXGroup;
 			children = (
-				62299FA42B174717007F7F15 /* UsineEventClass.hpp */,
+				62299FA42B174717007F7F15 /* UsineEventClass.h */,
 				4EAD14931A9E2E6500784045 /* UserDefinitions.h */,
 				4EAD14941A9E2E6500784045 /* UserModule.cpp */,
 				4EAD14951A9E2E6500784045 /* UserModule.h */,
@@ -104,7 +104,7 @@
 				4EAD14991A9E2E6500784045 /* UserDefinitions.h in Headers */,
 				4EAD149B1A9E2E6500784045 /* UserModule.h in Headers */,
 				4EAD149D1A9E2E6500784045 /* UserUtils.h in Headers */,
-				62299FA52B174717007F7F15 /* UsineEventClass.hpp in Headers */,
+				62299FA52B174717007F7F15 /* UsineEventClass.h in Headers */,
 				4EAD149E1A9E2E6500784045 /* UsineDefinitions.h in Headers */,
 				4EAD14A21A9E2E8800784045 /* Granulator.h in Headers */,
 			);
@@ -296,7 +296,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Granulator;
-				SDKROOT = macosx;
+				SDKROOT = macosx13.0;
 				SKIP_INSTALL = YES;
 				SYMROOT = /tmp;
 				VALID_ARCHS = "x86_64 arm64";
@@ -336,7 +336,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Granulator;
-				SDKROOT = macosx;
+				SDKROOT = macosx13.0;
 				SKIP_INSTALL = YES;
 				SYMROOT = /tmp;
 				VALID_ARCHS = "x86_64 arm64";

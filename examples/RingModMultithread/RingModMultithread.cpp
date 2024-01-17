@@ -148,10 +148,10 @@ void processThreadCommon(void* pModule, TThreadPtr pThread, int start)
 	RingModMultithread* module = static_cast<RingModMultithread*>(pModule);
 	for (int i = start; i < module->numOfAudiotInsOuts; i += 2) {
 		// Multiplying
-		module->sdkMultEvt3(module->audioInputs[i], module->modInput, module->audioOutputs[i]);
+		sdkMultEvt3(module->audioInputs[i], module->modInput, module->audioOutputs[i]);
 		// Mixing 
 		// Dry
-		module->bufferTemp[i].copy(module->audioInputs[i]);
+		module->bufferTemp[i].copyfrom(module->audioInputs[i]);
 		module->bufferTemp[i].mult(1.0f - module->coeffMix);
 		// Wet
 		module->audioOutputs[i].mult(module->coeffMix);
@@ -169,7 +169,7 @@ void processThreadCommon(void* pModule, TThreadPtr pThread, int start)
 	}
 	module->sdkCriticalSectionUnLock(module->criticalSection);
 	if (module->cptEvents <= 0) {
-		module->sdkSyncObjectSet(module->syncObject);
+		sdkSyncObjectSet(module->syncObject);
 	}
 }
 
@@ -197,7 +197,7 @@ void RingModMultithread::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pM
 	criticalSection = sdkCriticalSectionCreate("critical section");
 
 	// initializing buffer temp
-	for (int v = 0; v < AUDIO_INS_OUTS_MAX; ++v)
+	for (int v = 0; v < numOfAudiotInsOuts; ++v)
 	{
 		bufferTemp[v].createEvent(1);
 	}

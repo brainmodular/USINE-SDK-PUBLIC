@@ -21,7 +21,7 @@
 		4F72E04829D736C500E6B1B2 /* allpass.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4F72E04329D736C500E6B1B2 /* allpass.hpp */; };
 		4F72E04929D736C500E6B1B2 /* comb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F72E04429D736C500E6B1B2 /* comb.cpp */; };
 		4F72E04A29D736C500E6B1B2 /* comb.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4F72E04529D736C500E6B1B2 /* comb.hpp */; };
-		62299FED2B175F25007F7F15 /* UsineEventClass.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 62299FEC2B175F25007F7F15 /* UsineEventClass.hpp */; };
+		62299FED2B175F25007F7F15 /* UsineEventClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 62299FEC2B175F25007F7F15 /* UsineEventClass.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -52,7 +52,7 @@
 		4F72E04329D736C500E6B1B2 /* allpass.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = allpass.hpp; sourceTree = "<group>"; };
 		4F72E04429D736C500E6B1B2 /* comb.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = comb.cpp; sourceTree = "<group>"; };
 		4F72E04529D736C500E6B1B2 /* comb.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = comb.hpp; sourceTree = "<group>"; };
-		62299FEC2B175F25007F7F15 /* UsineEventClass.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UsineEventClass.hpp; sourceTree = "<group>"; };
+		62299FEC2B175F25007F7F15 /* UsineEventClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineEventClass.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -82,7 +82,7 @@
 		4EAD14921A9E2E6500784045 /* sdk */ = {
 			isa = PBXGroup;
 			children = (
-				62299FEC2B175F25007F7F15 /* UsineEventClass.hpp */,
+				62299FEC2B175F25007F7F15 /* UsineEventClass.h */,
 				4EAD14931A9E2E6500784045 /* UserDefinitions.h */,
 				4EAD14941A9E2E6500784045 /* UserModule.cpp */,
 				4EAD14951A9E2E6500784045 /* UserModule.h */,
@@ -108,7 +108,7 @@
 				4EAD149D1A9E2E6500784045 /* UserUtils.h in Headers */,
 				4EAD149E1A9E2E6500784045 /* UsineDefinitions.h in Headers */,
 				4E2705211A9E3AA600104AD4 /* Reverb.h in Headers */,
-				62299FED2B175F25007F7F15 /* UsineEventClass.hpp in Headers */,
+				62299FED2B175F25007F7F15 /* UsineEventClass.h in Headers */,
 				4F72E04A29D736C500E6B1B2 /* comb.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,7 +292,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Reverb;
-				SDKROOT = macosx;
+				SDKROOT = macosx13.0;
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				SYMROOT = /tmp;
@@ -334,7 +334,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Reverb;
-				SDKROOT = macosx;
+				SDKROOT = macosx13.0;
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				SYMROOT = /tmp;

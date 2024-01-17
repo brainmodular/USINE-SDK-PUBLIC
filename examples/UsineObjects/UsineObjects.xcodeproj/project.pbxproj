@@ -16,7 +16,7 @@
 		4EAD149E1A9E2E6500784045 /* UsineDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14981A9E2E6500784045 /* UsineDefinitions.h */; };
 		4EAD14A11A9E2E8800784045 /* UsineObjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD149F1A9E2E8800784045 /* UsineObjects.cpp */; };
 		4EAD14A21A9E2E8800784045 /* UsineObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14A01A9E2E8800784045 /* UsineObjects.h */; };
-		624DEC542B176FDF00FAD546 /* UsineEventClass.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 624DEC532B176FDF00FAD546 /* UsineEventClass.hpp */; };
+		624DEC542B176FDF00FAD546 /* UsineEventClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 624DEC532B176FDF00FAD546 /* UsineEventClass.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,7 +42,7 @@
 		4EAD14981A9E2E6500784045 /* UsineDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineDefinitions.h; sourceTree = "<group>"; };
 		4EAD149F1A9E2E8800784045 /* UsineObjects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UsineObjects.cpp; sourceTree = "<group>"; };
 		4EAD14A01A9E2E8800784045 /* UsineObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineObjects.h; sourceTree = "<group>"; };
-		624DEC532B176FDF00FAD546 /* UsineEventClass.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UsineEventClass.hpp; sourceTree = "<group>"; };
+		624DEC532B176FDF00FAD546 /* UsineEventClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineEventClass.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -67,7 +67,7 @@
 		4EAD14921A9E2E6500784045 /* sdk */ = {
 			isa = PBXGroup;
 			children = (
-				624DEC532B176FDF00FAD546 /* UsineEventClass.hpp */,
+				624DEC532B176FDF00FAD546 /* UsineEventClass.h */,
 				4EAD14931A9E2E6500784045 /* UserDefinitions.h */,
 				4EAD14941A9E2E6500784045 /* UserModule.cpp */,
 				4EAD14951A9E2E6500784045 /* UserModule.h */,
@@ -87,7 +87,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EAD14991A9E2E6500784045 /* UserDefinitions.h in Headers */,
-				624DEC542B176FDF00FAD546 /* UsineEventClass.hpp in Headers */,
+				624DEC542B176FDF00FAD546 /* UsineEventClass.h in Headers */,
 				4EAD149B1A9E2E6500784045 /* UserModule.h in Headers */,
 				4EAD149D1A9E2E6500784045 /* UserUtils.h in Headers */,
 				4EAD149E1A9E2E6500784045 /* UsineDefinitions.h in Headers */,
@@ -277,7 +277,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = UsineObjects;
-				SDKROOT = macosx;
+				SDKROOT = macosx13.0;
 				SKIP_INSTALL = YES;
 				SYMROOT = /tmp;
 				VALID_ARCHS = "x86_64 arm64";
@@ -315,7 +315,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = UsineObjects;
-				SDKROOT = macosx;
+				SDKROOT = macosx13.0;
 				SKIP_INSTALL = YES;
 				SYMROOT = /tmp;
 				VALID_ARCHS = "x86_64 arm64";
