@@ -9,7 +9,7 @@
 ///	Datas and functions declarations exposed by Usine.
 ///
 ///
-///IMPORTANT
+///@IMPORTANT
 ///	This file is part of the Usine Hollyhock CPP SDK
 ///
 ///  Please, report bugs and patch to Usine forum :
@@ -17,27 +17,9 @@
 ///
 /// All dependencies are under there own licence.
 ///
-///@LICENCE
-/// Copyright (C) 2013, 2014, 2015, 2019 BrainModular
+///@LICENSE
+/// Copyright (C) 2023 BrainModular, BeSpline, Adamson
 /// 
-/// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-/// this software and associated documentation files (the "Software"), 
-/// to deal in the Software without restriction, including without limitation 
-/// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-/// and/or sell copies of the Software, and to permit persons to whom the Software 
-/// is furnished to do so, subject to the following conditions:
-/// 
-/// The above copyright notice and this permission notice shall be included in all 
-///     copies or substantial portions of the Software.
-/// 
-/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-/// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-/// SOFTWARE.
-///
 ///-----------------------------------------------------------------------------
 
 // include once, no more
@@ -61,11 +43,9 @@
 //-----------------------------------------------------------------------------
 #if (defined (USINE_WIN32) || defined (USINE_WIN64))
 //-----------------------------------------------------------------------------
-
 //-----------------------------------------------------------------------------
 #elif (defined (USINE_OSX32) || defined (USINE_OSX64))
 //-----------------------------------------------------------------------------
-
 //-----------------------------------------------------------------------------
 #else
   #error "conditional compilation error!"
@@ -105,7 +85,7 @@
 //-----------------------------------------------------------------------------
 // version of the SDK
 // to use in GetSDKVersion function to return the SDK version number
-static int const SDK_VERSION = 701006;
+static int const SDK_VERSION = 701007;
 
 
 //-----------------------------------------------------------------------------
@@ -148,11 +128,16 @@ typedef  uint32_t UINT32 ;
 /// @addtogroup Datatypes
 /// @{
 
-/// Number of audio in or out channels in Usine
-#define AUDIO_INS_OUTS_MAX 128
-
+/// Number of audio in or out channels for modules
+#define USINE_MULTIPHONY_MAX 144
+/// Max number of input audio channels for the sound card
+#define USINE_MAX_AUDIO_INPUTS 256
+/// Max number of output audio channels for the sound card
+#define USINE_MAX_AUDIO_OUTPUTS 256
 /// Max size of Audio Blocs in Usine
-#define MAX_AUDIO_EVT_SIZE 1024  
+#define USINE_MAX_AUDIO_EVT_SIZE 1024  
+/// Max number of MIDI devices connected
+#define USINE_MAX_MIDI_DEVICES 64
 
 //-----------------------------------------------------------------------------
 /// Custom bool type to match the 4 bytes DELPHI LongBool type.
@@ -296,92 +281,138 @@ typedef TUsineColor UsineColor;
 /// handle to an audio file.
 typedef void* TAudioFilePtr;
 
+//-----------------------------------------------------------------------------
+/// handle to a critical section.
+typedef void* TCriticalSectionPtr;
+
+//-----------------------------------------------------------------------------
+/// handle to a thread.
+typedef void* TThreadPtr;
+
+/// Thread priorities.
+typedef enum TThreadPriority
+{
+    tpIDLE,     ///< executed when the application is in IDLE state 
+    tpLow,      ///< low priority
+    tpMedium,   ///< medium priority
+    tpHigh      ///< time critical priority
+} TThreadPriority;
+
+//-----------------------------------------------------------------------------
+/// Synchronization objects to synchronize threads.
+typedef void* TSyncObjectPtr;
+
 
 //-----------------------------------------------------------------------------
 /// Color set used by Usine.
-typedef enum TUsineColorSet
-{
-	g0, g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, 
-	clWhite, 
-	cl0, cl1, cl2, cl3, cl4, cl5, cl6, cl7, 
-	cl8, cl9, cl10, cl11, cl12, cl13, cl14,	cl15, 
-	cl16, cl17, cl18, cl19, cl20, cl21, cl22, cl23, 
-	clURed,
-
-	clMainBack, 
-	clDarkPanelBack, 
-	clLiterPanelBack, 
-	clMoreLitePanelBack,
-	clVeryLitePanelBack,
-	clFontLight, 
-	clFontLow, 
-	clFontMedium, 
-	clFontColored,
-	clSwitchOnColored, 
-	clButton,
-	clDataFlow, 
-	clMIDIFlow, 
-	clAudioFlow, 
-	clArrayFlow, 
-	clTextFlow, 
-	clColorFlow,
-	clPointerFlow, 
-	clVuMeterMIDI, 
-	clVuMeterAudio, 
-	clBitwiseFlow,
-	clVideoFlow, 
-	clSwitchFlow, 
-	clTriggerFlow, 
-	clListboxflow,
-	clSelected, 
-	clDragOver, 
-	clMouseOver,
-	clMIDIlearning, 
-	clMIDILearnedIcon, 
-	clQuantizedIcon,
-	clNotStoredIcon,
-	clCursor, 
-	clInvalidLink,
-	clInterfaceDesignModuleColor, 
-	clVideoModuleColor, 
-	clAudioModuleColor,
-	clPluginModuleColor, 
-	clMIDIModuleColor, 
-	clEventModuleColor,
-	clDataModuleColor, 
-	clArrayModuleColor, 
-	clMathModuleColor,
-	clSubPatchModuleColor, 
-	clScriptModuleColor, 
-	clNetworkModuleColor,
-	clInterfaceCtrlModuleColor, 
-	clTextModuleColor, 
-	clFixtureModuleColor,
-	clColorModuleColor,
-	clLiterAUDIOflow, 
-	clLiterMIDIflow, 
-	clLiterDATAflow, 
-	clLiterARRAYflow,
-	clLiterTextflow, 
-	clLiterColorflow, 
-	clLiterPointerFlow, 
-	clLiterBitwiseFlow,
-	clLiterVideoFlow, 
-	clLiterSwitchflow, 
-	clLiterTriggerflow, 
-	clLiterListboxflow,
-	clMenuForeGroundColor, 
-	clMenuMouseOverColor, 
-	clGridColor
-	
-} TUsineColorSet;
+static const UINT32 clg0 = 1;
+static const UINT32 clg1 = 2;
+static const UINT32 clg2 = 3;
+static const UINT32 clg3 = 4;
+static const UINT32 clg4 = 5;
+static const UINT32 clg5 = 6;
+static const UINT32 clg6 = 7;
+static const UINT32 clg7 = 8;
+static const UINT32 clg8 = 9;
+static const UINT32 clg9 = 10;
+static const UINT32 clg10 = 11;
+static const UINT32 clg11 = 12;
+static const UINT32 clWhite = 13;
+static const UINT32 cl0 = 14;
+static const UINT32 cl1 = 15;
+static const UINT32 cl2 = 16;
+static const UINT32 cl3 = 17;
+static const UINT32 cl4 = 18;
+static const UINT32 cl5 = 19;
+static const UINT32 cl6 = 20;
+static const UINT32 cl7 = 21;
+static const UINT32 cl8 = 22;
+static const UINT32 cl9 = 23;
+static const UINT32 cl10 = 24;
+static const UINT32 cl11 = 25;
+static const UINT32 cl12 = 26;
+static const UINT32 cl13 = 27;
+static const UINT32 cl14 = 28;
+static const UINT32 cl15 = 29;
+static const UINT32 cl16 = 30;
+static const UINT32 cl17 = 31;
+static const UINT32 cl18 = 32;
+static const UINT32 cl19 = 33;
+static const UINT32 cl20 = 34;
+static const UINT32 cl21 = 35;
+static const UINT32 cl22 = 36;
+static const UINT32 cl23 = 37;
+static const UINT32 clRed = 38;
+static const UINT32 clMainBack = 39;
+static const UINT32 clDarkPanelBack = 40;
+static const UINT32 clLiterPanelBack = 41;
+static const UINT32 clMoreLitePanelBack = 42;
+static const UINT32 clVeryLitePanelBack = 43;
+static const UINT32 clFontLight = 44;
+static const UINT32 clFontColored = 47;
+static const UINT32 clSwitchOnColored = 48;
+static const UINT32 clDataFlow = 50;
+static const UINT32 clMIDIFlow = 51;
+static const UINT32 clAudioFlow = 52;
+static const UINT32 clArrayFlow = 53;
+static const UINT32 clTextFlow = 54;
+static const UINT32 clColorFlow = 55;
+static const UINT32 clPointerFlow = 56;
+static const UINT32 clVuMeterMIDI = 57;
+static const UINT32 clVuMeterAudio = 58;
+static const UINT32 clBitwiseFlow = 59;
+static const UINT32 clVideoFlow = 60;
+static const UINT32 clSwitchFlow = 61;
+static const UINT32 clTriggerFlow = 62;
+static const UINT32 clListboxFlow = 63;
+static const UINT32 clSelected = 64;
+static const UINT32 clDragOver = 65;
+static const UINT32 clMouseOver = 66;
+static const UINT32 clMIDIlearning = 67;
+static const UINT32 clMIDILearnedIcon = 68;
+static const UINT32 clCursor = 71;
+static const UINT32 clInvalidLink = 72;
+static const UINT32 clInterfaceDesignModuleColor = 73;
+static const UINT32 clVideoModuleColor = 74;
+static const UINT32 clAudioModuleColor = 75;
+static const UINT32 clPluginModuleColor = 76;
+static const UINT32 clMIDIModuleColor = 77;
+static const UINT32 clEventModuleColor = 78;
+static const UINT32 clDataModuleColor = 79;
+static const UINT32 clArrayModuleColor = 80;
+static const UINT32 clMathModuleColor = 81;
+static const UINT32 clSubPatchModuleColor = 82;
+static const UINT32 clScriptModuleColor = 83;
+static const UINT32 clOSCModuleColor = 84;
+static const UINT32 clInterfaceCtrlModuleColor = 85;
+static const UINT32 clTextModuleColor = 86;
+static const UINT32 clFixtureModuleColor = 87;
+static const UINT32 clColorModuleColor = 88;
+static const UINT32 clNetworkModuleColor = 102;
+static const UINT32 clLiterAUDIOFlow = 89;
+static const UINT32 clLiterMIDIFlow = 90;
+static const UINT32 clLiterDATAFlow = 91;
+static const UINT32 clLiterARRAYFlow = 92;
+static const UINT32 clLiterTextFlow = 93;
+static const UINT32 clLiterColorFlow = 94;
+static const UINT32 clLiterPointerFlow = 95;
+static const UINT32 clLiterBitwiseFlow = 96;
+static const UINT32 clLiterVideoFlow = 97;
+static const UINT32 clLiterSwitchFlow = 98;
+static const UINT32 clLiterTriggerFlow = 99;
+static const UINT32 clLiterListboxFlow = 100;
+static const UINT32 clGridColor = 101;
+static const UINT32 clMenuForeGround = 103;
+static const UINT32 clMenuMouseOver = 104;
+static const UINT32 clHintsBack = 105;
+static const UINT32 clHintsFont = 106;
 
 //-----------------------------------------------------------------------------
 /// Event associated to the parameter
 struct UsineEvent;
 
 
-/// Handle to a parameter event.
+/// Handle to a parameter event. Now deprecated for the final user.
 /// @see onGetParamEvent
 typedef UsineEvent* UsineEventPtr;
 
@@ -425,6 +456,9 @@ typedef enum TFastCallBackType
 	ctAsynchronous  ///< Processed in the window message handler (slower than ctNormal). Use this if the process is very long or if you open a modal window.
 } TFastCallBackType;
 
+// Forward declaration
+class UsineEventClass;
+
 //-----------------------------------------------------------------------------
 /// Usine parameter description.
 /// Contain all the properties to define a parameter.
@@ -458,10 +492,13 @@ struct TParamInfo
 	LongBool		  IsVisibleByDefault;   ///< TRUE by default
 	LongBool		  NotUsed;              ///< Not used anymore
 	LongBool		  Translate;            ///< usine auto translate
-	UsineEventPtr*     EventPtr;            ///< Pointer to Event set by Usine to acces to the value of the parameter, introduced 
+	[[deprecated("Deprecated: use setEventClass(UsineEventClass& e) instead")]]
+    UsineEventPtr*    EventPtr;             ///< Pointer to Event set by Usine to acces to the value of the parameter, introduced 
 											///< in HH3. Replace the deprecated SetEventAddress
 	AnsiCharPtr       FileNameFilter;       ///< optional: filter used to open file when ParamType = ptFileName
 											///< ie: "All files (*.*)|*.*" or "'All Images |*.png; *.jpg; *.jpeg; *.bmp; *.tiff; *.gif"
+    inline void setEventClass(UsineEventClass& e); /// 
+
 };
 /// for backward compatibility
 typedef TParamInfo ParamInfo;
@@ -639,7 +676,7 @@ typedef struct TCommandPacket
 		struct
 		{
 			int blocksize;
-			int sizes[AUDIO_INS_OUTS_MAX];
+			int sizes[USINE_MULTIPHONY_MAX];
 			int nbMidi;
 			int processCounter;
 			TVstTimeInfo timeInfo;
@@ -788,6 +825,7 @@ typedef void (*FuncShiftEvt)       (int n, UsineEventPtr input, UsineEventPtr ou
 typedef void (*FuncSetEvtSize)     (UsineEventPtr ev, int size);
 typedef int  (*FuncGetEvtSize)     (UsineEventPtr ev);
 typedef void (*FuncSetEvtMaxSize)  (UsineEventPtr ev, int size);
+typedef int  (*FuncGetEvtMaxSize)  (UsineEventPtr ev);
 typedef void (*FuncDestroyEvt)     (UsineEventPtr &ev);
 typedef void (*FuncCreateEvt)      (UsineEventPtr &ev, int originalsize);
 typedef void (*FuncMoveBLOC32)     (TPrecision* src, TPrecision* dest, int size);
@@ -803,9 +841,9 @@ typedef void*           (*FuncGetEvtPointer)       (UsineEventPtr ev);
 typedef void            (*FuncSetEvtColor)         (UsineEventPtr ev, TUsineColor value);            
 typedef TUsineColor     (*FuncGetEvtColor)         (UsineEventPtr ev);                        
 typedef void            (*FuncSetEvtArrayMidi)     (UsineEventPtr ev, int idx, TUsineMidiCode midi);
-typedef TUsineMidiCode   (*FuncGetEvtArrayMidi)     (UsineEventPtr ev, int idx);
+typedef TUsineMidiCode  (*FuncGetEvtArrayMidi)     (UsineEventPtr ev, int idx);
 typedef void            (*FuncSetEvtPChar)         (UsineEventPtr ev, AnsiCharPtr delphistring);
-typedef AnsiCharPtr     (*FuncGetEvtPChar)          (UsineEventPtr ev);
+typedef AnsiCharPtr     (*FuncGetEvtPChar)         (UsineEventPtr ev);
 typedef TPrecision*     (*FuncGetEvtDataAddr)      (UsineEventPtr ev);
 
 // evt data manipulation
@@ -837,7 +875,7 @@ typedef void  (*FuncClearAudioEvt)   (UsineEventPtr in1);
 typedef void  (*FuncDenormalizeAudioEvt)   (UsineEventPtr in1);
 
 // Audio File manipulation
-typedef TAudioFilePtr    (*FuncCreateAudioFile)          ();
+typedef TAudioFilePtr   (*FuncCreateAudioFile)          ();
 typedef void            (*FuncDestroyAudioFile)         (TAudioFilePtr audioFile);
 typedef TPrecision      (*FuncGetSampleAudioFile)       (TAudioFilePtr audioFile, int channel, int pos);
 typedef TPrecision*     (*FuncGetSampleArrayAudioFile)  (TAudioFilePtr audioFile, int channel);
@@ -862,9 +900,9 @@ typedef TPrecision (*FuncCubicInterpolation)  (TPrecision fr, TPrecision inm1, T
 typedef TPrecision (*FuncSplineInterpolation) (TPrecision fr, TPrecision inm1, TPrecision inp, TPrecision inp1, TPrecision inp2);
 
 // files manipulation
-typedef LongBool        (*FuncProcessOpenDialog) (AnsiCharPtr* filename, AnsiCharPtr initialDir, AnsiCharPtr filter);
-typedef LongBool        (*FuncProcessSaveDialog) (AnsiCharPtr* filename, AnsiCharPtr initialDir, AnsiCharPtr filter);
-typedef AnsiCharPtr     (*FuncFindFile)          (AnsiCharPtr* filename, AnsiCharPtr initialDir);
+typedef LongBool    (*FuncProcessOpenDialog) (AnsiCharPtr* filename, AnsiCharPtr initialDir, AnsiCharPtr filter);
+typedef LongBool    (*FuncProcessSaveDialog) (AnsiCharPtr* filename, AnsiCharPtr initialDir, AnsiCharPtr filter);
+typedef AnsiCharPtr (*FuncFindFile)          (AnsiCharPtr* filename, AnsiCharPtr initialDir);
     
 // trace functions
 typedef void (*FuncTraceChar)       (AnsiCharPtr s);
@@ -882,11 +920,11 @@ typedef void (*FuncMultEvt2Audio)      (UsineEventPtr in1, UsineEventPtr in2);
 // update param callback
 typedef void (*FuncSetListBoxCommaText)	(TModuleInfo* pModuleInfo, int numParam, AnsiCharPtr commaText);
 typedef void (*FuncSetParamCaption)	    (TModuleInfo* pModuleInfo, int numParam, AnsiCharPtr caption);
-typedef void(*FuncSetParamVisible)	    (TModuleInfo* pModuleInfo, int numParam, LongBool visible);
-typedef void(*FuncRecreateParam)	    (TModuleInfo* pModuleInfo, int numParam, TParamInfo* pParamInfo);
+typedef void (*FuncSetParamVisible)	    (TModuleInfo* pModuleInfo, int numParam, LongBool visible);
+typedef void (*FuncRecreateParam)	    (TModuleInfo* pModuleInfo, int numParam, TParamInfo* pParamInfo);
 typedef void (*FuncRepaintParam)		(TModuleInfo* pModuleInfo, int numParam);
 typedef void (*FuncSetParamValueText)	(TModuleInfo* pModuleInfo, int numParam, AnsiCharPtr valueText);
-typedef LongBool (*FuncLoading)	    (TModuleInfo* pModuleInfo);
+typedef LongBool (*FuncLoading)	        (TModuleInfo* pModuleInfo);
 
 // audio callbacks
 typedef void (*FuncAudioDeviceIOCallback)	(const float** inputChannelData, int numInputChannels, float** outputChannelData, int numOutputChannels, int numSamples);
@@ -902,7 +940,7 @@ typedef double			(*FuncGetSampleRate)		();
 typedef TVstTimeInfo*	(*FuncGetVstTimeInfo)		(TModuleInfo* pModuleInfo);
 typedef int				(*FuncCreatePlugInsTree)    ();
 
-typedef void (*FuncNotifyUsine)	(TModuleInfo* pModuleInfo, NativeInt Target, NativeInt Msg, NativeInt Param1, NativeInt Param2);
+typedef void (*FuncNotifyUsine)	(TModuleInfo* pModuleInfo, NativeInt Target, NativeInt Msg, NativeInt Param1, NativeInt Param2, int Delay);
 
 // draw functions
 typedef void (*FuncDrawPoint)		(TModuleInfo* pModuleInfo, TPointF point, TUsineColor color, float size, LongBool rounded);
@@ -921,13 +959,15 @@ typedef void (*FuncDrawPathClose)		(TModuleInfo* pModuleInfo);
 typedef void (*FuncFillRect)	    (TModuleInfo* pModuleInfo, TRectF rect, TUsineColor color, float radius, TUsineColor borderColor, float borderWith);
 typedef void (*FuncFillText)	    (TModuleInfo* pModuleInfo, TRectF rect, AnsiCharPtr text, TUsineColor textColor, float fontSize, LongBool isBold, LongBool isWordWrap, TTextAlign alignHorizontal, TTextAlign alignVertical, LongBool isVertical);
 typedef void (*FuncFillPolyLine)	(TModuleInfo* pModuleInfo, TPointFPtr points, int sizeList, TUsineColor color);
+// blit
+typedef void (*FuncBitBlit)	(TModuleInfo* pModuleInfo, TUsinePixelPtr pArray, int W, int H, TRectF destRect);
 
 // record functions
 typedef void (*FuncStopRecord)		(TModuleInfo* pModuleInfo);
 typedef void (*FuncProcessRecord)	(TModuleInfo* pModuleInfo, TPrecision X, TPrecision Y, TPrecision Z);
 
 
-typedef TUsineColor (*FuncGetUsineColor) ( int colorName);
+typedef TUsineColor (*FuncGetUsineColor) ( UINT32 colorName);
 
 typedef void  (*FuncAddCommand)           (TModuleInfo* pModuleInfo, AnsiCharPtr name, NativeInt CallbackId, LongBool Translate);
 typedef void  (*FuncAddCommandSeparator)  (TModuleInfo* pModuleInfo, AnsiCharPtr name, LongBool Translate);
@@ -965,17 +1005,23 @@ typedef void(*FuncGetSettingValue)	(TModuleInfo* pModuleInfo, AnsiCharPtr settin
 // Frames manipulation 
 typedef void(*FuncGetInputFrame)	(TModuleInfo* pModuleInfo, int numInput, TUsineFramePtr frame);
 typedef void(*FuncSetOutputFrame)	(TModuleInfo* pModuleInfo, int numOutput, TUsineFramePtr frame);
-typedef void(*FuncClearFrame)	(TModuleInfo* pModuleInfo, TUsineColor color, TUsineFramePtr frame);
-typedef void(*FuncGetNewFrame)	(TModuleInfo* pModuleInfo, int width, int height, LongBool permanent, TUsineFramePtr frame);
-typedef void(*FuncCopyFrame)	(TUsineFramePtr srcFrame, TUsineFramePtr destFrame);
+typedef void(*FuncClearFrame)    	(TModuleInfo* pModuleInfo, TUsineColor color, TUsineFramePtr frame);
+typedef void(*FuncGetNewFrame)	    (TModuleInfo* pModuleInfo, int width, int height, LongBool permanent, TUsineFramePtr frame);
+typedef void(*FuncCopyFrame)	    (TUsineFramePtr srcFrame, TUsineFramePtr destFrame);
 typedef TUsinePixel (*FuncColorToPixel) (TUsineColor color);
 typedef TUsineColor (*FuncPixelToColor) (TUsinePixel pixel);
-typedef void(*FuncReleaseFrame)	(TModuleInfo* pModuleInfo, TUsineFramePtr frame);
-typedef void(*FuncSetDimmerFrame) (TModuleInfo* pModuleInfo, float dimmer, TUsineFramePtr frame);
-typedef void(*FuncLockPatch)   (TModuleInfo* pModuleInfo);
+typedef void(*FuncReleaseFrame)	    (TModuleInfo* pModuleInfo, TUsineFramePtr frame);
+typedef void(*FuncSetDimmerFrame)   (TModuleInfo* pModuleInfo, float dimmer, TUsineFramePtr frame);
+
+typedef void(*FuncLockPatch)                            (TModuleInfo* pModuleInfo);
+typedef void(*FuncCriticalSectionLock)                  (TModuleInfo* pModuleInfo, TCriticalSectionPtr pCriticalSection, UINT32 timeout);
+typedef void(*FuncCriticalSectionUnLock)                (TModuleInfo* pModuleInfo, TCriticalSectionPtr pCriticalSection);
+typedef void(*FuncCriticalSectionDestroy)               (TModuleInfo* pModuleInfo, TCriticalSectionPtr pCriticalSection);
+typedef LongBool(*FuncCriticalSectionTryLock)           (TModuleInfo* pModuleInfo, TCriticalSectionPtr pCriticalSection);
+typedef TCriticalSectionPtr(*FuncCriticalSectionCreate) (TModuleInfo* pModuleInfo, AnsiCharPtr name, LongBool shared);
 
 //global array
-typedef UINT64(*FuncGlobalArrayGetHash)	                (AnsiCharPtr name);
+typedef UINT64(*FuncGlobalArrayGetHash)	        (AnsiCharPtr name);
 typedef void(*FuncGlobalArraySetValueFloat)	    (UINT64 hash, int index, TPrecision value, AnsiCharPtr errorMsg);
 typedef void(*FuncGlobalArraySetValueColor)	    (UINT64 hash, int index, TUsineColor value, AnsiCharPtr errorMsg);
 typedef void(*FuncGlobalArraySetValueAnsiChar)	(UINT64 hash, int index, AnsiCharPtr value, AnsiCharPtr errorMsg);
@@ -994,36 +1040,34 @@ typedef void(*FuncUsineObjectSetMIDI)       (TModuleInfo* pModuleInfo, AnsiCharP
 typedef void(*FuncUsineObjectSetColor)      (TModuleInfo* pModuleInfo, AnsiCharPtr name, TUsineColor c);
 typedef void(*FuncUsineObjectSetArrayColor) (TModuleInfo* pModuleInfo, AnsiCharPtr name, int index, TUsineColor c);
 typedef void(*FuncUsineObjectSetTrigger)    (TModuleInfo* pModuleInfo, AnsiCharPtr name ); 
-typedef void(*FuncUsineObjectSetAnsiChar)     (TModuleInfo* pModuleInfo, AnsiCharPtr name, AnsiCharPtr v); 
+typedef void(*FuncUsineObjectSetAnsiChar)   (TModuleInfo* pModuleInfo, AnsiCharPtr name, AnsiCharPtr v); 
 
 typedef TPrecision     (*FuncUsineObjectGetFloat)       (TModuleInfo* pModuleInfo, AnsiCharPtr name);
 typedef int            (*FuncUsineObjectGetInteger)     (TModuleInfo* pModuleInfo, AnsiCharPtr name);
 typedef TPrecision     (*FuncUsineObjectGetArray)       (TModuleInfo* pModuleInfo, AnsiCharPtr name, int index);
-typedef TUsineMidiCode  (*FuncUsineObjectGetMIDI)        (TModuleInfo* pModuleInfo, AnsiCharPtr name, int index);
+typedef TUsineMidiCode (*FuncUsineObjectGetMIDI)        (TModuleInfo* pModuleInfo, AnsiCharPtr name, int index);
 typedef TUsineColor    (*FuncUsineObjectGetColor)       (TModuleInfo* pModuleInfo, AnsiCharPtr name);
 typedef TUsineColor    (*FuncUsineObjectGetArrayColor)  (TModuleInfo* pModuleInfo, AnsiCharPtr name, int index);
-typedef AnsiCharPtr    (*FuncUsineObjectGetAnsiChar)      (TModuleInfo* pModuleInfo, AnsiCharPtr name );
-
+typedef AnsiCharPtr    (*FuncUsineObjectGetAnsiChar)    (TModuleInfo* pModuleInfo, AnsiCharPtr name );
 typedef int            (*FuncUsineObjectGetLength)      (TModuleInfo* pModuleInfo, AnsiCharPtr name);
 typedef void           (*FuncUsineObjectSetLength)      (TModuleInfo* pModuleInfo, AnsiCharPtr name, int l);
-
 typedef AnsiCharPtr    (*FuncUsineObjectFind)           (TModuleInfo* pModuleInfo, AnsiCharPtr name);
 typedef LongBool       (*FuncUsineObjectExists)         (TModuleInfo* pModuleInfo, AnsiCharPtr name);
 typedef AnsiCharPtr    (*FuncUsineObjectListHash)       (TModuleInfo* pModuleInfo);
+class UserModuleBase;
+typedef void       (*FuncThreadProcess)     (void* pModule, TThreadPtr pThread);
+typedef TThreadPtr (*FuncThreadCreate)      (TModuleInfo* pModuleInfo, AnsiCharPtr name, FuncThreadProcess ProcessThreadProc, TThreadPriority priority, UINT32 timeout);
+typedef void       (*FuncThreadDestroy)     (TThreadPtr pThread);
+typedef void       (*FuncThreadRestart)     (TThreadPtr pThread);
+typedef void       (*FuncThreadSetTimeOut)  (TThreadPtr pThread,UINT32 timeout);
+
+typedef TSyncObjectPtr (*FuncSyncObjectCreate)   ();
+typedef void           (*FuncSyncObjectDestroy)  (TSyncObjectPtr pSyncObject);
+typedef void           (*FuncSyncObjectSet)      (TSyncObjectPtr pSyncObject);
+typedef void           (*FuncSyncObjectReset)    (TSyncObjectPtr pSyncObject);
+typedef LongBool       (*FuncSyncObjectWait)  (TSyncObjectPtr pSyncObject, UINT32 timeout);
 
 
-
-//-----------------------------------------------------------------------------
-/// Versions type of Usine.
-/// @see sdkGetUsineVersionType
-typedef enum TUsineVersionType 
-{
-    uvStandAlonePro, 
-    uvStandAloneFree, 
-    uvStandAloneExpert,
-    uvStandAlonePlayer,
-    uvOther = INT_MAX
-} TUsineVersionType;
 
 //-----------------------------------------------------------------------------
 /// Contains globals infos provided by Usine and all functions handle of the module wrapper.
@@ -1149,10 +1193,13 @@ struct TMasterInfo
     FuncSmoothPrecision    SmoothPrecision;
     FuncSmoothEvent        SmoothEvent;
     FuncMultEvt2Audio      MultEvt2Audio;
-	     
+    [[deprecated("Deprecated: use the constant USINE_MAX_AUDIO_INPUTS instead")]]
 	int	MAX_AUDIO_INPUTS;
+    [[deprecated("Deprecated: use the constant USINE_MAX_AUDIO_OUTPUTS instead")]]
     int MAX_AUDIO_OUTUTS;
+    [[deprecated("Deprecated: use the constant USINE_MAX_MIDI_DEVICES instead")]]
     int MAX_MIDI_DEVICES;
+    [[deprecated("Deprecated: use the constant USINE_MULTIPHONY_MAX instead")]]
     int MULTIPHONY_MAX;
 
 	FuncSetListBoxCommaText	    SetListBoxCommaText;
@@ -1229,7 +1276,8 @@ struct TMasterInfo
 	FuncBoolean                     PatchIsRunning;
     FuncDrawPathQuadCurveTo         DrawPathQuadCurveTo;	
     FuncNotImplemented              GetEvtNbLinesDeprecated;
-    TUsineVersionType               UsineVersionType;
+    [[deprecated ("Usine Version is no longer used in the SDK;\nYou should not use it,\n Usine will send always the value 0")]]
+    int                             UsineVersionType;
     AnsiCharPtr                     UsineLanguage;
 	AnsiCharPtr                     AudioQueryTitle;
 	AnsiCharPtr                     BlockSizeList;
@@ -1305,6 +1353,26 @@ struct TMasterInfo
 	FuncUsineObjectExists			UsineObjectExists;
 	FuncUsineObjectListHash			UsineObjectListHash;
 
+    FuncCriticalSectionLock         CriticalSectionLock;
+    FuncCriticalSectionTryLock      CriticalSectionTryLock;
+    FuncCriticalSectionUnLock       CriticalSectionUnLock;
+    FuncCriticalSectionCreate       CriticalSectionCreate;
+    FuncCriticalSectionDestroy      CriticalSectionDestroy;
+
+    FuncThreadCreate                ThreadCreate;
+    FuncThreadDestroy               ThreadDestroy;
+    FuncThreadRestart               ThreadRestart;
+    FuncThreadSetTimeOut            ThreadSetTimeOut;
+
+    FuncSyncObjectCreate            SyncObjectCreate;
+    FuncSyncObjectDestroy           SyncObjectDestroy;
+    FuncSyncObjectSet               SyncObjectSet;
+    FuncSyncObjectReset             SyncObjectReset;
+    FuncSyncObjectWait              SyncObjectWait;
+
+    FuncGetEvtMaxSize               GetEvtMaxSize;
+    FuncBitBlit                     BitBlit;
+
 
 };
 /// for backward compatibility
@@ -1327,6 +1395,10 @@ typedef enum TModuleType
 	mtDeviceLaser,       ///< not for public use
 	mtOther             ///< not for public use
 } TModuleType;
+
+
+
+
 
 //-----------------------------------------------------------------------------
 /// Contain characteristics and infos about the module.
@@ -1361,10 +1433,10 @@ struct TModuleInfo
     // to verify that the module has been created properly
     int     CheckCode; ///< @internal not for public use
 
-    // stuff for the Audio Query system
-    AnsiCharPtr     QueryString;        ///< string to ask about entries numbers
-    AnsiCharPtr     QueryListValues;    ///< coma separated list with possible response
-    int             QueryDefaultIdx;    ///< pre selected choice index for the coma list (0 to N-1)
+    // stuff for the Audio Query system and query lists
+    AnsiCharPtr     QueryListString;        ///< string to ask about entries numbers
+    AnsiCharPtr     QueryListValues;        ///< coma separated list with possible response
+    int             QueryListDefaultIdx;    ///< pre selected choice index for the coma list (0 to N-1)
                                         
 	AnsiCharPtr     Version;            ///< version of the module. Displayed in the Browser
     
@@ -1385,6 +1457,18 @@ struct TModuleInfo
 	LongBool        CanBeSavedInPreset = true;
     LongBool        TransparentBackground;
 
+    
+    // stuff for general queries
+    AnsiCharPtr QueryLabel1;  ///< query displayed label 1
+    int QueryDefaultValue1;      ///< default query value 1 value
+    int QueryMaxValue1;          ///< max query value 1 value
+    int QueryMinValue1;          ///< min query value 1 value
+
+    AnsiCharPtr QueryLabel2;  ///< query displayed label 2
+    int QueryDefaultValue2;      ///< default query value 2 value
+    int QueryMaxValue2;          ///< max query value 2 value
+    int QueryMinValue2;          ///< min query value 2 value
+    
 };
 
 /// for backward compatibility
@@ -1459,9 +1543,9 @@ USINE_MODULE_EXPORT void GetModuleInfo (void* pModule, TMasterInfo* pMasterInfo,
 //-----------------------------------------------------------------------------
 // query system and init
 // Get total parameters number of the module
-USINE_MODULE_EXPORT int GetNumberOfParams(void* pModule,  int queryIndex);
+USINE_MODULE_EXPORT int GetNumberOfParams(void* pModule, int queryResult1, int queryResult2);
 // called after the query popup
-USINE_MODULE_EXPORT void AfterQuery (void* pModule, TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryIndex);
+USINE_MODULE_EXPORT void AfterQuery (void* pModule, TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
 // initialization procedure
 USINE_MODULE_EXPORT void InitModule (void* pModule, TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
@@ -1558,7 +1642,7 @@ USINE_MODULE_EXPORT void SetRecordedValue (void* pModule, TPrecision X, TPrecisi
 USINE_MODULE_EXPORT void Randomize (void* pModule);
 
 /// Called by Usine on reset
-USINE_MODULE_EXPORT void Reset(void* pModule);
+USINE_MODULE_EXPORT void ResetModule(void* pModule);
 
 /// Called by Usine when the user change the global color of the module
 USINE_MODULE_EXPORT void SetQuickColor(void* pModule, TUsineColor color);

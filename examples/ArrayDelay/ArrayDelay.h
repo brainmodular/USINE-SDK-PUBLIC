@@ -92,8 +92,8 @@ public:
 
 	//-----------------------------------------------------------------------------
 	// query system and init
-	//int  onGetNumberOfParams( int queryIndex);
-	//void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryIndex);
+	//int  onGetNumberOfParams( int queryResult1, int queryResult2);
+	//void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
 	//void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
@@ -146,9 +146,9 @@ public:
 protected:
 	//-------------------------------------------------------------------------
 	// parameters events
-      UsineEventPtr arrInArray;	
-      UsineEventPtr arrInDelay;	
-      UsineEventPtr arrOutArray;	
+      UsineEventClass arrInArray;
+      UsineEventClass arrInDelay;
+      UsineEventClass arrOutArray;	
  
     float delayLine[MAXBLOC][MAX_DELAY];
     long delayBuffer[MAXBLOC];  

@@ -94,9 +94,9 @@ public:
 private:
 	//-------------------------------------------------------------------------
 	// parameters events
-	UsineEventPtr fdrDimmer;
-	UsineEventPtr fdrPixelColor;
-	UsineEventPtr fdrSpace;
+	UsineEventClass fdrDimmer;
+	UsineEventClass fdrPixelColor;
+	UsineEventClass fdrSpace;
 	TUsineFrame frameo;
 	TUsineFrame framei;
 

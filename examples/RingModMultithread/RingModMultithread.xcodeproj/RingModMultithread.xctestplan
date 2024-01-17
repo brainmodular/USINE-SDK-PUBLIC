@@ -1,0 +1,18 @@
+{
+  "configurations" : [
+    {
+      "id" : "BE52B308-1AB2-40D3-AE94-3A5823723801",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+
+  ],
+  "version" : 1
+}

@@ -7,32 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4E2704871A9E379C00104AD4 /* ArrayDelay.usr-osx64 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4EAD14871A9E2D8400784045 /* ArrayDelay.usr-osx64 */; };
-		4EAD14991A9E2E6500784045 /* UserDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14931A9E2E6500784045 /* UserDefinitions.h */; };
-		4EAD149A1A9E2E6500784045 /* UserModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD14941A9E2E6500784045 /* UserModule.cpp */; };
-		4EAD149B1A9E2E6500784045 /* UserModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14951A9E2E6500784045 /* UserModule.h */; };
-		4EAD149C1A9E2E6500784045 /* UserUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD14961A9E2E6500784045 /* UserUtils.cpp */; };
-		4EAD149D1A9E2E6500784045 /* UserUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14971A9E2E6500784045 /* UserUtils.h */; };
-		4EAD149E1A9E2E6500784045 /* UsineDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14981A9E2E6500784045 /* UsineDefinitions.h */; };
-		4EAD14A11A9E2E8800784045 /* ArrayDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD149F1A9E2E8800784045 /* ArrayDelay.cpp */; };
-		4EAD14A21A9E2E8800784045 /* ArrayDelay.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14A01A9E2E8800784045 /* ArrayDelay.h */; };
+		629CA0C12B15000000BD4832 /* UsineEventClass.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 629CA0C02B15000000BD4832 /* UsineEventClass.hpp */; };
+		62C2EA5F2B07AD1F00A282C6 /* UserDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14931A9E2E6500784045 /* UserDefinitions.h */; };
+		62C2EA602B07AD1F00A282C6 /* UserModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14951A9E2E6500784045 /* UserModule.h */; };
+		62C2EA612B07AD1F00A282C6 /* UserUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14971A9E2E6500784045 /* UserUtils.h */; };
+		62C2EA622B07AD1F00A282C6 /* UsineDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14981A9E2E6500784045 /* UsineDefinitions.h */; };
+		62C2EA632B07AD1F00A282C6 /* ArrayDelay.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14A01A9E2E8800784045 /* ArrayDelay.h */; };
+		62C2EA652B07AD1F00A282C6 /* UserModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD14941A9E2E6500784045 /* UserModule.cpp */; };
+		62C2EA662B07AD1F00A282C6 /* UserUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD14961A9E2E6500784045 /* UserUtils.cpp */; };
+		62C2EA672B07AD1F00A282C6 /* ArrayDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD149F1A9E2E8800784045 /* ArrayDelay.cpp */; };
+		62C2EA6E2B07AF0500A282C6 /* ArrayDelay.usr-macos64uni in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62C2EA6D2B07AD1F00A282C6 /* ArrayDelay.usr-macos64uni */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		4EAD14CF1A9E306600784045 /* CopyFiles */ = {
+		62C2EA682B07AD1F00A282C6 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(SRCROOT)/../../bin/SDK Examples";
 			dstSubfolderSpec = 0;
 			files = (
-				4E2704871A9E379C00104AD4 /* ArrayDelay.usr-osx64 in CopyFiles */,
+				62C2EA6E2B07AF0500A282C6 /* ArrayDelay.usr-macos64uni in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4EAD14871A9E2D8400784045 /* ArrayDelay.usr-osx64 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "ArrayDelay.usr-osx64"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EAD14931A9E2E6500784045 /* UserDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefinitions.h; sourceTree = "<group>"; };
 		4EAD14941A9E2E6500784045 /* UserModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserModule.cpp; sourceTree = "<group>"; };
 		4EAD14951A9E2E6500784045 /* UserModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModule.h; sourceTree = "<group>"; };
@@ -42,6 +42,8 @@
 		4EAD149F1A9E2E8800784045 /* ArrayDelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ArrayDelay.cpp; sourceTree = "<group>"; };
 		4EAD14A01A9E2E8800784045 /* ArrayDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayDelay.h; sourceTree = "<group>"; };
 		4EAD15021A9E367300784045 /* Usine_CPP_SDKProj.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Usine_CPP_SDKProj.xcconfig; path = ../../builds/Xcode/Usine_CPP_SDKProj.xcconfig; sourceTree = SOURCE_ROOT; };
+		629CA0C02B15000000BD4832 /* UsineEventClass.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UsineEventClass.hpp; sourceTree = "<group>"; };
+		62C2EA6D2B07AD1F00A282C6 /* ArrayDelay.usr-macos64uni */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "ArrayDelay.usr-macos64uni"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -59,7 +61,7 @@
 		4EAD14881A9E2D8400784045 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4EAD14871A9E2D8400784045 /* ArrayDelay.usr-osx64 */,
+				62C2EA6D2B07AD1F00A282C6 /* ArrayDelay.usr-macos64uni */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -67,6 +69,7 @@
 		4EAD14921A9E2E6500784045 /* sdk */ = {
 			isa = PBXGroup;
 			children = (
+				629CA0C02B15000000BD4832 /* UsineEventClass.hpp */,
 				4EAD14931A9E2E6500784045 /* UserDefinitions.h */,
 				4EAD14941A9E2E6500784045 /* UserModule.cpp */,
 				4EAD14951A9E2E6500784045 /* UserModule.h */,
@@ -81,28 +84,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		4EAD14831A9E2D8400784045 /* Headers */ = {
+		62C2EA5E2B07AD1F00A282C6 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EAD14991A9E2E6500784045 /* UserDefinitions.h in Headers */,
-				4EAD149B1A9E2E6500784045 /* UserModule.h in Headers */,
-				4EAD149D1A9E2E6500784045 /* UserUtils.h in Headers */,
-				4EAD149E1A9E2E6500784045 /* UsineDefinitions.h in Headers */,
-				4EAD14A21A9E2E8800784045 /* ArrayDelay.h in Headers */,
+				62C2EA5F2B07AD1F00A282C6 /* UserDefinitions.h in Headers */,
+				629CA0C12B15000000BD4832 /* UsineEventClass.hpp in Headers */,
+				62C2EA602B07AD1F00A282C6 /* UserModule.h in Headers */,
+				62C2EA612B07AD1F00A282C6 /* UserUtils.h in Headers */,
+				62C2EA622B07AD1F00A282C6 /* UsineDefinitions.h in Headers */,
+				62C2EA632B07AD1F00A282C6 /* ArrayDelay.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		4EAD14861A9E2D8400784045 /* ArrayDelay */ = {
+		62C2EA5D2B07AD1F00A282C6 /* ArrayDelay */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4EAD148B1A9E2D8400784045 /* Build configuration list for PBXNativeTarget "ArrayDelay" */;
+			buildConfigurationList = 62C2EA6A2B07AD1F00A282C6 /* Build configuration list for PBXNativeTarget "ArrayDelay" */;
 			buildPhases = (
-				4EAD14831A9E2D8400784045 /* Headers */,
-				4EAD14841A9E2D8400784045 /* Sources */,
-				4EAD14CF1A9E306600784045 /* CopyFiles */,
+				62C2EA5E2B07AD1F00A282C6 /* Headers */,
+				62C2EA642B07AD1F00A282C6 /* Sources */,
+				62C2EA682B07AD1F00A282C6 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -110,7 +114,7 @@
 			);
 			name = ArrayDelay;
 			productName = ArrayDelay;
-			productReference = 4EAD14871A9E2D8400784045 /* ArrayDelay.usr-osx64 */;
+			productReference = 62C2EA6D2B07AD1F00A282C6 /* ArrayDelay.usr-macos64uni */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -137,19 +141,19 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4EAD14861A9E2D8400784045 /* ArrayDelay */,
+				62C2EA5D2B07AD1F00A282C6 /* ArrayDelay */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		4EAD14841A9E2D8400784045 /* Sources */ = {
+		62C2EA642B07AD1F00A282C6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EAD149A1A9E2E6500784045 /* UserModule.cpp in Sources */,
-				4EAD149C1A9E2E6500784045 /* UserUtils.cpp in Sources */,
-				4EAD14A11A9E2E8800784045 /* ArrayDelay.cpp in Sources */,
+				62C2EA652B07AD1F00A282C6 /* UserModule.cpp in Sources */,
+				62C2EA662B07AD1F00A282C6 /* UserUtils.cpp in Sources */,
+				62C2EA672B07AD1F00A282C6 /* ArrayDelay.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +164,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -192,8 +197,9 @@
 					"-mstackrealign",
 					"$(OTHER_CFLAGS)",
 				);
-				SDKROOT = macosx;
+				SDKROOT = macosx13.1;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
+				SYMROOT = /tmp;
 				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
@@ -203,6 +209,7 @@
 			baseConfigurationReference = 4EAD15021A9E367300784045 /* Usine_CPP_SDKProj.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -234,22 +241,24 @@
 					"-mstackrealign",
 					"$(OTHER_CFLAGS)",
 				);
-				SDKROOT = macosx;
+				SDKROOT = macosx13.1;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
+				SYMROOT = /tmp;
 				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};
-		4EAD14891A9E2D8400784045 /* Debug */ = {
+		62C2EA6B2B07AD1F00A282C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				EXECUTABLE_EXTENSION = "usr-osx64";
+				EXECUTABLE_EXTENSION = "usr-macos64uni";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
@@ -263,7 +272,8 @@
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/lib;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-Wno-write-strings",
 					"-mstackrealign",
@@ -273,22 +283,23 @@
 				PRODUCT_NAME = ArrayDelay;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/Usine-SDK/temp";
-				VALID_ARCHS = x86_64;
+				SYMROOT = /tmp;
+				VALID_ARCHS = "arm64 x86_64";
 			};
 			name = Debug;
 		};
-		4EAD148A1A9E2D8400784045 /* Release */ = {
+		62C2EA6C2B07AD1F00A282C6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				EXECUTABLE_EXTENSION = "usr-osx64";
+				EXECUTABLE_EXTENSION = "usr-macos64uni";
 				GCC_ENABLE_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -300,7 +311,8 @@
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/lib;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-Wno-write-strings",
 					"-mstackrealign",
@@ -310,8 +322,8 @@
 				PRODUCT_NAME = ArrayDelay;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SYMROOT = "/Users/senso/Dropbox/Usine/Usine Development/Usine-SDK/temp";
-				VALID_ARCHS = x86_64;
+				SYMROOT = /tmp;
+				VALID_ARCHS = "arm64 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -328,11 +340,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4EAD148B1A9E2D8400784045 /* Build configuration list for PBXNativeTarget "ArrayDelay" */ = {
+		62C2EA6A2B07AD1F00A282C6 /* Build configuration list for PBXNativeTarget "ArrayDelay" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4EAD14891A9E2D8400784045 /* Debug */,
-				4EAD148A1A9E2D8400784045 /* Release */,
+				62C2EA6B2B07AD1F00A282C6 /* Debug */,
+				62C2EA6C2B07AD1F00A282C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

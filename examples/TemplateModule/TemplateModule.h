@@ -127,9 +127,9 @@ public:
 	void onMouseMove(TShiftState Shift, float X, float Y);
 	void onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X,float Y);
 	void onMouseUp (TMouseButton MouseButton, TShiftState Shift, float X,float Y);
-	void onMouseMoveMulti(TShiftState Shift, UsineEventPtr X, UsineEventPtr Y);
-	void onMouseDownMulti(TMouseButton MouseButton, TShiftState Shift, UsineEventPtr X, UsineEventPtr Y);
-	void onMouseUpMulti (TMouseButton MouseButton, TShiftState Shift,UsineEventPtr X, UsineEventPtr Y);
+	void onMouseMoveMulti(TShiftState Shift, UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed);
+	void onMouseDownMulti(TMouseButton MouseButton, TShiftState Shift, UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed);
+	void onMouseUpMulti (TMouseButton MouseButton, TShiftState Shift,UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed);
 	void onOpenEditor();
 	void onBringToFront();
 
@@ -155,7 +155,7 @@ public:
 protected:
 	//-------------------------------------------------------------------------
 	// parameters events
-	UsineEventPtr m_txtfExample;       // example text field output
+	UsineEventClass m_txtfExample;       // example text field output
 	
     // protected members goes here
   

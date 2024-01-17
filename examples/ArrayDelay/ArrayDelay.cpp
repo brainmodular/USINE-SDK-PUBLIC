@@ -67,8 +67,8 @@ void DestroyModule (void* pModule)
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "DelayArr";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "Delay Array";
+const AnsiCharPtr UserModuleBase::MODULE_NAME = "array delay";
+const AnsiCharPtr UserModuleBase::MODULE_DESC = "array delay SDK example";
 const AnsiCharPtr UserModuleBase::MODULE_VERSION = "2.0";
 
 // browser info
@@ -114,8 +114,8 @@ void ArrayDelay::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModule
 
 //-----------------------------------------------------------------------------
 // query system and init
-//int  ArrayDelay::onGetNumberOfParams( int queryIndex) {return 0;}
-//void ArrayDelay::onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryIndex) {}
+//int  ArrayDelay::onGetNumberOfParams( int queryResult1, int queryResult2) {return 0;}
+//void ArrayDelay::onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2) {}
 //void ArrayDelay::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) {}
 
 //-----------------------------------------------------------------------------
@@ -134,7 +134,7 @@ void ArrayDelay::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
         pParamInfo->MinValue		= - FLT_MAX;
 		pParamInfo->MaxValue		= FLT_MAX;
 		pParamInfo->CallBackType	= ctImmediate;
-		pParamInfo->EventPtr        = &arrInArray;
+		pParamInfo->setEventClass     (arrInArray);
 		break;
 
 		// arrInDelay
@@ -146,7 +146,7 @@ void ArrayDelay::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly		= true;
 		pParamInfo->MinValue		= 0;
 		pParamInfo->MaxValue		= MAX_DELAY;
-		pParamInfo->EventPtr        = &arrInDelay;
+		pParamInfo->setEventClass     (arrInDelay);
 		break;
 
 		// arrOutArray
@@ -158,7 +158,7 @@ void ArrayDelay::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly		= true;
         pParamInfo->MinValue		= - FLT_MAX;
 		pParamInfo->MaxValue		= FLT_MAX;
-		pParamInfo->EventPtr        = &arrOutArray;
+		pParamInfo->setEventClass     (arrOutArray);
 		break;
 
 		// default case
@@ -173,11 +173,11 @@ void ArrayDelay::onCallBack (TUsineMessage *Message)
     if ((Message->wParam == 1) && (Message->lParam == MSG_CHANGE))
     {
         int i;
-		int length = sdkGetEvtSize (arrInDelay);
+		int length = arrInDelay.getSize();
 
 		for (i=0; i < length; i++)
 		{
-			delayBuffer[i] = (long)sdkGetEvtArrayData (arrInDelay, i);
+			delayBuffer[i] = (long)arrInDelay.getArrayData(i);
 
 		}
 		for (i = length; i < MAXBLOC; i++)
@@ -190,16 +190,16 @@ void ArrayDelay::onCallBack (TUsineMessage *Message)
 
 void ArrayDelay::onProcess () 
 {	
-    int length = sdkGetEvtSize( arrInDelay );
+    int length = arrInArray.getSize();
 
-	sdkSetEvtSize (arrOutArray, length);
+	arrOutArray.setSize(length);
 	readPos = (readPos + 1) % MAX_DELAY ;
 			
 	for ( int i = 0; i < length; i++ )
 	{
 		long writePos = (readPos + delayBuffer[i]) % MAX_DELAY ;
-		delayLine[i][writePos] = sdkGetEvtArrayData (arrInArray, i);
-		sdkSetEvtArrayData (arrOutArray, i, delayLine[i][readPos]);
+		delayLine[i][writePos] = arrInArray.getArrayData(i);
+		arrOutArray.setArrayData(i, delayLine[i][readPos]);
 		delayLine[i][readPos] = 0;
 
 	}

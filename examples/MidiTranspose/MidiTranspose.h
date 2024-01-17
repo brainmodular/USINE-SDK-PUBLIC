@@ -134,9 +134,9 @@ public:
 private:
 	//-------------------------------------------------------------------------
 	// parameters events
-	UsineEventPtr midiIn;
-	UsineEventPtr midiOut;
-	UsineEventPtr fdrPitch;
+	UsineEventClass midiIn;
+	UsineEventClass midiOut;
+	UsineEventClass fdrPitch;
     	
 	//-------------------------------------------------------------------------
 	// private methods

@@ -70,7 +70,7 @@ void DestroyModule(void* pModule)
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "usine objects example";
+const AnsiCharPtr UserModuleBase::MODULE_NAME = "usine objects";
 const AnsiCharPtr UserModuleBase::MODULE_DESC = "usine objects sdk module example";
 const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
@@ -114,7 +114,7 @@ void UsineObjects::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModu
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 // Get total parameters number of the module
-int UsineObjects::onGetNumberOfParams (int queryIndex)
+int UsineObjects::onGetNumberOfParams (int queryResult1, int queryResult2)
 {
 	int result = 2;
     return result;
@@ -122,7 +122,7 @@ int UsineObjects::onGetNumberOfParams (int queryIndex)
 
 //-----------------------------------------------------------------------------
 // Called after the query popup
-void UsineObjects::onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryIndex)
+void UsineObjects::onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
 {
 }
 
@@ -141,24 +141,24 @@ void UsineObjects::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 {	
 	if (ParamIndex == 0)
 	{
-	pParamInfo->ParamType = ptArray;
-	pParamInfo->Caption = "array set";
-	pParamInfo->IsInput = TRUE;
-	pParamInfo->IsOutput = FALSE;
-	pParamInfo->IsSeparator = TRUE;
-	pParamInfo->CallBackType = ctNormal;
-	pParamInfo->SeparatorCaption = "";
-	pParamInfo->EventPtr = &arraySet;
+	pParamInfo->ParamType			= ptArray;
+	pParamInfo->Caption				= "array set";
+	pParamInfo->IsInput				= TRUE;
+	pParamInfo->IsOutput			= FALSE;
+	pParamInfo->IsSeparator			= TRUE;
+	pParamInfo->CallBackType		= ctNormal;
+	pParamInfo->SeparatorCaption	= "";
+	pParamInfo->setEventClass		(arraySet);
 
 	}
 	 else if (ParamIndex == 1)
 	{
-	pParamInfo->ParamType = ptArray;
-	pParamInfo->Caption = "array get";
-	pParamInfo->IsInput = FALSE;
-	pParamInfo->IsOutput = TRUE;
-	pParamInfo->CallBackType = ctNormal;
-	pParamInfo->EventPtr = &arrayGet;
+	pParamInfo->ParamType			= ptArray;
+	pParamInfo->Caption				= "array get";
+	pParamInfo->IsInput				= FALSE;
+	pParamInfo->IsOutput			= TRUE;
+	pParamInfo->CallBackType		= ctNormal;
+	pParamInfo->setEventClass		(arrayGet);
 	}
 
 }

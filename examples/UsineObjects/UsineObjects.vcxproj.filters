@@ -28,5 +28,8 @@
       <Filter>sdk</Filter>
     </ClInclude>
     <ClInclude Include="UsineObjects.h" />
+    <ClInclude Include="..\..\sdk\UsineEventClass.hpp">
+      <Filter>sdk</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

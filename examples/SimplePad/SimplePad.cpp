@@ -73,7 +73,7 @@ void DestroyModule (void* pModule)
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "simple pad example";
+const AnsiCharPtr UserModuleBase::MODULE_NAME = "simple pad";
 const AnsiCharPtr UserModuleBase::MODULE_DESC = "simple pad sdk module example";
 const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
@@ -141,7 +141,7 @@ void SimplePad::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->ReadOnly		= FALSE;
-		pParamInfo->EventPtr        = &btnRandomize;
+		pParamInfo->setEventClass   (btnRandomize);
 	}
     // arrPosX
     else if (ParamIndex == 1)
@@ -154,7 +154,7 @@ void SimplePad::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->MaxValue		= 1;
 		pParamInfo->CallBackType    = ctImmediate;
 		pParamInfo->DontSave		= TRUE;
-		pParamInfo->EventPtr        = &arrPosX;
+		pParamInfo->setEventClass   (arrPosX);
 	}
     // arrPosY
     else if (ParamIndex == 2)
@@ -167,7 +167,7 @@ void SimplePad::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->MaxValue		= 1;
 		pParamInfo->CallBackType    = ctImmediate;
 		pParamInfo->DontSave		= TRUE;
-		pParamInfo->EventPtr        = &arrPosY;
+		pParamInfo->setEventClass   (arrPosY);
 	}
 }
 
@@ -191,7 +191,7 @@ void SimplePad::onCallBack (TUsineMessage *Message)
             {
 		        for (int i = 0; i < PAD_OBJ_MAX; i++)
                 {
-                    posTab[i].x = sdkGetEvtArrayData (arrPosX, i);
+                    posTab[i].x = arrPosX.getArrayData(i);
                 }
                 sdkRepaintPanel();
             }
@@ -200,7 +200,7 @@ void SimplePad::onCallBack (TUsineMessage *Message)
             {
 		        for (int i = 0; i < PAD_OBJ_MAX; i++)
                 {
-                    posTab[i].y = 1.0f - sdkGetEvtArrayData (arrPosY, i);
+                    posTab[i].y = 1.0f - arrPosY.getArrayData(i);
                 }
                 sdkRepaintPanel();
             }
@@ -247,8 +247,8 @@ void SimplePad::onSetChunk (const void* chunk, int sizeInBytes, LongBool Preset)
     
     for (int i = 0; i < PAD_OBJ_MAX; i++)
     {
-        sdkSetEvtArrayData (arrPosX, i, posTab[i].x);
-        sdkSetEvtArrayData (arrPosY, i, 1.0f - posTab[i].y);
+        arrPosX.setArrayData(i, posTab[i].x);
+        arrPosY.setArrayData(i, 1.0f - posTab[i].y);
     }
 
     // Ask to repaint the module
@@ -424,8 +424,8 @@ void SimplePad::updatePad(int padIndex, float x, float y)
     posTab[padIndex].x = x;
     posTab[padIndex].y = y;
     
-    sdkSetEvtArrayData (arrPosX, padIndex, x);
-    sdkSetEvtArrayData (arrPosY, padIndex, 1.0f - y);
+    arrPosX.setArrayData(padIndex, x);
+    arrPosY.setArrayData(padIndex, 1.0f - y);
 
     // Ask to repaint the module
     sdkRepaintPanel();

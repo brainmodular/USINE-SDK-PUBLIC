@@ -85,7 +85,7 @@ TemplateModule::~TemplateModule()
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "Template";
+const AnsiCharPtr UserModuleBase::MODULE_NAME = "template";
 const AnsiCharPtr UserModuleBase::MODULE_DESC = "Template Description";
 const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
@@ -132,7 +132,7 @@ void TemplateModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
             pParamInfo->TextValue       = "hello world";
 	        pParamInfo->IsInput			= TRUE;
 	        pParamInfo->IsOutput		= TRUE;
-			pParamInfo->EventPtr        = &m_txtfExample;
+			pParamInfo->setEventClass   (m_txtfExample);
 	        break;
 
 	        // default case
@@ -166,9 +166,9 @@ void TemplateModule::onPaint () {}
 void TemplateModule::onMouseMove(TShiftState Shift, float X, float Y) {}
 void TemplateModule::onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X,float Y) {}
 void TemplateModule::onMouseUp (TMouseButton MouseButton, TShiftState Shift, float X,float Y) {}
-void TemplateModule::onMouseMoveMulti(TShiftState Shift, UsineEventPtr X, UsineEventPtr Y) {}
-void TemplateModule::onMouseDownMulti(TMouseButton MouseButton, TShiftState Shift, UsineEventPtr X, UsineEventPtr Y) {}
-void TemplateModule::onMouseUpMulti (TMouseButton MouseButton, TShiftState Shift,UsineEventPtr X, UsineEventPtr Y) {}
+void TemplateModule::onMouseMoveMulti(TShiftState Shift, UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed) {}
+void TemplateModule::onMouseDownMulti(TMouseButton MouseButton, TShiftState Shift, UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed) {}
+void TemplateModule::onMouseUpMulti (TMouseButton MouseButton, TShiftState Shift,UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed) {}
 void TemplateModule::onOpenEditor() {}
 void TemplateModule::onBringToFront() {}
 

@@ -12,7 +12,7 @@ Olivier Sens & the BrainModular Team
 
 
 ________________________________________________________________________________
-CPP SDK [HH6-230128] 2023/01/128
+CPP SDK [HH6-240115] 2023/01/28
 changes
   * massive refactoring, potentially some code update needed
   * remove unnecessary functions

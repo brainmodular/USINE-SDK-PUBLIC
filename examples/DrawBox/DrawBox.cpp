@@ -72,7 +72,7 @@ void DestroyModule (void* pModule)
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "draw box example";
+const AnsiCharPtr UserModuleBase::MODULE_NAME = "draw box";
 const AnsiCharPtr UserModuleBase::MODULE_DESC = "draw box sdk module example";
 const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
@@ -135,7 +135,7 @@ void DrawBox::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly		= FALSE;
 		pParamInfo->CallBackType    = ctImmediate;
 		pParamInfo->IsSeparator		= TRUE;
-		pParamInfo->EventPtr        = &btnErase;
+		pParamInfo->setEventClass	(btnErase);
 		break;
 	// btnRandomize
 	case 1:
@@ -144,7 +144,7 @@ void DrawBox::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->ReadOnly		= FALSE;
-		pParamInfo->EventPtr        = &btnRandomize;
+		pParamInfo->setEventClass	(btnRandomize);
 		break;
 	default:
 		// do nothing

@@ -83,8 +83,7 @@ public:
 
 	//-----------------------------------------------------------------------------
 	// query system and init
-	int  onGetNumberOfParams( int queryIndex);
-	void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryIndex);
+	void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
 	void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
@@ -100,8 +99,8 @@ public:
 private:
 	//-------------------------------------------------------------------------
 	// parameters events
-	UsineEventPtr arraySet;
-	UsineEventPtr arrayGet;
+	UsineEventClass arraySet;
+	UsineEventClass arrayGet;
 
 	//-------------------------------------------------------------------------
     static const int numOfParamAfterAudiotInOut = 2;

@@ -70,7 +70,7 @@ void DestroyModule(void* pModule)
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "global array example";
+const AnsiCharPtr UserModuleBase::MODULE_NAME = "global array";
 const AnsiCharPtr UserModuleBase::MODULE_DESC = "global array sdk module example";
 const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
@@ -107,23 +107,14 @@ void GlobalArray::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModul
 	pModuleInfo->BackColor          = sdkGetUsineColor(clAudioModuleColor);
 	pModuleInfo->Version			= MODULE_VERSION;  
 	pModuleInfo->CanBeSavedInPreset = FALSE;
+	pModuleInfo->NumberOfParams     = 2;
 
 }
 
-//-----------------------------------------------------------------------------
-// query system and init methods
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-// Get total parameters number of the module
-int GlobalArray::onGetNumberOfParams (int queryIndex)
-{
-	int result = 2;
-    return result;
-}
 
 //-----------------------------------------------------------------------------
 // Called after the query popup
-void GlobalArray::onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryIndex)
+void GlobalArray::onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
 {
 }
 
@@ -142,24 +133,24 @@ void GlobalArray::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 {	
 	if (ParamIndex == 0)
 	{
-	pParamInfo->ParamType = ptArray;
-	pParamInfo->Caption = "array set";
-	pParamInfo->IsInput = TRUE;
-	pParamInfo->IsOutput = FALSE;
-	pParamInfo->IsSeparator = TRUE;
-	pParamInfo->CallBackType = ctNormal;
-	pParamInfo->SeparatorCaption = "";
-	pParamInfo->EventPtr = &arraySet;
+	pParamInfo->ParamType           = ptArray;
+	pParamInfo->Caption             = "array set";
+	pParamInfo->IsInput             = TRUE;
+	pParamInfo->IsOutput            = FALSE;
+	pParamInfo->IsSeparator         = TRUE;
+	pParamInfo->CallBackType        = ctNormal;
+	pParamInfo->SeparatorCaption    = "";
+	pParamInfo->setEventClass       (arraySet);
 
 	}
 	 else if (ParamIndex == 1)
 	{
-	pParamInfo->ParamType = ptArray;
-	pParamInfo->Caption = "array get";
-	pParamInfo->IsInput = FALSE;
-	pParamInfo->IsOutput = TRUE;
-	pParamInfo->CallBackType = ctNormal;
-	pParamInfo->EventPtr = &arrayGet;
+	pParamInfo->ParamType           = ptArray;
+	pParamInfo->Caption             = "array get";
+	pParamInfo->IsInput             = FALSE;
+	pParamInfo->IsOutput            = TRUE;
+	pParamInfo->CallBackType        = ctNormal;
+	pParamInfo->setEventClass       (arrayGet);
 	}
 
 }
@@ -271,7 +262,7 @@ void GlobalArray::onProcess ()
 			for (int i = 0; i < 16; i++)
 			{
 				v = 1.0f + static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-				sdkSetEvtArrayData(arraySet, i, v);
+				arraySet.setArrayData(i, v);
 			}
 			sdkGlobalArraySetValueEvt(hash, arraySet, GA_EVENT);
 			// get

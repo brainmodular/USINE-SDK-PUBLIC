@@ -94,8 +94,8 @@ public:
 protected:
 	//-------------------------------------------------------------------------
 	// parameters events
-	UsineEventPtr fdrFrequence; // slider input
-	UsineEventPtr fdrPeriod;       // slider output
+	UsineEventClass fdrFrequence; // slider input
+	UsineEventClass fdrPeriod;       // slider output
 	
 	void computePeriod ();
 

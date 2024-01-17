@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:ArrayDelay/ArrayDelay.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:ArrayDelay/../AudioVolume/AudioVolume.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:DataMultiply/DataMultiply.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:DataOscilloscope/DataOscilloscope.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:DrawBox/DrawBox.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:DrawTrajectory/DrawTrajectory.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:GlobalArray/GlobalArray.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Granulator/Granulator.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MidiTranspose/MidiTranspose.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MultiThreading/MultiThreading.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Reverb/Reverb.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:RingMod/RingMod.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:RingModMultithread/RingModMultithread.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:SimplePad/SimplePad.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:TemplateModule/TemplateModule.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:TouchFader/TouchFader.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:UsineObjects/UsineObjects.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:VideoDimmer/VideoDimmer.xcodeproj">
+   </FileRef>
+</Workspace>

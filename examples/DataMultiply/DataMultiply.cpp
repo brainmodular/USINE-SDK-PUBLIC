@@ -70,7 +70,7 @@ void DestroyModule (void* pModule)
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "data multiply example";
+const AnsiCharPtr UserModuleBase::MODULE_NAME = "data multiply";
 const AnsiCharPtr UserModuleBase::MODULE_DESC = "data multiply sdk module example";
 const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
@@ -126,7 +126,7 @@ void DataMultiplyExample::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->CallBackType	= ctImmediate;
-		pParamInfo->EventPtr        = &dtfInputA;
+		pParamInfo->setEventClass	(dtfInputA);
 
 		break;
 
@@ -137,7 +137,7 @@ void DataMultiplyExample::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->CallBackType	= ctImmediate;
-		pParamInfo->EventPtr        = &dtfInputB;
+		pParamInfo->setEventClass	(dtfInputB);
 		break;
 
 	// dftOutput
@@ -147,7 +147,7 @@ void DataMultiplyExample::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo
 		pParamInfo->IsInput			= FALSE;
 		pParamInfo->IsOutput		= TRUE;
 		pParamInfo->DontSave		= TRUE;
-		pParamInfo->EventPtr        = &dftOutput;
+		pParamInfo->setEventClass	(dtfOutput);
 
 		break;
 
@@ -169,7 +169,7 @@ void DataMultiplyExample::onCallBack (TUsineMessage* Message)
 
 		    if ((paramIndex == 0 || paramIndex == 1) && (Message->lParam == MSG_CHANGE))
 		    {
-			    sdkMultEvt3 (dtfInputA, dtfInputB, dftOutput);
+			    sdkMultEvt3 (dtfInputA, dtfInputB, dtfOutput);
 		    }
         }
 	}

@@ -95,9 +95,9 @@ public:
 private:
 	//-------------------------------------------------------------------------
 	// parameters events
-	UsineEventPtr dtfInputA;
-	UsineEventPtr dtfInputB;
-	UsineEventPtr dftOutput;
+	UsineEventClass dtfInputA;
+	UsineEventClass dtfInputB;
+	UsineEventClass dtfOutput;
 
 
 }; // class DataMultiplyExample

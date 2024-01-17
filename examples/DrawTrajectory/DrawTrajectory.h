@@ -113,8 +113,8 @@ public:
 
 	//-----------------------------------------------------------------------------
 	// query system and init
-	//int  onGetNumberOfParams( int queryIndex);
-	//void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryIndex);
+	//int  onGetNumberOfParams( int queryResult1, int queryResult2);
+	//void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
 	void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
@@ -170,14 +170,14 @@ private:
 	
 	//-------------------------------------------------------------------------
 	// parameters events
-	UsineEventPtr m_dtfPointsCount;		// PointsCount data field output
-	UsineEventPtr m_dtfSelPointIndex;	// Selected point index data field input/output
-	UsineEventPtr m_fdrSelPointX;		// Selected point X coord fader output
-	UsineEventPtr m_fdrSelPointY;		// Selected point Y coord fader output
-	UsineEventPtr m_btnErase;			// Erase trajectory button input
-	UsineEventPtr m_btnRandomize;       // randomize button input
-    UsineEventPtr arrPointsCoordsIn;    // to populate the lines tab
-    UsineEventPtr arrPointsCoordsOut;   // lines tab points coords
+	UsineEventClass m_dtfPointsCount;		// PointsCount data field output
+	UsineEventClass m_dtfSelPointIndex;	// Selected point index data field input/output
+	UsineEventClass m_fdrSelPointX;		// Selected point X coord fader output
+	UsineEventClass m_fdrSelPointY;		// Selected point Y coord fader output
+	UsineEventClass m_btnErase;			// Erase trajectory button input
+	UsineEventClass m_btnRandomize;       // randomize button input
+    UsineEventClass arrPointsCoordsIn;    // to populate the lines tab
+    UsineEventClass arrPointsCoordsOut;   // lines tab points coords
 
 	//-------------------------------------------------------------------------
 	// Other	

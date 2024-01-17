@@ -23,6 +23,9 @@
       <Filter>sdk</Filter>
     </ClInclude>
     <ClInclude Include="MidiTranspose.h" />
+    <ClInclude Include="..\..\sdk\UsineEventClass.hpp">
+      <Filter>sdk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="sdk">

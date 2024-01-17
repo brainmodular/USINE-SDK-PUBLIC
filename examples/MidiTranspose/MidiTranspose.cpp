@@ -70,7 +70,7 @@ void DestroyModule (void* pModule)
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "midi transpose example";
+const AnsiCharPtr UserModuleBase::MODULE_NAME = "midi transpose";
 const AnsiCharPtr UserModuleBase::MODULE_DESC = "midi transpose sdk module example";
 const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
@@ -86,12 +86,11 @@ void GetBrowserInfo(TModuleInfo* pModuleInfo)
 // module description
 void MidiTransposeExample::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
 {
-
 	//identification of the module
 	pModuleInfo->Name				= MODULE_NAME;
 	pModuleInfo->Description		= MODULE_DESC;
 	pModuleInfo->ModuleType         = mtSimple;
-	//pModuleInfo->BackColor          = sdkGetUsineColor(clMIDIModuleColor);
+	pModuleInfo->BackColor          = sdkGetUsineColor(clMIDIModuleColor);
 	pModuleInfo->NumberOfParams     = 3;
 	pModuleInfo->Version			= MODULE_VERSION;
 	pModuleInfo->CanBeSavedInPreset = FALSE;
@@ -115,7 +114,7 @@ void MidiTransposeExample::onGetParamInfo (int ParamIndex, TParamInfo* pParamInf
 		pParamInfo->IsInput				= TRUE;
 		pParamInfo->IsOutput			= FALSE;
 		pParamInfo->CallBackType		= ctImmediate;
-		pParamInfo->EventPtr            = &midiIn;
+		pParamInfo->setEventClass		(midiIn);
 		break;
 
 	// midiOut
@@ -124,7 +123,7 @@ void MidiTransposeExample::onGetParamInfo (int ParamIndex, TParamInfo* pParamInf
 		pParamInfo->Caption				= "out";
 		pParamInfo->IsInput				= FALSE;
 		pParamInfo->IsOutput			= TRUE;
-		pParamInfo->EventPtr            = &midiOut;
+		pParamInfo->setEventClass		(midiOut);
 		break;
 
 	// fdrPitch
@@ -140,7 +139,7 @@ void MidiTransposeExample::onGetParamInfo (int ParamIndex, TParamInfo* pParamInf
 		pParamInfo->Format				= "%.0f";
 		pParamInfo->IsStoredInPreset	= TRUE;
 		pParamInfo->CallBackType		= ctImmediate;
-		pParamInfo->EventPtr            = &fdrPitch;
+		pParamInfo->setEventClass		(fdrPitch);
 		break;
 
 	// default case
@@ -151,21 +150,21 @@ void MidiTransposeExample::onGetParamInfo (int ParamIndex, TParamInfo* pParamInf
 
 void MidiTransposeExample::onProcess () 
 {
-    int sizeMidiIn = sdkGetEvtSize (midiIn);
-    sdkSetEvtSize (midiOut, 0);
+    int sizeMidiIn = midiIn.getSize();
+    midiOut.setSize(0);
 
     if (sizeMidiIn > 0)
     {
-        sdkCopyEvt (midiIn, midiOut);
-        int pitch = (int)sdkGetEvtData (fdrPitch);
+        midiOut.copy(midiIn);
+        int pitch = (int)fdrPitch.getData();
 
 	    for (int i = 0; i < sizeMidiIn; i++)
         {
-            TUsineMidiCode code = sdkGetEvtArrayMidi (midiOut, i);
+            TUsineMidiCode code = midiOut.getArrayMidi(i);
            if (code.Msg ==  MIDI_NOTEON || code.Msg ==  MIDI_NOTEOFF)
            {
                 code.Data1 = std::min (127, std::max (0, (int)code.Data1 + pitch));
-                sdkSetEvtArrayMidi (midiOut, i, code);
+                midiOut.setArrayMidi(i, code);
            }
         }
     }

@@ -121,8 +121,8 @@ private:
 	
 	//-------------------------------------------------------------------------
 	// parameters events
-	UsineEventPtr btnErase;			// Erase trajectory button input
-	UsineEventPtr btnRandomize;     // randomize button input
+	UsineEventClass btnErase;			// Erase trajectory button input
+	UsineEventClass btnRandomize;     // randomize button input
 
 	//-------------------------------------------------------------------------
 	// Other	

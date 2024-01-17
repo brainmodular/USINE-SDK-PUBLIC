@@ -85,8 +85,8 @@ TemplateModuleSimple::~TemplateModuleSimple()
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "Template Simple";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "Template Simple";
+const AnsiCharPtr UserModuleBase::MODULE_NAME = "template simple";
+const AnsiCharPtr UserModuleBase::MODULE_DESC = "template simple example";
 const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
 // browser info
@@ -132,7 +132,7 @@ void TemplateModuleSimple::onGetParamInfo (int ParamIndex, TParamInfo* pParamInf
 		    pParamInfo->Symbol          = "Hz";
 		    pParamInfo->Format          = "%.2f";
             pParamInfo->Scale           = scLog;
-			pParamInfo->EventPtr        = &fdrFrequence;
+			pParamInfo->setEventClass	(fdrFrequence);
 
 	        break;  
         // fdrPeriod
@@ -148,7 +148,7 @@ void TemplateModuleSimple::onGetParamInfo (int ParamIndex, TParamInfo* pParamInf
 		    pParamInfo->Format          = "%.2f";
             pParamInfo->Scale           = scLog;
 		    pParamInfo->ReadOnly		= TRUE; // can't change the field
-			pParamInfo->EventPtr        = &fdrPeriod;
+			pParamInfo->setEventClass	(fdrPeriod);
 			break;
 
 	        // default case
@@ -184,5 +184,5 @@ void TemplateModuleSimple::onProcess ()
 
 void TemplateModuleSimple::computePeriod ()
 {
-    sdkSetEvtData (fdrPeriod, 1000.0f / sdkGetEvtData( fdrFrequence));
+    fdrPeriod.setData(1000.0f / fdrFrequence.getData());
 }

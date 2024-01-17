@@ -139,10 +139,10 @@ private:
 	
 	//-------------------------------------------------------------------------
 	// parameters events
-    UsineEventPtr arrPosX;  
-    UsineEventPtr arrPosY;  
+    UsineEventClass arrPosX;  
+    UsineEventClass arrPosY;  
 	
-	UsineEventPtr btnRandomize; 
+	UsineEventClass btnRandomize; 
 
 	//-------------------------------------------------------------------------
 	// used to store pad pos in the chunk	

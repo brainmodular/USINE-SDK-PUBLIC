@@ -83,8 +83,8 @@ public:
 
 	//-----------------------------------------------------------------------------
 	// query system and init
-	int  onGetNumberOfParams( int queryIndex);
-	void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryIndex);
+	int  onGetNumberOfParams(int queryResult1, int queryResult2);
+	void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
 	void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
@@ -100,15 +100,15 @@ public:
 private:
 	//-------------------------------------------------------------------------
 	// parameters events
-    UsineEventPtr audioInputs[AUDIO_INS_OUTS_MAX];     // audio input
-    UsineEventPtr audioOutputs[AUDIO_INS_OUTS_MAX];    // audio output
-	UsineEventPtr fdrGain;
-	UsineEventPtr switchMute;
+    UsineEventClass audioInputs[AUDIO_INS_OUTS_MAX];     // audio input
+    UsineEventClass audioOutputs[AUDIO_INS_OUTS_MAX];    // audio output
+	UsineEventClass fdrGain;
+	UsineEventClass switchMute;
 	
 	//-------------------------------------------------------------------------
     static const int numOfParamAfterAudiotInOut = 2;
 
-	int queryIndex;
+	int queryResult;
 	int numOfAudiotInsOuts;
 
     TPrecision coeffGain;

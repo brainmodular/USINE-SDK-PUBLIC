@@ -179,14 +179,13 @@ public:
 
 	//-----------------------------------------------------------------------------
 	// query system and init
-	int  onGetNumberOfParams( int queryIndex);
-	void onAfterQuery (MasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryIndex);
+	int  onGetNumberOfParams(int queryResult1, int queryResult2);
+	void onAfterQuery (MasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
 	void onInitModule (MasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
 	// parameters and process
 	void onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo);
-	void onSetEventAddress (int ParamIndex, UsineEventPtr pEvent);
 	void onCallBack (TUsineMessage *Message);
 	void onProcess ();
 
@@ -236,19 +235,19 @@ private:
 
 	//-------------------------------------------------------------------------
 	// parameters events
-    UsineEventPtr m_audioInputs[AUDIO_INS_OUTS_MAX];     // audio input
-    UsineEventPtr m_audioOutputs[AUDIO_INS_OUTS_MAX];    // audio output
-	UsineEventPtr m_fdrGrainInterval;
-	UsineEventPtr m_ledGrainStart;
-	UsineEventPtr m_lboxGrainEnvelope;
-	UsineEventPtr m_fdrGrainEnvelopeSkrew;
-	UsineEventPtr m_fdrGrainDuration;
-	UsineEventPtr m_fdrGrainPitch;
-	UsineEventPtr m_lboxGrainMode;
-	UsineEventPtr m_btnGrainGo;
+    UsineEventClass m_audioInputs[AUDIO_INS_OUTS_MAX];     // audio input
+    UsineEventClass m_audioOutputs[AUDIO_INS_OUTS_MAX];    // audio output
+	UsineEventClass m_fdrGrainInterval;
+	UsineEventClass m_ledGrainStart;
+	UsineEventClass m_lboxGrainEnvelope;
+	UsineEventClass m_fdrGrainEnvelopeSkrew;
+	UsineEventClass m_fdrGrainDuration;
+	UsineEventClass m_fdrGrainPitch;
+	UsineEventClass m_lboxGrainMode;
+	UsineEventClass m_btnGrainGo;
     	
 	//-------------------------------------------------------------------------
-	int queryIndex;
+	int queryResult;
 	int numOfAudiotInsOuts;
 	int numOfParamAfterAudiotInOut;
 

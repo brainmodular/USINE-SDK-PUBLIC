@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1130"
+   LastUpgradeVersion = "1410"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4EAD14861A9E2D8400784045"
-               BuildableName = "ArrayDelay.usr-osx64"
+               BlueprintIdentifier = "62C2EA5D2B07AD1F00A282C6"
+               BuildableName = "ArrayDelay.usr-macos64uni"
                BlueprintName = "ArrayDelay"
                ReferencedContainer = "container:ArrayDelay.xcodeproj">
             </BuildableReference>
@@ -50,8 +50,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4EAD14861A9E2D8400784045"
-            BuildableName = "ArrayDelay.usr-osx64"
+            BlueprintIdentifier = "62C2EA5D2B07AD1F00A282C6"
+            BuildableName = "ArrayDelay.usr-macos64uni"
             BlueprintName = "ArrayDelay"
             ReferencedContainer = "container:ArrayDelay.xcodeproj">
          </BuildableReference>

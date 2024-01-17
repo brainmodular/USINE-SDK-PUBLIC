@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4EAD14861A9E2D8400784045"
-               BuildableName = "DrawBox.usr-osx64"
+               BuildableName = "DrawBox.usr-macos64uni"
                BlueprintName = "DrawBox"
                ReferencedContainer = "container:DrawBox.xcodeproj">
             </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4EAD14861A9E2D8400784045"
-            BuildableName = "DrawBox.usr-osx64"
+            BuildableName = "DrawBox.usr-macos64uni"
             BlueprintName = "DrawBox"
             ReferencedContainer = "container:DrawBox.xcodeproj">
          </BuildableReference>

@@ -95,8 +95,8 @@ public:
 
 	//-----------------------------------------------------------------------------
 	// query system and init
-	int  onGetNumberOfParams( int queryIndex);
-	void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryIndex);
+	int  onGetNumberOfParams(int queryResult1, int queryResult2);
+	void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
 	void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
@@ -118,17 +118,17 @@ protected:
 protected:
 	//-------------------------------------------------------------------------
 	// parameters events
-    UsineEventPtr audioInputs[AUDIO_INS_OUTS_MAX];     // audio input
-    UsineEventPtr audioOutputs[AUDIO_INS_OUTS_MAX];    // audio output
-	UsineEventPtr swtchMode;
-	UsineEventPtr fdrRoomSize;
-	UsineEventPtr fdrDamping;
-	UsineEventPtr fdrChannelsSeparation;
-	UsineEventPtr gfdrWetLevel;
-	UsineEventPtr gfdrDryLevel;
+    UsineEventClass audioInputs[AUDIO_INS_OUTS_MAX];     // audio input
+    UsineEventClass audioOutputs[AUDIO_INS_OUTS_MAX];    // audio output
+	UsineEventClass swtchMode;
+	UsineEventClass fdrRoomSize;
+	UsineEventClass fdrDamping;
+	UsineEventClass fdrChannelsSeparation;
+	UsineEventClass gfdrWetLevel;
+	UsineEventClass gfdrDryLevel;
 	
 	//-------------------------------------------------------------------------
-    int queryIndex;
+	int queryResult;
 	int numOfAudiotInsOuts;
 	int numOfParamAfterAudiotInOut;
     
@@ -137,11 +137,11 @@ protected:
 
     // reverb stuff
 	//revmodel*	reverbModel;
-    UsineEventPtr temp[AUDIO_INS_OUTS_MAX];
-    UsineEventPtr temp2[AUDIO_INS_OUTS_MAX];
+    UsineEventClass temp[AUDIO_INS_OUTS_MAX];
+    UsineEventClass temp2[AUDIO_INS_OUTS_MAX];
 
-    UsineEventPtr processOutput[AUDIO_INS_OUTS_MAX];
-    UsineEventPtr processInput[AUDIO_INS_OUTS_MAX];
+    UsineEventClass processOutput[AUDIO_INS_OUTS_MAX];
+    UsineEventClass processInput[AUDIO_INS_OUTS_MAX];
 
     // default values for the reverb model param
     // !!!!! in module scale (not between 0 and 1)

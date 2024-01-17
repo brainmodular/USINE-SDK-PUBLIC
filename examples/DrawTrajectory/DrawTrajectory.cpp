@@ -70,7 +70,7 @@ void DestroyModule (void* pModule)
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "Draw Trajectory Example";
+const AnsiCharPtr UserModuleBase::MODULE_NAME = "draw trajectory";
 const AnsiCharPtr UserModuleBase::MODULE_DESC = "Draw Trajectory Example";
 const AnsiCharPtr UserModuleBase::MODULE_VERSION = "2.21";
 
@@ -135,17 +135,17 @@ void TDrawTrajectoryModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamIn
 	{
 	// PointsCount data field output
 	case 0: 
-		pParamInfo->ParamType		= ptDataField;
-		pParamInfo->Caption			= "nbpoints";
-		pParamInfo->IsInput			= FALSE;
-		pParamInfo->IsOutput		= TRUE;
-		pParamInfo->MinValue		= 0;
-		pParamInfo->MaxValue		= MAXPOINTS;
-		pParamInfo->DefaultValue	= 0;
-		pParamInfo->Symbol			= " pt";
-		pParamInfo->Format			= "%.0f";
-		pParamInfo->ReadOnly		= TRUE;
-		pParamInfo->EventPtr        = &m_dtfPointsCount;
+		pParamInfo->ParamType			= ptDataField;
+		pParamInfo->Caption				= "nbpoints";
+		pParamInfo->IsInput				= FALSE;
+		pParamInfo->IsOutput			= TRUE;
+		pParamInfo->MinValue			= 0;
+		pParamInfo->MaxValue			= MAXPOINTS;
+		pParamInfo->DefaultValue		= 0;
+		pParamInfo->Symbol				= " pt";
+		pParamInfo->Format				= "%.0f";
+		pParamInfo->ReadOnly			= TRUE;
+		pParamInfo->setEventClass		(m_dtfPointsCount);
 		break;
 
      // Selected point index data field input/output
@@ -160,7 +160,7 @@ void TDrawTrajectoryModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamIn
 		pParamInfo->ReadOnly			= FALSE;
 		pParamInfo->CallBackType		= ctImmediate; 
 		pParamInfo->IsStoredInPreset	= TRUE;
-		pParamInfo->EventPtr            = &m_dtfSelPointIndex;
+		pParamInfo->setEventClass		(m_dtfSelPointIndex);
 		break;
 
      // Selected point X coord fader output
@@ -176,7 +176,7 @@ void TDrawTrajectoryModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamIn
 		pParamInfo->Format          = "%.3f";
 		pParamInfo->ReadOnly		= TRUE;
 		pParamInfo->IsSeparator		= TRUE;
-		pParamInfo->EventPtr        = &m_fdrSelPointX;
+		pParamInfo->setEventClass	(m_fdrSelPointX);
 		break;
 
      // Selected point Y coord fader output
@@ -191,7 +191,7 @@ void TDrawTrajectoryModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamIn
 		pParamInfo->Symbol          = "";
 		pParamInfo->Format          = "%.3f";
 		pParamInfo->ReadOnly		= TRUE;
-		pParamInfo->EventPtr        = &m_fdrSelPointY;
+		pParamInfo->setEventClass	(m_fdrSelPointY);
 		break;
 
 	// Erase trajectory button input
@@ -203,7 +203,7 @@ void TDrawTrajectoryModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamIn
 		pParamInfo->ReadOnly		= FALSE;
 		pParamInfo->CallBackType    = ctImmediate;
 		pParamInfo->IsSeparator		= TRUE;
-		pParamInfo->EventPtr        = &m_btnErase;
+		pParamInfo->setEventClass	(m_btnErase);
 		break;
 
 	// m_btnRandomize
@@ -213,7 +213,7 @@ void TDrawTrajectoryModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamIn
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->ReadOnly		= FALSE;
-		pParamInfo->EventPtr        = &m_btnRandomize;
+		pParamInfo->setEventClass	(m_btnRandomize);
 		break;
 
     // arrPointsCoordsIn
@@ -228,7 +228,7 @@ void TDrawTrajectoryModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamIn
 		pParamInfo->CallBackType    = ctImmediate;
         pParamInfo->IsSeparator     = TRUE;
 		pParamInfo->DontSave		= TRUE;
-		pParamInfo->EventPtr        = &arrPointsCoordsIn;
+		pParamInfo->setEventClass	(arrPointsCoordsIn);
         break;
 
     // arrPointsCoordsOut
@@ -241,7 +241,7 @@ void TDrawTrajectoryModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamIn
 		pParamInfo->MaxValue		= FLT_MAX;
 		pParamInfo->CallBackType    = ctImmediate;
 		pParamInfo->DontSave		= TRUE;
-		pParamInfo->EventPtr        = &arrPointsCoordsOut;
+		pParamInfo->setEventClass	(arrPointsCoordsOut);
 		break;
         
 
@@ -264,11 +264,11 @@ void TDrawTrajectoryModule::onCallBack (TUsineMessage *Message)
 	case 1:
 		if (Message->lParam == MSG_CHANGE) 
 		{
-            int tmp = (int)(sdkGetEvtData( m_dtfSelPointIndex ));
+            int tmp = (int)m_dtfSelPointIndex.getData();
             if (m_selPointIndexValue != tmp)
             {
 			    m_selPointIndexValue = tmp;
-                m_trajectoryThickness = (float)sdkGetEvtData( m_dtfSelPointIndex ) - m_selPointIndexValue;
+                m_trajectoryThickness = m_dtfSelPointIndex.getData() - m_selPointIndexValue;
 
 				// Ask to repaint the module
 			    sdkRepaintPanel();
@@ -280,10 +280,10 @@ void TDrawTrajectoryModule::onCallBack (TUsineMessage *Message)
 	case 4:
 		if (Message->lParam == MSG_CHANGE) 
 		{	
-			m_tabTrajectoryCoords.num  = 0;
-			m_selPointIndexValue		= -1;
-			sdkSetEvtData(m_dtfPointsCount, 0.0f);
-			sdkSetEvtData(m_dtfSelPointIndex, -1.0f);
+			m_tabTrajectoryCoords.num = 0;
+			m_selPointIndexValue = -1;
+			m_dtfPointsCount.setData(0.0f);
+			m_dtfSelPointIndex.setData(- 1.0f);
 
 			// Ask to repaint the module
 			sdkRepaintPanel();
@@ -302,7 +302,7 @@ void TDrawTrajectoryModule::onCallBack (TUsineMessage *Message)
     case 6:
 		if (Message->lParam == MSG_CHANGE) 
 		{	
-            int coordsInSize = sdkGetEvtSize (arrPointsCoordsIn);
+            int coordsInSize = arrPointsCoordsIn.getSize();
 			int arrayDim = 3;
 
             int totalInPoints = coordsInSize / arrayDim;
@@ -311,8 +311,8 @@ void TDrawTrajectoryModule::onCallBack (TUsineMessage *Message)
             for (int i = 0; i < totalInPoints; i++)
             {
                 // extract arrai in point
-                newCoord.x = sdkGetEvtArrayData (arrPointsCoordsIn, i * arrayDim);
-                newCoord.y = sdkGetEvtArrayData (arrPointsCoordsIn, (i * arrayDim) + 1);
+                newCoord.x = arrPointsCoordsIn.getArrayData(i * arrayDim);
+                newCoord.y = arrPointsCoordsIn.getArrayData((i * arrayDim) + 1);
                 
                 // apply inverse option if necessary
                 if (m_boolIsYAxisInversed != FALSE)
@@ -323,20 +323,20 @@ void TDrawTrajectoryModule::onCallBack (TUsineMessage *Message)
                 m_tabTrajectoryCoords.Tab[i].y = newCoord.y;
             
                 // populate output array
-                sdkSetEvtArrayData (arrPointsCoordsOut, i * arrayDim, m_tabTrajectoryCoords.Tab[i].x);
-                sdkSetEvtArrayData (arrPointsCoordsOut, (i * arrayDim) + 1, m_tabTrajectoryCoords.Tab[i].y);
+                arrPointsCoordsOut.setArrayData(i * arrayDim, m_tabTrajectoryCoords.Tab[i].x);
+                arrPointsCoordsOut.setArrayData((i * arrayDim) + 1, m_tabTrajectoryCoords.Tab[i].y);
 
                 // always 3 lines for the array out
                 if (arrayDim >= 3)
-                    sdkSetEvtArrayData (arrPointsCoordsOut, (i * arrayDim) + 2, sdkGetEvtArrayData (arrPointsCoordsIn, (i * arrayDim) + 2));
+                    arrPointsCoordsOut.setArrayData((i * arrayDim) + 2, arrPointsCoordsIn.getArrayData(i * arrayDim) + 2);
                 else
-                    sdkSetEvtArrayData (arrPointsCoordsOut, (i * arrayDim) + 2, 0.5f);
+                    arrPointsCoordsOut.setArrayData((i * arrayDim) + 2, 0.5f);
             }
             m_tabTrajectoryCoords.num = totalInPoints;
 		    // update points counter
-		    sdkSetEvtData(m_dtfPointsCount, (float)m_tabTrajectoryCoords.num); 
+		    m_dtfPointsCount.setData((float)m_tabTrajectoryCoords.num);
 
-            sdkSetEvtSize (arrPointsCoordsOut, totalInPoints * ARRAY_OUT_LINES);
+            arrPointsCoordsOut.setSize(totalInPoints * ARRAY_OUT_LINES);
 
             computeAllControlPoints ();
             
@@ -349,19 +349,19 @@ void TDrawTrajectoryModule::onCallBack (TUsineMessage *Message)
     case 7:
 		if (Message->lParam == MSG_CHANGE) 
 		{            
-            int totalInPoints = sdkGetEvtSize (arrPointsCoordsOut) / ARRAY_OUT_LINES;
+            int totalInPoints = arrPointsCoordsOut.getSize() / ARRAY_OUT_LINES;
 
             for (int i = 0; i < totalInPoints; i++)
             {
 
                 // populate points tab
-                m_tabTrajectoryCoords.Tab[i].x = sdkGetEvtArrayData (arrPointsCoordsOut, i * ARRAY_OUT_LINES);
-                m_tabTrajectoryCoords.Tab[i].y = sdkGetEvtArrayData (arrPointsCoordsOut, (i * ARRAY_OUT_LINES) + 1);
+                m_tabTrajectoryCoords.Tab[i].x = arrPointsCoordsOut.getArrayData(i * ARRAY_OUT_LINES);
+                m_tabTrajectoryCoords.Tab[i].y = arrPointsCoordsOut.getArrayData((i * ARRAY_OUT_LINES) + 1);
 
             }
             m_tabTrajectoryCoords.num = totalInPoints;
             // update points counter
-		    sdkSetEvtData(m_dtfPointsCount, (float)m_tabTrajectoryCoords.num); 
+		    m_dtfPointsCount.setData((float)m_tabTrajectoryCoords.num);
 			// Ask to repaint the module
 			sdkRepaintPanel();
 		}
@@ -388,8 +388,8 @@ void TDrawTrajectoryModule::onProcess ()
 			point.y = point.y + (m_tabTrajectoryCoords.Tab[m_selPointIndexValue+1].y - point.y ) * m_trajectoryThickness;
 		}
 
-		sdkSetEvtData( m_fdrSelPointX, point.x);
-		sdkSetEvtData( m_fdrSelPointY, point.y);
+		m_fdrSelPointX.setData(point.x);
+		m_fdrSelPointY.setData(point.y);
 	}
 }
 
@@ -434,17 +434,17 @@ void TDrawTrajectoryModule::onSetChunk (const void* chunk, int sizeInBytes, Long
 
     computeAllControlPoints ();
     
-    sdkSetEvtSize (arrPointsCoordsOut, m_tabTrajectoryCoords.num * ARRAY_OUT_LINES);
+    arrPointsCoordsOut.setSize(m_tabTrajectoryCoords.num * ARRAY_OUT_LINES);
         
     for (int i = 0; i < m_tabTrajectoryCoords.num; i++)
     {
-        sdkSetEvtArrayData (arrPointsCoordsOut, i * ARRAY_OUT_LINES, m_tabTrajectoryCoords.Tab[i].x);
-        sdkSetEvtArrayData (arrPointsCoordsOut, (i * ARRAY_OUT_LINES) + 1, m_tabTrajectoryCoords.Tab[i].y);
-        sdkSetEvtArrayData (arrPointsCoordsOut, (i * ARRAY_OUT_LINES) + 2, 0.5f);
+        arrPointsCoordsOut.setArrayData(i * ARRAY_OUT_LINES, m_tabTrajectoryCoords.Tab[i].x);
+        arrPointsCoordsOut.setArrayData((i * ARRAY_OUT_LINES) + 1, m_tabTrajectoryCoords.Tab[i].y);
+        arrPointsCoordsOut.setArrayData((i * ARRAY_OUT_LINES) + 2, 0.5f);
     }
 
 	// update points counter
-	sdkSetEvtData(m_dtfPointsCount, (float)m_tabTrajectoryCoords.num); 
+	m_dtfPointsCount.setData((float)m_tabTrajectoryCoords.num);
 
 }
 
@@ -452,10 +452,10 @@ void TDrawTrajectoryModule::onSetChunk (const void* chunk, int sizeInBytes, Long
 // Global Randomize
 void TDrawTrajectoryModule::onRandomize ()
 {
-	m_tabTrajectoryCoords.num  = 0;
-	m_selPointIndexValue		= -1;
-	sdkSetEvtData(m_dtfPointsCount, 0.0f);
-	sdkSetEvtData(m_dtfSelPointIndex, -1.0f);
+	m_tabTrajectoryCoords.num = 0;
+	m_selPointIndexValue = -1;
+	m_dtfPointsCount.setData(0.0f);
+	m_dtfSelPointIndex.setData(-1.0f);
 
 	computeLissajous();
 
@@ -613,7 +613,7 @@ void TDrawTrajectoryModule::toggleInverseYAxis()
             
 //            int index = i * ARRAY_OUT_LINES;
 //            int tmp = sdkGetEvtSize (arrPointsCoordsOut);
-            sdkSetEvtArrayData (arrPointsCoordsOut, (i * ARRAY_OUT_LINES) + 1, newCoordCoeff.y);
+            arrPointsCoordsOut.setArrayData((i * ARRAY_OUT_LINES) + 1, newCoordCoeff.y);
 
 		}
 	}
@@ -681,16 +681,16 @@ void TDrawTrajectoryModule::appendTrajectory( float X, float Y )
 		m_tabTrajectoryCoords.num++;
         
         int newSize = m_tabTrajectoryCoords.num * ARRAY_OUT_LINES;
-        sdkSetEvtSize (arrPointsCoordsOut, newSize);
-        sdkSetEvtArrayData (arrPointsCoordsOut, newSize - 3, newCoordCoeff.x);
-        sdkSetEvtArrayData (arrPointsCoordsOut, newSize - 2, newCoordCoeff.y);
-        sdkSetEvtArrayData (arrPointsCoordsOut, newSize - 1, 0.5f);
+        arrPointsCoordsOut.setSize(newSize);
+        arrPointsCoordsOut.setArrayData(newSize - 3, newCoordCoeff.x);
+        arrPointsCoordsOut.setArrayData(newSize - 2, newCoordCoeff.y);
+        arrPointsCoordsOut.setArrayData(newSize - 1, 0.5f);
 
         if (m_tabTrajectoryCoords.num >= 1)
             computeControlPoint (m_tabTrajectoryCoords.num - 1);
 
 		// update points counter
-		sdkSetEvtData(m_dtfPointsCount, (float)m_tabTrajectoryCoords.num); 
+		m_dtfPointsCount.setData((float)m_tabTrajectoryCoords.num);
 
         
 		// Ask to repaint the module
@@ -799,12 +799,12 @@ void TDrawTrajectoryModule::computeLissajous()
 		m_tabTrajectoryCoords.num++;
 
         int newSize = m_tabTrajectoryCoords.num * ARRAY_OUT_LINES;
-        sdkSetEvtSize (arrPointsCoordsOut, newSize);
-        sdkSetEvtArrayData (arrPointsCoordsOut, newSize - 3, newCoord.x);
-        sdkSetEvtArrayData (arrPointsCoordsOut, newSize - 2, newCoord.y);
-        sdkSetEvtArrayData (arrPointsCoordsOut, newSize - 1, 0.5f);
+        arrPointsCoordsOut.setSize(newSize);
+		arrPointsCoordsOut.setArrayData(newSize - 3, newCoord.x);
+        arrPointsCoordsOut.setArrayData(newSize - 2, newCoord.y);
+        arrPointsCoordsOut.setArrayData(newSize - 1, 0.5f);
 		// update points counter
-		sdkSetEvtData(m_dtfPointsCount, (float)m_tabTrajectoryCoords.num); 
+		m_dtfPointsCount.setData((float)m_tabTrajectoryCoords.num); 
 
         d = sqrt(sqr(x-x0)+sqr(y-y0));
         j = j+1;

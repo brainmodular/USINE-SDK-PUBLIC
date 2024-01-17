@@ -7,11 +7,11 @@
 ///@brief  
 ///	A generic class provided to derive user modules from.
 ///
-///HISTORIC 
+///@HISTORIC 
 ///	2013/05/15
 ///    first release for Hollyhock CPP SDK 6.00.226 
 ///
-///IMPORTANT
+///@IMPORTANT
 ///	This file is part of the Usine Hollyhock CPP SDK
 ///
 ///  Please, report bugs and patch to Usine forum :
@@ -19,33 +19,16 @@
 ///
 /// All dependencies are under there own licence.
 ///
-///@LICENCE
-/// Copyright (C) 2013, 2014, 2015, 2019 BrainModular
+///@LICENSE
+/// Copyright (C) 2023 BrainModular, BeSpline, Adamson
 /// 
-/// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-/// this software and associated documentation files (the "Software"), 
-/// to deal in the Software without restriction, including without limitation 
-/// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-/// and/or sell copies of the Software, and to permit persons to whom the Software 
-/// is furnished to do so, subject to the following conditions:
-/// 
-/// The above copyright notice and this permission notice shall be included in all 
-///     copies or substantial portions of the Software.
-/// 
-/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-/// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-/// SOFTWARE.
-///
 ///----------------------------------------------------------------------------
 
 // include once, no more
 #ifndef __USER_MODULE_H__
 #define __USER_MODULE_H__
 
+const int PUSH_GRANULOSITY = 128;
 //----------------------------------------------------------------------------
 // includes
 //----------------------------------------------------------------------------
@@ -162,7 +145,7 @@ public:
 	/// Usine call it to obtain the number of parameters of the module depending of the query result 
     /// @param queryIndex The index of the choice made in the query popup
     /// @return Number of parameters of the module
-	virtual int  onGetNumberOfParams( int queryIndex)
+	virtual int  onGetNumberOfParams(int queryResult1, int queryResult2)
 	{
 		return m_moduleInfo->NumberOfParams;
 	}
@@ -171,7 +154,7 @@ public:
     /// @param pMasterInfo The TMasterInfo structure.
     /// @param pModuleInfo The TModuleInfo structure.
     /// @param queryIndex The index of the choice made in the query pop-up
-	virtual void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryIndex) {}
+	virtual void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2) {}
     /// @}
 
 	//-----------------------------------------------------------------------------
@@ -318,15 +301,22 @@ public:
 
 	/// Called by Usine when the mouse wheel is moved on the control
     virtual void onMouseWheel (TShiftState Shift, int WheelDelta){};
+
+	/// Called by Usine when control receives a touch-screen move event
+	virtual void onMouseMoveMulti(TShiftState Shift, UsineEventPtr X, UsineEventPtr Y, UsineEventPtr Pressed) {};
 	
 	/// Called by Usine when control receives a touch-screen move event
-	virtual void onMouseMoveMulti (TShiftState Shift, UsineEventPtr X, UsineEventPtr Y, UsineEventPtr Pressed){};
-	
+	virtual void onMouseMoveMulti(TShiftState Shift, UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed) {};
+
 	/// Called by Usine when control receives a touch-screen down event
-	virtual void onMouseDownMulti (TMouseButton MouseButton, TShiftState Shift, UsineEventPtr X, UsineEventPtr Y, UsineEventPtr Pressed){};
+	virtual void onMouseDownMulti(TMouseButton MouseButton, TShiftState Shift, UsineEventPtr X, UsineEventPtr Y, UsineEventPtr Pressed){};
+
+	///Called by Usine when control receives a touch-screen down event
+	virtual void onMouseDownMulti(TMouseButton MousButton, TShiftState Shift, UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed){};
 	
 	/// Called by Usine when control receives a touch-screen up event
-	virtual void onMouseUpMulti (TMouseButton MouseButton, TShiftState Shift,UsineEventPtr X, UsineEventPtr Y, UsineEventPtr Pressed){};
+	virtual void onMouseUpMulti(TMouseButton MouseButton, TShiftState Shift,UsineEventPtr X, UsineEventPtr Y, UsineEventPtr Pressed){};
+	virtual void onMouseUpMulti(TMouseButton MouseButton, TShiftState Shift, UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed){};
     /// @}
 
 	//-----------------------------------------------------------------------------
@@ -417,7 +407,7 @@ public:
 	
 	//----------------------------------------------------------------------------
     // internal use
-    inline void AfterQueryPopup (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryIndex);
+    inline void AfterQueryPopup (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
     inline void Init(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
     void InitInfosStructures(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 	inline void CallBack (TUsineMessage *Message);
@@ -460,6 +450,17 @@ public:
 	///	Fill a text 
 	inline void sdkFillText (TRectF rect, AnsiCharPtr text, TUsineColor textColor, float fontSize, LongBool isBold = FALSE, LongBool isWordWrap = FALSE, TTextAlign alignHorizontal = taCenter, TTextAlign alignVertical = taCenter, LongBool isVertical = FALSE) { 
 		m_masterInfo->FillText (m_moduleInfo, rect, text, textColor, fontSize, isBold, isWordWrap, alignHorizontal, alignVertical, isVertical);};
+
+	/// Draw an array of pixels.
+	/// @param pArray pointer to the first element of the pixels array
+	/// @param W width of the pixels array
+	/// @param H height of the pixels array
+	/// @param destRect destination rectangle in normalized coordinates (0..1).
+	/// No verification of the pixels array size is made so be sure that W and H have the right values.
+	inline void sdkBitBlit(TUsinePixelPtr pArray, int W, int H, TRectF destRect) {
+		m_masterInfo->BitBlit(m_moduleInfo, pArray,W,H,destRect);
+	};
+
     /// @}
     
 	/// @{ 
@@ -667,257 +668,6 @@ public:
 
 	/// @}
 
-    //----------------------------------------------------------------------------
-	/// Utils functions to help manipulate events
-    /// @name Events manipulation 
-	/// @{
-
-    /// Compare Events, returns TRUE if e1 and e2 are equal.
-    inline bool sdkCompareEvt( UsineEventPtr e1, UsineEventPtr e2 )                     { 
-		return m_masterInfo->CompareEvt( e1, e2 ); };
-
-	/// Copy Events, copies src to dest.
-    inline void sdkCopyEvt(UsineEventPtr scr, UsineEventPtr dest)                       { 
-		m_masterInfo->CopyEvt( scr, dest ); };
-
-	/// Event Concatenation dest is the concatenation of e1 and e2.
-    inline void sdkConcatEvt( UsineEventPtr e1, UsineEventPtr e2, UsineEventPtr dest )     { 
-		m_masterInfo->ConcatEvt( e1, e2, dest ); };
-    
-	/// Shift the values of src and store the result into dest. 
-	/// Right shift for n>0, left shift for n<0.
-    inline void sdkShiftEvt( int n, UsineEventPtr src, UsineEventPtr dest )         { 
-		m_masterInfo->ShiftEvt( n, src, dest ); };
-    
-	/// Set the size of the event (number of elements). Typically the size of audio events is given by sdkGetBlocSize.
-	/// @see sdkGetBlocSize 
-    inline void sdkSetEvtSize( UsineEventPtr e, int size )                     { 
-		m_masterInfo->SetEvtSize( e, size ); };
-    
-	/// Get the size of the event (number of elements).
-    inline int  sdkGetEvtSize( UsineEventPtr e)                                { 
-		return m_masterInfo->GetEvtSize( e ); };
-
-    /// Set the maximum size allowed by the event. Can be greater than the event size.
-    inline void sdkSetEvtMaxSize( UsineEventPtr e, int size )                  { 
-		m_masterInfo->SetEvtMaxSize( e, size ); };
-    
-	/// Destroy the event.
-    inline void sdkDestroyEvt( UsineEventPtr &e )                              { 
-		m_masterInfo->DestroyEvt( e ); };
-    
-	/// Create an event with an original size.
-    inline void sdkCreateEvt( UsineEventPtr &e, int originalSize )             { 
-		m_masterInfo->CreateEvt( e, originalSize ); };
-    
-	/// Copy a 32Bits bloc of memory. The size is the number of 32bits elements.
-    inline void sdkMoveBLOC32( TPrecision* pointerSrc, TPrecision* pointerDest, int size )      { 
-		m_masterInfo->MoveBLOC32( pointerSrc, pointerDest, size ); };
-
-    /// Add values of two events and store the result into dest.
-	inline void  sdkAddEvt3(UsineEventPtr e1, UsineEventPtr e2, UsineEventPtr dest) { 
-		m_masterInfo->AddEvt3(e1, e2, dest); }
-
-    /// Add values of two events and store the result into e2.	
-	inline void  sdkAddEvt2(UsineEventPtr e1, UsineEventPtr e2) { 
-		m_masterInfo->AddEvt2(e1, e2); }
-
-	/// Subtract values of two events and store the result into dest.
-	inline void  sdkSubEvt3(UsineEventPtr e1, UsineEventPtr e2, UsineEventPtr dest) { 
-		m_masterInfo->SubEvt3(e1, e2, dest); }
-
-	/// Subtract values of two events and store the result into e2.
-	inline void  sdkSubEvt2(UsineEventPtr e1, UsineEventPtr e2) { 
-		m_masterInfo->SubEvt2(e1, e2); }
-
-	/// Divide values of e1 by values of e2 and store the result into dest.
-     inline void  sdkDivEvt3(UsineEventPtr e1, UsineEventPtr e2, UsineEventPtr dest) { 
-		m_masterInfo->DivEvt3(e1, e2, dest); }
-
-	/// Multiply values of e1 by values of e2 and store the result into dest.
-	inline void  sdkMultEvt3(UsineEventPtr e1, UsineEventPtr e2, UsineEventPtr dest) { 
-		m_masterInfo->MultEvt3(e1, e2, dest); }
-
-	/// Multiply values of e1 by values of e2 and store the result into e2.
-	inline void  sdkMultEvt2(UsineEventPtr e1, UsineEventPtr e2) { 
-		m_masterInfo->MultEvt2(e1, e2); }
-
-    /// Multiply values of e1 by values of e2 and store the result into e2. Same as sdkMultEvt2.
-	inline void  sdkMultEvt2Audio(UsineEventPtr e1, UsineEventPtr e2) { 
-		m_masterInfo->MultEvt2(e1, e2); }
-
-    /// Multiply values of e by a float value inplace.
-	inline void  sdkMultEvt1(TPrecision m, UsineEventPtr e) { 
-		m_masterInfo->MultEvt1(m, e); }
-
-	/// Modulo operation of e1 by values of e2 and store the result into dest.
-	inline void  sdkModEvt3(UsineEventPtr e1, UsineEventPtr e2, UsineEventPtr dest) { 
-		m_masterInfo->ModEvt3(e1, e2, dest); }
-
-	/// Power values of e1 by values of e2 and store the result into dest.
-	inline void  sdkPowerEvt3(UsineEventPtr e1, UsineEventPtr e2, UsineEventPtr dest) { 
-		m_masterInfo->PowerEvt3(e1, e2, dest); }
-
-	/// Exponential of e inplace.
-	inline void  sdkExpEvt1(UsineEventPtr e) { 
-		m_masterInfo->ExpEvt1(e); }
-
-	/// Square root of e inplace.
-	inline void  sdkSqrtEvt1(UsineEventPtr in1) { 
-		m_masterInfo->SqrtEvt1(in1); }
-
-    /// Returns the maximum value of e.
-	inline TPrecision sdkMaxEvt1(UsineEventPtr e) { 
-		return m_masterInfo->MaxEvt1(e); };
-
-    /// Returns the minimum value of e.
-	inline TPrecision	sdkMinEvt1(UsineEventPtr e) { 
-		return m_masterInfo->MinEvt1(e); };
-    
-	/// calculates the maximum of each element and store the result into dest. dest[i] = max(e1[i],e2[i])
-	inline void	sdkMaxEvt3(UsineEventPtr e1, UsineEventPtr e2, UsineEventPtr dest) { 
-		m_masterInfo->MaxEvt3(e1, e2, dest); };
-
-	/// calculates the minimum of each element and store the result into dest. dest[i] = min(e1[i],e2[i])
-	inline void	sdkMinEvt3(UsineEventPtr in1, UsineEventPtr in2, UsineEventPtr out) { 
-		m_masterInfo->MinEvt3(in1, in2, out); };
-
-	/// Clip values of e in the range [min..max] and store the result into dest.
-	inline void  sdkThreshEvt2(const UsineEventPtr e, UsineEventPtr dest, TPrecision min, TPrecision max) { 
-		m_masterInfo->ThreshEvt2(e, dest, min, max); };
-
-	/// Clip values of e in the range [min..max] inplace.
-	inline void  sdkThreshEvt1(UsineEventPtr e, TPrecision min, TPrecision max) { 
-		m_masterInfo->ThreshEvt1(e, min, max); };
-
-	/// Mix MIDI values of e1 and e2 and store the result in dest. For the MIDI, this operation equivalent to sdkConcatEvt
-	inline void  sdkMixMidiEvt3(UsineEventPtr e1, UsineEventPtr e2, UsineEventPtr dest) { 
-		m_masterInfo->MixMidiEvt3(e1, e2, dest); };
-
-	/// Mix MIDI values of e1 and e2 and store the result in e2. For the MIDI, this operation equivalent to sdkConcatEvt
-	inline void  sdkMixMidiEvt2(UsineEventPtr e1, UsineEventPtr e2) { 
-		m_masterInfo->MixMidiEvt2(e1, e2); };
-
-	/// Apply a short fadein to the audio event. The duration of the fade is given by sdkGetBlocSize.
-	inline void  sdkFadeInAudioEvt(UsineEventPtr e) { 
-		m_masterInfo->FadeInAudioEvt(e); };
-
-	/// Apply a short fadeout to the audio event. The duration of the fade is given by sdkGetBlocSize.
-	inline void  sdkFadeOutAudioEvt(UsineEventPtr e) { 
-		m_masterInfo->FadeOutAudioEvt(e); };
-
-	/// Clear an audio event. Set values to zero and add a small denormalization value.
-	inline void  sdkClearAudioEvt(UsineEventPtr e) { 
-		m_masterInfo->ClearAudioEvt(e); };
-
-	/// Add a small denormalization value to an audio event.
-	inline void  sdkDenormalizeAudioEvt(UsineEventPtr e) { 
-		m_masterInfo->DenormalizeAudioEvt(e); };
-
-	/// Smooth event.
-	inline void sdkSmoothPrecision(TPrecision& oldValue, UsineEventPtr e, TPrecision factor) {
-		return m_masterInfo->SmoothPrecision(oldValue, e, factor);};
-
-    /// Smooth Event with a target value.
-	inline void sdkSmoothEvent(TPrecision& oldValue, UsineEventPtr e, TPrecision target, TPrecision factor){
-		return m_masterInfo->SmoothEvent(oldValue, e, target, factor);}
-
-	/// @}
-
-    /// @name Access to Event values
-    /// @{
-	
-	/// Set a float value
-	inline void			sdkSetEvtData( UsineEventPtr e, TPrecision floatValue )                 { 
-		m_masterInfo->SetEvtData( e, floatValue ); };
-    
-	/// Get a float Value
-    inline TPrecision	sdkGetEvtData( UsineEventPtr e )									{ 
-		return m_masterInfo->GetEvtData( e ); };
-
-    /// Set a value to an Array at an index position.
-    inline void			sdkSetEvtArrayData( UsineEventPtr e, int index, TPrecision floatValue )   { 
-		m_masterInfo->SetEvtArrayData( e, index, floatValue ); };
-
-    /// Get a value from an Array at an index position.
-    inline   TPrecision	sdkGetEvtArrayData( UsineEventPtr e, int index )						{ 
-		return m_masterInfo->GetEvtArrayData( e, index ); };
-    
-    /// Set a pointer value.
-	inline void	 sdkSetEvtPointer( UsineEventPtr e, void* pointerValue )               { 
-		m_masterInfo->SetEvtPointer( e, pointerValue ); };
-
-    /// Get a pointer value.
-    inline void* sdkGetEvtPointer( UsineEventPtr e )                            { 
-		return m_masterInfo->GetEvtPointer( e ); };
-
-	 /// Set a color value.
-     inline void			sdkSetEvtColor( UsineEventPtr e, TUsineColor colorValue )           { 
-		m_masterInfo->SetEvtColor( e, colorValue ); };
-
-    /// Get a color value.
-	inline TUsineColor	sdkGetEvtColor( UsineEventPtr e )                              { 
-		return m_masterInfo->GetEvtColor( e ); };
-
-    /// Set a color value to an array at index position.
-    inline void	sdkSetEvtArrayColor( UsineEventPtr e, int index, TUsineColor colorValue )   {
-		// sanity check
-		int idx = std::max(0, std::min(index, sdkGetEvtSize( e)));
-		TUsineColor* data =  (TUsineColor*)sdkGetEvtDataAddr (e);
-		data += idx;
-		*data = colorValue;};
-
-    /// Get a color value to an array at index position.
-    inline TUsineColor sdkGetEvtArrayColor( UsineEventPtr e, int index ) { 
-		// sanity check
-		int idx = std::max(0, std::min(index, sdkGetEvtSize(e)));
-		TUsineColor* data =  (TUsineColor*)sdkGetEvtDataAddr (e);
-		TUsineColor result = *(data + idx);
-		return result;};
-
-    /// Set a Midi value to an array at index position.
-    inline void	sdkSetEvtArrayMidi( UsineEventPtr e, int index, TUsineMidiCode midiValue ) { 
-		m_masterInfo->SetEvtArrayMidi( e, index, midiValue ); };
-
-    /// Get a Midi value to an array at index position.
-	inline TUsineMidiCode	sdkGetEvtArrayMidi( UsineEventPtr e, int index )					{	
-		return m_masterInfo->GetEvtArrayMidi( e, index ); };
-
-    /// Set a Text value.
-    inline void	 sdkSetEvtPChar( UsineEventPtr e,  AnsiCharPtr textValue )                { 
-		m_masterInfo->SetEvtPChar( e, textValue ); };
-    
-    /// Get a Text value.
-	inline AnsiCharPtr sdkGetEvtPChar( UsineEventPtr e )                             { 
-		return m_masterInfo->GetEvtPChar( e ); };
-    
-	/// Get the address of the first data in the Event
-    inline TPrecision* sdkGetEvtDataAddr( UsineEventPtr ev )                         { 
-		return m_masterInfo->GetEvtDataAddr( ev ); };	
-    
-	/// Get a 3D point.
-	/// the event must have a line number of 3 to work,
-    /// @param pointIndex is the index of the point you want to get
-    inline T3DPointF sdkGetEvt3DPoint (UsineEventPtr e, int pointIndex){
-        T3DPointF result;
-        if (pointIndex < (sdkGetEvtSize (e)/3))
-        {
-            TPrecision* pointer3DPoint = sdkGetEvtDataAddr (e) + (pointIndex*3);
-            result.x = *(pointer3DPoint);
-            result.y = *(pointer3DPoint + 1);
-            result.z = *(pointer3DPoint + 2);
-        }
-        else
-        {
-            result.x = 0.0f;
-            result.y = 0.0f;
-            result.z = 0.0f;
-        }
-
-        return result;
-    }; 
-	/// @}
-
 	//----------------------------------------------------------------------------
 	/// Critical sections functions to protect patches calculation.
 	/// @name Critical Sections 
@@ -929,10 +679,68 @@ public:
 
 	/// UnLock the execution of the current patch.
 	inline void	sdkUnLockPatch() { 
-		m_masterInfo->UnLockPatch(m_moduleInfo); };
+		m_masterInfo->UnLockPatch(m_moduleInfo); 
+	};
 
+	/// Lock a critical section.
+	/// @param timeout must be used with precautions 
+	inline void sdkCriticalSectionLock (TCriticalSectionPtr pCriticalSection, UINT32 timeout = 0 ){
+		m_masterInfo->CriticalSectionLock(m_moduleInfo, pCriticalSection, timeout);
+	}
+
+	/// TryLock a critical section.
+	inline LongBool sdkCriticalSectionTryLock(TCriticalSectionPtr pCriticalSection) {
+		return m_masterInfo->CriticalSectionTryLock(m_moduleInfo, pCriticalSection);
+	}
+	
+	/// UnLock a critical section.
+	inline void sdkCriticalSectionUnLock(TCriticalSectionPtr pCriticalSection) {
+		m_masterInfo->CriticalSectionUnLock(m_moduleInfo, pCriticalSection);
+	}
+
+	/// Create a critical section.
+	/// @param name is a name givent to the CS for debug purposes
+	inline TCriticalSectionPtr sdkCriticalSectionCreate(AnsiCharPtr name, LongBool shared = FALSE) {
+		return m_masterInfo->CriticalSectionCreate(m_moduleInfo, name, shared);
+	}
+
+	/// Destroy a critical section.
+	inline void sdkCriticalSectionDestroy(TCriticalSectionPtr pCriticalSection) {
+		m_masterInfo->CriticalSectionDestroy(m_moduleInfo, pCriticalSection);
+	}
+	
 	/// @}
 
+
+	//----------------------------------------------------------------------------
+	/// Threads for multi-threading 
+	/// @name Threads 
+	/// @{
+	 
+	/// Create a thread.
+	/// @param priority priority of the thread : tpIDLE,tpLow,tpMedium,tpHigh
+	/// @param timeout timeout of the thread (execution clock) in ms. if timeout is UINT32_MAX then the thread will wait until the sdkThreadRestart is called 
+	/// 
+	inline TThreadPtr sdkThreadCreate(AnsiCharPtr name, FuncThreadProcess ProcessThreadProc, TThreadPriority priority, UINT32 timeout) {
+		return m_masterInfo->ThreadCreate(m_moduleInfo, name, ProcessThreadProc, priority, timeout);
+	}
+
+	/// Destroy a thread.
+	inline void sdkThreadDestroy(TThreadPtr pThread) {
+		m_masterInfo->ThreadDestroy(pThread);
+	}
+
+	/// restart a thread.
+	inline void sdkThreadRestart(TThreadPtr pThread) {
+		m_masterInfo->ThreadRestart(pThread);
+	}
+
+	/// set timeout of a thread.
+	/// @param timeout timeout of the thread (execution clock) in ms
+	inline void sdkThreadSetTimeOut(TThreadPtr pThread, UINT32 timeout) {
+		m_masterInfo->ThreadSetTimeOut(pThread, timeout);
+	}
+	/// @}
 
     //----------------------------------------------------------------------------
  	/// Utils functions to update some Parameter property other than the Event data.
@@ -971,66 +779,6 @@ public:
 	inline void	sdkRepaintParam( int numParam)							            { 
 		m_masterInfo->RepaintParam(m_moduleInfo, numParam); };
     /// @}
- 
-    //----------------------------------------------------------------------------
-    /// To use with the audio multi channels query.
-    /// @name Audio Channels query 
-	/// @{
-    
-    /// Get the title string for the popup.
-    inline AnsiCharPtr  sdkGetAudioQueryTitle () { return m_masterInfo->AudioQueryTitle; };
-    
-    /// Get the query string list for an multi channels query. 
-    inline AnsiCharPtr  sdkGetAudioQueryChannelList () { return m_masterInfo->AudioQueryChannelList; };
-
-	/// Get the number of channels from the query index choice.
-    inline int  sdkGetAudioQueryToNbChannels (int qQueryIndex) { return m_masterInfo->AudioQueryToNbChannels (qQueryIndex); };
-	
-	/// Get the name of a channel. 
-    inline AnsiCharPtr  sdkGetAudioQueryChannelNames (AnsiCharPtr prefix, int index, int queryIndex)
-        { return m_masterInfo->AudioQueryChannelNames (prefix, index, queryIndex); };
-    /// @} 
-
-
-	//----------------------------------------------------------------------------
-	/// @name Global Array functions 
-	/// @{
-
-	/// Get the Hash (internal ID) of the Global Array needed for function bellow
-	UINT64 sdkGlobalArrayGetHash(AnsiCharPtr name) { return m_masterInfo->GlobalArrayGetHash(name); };
-
-	/// Set a float value of a data Global Array at the index 
-	inline void  sdkGlobalArraySetValueFloat(UINT64 hash, int index, TPrecision value, AnsiCharPtr errorMsg) { 
-		m_masterInfo->GlobalArraySetValueFloat(hash, index, value, errorMsg); };
-	/// Set a color value of a color Global Array at the index 
-	inline void  sdkGlobalArraySetValueColor(UINT64 hash, int index, TUsineColor value, AnsiCharPtr errorMsg) { 
-		m_masterInfo->GlobalArraySetValueColor(hash, index, value, errorMsg); };
-	/// Set a string value of a string Global Array at the index 
-	inline void  sdkGlobalArraySetValueAnsiChar(UINT64 hash, int index, AnsiCharPtr value, AnsiCharPtr errorMsg) { 
-		m_masterInfo->GlobalArraySetValueAnsiChar(hash, index, value, errorMsg); };
-	/// Fill an entire global array with the content of an Event
-	inline void  sdkGlobalArraySetValueEvt(UINT64 hash, UsineEventPtr value, AnsiCharPtr errorMsg) { 
-		m_masterInfo->GlobalArraySetValueEvt(hash, value, errorMsg); };
-
-	/// Get a float value from a data Global Array at the index 
-	inline TPrecision sdkGlobalArrayGetValueFloat(UINT64 hash, int index, AnsiCharPtr errorMsg) { 
-		return m_masterInfo->GlobalArrayGetValueFloat(hash, index, errorMsg); };
-	/// Get a color value from a color Global Array at the index 
-	inline TUsineColor sdkGlobalArrayGetValueColor(UINT64 hash, int index, AnsiCharPtr errorMsg) { 
-		return m_masterInfo->GlobalArrayGetValueColor(hash, index, errorMsg); };
-	/// get a string value from a string Global Array at the index 
-	inline AnsiCharPtr sdkGlobalArrayGetValueAnsiChar(UINT64 hash, int index, AnsiCharPtr errorMsg) { 
-		return m_masterInfo->GlobalArrayGetValueAnsiChar(hash, index, errorMsg); };
-	/// Get an entire global array and fill its content in an Event
-	inline void sdkGlobalArrayGetValueEvt(UINT64 hash, AnsiCharPtr errorMsg, UsineEventPtr result) { 
-		return m_masterInfo->GlobalArrayGetValueEvt(hash, errorMsg, result); };
-	/// Get the list of all available global-array's names as a comma-text. This function can be slow.
-	inline AnsiCharPtr sdkGlobalArrayGetAllNames() { 
-		return m_masterInfo->GlobalArrayGetAllNames(); };
-
-
-	/// @} 
-
 
 	//----------------------------------------------------------------------------
 	/// @name Usine Objects functions 
@@ -1118,81 +866,28 @@ public:
 
 	/// @} 
 
-
-    //----------------------------------------------------------------------------
-    /// @name Usine Core infos and services 
+	//----------------------------------------------------------------------------
+	/// @name Usine Core infos and services
 	/// @{
-
-	/// Get the list of possible usine block size. 
-	inline AnsiCharPtr  sdkGetUsineBlockSizeList() { 
-		return m_masterInfo->BlockSizeList; };
-
-	/// Get the default usine block size. 
-	inline int  sdkGetUsineDefaultBlockSizeIndex() { 
-		return m_masterInfo->BlockSizeDefaultIndex; };
-
-	/// Low level , not for public use
-	/// Usine audio callback
-	inline void	sdkUsineAudioDeviceIOCallback(const float** inputChannelData, int numInputChannels, float** outputChannelData, int numOutputChannels, int numSamples ){ 
-		m_masterInfo->AudioDeviceIOCallback( inputChannelData, numInputChannels, outputChannelData, numOutputChannels, numSamples );};
-
-	/// Low level , not for public use
-	/// Usine  midi callback
-	inline void sdkUsineMidiDeviceCallback (int deviceID, double TimeStamp, TUsineMidiCode midiData)	{ 
-		m_masterInfo->MidiDeviceCallback (deviceID, TimeStamp, midiData);};
-	
-	/// Low level , not for public use
-	/// Usine midi sysex callback
-	inline void sdkUsineMidiSysexDeviceCallback (int deviceID, double TimeStamp, char** sysEx, int size){ 
-		m_masterInfo->MidiSysexDeviceCallback (deviceID, TimeStamp, sysEx, size);};
-    
+	    
     /// Usine internal messages
     inline void sdkSendUsineMsg( AnsiCharPtr Msg ) { 
 		m_masterInfo->SendUsineMsg( m_moduleInfo, Msg ); };
    
     /// Usine notification
 	///
-    inline void	sdkNotifyUsine(NativeInt Target, NativeInt Msg, NativeInt WParam = 0, NativeInt LParam = 0){
-		m_masterInfo->NotifyUsine(m_moduleInfo, Target, Msg, WParam, LParam);};
+	/// Send a message to Usine, Usine's setup or this user module.
+	/// A delay maybe specified.
+    inline void	sdkNotifyUsine(NativeInt Target, NativeInt Msg, NativeInt WParam = 0, NativeInt LParam = 0, int Delay = 0){
+		m_masterInfo->NotifyUsine(m_moduleInfo, Target, Msg, WParam, LParam, Delay);};
  
     /// To access the current TVstTimeInfo structure of Usine.
-    inline TVstTimeInfo* sdkGetVstTimeInfo()      { 
-		return m_masterInfo->GetVstTimeInfo(m_moduleInfo); };
-
-    /// To get the current Usine block size.
-    inline int		sdkGetBlocSize()              { 
-		return m_masterInfo->BlocSize; };
-	
-    /// To get the current Usine sample rate
-	inline double	sdkGetSampleRate()			  { 
-		return m_masterInfo->GetSampleRate(); };
-	    
-    /// PC only, Usine mainform handle (THandle)
-    inline NativeInt sdkGetUsineMainWindow()          { 
-		return m_masterInfo->GetUsineMainWindow(); };
-	
-    /// MAC only, Usine NSView
-    inline void* sdkGetUsineNSView()              { 
-		return m_masterInfo->GetMacNSView(); };
-	
-    /// MAC only, Usine NSApplication
-    inline void* sdkGetUsineNSApplication()       { 
-		return (void*)m_masterInfo->NSApplication; };
-
-    /// To get a named color from the Usine ColorSet.
-    inline TUsineColor sdkGetUsineColor(TUsineColorSet colorName){
-        TUsineColor result = 0;        
-        if (m_masterInfo != 0)
-            result = m_masterInfo->GetUsineColor ((int)colorName);            
-        return result;};
+	inline TVstTimeInfo* sdkGetVstTimeInfo() {
+		return m_masterInfo->GetVstTimeInfo(m_moduleInfo);};
     
     /// To get the Usine global time in millisecond, precision up to nanoseconde
     inline double sdkGetTimeMs () { 
 		return m_masterInfo->GetTimeMs (m_moduleInfo); };
-
-	///Translate a StringID to the current Usine language.
-	inline AnsiCharPtr sdkGetTrans (AnsiCharPtr StringID) { 
-		return m_masterInfo->GetTranslation (StringID); };
 
 	/// To check if the patch containing the module is running.
     inline LongBool	sdkPatchIsRunning    () { 
@@ -1232,35 +927,6 @@ public:
     /// To get the version number of Usine as a string.  
     inline AnsiCharPtr sdkGetUsineVersionNum() { 
 		return m_masterInfo->UsineVersion; }; 
-	
-    /// To get the version type of Usine @see TUsineVersionType. 
-    inline TUsineVersionType sdkGetUsineVersionType() { 
-		return m_masterInfo->UsineVersionType; };  
-	
-    /// To get the current language used in Usine. 
-	/// @return a string naming the current language (En, Fr...)
-    inline AnsiCharPtr sdkGetUsineLanguage() { 
-		return m_masterInfo->UsineLanguage; };
-	
-    /// To get the of the save format of Usine. 
-    inline int sdkGetUsineSaveVersion()    { 
-		return m_masterInfo->UsineSaveVersion; };  
-    	
-    /// To get the maximum audio inputs Usine can accept. 
-    inline int sdkGetUsineMaxAudioInputs ()         { 
-		return m_masterInfo->MAX_AUDIO_INPUTS; };
-	
-    /// To get the maximum audio outputs Usine can accept. 
-    inline int sdkGetUsineMaxAudioOutputs ()        { 
-		return m_masterInfo->MAX_AUDIO_OUTUTS; };
-	
-    /// To get the maximum Midi device Usine can accept. 
-    inline int sdkGetUsineMaxMidiDevices ()         { 
-		return m_masterInfo->MAX_MIDI_DEVICES; };
-	
-    /// To get the current polyphony of Usine.  
-    inline int sdkGetUsineMaxPolyphony ()         { 
-		return m_masterInfo->MULTIPHONY_MAX; };
 
 	/// set the name of the module (as it appear in the patch, on the module title)
 	inline void sdkSetModuleUserName(AnsiCharPtr name) { 
@@ -1269,235 +935,8 @@ public:
 	/// get the name of the module (as it appear in the patch, on the module title)
 	inline AnsiCharPtr sdkGetModuleUserName() { 
 		return m_masterInfo->GetModuleUserName(m_moduleInfo); };
-    /// @}	
-
-    //----------------------------------------------------------------------------
-	/// To get the path to access some important folders of Usine.
-    /// @name Usine Paths getters 
-	/// @{
-
-	
-	/// The Sound folder as configured in the Global setting Tab.
-    inline AnsiCharPtr    sdkGetUsineSoundPath  ()		    { 
-		return m_masterInfo->SoundPath; };
-    
-	/// The Patch library folder as configured in the Global setting Tab.
-	inline AnsiCharPtr    sdkGetUserLibPath ()			    { 
-		return m_masterInfo->UserLibPath; };
-    
-	/// The Record Out folder as configured in the Global setting Tab.    
-	inline AnsiCharPtr    sdkGetUsineRecordPath ()		    { 
-		return m_masterInfo->RecordPath; };
-    
-	/// The install folder of Usine.
-	inline AnsiCharPtr    sdkGetGlobalApplicationPath ()   { 
-		return m_masterInfo->GlobalApplicationPath; };
-    
-	/// The path of the current workspace.
-	inline AnsiCharPtr    sdkGetCurrentWorkspacePath ()	{ 
-		return m_masterInfo->CurrentWorkspacePath; };
-    
-	/// The path of the patch containing the module.
-	inline AnsiCharPtr    sdkGetCurrentPatchPath ()		{ 
-		return m_masterInfo->CurrentPatchPath; };
-	
-	/// The Temp folder Used by Usine.
-	inline AnsiCharPtr    sdkGetUsineTempPath ()			{ 
-		return m_masterInfo->UsineTempPath; };
-    
-	/// Not for public use.
-	inline AnsiCharPtr    sdkGetUsinePlugInsPath ()		{ 
-		return m_masterInfo->PlugInsPath; };
-    /// @}	
-
-    //----------------------------------------------------------------------------
-    /// @name Files utils
-	/// @{
-
-    /// Show a dialog window to open a file.
-    inline LongBool	sdkProcessOpenDialog ( AnsiCharPtr* filename, AnsiCharPtr initialDir, AnsiCharPtr filter ) { 
-		return m_masterInfo->ProcessOpenDialog	( filename, initialDir, filter ); };
-    
-    /// Show a dialog window to save a file.
-	inline LongBool	sdkProcessSaveDialog ( AnsiCharPtr* filename, AnsiCharPtr initialDir, AnsiCharPtr filter ) { 
-		return m_masterInfo->ProcessSaveDialog	( filename, initialDir, filter ); };
-    
-    /// Ask Usine to search if a file exist.
-	inline AnsiCharPtr    sdkFindFile          ( AnsiCharPtr* filename, AnsiCharPtr initialDir )               { 
-		return m_masterInfo->FindFile			( filename, initialDir ); };
-    /// @}	
-    
-	//----------------------------------------------------------------------------
-    /// @name Audio Files manipulation
-	/// @{
-
-    /// Create an audio file handle
-    inline TAudioFilePtr	sdkCreateAudioFile          (){ 
-		return m_masterInfo->CreateAudioFile(); };
-
-    /// Destroy an audio file handle
-	inline void			sdkDestroyAudioFile         (TAudioFilePtr audioFile){ 
-		m_masterInfo->DestroyAudioFile( audioFile); };
-	
-	/// Get a sample value of an audio file at the position pos of the audio channel 
-	inline TPrecision   sdkGetSampleAudioFile       (TAudioFilePtr audioFile, int channel, int pos)                      { 
-		return m_masterInfo->GetSampleAudioFile(audioFile, channel, pos); };
-	
-	/// Get all samples values (as an array) of an audio file for an audio channel 
-	inline TPrecision*  sdkGetSampleArrayAudioFile  (TAudioFilePtr audioFile, int channel)                               { 
-		return m_masterInfo->GetSampleArrayAudioFile(audioFile, channel); };
-	
-	/// Get a bloc of samples values of an audio file at position pos for an audio channel and store it in an Event
-	inline void			sdkGetBlocSampleAudioFile   (TAudioFilePtr audioFile, int channel, int pos, UsineEventPtr evt)	{ 
-		m_masterInfo->GetBlocSampleAudioFile			(audioFile, channel, pos, evt); };
-    
-	/// Get the numbers of samples of an audio file
-	inline int			sdkGetSizeAudioFile         (TAudioFilePtr audioFile)											{ 
-		return m_masterInfo->GetSizeAudioFile			(audioFile); };
-    
-	/// Get the the number of channels of an audio file
-	inline int			sdkGetChannelAudioFile      (TAudioFilePtr audioFile)											{ 
-		return m_masterInfo->GetChannelAudioFile		( audioFile); };
-    
-	///Get the samplerate of an audio file
-	inline int			sdkGetSampleRateAudioFile   (TAudioFilePtr audioFile)											{ 
-		return m_masterInfo->GetSampleRateAudioFile	( audioFile); };
-    
-	/// Get the bit per sample of an audio file
-	inline int			sdkGetBitPerSampleAudioFile (TAudioFilePtr audioFile)											{ 
-		return m_masterInfo->GetBitPerSampleAudioFile	( audioFile); };
-    
-	/// Load an audio file in memory
-	inline void			sdkLoadInMemoryAudioFile    (TAudioFilePtr audioFile, AnsiCharPtr name)							{ 
-		m_masterInfo->LoadInMemoryAudioFile	( audioFile, name); };
-    
-	/// Load an audio file but keep it on disk
-	inline void			sdkLoadStayOnDiskAudioFile  (TAudioFilePtr audioFile, AnsiCharPtr name)							{ 
-		m_masterInfo->LoadStayOnDiskAudioFile	( audioFile, name); };
-    
-	/// Get the peak of the audio files (to draw the wave form) and store it in an Event
-	inline void			sdkGetPeaksAudioFile        (TAudioFilePtr audioFile, UsineEventPtr evt)							{ 
-		m_masterInfo->GetPeaksAudioFile		( audioFile, evt); };
-
-    /// Save an audio file to disk
-	inline void			sdkSaveToDiskAudioFile      (TAudioFilePtr audioFile, AnsiCharPtr name, int nbChannels)			{ 
-		m_masterInfo->SaveToDiskAudioFile		( audioFile, name, nbChannels); };
-    
-	/// Set the number of channels of an audio file
-	inline void			sdkSetChannelsAudioFile     (TAudioFilePtr audioFile, int nbChannels)							{ 
-		m_masterInfo->SetChannelsAudioFile		( audioFile, nbChannels); };
-    
-	/// Set the number of samples of an audio file
-	inline void			sdkSetSizeAudioFile         (TAudioFilePtr audioFile, int size)									{ 
-		m_masterInfo->SetSizeAudioFile			( audioFile, size); };
-    
-	/// Set a sample value of an audio file at the position pos of the audio channel 
-    inline void			sdkSetSampleAudioFile       (TAudioFilePtr audioFile, int channel, int pos, TPrecision sample)	{ 
-		m_masterInfo->SetSampleAudioFile		( audioFile, channel, pos, sample); };
-	
-	/// Clear an audio file
-	inline void			sdkClearAudioFile           (TAudioFilePtr audioFile)                                            { 
-		m_masterInfo->ClearAudioFile(audioFile); };
-	
-	/// Resample (stretch) an audio file by a factor
-	inline void			sdkResampleAudioFile        (TAudioFilePtr audioFile, TPrecision factor)                         { 
-		m_masterInfo->ResampleAudioFile(audioFile,factor); };
-	/// @}	
-
-    //----------------------------------------------------------------------------
-    /// @name Math utils 
-	/// @{
-
-	/// Linear interpolation  on a TPrecision value.
-	/// @return The interpolated value.
-    inline TPrecision sdkLinearInterpolation ( TPrecision f,  TPrecision a, TPrecision b )											{ 
-		return m_masterInfo->LinearInterpolation	( f, a, b ); };
-    
-	/// Cubic interpolation  on a TPrecision value.
-	/// @return The interpolated value.
-	inline TPrecision sdkCubicInterpolation  ( TPrecision fr, TPrecision inm1, TPrecision inp, TPrecision inp1, TPrecision inp2 )	{ 
-		return m_masterInfo->CubicInterpolation	( fr, inm1, inp, inp1, inp2 ); };
-    
-	/// Spline interpolation on a TPrecision value.
-	/// @return The interpolated value.
-	inline TPrecision sdkSplineInterpolation ( TPrecision fr, TPrecision inm1, TPrecision inp, TPrecision inp1, TPrecision inp2 )	{ 
-		return m_masterInfo->SplineInterpolation	( fr, inm1, inp, inp1, inp2 ); };
-    /// @}	
-    
-    //----------------------------------------------------------------------------
-    /// @name Trace functions 
-	/// @{
-    
-	/// Show a string in the Trace Panel.
-    inline void sdkTraceChar        (AnsiCharPtr s)			     { 
-		return m_masterInfo->TraceChar	      ( s ); };
-	
-	/// Show an integer in the Trace Panel.
-    inline void sdkTraceInt         (int i)			                 { 
-		return m_masterInfo->TraceInteger 	  ( i ); };
-	
-	/// Show a decimal number in the Trace Panel.
-    inline void sdkTracePrecision   (TPrecision f)	                 { 
-		return m_masterInfo->TracePrecision	  ( f ); };
-	
-	/// Show a string in the Trace Panel with the error tag.
-    inline void sdkTraceErrorChar   (AnsiCharPtr s)			     { 
-		return m_masterInfo->TraceErrorChar	  ( s ); };
-	
-	/// Show a string in the Trace Panel with the warning tag.
-    inline void sdkTraceWarningChar (AnsiCharPtr s)		         { 
-		return m_masterInfo->TraceWarningChar  ( s ); };
-	
-	/// Show a string in the SplashForm.
-    inline void sdkTraceSplashChar  (AnsiCharPtr s, int autoClose)  { 
-		return m_masterInfo->TraceSplashChar   ( s, autoClose ); };
-	
-	/// Print a string in the LogUsine.log file. Optionally show it in the SplashForm.
-    inline void sdkTraceLogChar     (AnsiCharPtr s, LongBool showInSplashForm = FALSE){
-        return m_masterInfo->TraceLogChar (s, showInSplashForm);};
     /// @}		
-   
     
-    //-----------------------------------------------------------------------------
-    /// @name Dialog popups
-	/// @{
-	
-    /// A dialog popup with Yes, No and Cancel buttons. 
-    /// @param msg The message to show on the popup popup.
-    /// @return The choice of the user.
-    /// @see TDialogsResults
-	inline int sdkDialogConfirmationYesNoCancel	( AnsiCharPtr msg ) {
-		return m_masterInfo->DialogConfirmationYesNoCancel(msg);};
-    
-    /// A dialog popup with Yes and No buttons. 
-    /// @param msg The message to show on the popup popup.
-    /// @return The choice of the user.
-    /// @see TDialogsResults   
-    inline int sdkDialogConfirmationYesNo			( AnsiCharPtr msg ) {
-		return m_masterInfo->DialogConfirmationYesNo(msg);};
-
-    /// A dialog popup with OK button. 
-    /// @param msg The message to show on the popup popup.
-    /// @return The choice of the user.
-    /// @see TDialogsResults
-	inline int sdkDialogInformationOk				( AnsiCharPtr msg ) {
-		return m_masterInfo->DialogInformationOk(msg);};
-
-    /// A dialog popup with OK and Cancel buttons. 
-    /// @param msg The message to show on the popup popup.
-    /// @return The choice of the user.
-    /// @see TDialogsResults
-    inline int sdkDialogConfirmationOKCancel		( AnsiCharPtr msg ) {
-		return m_masterInfo->DialogConfirmationOKCancel(msg);};
-
-	/// A dialog popup with a string input box . 
-	/// @param msg The message to show on the popup popup.
-	/// @return the edited string.
-	/// @see TDialogsResults
-	inline AnsiCharPtr sdkDialogInputBox(AnsiCharPtr caption, AnsiCharPtr prompt, AnsiCharPtr defaultValue) { 
-		return m_masterInfo->DialogInputBox(caption,prompt,defaultValue); };
-
-	/// @}	
     //----------------------------------------------------------------------------
     /// A User module can create and manage an independent child window for it's own use.
     /// Note that only one child window at a time per module is possible.
@@ -1558,10 +997,18 @@ public:
         return result;};
     /// @}	
      	
-    void setStringTrace (std::string newString){
-        stringTrace = newString;};
+    //void setStringTrace (std::string newString){
+    //    stringTrace = newString;};
 
-	
+	//------------------------------------------------------------------------
+    // TMasterInfo
+    //------------------------------------------------------------------------
+
+	static void sdkSetMasterInfo(TMasterInfo* masterInfo) { m_masterInfo = masterInfo; };
+	static const TMasterInfo* sdkGetMasterInfo() { return m_masterInfo; };
+	// Pointer to TMasterInfo provided by Usine.
+	static TMasterInfo* m_masterInfo;
+
     //-------------------------------------------------------------------------
     // protected members
     //-------------------------------------------------------------------------
@@ -1571,11 +1018,10 @@ protected:
     float panelHeight; // in pixel
 
 
-    // Pointer to TMasterInfo and TModuleInfo provided by usine
-    TMasterInfo* m_masterInfo;
+    // Pointer TModuleInfo provided by usine
     TModuleInfo* m_moduleInfo;
     
-    std::string stringTrace;
+    //std::string stringTrace;
 
     //-----------------------------------------------------------------------------
     // protected methods

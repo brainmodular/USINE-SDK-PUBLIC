@@ -1,63 +1,46 @@
 //----------------------------------------------------------------------------
-//@file  
-//	UserModule.cpp
+///@file  
+///	UserModule.cpp
 //
-//@author
-//	BrainModular team
-//
-//@brief  
-//	Implementation of the abstract class provided to derive user modules from.
-//
-//HISTORIC 
-//	2013/05/15
-//    first release for Hollyhock CPP SDK 6.00.226 
-//
-//IMPORTANT
-//	This file is part of the Usine CPP SDK Version 6
-//
-//  Please, report bugs and patch to Usine forum :
-//  support@brainmodular.com 
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015, 2019 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE.
-//
-//----------------------------------------------------------------------------
+///@author
+///	BrainModular team
+///
+///@brief  
+///	Implementation of the abstract class provided to derive user modules from.
+///
+///@HISTORIC 
+///	2013/05/15
+///    first release for Hollyhock CPP SDK 6.00.226 
+///
+///@IMPORTANT
+///	This file is part of the Usine CPP SDK Version 6
+///
+///  Please, report bugs and patch to Usine forum :
+///  support@brainmodular.com 
+///
+/// All dependencies are under there own licence.
+///
+///@LICENSE
+/// Copyright (C) 2023 BrainModular, BeSpline, Adamson
+///
+///----------------------------------------------------------------------------
 
 
 //----------------------------------------------------------------------------
 // includes
 //----------------------------------------------------------------------------
 #include "UserModule.h"
-
+#include "UsineEventClass.h"
 // constructor
 UserModuleBase::UserModuleBase()
-    : m_masterInfo (nullptr)
-    , m_moduleInfo (nullptr)
+    : m_moduleInfo (nullptr)
     , panelWidth (10)
     , panelHeight (10)
-	, stringTrace ()
+	//, stringTrace ()
 {
 }
+
+TMasterInfo* UserModuleBase::m_masterInfo = nullptr;
 
 // destructor
 UserModuleBase::~UserModuleBase() {};
@@ -66,12 +49,11 @@ UserModuleBase::~UserModuleBase() {};
 //-----------------------------------------------------------------------------
 // module initialisation
 
-void UserModuleBase::AfterQueryPopup (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryIndex)
+void UserModuleBase::AfterQueryPopup (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
 {
 	InitInfosStructures (pMasterInfo, pModuleInfo);
-    
-	pModuleInfo->NumberOfParams = onGetNumberOfParams (queryIndex);
-	onAfterQuery (pMasterInfo, pModuleInfo, queryIndex);
+	pModuleInfo->NumberOfParams = onGetNumberOfParams (queryResult1,queryResult2);
+	onAfterQuery (pMasterInfo, pModuleInfo, queryResult1, queryResult2);
 }
 
 // IMPORTANT : it's up to you to initialize the user module before further use
@@ -89,11 +71,11 @@ void UserModuleBase::InitInfosStructures(TMasterInfo* pMasterInfo, TModuleInfo* 
 {
 	if (pMasterInfo != nullptr)
 	{
-		this->m_masterInfo = pMasterInfo;
+		m_masterInfo = pMasterInfo;
 	}
 	if (pModuleInfo != nullptr)
 	{
-		this->m_moduleInfo = pModuleInfo;
+		m_moduleInfo = pModuleInfo;
 	}
     
 };
@@ -108,11 +90,10 @@ void UserModuleBase::CallBack (TUsineMessage *Message)
 	}
 	catch (...) // (...) or (std::exception& e)
 	{
-        std::ostringstream os;
-        os << stringTrace << "CallBack, paramIndex=" << Message->wParam;
-        stringTrace =  os.str();
-        sdkTraceErrorChar ( (AnsiCharPtr) stringTrace.c_str());
-		//sdkTraceErrorChar(" in CallBack");
+		std::string os;
+		os += "CallBack, paramIndex=";
+		os += std::to_string(Message->wParam);
+        sdkTraceErrorChar ( static_cast<AnsiCharPtr>(os.c_str()));
 	}
 };
 
@@ -135,195 +116,120 @@ int GetSDKVersion(void)
 //
 void Create(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 { 
-	//UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-    
+  
     if (pMasterInfo != nullptr)
     {
+        UserModuleBase::m_masterInfo = pMasterInfo;
         // TODO : parse pMasterInfo->UsineVersion and sdk version to compare them (major + minor only)
         // TODO : check usine version against sdk version
     }
+	sdkTraceLogChar("Create");
 
 	try
 	{
 	    CreateModule (pModule, optionalString , Flag,  pMasterInfo, optionalContent);
 	}
-	catch (...) // std::exception& e
+	catch (...)
 	{
         // error at module creation
+		// give back null pointer to Usine.
 		pModule = nullptr;
+		// then propagate the exception upstack for usine to handle.
+		// On windows, suppress MSVC warning for throwing inside an exported function
+#ifdef _WIN32
+#pragma warning(suppress: 4297)
+		throw;
+#else
+		throw;
+#endif
 	}   
-
-    //if (pModule != nullptr)
-    //{
-    //    // TODO : affect pMasterInfo to pModule->TMasterInfo ??
-    //}
-
 }
 
 //
 void Destroy(void* pModule)
 { 
-	try
-	{
-		DestroyModule (pModule);
-	}
-	catch (std::exception& /*e*/) // std::exception& e
-	{
-		//const char* toto = e.what ();
-		
-	}   
+	sdkTraceLogChar("Destroy");
+	DestroyModule (pModule);
 } 
 //
 void BrowserInfo(TModuleInfo* pModuleInfo)
 { 
-	try
-	{
-		GetBrowserInfo (pModuleInfo);
-	}
-	catch (std::exception& /*e*/) // std::exception& e
-	{
-		//const char* toto = e.what ();
-		
-	}   
+	sdkTraceLogChar("BrowserInfo");
+	GetBrowserInfo (pModuleInfo);
 } 
 
 //
 void GetModuleInfo (void* pModule, TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 { 
+	sdkTraceLogChar("GetModuleInfo");
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->InitInfosStructures (pMasterInfo, pModuleInfo);
-		userModule->onGetModuleInfo (pMasterInfo, pModuleInfo);
-        
-        userModule->setStringTrace (std::string ("[") + std::string (pModuleInfo->Name) + std::string ("]"));
-	}
-	catch (...) // std::exception& e
-	{
-		if (userModule != nullptr && pMasterInfo != nullptr) 
-		{
-			userModule->sdkTraceErrorChar(" in GetModuleInfo");
-		}
-	}   
+	userModule->InitInfosStructures (pMasterInfo, pModuleInfo);
+	userModule->onGetModuleInfo (pMasterInfo, pModuleInfo);        
+//    userModule->setStringTrace (std::string ("[") + std::string (pModuleInfo->Name) + std::string ("]"));
 }
 
 //-----------------------------------------------------------------------------
 // query system and init
 
-int GetNumberOfParams(void* pModule,  int queryIndex)
+int GetNumberOfParams(void* pModule, int queryResult1, int queryResult2)
 {	
+	sdkTraceLogChar("GetNumberOfParams");
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		return userModule->onGetNumberOfParams (queryIndex);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in GetNumberOfParams");
-		return -1;
-	} 
+	return userModule->onGetNumberOfParams (queryResult1,queryResult2);
 }
 
-void AfterQuery (void* pModule, TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryIndex)
+void AfterQuery (void* pModule, TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
 {	
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->AfterQueryPopup (pMasterInfo, pModuleInfo, queryIndex);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in AfterQuery");
-	} 
+	sdkTraceLogChar("AfterQuery");
+	userModule->AfterQueryPopup (pMasterInfo, pModuleInfo, queryResult1, queryResult2);
 }
 
 void InitModule (void* pModule, TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {	
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->Init (pMasterInfo, pModuleInfo);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in InitModule");
-	} 
+	sdkTraceLogChar("InitModule");
+	userModule->Init (pMasterInfo, pModuleInfo);
 }
 
 //-----------------------------------------------------------------------------
 // parameters and process
 void GetParamInfo (void* pModule, int ParamIndex, TParamInfo* pParamInfo)
 {	
-	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
+	if (ParamIndex == 0)
 	{
-		userModule->onGetParamInfo (ParamIndex, pParamInfo);
+		sdkTraceLogChar("GetParamInfo");
 	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in GetParamInfo");
-	} 
+	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
+	userModule->onGetParamInfo (ParamIndex, pParamInfo);
 }
 
 void SetEventAddress (void* pModule, int ParamIndex, UsineEventPtr pEvent)
 {	
-	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
+	if (ParamIndex == 0)
 	{
-		userModule->onSetEventAddress (ParamIndex, pEvent);
+		sdkTraceLogChar("SetEventAddress");
 	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in SetEventAddress");
-	} 
+	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
+	userModule->onSetEventAddress (ParamIndex, pEvent);
 }
 
 void CallBack (void* pModule, TUsineMessage *Message)
 {	
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->CallBack (Message);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in CallBack");
-	} 
+	userModule->CallBack (Message);
 }
 
 void Process (void* pModule)
 {	
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onProcess ();
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in Process");
-	} 
+	userModule->onProcess ();
 }
 
 void ProcessVideo(void* pModule)
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onProcessVideo();
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in ProcessVideo");
-	}
+    userModule->onProcessVideo();
 }
 
 //-----------------------------------------------------------------------------
@@ -331,72 +237,32 @@ void ProcessVideo(void* pModule)
 void MidiSendOut (void* pModule, int DeviceID, TUsineMidiCode Code)
 {	
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onMidiSendOut (DeviceID, Code);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in MidiSendOut");
-	} 
+	userModule->onMidiSendOut (DeviceID, Code);
 }
 
 void MidiSendOutArray (void* pModule, int DeviceID, TUsineMidiCode** arrayCode, int arraySize)
 {	
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onMidiSendOutArray (DeviceID, arrayCode, arraySize);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in MidiSendOutArray");
-	} 
+	userModule->onMidiSendOutArray (DeviceID, arrayCode, arraySize);
 }
 
 void MidiSysexSendOut (void* pModule, int DeviceID,  char** Sysex, int sysexSize)
 {	
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onMidiSysexSendOut (DeviceID, Sysex, sysexSize);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in MidiSysexSendOut");
-	} 
+	userModule->onMidiSysexSendOut (DeviceID, Sysex, sysexSize);
 }
 
 void LaserSendOut(void* pModule, int DeviceID, TUsineILDAPoint** arrayPoint, int arraySize, int speedPPS)
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onLaserSendOut(DeviceID, arrayPoint, arraySize, speedPPS);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in LaserSendOut");
-	}
+	userModule->onLaserSendOut(DeviceID, arrayPoint, arraySize, speedPPS);
 }
 
 
 void DMXSendOut (void* pModule, int deviceId, char* ByteArray, int len, int universeNum)
 {	
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onDMXSendOut (deviceId, ByteArray, len, universeNum);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in DMXSendOut");
-	} 
+	userModule->onDMXSendOut (deviceId, ByteArray, len, universeNum);
 }
 
 //-----------------------------------------------------------------------------
@@ -404,130 +270,64 @@ void DMXSendOut (void* pModule, int deviceId, char* ByteArray, int len, int univ
 int GetChunkLen (void* pModule, LongBool Preset)
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		return userModule->onGetChunkLen (Preset);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in GetChunkLen");
-		return -1;
-	}
+	sdkTraceLogChar("GetChunklen");
+	return userModule->onGetChunkLen (Preset);
 }
 
 void GetChunk (void* pModule, void* chunk, LongBool Preset)
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onGetChunk (chunk, Preset);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in GetChunk");
-	}
+	sdkTraceLogChar("GetChunk");
+	userModule->onGetChunk (chunk, Preset);
 }
 
 void SetChunk (void* pModule, const void* chunk, LongBool Preset, int sizeInBytes)
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onSetChunk (chunk, sizeInBytes, Preset);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in SetChunk");
-	}
+	sdkTraceLogChar("SetChunk");
+	userModule->onSetChunk (chunk, sizeInBytes, Preset);
 }
 
 void AfterLoading(void* pModule)
 {
+	sdkTraceLogChar("AfterLoading");
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onAfterLoading();
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in AfterLoading");
-	}
+	userModule->onAfterLoading();
 }
 
 //-----------------------------------------------------------------------------
 // layout
 void CreateSettings(void* pModule)
 {
+	sdkTraceLogChar("CreateSettings");
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onCreateSettings ();
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in CreateSettings");
-	}
+	userModule->onCreateSettings ();
 }
 
 void CreateCommands(void* pModule)
 {
+	sdkTraceLogChar("CreateCommands");
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onCreateCommands ();
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in CreateCommands");
-	}
+	userModule->onCreateCommands ();
 }
 
 void SettingsHasChanged(void* pModule)
 {
+	sdkTraceLogChar("SettingsHasChanged");
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onSettingsHasChanged ();
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in SettingsHasChanged");
-	}
+	userModule->onSettingsHasChanged ();
 }
 
 void Resize (void* pModule, float W, float H) 
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->ResizeModule ( W, H);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in Resize");
-	}
+	userModule->ResizeModule ( W, H);
 }
 
 void Paint (void* pModule)
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onPaint ();
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in Paint");
-	}
+	userModule->onPaint ();
 }
 
 
@@ -536,184 +336,103 @@ void Paint (void* pModule)
 void MouseMove(void* pModule, TShiftState Shift, float X, float Y)
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onMouseMove (Shift, X, Y);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in MouseMove");
-	}
+	userModule->onMouseMove (Shift, X, Y);
 }
 
 void MouseDown(void* pModule, TMouseButton MouseButton, TShiftState Shift, float X,float Y)
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onMouseDown (MouseButton, Shift, X, Y);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in MouseDown");
-	}
+	userModule->onMouseDown (MouseButton, Shift, X, Y);
 }
 
 void MouseUp (void* pModule,  TMouseButton MouseButton, TShiftState Shift, float X,float Y)
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onMouseUp (MouseButton, Shift, X, Y);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in MouseUp");
-	}
+	userModule->onMouseUp (MouseButton, Shift, X, Y);
 }
 
 void MouseWheel (void* pModule,  TShiftState Shift, int WheelDelta)
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onMouseWheel (Shift, WheelDelta);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in MouseWheel");
-	}
+	userModule->onMouseWheel (Shift, WheelDelta);
 }
 
 void MouseMoveMulti(void* pModule, TShiftState Shift, UsineEventPtr X, UsineEventPtr Y, UsineEventPtr Pressed)
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onMouseMoveMulti (Shift, X, Y, Pressed);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in MouseMoveMultiProc");
-	}
+	UsineEventClass X_(X);
+	UsineEventClass Y_(Y);
+	UsineEventClass P_(Pressed);
+	// Call both overloaded module functions for backwards compatibility with 
+	// UsineEventPtr implementations
+	userModule->onMouseMoveMulti(Shift, &X_, &Y_, &P_);
+	userModule->onMouseMoveMulti (Shift, X, Y, Pressed);
 }
 
 void MouseDownMulti(void* pModule, TMouseButton MouseButton, TShiftState Shift, UsineEventPtr X, UsineEventPtr Y, UsineEventPtr Pressed)
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onMouseDownMulti (MouseButton, Shift, X, Y, Pressed);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in MouseDownMultiProc");
-	}
+	UsineEventClass X_(X);
+	UsineEventClass Y_(Y);
+	UsineEventClass P_(Pressed);
+	// Call both overloaded module functions for backwards compatibility with 
+	// UsineEventPtr implementations
+	userModule->onMouseDownMulti(MouseButton, Shift, &X_, &Y_, &P_);
+	userModule->onMouseDownMulti (MouseButton, Shift, X, Y, Pressed);
 }
 
 void MouseUpMulti (void* pModule, TMouseButton MouseButton, TShiftState Shift,UsineEventPtr X, UsineEventPtr Y, UsineEventPtr Pressed)
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onMouseUpMulti (MouseButton, Shift, X, Y, Pressed);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in MouseUpMultiProc");
-	}
+	UsineEventClass X_(X);
+	UsineEventClass Y_(Y);
+	UsineEventClass P_(Pressed);
+	// Call both overloaded module functions for backwards compatibility with 
+	// UsineEventPtr implementations
+	userModule->onMouseUpMulti(MouseButton, Shift, &X_, &Y_, &P_);
+	userModule->onMouseUpMulti (MouseButton, Shift, X, Y, Pressed);
 }
 
 void OpenEditor(void* pModule)
 {
+	sdkTraceLogChar("OpenEditor");
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onOpenEditor ();
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in OpenEditor");
-	}
+	userModule->onOpenEditor ();
 }
 
 void BringToFront(void* pModule)
 {
+	sdkTraceLogChar("BringToFront");
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onBringToFront ();
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in BringToFront");
-	}
+	userModule->onBringToFront ();
 }
 
 void CloseEditor(void* pModule)
 {
+	sdkTraceLogChar("CloseEditor");
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onCloseEditor ();
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in CloseEditor");
-	}
+	userModule->onCloseEditor ();
 }
 
 void ResizeEditor(void* pModule, int width, int height)
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-    
-	try
-	{
-		userModule->onResizeEditor (width, height);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in ResizeEditor");
-	}
+	userModule->onResizeEditor (width, height);
 }
 //-----------------------------------------------------------------------------
 // audio setup update
 void OnBlocSizeChange (void* pModule, int BlocSize)
 {
+	sdkTraceLogChar("OnBlocSizeChange");
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		return userModule->onBlocSizeChange (BlocSize);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in OnBlocSizeChange");
-	}
+	return userModule->onBlocSizeChange (BlocSize);
 }
 
 void OnSampleRateChange (void* pModule, double SampleRate)
 {
+	sdkTraceLogChar("OnSampleRateChange");
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onSampleRateChange (SampleRate);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in OnSampleRateChange");
-	}
+	userModule->onSampleRateChange (SampleRate);
 }
 
 //-----------------------------------------------------------------------------
@@ -721,15 +440,7 @@ void OnSampleRateChange (void* pModule, double SampleRate)
 void SetRecordedValue (void* pModule, TPrecision X, TPrecision Y, TPrecision Z)
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onSetRecordedValue (X, Y, Z);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in SetRecordedValue");
-	}
+	userModule->onSetRecordedValue (X, Y, Z);
 }
 
 
@@ -737,32 +448,18 @@ void SetRecordedValue (void* pModule, TPrecision X, TPrecision Y, TPrecision Z)
 // usine randomize
 void Randomize (void* pModule)
 {
+	sdkTraceLogChar("Randomize");
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onRandomize ();
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in Randomize");
-	}
+	userModule->onRandomize ();
 }
 
 //-----------------------------------------------------------------------------
 // usine reset
-void Reset(void* pModule)
+void ResetModule(void* pModule)
 {
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onReset();
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in Reset");
-	}
+	sdkTraceLogChar("ResetModule");
+	userModule->onReset();
 }
 
 
@@ -770,15 +467,8 @@ void Reset(void* pModule)
 // usine set quick color
 void SetQuickColor(void* pModule, TUsineColor color)
 {
+	sdkTraceLogChar("SetQuickColor");
 	UserModuleBase* userModule = static_cast <UserModuleBase*>(pModule);
-
-	try
-	{
-		userModule->onSetQuickColor(color);
-	}
-	catch (...) // std::exception& e
-	{
-		userModule->sdkTraceErrorChar(" in SetQuickColor");
-	}
+	userModule->onSetQuickColor(color);
 }
 

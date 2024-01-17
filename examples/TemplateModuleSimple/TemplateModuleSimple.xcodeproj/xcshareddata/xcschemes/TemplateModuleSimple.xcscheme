@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4EAD14861A9E2D8400784045"
-               BuildableName = "TemplateModuleSimple.usr-osx64"
+               BuildableName = "TemplateModuleSimple.usr-macos64uni"
                BlueprintName = "TemplateModuleSimple"
                ReferencedContainer = "container:TemplateModuleSimple.xcodeproj">
             </BuildableReference>
@@ -51,7 +51,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4EAD14861A9E2D8400784045"
-            BuildableName = "TemplateModuleSimple.usr-osx64"
+            BuildableName = "TemplateModuleSimple.usr-macos64uni"
             BlueprintName = "TemplateModuleSimple"
             ReferencedContainer = "container:TemplateModuleSimple.xcodeproj">
          </BuildableReference>

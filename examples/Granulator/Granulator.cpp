@@ -100,9 +100,9 @@ void GranulatorModule::onGetModuleInfo (MasterInfo* pMasterInfo, TModuleInfo* pM
 	// query ask for number of audio channels
 	if (pMasterInfo != nullptr)
     {
-	    pModuleInfo->QueryString		= sdkGetAudioQueryTitle();
-	    pModuleInfo->QueryListValues	= sdkGetAudioQueryChannelList();
-	    pModuleInfo->QueryDefaultIdx	= 1;
+	    pModuleInfo->QueryListString        = sdkGetAudioQueryTitle();
+	    pModuleInfo->QueryListValues	    = sdkGetAudioQueryChannelList();
+	    pModuleInfo->QueryListDefaultIdx	= 1;
     }
 	pModuleInfo->CanBeSavedInPreset = TRUE;
 
@@ -113,18 +113,18 @@ void GranulatorModule::onGetModuleInfo (MasterInfo* pMasterInfo, TModuleInfo* pM
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 // Get total parameters number of the module
-int GranulatorModule::onGetNumberOfParams (int queryIndex)
+int GranulatorModule::onGetNumberOfParams (int queryResult1, int queryResult2)
 {
 	int result = 0;
-    this->queryIndex = queryIndex;
-    numOfAudiotInsOuts = sdkGetAudioQueryToNbChannels (queryIndex);
+    this->queryResult = queryResult1;
+    numOfAudiotInsOuts = sdkGetAudioQueryToNbChannels (queryResult1);
 	result = (numOfAudiotInsOuts * 2) + numOfParamAfterAudiotInOut;
     return result;
 }
 
 //-----------------------------------------------------------------------------
 // Called after the query popup
-void GranulatorModule::onAfterQuery (MasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryIndex)
+void GranulatorModule::onAfterQuery (MasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
 {
 }
 
@@ -176,32 +176,35 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
     // audio input
     if (ParamIndex < numOfAudiotInsOuts)
     {
-		pParamInfo->ParamType		= ptAudio;
-		pParamInfo->Caption			= sdkGetAudioQueryChannelNames ( "in ", ParamIndex + 1, queryIndex);
-		pParamInfo->IsInput			= TRUE;
-		pParamInfo->IsOutput		= FALSE;
-		pParamInfo->ReadOnly		= FALSE;
+		pParamInfo->ParamType			= ptAudio;
+		pParamInfo->Caption				= sdkGetAudioQueryChannelNames ( "in ", ParamIndex + 1, queryResult);
+		pParamInfo->IsInput				= TRUE;
+		pParamInfo->IsOutput			= FALSE;
+		pParamInfo->ReadOnly			= FALSE;
+		pParamInfo->setEventClass		(m_audioInputs[ParamIndex]);
     }
     // audio output
     else if (ParamIndex >= numOfAudiotInsOuts && ParamIndex < (numOfAudiotInsOuts*2))
     {
-		pParamInfo->ParamType		= ptAudio;
-		pParamInfo->Caption			= sdkGetAudioQueryChannelNames ( "out ", ParamIndex - numOfAudiotInsOuts + 1, queryIndex);
-		pParamInfo->IsInput			= FALSE;
-		pParamInfo->IsOutput		= TRUE;
-		pParamInfo->ReadOnly		= TRUE;
+		pParamInfo->ParamType			= ptAudio;
+		pParamInfo->Caption				= sdkGetAudioQueryChannelNames ( "out ", ParamIndex - numOfAudiotInsOuts + 1, queryResult);
+		pParamInfo->IsInput				= FALSE;
+		pParamInfo->IsOutput			= TRUE;
+		pParamInfo->ReadOnly			= TRUE;
+		pParamInfo->setEventClass		(m_audioOutputs[ParamIndex - numOfAudiotInsOuts]);
     }
     // grain on trigger led
     else if (ParamIndex == (numOfAudiotInsOuts*2))
 	{
-		pParamInfo->ParamType		= ptTriggerLed;
-		pParamInfo->Caption			= "trig out";
-		pParamInfo->Symbol			= "";
-		pParamInfo->Format			= "%.0f";
-		pParamInfo->IsInput			= FALSE;
-		pParamInfo->IsOutput		= TRUE;
-		pParamInfo->ReadOnly		= TRUE;
-        pParamInfo->IsSeparator     = TRUE;
+		pParamInfo->ParamType			= ptTriggerLed;
+		pParamInfo->Caption				= "trig out";
+		pParamInfo->Symbol				= "";
+		pParamInfo->Format				= "%.0f";
+		pParamInfo->IsInput				= FALSE;
+		pParamInfo->IsOutput			= TRUE;
+		pParamInfo->ReadOnly			= TRUE;
+        pParamInfo->IsSeparator			= TRUE;
+		pParamInfo->setEventClass		(m_ledGrainStart);
     }
     // next grain interval fader
     else if (ParamIndex == (numOfAudiotInsOuts*2) + 1)
@@ -219,6 +222,7 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly			= FALSE;
 		pParamInfo->IsStoredInPreset	= TRUE;
 		pParamInfo->CallBackType		= ctImmediate;
+		pParamInfo->setEventClass		(m_fdrGrainInterval);
 	}
     // grain envelope listbox
     else if (ParamIndex == (numOfAudiotInsOuts*2) + 2)
@@ -232,6 +236,7 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly			= FALSE;
 		pParamInfo->IsStoredInPreset	= TRUE;
 		pParamInfo->CallBackType		= ctImmediate;
+		pParamInfo->setEventClass		(m_lboxGrainEnvelope);
 	}  
     // grain envelope variable
     else if (ParamIndex == (numOfAudiotInsOuts*2) + 3)
@@ -247,6 +252,7 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly			= FALSE;
 		pParamInfo->IsStoredInPreset	= TRUE;
 		pParamInfo->CallBackType		= ctImmediate;
+		pParamInfo->setEventClass		(m_fdrGrainEnvelopeSkrew);
 	}
     // grain duration fader
     else if (ParamIndex == (numOfAudiotInsOuts*2) + 4)
@@ -264,6 +270,7 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly			= FALSE;
 		pParamInfo->IsStoredInPreset	= TRUE;
 		pParamInfo->CallBackType		= ctImmediate;
+		pParamInfo->setEventClass		(m_fdrGrainDuration);
 	}
     // pitch fader
     else if (ParamIndex == (numOfAudiotInsOuts*2) + 5)
@@ -280,6 +287,7 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly			= FALSE;
 		pParamInfo->IsStoredInPreset	= TRUE;
 		pParamInfo->CallBackType		= ctImmediate;
+		pParamInfo->setEventClass		(m_fdrGrainPitch);
 	}
     // grain mode listbox
     else if (ParamIndex == (numOfAudiotInsOuts*2) + 6)
@@ -293,6 +301,7 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly			= FALSE;
 		pParamInfo->IsStoredInPreset	= TRUE;
 		pParamInfo->CallBackType		= ctImmediate;
+		pParamInfo->setEventClass		(m_lboxGrainMode);
 	}  
     // grain go button // used in Button mode
     else if (ParamIndex == (numOfAudiotInsOuts*2) + 7)
@@ -302,6 +311,7 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= TRUE;
 		pParamInfo->CallBackType    = ctImmediate;
+		pParamInfo->setEventClass				(m_btnGrainGo);
     }
 	// default case
     else
@@ -309,65 +319,6 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 	}
 }
 
-//-----------------------------------------------------------------------------
-// set the parameters events address
-void GranulatorModule::onSetEventAddress (int ParamIndex, UsineEventPtr pEvent) 
-{
-    // audio input
-    if (ParamIndex < numOfAudiotInsOuts)
-    {
-		m_audioInputs[ParamIndex] = pEvent;
-    }
-    // audio output
-    else if (ParamIndex >= numOfAudiotInsOuts && ParamIndex < (numOfAudiotInsOuts*2))
-    {
-		m_audioOutputs[ParamIndex - numOfAudiotInsOuts] = pEvent;
-    }
-    // grain on trigger led
-    else if (ParamIndex == (numOfAudiotInsOuts*2))
-	{
-		m_ledGrainStart = pEvent;
-    }
-    // next grain interval fader
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 1)
-	{
-		m_fdrGrainInterval = pEvent;		
-	}
-    // grain envelope listbox
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 2)
-	{
-		m_lboxGrainEnvelope = pEvent;
-	}  
-    // grain envelope variable
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 3)
-	{
-		m_fdrGrainEnvelopeSkrew = pEvent;
-	}
-    // grain duration fader
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 4)
-	{
-		m_fdrGrainDuration = pEvent;
-	}
-    // pitch fader
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 5)
-	{
-		m_fdrGrainPitch = pEvent;
-	}
-    // grain mode listbox
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 6)
-	{
-		m_lboxGrainMode = pEvent;
-	}  
-    // grain go button // used in Button mode
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 7)
-	{
-		m_btnGrainGo = pEvent;
-    }
-	// default case
-    else
-    {
-	}
-}
 
 //-----------------------------------------------------------------------------
 // Parameters callback
@@ -419,16 +370,16 @@ void GranulatorModule::onProcess ()
 {
     int i, num;
 
-	if (sdkGetEvtData(m_ledGrainStart) == 1.0f)
-		sdkSetEvtData(m_ledGrainStart, 0.0f);
+	if (m_ledGrainStart.getData() == 1.0f)
+		m_ledGrainStart.setData(0.0f);
     
 	blockSize = sdkGetBlocSize();
 
 	for (num = 0; num < numOfAudiotInsOuts; num++)
     {
-        sdkSetEvtSize(m_audioOutputs[num], blockSize);
-        tempInputBlock[num] = sdkGetEvtDataAddr(m_audioInputs[num]);
-        tempOutputBlock[num] = sdkGetEvtDataAddr(m_audioOutputs[num]);
+        m_audioOutputs[num].setSize(blockSize);
+        tempInputBlock[num] = m_audioInputs[num].getDataAddr();
+        tempOutputBlock[num] = m_audioOutputs[num].getDataAddr();
     }
 
 	//Calculate grain scheduling stuff.
@@ -448,7 +399,7 @@ void GranulatorModule::onProcess ()
 
         for (num = 0; num < numOfAudiotInsOuts; num++)
         {
-            if (sdkGetEvtSize (m_audioInputs[num]) == blockSize)
+            if (m_audioInputs[num].getSize() == blockSize)
             {
 		        //TPrecision val = sdkGetEvtArrayData(m_audioInputs[num], i);
 		        circularBuffer[num][cbufReadPos] = *(tempInputBlock[num] + i);
@@ -566,26 +517,26 @@ void GranulatorModule::onMouseMove(TShiftState Shift, float X, float Y)
 {
 	if (isRecording && (m_mouseLastButtonDown == (int)mbLeft) )
 	{
-        float pitch = sdkGetEvtData( m_fdrGrainPitch);
-        float dur = sdkGetEvtData( m_fdrGrainDuration);
+        float pitch = m_fdrGrainPitch.getData();
+        float dur = m_fdrGrainDuration.getData();
         
         if (Shift & ssShift)
         {
             // Shift Y slide change the pitch
             pitch = std::min(GRAIN_PITCH_MAX, std::max(GRAIN_PITCH_MIN, pitch - ((Y - m_mouseLastCoords.y)*5)));
-            sdkSetEvtData( m_fdrGrainPitch, pitch);
+            m_fdrGrainPitch.setData(pitch);
             changePitch();
         }
         else
         {
             // Y slide change the envVar
             grainEnvelopeVar = std::min(1.0f, std::max(0.0f, grainEnvelopeVar - (Y - m_mouseLastCoords.y)));
-            sdkSetEvtData( m_fdrGrainEnvelopeSkrew, grainEnvelopeVar);
+            m_fdrGrainEnvelopeSkrew.setData(grainEnvelopeVar);
             changeEnvelopeVar();
         }
         // X slide change the grain duration
 		dur = std::min(GRAIN_DUR_MAX, std::max(GRAIN_DUR_MIN, dur + (X - m_mouseLastCoords.x)*10));
-		sdkSetEvtData( m_fdrGrainDuration, dur);
+		m_fdrGrainDuration.setData(dur);
 		changeDuration();
         
 		try
@@ -657,15 +608,15 @@ void GranulatorModule::onSetRecordedValue (TPrecision X, TPrecision Y, TPrecisio
 {
     // X = grain dur, Y = env skrew, Z = grain pitch
     float dur = std::min(GRAIN_DUR_MAX, std::max(GRAIN_DUR_MIN, X));
-    sdkSetEvtData( m_fdrGrainDuration, dur);
+    m_fdrGrainDuration.setData(dur);
     changeDuration();
     
     grainEnvelopeVar = std::min(1.0f, std::max(0.0f, Y));
-    sdkSetEvtData( m_fdrGrainEnvelopeSkrew, grainEnvelopeVar);
+    m_fdrGrainEnvelopeSkrew.setData(grainEnvelopeVar);
     changeEnvelopeVar();
     
     float pitch = std::min(GRAIN_PITCH_MAX, std::max(GRAIN_PITCH_MIN, Z));
-    sdkSetEvtData( m_fdrGrainPitch, pitch);
+    m_fdrGrainPitch.setData(pitch);
     changePitch();
 }
 
@@ -675,7 +626,7 @@ void GranulatorModule::onSetRecordedValue (TPrecision X, TPrecision Y, TPrecisio
 //
 void GranulatorModule::changeGrainEnvelope()
 {
-    currentGrainEnvType = (Grain::EnvType)(int)sdkGetEvtData( m_lboxGrainEnvelope);
+    currentGrainEnvType = (Grain::EnvType)(int)m_lboxGrainEnvelope.getData();
     changeEnvelopeVar();
 }
 
@@ -683,7 +634,7 @@ void GranulatorModule::changeGrainEnvelope()
 //
 void GranulatorModule::changeEnvelopeVar()
 {
-    grainEnvelopeVar = (float)sdkGetEvtData( m_fdrGrainEnvelopeSkrew);
+    grainEnvelopeVar = (float)m_fdrGrainEnvelopeSkrew.getData();
 
     switch (currentGrainEnvType)
     {
@@ -718,7 +669,7 @@ void GranulatorModule::changeEnvelopeVar()
 void GranulatorModule::changeInterval()
 {
 	// converstion from milliseconds to sample
-    grainInterval = static_cast<int>(floor((sdkGetEvtData(m_fdrGrainInterval)* usineSamplerate * 0.001f )+ 0.5f ));
+    grainInterval = static_cast<int>(floor((m_fdrGrainInterval.getData() * usineSamplerate * 0.001f )+ 0.5f ));
 
 }
 
@@ -727,7 +678,7 @@ void GranulatorModule::changeInterval()
 void GranulatorModule::changeDuration()
 {
 	// converstion from milliseconds to sample
-    float sizeInMs = sdkGetEvtData( m_fdrGrainDuration);
+    float sizeInMs = m_fdrGrainDuration.getData();
     grainSize = static_cast<int>(floor((sizeInMs * usineSamplerate * 0.001f ) + 0.5f ));
     caGrainDuration = sdkFloatToString (sizeInMs, 2, 8);
 	sdkRepaintPanel();
@@ -739,7 +690,7 @@ void GranulatorModule::changePitch()
 {
     float tempf;
                 
-    tempf = (float)sdkGetEvtData( m_fdrGrainPitch);
+    tempf = (float)m_fdrGrainPitch.getData();
     pitchIncrement = pow(2.0f, tempf/12.0f);
     caPitch = sdkFloatToString (tempf, 0, 8);
 	sdkRepaintPanel();
@@ -751,7 +702,7 @@ void GranulatorModule::changeGrainMode()
 {
 	// 0 mean Interval mode
 	// 1 mean PlayButton mode
-	currentGrainMode = (int)sdkGetEvtData( m_lboxGrainMode);
+	currentGrainMode = (int)m_lboxGrainMode.getData();
 }
     
 //-------------------------------------------------------------------------
@@ -775,6 +726,6 @@ void GranulatorModule::generateNewGrain(int num)
 	//grainToggle = (grainToggle + 1) % 2;
 	nextNewGrainIndex = (nextNewGrainIndex + 1) % NUM_OF_GRAIN;
 
-    sdkSetEvtData(m_ledGrainStart, 1.0f);    
+    m_ledGrainStart.setData(1.0f);    
 }
 

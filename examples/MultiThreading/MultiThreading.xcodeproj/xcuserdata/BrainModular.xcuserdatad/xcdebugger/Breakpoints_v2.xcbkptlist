@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "3E7FAD0A-052C-482E-8D3B-780CC18F25F7"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AC525D88-1EA9-40EC-B7AD-BDFB1688601A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MultiThreading.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "processThread1(pModule, pThread)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "AC525D88-1EA9-40EC-B7AD-BDFB1688601A - d1426b73b3def787"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "processThread1(void*, void*)"
+                  moduleName = "MultiThreading.usr-osxarm64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brainmodular/BrainModularBeSpline%20Dropbox/BrainModular/Usine/USINE-SDK-PRIVATE/examples/MultiThreading/MultiThreading.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "141"
+                  endingLineNumber = "141"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  uuid = "AC525D88-1EA9-40EC-B7AD-BDFB1688601A - d1426b73b3def666"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "processThread1(void*, void*)"
+                  moduleName = "MultiThreading.usr-osxarm64"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brainmodular/BrainModularBeSpline%20Dropbox/BrainModular/Usine/USINE-SDK-PRIVATE/examples/MultiThreading/MultiThreading.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "140"
+                  endingLineNumber = "140"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4B555886-C71D-4DE4-BF33-D017AF8AAB27"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MultiThreading.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "processThread1(pModule, pThread)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

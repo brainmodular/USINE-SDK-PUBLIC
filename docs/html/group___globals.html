@@ -58,6 +58,9 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gab3e22ee46eb84b9744d41874a5ba0655"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gab3e22ee46eb84b9744d41874a5ba0655">UserModuleBase::UserModuleBase</a> ()</td></tr>
+<tr class="memdesc:gab3e22ee46eb84b9744d41874a5ba0655"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of the abstract class provided to derive user modules from.  <a href="#gab3e22ee46eb84b9744d41874a5ba0655">More...</a><br /></td></tr>
+<tr class="separator:gab3e22ee46eb84b9744d41874a5ba0655"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga909a16dc3a81b1ea0a930bd50fc43d06"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_color_ahsl.html">TColorAhsl</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga909a16dc3a81b1ea0a930bd50fc43d06">sdkColorArgbToColorAhsl</a> (<a class="el" href="struct_t_color_argb.html">TColorArgb</a> c1)</td></tr>
 <tr class="memdesc:ga909a16dc3a81b1ea0a930bd50fc43d06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Various helpers around colors.  <a href="#ga909a16dc3a81b1ea0a930bd50fc43d06">More...</a><br /></td></tr>
 <tr class="separator:ga909a16dc3a81b1ea0a930bd50fc43d06"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,12 +162,12 @@ Mandatory Callbacks</h2></td></tr>
 Query System Callbacks</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp4a7271f56835ef21ec7be4e5a38c17ef"></a>Needed if Query system is used. </p>
 </td></tr>
-<tr class="memitem:gacd7d911594c7d56f89800b65d9948df3"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gacd7d911594c7d56f89800b65d9948df3">UserModuleBase::onGetNumberOfParams</a> (int queryIndex)</td></tr>
-<tr class="memdesc:gacd7d911594c7d56f89800b65d9948df3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine call it to obtain the number of parameters of the module depending of the query result.  <a href="#gacd7d911594c7d56f89800b65d9948df3">More...</a><br /></td></tr>
-<tr class="separator:gacd7d911594c7d56f89800b65d9948df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga916eb07f1f2f094d2ed5bffc283ea8ad"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga916eb07f1f2f094d2ed5bffc283ea8ad">UserModuleBase::onAfterQuery</a> (<a class="el" href="struct_t_master_info.html">TMasterInfo</a> *pMasterInfo, <a class="el" href="struct_t_module_info.html">TModuleInfo</a> *pModuleInfo, int queryIndex)</td></tr>
-<tr class="memdesc:ga916eb07f1f2f094d2ed5bffc283ea8ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine call it after the query pop-up is closed. It let you do some things depending of the query choice.  <a href="#ga916eb07f1f2f094d2ed5bffc283ea8ad">More...</a><br /></td></tr>
-<tr class="separator:ga916eb07f1f2f094d2ed5bffc283ea8ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa45533ff4e5acc87fb3f735227c99ffe"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa45533ff4e5acc87fb3f735227c99ffe">UserModuleBase::onGetNumberOfParams</a> (int queryResult1, int queryResult2)</td></tr>
+<tr class="memdesc:gaa45533ff4e5acc87fb3f735227c99ffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine call it to obtain the number of parameters of the module depending of the query result.  <a href="#gaa45533ff4e5acc87fb3f735227c99ffe">More...</a><br /></td></tr>
+<tr class="separator:gaa45533ff4e5acc87fb3f735227c99ffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga135f374650716f3c26d345f94ffb3f9a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga135f374650716f3c26d345f94ffb3f9a">UserModuleBase::onAfterQuery</a> (<a class="el" href="struct_t_master_info.html">TMasterInfo</a> *pMasterInfo, <a class="el" href="struct_t_module_info.html">TModuleInfo</a> *pModuleInfo, int queryResult1, int queryResult2)</td></tr>
+<tr class="memdesc:ga135f374650716f3c26d345f94ffb3f9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine call it after the query pop-up is closed. It let you do some things depending of the query choice.  <a href="#ga135f374650716f3c26d345f94ffb3f9a">More...</a><br /></td></tr>
+<tr class="separator:ga135f374650716f3c26d345f94ffb3f9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Real-time Audio and Data Callback</h2></td></tr>
@@ -297,14 +300,25 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gad1fed9f4f641a8fd5cf81202707ca85b">UserModuleBase::onMouseMoveMulti</a> (<a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> X, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> Y, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> Pressed)</td></tr>
 <tr class="memdesc:gad1fed9f4f641a8fd5cf81202707ca85b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by Usine when control receives a touch-screen move event. <br /></td></tr>
 <tr class="separator:gad1fed9f4f641a8fd5cf81202707ca85b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1e503321fa55c3cd26a9e2f196ee8e17"><td class="memItemLeft" align="right" valign="top"><a id="ga1e503321fa55c3cd26a9e2f196ee8e17"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga1e503321fa55c3cd26a9e2f196ee8e17">UserModuleBase::onMouseMoveMulti</a> (<a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> *X, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> *Y, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> *Pressed)</td></tr>
+<tr class="memdesc:ga1e503321fa55c3cd26a9e2f196ee8e17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by Usine when control receives a touch-screen move event. <br /></td></tr>
+<tr class="separator:ga1e503321fa55c3cd26a9e2f196ee8e17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1133003c592c3feb200bc4403a572836"><td class="memItemLeft" align="right" valign="top"><a id="ga1133003c592c3feb200bc4403a572836"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga1133003c592c3feb200bc4403a572836">UserModuleBase::onMouseDownMulti</a> (<a class="el" href="group___datatypes.html#ga4adc78edd76c6bac357cc4d579a09d52">TMouseButton</a> MouseButton, <a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> X, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> Y, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> Pressed)</td></tr>
 <tr class="memdesc:ga1133003c592c3feb200bc4403a572836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by Usine when control receives a touch-screen down event. <br /></td></tr>
 <tr class="separator:ga1133003c592c3feb200bc4403a572836"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga391217f9007dc76d87f9a9a0d5dccf8a"><td class="memItemLeft" align="right" valign="top"><a id="ga391217f9007dc76d87f9a9a0d5dccf8a"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga391217f9007dc76d87f9a9a0d5dccf8a">UserModuleBase::onMouseDownMulti</a> (<a class="el" href="group___datatypes.html#ga4adc78edd76c6bac357cc4d579a09d52">TMouseButton</a> MousButton, <a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> *X, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> *Y, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> *Pressed)</td></tr>
+<tr class="memdesc:ga391217f9007dc76d87f9a9a0d5dccf8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by Usine when control receives a touch-screen down event. <br /></td></tr>
+<tr class="separator:ga391217f9007dc76d87f9a9a0d5dccf8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabd783a3bacb246a071fb4abafc88bd39"><td class="memItemLeft" align="right" valign="top"><a id="gabd783a3bacb246a071fb4abafc88bd39"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gabd783a3bacb246a071fb4abafc88bd39">UserModuleBase::onMouseUpMulti</a> (<a class="el" href="group___datatypes.html#ga4adc78edd76c6bac357cc4d579a09d52">TMouseButton</a> MouseButton, <a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> X, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> Y, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> Pressed)</td></tr>
 <tr class="memdesc:gabd783a3bacb246a071fb4abafc88bd39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by Usine when control receives a touch-screen up event. <br /></td></tr>
 <tr class="separator:gabd783a3bacb246a071fb4abafc88bd39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga16d940b206e79db4d31e85d03f58bbee"><td class="memItemLeft" align="right" valign="top"><a id="ga16d940b206e79db4d31e85d03f58bbee"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>UserModuleBase::onMouseUpMulti</b> (<a class="el" href="group___datatypes.html#ga4adc78edd76c6bac357cc4d579a09d52">TMouseButton</a> MouseButton, <a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> *X, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> *Y, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> *Pressed)</td></tr>
+<tr class="separator:ga16d940b206e79db4d31e85d03f58bbee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Optional Callbacks</h2></td></tr>
@@ -394,6 +408,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga53fb4a646a6ef7b6dc82f0221c3567e7">UserModuleBase::sdkFillText</a> (<a class="el" href="struct_t_rect_f.html">TRectF</a> rect, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> text, <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> textColor, float fontSize, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> isBold=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> isWordWrap=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>, <a class="el" href="group___datatypes.html#ga5ca54f7d93f83c9ca3be85bcebc1b47f">TTextAlign</a> alignHorizontal=<a class="el" href="group___datatypes.html#gga5ca54f7d93f83c9ca3be85bcebc1b47fa636326e11e1f979a7bc725a489693fca">taCenter</a>, <a class="el" href="group___datatypes.html#ga5ca54f7d93f83c9ca3be85bcebc1b47f">TTextAlign</a> alignVertical=<a class="el" href="group___datatypes.html#gga5ca54f7d93f83c9ca3be85bcebc1b47fa636326e11e1f979a7bc725a489693fca">taCenter</a>, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> isVertical=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)</td></tr>
 <tr class="memdesc:ga53fb4a646a6ef7b6dc82f0221c3567e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill a text. <br /></td></tr>
 <tr class="separator:ga53fb4a646a6ef7b6dc82f0221c3567e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga74a51196e708166a2b453c4eeba75c14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga74a51196e708166a2b453c4eeba75c14">UserModuleBase::sdkBitBlit</a> (<a class="el" href="group___datatypes.html#ga9b776db52f3af21f44c93dcef1a01474">TUsinePixelPtr</a> pArray, int W, int H, <a class="el" href="struct_t_rect_f.html">TRectF</a> destRect)</td></tr>
+<tr class="memdesc:ga74a51196e708166a2b453c4eeba75c14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw an array of pixels.  <a href="#ga74a51196e708166a2b453c4eeba75c14">More...</a><br /></td></tr>
+<tr class="separator:ga74a51196e708166a2b453c4eeba75c14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Graphic Path</h2></td></tr>
@@ -540,224 +557,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <tr class="separator:ga1a98fee8f82b2b0fc907f48cc4d47f88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Events manipulation</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpc533e238c909750e036c93d71c80f668"></a>Utils functions to help manipulate events </p>
-</td></tr>
-<tr class="memitem:ga066ba9ff3b8dbe9835544e4ace4b290c"><td class="memItemLeft" align="right" valign="top"><a id="ga066ba9ff3b8dbe9835544e4ace4b290c"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga066ba9ff3b8dbe9835544e4ace4b290c">UserModuleBase::sdkCompareEvt</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e1, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e2)</td></tr>
-<tr class="memdesc:ga066ba9ff3b8dbe9835544e4ace4b290c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare Events, returns TRUE if e1 and e2 are equal. <br /></td></tr>
-<tr class="separator:ga066ba9ff3b8dbe9835544e4ace4b290c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab51bbddf3135754081802835b711199a"><td class="memItemLeft" align="right" valign="top"><a id="gab51bbddf3135754081802835b711199a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gab51bbddf3135754081802835b711199a">UserModuleBase::sdkCopyEvt</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> scr, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> dest)</td></tr>
-<tr class="memdesc:gab51bbddf3135754081802835b711199a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy Events, copies src to dest. <br /></td></tr>
-<tr class="separator:gab51bbddf3135754081802835b711199a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga24641e206f473befc0bec04f90c51369"><td class="memItemLeft" align="right" valign="top"><a id="ga24641e206f473befc0bec04f90c51369"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga24641e206f473befc0bec04f90c51369">UserModuleBase::sdkConcatEvt</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e1, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e2, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> dest)</td></tr>
-<tr class="memdesc:ga24641e206f473befc0bec04f90c51369"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event Concatenation dest is the concatenation of e1 and e2. <br /></td></tr>
-<tr class="separator:ga24641e206f473befc0bec04f90c51369"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaec9071f91a7e0eda280c39b35a442435"><td class="memItemLeft" align="right" valign="top"><a id="gaec9071f91a7e0eda280c39b35a442435"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaec9071f91a7e0eda280c39b35a442435">UserModuleBase::sdkShiftEvt</a> (int n, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> src, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> dest)</td></tr>
-<tr class="memdesc:gaec9071f91a7e0eda280c39b35a442435"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift the values of src and store the result into dest. Right shift for n&gt;0, left shift for n&lt;0. <br /></td></tr>
-<tr class="separator:gaec9071f91a7e0eda280c39b35a442435"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga19daea99222aad6271a8f7796c3db2ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga19daea99222aad6271a8f7796c3db2ce">UserModuleBase::sdkSetEvtSize</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e, int size)</td></tr>
-<tr class="memdesc:ga19daea99222aad6271a8f7796c3db2ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the size of the event (number of elements). Typically the size of audio events is given by sdkGetBlocSize.  <a href="#ga19daea99222aad6271a8f7796c3db2ce">More...</a><br /></td></tr>
-<tr class="separator:ga19daea99222aad6271a8f7796c3db2ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga84847297da0bc021b1e5a475929ee787"><td class="memItemLeft" align="right" valign="top"><a id="ga84847297da0bc021b1e5a475929ee787"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga84847297da0bc021b1e5a475929ee787">UserModuleBase::sdkGetEvtSize</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e)</td></tr>
-<tr class="memdesc:ga84847297da0bc021b1e5a475929ee787"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the event (number of elements). <br /></td></tr>
-<tr class="separator:ga84847297da0bc021b1e5a475929ee787"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3944412bdcc4bc2aa5cd485f5b769e8c"><td class="memItemLeft" align="right" valign="top"><a id="ga3944412bdcc4bc2aa5cd485f5b769e8c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga3944412bdcc4bc2aa5cd485f5b769e8c">UserModuleBase::sdkSetEvtMaxSize</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e, int size)</td></tr>
-<tr class="memdesc:ga3944412bdcc4bc2aa5cd485f5b769e8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the maximum size allowed by the event. Can be greater than the event size. <br /></td></tr>
-<tr class="separator:ga3944412bdcc4bc2aa5cd485f5b769e8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa4237eabadae8af6e222009cbf606880"><td class="memItemLeft" align="right" valign="top"><a id="gaa4237eabadae8af6e222009cbf606880"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa4237eabadae8af6e222009cbf606880">UserModuleBase::sdkDestroyEvt</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> &amp;e)</td></tr>
-<tr class="memdesc:gaa4237eabadae8af6e222009cbf606880"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the event. <br /></td></tr>
-<tr class="separator:gaa4237eabadae8af6e222009cbf606880"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1582d2fe92988b1561fb6107638e87ac"><td class="memItemLeft" align="right" valign="top"><a id="ga1582d2fe92988b1561fb6107638e87ac"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga1582d2fe92988b1561fb6107638e87ac">UserModuleBase::sdkCreateEvt</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> &amp;e, int originalSize)</td></tr>
-<tr class="memdesc:ga1582d2fe92988b1561fb6107638e87ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an event with an original size. <br /></td></tr>
-<tr class="separator:ga1582d2fe92988b1561fb6107638e87ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1c71d8c05d3c39021c7da310e7574402"><td class="memItemLeft" align="right" valign="top"><a id="ga1c71d8c05d3c39021c7da310e7574402"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga1c71d8c05d3c39021c7da310e7574402">UserModuleBase::sdkMoveBLOC32</a> (<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> *pointerSrc, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> *pointerDest, int size)</td></tr>
-<tr class="memdesc:ga1c71d8c05d3c39021c7da310e7574402"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy a 32Bits bloc of memory. The size is the number of 32bits elements. <br /></td></tr>
-<tr class="separator:ga1c71d8c05d3c39021c7da310e7574402"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0f47f6250dac231171c191b3ee7e6996"><td class="memItemLeft" align="right" valign="top"><a id="ga0f47f6250dac231171c191b3ee7e6996"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga0f47f6250dac231171c191b3ee7e6996">UserModuleBase::sdkAddEvt3</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e1, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e2, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> dest)</td></tr>
-<tr class="memdesc:ga0f47f6250dac231171c191b3ee7e6996"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add values of two events and store the result into dest. <br /></td></tr>
-<tr class="separator:ga0f47f6250dac231171c191b3ee7e6996"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga372e978d68a580867ff6b093cc72b426"><td class="memItemLeft" align="right" valign="top"><a id="ga372e978d68a580867ff6b093cc72b426"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga372e978d68a580867ff6b093cc72b426">UserModuleBase::sdkAddEvt2</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e1, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e2)</td></tr>
-<tr class="memdesc:ga372e978d68a580867ff6b093cc72b426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add values of two events and store the result into e2. <br /></td></tr>
-<tr class="separator:ga372e978d68a580867ff6b093cc72b426"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga42124134f890d2f63afe552e3473949c"><td class="memItemLeft" align="right" valign="top"><a id="ga42124134f890d2f63afe552e3473949c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga42124134f890d2f63afe552e3473949c">UserModuleBase::sdkSubEvt3</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e1, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e2, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> dest)</td></tr>
-<tr class="memdesc:ga42124134f890d2f63afe552e3473949c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtract values of two events and store the result into dest. <br /></td></tr>
-<tr class="separator:ga42124134f890d2f63afe552e3473949c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaad0a8a982910e87d5680e9a0de5db736"><td class="memItemLeft" align="right" valign="top"><a id="gaad0a8a982910e87d5680e9a0de5db736"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaad0a8a982910e87d5680e9a0de5db736">UserModuleBase::sdkSubEvt2</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e1, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e2)</td></tr>
-<tr class="memdesc:gaad0a8a982910e87d5680e9a0de5db736"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtract values of two events and store the result into e2. <br /></td></tr>
-<tr class="separator:gaad0a8a982910e87d5680e9a0de5db736"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga30d501ca7c113226b185b0622554d911"><td class="memItemLeft" align="right" valign="top"><a id="ga30d501ca7c113226b185b0622554d911"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga30d501ca7c113226b185b0622554d911">UserModuleBase::sdkDivEvt3</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e1, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e2, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> dest)</td></tr>
-<tr class="memdesc:ga30d501ca7c113226b185b0622554d911"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divide values of e1 by values of e2 and store the result into dest. <br /></td></tr>
-<tr class="separator:ga30d501ca7c113226b185b0622554d911"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad8510b98d5a601cc22b9892ff228791f"><td class="memItemLeft" align="right" valign="top"><a id="gad8510b98d5a601cc22b9892ff228791f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gad8510b98d5a601cc22b9892ff228791f">UserModuleBase::sdkMultEvt3</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e1, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e2, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> dest)</td></tr>
-<tr class="memdesc:gad8510b98d5a601cc22b9892ff228791f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply values of e1 by values of e2 and store the result into dest. <br /></td></tr>
-<tr class="separator:gad8510b98d5a601cc22b9892ff228791f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8893e337faf16e3415598d930fdf8720"><td class="memItemLeft" align="right" valign="top"><a id="ga8893e337faf16e3415598d930fdf8720"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga8893e337faf16e3415598d930fdf8720">UserModuleBase::sdkMultEvt2</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e1, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e2)</td></tr>
-<tr class="memdesc:ga8893e337faf16e3415598d930fdf8720"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply values of e1 by values of e2 and store the result into e2. <br /></td></tr>
-<tr class="separator:ga8893e337faf16e3415598d930fdf8720"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga27db661d70c0d00f3ab041b81aba9b56"><td class="memItemLeft" align="right" valign="top"><a id="ga27db661d70c0d00f3ab041b81aba9b56"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga27db661d70c0d00f3ab041b81aba9b56">UserModuleBase::sdkMultEvt2Audio</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e1, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e2)</td></tr>
-<tr class="memdesc:ga27db661d70c0d00f3ab041b81aba9b56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply values of e1 by values of e2 and store the result into e2. Same as sdkMultEvt2. <br /></td></tr>
-<tr class="separator:ga27db661d70c0d00f3ab041b81aba9b56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadd47fb39ef78dcf6091108e932ec5a18"><td class="memItemLeft" align="right" valign="top"><a id="gadd47fb39ef78dcf6091108e932ec5a18"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gadd47fb39ef78dcf6091108e932ec5a18">UserModuleBase::sdkMultEvt1</a> (<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> m, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e)</td></tr>
-<tr class="memdesc:gadd47fb39ef78dcf6091108e932ec5a18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply values of e by a float value inplace. <br /></td></tr>
-<tr class="separator:gadd47fb39ef78dcf6091108e932ec5a18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8a33d84892d9e0b975cad3e7281b306d"><td class="memItemLeft" align="right" valign="top"><a id="ga8a33d84892d9e0b975cad3e7281b306d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga8a33d84892d9e0b975cad3e7281b306d">UserModuleBase::sdkModEvt3</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e1, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e2, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> dest)</td></tr>
-<tr class="memdesc:ga8a33d84892d9e0b975cad3e7281b306d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modulo operation of e1 by values of e2 and store the result into dest. <br /></td></tr>
-<tr class="separator:ga8a33d84892d9e0b975cad3e7281b306d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga07cce6e733c3ee9ee97c14133b7d4bac"><td class="memItemLeft" align="right" valign="top"><a id="ga07cce6e733c3ee9ee97c14133b7d4bac"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga07cce6e733c3ee9ee97c14133b7d4bac">UserModuleBase::sdkPowerEvt3</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e1, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e2, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> dest)</td></tr>
-<tr class="memdesc:ga07cce6e733c3ee9ee97c14133b7d4bac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Power values of e1 by values of e2 and store the result into dest. <br /></td></tr>
-<tr class="separator:ga07cce6e733c3ee9ee97c14133b7d4bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga270b30c792c4ee6f784597e242cab4ea"><td class="memItemLeft" align="right" valign="top"><a id="ga270b30c792c4ee6f784597e242cab4ea"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga270b30c792c4ee6f784597e242cab4ea">UserModuleBase::sdkExpEvt1</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e)</td></tr>
-<tr class="memdesc:ga270b30c792c4ee6f784597e242cab4ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exponential of e inplace. <br /></td></tr>
-<tr class="separator:ga270b30c792c4ee6f784597e242cab4ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0e6a9208da5e5056bac39ecc409c050c"><td class="memItemLeft" align="right" valign="top"><a id="ga0e6a9208da5e5056bac39ecc409c050c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga0e6a9208da5e5056bac39ecc409c050c">UserModuleBase::sdkSqrtEvt1</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> in1)</td></tr>
-<tr class="memdesc:ga0e6a9208da5e5056bac39ecc409c050c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Square root of e inplace. <br /></td></tr>
-<tr class="separator:ga0e6a9208da5e5056bac39ecc409c050c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9c07585d73c42d8c2e7b4a9c650156ca"><td class="memItemLeft" align="right" valign="top"><a id="ga9c07585d73c42d8c2e7b4a9c650156ca"></a>
-<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga9c07585d73c42d8c2e7b4a9c650156ca">UserModuleBase::sdkMaxEvt1</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e)</td></tr>
-<tr class="memdesc:ga9c07585d73c42d8c2e7b4a9c650156ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum value of e. <br /></td></tr>
-<tr class="separator:ga9c07585d73c42d8c2e7b4a9c650156ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga41d5a3d1fad1e0068a7b9bfeb2b906ff"><td class="memItemLeft" align="right" valign="top"><a id="ga41d5a3d1fad1e0068a7b9bfeb2b906ff"></a>
-<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga41d5a3d1fad1e0068a7b9bfeb2b906ff">UserModuleBase::sdkMinEvt1</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e)</td></tr>
-<tr class="memdesc:ga41d5a3d1fad1e0068a7b9bfeb2b906ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the minimum value of e. <br /></td></tr>
-<tr class="separator:ga41d5a3d1fad1e0068a7b9bfeb2b906ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga10d195ddc5dff270a77d20f4d570e2e9"><td class="memItemLeft" align="right" valign="top"><a id="ga10d195ddc5dff270a77d20f4d570e2e9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga10d195ddc5dff270a77d20f4d570e2e9">UserModuleBase::sdkMaxEvt3</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e1, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e2, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> dest)</td></tr>
-<tr class="memdesc:ga10d195ddc5dff270a77d20f4d570e2e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculates the maximum of each element and store the result into dest. dest[i] = max(e1[i],e2[i]) <br /></td></tr>
-<tr class="separator:ga10d195ddc5dff270a77d20f4d570e2e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf038d4ab964fd6958996c8fa2aad0f4f"><td class="memItemLeft" align="right" valign="top"><a id="gaf038d4ab964fd6958996c8fa2aad0f4f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaf038d4ab964fd6958996c8fa2aad0f4f">UserModuleBase::sdkMinEvt3</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> in1, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> in2, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> out)</td></tr>
-<tr class="memdesc:gaf038d4ab964fd6958996c8fa2aad0f4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculates the minimum of each element and store the result into dest. dest[i] = min(e1[i],e2[i]) <br /></td></tr>
-<tr class="separator:gaf038d4ab964fd6958996c8fa2aad0f4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga219d8d7af0493fa54fbb27ecd54c844b"><td class="memItemLeft" align="right" valign="top"><a id="ga219d8d7af0493fa54fbb27ecd54c844b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga219d8d7af0493fa54fbb27ecd54c844b">UserModuleBase::sdkThreshEvt2</a> (const <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> dest, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> min, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> max)</td></tr>
-<tr class="memdesc:ga219d8d7af0493fa54fbb27ecd54c844b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clip values of e in the range [min..max] and store the result into dest. <br /></td></tr>
-<tr class="separator:ga219d8d7af0493fa54fbb27ecd54c844b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga06cb9f5df3912a7a382fc09f99c2a55d"><td class="memItemLeft" align="right" valign="top"><a id="ga06cb9f5df3912a7a382fc09f99c2a55d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga06cb9f5df3912a7a382fc09f99c2a55d">UserModuleBase::sdkThreshEvt1</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> min, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> max)</td></tr>
-<tr class="memdesc:ga06cb9f5df3912a7a382fc09f99c2a55d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clip values of e in the range [min..max] inplace. <br /></td></tr>
-<tr class="separator:ga06cb9f5df3912a7a382fc09f99c2a55d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad199f32132bea38a5d4438936334469c"><td class="memItemLeft" align="right" valign="top"><a id="gad199f32132bea38a5d4438936334469c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gad199f32132bea38a5d4438936334469c">UserModuleBase::sdkMixMidiEvt3</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e1, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e2, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> dest)</td></tr>
-<tr class="memdesc:gad199f32132bea38a5d4438936334469c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mix MIDI values of e1 and e2 and store the result in dest. For the MIDI, this operation equivalent to sdkConcatEvt. <br /></td></tr>
-<tr class="separator:gad199f32132bea38a5d4438936334469c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5769433630f9742cf66087aaf91155d7"><td class="memItemLeft" align="right" valign="top"><a id="ga5769433630f9742cf66087aaf91155d7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga5769433630f9742cf66087aaf91155d7">UserModuleBase::sdkMixMidiEvt2</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e1, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e2)</td></tr>
-<tr class="memdesc:ga5769433630f9742cf66087aaf91155d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mix MIDI values of e1 and e2 and store the result in e2. For the MIDI, this operation equivalent to sdkConcatEvt. <br /></td></tr>
-<tr class="separator:ga5769433630f9742cf66087aaf91155d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3b4470be5819a661753c57346005400b"><td class="memItemLeft" align="right" valign="top"><a id="ga3b4470be5819a661753c57346005400b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga3b4470be5819a661753c57346005400b">UserModuleBase::sdkFadeInAudioEvt</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e)</td></tr>
-<tr class="memdesc:ga3b4470be5819a661753c57346005400b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a short fadein to the audio event. The duration of the fade is given by sdkGetBlocSize. <br /></td></tr>
-<tr class="separator:ga3b4470be5819a661753c57346005400b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga59531f75d42c8d797a962aca39b34ac7"><td class="memItemLeft" align="right" valign="top"><a id="ga59531f75d42c8d797a962aca39b34ac7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga59531f75d42c8d797a962aca39b34ac7">UserModuleBase::sdkFadeOutAudioEvt</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e)</td></tr>
-<tr class="memdesc:ga59531f75d42c8d797a962aca39b34ac7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a short fadeout to the audio event. The duration of the fade is given by sdkGetBlocSize. <br /></td></tr>
-<tr class="separator:ga59531f75d42c8d797a962aca39b34ac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6f811771d55646ce4b8d5edd68d0012c"><td class="memItemLeft" align="right" valign="top"><a id="ga6f811771d55646ce4b8d5edd68d0012c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga6f811771d55646ce4b8d5edd68d0012c">UserModuleBase::sdkClearAudioEvt</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e)</td></tr>
-<tr class="memdesc:ga6f811771d55646ce4b8d5edd68d0012c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear an audio event. Set values to zero and add a small denormalization value. <br /></td></tr>
-<tr class="separator:ga6f811771d55646ce4b8d5edd68d0012c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga099360baee7180ff07317ae3a890f414"><td class="memItemLeft" align="right" valign="top"><a id="ga099360baee7180ff07317ae3a890f414"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga099360baee7180ff07317ae3a890f414">UserModuleBase::sdkDenormalizeAudioEvt</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e)</td></tr>
-<tr class="memdesc:ga099360baee7180ff07317ae3a890f414"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a small denormalization value to an audio event. <br /></td></tr>
-<tr class="separator:ga099360baee7180ff07317ae3a890f414"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac53683ed82f714a777b7d8e0153b9f1b"><td class="memItemLeft" align="right" valign="top"><a id="gac53683ed82f714a777b7d8e0153b9f1b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gac53683ed82f714a777b7d8e0153b9f1b">UserModuleBase::sdkSmoothPrecision</a> (<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> &amp;oldValue, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> factor)</td></tr>
-<tr class="memdesc:gac53683ed82f714a777b7d8e0153b9f1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smooth event. <br /></td></tr>
-<tr class="separator:gac53683ed82f714a777b7d8e0153b9f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1cb326f9e7e40d0e1dd1febd22a784ff"><td class="memItemLeft" align="right" valign="top"><a id="ga1cb326f9e7e40d0e1dd1febd22a784ff"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga1cb326f9e7e40d0e1dd1febd22a784ff">UserModuleBase::sdkSmoothEvent</a> (<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> &amp;oldValue, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> target, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> factor)</td></tr>
-<tr class="memdesc:ga1cb326f9e7e40d0e1dd1febd22a784ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smooth Event with a target value. <br /></td></tr>
-<tr class="separator:ga1cb326f9e7e40d0e1dd1febd22a784ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Access to Event values</h2></td></tr>
-<tr class="memitem:gad88d83e06660306b85ede28f901b8366"><td class="memItemLeft" align="right" valign="top"><a id="gad88d83e06660306b85ede28f901b8366"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gad88d83e06660306b85ede28f901b8366">UserModuleBase::sdkSetEvtData</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> floatValue)</td></tr>
-<tr class="memdesc:gad88d83e06660306b85ede28f901b8366"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a float value. <br /></td></tr>
-<tr class="separator:gad88d83e06660306b85ede28f901b8366"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa724fe3be7d78bfb48f902af5e8352aa"><td class="memItemLeft" align="right" valign="top"><a id="gaa724fe3be7d78bfb48f902af5e8352aa"></a>
-<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa724fe3be7d78bfb48f902af5e8352aa">UserModuleBase::sdkGetEvtData</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e)</td></tr>
-<tr class="memdesc:gaa724fe3be7d78bfb48f902af5e8352aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a float Value. <br /></td></tr>
-<tr class="separator:gaa724fe3be7d78bfb48f902af5e8352aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga80fb2bf632f2e6d86fc8d761e97a3dab"><td class="memItemLeft" align="right" valign="top"><a id="ga80fb2bf632f2e6d86fc8d761e97a3dab"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga80fb2bf632f2e6d86fc8d761e97a3dab">UserModuleBase::sdkSetEvtArrayData</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e, int index, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> floatValue)</td></tr>
-<tr class="memdesc:ga80fb2bf632f2e6d86fc8d761e97a3dab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a value to an Array at an index position. <br /></td></tr>
-<tr class="separator:ga80fb2bf632f2e6d86fc8d761e97a3dab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf1902f19140549e891337c59e3abcdf2"><td class="memItemLeft" align="right" valign="top"><a id="gaf1902f19140549e891337c59e3abcdf2"></a>
-<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaf1902f19140549e891337c59e3abcdf2">UserModuleBase::sdkGetEvtArrayData</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e, int index)</td></tr>
-<tr class="memdesc:gaf1902f19140549e891337c59e3abcdf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a value from an Array at an index position. <br /></td></tr>
-<tr class="separator:gaf1902f19140549e891337c59e3abcdf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0aa25bd05d2b6c37ddff26ec13d34c58"><td class="memItemLeft" align="right" valign="top"><a id="ga0aa25bd05d2b6c37ddff26ec13d34c58"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga0aa25bd05d2b6c37ddff26ec13d34c58">UserModuleBase::sdkSetEvtPointer</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e, void *pointerValue)</td></tr>
-<tr class="memdesc:ga0aa25bd05d2b6c37ddff26ec13d34c58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a pointer value. <br /></td></tr>
-<tr class="separator:ga0aa25bd05d2b6c37ddff26ec13d34c58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6d88c760a30da8ad5a3d4c8615a7eea8"><td class="memItemLeft" align="right" valign="top"><a id="ga6d88c760a30da8ad5a3d4c8615a7eea8"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga6d88c760a30da8ad5a3d4c8615a7eea8">UserModuleBase::sdkGetEvtPointer</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e)</td></tr>
-<tr class="memdesc:ga6d88c760a30da8ad5a3d4c8615a7eea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a pointer value. <br /></td></tr>
-<tr class="separator:ga6d88c760a30da8ad5a3d4c8615a7eea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga29fa907084050eb4f1c95cc8eab1f529"><td class="memItemLeft" align="right" valign="top"><a id="ga29fa907084050eb4f1c95cc8eab1f529"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga29fa907084050eb4f1c95cc8eab1f529">UserModuleBase::sdkSetEvtColor</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e, <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> colorValue)</td></tr>
-<tr class="memdesc:ga29fa907084050eb4f1c95cc8eab1f529"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a color value. <br /></td></tr>
-<tr class="separator:ga29fa907084050eb4f1c95cc8eab1f529"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5d27b2a5f65088bde64d6df297244d51"><td class="memItemLeft" align="right" valign="top"><a id="ga5d27b2a5f65088bde64d6df297244d51"></a>
-<a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga5d27b2a5f65088bde64d6df297244d51">UserModuleBase::sdkGetEvtColor</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e)</td></tr>
-<tr class="memdesc:ga5d27b2a5f65088bde64d6df297244d51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a color value. <br /></td></tr>
-<tr class="separator:ga5d27b2a5f65088bde64d6df297244d51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6e301704c77d8f8a0693f32766ebd1a7"><td class="memItemLeft" align="right" valign="top"><a id="ga6e301704c77d8f8a0693f32766ebd1a7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga6e301704c77d8f8a0693f32766ebd1a7">UserModuleBase::sdkSetEvtArrayColor</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e, int index, <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> colorValue)</td></tr>
-<tr class="memdesc:ga6e301704c77d8f8a0693f32766ebd1a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a color value to an array at index position. <br /></td></tr>
-<tr class="separator:ga6e301704c77d8f8a0693f32766ebd1a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga286627ff90f57b46edcbaeef26438077"><td class="memItemLeft" align="right" valign="top"><a id="ga286627ff90f57b46edcbaeef26438077"></a>
-<a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga286627ff90f57b46edcbaeef26438077">UserModuleBase::sdkGetEvtArrayColor</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e, int index)</td></tr>
-<tr class="memdesc:ga286627ff90f57b46edcbaeef26438077"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a color value to an array at index position. <br /></td></tr>
-<tr class="separator:ga286627ff90f57b46edcbaeef26438077"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa7474460b714fe94bfa953d972fa014f"><td class="memItemLeft" align="right" valign="top"><a id="gaa7474460b714fe94bfa953d972fa014f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa7474460b714fe94bfa953d972fa014f">UserModuleBase::sdkSetEvtArrayMidi</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e, int index, <a class="el" href="struct_t_usine_midi_code.html">TUsineMidiCode</a> midiValue)</td></tr>
-<tr class="memdesc:gaa7474460b714fe94bfa953d972fa014f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a Midi value to an array at index position. <br /></td></tr>
-<tr class="separator:gaa7474460b714fe94bfa953d972fa014f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae926361bcbbf2e9e855a634d2f3e5c8d"><td class="memItemLeft" align="right" valign="top"><a id="gae926361bcbbf2e9e855a634d2f3e5c8d"></a>
-<a class="el" href="struct_t_usine_midi_code.html">TUsineMidiCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gae926361bcbbf2e9e855a634d2f3e5c8d">UserModuleBase::sdkGetEvtArrayMidi</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e, int index)</td></tr>
-<tr class="memdesc:gae926361bcbbf2e9e855a634d2f3e5c8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a Midi value to an array at index position. <br /></td></tr>
-<tr class="separator:gae926361bcbbf2e9e855a634d2f3e5c8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1b4db8aedd98676f4c19ebb4bb7d450b"><td class="memItemLeft" align="right" valign="top"><a id="ga1b4db8aedd98676f4c19ebb4bb7d450b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga1b4db8aedd98676f4c19ebb4bb7d450b">UserModuleBase::sdkSetEvtPChar</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> textValue)</td></tr>
-<tr class="memdesc:ga1b4db8aedd98676f4c19ebb4bb7d450b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a Text value. <br /></td></tr>
-<tr class="separator:ga1b4db8aedd98676f4c19ebb4bb7d450b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7e307d433a339379810108353c61e5e3"><td class="memItemLeft" align="right" valign="top"><a id="ga7e307d433a339379810108353c61e5e3"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga7e307d433a339379810108353c61e5e3">UserModuleBase::sdkGetEvtPChar</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e)</td></tr>
-<tr class="memdesc:ga7e307d433a339379810108353c61e5e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a Text value. <br /></td></tr>
-<tr class="separator:ga7e307d433a339379810108353c61e5e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa1417b816392ab8348ee9000220d7041"><td class="memItemLeft" align="right" valign="top"><a id="gaa1417b816392ab8348ee9000220d7041"></a>
-<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa1417b816392ab8348ee9000220d7041">UserModuleBase::sdkGetEvtDataAddr</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> ev)</td></tr>
-<tr class="memdesc:gaa1417b816392ab8348ee9000220d7041"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the address of the first data in the Event. <br /></td></tr>
-<tr class="separator:gaa1417b816392ab8348ee9000220d7041"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab571b28f92cf31c00cc23e501561cf4f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t3_d_point_f.html">T3DPointF</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gab571b28f92cf31c00cc23e501561cf4f">UserModuleBase::sdkGetEvt3DPoint</a> (<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> e, int pointIndex)</td></tr>
-<tr class="memdesc:gab571b28f92cf31c00cc23e501561cf4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a 3D point. the event must have a line number of 3 to work,.  <a href="#gab571b28f92cf31c00cc23e501561cf4f">More...</a><br /></td></tr>
-<tr class="separator:gab571b28f92cf31c00cc23e501561cf4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Critical Sections</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp8519ec8627e503a7510b987eaa982ff7"></a>Critical sections functions to protect patches calculation. </p>
 </td></tr>
@@ -769,6 +568,43 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaab29d8b9fddcf817c670c48cf5e50d3e">UserModuleBase::sdkUnLockPatch</a> ()</td></tr>
 <tr class="memdesc:gaab29d8b9fddcf817c670c48cf5e50d3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnLock the execution of the current patch. <br /></td></tr>
 <tr class="separator:gaab29d8b9fddcf817c670c48cf5e50d3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacac36730ac0f85f62fb1fdbc216c890a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gacac36730ac0f85f62fb1fdbc216c890a">UserModuleBase::sdkCriticalSectionLock</a> (<a class="el" href="group___datatypes.html#ga417a5c17ed8b4dda4389df11cf4b7240">TCriticalSectionPtr</a> pCriticalSection, UINT32 timeout=0)</td></tr>
+<tr class="memdesc:gacac36730ac0f85f62fb1fdbc216c890a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lock a critical section.  <a href="#gacac36730ac0f85f62fb1fdbc216c890a">More...</a><br /></td></tr>
+<tr class="separator:gacac36730ac0f85f62fb1fdbc216c890a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa4aae4079a00a7ad158d31d897712d67"><td class="memItemLeft" align="right" valign="top"><a id="gaa4aae4079a00a7ad158d31d897712d67"></a>
+<a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa4aae4079a00a7ad158d31d897712d67">UserModuleBase::sdkCriticalSectionTryLock</a> (<a class="el" href="group___datatypes.html#ga417a5c17ed8b4dda4389df11cf4b7240">TCriticalSectionPtr</a> pCriticalSection)</td></tr>
+<tr class="memdesc:gaa4aae4079a00a7ad158d31d897712d67"><td class="mdescLeft">&#160;</td><td class="mdescRight">TryLock a critical section. <br /></td></tr>
+<tr class="separator:gaa4aae4079a00a7ad158d31d897712d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8396c332c7e909e8ac1ff9cad89ea2ad"><td class="memItemLeft" align="right" valign="top"><a id="ga8396c332c7e909e8ac1ff9cad89ea2ad"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga8396c332c7e909e8ac1ff9cad89ea2ad">UserModuleBase::sdkCriticalSectionUnLock</a> (<a class="el" href="group___datatypes.html#ga417a5c17ed8b4dda4389df11cf4b7240">TCriticalSectionPtr</a> pCriticalSection)</td></tr>
+<tr class="memdesc:ga8396c332c7e909e8ac1ff9cad89ea2ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnLock a critical section. <br /></td></tr>
+<tr class="separator:ga8396c332c7e909e8ac1ff9cad89ea2ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac34dff5218d87d9b6ccc7ab968ba3274"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___datatypes.html#ga417a5c17ed8b4dda4389df11cf4b7240">TCriticalSectionPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gac34dff5218d87d9b6ccc7ab968ba3274">UserModuleBase::sdkCriticalSectionCreate</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> shared=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)</td></tr>
+<tr class="memdesc:gac34dff5218d87d9b6ccc7ab968ba3274"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a critical section.  <a href="#gac34dff5218d87d9b6ccc7ab968ba3274">More...</a><br /></td></tr>
+<tr class="separator:gac34dff5218d87d9b6ccc7ab968ba3274"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5b1f3925b49ae82fed9bb5baa7fc662a"><td class="memItemLeft" align="right" valign="top"><a id="ga5b1f3925b49ae82fed9bb5baa7fc662a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga5b1f3925b49ae82fed9bb5baa7fc662a">UserModuleBase::sdkCriticalSectionDestroy</a> (<a class="el" href="group___datatypes.html#ga417a5c17ed8b4dda4389df11cf4b7240">TCriticalSectionPtr</a> pCriticalSection)</td></tr>
+<tr class="memdesc:ga5b1f3925b49ae82fed9bb5baa7fc662a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a critical section. <br /></td></tr>
+<tr class="separator:ga5b1f3925b49ae82fed9bb5baa7fc662a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Threads</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp03bfaee27b3b5cfb28deef84a0f416e5"></a>Threads for multi-threading </p>
+</td></tr>
+<tr class="memitem:ga846975329d2bc9ca307c9c178180f8e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___datatypes.html#ga40768a849dbc3c55e60504779cfe081d">TThreadPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga846975329d2bc9ca307c9c178180f8e0">UserModuleBase::sdkThreadCreate</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name, FuncThreadProcess ProcessThreadProc, <a class="el" href="group___datatypes.html#ga2dc400c438444996449c9d056c0883cf">TThreadPriority</a> priority, UINT32 timeout)</td></tr>
+<tr class="memdesc:ga846975329d2bc9ca307c9c178180f8e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a thread.  <a href="#ga846975329d2bc9ca307c9c178180f8e0">More...</a><br /></td></tr>
+<tr class="separator:ga846975329d2bc9ca307c9c178180f8e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga90a855b54ff15b93edc957eb233fbd86"><td class="memItemLeft" align="right" valign="top"><a id="ga90a855b54ff15b93edc957eb233fbd86"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga90a855b54ff15b93edc957eb233fbd86">UserModuleBase::sdkThreadDestroy</a> (<a class="el" href="group___datatypes.html#ga40768a849dbc3c55e60504779cfe081d">TThreadPtr</a> pThread)</td></tr>
+<tr class="memdesc:ga90a855b54ff15b93edc957eb233fbd86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a thread. <br /></td></tr>
+<tr class="separator:ga90a855b54ff15b93edc957eb233fbd86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa4b95263d1ded224d94c59de7608dbae"><td class="memItemLeft" align="right" valign="top"><a id="gaa4b95263d1ded224d94c59de7608dbae"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa4b95263d1ded224d94c59de7608dbae">UserModuleBase::sdkThreadRestart</a> (<a class="el" href="group___datatypes.html#ga40768a849dbc3c55e60504779cfe081d">TThreadPtr</a> pThread)</td></tr>
+<tr class="memdesc:gaa4b95263d1ded224d94c59de7608dbae"><td class="mdescLeft">&#160;</td><td class="mdescRight">restart a thread. <br /></td></tr>
+<tr class="separator:gaa4b95263d1ded224d94c59de7608dbae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3e0b3556cb1ff8dc53a57fcb3fe0f1e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga3e0b3556cb1ff8dc53a57fcb3fe0f1e8">UserModuleBase::sdkThreadSetTimeOut</a> (<a class="el" href="group___datatypes.html#ga40768a849dbc3c55e60504779cfe081d">TThreadPtr</a> pThread, UINT32 timeout)</td></tr>
+<tr class="memdesc:ga3e0b3556cb1ff8dc53a57fcb3fe0f1e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">set timeout of a thread.  <a href="#ga3e0b3556cb1ff8dc53a57fcb3fe0f1e8">More...</a><br /></td></tr>
+<tr class="separator:ga3e0b3556cb1ff8dc53a57fcb3fe0f1e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Parameters setters</h2></td></tr>
@@ -792,70 +628,6 @@ Parameters setters</h2></td></tr>
 <tr class="memitem:gadc212ca663deff2b2b7e0e54888ebe28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gadc212ca663deff2b2b7e0e54888ebe28">UserModuleBase::sdkRepaintParam</a> (int numParam)</td></tr>
 <tr class="memdesc:gadc212ca663deff2b2b7e0e54888ebe28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ask Usine to Update the parameter. Usually used after one of the function above.  <a href="#gadc212ca663deff2b2b7e0e54888ebe28">More...</a><br /></td></tr>
 <tr class="separator:gadc212ca663deff2b2b7e0e54888ebe28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Audio Channels query</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpe6b5b2e7876f7ab0e00f4109044972c1"></a>To use with the audio multi channels query. </p>
-</td></tr>
-<tr class="memitem:ga2c5dc78e05916798117595045473ed27"><td class="memItemLeft" align="right" valign="top"><a id="ga2c5dc78e05916798117595045473ed27"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga2c5dc78e05916798117595045473ed27">UserModuleBase::sdkGetAudioQueryTitle</a> ()</td></tr>
-<tr class="memdesc:ga2c5dc78e05916798117595045473ed27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the title string for the popup. <br /></td></tr>
-<tr class="separator:ga2c5dc78e05916798117595045473ed27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga19f25f11f564cac210a04f620f3dafe3"><td class="memItemLeft" align="right" valign="top"><a id="ga19f25f11f564cac210a04f620f3dafe3"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga19f25f11f564cac210a04f620f3dafe3">UserModuleBase::sdkGetAudioQueryChannelList</a> ()</td></tr>
-<tr class="memdesc:ga19f25f11f564cac210a04f620f3dafe3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the query string list for an multi channels query. <br /></td></tr>
-<tr class="separator:ga19f25f11f564cac210a04f620f3dafe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga61c2367b9613715841ceed0826187381"><td class="memItemLeft" align="right" valign="top"><a id="ga61c2367b9613715841ceed0826187381"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga61c2367b9613715841ceed0826187381">UserModuleBase::sdkGetAudioQueryToNbChannels</a> (int qQueryIndex)</td></tr>
-<tr class="memdesc:ga61c2367b9613715841ceed0826187381"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of channels from the query index choice. <br /></td></tr>
-<tr class="separator:ga61c2367b9613715841ceed0826187381"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaff1d2bcfe4030ad8712069aed64ccd3e"><td class="memItemLeft" align="right" valign="top"><a id="gaff1d2bcfe4030ad8712069aed64ccd3e"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaff1d2bcfe4030ad8712069aed64ccd3e">UserModuleBase::sdkGetAudioQueryChannelNames</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> prefix, int index, int queryIndex)</td></tr>
-<tr class="memdesc:gaff1d2bcfe4030ad8712069aed64ccd3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of a channel. <br /></td></tr>
-<tr class="separator:gaff1d2bcfe4030ad8712069aed64ccd3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Global Array functions</h2></td></tr>
-<tr class="memitem:ga45646dee969783dec5bed7575d7efdac"><td class="memItemLeft" align="right" valign="top"><a id="ga45646dee969783dec5bed7575d7efdac"></a>
-UINT64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga45646dee969783dec5bed7575d7efdac">UserModuleBase::sdkGlobalArrayGetHash</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name)</td></tr>
-<tr class="memdesc:ga45646dee969783dec5bed7575d7efdac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Hash (internal ID) of the Global Array needed for function bellow. <br /></td></tr>
-<tr class="separator:ga45646dee969783dec5bed7575d7efdac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad5133efb1ab1125a6934ae12ae43118c"><td class="memItemLeft" align="right" valign="top"><a id="gad5133efb1ab1125a6934ae12ae43118c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gad5133efb1ab1125a6934ae12ae43118c">UserModuleBase::sdkGlobalArraySetValueFloat</a> (UINT64 hash, int index, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> value, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> errorMsg)</td></tr>
-<tr class="memdesc:gad5133efb1ab1125a6934ae12ae43118c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a float value of a data Global Array at the index. <br /></td></tr>
-<tr class="separator:gad5133efb1ab1125a6934ae12ae43118c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaaf82a81b1a1bb5f5cbe8059191af78e3"><td class="memItemLeft" align="right" valign="top"><a id="gaaf82a81b1a1bb5f5cbe8059191af78e3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaaf82a81b1a1bb5f5cbe8059191af78e3">UserModuleBase::sdkGlobalArraySetValueColor</a> (UINT64 hash, int index, <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> value, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> errorMsg)</td></tr>
-<tr class="memdesc:gaaf82a81b1a1bb5f5cbe8059191af78e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a color value of a color Global Array at the index. <br /></td></tr>
-<tr class="separator:gaaf82a81b1a1bb5f5cbe8059191af78e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf391296ba8280fa14b7d6a5c58033d49"><td class="memItemLeft" align="right" valign="top"><a id="gaf391296ba8280fa14b7d6a5c58033d49"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaf391296ba8280fa14b7d6a5c58033d49">UserModuleBase::sdkGlobalArraySetValueAnsiChar</a> (UINT64 hash, int index, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> value, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> errorMsg)</td></tr>
-<tr class="memdesc:gaf391296ba8280fa14b7d6a5c58033d49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a string value of a string Global Array at the index. <br /></td></tr>
-<tr class="separator:gaf391296ba8280fa14b7d6a5c58033d49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad4e1a8b65d643c15f62630be1ad076d7"><td class="memItemLeft" align="right" valign="top"><a id="gad4e1a8b65d643c15f62630be1ad076d7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gad4e1a8b65d643c15f62630be1ad076d7">UserModuleBase::sdkGlobalArraySetValueEvt</a> (UINT64 hash, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> value, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> errorMsg)</td></tr>
-<tr class="memdesc:gad4e1a8b65d643c15f62630be1ad076d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill an entire global array with the content of an Event. <br /></td></tr>
-<tr class="separator:gad4e1a8b65d643c15f62630be1ad076d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga68a39146c673681e1723e2d01bfe2f98"><td class="memItemLeft" align="right" valign="top"><a id="ga68a39146c673681e1723e2d01bfe2f98"></a>
-<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga68a39146c673681e1723e2d01bfe2f98">UserModuleBase::sdkGlobalArrayGetValueFloat</a> (UINT64 hash, int index, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> errorMsg)</td></tr>
-<tr class="memdesc:ga68a39146c673681e1723e2d01bfe2f98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a float value from a data Global Array at the index. <br /></td></tr>
-<tr class="separator:ga68a39146c673681e1723e2d01bfe2f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae3d8be7cdd85e42f0d86b1678ecd4953"><td class="memItemLeft" align="right" valign="top"><a id="gae3d8be7cdd85e42f0d86b1678ecd4953"></a>
-<a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gae3d8be7cdd85e42f0d86b1678ecd4953">UserModuleBase::sdkGlobalArrayGetValueColor</a> (UINT64 hash, int index, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> errorMsg)</td></tr>
-<tr class="memdesc:gae3d8be7cdd85e42f0d86b1678ecd4953"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a color value from a color Global Array at the index. <br /></td></tr>
-<tr class="separator:gae3d8be7cdd85e42f0d86b1678ecd4953"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac079afded69d5082ad6ff01411b40864"><td class="memItemLeft" align="right" valign="top"><a id="gac079afded69d5082ad6ff01411b40864"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gac079afded69d5082ad6ff01411b40864">UserModuleBase::sdkGlobalArrayGetValueAnsiChar</a> (UINT64 hash, int index, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> errorMsg)</td></tr>
-<tr class="memdesc:gac079afded69d5082ad6ff01411b40864"><td class="mdescLeft">&#160;</td><td class="mdescRight">get a string value from a string Global Array at the index <br /></td></tr>
-<tr class="separator:gac079afded69d5082ad6ff01411b40864"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8d73286d255758a15a0bda0c0de6b892"><td class="memItemLeft" align="right" valign="top"><a id="ga8d73286d255758a15a0bda0c0de6b892"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga8d73286d255758a15a0bda0c0de6b892">UserModuleBase::sdkGlobalArrayGetValueEvt</a> (UINT64 hash, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> errorMsg, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> result)</td></tr>
-<tr class="memdesc:ga8d73286d255758a15a0bda0c0de6b892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get an entire global array and fill its content in an Event. <br /></td></tr>
-<tr class="separator:ga8d73286d255758a15a0bda0c0de6b892"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae16ba0585481ca2e958c776acf91f1f9"><td class="memItemLeft" align="right" valign="top"><a id="gae16ba0585481ca2e958c776acf91f1f9"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gae16ba0585481ca2e958c776acf91f1f9">UserModuleBase::sdkGlobalArrayGetAllNames</a> ()</td></tr>
-<tr class="memdesc:gae16ba0585481ca2e958c776acf91f1f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the list of all available global-array's names as a comma-text. This function can be slow. <br /></td></tr>
-<tr class="separator:gae16ba0585481ca2e958c776acf91f1f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Usine Objects functions</h2></td></tr>
@@ -942,70 +714,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Usine Core infos and services</h2></td></tr>
-<tr class="memitem:ga0924696f564877d51c5561ae3aef0110"><td class="memItemLeft" align="right" valign="top"><a id="ga0924696f564877d51c5561ae3aef0110"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga0924696f564877d51c5561ae3aef0110">UserModuleBase::sdkGetUsineBlockSizeList</a> ()</td></tr>
-<tr class="memdesc:ga0924696f564877d51c5561ae3aef0110"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the list of possible usine block size. <br /></td></tr>
-<tr class="separator:ga0924696f564877d51c5561ae3aef0110"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa2accbee005ae341a87bff6ea36fde32"><td class="memItemLeft" align="right" valign="top"><a id="gaa2accbee005ae341a87bff6ea36fde32"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa2accbee005ae341a87bff6ea36fde32">UserModuleBase::sdkGetUsineDefaultBlockSizeIndex</a> ()</td></tr>
-<tr class="memdesc:gaa2accbee005ae341a87bff6ea36fde32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the default usine block size. <br /></td></tr>
-<tr class="separator:gaa2accbee005ae341a87bff6ea36fde32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae22163b59cd30590e9fcfd4f816c70fe"><td class="memItemLeft" align="right" valign="top"><a id="gae22163b59cd30590e9fcfd4f816c70fe"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gae22163b59cd30590e9fcfd4f816c70fe">UserModuleBase::sdkUsineAudioDeviceIOCallback</a> (const float **inputChannelData, int numInputChannels, float **outputChannelData, int numOutputChannels, int numSamples)</td></tr>
-<tr class="memdesc:gae22163b59cd30590e9fcfd4f816c70fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Low level , not for public use Usine audio callback. <br /></td></tr>
-<tr class="separator:gae22163b59cd30590e9fcfd4f816c70fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafa74f21585e596691d214ddc27205c6e"><td class="memItemLeft" align="right" valign="top"><a id="gafa74f21585e596691d214ddc27205c6e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gafa74f21585e596691d214ddc27205c6e">UserModuleBase::sdkUsineMidiDeviceCallback</a> (int deviceID, double TimeStamp, <a class="el" href="struct_t_usine_midi_code.html">TUsineMidiCode</a> midiData)</td></tr>
-<tr class="memdesc:gafa74f21585e596691d214ddc27205c6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Low level , not for public use Usine midi callback. <br /></td></tr>
-<tr class="separator:gafa74f21585e596691d214ddc27205c6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaff2698f372109adef4f78914b45dccf0"><td class="memItemLeft" align="right" valign="top"><a id="gaff2698f372109adef4f78914b45dccf0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaff2698f372109adef4f78914b45dccf0">UserModuleBase::sdkUsineMidiSysexDeviceCallback</a> (int deviceID, double TimeStamp, char **sysEx, int size)</td></tr>
-<tr class="memdesc:gaff2698f372109adef4f78914b45dccf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Low level , not for public use Usine midi sysex callback. <br /></td></tr>
-<tr class="separator:gaff2698f372109adef4f78914b45dccf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga26fdd2e4222377a781e817e42a7fbf77"><td class="memItemLeft" align="right" valign="top"><a id="ga26fdd2e4222377a781e817e42a7fbf77"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga26fdd2e4222377a781e817e42a7fbf77">UserModuleBase::sdkSendUsineMsg</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> Msg)</td></tr>
 <tr class="memdesc:ga26fdd2e4222377a781e817e42a7fbf77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine internal messages. <br /></td></tr>
 <tr class="separator:ga26fdd2e4222377a781e817e42a7fbf77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3bbc79daf7c780e7cff1c976668e164d"><td class="memItemLeft" align="right" valign="top"><a id="ga3bbc79daf7c780e7cff1c976668e164d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga3bbc79daf7c780e7cff1c976668e164d">UserModuleBase::sdkNotifyUsine</a> (NativeInt Target, NativeInt Msg, NativeInt WParam=0, NativeInt LParam=0)</td></tr>
-<tr class="memdesc:ga3bbc79daf7c780e7cff1c976668e164d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine notification. <br /></td></tr>
-<tr class="separator:ga3bbc79daf7c780e7cff1c976668e164d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa19079773bb29f42987f24fc273aa9c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa19079773bb29f42987f24fc273aa9c2">UserModuleBase::sdkNotifyUsine</a> (NativeInt Target, NativeInt Msg, NativeInt WParam=0, NativeInt LParam=0, int Delay=0)</td></tr>
+<tr class="memdesc:gaa19079773bb29f42987f24fc273aa9c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine notification.  <a href="#gaa19079773bb29f42987f24fc273aa9c2">More...</a><br /></td></tr>
+<tr class="separator:gaa19079773bb29f42987f24fc273aa9c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga924f20b2b9ec9a53adc42e9b1180c798"><td class="memItemLeft" align="right" valign="top"><a id="ga924f20b2b9ec9a53adc42e9b1180c798"></a>
 <a class="el" href="struct_t_vst_time_info.html">TVstTimeInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga924f20b2b9ec9a53adc42e9b1180c798">UserModuleBase::sdkGetVstTimeInfo</a> ()</td></tr>
 <tr class="memdesc:ga924f20b2b9ec9a53adc42e9b1180c798"><td class="mdescLeft">&#160;</td><td class="mdescRight">To access the current <a class="el" href="struct_t_vst_time_info.html" title="VST Time info structure as defined by the Steinberg VST SDK. Used by Usine to deal with time at a mus...">TVstTimeInfo</a> structure of Usine. <br /></td></tr>
 <tr class="separator:ga924f20b2b9ec9a53adc42e9b1180c798"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf205f067f11d79bc1eb763ac8a6d3d3c"><td class="memItemLeft" align="right" valign="top"><a id="gaf205f067f11d79bc1eb763ac8a6d3d3c"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaf205f067f11d79bc1eb763ac8a6d3d3c">UserModuleBase::sdkGetBlocSize</a> ()</td></tr>
-<tr class="memdesc:gaf205f067f11d79bc1eb763ac8a6d3d3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the current Usine block size. <br /></td></tr>
-<tr class="separator:gaf205f067f11d79bc1eb763ac8a6d3d3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga689141f0b4dc29a9e57b1d6f2dfbfc93"><td class="memItemLeft" align="right" valign="top"><a id="ga689141f0b4dc29a9e57b1d6f2dfbfc93"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga689141f0b4dc29a9e57b1d6f2dfbfc93">UserModuleBase::sdkGetSampleRate</a> ()</td></tr>
-<tr class="memdesc:ga689141f0b4dc29a9e57b1d6f2dfbfc93"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the current Usine sample rate. <br /></td></tr>
-<tr class="separator:ga689141f0b4dc29a9e57b1d6f2dfbfc93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8ef327458c48fd5fb620392a74831d54"><td class="memItemLeft" align="right" valign="top"><a id="ga8ef327458c48fd5fb620392a74831d54"></a>
-NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga8ef327458c48fd5fb620392a74831d54">UserModuleBase::sdkGetUsineMainWindow</a> ()</td></tr>
-<tr class="memdesc:ga8ef327458c48fd5fb620392a74831d54"><td class="mdescLeft">&#160;</td><td class="mdescRight">PC only, Usine mainform handle (THandle) <br /></td></tr>
-<tr class="separator:ga8ef327458c48fd5fb620392a74831d54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga64b17eefe4c020717ff00fd3cf9334e0"><td class="memItemLeft" align="right" valign="top"><a id="ga64b17eefe4c020717ff00fd3cf9334e0"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga64b17eefe4c020717ff00fd3cf9334e0">UserModuleBase::sdkGetUsineNSView</a> ()</td></tr>
-<tr class="memdesc:ga64b17eefe4c020717ff00fd3cf9334e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">MAC only, Usine NSView. <br /></td></tr>
-<tr class="separator:ga64b17eefe4c020717ff00fd3cf9334e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9670c115032df873d31bbeb40ad31bf1"><td class="memItemLeft" align="right" valign="top"><a id="ga9670c115032df873d31bbeb40ad31bf1"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga9670c115032df873d31bbeb40ad31bf1">UserModuleBase::sdkGetUsineNSApplication</a> ()</td></tr>
-<tr class="memdesc:ga9670c115032df873d31bbeb40ad31bf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">MAC only, Usine NSApplication. <br /></td></tr>
-<tr class="separator:ga9670c115032df873d31bbeb40ad31bf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6487207b2d279f7ec6f985d52ede1018"><td class="memItemLeft" align="right" valign="top"><a id="ga6487207b2d279f7ec6f985d52ede1018"></a>
-<a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga6487207b2d279f7ec6f985d52ede1018">UserModuleBase::sdkGetUsineColor</a> (<a class="el" href="group___datatypes.html#ga5437b352b5eea482c866222ad04e71e5">TUsineColorSet</a> colorName)</td></tr>
-<tr class="memdesc:ga6487207b2d279f7ec6f985d52ede1018"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get a named color from the Usine ColorSet. <br /></td></tr>
-<tr class="separator:ga6487207b2d279f7ec6f985d52ede1018"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga81258991d936f1b4c3324ffe71f6608e"><td class="memItemLeft" align="right" valign="top"><a id="ga81258991d936f1b4c3324ffe71f6608e"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga81258991d936f1b4c3324ffe71f6608e">UserModuleBase::sdkGetTimeMs</a> ()</td></tr>
 <tr class="memdesc:ga81258991d936f1b4c3324ffe71f6608e"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the Usine global time in millisecond, precision up to nanoseconde. <br /></td></tr>
 <tr class="separator:ga81258991d936f1b4c3324ffe71f6608e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga36149ee731ee7d34cc58bd02ec9a8e98"><td class="memItemLeft" align="right" valign="top"><a id="ga36149ee731ee7d34cc58bd02ec9a8e98"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga36149ee731ee7d34cc58bd02ec9a8e98">UserModuleBase::sdkGetTrans</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> StringID)</td></tr>
-<tr class="memdesc:ga36149ee731ee7d34cc58bd02ec9a8e98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translate a StringID to the current Usine language. <br /></td></tr>
-<tr class="separator:ga36149ee731ee7d34cc58bd02ec9a8e98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0eef9b591c3b41a4d2cf91302a88886c"><td class="memItemLeft" align="right" valign="top"><a id="ga0eef9b591c3b41a4d2cf91302a88886c"></a>
 <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga0eef9b591c3b41a4d2cf91302a88886c">UserModuleBase::sdkPatchIsRunning</a> ()</td></tr>
 <tr class="memdesc:ga0eef9b591c3b41a4d2cf91302a88886c"><td class="mdescLeft">&#160;</td><td class="mdescRight">To check if the patch containing the module is running. <br /></td></tr>
@@ -1032,32 +755,6 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga93daf1421b6cbbcd49a0e6ca5666dcc7">UserModuleBase::sdkGetUsineVersionNum</a> ()</td></tr>
 <tr class="memdesc:ga93daf1421b6cbbcd49a0e6ca5666dcc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the version number of Usine as a string. <br /></td></tr>
 <tr class="separator:ga93daf1421b6cbbcd49a0e6ca5666dcc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa3b13571ee2659742bc1dba423c4ffc3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___datatypes.html#gaa74fb9094510bb45536067c169df69b5">TUsineVersionType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa3b13571ee2659742bc1dba423c4ffc3">UserModuleBase::sdkGetUsineVersionType</a> ()</td></tr>
-<tr class="memdesc:gaa3b13571ee2659742bc1dba423c4ffc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the version type of Usine.  <a href="#gaa3b13571ee2659742bc1dba423c4ffc3">More...</a><br /></td></tr>
-<tr class="separator:gaa3b13571ee2659742bc1dba423c4ffc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac5e88a6365aa6e9f3482d1dfcf6f6d6d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gac5e88a6365aa6e9f3482d1dfcf6f6d6d">UserModuleBase::sdkGetUsineLanguage</a> ()</td></tr>
-<tr class="memdesc:gac5e88a6365aa6e9f3482d1dfcf6f6d6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the current language used in Usine.  <a href="#gac5e88a6365aa6e9f3482d1dfcf6f6d6d">More...</a><br /></td></tr>
-<tr class="separator:gac5e88a6365aa6e9f3482d1dfcf6f6d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga42daa2aaa160e1322c06b2e9f925ec37"><td class="memItemLeft" align="right" valign="top"><a id="ga42daa2aaa160e1322c06b2e9f925ec37"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga42daa2aaa160e1322c06b2e9f925ec37">UserModuleBase::sdkGetUsineSaveVersion</a> ()</td></tr>
-<tr class="memdesc:ga42daa2aaa160e1322c06b2e9f925ec37"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the of the save format of Usine. <br /></td></tr>
-<tr class="separator:ga42daa2aaa160e1322c06b2e9f925ec37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaeec2e112ba8a6de4bb9613c444643fc2"><td class="memItemLeft" align="right" valign="top"><a id="gaeec2e112ba8a6de4bb9613c444643fc2"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaeec2e112ba8a6de4bb9613c444643fc2">UserModuleBase::sdkGetUsineMaxAudioInputs</a> ()</td></tr>
-<tr class="memdesc:gaeec2e112ba8a6de4bb9613c444643fc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the maximum audio inputs Usine can accept. <br /></td></tr>
-<tr class="separator:gaeec2e112ba8a6de4bb9613c444643fc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5983d8fd02692a1ec09deab9386bc15a"><td class="memItemLeft" align="right" valign="top"><a id="ga5983d8fd02692a1ec09deab9386bc15a"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga5983d8fd02692a1ec09deab9386bc15a">UserModuleBase::sdkGetUsineMaxAudioOutputs</a> ()</td></tr>
-<tr class="memdesc:ga5983d8fd02692a1ec09deab9386bc15a"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the maximum audio outputs Usine can accept. <br /></td></tr>
-<tr class="separator:ga5983d8fd02692a1ec09deab9386bc15a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadc32b4630c6f24f6044d06b5e442c18a"><td class="memItemLeft" align="right" valign="top"><a id="gadc32b4630c6f24f6044d06b5e442c18a"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gadc32b4630c6f24f6044d06b5e442c18a">UserModuleBase::sdkGetUsineMaxMidiDevices</a> ()</td></tr>
-<tr class="memdesc:gadc32b4630c6f24f6044d06b5e442c18a"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the maximum Midi device Usine can accept. <br /></td></tr>
-<tr class="separator:gadc32b4630c6f24f6044d06b5e442c18a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga942852f93d87bdcc9e48c20297fb0a50"><td class="memItemLeft" align="right" valign="top"><a id="ga942852f93d87bdcc9e48c20297fb0a50"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga942852f93d87bdcc9e48c20297fb0a50">UserModuleBase::sdkGetUsineMaxPolyphony</a> ()</td></tr>
-<tr class="memdesc:ga942852f93d87bdcc9e48c20297fb0a50"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the current polyphony of Usine. <br /></td></tr>
-<tr class="separator:ga942852f93d87bdcc9e48c20297fb0a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1a841439c5bf59ddc3283670573d64e8"><td class="memItemLeft" align="right" valign="top"><a id="ga1a841439c5bf59ddc3283670573d64e8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga1a841439c5bf59ddc3283670573d64e8">UserModuleBase::sdkSetModuleUserName</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name)</td></tr>
 <tr class="memdesc:ga1a841439c5bf59ddc3283670573d64e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the name of the module (as it appear in the patch, on the module title) <br /></td></tr>
@@ -1066,194 +763,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gadf697dc2eb4b4fd6f9fddc652416c7d9">UserModuleBase::sdkGetModuleUserName</a> ()</td></tr>
 <tr class="memdesc:gadf697dc2eb4b4fd6f9fddc652416c7d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the name of the module (as it appear in the patch, on the module title) <br /></td></tr>
 <tr class="separator:gadf697dc2eb4b4fd6f9fddc652416c7d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Usine Paths getters</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpcb36c370dce63db6444a6a6589d9a87e"></a>To get the path to access some important folders of Usine. </p>
-</td></tr>
-<tr class="memitem:ga6e37d74c54149ee0030fb6f45d1559d7"><td class="memItemLeft" align="right" valign="top"><a id="ga6e37d74c54149ee0030fb6f45d1559d7"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga6e37d74c54149ee0030fb6f45d1559d7">UserModuleBase::sdkGetUsineSoundPath</a> ()</td></tr>
-<tr class="memdesc:ga6e37d74c54149ee0030fb6f45d1559d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Sound folder as configured in the Global setting Tab. <br /></td></tr>
-<tr class="separator:ga6e37d74c54149ee0030fb6f45d1559d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga84320997a1d9a792ecf93f5c3a61dc45"><td class="memItemLeft" align="right" valign="top"><a id="ga84320997a1d9a792ecf93f5c3a61dc45"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga84320997a1d9a792ecf93f5c3a61dc45">UserModuleBase::sdkGetUserLibPath</a> ()</td></tr>
-<tr class="memdesc:ga84320997a1d9a792ecf93f5c3a61dc45"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Patch library folder as configured in the Global setting Tab. <br /></td></tr>
-<tr class="separator:ga84320997a1d9a792ecf93f5c3a61dc45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga33a7c9e1712731ec477d3fbb85bc044f"><td class="memItemLeft" align="right" valign="top"><a id="ga33a7c9e1712731ec477d3fbb85bc044f"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga33a7c9e1712731ec477d3fbb85bc044f">UserModuleBase::sdkGetUsineRecordPath</a> ()</td></tr>
-<tr class="memdesc:ga33a7c9e1712731ec477d3fbb85bc044f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Record Out folder as configured in the Global setting Tab. <br /></td></tr>
-<tr class="separator:ga33a7c9e1712731ec477d3fbb85bc044f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac223ca368717b72b177fd26b7c840b9b"><td class="memItemLeft" align="right" valign="top"><a id="gac223ca368717b72b177fd26b7c840b9b"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gac223ca368717b72b177fd26b7c840b9b">UserModuleBase::sdkGetGlobalApplicationPath</a> ()</td></tr>
-<tr class="memdesc:gac223ca368717b72b177fd26b7c840b9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The install folder of Usine. <br /></td></tr>
-<tr class="separator:gac223ca368717b72b177fd26b7c840b9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6e7ee349d0186398de99fe033b5f3cb2"><td class="memItemLeft" align="right" valign="top"><a id="ga6e7ee349d0186398de99fe033b5f3cb2"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga6e7ee349d0186398de99fe033b5f3cb2">UserModuleBase::sdkGetCurrentWorkspacePath</a> ()</td></tr>
-<tr class="memdesc:ga6e7ee349d0186398de99fe033b5f3cb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The path of the current workspace. <br /></td></tr>
-<tr class="separator:ga6e7ee349d0186398de99fe033b5f3cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadfa144472b3760b8f847897ce8bd3846"><td class="memItemLeft" align="right" valign="top"><a id="gadfa144472b3760b8f847897ce8bd3846"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gadfa144472b3760b8f847897ce8bd3846">UserModuleBase::sdkGetCurrentPatchPath</a> ()</td></tr>
-<tr class="memdesc:gadfa144472b3760b8f847897ce8bd3846"><td class="mdescLeft">&#160;</td><td class="mdescRight">The path of the patch containing the module. <br /></td></tr>
-<tr class="separator:gadfa144472b3760b8f847897ce8bd3846"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga13d6b134264a477ad1fb94fb213b34b4"><td class="memItemLeft" align="right" valign="top"><a id="ga13d6b134264a477ad1fb94fb213b34b4"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga13d6b134264a477ad1fb94fb213b34b4">UserModuleBase::sdkGetUsineTempPath</a> ()</td></tr>
-<tr class="memdesc:ga13d6b134264a477ad1fb94fb213b34b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Temp folder Used by Usine. <br /></td></tr>
-<tr class="separator:ga13d6b134264a477ad1fb94fb213b34b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga73413110b23c00311fca3843c2c97403"><td class="memItemLeft" align="right" valign="top"><a id="ga73413110b23c00311fca3843c2c97403"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga73413110b23c00311fca3843c2c97403">UserModuleBase::sdkGetUsinePlugInsPath</a> ()</td></tr>
-<tr class="memdesc:ga73413110b23c00311fca3843c2c97403"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not for public use. <br /></td></tr>
-<tr class="separator:ga73413110b23c00311fca3843c2c97403"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Files utils</h2></td></tr>
-<tr class="memitem:gaf72cfc2c6c6301245e95d86a8fad6c97"><td class="memItemLeft" align="right" valign="top"><a id="gaf72cfc2c6c6301245e95d86a8fad6c97"></a>
-<a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaf72cfc2c6c6301245e95d86a8fad6c97">UserModuleBase::sdkProcessOpenDialog</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> *filename, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> initialDir, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> filter)</td></tr>
-<tr class="memdesc:gaf72cfc2c6c6301245e95d86a8fad6c97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show a dialog window to open a file. <br /></td></tr>
-<tr class="separator:gaf72cfc2c6c6301245e95d86a8fad6c97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga51079b2f1750095fa03e63c919f1ef8b"><td class="memItemLeft" align="right" valign="top"><a id="ga51079b2f1750095fa03e63c919f1ef8b"></a>
-<a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga51079b2f1750095fa03e63c919f1ef8b">UserModuleBase::sdkProcessSaveDialog</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> *filename, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> initialDir, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> filter)</td></tr>
-<tr class="memdesc:ga51079b2f1750095fa03e63c919f1ef8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show a dialog window to save a file. <br /></td></tr>
-<tr class="separator:ga51079b2f1750095fa03e63c919f1ef8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf763c817a5c1f8a1b1adc26d71a623fd"><td class="memItemLeft" align="right" valign="top"><a id="gaf763c817a5c1f8a1b1adc26d71a623fd"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaf763c817a5c1f8a1b1adc26d71a623fd">UserModuleBase::sdkFindFile</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> *filename, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> initialDir)</td></tr>
-<tr class="memdesc:gaf763c817a5c1f8a1b1adc26d71a623fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ask Usine to search if a file exist. <br /></td></tr>
-<tr class="separator:gaf763c817a5c1f8a1b1adc26d71a623fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Audio Files manipulation</h2></td></tr>
-<tr class="memitem:gabec20478b8883052586952055d068e58"><td class="memItemLeft" align="right" valign="top"><a id="gabec20478b8883052586952055d068e58"></a>
-<a class="el" href="group___datatypes.html#ga1647c21fc97c58a361c4913a0d2093ac">TAudioFilePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gabec20478b8883052586952055d068e58">UserModuleBase::sdkCreateAudioFile</a> ()</td></tr>
-<tr class="memdesc:gabec20478b8883052586952055d068e58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an audio file handle. <br /></td></tr>
-<tr class="separator:gabec20478b8883052586952055d068e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab5dc6f3a65e17988a4a2925a37490d4e"><td class="memItemLeft" align="right" valign="top"><a id="gab5dc6f3a65e17988a4a2925a37490d4e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gab5dc6f3a65e17988a4a2925a37490d4e">UserModuleBase::sdkDestroyAudioFile</a> (<a class="el" href="group___datatypes.html#ga1647c21fc97c58a361c4913a0d2093ac">TAudioFilePtr</a> audioFile)</td></tr>
-<tr class="memdesc:gab5dc6f3a65e17988a4a2925a37490d4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy an audio file handle. <br /></td></tr>
-<tr class="separator:gab5dc6f3a65e17988a4a2925a37490d4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga983707f15460696f03f841773fc4e1a6"><td class="memItemLeft" align="right" valign="top"><a id="ga983707f15460696f03f841773fc4e1a6"></a>
-<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga983707f15460696f03f841773fc4e1a6">UserModuleBase::sdkGetSampleAudioFile</a> (<a class="el" href="group___datatypes.html#ga1647c21fc97c58a361c4913a0d2093ac">TAudioFilePtr</a> audioFile, int channel, int pos)</td></tr>
-<tr class="memdesc:ga983707f15460696f03f841773fc4e1a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a sample value of an audio file at the position pos of the audio channel. <br /></td></tr>
-<tr class="separator:ga983707f15460696f03f841773fc4e1a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga648df1397352fa65bd60d1f857db5dd0"><td class="memItemLeft" align="right" valign="top"><a id="ga648df1397352fa65bd60d1f857db5dd0"></a>
-<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga648df1397352fa65bd60d1f857db5dd0">UserModuleBase::sdkGetSampleArrayAudioFile</a> (<a class="el" href="group___datatypes.html#ga1647c21fc97c58a361c4913a0d2093ac">TAudioFilePtr</a> audioFile, int channel)</td></tr>
-<tr class="memdesc:ga648df1397352fa65bd60d1f857db5dd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all samples values (as an array) of an audio file for an audio channel. <br /></td></tr>
-<tr class="separator:ga648df1397352fa65bd60d1f857db5dd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab6055780204ace944260726b1e357fd2"><td class="memItemLeft" align="right" valign="top"><a id="gab6055780204ace944260726b1e357fd2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gab6055780204ace944260726b1e357fd2">UserModuleBase::sdkGetBlocSampleAudioFile</a> (<a class="el" href="group___datatypes.html#ga1647c21fc97c58a361c4913a0d2093ac">TAudioFilePtr</a> audioFile, int channel, int pos, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> evt)</td></tr>
-<tr class="memdesc:gab6055780204ace944260726b1e357fd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a bloc of samples values of an audio file at position pos for an audio channel and store it in an Event. <br /></td></tr>
-<tr class="separator:gab6055780204ace944260726b1e357fd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafb834b250905ccb0884382777f5ce6b9"><td class="memItemLeft" align="right" valign="top"><a id="gafb834b250905ccb0884382777f5ce6b9"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gafb834b250905ccb0884382777f5ce6b9">UserModuleBase::sdkGetSizeAudioFile</a> (<a class="el" href="group___datatypes.html#ga1647c21fc97c58a361c4913a0d2093ac">TAudioFilePtr</a> audioFile)</td></tr>
-<tr class="memdesc:gafb834b250905ccb0884382777f5ce6b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the numbers of samples of an audio file. <br /></td></tr>
-<tr class="separator:gafb834b250905ccb0884382777f5ce6b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6328e89426dd1c0d531c0371b83a2c6d"><td class="memItemLeft" align="right" valign="top"><a id="ga6328e89426dd1c0d531c0371b83a2c6d"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga6328e89426dd1c0d531c0371b83a2c6d">UserModuleBase::sdkGetChannelAudioFile</a> (<a class="el" href="group___datatypes.html#ga1647c21fc97c58a361c4913a0d2093ac">TAudioFilePtr</a> audioFile)</td></tr>
-<tr class="memdesc:ga6328e89426dd1c0d531c0371b83a2c6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the the number of channels of an audio file. <br /></td></tr>
-<tr class="separator:ga6328e89426dd1c0d531c0371b83a2c6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga346673730998f55483936eab86d0ad72"><td class="memItemLeft" align="right" valign="top"><a id="ga346673730998f55483936eab86d0ad72"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga346673730998f55483936eab86d0ad72">UserModuleBase::sdkGetSampleRateAudioFile</a> (<a class="el" href="group___datatypes.html#ga1647c21fc97c58a361c4913a0d2093ac">TAudioFilePtr</a> audioFile)</td></tr>
-<tr class="memdesc:ga346673730998f55483936eab86d0ad72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the samplerate of an audio file. <br /></td></tr>
-<tr class="separator:ga346673730998f55483936eab86d0ad72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2c32259aae01b711fa82b89c8c860359"><td class="memItemLeft" align="right" valign="top"><a id="ga2c32259aae01b711fa82b89c8c860359"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga2c32259aae01b711fa82b89c8c860359">UserModuleBase::sdkGetBitPerSampleAudioFile</a> (<a class="el" href="group___datatypes.html#ga1647c21fc97c58a361c4913a0d2093ac">TAudioFilePtr</a> audioFile)</td></tr>
-<tr class="memdesc:ga2c32259aae01b711fa82b89c8c860359"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the bit per sample of an audio file. <br /></td></tr>
-<tr class="separator:ga2c32259aae01b711fa82b89c8c860359"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae7973fe74f5e20a35d04dec1eb567c12"><td class="memItemLeft" align="right" valign="top"><a id="gae7973fe74f5e20a35d04dec1eb567c12"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gae7973fe74f5e20a35d04dec1eb567c12">UserModuleBase::sdkLoadInMemoryAudioFile</a> (<a class="el" href="group___datatypes.html#ga1647c21fc97c58a361c4913a0d2093ac">TAudioFilePtr</a> audioFile, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name)</td></tr>
-<tr class="memdesc:gae7973fe74f5e20a35d04dec1eb567c12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load an audio file in memory. <br /></td></tr>
-<tr class="separator:gae7973fe74f5e20a35d04dec1eb567c12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab5f8e3079a3c85a73b931e30ff1ca498"><td class="memItemLeft" align="right" valign="top"><a id="gab5f8e3079a3c85a73b931e30ff1ca498"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gab5f8e3079a3c85a73b931e30ff1ca498">UserModuleBase::sdkLoadStayOnDiskAudioFile</a> (<a class="el" href="group___datatypes.html#ga1647c21fc97c58a361c4913a0d2093ac">TAudioFilePtr</a> audioFile, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name)</td></tr>
-<tr class="memdesc:gab5f8e3079a3c85a73b931e30ff1ca498"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load an audio file but keep it on disk. <br /></td></tr>
-<tr class="separator:gab5f8e3079a3c85a73b931e30ff1ca498"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf2cff3a056d43e163739d11714b1ca36"><td class="memItemLeft" align="right" valign="top"><a id="gaf2cff3a056d43e163739d11714b1ca36"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaf2cff3a056d43e163739d11714b1ca36">UserModuleBase::sdkGetPeaksAudioFile</a> (<a class="el" href="group___datatypes.html#ga1647c21fc97c58a361c4913a0d2093ac">TAudioFilePtr</a> audioFile, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> evt)</td></tr>
-<tr class="memdesc:gaf2cff3a056d43e163739d11714b1ca36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the peak of the audio files (to draw the wave form) and store it in an Event. <br /></td></tr>
-<tr class="separator:gaf2cff3a056d43e163739d11714b1ca36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2ba2bef2cbbed1a54a3225ba7ebad37d"><td class="memItemLeft" align="right" valign="top"><a id="ga2ba2bef2cbbed1a54a3225ba7ebad37d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga2ba2bef2cbbed1a54a3225ba7ebad37d">UserModuleBase::sdkSaveToDiskAudioFile</a> (<a class="el" href="group___datatypes.html#ga1647c21fc97c58a361c4913a0d2093ac">TAudioFilePtr</a> audioFile, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name, int nbChannels)</td></tr>
-<tr class="memdesc:ga2ba2bef2cbbed1a54a3225ba7ebad37d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save an audio file to disk. <br /></td></tr>
-<tr class="separator:ga2ba2bef2cbbed1a54a3225ba7ebad37d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8a8fec205bfda7014066dcb6c9187854"><td class="memItemLeft" align="right" valign="top"><a id="ga8a8fec205bfda7014066dcb6c9187854"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga8a8fec205bfda7014066dcb6c9187854">UserModuleBase::sdkSetChannelsAudioFile</a> (<a class="el" href="group___datatypes.html#ga1647c21fc97c58a361c4913a0d2093ac">TAudioFilePtr</a> audioFile, int nbChannels)</td></tr>
-<tr class="memdesc:ga8a8fec205bfda7014066dcb6c9187854"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the number of channels of an audio file. <br /></td></tr>
-<tr class="separator:ga8a8fec205bfda7014066dcb6c9187854"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5f0bfce0a6c081067013e8f16aff2eea"><td class="memItemLeft" align="right" valign="top"><a id="ga5f0bfce0a6c081067013e8f16aff2eea"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga5f0bfce0a6c081067013e8f16aff2eea">UserModuleBase::sdkSetSizeAudioFile</a> (<a class="el" href="group___datatypes.html#ga1647c21fc97c58a361c4913a0d2093ac">TAudioFilePtr</a> audioFile, int size)</td></tr>
-<tr class="memdesc:ga5f0bfce0a6c081067013e8f16aff2eea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the number of samples of an audio file. <br /></td></tr>
-<tr class="separator:ga5f0bfce0a6c081067013e8f16aff2eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0043391177fdf1c511f1403c5fab499a"><td class="memItemLeft" align="right" valign="top"><a id="ga0043391177fdf1c511f1403c5fab499a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga0043391177fdf1c511f1403c5fab499a">UserModuleBase::sdkSetSampleAudioFile</a> (<a class="el" href="group___datatypes.html#ga1647c21fc97c58a361c4913a0d2093ac">TAudioFilePtr</a> audioFile, int channel, int pos, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> sample)</td></tr>
-<tr class="memdesc:ga0043391177fdf1c511f1403c5fab499a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a sample value of an audio file at the position pos of the audio channel. <br /></td></tr>
-<tr class="separator:ga0043391177fdf1c511f1403c5fab499a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac9ceded1aa90cd20b862f1efa320b870"><td class="memItemLeft" align="right" valign="top"><a id="gac9ceded1aa90cd20b862f1efa320b870"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gac9ceded1aa90cd20b862f1efa320b870">UserModuleBase::sdkClearAudioFile</a> (<a class="el" href="group___datatypes.html#ga1647c21fc97c58a361c4913a0d2093ac">TAudioFilePtr</a> audioFile)</td></tr>
-<tr class="memdesc:gac9ceded1aa90cd20b862f1efa320b870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear an audio file. <br /></td></tr>
-<tr class="separator:gac9ceded1aa90cd20b862f1efa320b870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga16b3c08d6ba3f8d480d4b37dcb04f61a"><td class="memItemLeft" align="right" valign="top"><a id="ga16b3c08d6ba3f8d480d4b37dcb04f61a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga16b3c08d6ba3f8d480d4b37dcb04f61a">UserModuleBase::sdkResampleAudioFile</a> (<a class="el" href="group___datatypes.html#ga1647c21fc97c58a361c4913a0d2093ac">TAudioFilePtr</a> audioFile, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> factor)</td></tr>
-<tr class="memdesc:ga16b3c08d6ba3f8d480d4b37dcb04f61a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resample (stretch) an audio file by a factor. <br /></td></tr>
-<tr class="separator:ga16b3c08d6ba3f8d480d4b37dcb04f61a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Math utils</h2></td></tr>
-<tr class="memitem:ga99ea07d4d313b18fc2e0f799999dfffe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga99ea07d4d313b18fc2e0f799999dfffe">UserModuleBase::sdkLinearInterpolation</a> (<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> f, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> a, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> b)</td></tr>
-<tr class="memdesc:ga99ea07d4d313b18fc2e0f799999dfffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear interpolation on a TPrecision value.  <a href="#ga99ea07d4d313b18fc2e0f799999dfffe">More...</a><br /></td></tr>
-<tr class="separator:ga99ea07d4d313b18fc2e0f799999dfffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab3bef12cdebd0ece716d9552d0d77757"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gab3bef12cdebd0ece716d9552d0d77757">UserModuleBase::sdkCubicInterpolation</a> (<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> fr, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> inm1, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> inp, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> inp1, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> inp2)</td></tr>
-<tr class="memdesc:gab3bef12cdebd0ece716d9552d0d77757"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cubic interpolation on a TPrecision value.  <a href="#gab3bef12cdebd0ece716d9552d0d77757">More...</a><br /></td></tr>
-<tr class="separator:gab3bef12cdebd0ece716d9552d0d77757"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga65ded92164dc1f46549dd08b77ad72e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga65ded92164dc1f46549dd08b77ad72e1">UserModuleBase::sdkSplineInterpolation</a> (<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> fr, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> inm1, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> inp, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> inp1, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> inp2)</td></tr>
-<tr class="memdesc:ga65ded92164dc1f46549dd08b77ad72e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Spline interpolation on a TPrecision value.  <a href="#ga65ded92164dc1f46549dd08b77ad72e1">More...</a><br /></td></tr>
-<tr class="separator:ga65ded92164dc1f46549dd08b77ad72e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Trace functions</h2></td></tr>
-<tr class="memitem:gaa8a4330f4fdf323e1d19c129a0fe83a6"><td class="memItemLeft" align="right" valign="top"><a id="gaa8a4330f4fdf323e1d19c129a0fe83a6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa8a4330f4fdf323e1d19c129a0fe83a6">UserModuleBase::sdkTraceChar</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> s)</td></tr>
-<tr class="memdesc:gaa8a4330f4fdf323e1d19c129a0fe83a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show a string in the Trace Panel. <br /></td></tr>
-<tr class="separator:gaa8a4330f4fdf323e1d19c129a0fe83a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga94c5812059b72367acdbf3d04dab7ffd"><td class="memItemLeft" align="right" valign="top"><a id="ga94c5812059b72367acdbf3d04dab7ffd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga94c5812059b72367acdbf3d04dab7ffd">UserModuleBase::sdkTraceInt</a> (int i)</td></tr>
-<tr class="memdesc:ga94c5812059b72367acdbf3d04dab7ffd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show an integer in the Trace Panel. <br /></td></tr>
-<tr class="separator:ga94c5812059b72367acdbf3d04dab7ffd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga84e2b3e8aba5877bf87fc1791a3122a0"><td class="memItemLeft" align="right" valign="top"><a id="ga84e2b3e8aba5877bf87fc1791a3122a0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga84e2b3e8aba5877bf87fc1791a3122a0">UserModuleBase::sdkTracePrecision</a> (<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> f)</td></tr>
-<tr class="memdesc:ga84e2b3e8aba5877bf87fc1791a3122a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show a decimal number in the Trace Panel. <br /></td></tr>
-<tr class="separator:ga84e2b3e8aba5877bf87fc1791a3122a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga22dbf11ad5a6b9b3fbacb1a9b1ef493c"><td class="memItemLeft" align="right" valign="top"><a id="ga22dbf11ad5a6b9b3fbacb1a9b1ef493c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga22dbf11ad5a6b9b3fbacb1a9b1ef493c">UserModuleBase::sdkTraceErrorChar</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> s)</td></tr>
-<tr class="memdesc:ga22dbf11ad5a6b9b3fbacb1a9b1ef493c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show a string in the Trace Panel with the error tag. <br /></td></tr>
-<tr class="separator:ga22dbf11ad5a6b9b3fbacb1a9b1ef493c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5cd57e1b48ffd6c1bf14a9487b058546"><td class="memItemLeft" align="right" valign="top"><a id="ga5cd57e1b48ffd6c1bf14a9487b058546"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga5cd57e1b48ffd6c1bf14a9487b058546">UserModuleBase::sdkTraceWarningChar</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> s)</td></tr>
-<tr class="memdesc:ga5cd57e1b48ffd6c1bf14a9487b058546"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show a string in the Trace Panel with the warning tag. <br /></td></tr>
-<tr class="separator:ga5cd57e1b48ffd6c1bf14a9487b058546"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga733a718ad064ac817ac2e23f976968ab"><td class="memItemLeft" align="right" valign="top"><a id="ga733a718ad064ac817ac2e23f976968ab"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga733a718ad064ac817ac2e23f976968ab">UserModuleBase::sdkTraceSplashChar</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> s, int autoClose)</td></tr>
-<tr class="memdesc:ga733a718ad064ac817ac2e23f976968ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show a string in the SplashForm. <br /></td></tr>
-<tr class="separator:ga733a718ad064ac817ac2e23f976968ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7a61b01e47cb592cb75b538dce6c5f8a"><td class="memItemLeft" align="right" valign="top"><a id="ga7a61b01e47cb592cb75b538dce6c5f8a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga7a61b01e47cb592cb75b538dce6c5f8a">UserModuleBase::sdkTraceLogChar</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> s, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> showInSplashForm=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)</td></tr>
-<tr class="memdesc:ga7a61b01e47cb592cb75b538dce6c5f8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a string in the LogUsine.log file. Optionally show it in the SplashForm. <br /></td></tr>
-<tr class="separator:ga7a61b01e47cb592cb75b538dce6c5f8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Dialog popups</h2></td></tr>
-<tr class="memitem:ga5b15dca28ea2f956ae5f5e20c527e8ed"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga5b15dca28ea2f956ae5f5e20c527e8ed">UserModuleBase::sdkDialogConfirmationYesNoCancel</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> msg)</td></tr>
-<tr class="memdesc:ga5b15dca28ea2f956ae5f5e20c527e8ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">A dialog popup with Yes, No and Cancel buttons.  <a href="#ga5b15dca28ea2f956ae5f5e20c527e8ed">More...</a><br /></td></tr>
-<tr class="separator:ga5b15dca28ea2f956ae5f5e20c527e8ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac30585e815adf3853f60b1d68124148d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gac30585e815adf3853f60b1d68124148d">UserModuleBase::sdkDialogConfirmationYesNo</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> msg)</td></tr>
-<tr class="memdesc:gac30585e815adf3853f60b1d68124148d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A dialog popup with Yes and No buttons.  <a href="#gac30585e815adf3853f60b1d68124148d">More...</a><br /></td></tr>
-<tr class="separator:gac30585e815adf3853f60b1d68124148d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga78b662790876c4ed9b63ff301ef85398"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga78b662790876c4ed9b63ff301ef85398">UserModuleBase::sdkDialogInformationOk</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> msg)</td></tr>
-<tr class="memdesc:ga78b662790876c4ed9b63ff301ef85398"><td class="mdescLeft">&#160;</td><td class="mdescRight">A dialog popup with OK button.  <a href="#ga78b662790876c4ed9b63ff301ef85398">More...</a><br /></td></tr>
-<tr class="separator:ga78b662790876c4ed9b63ff301ef85398"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga78ae95c5aaae07f8b3e393c20fc7d25e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga78ae95c5aaae07f8b3e393c20fc7d25e">UserModuleBase::sdkDialogConfirmationOKCancel</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> msg)</td></tr>
-<tr class="memdesc:ga78ae95c5aaae07f8b3e393c20fc7d25e"><td class="mdescLeft">&#160;</td><td class="mdescRight">A dialog popup with OK and Cancel buttons.  <a href="#ga78ae95c5aaae07f8b3e393c20fc7d25e">More...</a><br /></td></tr>
-<tr class="separator:ga78ae95c5aaae07f8b3e393c20fc7d25e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8a007f9c600afaa4ded0593784e5c996"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga8a007f9c600afaa4ded0593784e5c996">UserModuleBase::sdkDialogInputBox</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> caption, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> prompt, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> defaultValue)</td></tr>
-<tr class="memdesc:ga8a007f9c600afaa4ded0593784e5c996"><td class="mdescLeft">&#160;</td><td class="mdescRight">A dialog popup with a string input box .  <a href="#ga8a007f9c600afaa4ded0593784e5c996">More...</a><br /></td></tr>
-<tr class="separator:ga8a007f9c600afaa4ded0593784e5c996"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Module child window</h2></td></tr>
@@ -1383,6 +892,31 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
   </dd>
 </dl>
 
+</div>
+</div>
+<a id="gab3e22ee46eb84b9744d41874a5ba0655"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab3e22ee46eb84b9744d41874a5ba0655">&sect;&nbsp;</a></span>UserModuleBase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">UserModuleBase::UserModuleBase </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Implementation of the abstract class provided to derive user modules from. </p>
+<dl class="section author"><dt>Author</dt><dd>BrainModular team</dd></dl>
+<p>2013/05/15 first release for Hollyhock CPP SDK 6.00.226</p>
+<p>This file is part of the Usine CPP SDK Version 6</p>
+<p>Please, report bugs and patch to Usine forum : <a href="#" onclick="location.href='mai'+'lto:'+'sup'+'po'+'rt@'+'br'+'ain'+'mo'+'dul'+'ar'+'.co'+'m'; return false;">suppo<span style="display: none;">.nosp@m.</span>rt@b<span style="display: none;">.nosp@m.</span>rainm<span style="display: none;">.nosp@m.</span>odul<span style="display: none;">.nosp@m.</span>ar.co<span style="display: none;">.nosp@m.</span>m</a></p>
+<p>All dependencies are under there own licence.</p>
+<p>Copyright (C) 2023 BrainModular, BeSpline, Adamson </p><hr/>
+ 
 </div>
 </div>
 <a id="ga8b84b257035fd7fe9decbcc765dd8c1e"></a>
@@ -1554,8 +1088,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 
 </div>
 </div>
-<a id="gacd7d911594c7d56f89800b65d9948df3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gacd7d911594c7d56f89800b65d9948df3">&sect;&nbsp;</a></span>onGetNumberOfParams()</h2>
+<a id="gaa45533ff4e5acc87fb3f735227c99ffe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa45533ff4e5acc87fb3f735227c99ffe">&sect;&nbsp;</a></span>onGetNumberOfParams()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1567,8 +1101,18 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
           <td class="memname">virtual int UserModuleBase::onGetNumberOfParams </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>queryIndex</em></td><td>)</td>
+          <td class="paramname"><em>queryResult1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>queryResult2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -1589,8 +1133,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 
 </div>
 </div>
-<a id="ga916eb07f1f2f094d2ed5bffc283ea8ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga916eb07f1f2f094d2ed5bffc283ea8ad">&sect;&nbsp;</a></span>onAfterQuery()</h2>
+<a id="ga135f374650716f3c26d345f94ffb3f9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga135f374650716f3c26d345f94ffb3f9a">&sect;&nbsp;</a></span>onAfterQuery()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1614,7 +1158,13 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>queryIndex</em>&#160;</td>
+          <td class="paramname"><em>queryResult1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>queryResult2</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -2305,6 +1855,65 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 
 </div>
 </div>
+<a id="ga74a51196e708166a2b453c4eeba75c14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga74a51196e708166a2b453c4eeba75c14">&sect;&nbsp;</a></span>sdkBitBlit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UserModuleBase::sdkBitBlit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group___datatypes.html#ga9b776db52f3af21f44c93dcef1a01474">TUsinePixelPtr</a>&#160;</td>
+          <td class="paramname"><em>pArray</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>W</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>H</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_t_rect_f.html">TRectF</a>&#160;</td>
+          <td class="paramname"><em>destRect</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Draw an array of pixels. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pArray</td><td>pointer to the first element of the pixels array </td></tr>
+    <tr><td class="paramname">W</td><td>width of the pixels array </td></tr>
+    <tr><td class="paramname">H</td><td>height of the pixels array </td></tr>
+    <tr><td class="paramname">destRect</td><td>destination rectangle in normalized coordinates (0..1). No verification of the pixels array size is made so be sure that W and H have the right values. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ga7cbecb75befd228cf1d6d2b563f46511"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga7cbecb75befd228cf1d6d2b563f46511">&sect;&nbsp;</a></span>sdkDrawPathMoveTo()</h2>
 
@@ -2601,8 +2210,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 
 </div>
 </div>
-<a id="ga19daea99222aad6271a8f7796c3db2ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga19daea99222aad6271a8f7796c3db2ce">&sect;&nbsp;</a></span>sdkSetEvtSize()</h2>
+<a id="gacac36730ac0f85f62fb1fdbc216c890a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacac36730ac0f85f62fb1fdbc216c890a">&sect;&nbsp;</a></span>sdkCriticalSectionLock()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2611,16 +2220,16 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void UserModuleBase::sdkSetEvtSize </td>
+          <td class="memname">void UserModuleBase::sdkCriticalSectionLock </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a>&#160;</td>
-          <td class="paramname"><em>e</em>, </td>
+          <td class="paramtype"><a class="el" href="group___datatypes.html#ga417a5c17ed8b4dda4389df11cf4b7240">TCriticalSectionPtr</a>&#160;</td>
+          <td class="paramname"><em>pCriticalSection</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>size</em>&#160;</td>
+          <td class="paramtype">UINT32&#160;</td>
+          <td class="paramname"><em>timeout</em> = <code>0</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -2635,49 +2244,155 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 </table>
 </div><div class="memdoc">
 
-<p>Set the size of the event (number of elements). Typically the size of audio events is given by sdkGetBlocSize. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___globals.html#gaf205f067f11d79bc1eb763ac8a6d3d3c" title="To get the current Usine block size. ">sdkGetBlocSize</a> </dd></dl>
-
-</div>
-</div>
-<a id="gab571b28f92cf31c00cc23e501561cf4f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab571b28f92cf31c00cc23e501561cf4f">&sect;&nbsp;</a></span>sdkGetEvt3DPoint()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="struct_t3_d_point_f.html">T3DPointF</a> UserModuleBase::sdkGetEvt3DPoint </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a>&#160;</td>
-          <td class="paramname"><em>e</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>pointIndex</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get a 3D point. the event must have a line number of 3 to work,. </p>
+<p>Lock a critical section. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pointIndex</td><td>is the index of the point you want to get </td></tr>
+    <tr><td class="paramname">timeout</td><td>must be used with precautions </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gac34dff5218d87d9b6ccc7ab968ba3274"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac34dff5218d87d9b6ccc7ab968ba3274">&sect;&nbsp;</a></span>sdkCriticalSectionCreate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___datatypes.html#ga417a5c17ed8b4dda4389df11cf4b7240">TCriticalSectionPtr</a> UserModuleBase::sdkCriticalSectionCreate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td>
+          <td class="paramname"><em>shared</em> = <code><a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a critical section. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>is a name givent to the CS for debug purposes </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga846975329d2bc9ca307c9c178180f8e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga846975329d2bc9ca307c9c178180f8e0">&sect;&nbsp;</a></span>sdkThreadCreate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___datatypes.html#ga40768a849dbc3c55e60504779cfe081d">TThreadPtr</a> UserModuleBase::sdkThreadCreate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FuncThreadProcess&#160;</td>
+          <td class="paramname"><em>ProcessThreadProc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group___datatypes.html#ga2dc400c438444996449c9d056c0883cf">TThreadPriority</a>&#160;</td>
+          <td class="paramname"><em>priority</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UINT32&#160;</td>
+          <td class="paramname"><em>timeout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a thread. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">priority</td><td>priority of the thread : tpIDLE,tpLow,tpMedium,tpHigh </td></tr>
+    <tr><td class="paramname">timeout</td><td>timeout of the thread (execution clock) in ms. if timeout is UINT32_MAX then the thread will wait until the sdkThreadRestart is called </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga3e0b3556cb1ff8dc53a57fcb3fe0f1e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3e0b3556cb1ff8dc53a57fcb3fe0f1e8">&sect;&nbsp;</a></span>sdkThreadSetTimeOut()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UserModuleBase::sdkThreadSetTimeOut </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group___datatypes.html#ga40768a849dbc3c55e60504779cfe081d">TThreadPtr</a>&#160;</td>
+          <td class="paramname"><em>pThread</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UINT32&#160;</td>
+          <td class="paramname"><em>timeout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set timeout of a thread. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timeout</td><td>timeout of the thread (execution clock) in ms </td></tr>
   </table>
   </dd>
 </dl>
@@ -2941,6 +2656,63 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 
 </div>
 </div>
+<a id="gaa19079773bb29f42987f24fc273aa9c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa19079773bb29f42987f24fc273aa9c2">&sect;&nbsp;</a></span>sdkNotifyUsine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UserModuleBase::sdkNotifyUsine </td>
+          <td>(</td>
+          <td class="paramtype">NativeInt&#160;</td>
+          <td class="paramname"><em>Target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NativeInt&#160;</td>
+          <td class="paramname"><em>Msg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NativeInt&#160;</td>
+          <td class="paramname"><em>WParam</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NativeInt&#160;</td>
+          <td class="paramname"><em>LParam</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>Delay</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Usine notification. </p>
+<p>Send a message to Usine, Usine's setup or this user module. A delay maybe specified. </p>
+
+</div>
+</div>
 <a id="gab37203b161ee3ff3002cd6c3c4c22925"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gab37203b161ee3ff3002cd6c3c4c22925">&sect;&nbsp;</a></span>sdkRefreshSpeedClock()</h2>
 
@@ -2994,417 +2766,6 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 
 <p>Gets a tick clock at the slow-speed of Usine, generally every second. this can reduce the cpu load for very low priority tasks. </p>
 <p>if (<a class="el" href="group___globals.html#ga8e738a58f112c53ba3cea0456fd7aebd" title="Gets a tick clock at the slow-speed of Usine, generally every second. this can reduce the cpu load fo...">sdkSlowClock()</a>) { doSomething(); } </p>
-
-</div>
-</div>
-<a id="gaa3b13571ee2659742bc1dba423c4ffc3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa3b13571ee2659742bc1dba423c4ffc3">&sect;&nbsp;</a></span>sdkGetUsineVersionType()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group___datatypes.html#gaa74fb9094510bb45536067c169df69b5">TUsineVersionType</a> UserModuleBase::sdkGetUsineVersionType </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>To get the version type of Usine. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___datatypes.html#gaa74fb9094510bb45536067c169df69b5" title="Versions type of Usine. ">TUsineVersionType</a>. </dd></dl>
-
-</div>
-</div>
-<a id="gac5e88a6365aa6e9f3482d1dfcf6f6d6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac5e88a6365aa6e9f3482d1dfcf6f6d6d">&sect;&nbsp;</a></span>sdkGetUsineLanguage()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> UserModuleBase::sdkGetUsineLanguage </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>To get the current language used in Usine. </p>
-<dl class="section return"><dt>Returns</dt><dd>a string naming the current language (En, Fr...) </dd></dl>
-
-</div>
-</div>
-<a id="ga99ea07d4d313b18fc2e0f799999dfffe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga99ea07d4d313b18fc2e0f799999dfffe">&sect;&nbsp;</a></span>sdkLinearInterpolation()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> UserModuleBase::sdkLinearInterpolation </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td>
-          <td class="paramname"><em>f</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Linear interpolation on a TPrecision value. </p>
-<dl class="section return"><dt>Returns</dt><dd>The interpolated value. </dd></dl>
-
-</div>
-</div>
-<a id="gab3bef12cdebd0ece716d9552d0d77757"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab3bef12cdebd0ece716d9552d0d77757">&sect;&nbsp;</a></span>sdkCubicInterpolation()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> UserModuleBase::sdkCubicInterpolation </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td>
-          <td class="paramname"><em>fr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td>
-          <td class="paramname"><em>inm1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td>
-          <td class="paramname"><em>inp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td>
-          <td class="paramname"><em>inp1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td>
-          <td class="paramname"><em>inp2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Cubic interpolation on a TPrecision value. </p>
-<dl class="section return"><dt>Returns</dt><dd>The interpolated value. </dd></dl>
-
-</div>
-</div>
-<a id="ga65ded92164dc1f46549dd08b77ad72e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga65ded92164dc1f46549dd08b77ad72e1">&sect;&nbsp;</a></span>sdkSplineInterpolation()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> UserModuleBase::sdkSplineInterpolation </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td>
-          <td class="paramname"><em>fr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td>
-          <td class="paramname"><em>inm1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td>
-          <td class="paramname"><em>inp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td>
-          <td class="paramname"><em>inp1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td>
-          <td class="paramname"><em>inp2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Spline interpolation on a TPrecision value. </p>
-<dl class="section return"><dt>Returns</dt><dd>The interpolated value. </dd></dl>
-
-</div>
-</div>
-<a id="ga5b15dca28ea2f956ae5f5e20c527e8ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5b15dca28ea2f956ae5f5e20c527e8ed">&sect;&nbsp;</a></span>sdkDialogConfirmationYesNoCancel()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int UserModuleBase::sdkDialogConfirmationYesNoCancel </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td>
-          <td class="paramname"><em>msg</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>A dialog popup with Yes, No and Cancel buttons. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">msg</td><td>The message to show on the popup popup. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The choice of the user. </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___datatypes.html#ga2bb6502b0ff4b7d088a8c69eec742823" title="Dialogs popup results The value returned by a popup. ">TDialogsResults</a> </dd></dl>
-
-</div>
-</div>
-<a id="gac30585e815adf3853f60b1d68124148d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac30585e815adf3853f60b1d68124148d">&sect;&nbsp;</a></span>sdkDialogConfirmationYesNo()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int UserModuleBase::sdkDialogConfirmationYesNo </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td>
-          <td class="paramname"><em>msg</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>A dialog popup with Yes and No buttons. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">msg</td><td>The message to show on the popup popup. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The choice of the user. </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___datatypes.html#ga2bb6502b0ff4b7d088a8c69eec742823" title="Dialogs popup results The value returned by a popup. ">TDialogsResults</a> </dd></dl>
-
-</div>
-</div>
-<a id="ga78b662790876c4ed9b63ff301ef85398"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga78b662790876c4ed9b63ff301ef85398">&sect;&nbsp;</a></span>sdkDialogInformationOk()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int UserModuleBase::sdkDialogInformationOk </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td>
-          <td class="paramname"><em>msg</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>A dialog popup with OK button. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">msg</td><td>The message to show on the popup popup. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The choice of the user. </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___datatypes.html#ga2bb6502b0ff4b7d088a8c69eec742823" title="Dialogs popup results The value returned by a popup. ">TDialogsResults</a> </dd></dl>
-
-</div>
-</div>
-<a id="ga78ae95c5aaae07f8b3e393c20fc7d25e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga78ae95c5aaae07f8b3e393c20fc7d25e">&sect;&nbsp;</a></span>sdkDialogConfirmationOKCancel()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int UserModuleBase::sdkDialogConfirmationOKCancel </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td>
-          <td class="paramname"><em>msg</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>A dialog popup with OK and Cancel buttons. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">msg</td><td>The message to show on the popup popup. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The choice of the user. </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___datatypes.html#ga2bb6502b0ff4b7d088a8c69eec742823" title="Dialogs popup results The value returned by a popup. ">TDialogsResults</a> </dd></dl>
-
-</div>
-</div>
-<a id="ga8a007f9c600afaa4ded0593784e5c996"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8a007f9c600afaa4ded0593784e5c996">&sect;&nbsp;</a></span>sdkDialogInputBox()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> UserModuleBase::sdkDialogInputBox </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td>
-          <td class="paramname"><em>caption</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td>
-          <td class="paramname"><em>prompt</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td>
-          <td class="paramname"><em>defaultValue</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>A dialog popup with a string input box . </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">msg</td><td>The message to show on the popup popup. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the edited string. </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___datatypes.html#ga2bb6502b0ff4b7d088a8c69eec742823" title="Dialogs popup results The value returned by a popup. ">TDialogsResults</a> </dd></dl>
 
 </div>
 </div>
@@ -3508,10 +2869,10 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
     <tr><td class="paramname">h</td><td>: float between 0 and 360 </td></tr>
     <tr><td class="paramname">s</td><td>: float between 0 and 1 </td></tr>
     <tr><td class="paramname">l</td><td>: float between 0 and 1 </td></tr>
-    <tr><td class="paramname">TColorHSL</td><td>: the new created color </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>TColorHSL : the new created color </dd></dl>
 
 </div>
 </div>
@@ -3860,7 +3221,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 31 2023 18:28:22 for Usine SDK by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 17 2024 11:05:16 for Usine SDK by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.12
 </small></address>

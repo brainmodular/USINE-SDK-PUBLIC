@@ -70,7 +70,7 @@ void DestroyModule(void* pModule)
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "video dimmer example";
+const AnsiCharPtr UserModuleBase::MODULE_NAME = "video dimmer";
 const AnsiCharPtr UserModuleBase::MODULE_DESC = "video dimmer sdk module example";
 const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
@@ -117,7 +117,7 @@ void VideoDimmer::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModul
 // initialisation
 void VideoDimmer::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
 {
-	sdkSetEvtColor(fdrPixelColor, 0xFFFF0000);
+	fdrPixelColor.setColor(0xFFFF0000);
 }
 
 //----------------------------------------------------------------------------
@@ -141,32 +141,32 @@ void VideoDimmer::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
         pParamInfo->CallBackType    = ctNormal;
 		pParamInfo->DefaultValue    = 1;
 		pParamInfo->MaxValue        = 1;
-		pParamInfo->EventPtr        = &fdrDimmer;
+		pParamInfo->setEventClass	(fdrDimmer);
 		break;
 
 	// fdrPixelColor
 	case 1:
-		pParamInfo->ParamType = ptChooseColor;
-		pParamInfo->Caption = "pixel color";
-		pParamInfo->IsInput = TRUE;
-		pParamInfo->IsOutput = FALSE;
-		pParamInfo->IsSeparator = FALSE;
-		pParamInfo->CallBackType = ctNormal;
-		pParamInfo->EventPtr = &fdrPixelColor;
+		pParamInfo->ParamType		= ptChooseColor;
+		pParamInfo->Caption			= "pixel color";
+		pParamInfo->IsInput			= TRUE;
+		pParamInfo->IsOutput		= FALSE;
+		pParamInfo->IsSeparator		= FALSE;
+		pParamInfo->CallBackType	= ctNormal;
+		pParamInfo->setEventClass	(fdrPixelColor);
 		break;
 	// fdrSpace
 	case 2:
-		pParamInfo->ParamType = ptDataFader;
-		pParamInfo->Caption = "inter space";
-		pParamInfo->IsInput = TRUE;
-		pParamInfo->IsOutput = FALSE;
-		pParamInfo->IsSeparator = FALSE;
-		pParamInfo->CallBackType = ctNormal;
-		pParamInfo->MinValue = 0;
-		pParamInfo->MaxValue = 20;
-		pParamInfo->Format = DEFAULT_FORMAT_INTEGER;
-		pParamInfo->DefaultValue = 1;
-		pParamInfo->EventPtr = &fdrSpace;
+		pParamInfo->ParamType		= ptDataFader;
+		pParamInfo->Caption			= "inter space";
+		pParamInfo->IsInput			= TRUE;
+		pParamInfo->IsOutput		= FALSE;
+		pParamInfo->IsSeparator		= FALSE;
+		pParamInfo->CallBackType	= ctNormal;
+		pParamInfo->MinValue		= 0;
+		pParamInfo->MaxValue		= 20;
+		pParamInfo->Format			= DEFAULT_FORMAT_INTEGER;
+		pParamInfo->DefaultValue	= 1;
+		pParamInfo->setEventClass	(fdrSpace);
 		break;
 	}
 }
@@ -184,14 +184,14 @@ void VideoDimmer::onProcessVideo ()
 	sdkGetInputFrame(1, &framei);
 	sdkGetNewFrame(&frameo, framei.Width, framei.Height, FALSE);
 
-	int skip = (int)sdkGetEvtData(fdrSpace);
+	int skip = (int)fdrSpace.getData();
 	if (skip == 0) 
 	{
 	   sdkCopyFrame(&framei, &frameo);
 	}
 	else
 	{
-		TUsinePixel pix = sdkColorToPixel(sdkGetEvtColor(fdrPixelColor));
+		TUsinePixel pix = sdkColorToPixel(fdrPixelColor.getColor());
 		sdkClearFrame(&frameo,0xFF000000);
 		for (int h = 0; h < frameo.Height; h++)
 		{
@@ -207,6 +207,6 @@ void VideoDimmer::onProcessVideo ()
 		}
 	}
 
-	sdkSetDimmerFrame(&frameo,sdkGetEvtData(fdrDimmer));
+	sdkSetDimmerFrame(&frameo,fdrDimmer.getData());
 	sdkSetOutputFrame(1, &frameo);
 }
