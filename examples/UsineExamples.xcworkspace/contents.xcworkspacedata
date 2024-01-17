@@ -47,9 +47,6 @@
       location = "group:TemplateModule/TemplateModule.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:TouchFader/TouchFader.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:UsineObjects/UsineObjects.xcodeproj">
    </FileRef>
    <FileRef
