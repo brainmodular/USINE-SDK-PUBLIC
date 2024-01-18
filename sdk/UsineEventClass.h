@@ -927,7 +927,7 @@ public:
     /// Clear this audio event. Set values to zero and add a small denormalization value.
     inline void clearAudio() { UserModuleBase::m_masterInfo->ClearAudioEvt(p_event_); };
     /// Add a small denormalization value to this audio event.
-    inline void DenormalizeAudio() { UserModuleBase::m_masterInfo->DenormalizeAudioEvt(p_event_); };
+    inline void denormalizeAudio() { UserModuleBase::m_masterInfo->DenormalizeAudioEvt(p_event_); };
     /// Smooth this event.
     inline void smooth(TPrecision& oldValue, const TPrecision factor) { UserModuleBase::m_masterInfo->SmoothPrecision(oldValue, p_event_, factor); };
     /// Smooth this event with a target value.

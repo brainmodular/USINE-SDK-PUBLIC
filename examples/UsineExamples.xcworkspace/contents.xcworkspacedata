@@ -52,4 +52,7 @@
    <FileRef
       location = "group:VideoDimmer/VideoDimmer.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:SimplePad/../TemplateModuleSimple/TemplateModuleSimple.xcodeproj">
+   </FileRef>
 </Workspace>

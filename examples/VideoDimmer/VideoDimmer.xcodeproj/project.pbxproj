@@ -19,6 +19,16 @@
 		624DEC562B17700C00FAD546 /* UsineEventClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 624DEC552B17700C00FAD546 /* UsineEventClass.h */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		74B5215E2B5943DF00A09F56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 74B5215A2B5943DF00A09F56 /* TemplateModuleSimple.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4EAD14871A9E2D8400784045;
+			remoteInfo = TemplateModuleSimple;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		4EAD14CF1A9E306600784045 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -43,12 +53,14 @@
 		4EAD149F1A9E2E8800784045 /* VideoDimmer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VideoDimmer.cpp; sourceTree = "<group>"; };
 		4EAD14A01A9E2E8800784045 /* VideoDimmer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDimmer.h; sourceTree = "<group>"; };
 		624DEC552B17700C00FAD546 /* UsineEventClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineEventClass.h; sourceTree = "<group>"; };
+		74B5215A2B5943DF00A09F56 /* TemplateModuleSimple.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TemplateModuleSimple.xcodeproj; path = ../TemplateModuleSimple/TemplateModuleSimple.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		4EAD14081A9E2A8F00784045 = {
 			isa = PBXGroup;
 			children = (
+				74B5215A2B5943DF00A09F56 /* TemplateModuleSimple.xcodeproj */,
 				4EAD149F1A9E2E8800784045 /* VideoDimmer.cpp */,
 				4EAD14A01A9E2E8800784045 /* VideoDimmer.h */,
 				4EAD14921A9E2E6500784045 /* sdk */,
@@ -78,6 +90,14 @@
 			name = sdk;
 			path = ../../sdk;
 			sourceTree = SOURCE_ROOT;
+		};
+		74B5215B2B5943DF00A09F56 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				74B5215F2B5943DF00A09F56 /* TemplateModuleSimple.usr-macos64uni */,
+			);
+			name = Products;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -137,12 +157,28 @@
 			mainGroup = 4EAD14081A9E2A8F00784045;
 			productRefGroup = 4EAD14881A9E2D8400784045 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 74B5215B2B5943DF00A09F56 /* Products */;
+					ProjectRef = 74B5215A2B5943DF00A09F56 /* TemplateModuleSimple.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				4EAD14861A9E2D8400784045 /* VideoDimmer */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		74B5215F2B5943DF00A09F56 /* TemplateModuleSimple.usr-macos64uni */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = "TemplateModuleSimple.usr-macos64uni";
+			remoteRef = 74B5215E2B5943DF00A09F56 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4EAD14841A9E2D8400784045 /* Sources */ = {

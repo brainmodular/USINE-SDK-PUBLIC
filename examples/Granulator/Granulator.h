@@ -152,7 +152,7 @@ public:
             coordEnvRcb[i].y = 1.0f;
         }
 			
-		for (int num = 0; num < USINE_MAX_AUDIO_INPUTS; num++)
+		for (int num = 0; num < USINE_MULTIPHONY_MAX; num++)
         {
 			circularBuffer[num] = nullptr;
         }
@@ -235,8 +235,8 @@ private:
 
 	//-------------------------------------------------------------------------
 	// parameters events
-    UsineEventClass m_audioInputs [USINE_MAX_AUDIO_INPUTS];     // audio input
-    UsineEventClass m_audioOutputs [USINE_MAX_AUDIO_OUTPUTS];    // audio output
+    UsineEventClass m_audioInputs [USINE_MULTIPHONY_MAX];     // audio input
+    UsineEventClass m_audioOutputs [USINE_MULTIPHONY_MAX];    // audio output
 	UsineEventClass m_fdrGrainInterval;
 	UsineEventClass m_ledGrainStart;
 	UsineEventClass m_lboxGrainEnvelope;
@@ -280,12 +280,12 @@ private:
 
 	
 	///	Our delay line.
-	TPrecision* circularBuffer[USINE_MAX_AUDIO_INPUTS];
+	TPrecision* circularBuffer[USINE_MULTIPHONY_MAX];
     int cbufSize;
 
     /// Pointer to a temporary block of memory 
-    TPrecision* tempInputBlock[USINE_MAX_AUDIO_INPUTS];
-    TPrecision* tempOutputBlock[USINE_MAX_AUDIO_OUTPUTS];
+    TPrecision* tempInputBlock[USINE_MULTIPHONY_MAX];
+    TPrecision* tempOutputBlock[USINE_MULTIPHONY_MAX];
     int audioLineNextOnset;
 	///	Number of samples to the next onset.
 	int nextOnset;

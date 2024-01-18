@@ -278,7 +278,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = ArrayDelay;
-				SDKROOT = macosx;
+				SDKROOT = macosx13.0;
 				SKIP_INSTALL = YES;
 				SYMROOT = /tmp;
 				VALID_ARCHS = "arm64 x86_64";
@@ -317,7 +317,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = ArrayDelay;
-				SDKROOT = macosx;
+				SDKROOT = macosx13.0;
 				SKIP_INSTALL = YES;
 				SYMROOT = /tmp;
 				VALID_ARCHS = "arm64 x86_64";

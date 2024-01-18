@@ -94,10 +94,10 @@ public:
 	void onProcess ();
 
 	// parameters events	
-	UsineEventClass audioInputs[USINE_MAX_AUDIO_INPUTS];     // audio input	
-	UsineEventClass audioOutputs[USINE_MAX_AUDIO_OUTPUTS];    // audio output
+	UsineEventClass audioInputs[USINE_MULTIPHONY_MAX];     // audio input	
+	UsineEventClass audioOutputs[USINE_MULTIPHONY_MAX];    // audio output
 	UsineEventClass modInput;                            // mod input
-	UsineEventClass bufferTemp[USINE_MAX_AUDIO_INPUTS];
+	UsineEventClass bufferTemp[USINE_MULTIPHONY_MAX];
 	UsineEventClass fdrMix;
 	TPrecision coeffMix;
 

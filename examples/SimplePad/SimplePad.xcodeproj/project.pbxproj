@@ -43,12 +43,14 @@
 		4EAD14971A9E2E6500784045 /* UserUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserUtils.h; sourceTree = "<group>"; };
 		4EAD14981A9E2E6500784045 /* UsineDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineDefinitions.h; sourceTree = "<group>"; };
 		624DEC4D2B176FA500FAD546 /* UsineEventClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineEventClass.h; sourceTree = "<group>"; };
+		74B521592B5943CC00A09F56 /* TemplateModuleSimple */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TemplateModuleSimple; path = ../TemplateModuleSimple; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		4EAD14081A9E2A8F00784045 = {
 			isa = PBXGroup;
 			children = (
+				74B521592B5943CC00A09F56 /* TemplateModuleSimple */,
 				4E27051E1A9E3AA600104AD4 /* SimplePad.cpp */,
 				4E27051F1A9E3AA600104AD4 /* SimplePad.h */,
 				4EAD14921A9E2E6500784045 /* sdk */,
