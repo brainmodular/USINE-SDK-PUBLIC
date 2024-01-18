@@ -29,9 +29,7 @@
 //-----------------------------------------------------------------------------
 // target platform preprocessor define
 //-----------------------------------------------------------------------------
-#if (defined (_WIN32) && ! defined(_WIN64)) 
-  #define       USINE_WIN32 1
-#elif defined (_WIN64)
+#if defined (_WIN64)
   #define       USINE_WIN64 1
 #elif defined (__APPLE_CPP__) || defined(__APPLE_CC__)
     #define     USINE_OSX64 1
@@ -41,10 +39,10 @@
 
 // platform specific defines
 //-----------------------------------------------------------------------------
-#if (defined (USINE_WIN32) || defined (USINE_WIN64))
+#if (defined (USINE_WIN64))
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
-#elif (defined (USINE_OSX32) || defined (USINE_OSX64))
+#elif (defined (USINE_OSX64))
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 #else
@@ -66,17 +64,9 @@
 // for memory alignment with DELPHI
 //-----------------------------------------------------------------------------
 #if (defined (USINE_WIN64))
-#pragma pack(push, 4)
-//-----------------------------------------------------------------------------
-#elif  (defined (USINE_WIN32))
-#pragma pack(push, 4)
-//-----------------------------------------------------------------------------
-#elif  (defined (USINE_OSX32))
-#pragma pack(push, 4)
-
+  #pragma pack(push, 4)
 #elif  (defined (USINE_OSX64))
-#pragma pack(push, 4)
-//----------------------------------------------------------------------------
+  #pragma pack(push, 4)
 #else
   #error "conditional compilation error!"
 #endif
@@ -96,21 +86,6 @@ typedef  unsigned __int64 UINT64;
 typedef  __int64 Int64;
 typedef  unsigned __int32 UINT32 ;
 
-//-----------------------------------------------------------------------------
-#elif (defined (USINE_WIN32))
-typedef  __int32 NativeInt;
-typedef  unsigned __int32 NativeUInt;
-typedef  unsigned __int64 UINT64;
-typedef  __int64 Int64;
-typedef  unsigned __int32 UINT32 ;
-//-----------------------------------------------------------------------------
-#elif (defined (USINE_OSX32))
-#include <stdint.h>
-typedef  int32_t NativeInt;
-typedef  uint32_t NativeUInt;
-typedef  int64_t Int64;
-typedef  uint64_t UINT64;
-typedef  uint32_t UINT32 ;
 //-----------------------------------------------------------------------------
 #elif (defined (USINE_OSX64))
 #include <stdint.h>
@@ -160,9 +135,9 @@ typedef const char* AnsiCharPtr;
 /// Type used in all parameters data.
 typedef float TPrecision;
 
-#if (defined (USINE_WIN32) || defined (USINE_WIN64))
+#if (defined (USINE_WIN64))
 typedef unsigned char BYTE;
-#elif (defined (USINE_OSX32) || defined (USINE_OSX64))
+#elif (defined (USINE_OSX64))
 typedef uint8_t BYTE;
 #endif
 
@@ -507,12 +482,12 @@ typedef TParamInfo ParamInfo;
 /// Data type for video Frames pixels used in video modules
 typedef struct TUsinePixel
 {
-#if (defined (USINE_WIN32) || defined (USINE_WIN64))
+#if (defined (USINE_WIN64))
     BYTE B; ///< Blue
     BYTE G; ///< Green
     BYTE R; ///< Red
     BYTE A; ///< Alpha, not used in video Frames
-#elif (defined (USINE_OSX32) || defined (USINE_OSX64))
+#elif (defined (USINE_OSX64))
     BYTE R; ///< Blue
     BYTE G; ///< Green
     BYTE B; ///< Red
@@ -1512,11 +1487,11 @@ struct TColorAhsl
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-#if (defined (USINE_WIN32) || defined (USINE_WIN64))
+#if (defined (USINE_WIN64))
 //-----------------------------------------------------------------------------
 #define USINE_MODULE_EXPORT extern "C" __declspec( dllexport )
 //-----------------------------------------------------------------------------
-#elif (defined (USINE_OSX32) || defined (USINE_OSX64))
+#elif (defined (USINE_OSX64))
 //-----------------------------------------------------------------------------
 #define USINE_MODULE_EXPORT extern "C" __attribute__ (( visibility ("default") ))
 //-----------------------------------------------------------------------------
