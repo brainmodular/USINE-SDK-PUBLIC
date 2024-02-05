@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4E2704871A9E379C00104AD4 /* TemplateModuleSimple.usr-macos64uni in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4EAD14871A9E2D8400784045 /* TemplateModuleSimple.usr-macos64uni */; };
+		4E2704871A9E379C00104AD4 /* TemplateModuleSimple.usr-macos64uni in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4EAD14871A9E2D8400784045 /* TemplateModuleSimple.usr-macos64uni */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4E2705201A9E3AA600104AD4 /* TemplateModuleSimple.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E27051E1A9E3AA600104AD4 /* TemplateModuleSimple.cpp */; };
 		4E2705211A9E3AA600104AD4 /* TemplateModuleSimple.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E27051F1A9E3AA600104AD4 /* TemplateModuleSimple.h */; };
 		4EAD14991A9E2E6500784045 /* UserDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14931A9E2E6500784045 /* UserDefinitions.h */; };
@@ -270,7 +270,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = TemplateModuleSimple;
-				SDKROOT = macosx13.0;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				SYMROOT = /tmp;
@@ -312,7 +312,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = TemplateModuleSimple;
-				SDKROOT = macosx13.0;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				SYMROOT = /tmp;

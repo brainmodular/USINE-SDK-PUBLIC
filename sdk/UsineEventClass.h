@@ -45,51 +45,51 @@ inline void sdkSetMasterInfo(TMasterInfo* m_masterInfo) { UserModuleBase::sdkSet
 /// Compare Events, returns TRUE if e1 and e2 are equal.
 [[deprecated("Deprecated: use UsineEventClass::compare instead")]]
 inline bool sdkCompareEvt( UsineEventPtr e1, UsineEventPtr e2 ) {
-    return UserModuleBase::m_masterInfo->CompareEvt( e1, e2 ); };
+    return UserModuleBase::m_masterInfo->CompareEvt( e1, e2 ); }
 
 /// Copy Events, copies src to dest.
 [[deprecated("Deprecated: use UsineEventClass::copy instead")]]
 inline void sdkCopyEvt( UsineEventPtr scr, UsineEventPtr dest) {
-    UserModuleBase::m_masterInfo->CopyEvt( scr, dest ); };
+    UserModuleBase::m_masterInfo->CopyEvt( scr, dest ); }
 
 /// Event Concatenation dest is the concatenation of e1 and e2.
 inline void sdkConcatEvt( UsineEventPtr e1, UsineEventPtr e2, UsineEventPtr dest ) {
-    UserModuleBase::m_masterInfo->ConcatEvt( e1, e2, dest ); };
+    UserModuleBase::m_masterInfo->ConcatEvt( e1, e2, dest ); }
 
 /// Shift the values of src and store the result into dest.
 /// Right shift for n>0, left shift for n<0.
 inline void sdkShiftEvt( int n, UsineEventPtr src, UsineEventPtr dest ) {
-    UserModuleBase::m_masterInfo->ShiftEvt( n, src, dest ); };
+    UserModuleBase::m_masterInfo->ShiftEvt( n, src, dest ); }
 
 /// Set the size of the event (number of elements). Typically the size of audio events is given by sdkGetBlocSize.
 /// @see sdkGetBlocSize
 [[deprecated("Deprecated: use UsineEventClass::setSize instead")]]
 inline void sdkSetEvtSize( UsineEventPtr e, int size ) {
-    UserModuleBase::m_masterInfo->SetEvtSize( e, size ); };
+    UserModuleBase::m_masterInfo->SetEvtSize( e, size ); }
 
 /// Get the size of the event (number of elements).
 [[deprecated("Deprecated: use UsineEventClass::getSize instead")]]
 inline int  sdkGetEvtSize( UsineEventPtr e)                                {
-    return UserModuleBase::m_masterInfo->GetEvtSize( e ); };
+    return UserModuleBase::m_masterInfo->GetEvtSize( e ); }
 
 /// Set the maximum size allowed by the event. Can be greater than the event size.
 [[deprecated("Deprecated: use UsineEventClass::setMaxSize instead")]]
 inline void sdkSetEvtMaxSize( UsineEventPtr e, int size )                  {
-    UserModuleBase::m_masterInfo->SetEvtMaxSize( e, size ); };
+    UserModuleBase::m_masterInfo->SetEvtMaxSize( e, size ); }
 
 /// Destroy the event.
 [[deprecated("Deprecated: use UsineEventClass::destroy instead")]]
 inline void sdkDestroyEvt( UsineEventPtr &e )                              {
-    UserModuleBase::m_masterInfo->DestroyEvt( e ); };
+    UserModuleBase::m_masterInfo->DestroyEvt( e ); }
 
 /// Create an event with an original size.
 [[deprecated("Deprecated: use UsineEventClass::create instead")]]
 inline void sdkCreateEvt( UsineEventPtr &e, int originalSize )             {
-    UserModuleBase::m_masterInfo->CreateEvt( e, originalSize ); };
+    UserModuleBase::m_masterInfo->CreateEvt( e, originalSize ); }
 
 /// Copy a 32Bits bloc of memory. The size is the number of 32bits elements.
 inline void sdkMoveBLOC32( TPrecision* pointerSrc, TPrecision* pointerDest, int size )      {
-    UserModuleBase::m_masterInfo->MoveBLOC32( pointerSrc, pointerDest, size ); };
+    UserModuleBase::m_masterInfo->MoveBLOC32( pointerSrc, pointerDest, size ); }
 
 /// Add values of two events and store the result into dest.
 inline void  sdkAddEvt3(UsineEventPtr e1, UsineEventPtr e2, UsineEventPtr dest) {
@@ -154,63 +154,63 @@ inline void  sdkSqrtEvt1(UsineEventPtr in1) {
 /// Returns the maximum value of e.
 [[deprecated("Deprecated: use UsineEventClass::max instead")]]
 inline TPrecision sdkMaxEvt1(UsineEventPtr e) {
-    return UserModuleBase::m_masterInfo->MaxEvt1(e); };
+    return UserModuleBase::m_masterInfo->MaxEvt1(e); }
 
 /// Returns the minimum value of e.
 [[deprecated("Deprecated: use UsineEventClass::min instead")]]
 inline TPrecision    sdkMinEvt1(UsineEventPtr e) {
-    return UserModuleBase::m_masterInfo->MinEvt1(e); };
+    return UserModuleBase::m_masterInfo->MinEvt1(e); }
 
 /// calculates the maximum of each element and store the result into dest. dest[i] = max(e1[i],e2[i])
 inline void    sdkMaxEvt3(UsineEventPtr e1, UsineEventPtr e2, UsineEventPtr dest) {
-    UserModuleBase::m_masterInfo->MaxEvt3(e1, e2, dest); };
+    UserModuleBase::m_masterInfo->MaxEvt3(e1, e2, dest); }
 
 /// calculates the minimum of each element and store the result into dest. dest[i] = min(e1[i],e2[i])
 inline void    sdkMinEvt3(UsineEventPtr in1, UsineEventPtr in2, UsineEventPtr out) {
-    UserModuleBase::m_masterInfo->MinEvt3(in1, in2, out); };
+    UserModuleBase::m_masterInfo->MinEvt3(in1, in2, out); }
 
 /// Clip values of e in the range [min..max] and store the result into dest.
 inline void  sdkThreshEvt2(const UsineEventPtr e, UsineEventPtr dest, TPrecision min, TPrecision max) {
-    UserModuleBase::m_masterInfo->ThreshEvt2(e, dest, min, max); };
+    UserModuleBase::m_masterInfo->ThreshEvt2(e, dest, min, max); }
 
 /// Clip values of e in the range [min..max] inplace.
 [[deprecated("Deprecated: use UsineEventClass::tresh instead")]]
 inline void  sdkThreshEvt1(UsineEventPtr e, TPrecision min, TPrecision max) {
-    UserModuleBase::m_masterInfo->ThreshEvt1(e, min, max); };
+    UserModuleBase::m_masterInfo->ThreshEvt1(e, min, max); }
 
 /// Mix MIDI values of e1 and e2 and store the result in dest. For the MIDI, this operation equivalent to sdkConcatEvt
 inline void  sdkMixMidiEvt3(UsineEventPtr e1, UsineEventPtr e2, UsineEventPtr dest) {
-    UserModuleBase::m_masterInfo->MixMidiEvt3(e1, e2, dest); };
+    UserModuleBase::m_masterInfo->MixMidiEvt3(e1, e2, dest); }
 
 /// Mix MIDI values of e1 and e2 and store the result in e2. For the MIDI, this operation is equivalent to sdkConcatEvt
 [[deprecated("Deprecated: use UsineEventClass::mixMidi instead")]]
 inline void  sdkMixMidiEvt2(UsineEventPtr e1, UsineEventPtr e2) {
-    UserModuleBase::m_masterInfo->MixMidiEvt2(e1, e2); };
+    UserModuleBase::m_masterInfo->MixMidiEvt2(e1, e2); }
 
 /// Apply a short fadein to the audio event. The duration of the fade is given by sdkGetBlocSize.
 [[deprecated("Deprecated: use UsineEventClass::fadeIn instead")]]
 inline void  sdkFadeInAudioEvt(UsineEventPtr e) {
-    UserModuleBase::m_masterInfo->FadeInAudioEvt(e); };
+    UserModuleBase::m_masterInfo->FadeInAudioEvt(e); }
 
 /// Apply a short fadeout to the audio event. The duration of the fade is given by sdkGetBlocSize.
 [[deprecated("Deprecated: use UsineEventClass::fadeOut instead")]]
 inline void  sdkFadeOutAudioEvt(UsineEventPtr e) {
-    UserModuleBase::m_masterInfo->FadeOutAudioEvt(e); };
+    UserModuleBase::m_masterInfo->FadeOutAudioEvt(e); }
 
 /// Clear an audio event. Set values to zero and add a small denormalization value.
 [[deprecated("Deprecated: use UsineEventClass::clearAudio instead")]]
 inline void  sdkClearAudioEvt(UsineEventPtr e) {
-    UserModuleBase::m_masterInfo->ClearAudioEvt(e); };
+    UserModuleBase::m_masterInfo->ClearAudioEvt(e); }
 
 /// Add a small denormalization value to an audio event.
 [[deprecated("Deprecated: use UsineEventClass::denormalizeAudio instead")]]
 inline void  sdkDenormalizeAudioEvt(UsineEventPtr e) {
-    UserModuleBase::m_masterInfo->DenormalizeAudioEvt(e); };
+    UserModuleBase::m_masterInfo->DenormalizeAudioEvt(e); }
 
 /// Smooth event.
 [[deprecated("Deprecated: use UsineEventClass::smooth instead")]]
 inline void sdkSmoothPrecision(TPrecision& oldValue, UsineEventPtr e, TPrecision factor) {
-    return UserModuleBase::m_masterInfo->SmoothPrecision(oldValue, e, factor);};
+    return UserModuleBase::m_masterInfo->SmoothPrecision(oldValue, e, factor);}
 
 /// Smooth Event with a target value.
 [[deprecated("Deprecated: use UsineEventClass::smooth instead")]]
@@ -225,32 +225,32 @@ inline void sdkSmoothEvent(TPrecision& oldValue, UsineEventPtr e, TPrecision tar
 /// Set a Text value.
 [[deprecated("Deprecated: use UsineEventClass::setPChar instead")]]
 inline void sdkSetEvtPChar( UsineEventPtr e,  AnsiCharPtr textValue ) {
-    UserModuleBase::m_masterInfo->SetEvtPChar( e, textValue ); };
+    UserModuleBase::m_masterInfo->SetEvtPChar( e, textValue ); }
 
 /// Get a Text value.
 [[deprecated("Deprecated: use UsineEventClass::getPChar instead")]]
 inline AnsiCharPtr sdkGetEvtPChar( UsineEventPtr e ){
-    return UserModuleBase::m_masterInfo->GetEvtPChar( e ); };
+    return UserModuleBase::m_masterInfo->GetEvtPChar( e ); }
 
 /// Get the address of the first data in the Event
 [[deprecated("Deprecated: use UsineEventClass::getDataAddr instead")]]
 inline TPrecision* sdkGetEvtDataAddr( UsineEventPtr ev ) {
-    return UserModuleBase::m_masterInfo->GetEvtDataAddr( ev ); };
+    return UserModuleBase::m_masterInfo->GetEvtDataAddr( ev ); }
 
 /// Set a float value
 [[deprecated("Deprecated: use UsineEventClass::setData instead")]]
 inline void sdkSetEvtData( UsineEventPtr e, TPrecision floatValue ) {
-    UserModuleBase::m_masterInfo->SetEvtData( e, floatValue ); };
+    UserModuleBase::m_masterInfo->SetEvtData( e, floatValue ); }
 
 /// Get a float Value
 [[deprecated("Deprecated: use UsineEventClass::getData instead")]]
 inline TPrecision sdkGetEvtData( UsineEventPtr e ) {
-    return UserModuleBase::m_masterInfo->GetEvtData( e ); };
+    return UserModuleBase::m_masterInfo->GetEvtData( e ); }
 
 /// Set a value to an Array at an index position.
 [[deprecated("Deprecated: use UsineEventClass::setArrayData instead")]]
 inline void sdkSetEvtArrayData( UsineEventPtr e, int index, TPrecision floatValue ) {
-    UserModuleBase::m_masterInfo->SetEvtArrayData( e, index, floatValue ); };
+    UserModuleBase::m_masterInfo->SetEvtArrayData( e, index, floatValue ); }
 
 /// Push (append) a value to an Array.
 [[deprecated("Deprecated: use UsineEventClass::pushArrayData instead")]]
@@ -262,32 +262,32 @@ inline void	sdkPushEvtArrayData(UsineEventPtr e, TPrecision floatValue) {
     }
     UserModuleBase::m_masterInfo->SetEvtSize(e, index + 1);
     UserModuleBase::m_masterInfo->SetEvtArrayData(e, index, floatValue);
-};
+}
 
 /// Get a value from an Array at an index position.
 [[deprecated("Deprecated: use UsineEventClass::getArrayData instead")]]
 inline TPrecision sdkGetEvtArrayData( UsineEventPtr e, int index ) {
-    return UserModuleBase::m_masterInfo->GetEvtArrayData( e, index ); };
+    return UserModuleBase::m_masterInfo->GetEvtArrayData( e, index ); }
 
 /// Set a pointer value.
 [[deprecated("Deprecated: use UsineEventClass::setEventPointer instead")]]
 inline void sdkSetEvtPointer( UsineEventPtr e, void* pointerValue ) {
-    UserModuleBase::m_masterInfo->SetEvtPointer( e, pointerValue ); };
+    UserModuleBase::m_masterInfo->SetEvtPointer( e, pointerValue ); }
 
 /// Get a pointer value.
 [[deprecated("Deprecated: use UsineEventClass::getEventPointer instead")]]
 inline void* sdkGetEvtPointer( UsineEventPtr e ){
-    return UserModuleBase::m_masterInfo->GetEvtPointer( e ); };
+    return UserModuleBase::m_masterInfo->GetEvtPointer( e ); }
 
  /// Set a color value.
 [[deprecated("Deprecated: use UsineEventClass::setColor instead")]]
  inline void sdkSetEvtColor( UsineEventPtr e, TUsineColor colorValue ) {
-    UserModuleBase::m_masterInfo->SetEvtColor( e, colorValue ); };
+    UserModuleBase::m_masterInfo->SetEvtColor( e, colorValue ); }
 
 /// Get a color value.
  [[deprecated("Deprecated: use UsineEventClass::getColor instead")]]
 inline TUsineColor    sdkGetEvtColor( UsineEventPtr e ) {
-    return UserModuleBase::m_masterInfo->GetEvtColor( e ); };
+    return UserModuleBase::m_masterInfo->GetEvtColor( e ); }
 
 /// Set a color value to an array at index position.
 [[deprecated("Deprecated: use UsineEventClass::setArrayColor instead")]]
@@ -296,7 +296,7 @@ inline void sdkSetEvtArrayColor(UsineEventPtr e, int index, TUsineColor colorVal
     int idx = std::max(0, std::min(index, UserModuleBase::m_masterInfo->GetEvtSize(e)));
     TUsineColor* data = (TUsineColor*)UserModuleBase::m_masterInfo->GetEvtDataAddr(e);
     data += idx;
-    *data = colorValue; };
+    *data = colorValue; }
 
 /// Get a color value to an array at index position.
 [[deprecated("Deprecated: use UsineEventClass::getArrayColor instead")]]
@@ -305,17 +305,17 @@ inline TUsineColor sdkGetEvtArrayColor( UsineEventPtr e, int index ) {
     int idx = std::max(0, std::min(index, UserModuleBase::m_masterInfo->GetEvtSize(e)));
     TUsineColor* data =  (TUsineColor*)UserModuleBase::m_masterInfo->GetEvtDataAddr (e);
     TUsineColor result = *(data + idx);
-    return result; };
+    return result; }
 
 /// Set a Midi value to an array at index position.
 [[deprecated("Deprecated: use UsineEventClass::setArrayMidi instead")]]
 inline void    sdkSetEvtArrayMidi( UsineEventPtr e, int index, TUsineMidiCode midiValue ) {
-    UserModuleBase::m_masterInfo->SetEvtArrayMidi( e, index, midiValue ); };
+    UserModuleBase::m_masterInfo->SetEvtArrayMidi( e, index, midiValue ); }
 
 /// Get a Midi value to an array at index position.
 [[deprecated("Deprecated: use UsineEventClass::getArrayMidi instead")]]
 inline TUsineMidiCode sdkGetEvtArrayMidi( UsineEventPtr e, int index )                    {
-    return UserModuleBase::m_masterInfo->GetEvtArrayMidi( e, index ); };
+    return UserModuleBase::m_masterInfo->GetEvtArrayMidi( e, index ); }
 
 /// Get a 3D point.
 /// the event must have a line number of 3 to work,
@@ -338,7 +338,7 @@ inline T3DPointF sdkGetEvt3DPoint (UsineEventPtr e, int pointIndex){
     }
 
     return result;
-};
+}
 /// @}
 
 //----------------------------------------------------------------------------
@@ -379,17 +379,17 @@ inline void sdkSyncObjectWait(TSyncObjectPtr pSyncObject, UINT32 timeout) {
 /// @{
 
 /// Get the title string for the popup.
-inline AnsiCharPtr  sdkGetAudioQueryTitle () { return UserModuleBase::m_masterInfo->AudioQueryTitle; };
+inline AnsiCharPtr  sdkGetAudioQueryTitle () { return UserModuleBase::m_masterInfo->AudioQueryTitle; }
 
 /// Get the query string list for an multi channels query.
-inline AnsiCharPtr  sdkGetAudioQueryChannelList () { return UserModuleBase::m_masterInfo->AudioQueryChannelList; };
+inline AnsiCharPtr  sdkGetAudioQueryChannelList () { return UserModuleBase::m_masterInfo->AudioQueryChannelList; }
 
 /// Get the number of channels from the query index choice.
-inline int  sdkGetAudioQueryToNbChannels (int qQueryIndex) { return UserModuleBase::m_masterInfo->AudioQueryToNbChannels (qQueryIndex); };
+inline int  sdkGetAudioQueryToNbChannels (int qQueryIndex) { return UserModuleBase::m_masterInfo->AudioQueryToNbChannels (qQueryIndex); }
 
 /// Get the name of a channel.
 inline AnsiCharPtr  sdkGetAudioQueryChannelNames (AnsiCharPtr prefix, int index, int queryIndex)
-    { return UserModuleBase::m_masterInfo->AudioQueryChannelNames (prefix, index, queryIndex); };
+    { return UserModuleBase::m_masterInfo->AudioQueryChannelNames (prefix, index, queryIndex); }
 /// @}
 
 
@@ -398,36 +398,36 @@ inline AnsiCharPtr  sdkGetAudioQueryChannelNames (AnsiCharPtr prefix, int index,
 /// @{
 
 /// Get the Hash (internal ID) of the Global Array needed for function bellow
-inline UINT64 sdkGlobalArrayGetHash(AnsiCharPtr name) { return UserModuleBase::m_masterInfo->GlobalArrayGetHash(name); };
+inline UINT64 sdkGlobalArrayGetHash(AnsiCharPtr name) { return UserModuleBase::m_masterInfo->GlobalArrayGetHash(name); }
 
 /// Set a float value of a data Global Array at the index
 inline void  sdkGlobalArraySetValueFloat(UINT64 hash, int index, TPrecision value, AnsiCharPtr errorMsg) {
-    UserModuleBase::m_masterInfo->GlobalArraySetValueFloat(hash, index, value, errorMsg); };
+    UserModuleBase::m_masterInfo->GlobalArraySetValueFloat(hash, index, value, errorMsg); }
 /// Set a color value of a color Global Array at the index
 inline void  sdkGlobalArraySetValueColor(UINT64 hash, int index, TUsineColor value, AnsiCharPtr errorMsg) {
-    UserModuleBase::m_masterInfo->GlobalArraySetValueColor(hash, index, value, errorMsg); };
+    UserModuleBase::m_masterInfo->GlobalArraySetValueColor(hash, index, value, errorMsg); }
 /// Set a string value of a string Global Array at the index
 inline void  sdkGlobalArraySetValueAnsiChar(UINT64 hash, int index, AnsiCharPtr value, AnsiCharPtr errorMsg) {
-    UserModuleBase::m_masterInfo->GlobalArraySetValueAnsiChar(hash, index, value, errorMsg); };
+    UserModuleBase::m_masterInfo->GlobalArraySetValueAnsiChar(hash, index, value, errorMsg); }
 /// Fill an entire global array with the content of an Event
 inline void  sdkGlobalArraySetValueEvt(UINT64 hash, UsineEventPtr value, AnsiCharPtr errorMsg) {
-    UserModuleBase::m_masterInfo->GlobalArraySetValueEvt(hash, value, errorMsg); };
+    UserModuleBase::m_masterInfo->GlobalArraySetValueEvt(hash, value, errorMsg); }
 
 /// Get a float value from a data Global Array at the index
 inline TPrecision sdkGlobalArrayGetValueFloat(UINT64 hash, int index, AnsiCharPtr errorMsg) {
-    return UserModuleBase::m_masterInfo->GlobalArrayGetValueFloat(hash, index, errorMsg); };
+    return UserModuleBase::m_masterInfo->GlobalArrayGetValueFloat(hash, index, errorMsg); }
 /// Get a color value from a color Global Array at the index
 inline TUsineColor sdkGlobalArrayGetValueColor(UINT64 hash, int index, AnsiCharPtr errorMsg) {
-    return UserModuleBase::m_masterInfo->GlobalArrayGetValueColor(hash, index, errorMsg); };
+    return UserModuleBase::m_masterInfo->GlobalArrayGetValueColor(hash, index, errorMsg); }
 /// get a string value from a string Global Array at the index
 inline AnsiCharPtr sdkGlobalArrayGetValueAnsiChar(UINT64 hash, int index, AnsiCharPtr errorMsg) {
-    return UserModuleBase::m_masterInfo->GlobalArrayGetValueAnsiChar(hash, index, errorMsg); };
+    return UserModuleBase::m_masterInfo->GlobalArrayGetValueAnsiChar(hash, index, errorMsg); }
 /// Get an entire global array and fill its content in an Event
 inline void sdkGlobalArrayGetValueEvt(UINT64 hash, AnsiCharPtr errorMsg, UsineEventPtr result) {
-    return UserModuleBase::m_masterInfo->GlobalArrayGetValueEvt(hash, errorMsg, result); };
+    return UserModuleBase::m_masterInfo->GlobalArrayGetValueEvt(hash, errorMsg, result); }
 /// Get the list of all available global-array's names as a comma-text. This function can be slow.
 inline AnsiCharPtr sdkGlobalArrayGetAllNames() {
-    return UserModuleBase::m_masterInfo->GlobalArrayGetAllNames(); };
+    return UserModuleBase::m_masterInfo->GlobalArrayGetAllNames(); }
 
 
 /// @}
@@ -438,47 +438,47 @@ inline AnsiCharPtr sdkGlobalArrayGetAllNames() {
 
 /// Get the list of possible usine block size.
 inline AnsiCharPtr  sdkGetUsineBlockSizeList() {
-    return UserModuleBase::m_masterInfo->BlockSizeList; };
+    return UserModuleBase::m_masterInfo->BlockSizeList; }
 
 /// Get the default usine block size.
 inline int  sdkGetUsineDefaultBlockSizeIndex() {
-    return UserModuleBase::m_masterInfo->BlockSizeDefaultIndex; };
+    return UserModuleBase::m_masterInfo->BlockSizeDefaultIndex; }
 
 /// Low level , not for public use
 /// Usine audio callback
 inline void    sdkUsineAudioDeviceIOCallback(const float** inputChannelData, int numInputChannels, float** outputChannelData, int numOutputChannels, int numSamples ){
-    UserModuleBase::m_masterInfo->AudioDeviceIOCallback( inputChannelData, numInputChannels, outputChannelData, numOutputChannels, numSamples );};
+    UserModuleBase::m_masterInfo->AudioDeviceIOCallback( inputChannelData, numInputChannels, outputChannelData, numOutputChannels, numSamples );}
 
 /// Low level , not for public use
 /// Usine  midi callback
 inline void sdkUsineMidiDeviceCallback (int deviceID, double TimeStamp, TUsineMidiCode midiData)    {
-    UserModuleBase::m_masterInfo->MidiDeviceCallback (deviceID, TimeStamp, midiData);};
+    UserModuleBase::m_masterInfo->MidiDeviceCallback (deviceID, TimeStamp, midiData);}
 
 /// Low level , not for public use
 /// Usine midi sysex callback
 inline void sdkUsineMidiSysexDeviceCallback (int deviceID, double TimeStamp, char** sysEx, int size){
-    UserModuleBase::m_masterInfo->MidiSysexDeviceCallback (deviceID, TimeStamp, sysEx, size);};
+    UserModuleBase::m_masterInfo->MidiSysexDeviceCallback (deviceID, TimeStamp, sysEx, size);}
 
 /// To get the current Usine block size.
 inline int        sdkGetBlocSize()              {
-    return UserModuleBase::m_masterInfo->BlocSize; };
+    return UserModuleBase::m_masterInfo->BlocSize; }
 
 /// To get the current Usine sample rate
 inline double    sdkGetSampleRate()              {
-    return UserModuleBase::m_masterInfo->GetSampleRate(); };
+    return UserModuleBase::m_masterInfo->GetSampleRate(); }
     
 /// PC only, Usine mainform handle (THandle)
 inline NativeInt sdkGetUsineMainWindow()          {
-    return UserModuleBase::m_masterInfo->GetUsineMainWindow(); };
+    return UserModuleBase::m_masterInfo->GetUsineMainWindow(); }
 
 /// MAC only, Usine NSView
 inline void* sdkGetUsineNSView() {
     return UserModuleBase::m_masterInfo->GetMacNSView();
-};
+}
 
 /// MAC only, Usine NSApplication
 inline void* sdkGetUsineNSApplication()       {
-    return (void*)UserModuleBase::m_masterInfo->NSApplication; };
+    return (void*)UserModuleBase::m_masterInfo->NSApplication; }
 
 /// To get a named color from the Usine ColorSet.
 inline TUsineColor sdkGetUsineColor(UINT32 color){

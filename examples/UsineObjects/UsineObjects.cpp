@@ -104,7 +104,7 @@ void UsineObjects::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModu
 	pModuleInfo->Name				= MODULE_NAME;
 	pModuleInfo->Description		= MODULE_DESC;
 	pModuleInfo->ModuleType         = mtSimple;
-	pModuleInfo->BackColor          = sdkGetUsineColor(clAudioModuleColor);
+	pModuleInfo->BackColor          = sdkGetUsineColor(clDataModuleColor);
 	pModuleInfo->Version			= MODULE_VERSION;    
 	pModuleInfo->CanBeSavedInPreset = FALSE;
 }

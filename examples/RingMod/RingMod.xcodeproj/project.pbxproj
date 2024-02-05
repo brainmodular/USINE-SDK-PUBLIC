@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4E2704871A9E379C00104AD4 /* RingMod.usr-macos64uni in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4EAD14871A9E2D8400784045 /* RingMod.usr-macos64uni */; };
+		4E2704871A9E379C00104AD4 /* RingMod.usr-macos64uni in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4EAD14871A9E2D8400784045 /* RingMod.usr-macos64uni */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4EAD149A1A9E2E6500784045 /* UserModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD14941A9E2E6500784045 /* UserModule.cpp */; };
 		4EAD149B1A9E2E6500784045 /* UserModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14951A9E2E6500784045 /* UserModule.h */; };
 		4EAD149C1A9E2E6500784045 /* UserUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD14961A9E2E6500784045 /* UserUtils.cpp */; };
@@ -200,7 +200,7 @@
 					"-mstackrealign",
 					"$(OTHER_CFLAGS)",
 				);
-				SDKROOT = macosx13.0;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				SYMROOT = /tmp;
@@ -249,7 +249,7 @@
 					"-mstackrealign",
 					"$(OTHER_CFLAGS)",
 				);
-				SDKROOT = macosx13.0;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				SYMROOT = /tmp;
@@ -288,7 +288,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = RingMod;
-				SDKROOT = macosx13.0;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SYMROOT = /tmp;
 				VALID_ARCHS = "x86_64 arm64";
@@ -325,7 +325,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = RingMod;
-				SDKROOT = macosx13.0;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SYMROOT = /tmp;
 				VALID_ARCHS = "x86_64 arm64";

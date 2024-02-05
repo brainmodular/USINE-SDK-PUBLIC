@@ -995,10 +995,7 @@ public:
         if (panelHeight > 0.0f)
             result = panelWidth * percent;        
         return result;};
-    /// @}	
-     	
-    //void setStringTrace (std::string newString){
-    //    stringTrace = newString;};
+    /// @}
 
 	//------------------------------------------------------------------------
     // TMasterInfo
@@ -1020,8 +1017,6 @@ protected:
 
     // Pointer TModuleInfo provided by usine
     TModuleInfo* m_moduleInfo;
-    
-    //std::string stringTrace;
 
     //-----------------------------------------------------------------------------
     // protected methods

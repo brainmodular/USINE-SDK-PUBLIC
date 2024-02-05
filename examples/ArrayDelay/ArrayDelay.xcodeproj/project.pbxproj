@@ -16,7 +16,7 @@
 		62C2EA652B07AD1F00A282C6 /* UserModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD14941A9E2E6500784045 /* UserModule.cpp */; };
 		62C2EA662B07AD1F00A282C6 /* UserUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD14961A9E2E6500784045 /* UserUtils.cpp */; };
 		62C2EA672B07AD1F00A282C6 /* ArrayDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD149F1A9E2E8800784045 /* ArrayDelay.cpp */; };
-		62C2EA6E2B07AF0500A282C6 /* ArrayDelay.usr-macos64uni in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62C2EA6D2B07AD1F00A282C6 /* ArrayDelay.usr-macos64uni */; };
+		62C2EA6E2B07AF0500A282C6 /* ArrayDelay.usr-macos64uni in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62C2EA6D2B07AD1F00A282C6 /* ArrayDelay.usr-macos64uni */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -278,7 +278,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = ArrayDelay;
-				SDKROOT = macosx13.0;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SYMROOT = /tmp;
 				VALID_ARCHS = "arm64 x86_64";
@@ -317,7 +317,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = ArrayDelay;
-				SDKROOT = macosx13.0;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SYMROOT = /tmp;
 				VALID_ARCHS = "arm64 x86_64";

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4E2704871A9E379C00104AD4 /* DataOscilloscope.usr-macos64uni in Copy Files */ = {isa = PBXBuildFile; fileRef = 4EAD14871A9E2D8400784045 /* DataOscilloscope.usr-macos64uni */; };
+		4E2704871A9E379C00104AD4 /* DataOscilloscope.usr-macos64uni in Copy Files */ = {isa = PBXBuildFile; fileRef = 4EAD14871A9E2D8400784045 /* DataOscilloscope.usr-macos64uni */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4E2705021A9E39F300104AD4 /* DataOscilloscope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E2705001A9E39F300104AD4 /* DataOscilloscope.cpp */; };
 		4E2705031A9E39F300104AD4 /* DataOscilloscope.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E2705011A9E39F300104AD4 /* DataOscilloscope.h */; };
 		4EAD14991A9E2E6500784045 /* UserDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EAD14931A9E2E6500784045 /* UserDefinitions.h */; };
@@ -265,7 +265,7 @@
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/lib;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-Wno-write-strings",
@@ -274,7 +274,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = DataOscilloscope;
-				SDKROOT = macosx13.0;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				SYMROOT = /tmp;
@@ -306,7 +306,7 @@
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/lib;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-Wno-write-strings",
@@ -315,7 +315,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = DataOscilloscope;
-				SDKROOT = macosx13.0;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				SYMROOT = /tmp;

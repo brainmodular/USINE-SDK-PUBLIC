@@ -104,7 +104,7 @@ void GlobalArray::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModul
 	pModuleInfo->Name				= MODULE_NAME;
 	pModuleInfo->Description		= MODULE_DESC;
 	pModuleInfo->ModuleType         = mtSimple;
-	pModuleInfo->BackColor          = sdkGetUsineColor(clAudioModuleColor);
+	pModuleInfo->BackColor          = sdkGetUsineColor(clArrayModuleColor);
 	pModuleInfo->Version			= MODULE_VERSION;  
 	pModuleInfo->CanBeSavedInPreset = FALSE;
 	pModuleInfo->NumberOfParams     = 2;
