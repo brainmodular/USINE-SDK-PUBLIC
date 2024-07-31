@@ -29,10 +29,9 @@
 // includes
 //----------------------------------------------------------------------------
 #include "UserUtils.h"
-#include <math.h>
+#include <cmath>
 #include <sstream>
 #include <iomanip>
-#include <algorithm>
 #include <cstdint>
 
 using namespace std;
@@ -43,28 +42,27 @@ using namespace std;
 
 //-----------------------------------------------------------------------------
 // calculate HSL from RGB
-TColorAhsl sdkColorArgbToColorAhsl(TColorArgb c1)
+TColorAhsl sdkColorArgbToColorAhsl(const TColorArgb c1)
 {
-    float themin,themax,delta;
-    TColorAhsl c2;
+    TColorAhsl c2{};
 
 	c2.a = c1.a;
 
-    themin = min( c1.r, min(c1.g,c1.b) );
-    themax = max( c1.r, max(c1.g,c1.b) );
-    delta = themax - themin;
+    const float themin = min(c1.r, min(c1.g, c1.b));
+    const float themax = max(c1.r, max(c1.g, c1.b));
+    const float delta = themax - themin;
     c2.l = (themin + themax) / 2;
     c2.s = 0;
     if (c2.l > 0 && c2.l < 1)
-        c2.s = delta / (c2.l < 0.5 ? (2*c2.l) : (2-2*c2.l));
+        c2.s = delta / (c2.l < 0.5 ? 2*c2.l : 2-2*c2.l);
     c2.h = 0;
     if (delta > 0) {
         if (themax == c1.r && themax != c1.g)
             c2.h += (c1.g - c1.b) / delta;
         if (themax == c1.g && themax != c1.b)
-            c2.h += (2 + (c1.b - c1.r) / delta);
+            c2.h += 2 + (c1.b - c1.r) / delta;
         if (themax == c1.b && themax != c1.r)
-            c2.h += (4 + (c1.r - c1.g) / delta);
+            c2.h += 4 + (c1.r - c1.g) / delta;
         c2.h *= 60;
     }
     
@@ -80,7 +78,9 @@ TColorAhsl sdkColorArgbToColorAhsl(TColorArgb c1)
 // calculate RGB from HSL, reverse of RGB2HSL()
 TColorArgb sdkColorAhslToColorArgb(TColorAhsl c1)
 {
-    TColorArgb c2,sat,ctmp;
+    TColorArgb c2{};
+    TColorArgb sat{};
+    TColorArgb ctmp{};
 
 	c2.a = c1.a;
 
@@ -125,53 +125,53 @@ TColorArgb sdkColorAhslToColorArgb(TColorAhsl c1)
 
 //-----------------------------------------------------------------------------
 // RGB color to Usine color format
-TUsineColor sdkColorArgbToAlphaColor( TColorArgb c1 )
+TUsineColor sdkColorArgbToAlphaColor(const TColorArgb c1 )
 {
     TUsineColor c2 = 0;
 
-    c2 += ((uint8_t)(c1.b * 255.0f));
-    c2 += ((uint8_t)(c1.g * 255.0f)) << 8;
-    c2 += ((uint8_t)(c1.r * 255.0f)) << 16;
-    c2 += ((uint8_t)(c1.a * 255.0f)) << 24;
+    c2 += static_cast<uint8_t>(c1.b * 255.0f);
+    c2 += static_cast<uint8_t>(c1.g * 255.0f) << 8;
+    c2 += static_cast<uint8_t>(c1.r * 255.0f) << 16;
+    c2 += static_cast<uint8_t>(c1.a * 255.0f) << 24;
 
     return c2;
 }
 
 //-----------------------------------------------------------------------------
 // Usine color format to RGB color
-TColorArgb sdkAlphaColorToColorArgb(TUsineColor c1)
+TColorArgb sdkAlphaColorToColorArgb(const TUsineColor c1)
 {
-    TColorArgb c2;
+    TColorArgb c2{};
 
-    c2.b = ((float)( c1        & 0x000000FF)) / 255.0f;
-    c2.g = ((float)((c1 >> 8)  & 0x000000FF)) / 255.0f;
-    c2.r = ((float)((c1 >> 16) & 0x000000FF)) / 255.0f;
-    c2.a = ((float)((c1 >> 24) & 0x000000FF)) / 255.0f;
+    c2.b = static_cast<float>(c1 & 0x000000FF) / 255.0f;
+    c2.g = static_cast<float>(c1 >> 8 & 0x000000FF) / 255.0f;
+    c2.r = static_cast<float>(c1 >> 16 & 0x000000FF) / 255.0f;
+    c2.a = static_cast<float>(c1 >> 24 & 0x000000FF) / 255.0f;
 
     return c2;
 }
 
 //-----------------------------------------------------------------------------
 // HSL color to Usine color format
-TUsineColor sdkColorAhslToAlphaColor(TColorAhsl c1)
+TUsineColor sdkColorAhslToAlphaColor(const TColorAhsl c1)
 {
-    TUsineColor c2 = sdkColorArgbToAlphaColor( sdkColorAhslToColorArgb( c1 ) );
+    const TUsineColor c2 = sdkColorArgbToAlphaColor( sdkColorAhslToColorArgb( c1 ) );
     return c2;
 }
 
 //-----------------------------------------------------------------------------
 // Usine color format to HSL color
-TColorAhsl sdkAlphaColorToColorAhsl(TUsineColor c1)
+TColorAhsl sdkAlphaColorToColorAhsl(const TUsineColor c1)
 {
-    TColorAhsl c2 = sdkColorArgbToColorAhsl( sdkAlphaColorToColorArgb( c1 ) );
+    const TColorAhsl c2 = sdkColorArgbToColorAhsl( sdkAlphaColorToColorArgb( c1 ) );
     return c2;
 }
 
 //-----------------------------------------------------------------------------
 // RGB color constructor
-TColorArgb sdkColorAgrb(float r, float g, float b, float a)
+TColorArgb sdkColorAgrb(const float r, const float g, const float b, const float a)
 {
-    TColorArgb c2;
+    TColorArgb c2{};
     
     c2.a = a;
     c2.r = r;
@@ -183,9 +183,9 @@ TColorArgb sdkColorAgrb(float r, float g, float b, float a)
 
 //-----------------------------------------------------------------------------
 // HSL color constructor
-TColorAhsl sdkColorAhsl(float h, float s, float l, float a)
+TColorAhsl sdkColorAhsl(const float h, const float s, const float l, const float a)
 {
-    TColorAhsl c2;
+    TColorAhsl c2{};
 
     c2.a = a;
     c2.h = h;
@@ -197,7 +197,7 @@ TColorAhsl sdkColorAhsl(float h, float s, float l, float a)
 
 //-----------------------------------------------------------------------------
 // Usine color constructor
-TUsineColor sdkAlphaColor(  float r, float g, float b, float a)
+TUsineColor sdkAlphaColor(const float r, const float g, const float b, const float a)
 {
     TUsineColor c2 = 0;
 
@@ -208,11 +208,11 @@ TUsineColor sdkAlphaColor(  float r, float g, float b, float a)
 
 //-----------------------------------------------------------------------------
 // Usine color constructor
-TUsineColor sdkAlphaColor( int r, int g, int b, int a)
+TUsineColor sdkAlphaColor(const int r, const int g, const int b, const int a)
 {
     TUsineColor c2 = 0;
 
-    c2 = sdkColorArgbToAlphaColor(sdkColorAgrb(r / 255.f, g / 255.f, b / 255.f, a / 255.f));
+    c2 = sdkColorArgbToAlphaColor(sdkColorAgrb(static_cast<float>(r) / 255.f, static_cast<float>(g) / 255.f, static_cast<float>(b) / 255.f, static_cast<float>(a) / 255.f));
 
     return c2;
 }
@@ -223,7 +223,7 @@ TUsineColor sdkAlphaColor( int r, int g, int b, int a)
 
 //-----------------------------------------------------------------------------
 // TPointF constructor
-TPointF sdkPointF(float x, float y)
+TPointF sdkPointF(const float x, const float y)
 {
     TPointF p1;
 
@@ -235,9 +235,9 @@ TPointF sdkPointF(float x, float y)
 
 //-----------------------------------------------------------------------------
 // Test if coordinate is in a rect bound
-bool sdkPointInRect(int X, int Y, TPointI LeftTop, TPointI RightBottom)
+bool sdkPointInRect(const int X, const int Y, const TPointI LeftTop, const TPointI RightBottom)
 {
-    TPointI Coords;
+    TPointI Coords{};
     Coords.x = X;	
     Coords.y = Y;	
     return sdkPointInRect(Coords, LeftTop, RightBottom);
@@ -245,50 +245,46 @@ bool sdkPointInRect(int X, int Y, TPointI LeftTop, TPointI RightBottom)
 
 //-----------------------------------------------------------------------------
 // Test if coordinate is in a rect bound
-bool sdkPointInRect(TPointI Coords, TPointI LeftTop, TPointI RightBottom)
+bool sdkPointInRect(const TPointI Coords, const TPointI LeftTop, const TPointI RightBottom)
 {
-    return ((Coords.x >= LeftTop.x) && (Coords.y >= LeftTop.y)
-        && (Coords.x < RightBottom.x)
-        && (Coords.y < RightBottom.y));
+    return Coords.x >= LeftTop.x && Coords.y >= LeftTop.y
+           && Coords.x < RightBottom.x
+           && Coords.y < RightBottom.y;
 }
 
 //-----------------------------------------------------------------------------
 // Test if coordinate is in a rect bound
-bool sdkPointInRect(float X, float Y, TRectF rect)
+bool sdkPointInRect(const float X, const float Y, const TRectF rect)
 {
-    return ((X >= rect.left) && (Y >= rect.top) && (X < rect.right) && (Y < rect.bottom));
+    return X >= rect.left && Y >= rect.top && X < rect.right && Y < rect.bottom;
 }
 
 //-----------------------------------------------------------------------------
 // Four control point Bezier interpolation
-TPointF sdkBezier4(TPointF p1, TPointF p2, TPointF p3, TPointF p4, float mu)
+TPointF sdkBezier4(const TPointF p1, const TPointF p2, const TPointF p3, const TPointF p4, const float mu)
 {
-    float mum1,mum13,mu3;
     TPointF p;
 
-    mum1 = 1 - mu;
-    mum13 = mum1 * mum1 * mum1;
-    mu3 = mu * mu * mu;
+    const float mum1 = 1 - mu;
+    const float mum13 = mum1 * mum1 * mum1;
+    const float mu3 = mu * mu * mu;
 
     p.x = mum13*p1.x + 3*mu*mum1*mum1*p2.x + 3*mu*mu*mum1*p3.x + mu3*p4.x;
     p.y = mum13*p1.y + 3*mu*mum1*mum1*p2.y + 3*mu*mu*mum1*p3.y + mu3*p4.y;
 
-    return(p);
+    return p;
 }
 
 //
-float sdkBezier4(float p1, float p2, float p3, float p4, float mu)
+float sdkBezier4(const float p1, const float p2, const float p3, const float p4, const float mu)
 {
-    float mum1,mum13,mu3;
-    float p;
+    const float mum1 = 1 - mu;
+    const float mum13 = mum1 * mum1 * mum1;
+    const float mu3 = mu * mu * mu;
 
-    mum1 = 1 - mu;
-    mum13 = mum1 * mum1 * mum1;
-    mu3 = mu * mu * mu;
+    const float p = mum13 * p1 + 3 * mu * mum1 * mum1 * p2 + 3 * mu * mu * mum1 * p3 + mu3 * p4;
 
-    p= mum13*p1 + 3*mu*mum1*mum1*p2 + 3*mu*mu*mum1*p3 + mu3*p4;
-
-    return(p);
+    return p;
 }
 
 //

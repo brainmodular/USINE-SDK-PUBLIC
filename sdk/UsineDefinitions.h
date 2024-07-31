@@ -8,6 +8,11 @@
 ///@brief  
 ///	Datas and functions declarations exposed by Usine.
 ///
+///@HISTORIC
+///	2023/11/28
+///    first release for Hollyhock CPP SDK : 7.10.07
+/// 2023/11/28
+///    added a more modern class system to the CPP SDK
 ///
 ///@IMPORTANT
 ///	This file is part of the Usine Hollyhock CPP SDK
@@ -23,16 +28,17 @@
 ///-----------------------------------------------------------------------------
 
 // include once, no more
-#ifndef __USINE_DEFINITIONS_H__
-#define __USINE_DEFINITIONS_H__
+#pragma once
 
 //-----------------------------------------------------------------------------
 // target platform preprocessor define
 //-----------------------------------------------------------------------------
 #if defined (_WIN64)
-  #define       USINE_WIN64 1
+    #define USINE_WIN64 1
 #elif defined (__APPLE_CPP__) || defined(__APPLE_CC__)
-    #define     USINE_OSX64 1
+    #define USINE_OSX64 1
+#elif defined (__linux__)
+    #define USINE_LIN64 1
 #else
   #error "Unknown platform!"
 #endif
@@ -45,6 +51,9 @@
 #elif (defined (USINE_OSX64))
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
+#elif (defined (USINE_LIN64))
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 #else
   #error "conditional compilation error!"
 #endif
@@ -53,8 +62,6 @@
 //-----------------------------------------------------------------------------
 // includes
 //-----------------------------------------------------------------------------
-#include <climits>
-#include <cfloat>
 
 //-----------------------------------------------------------------------------
 // Datatypes definitions
@@ -64,9 +71,11 @@
 // for memory alignment with DELPHI
 //-----------------------------------------------------------------------------
 #if (defined (USINE_WIN64))
-  #pragma pack(push, 4)
-#elif  (defined (USINE_OSX64))
-  #pragma pack(push, 4)
+    #pragma pack(push, 4)
+#elif (defined (USINE_OSX64))
+    #pragma pack(push, 4)
+#elif (defined (USINE_LIN64))
+    #pragma pack(push, 4)
 #else
   #error "conditional compilation error!"
 #endif
@@ -75,7 +84,7 @@
 //-----------------------------------------------------------------------------
 // version of the SDK
 // to use in GetSDKVersion function to return the SDK version number
-static int const SDK_VERSION = 701007;
+static constexpr int SDK_VERSION = 701007;
 
 
 //-----------------------------------------------------------------------------
@@ -87,7 +96,7 @@ typedef  __int64 Int64;
 typedef  unsigned __int32 UINT32 ;
 
 //-----------------------------------------------------------------------------
-#elif (defined (USINE_OSX64))
+#elif (defined (USINE_OSX64) || defined (USINE_LIN64))
 #include <stdint.h>
 typedef  int64_t NativeInt;
 typedef  uint64_t NativeUInt;
@@ -160,50 +169,50 @@ typedef TUsineMessage UsineMessage;
 
 //----------------------------------------------------------------------------
 /// Possible values for TUsineMessage LParam.
-static const NativeInt MSG_CHANGE     = 0;  ///< the parameter value has changed
-static const NativeInt MSG_CLICK      = 1;  ///< the parameter has been clicked
-static const NativeInt MSG_DBLCLICK   = 2;  ///< the parameter has been double clicked
-static const NativeInt MSG_SETCAPTION = 3;  ///< change the caption of a control
-static const NativeInt MSG_MOUSEUP    = 4;  ///< mouse Up
-static const NativeInt MSG_MOUSEMOVE  = 5;  ///< mouse Move
-static const NativeInt MSG_DROP       = 6;  ///< something has been dropped on the control
-static const NativeInt MSG_COMMATEXT  = 7;  ///< a comma-text has changed
-static const NativeInt MSG_FLOATING_MOVE        = 8;  ///< a floating control is moving
-static const NativeInt MSG_COLLIDE              = 9;  ///< a floating control collides
-static const NativeInt MSG_LOCK_CHANGED         = 10; ///< the control lock state has changed
-static const NativeInt MSG_PLAY_RECORD_VALUE    = 11; ///< an automation is playing on the parameter
-static const NativeInt MSG_RIGHT_CLICK          = 12; ///< mouse right click
-static const NativeInt MSG_WHEEL_UP             = 13; ///< mouse wheel up
-static const NativeInt MSG_WHEEL_DOWN           = 14; ///< mouse wheel down
-static const NativeInt MSG_MOUSE_WHEEL_OFF      = 15; ///< end wheel processing
+static constexpr NativeInt MSG_CHANGE     = 0;  ///< the parameter value has changed
+static constexpr NativeInt MSG_CLICK      = 1;  ///< the parameter has been clicked
+static constexpr NativeInt MSG_DBLCLICK   = 2;  ///< the parameter has been double clicked
+static constexpr NativeInt MSG_SETCAPTION = 3;  ///< change the caption of a control
+static constexpr NativeInt MSG_MOUSEUP    = 4;  ///< mouse Up
+static constexpr NativeInt MSG_MOUSEMOVE  = 5;  ///< mouse Move
+static constexpr NativeInt MSG_DROP       = 6;  ///< something has been dropped on the control
+static constexpr NativeInt MSG_COMMATEXT  = 7;  ///< a comma-text has changed
+static constexpr NativeInt MSG_FLOATING_MOVE        = 8;  ///< a floating control is moving
+static constexpr NativeInt MSG_COLLIDE              = 9;  ///< a floating control collides
+static constexpr NativeInt MSG_LOCK_CHANGED         = 10; ///< the control lock state has changed
+static constexpr NativeInt MSG_PLAY_RECORD_VALUE    = 11; ///< an automation is playing on the parameter
+static constexpr NativeInt MSG_RIGHT_CLICK          = 12; ///< mouse right click
+static constexpr NativeInt MSG_WHEEL_UP             = 13; ///< mouse wheel up
+static constexpr NativeInt MSG_WHEEL_DOWN           = 14; ///< mouse wheel down
+static constexpr NativeInt MSG_MOUSE_WHEEL_OFF      = 15; ///< end wheel processing
 
 //----------------------------------------------------------------------------
 /// Possible target for a notification to Usine @see sdkNotifyUsine
-static const NativeInt NOTIFY_TARGET_USINE        = 1;  ///< notify the main Usine panel
-static const NativeInt NOTIFY_TARGET_SETUP        = 2;  ///< notify the setup of Usine
-static const NativeInt NOTIFY_TARGET_USER_MODULE  = 3;  ///< notify the current User module
+static constexpr NativeInt NOTIFY_TARGET_USINE        = 1;  ///< notify the main Usine panel
+static constexpr NativeInt NOTIFY_TARGET_SETUP        = 2;  ///< notify the setup of Usine
+static constexpr NativeInt NOTIFY_TARGET_USER_MODULE  = 3;  ///< notify the current User module
 
 //----------------------------------------------------------------------------
 /// Possible message for a notification to Usine @see sdkNotifyUsine
-static const NativeInt NOTIFY_MSG_AUDIO_DRIVER_CHANGED	= 0xFAB000;  ///< no param
-static const NativeInt NOTIFY_MSG_MIDI_DRIVER_CHANGED	= 0xFAB001;  ///< no param
-static const NativeInt NOTIFY_MSG_SAMPLE_RATE_CHANGED	= 0xFAB002;  ///< param1 = samplerate
-static const NativeInt NOTIFY_MSG_BLOC_SIZE_CHANGED		= 0xFAB003;  ///< param1 = blocsize
-static const NativeInt NOTIFY_MSG_RESCAN_PLUGINS_DONE	= 0xFAB004;  ///< no param
-static const NativeInt NOTIFY_MSG_RECREATE_CONTROLS		= 0xFAB005;  ///< no param
-static const NativeInt NOTIFY_MSG_KEY_DOWN		        = 0xFAB006;  ///< param1 = keycode, param2 = modifier
-static const NativeInt NOTIFY_MSG_KEY_UP		        = 0xFAB007;  ///< param
-static const NativeInt NOTIFY_MSG_FOCUS_LOST	        = 0xFAB008;  ///< no param
+static constexpr NativeInt NOTIFY_MSG_AUDIO_DRIVER_CHANGED	= 0xFAB000;  ///< no param
+static constexpr NativeInt NOTIFY_MSG_MIDI_DRIVER_CHANGED	= 0xFAB001;  ///< no param
+static constexpr NativeInt NOTIFY_MSG_SAMPLE_RATE_CHANGED	= 0xFAB002;  ///< param1 = samplerate
+static constexpr NativeInt NOTIFY_MSG_BLOC_SIZE_CHANGED		= 0xFAB003;  ///< param1 = blocsize
+static constexpr NativeInt NOTIFY_MSG_RESCAN_PLUGINS_DONE	= 0xFAB004;  ///< no param
+static constexpr NativeInt NOTIFY_MSG_RECREATE_CONTROLS		= 0xFAB005;  ///< no param
+static constexpr NativeInt NOTIFY_MSG_KEY_DOWN		        = 0xFAB006;  ///< param1 = keycode, param2 = modifier
+static constexpr NativeInt NOTIFY_MSG_KEY_UP		        = 0xFAB007;  ///< param
+static constexpr NativeInt NOTIFY_MSG_FOCUS_LOST	        = 0xFAB008;  ///< no param
 
 // used by usine at startup to notify devices (in onCallback ()) that the loaded phase is complete
-static const NativeInt NOTIFY_MSG_USINE_LOADED	        = 0xFAB009;  ///< param1 = 0, param2 = 0
-static const NativeInt NOTIFY_MSG_USINE_CALLBACK        = 0xFAB679;  ///< identify a Message->message as a callback for user module
-static const NativeInt NOTIFY_MSG_ON_TOP                = 0xFAB67A;  ///< need all windows on top
-static const NativeInt NOTIFY_MSG_TO_BACK               = 0xFAB67B;  ///< need all windows to back
-static const NativeInt NOTIFY_MSG_RESCAN_MIDI_DEVICES   = 0xFAB67D;  ///< tell Usine that Midi devices have been rescanned
-static const NativeInt NOTIFY_MSG_RESET_MIDI_DEVICES    = 0xFAB67E;  ///< tell Usine that Midi devices have been reset
+static constexpr NativeInt NOTIFY_MSG_USINE_LOADED	        = 0xFAB009;  ///< param1 = 0, param2 = 0
+static constexpr NativeInt NOTIFY_MSG_USINE_CALLBACK        = 0xFAB679;  ///< identify a Message->message as a callback for user module
+static constexpr NativeInt NOTIFY_MSG_ON_TOP                = 0xFAB67A;  ///< need all windows on top
+static constexpr NativeInt NOTIFY_MSG_TO_BACK               = 0xFAB67B;  ///< need all windows to back
+static constexpr NativeInt NOTIFY_MSG_RESCAN_MIDI_DEVICES   = 0xFAB67D;  ///< tell Usine that Midi devices have been rescanned
+static constexpr NativeInt NOTIFY_MSG_RESET_MIDI_DEVICES    = 0xFAB67E;  ///< tell Usine that Midi devices have been reset
 
-static const NativeInt CALLBACK_WPARAM_LIMIT = 0xF000000;
+static constexpr NativeInt CALLBACK_WPARAM_LIMIT = 0xF000000;
 
 
 
@@ -214,19 +223,19 @@ typedef UINT32 TShiftState;
 
 /// Possible value for a TShiftState variable.
 /// @see onMouseMove, onMouseDown, onMouseUp, onMouseMoveMulti, onMouseDownMulti, onMouseUpMulti
-static const UINT32 ssShift  = 0x1;	///< Shift keyboard state
-static const UINT32 ssAlt    = 0x2;  ///< Alt keyboard state
-static const UINT32 ssCtrl   = 0x4;  ///< Ctrl keyboard state
-static const UINT32 ssLeft   = 0x8;  ///< Left mouse button state
-static const UINT32 ssRight  = 0x10; ///< Right mouse button state
-static const UINT32 ssMiddle = 0x20; ///< Middle mouse button state
-static const UINT32 ssDouble = 0x40; ///< Mouse Double click state
+static constexpr UINT32 ssShift  = 0x1;	///< Shift keyboard state
+static constexpr UINT32 ssAlt    = 0x2;  ///< Alt keyboard state
+static constexpr UINT32 ssCtrl   = 0x4;  ///< Ctrl keyboard state
+static constexpr UINT32 ssLeft   = 0x8;  ///< Left mouse button state
+static constexpr UINT32 ssRight  = 0x10; ///< Right mouse button state
+static constexpr UINT32 ssMiddle = 0x20; ///< Middle mouse button state
+static constexpr UINT32 ssDouble = 0x40; ///< Mouse Double click state
 
 //----------------------------------------------------------------------------
 /// Mouse buttons available for a mouse event callback.
 /// @see onMouseMove, onMouseDown, onMouseUp, onMouseMoveMulti, onMouseDownMulti, onMouseUpMulti
-typedef enum TMouseButton 
-{ 
+typedef enum TMouseButton
+{
     mbLeft,		///< Left mouse button
     mbRight,    ///< Right mouse button
     mbMiddle    ///< Middle mouse button
@@ -236,8 +245,8 @@ typedef enum TMouseButton
 //-----------------------------------------------------------------------------
 /// Scale type available for a parameter.
 /// @see TParamInfo
-typedef enum TScale 
-{ 
+typedef enum TScale
+{
     scLinear,   ///< Linear type of scale
     scLog,      ///< Logarithmic  type of scale
     scExp       ///< Exponential  type of scale
@@ -267,7 +276,7 @@ typedef void* TThreadPtr;
 /// Thread priorities.
 typedef enum TThreadPriority
 {
-    tpIDLE,     ///< executed when the application is in IDLE state 
+    tpIDLE,     ///< executed when the application is in IDLE state
     tpLow,      ///< low priority
     tpMedium,   ///< medium priority
     tpHigh      ///< time critical priority
@@ -280,124 +289,123 @@ typedef void* TSyncObjectPtr;
 
 //-----------------------------------------------------------------------------
 /// Color set used by Usine.
-static const UINT32 clg0 = 1;
-static const UINT32 clg1 = 2;
-static const UINT32 clg2 = 3;
-static const UINT32 clg3 = 4;
-static const UINT32 clg4 = 5;
-static const UINT32 clg5 = 6;
-static const UINT32 clg6 = 7;
-static const UINT32 clg7 = 8;
-static const UINT32 clg8 = 9;
-static const UINT32 clg9 = 10;
-static const UINT32 clg10 = 11;
-static const UINT32 clg11 = 12;
-static const UINT32 clWhite = 13;
-static const UINT32 cl0 = 14;
-static const UINT32 cl1 = 15;
-static const UINT32 cl2 = 16;
-static const UINT32 cl3 = 17;
-static const UINT32 cl4 = 18;
-static const UINT32 cl5 = 19;
-static const UINT32 cl6 = 20;
-static const UINT32 cl7 = 21;
-static const UINT32 cl8 = 22;
-static const UINT32 cl9 = 23;
-static const UINT32 cl10 = 24;
-static const UINT32 cl11 = 25;
-static const UINT32 cl12 = 26;
-static const UINT32 cl13 = 27;
-static const UINT32 cl14 = 28;
-static const UINT32 cl15 = 29;
-static const UINT32 cl16 = 30;
-static const UINT32 cl17 = 31;
-static const UINT32 cl18 = 32;
-static const UINT32 cl19 = 33;
-static const UINT32 cl20 = 34;
-static const UINT32 cl21 = 35;
-static const UINT32 cl22 = 36;
-static const UINT32 cl23 = 37;
-static const UINT32 clRed = 38;
-static const UINT32 clMainBack = 39;
-static const UINT32 clDarkPanelBack = 40;
-static const UINT32 clLiterPanelBack = 41;
-static const UINT32 clMoreLitePanelBack = 42;
-static const UINT32 clVeryLitePanelBack = 43;
-static const UINT32 clFontLight = 44;
-static const UINT32 clFontColored = 47;
-static const UINT32 clSwitchOnColored = 48;
-static const UINT32 clDataFlow = 50;
-static const UINT32 clMIDIFlow = 51;
-static const UINT32 clAudioFlow = 52;
-static const UINT32 clArrayFlow = 53;
-static const UINT32 clTextFlow = 54;
-static const UINT32 clColorFlow = 55;
-static const UINT32 clPointerFlow = 56;
-static const UINT32 clVuMeterMIDI = 57;
-static const UINT32 clVuMeterAudio = 58;
-static const UINT32 clBitwiseFlow = 59;
-static const UINT32 clVideoFlow = 60;
-static const UINT32 clSwitchFlow = 61;
-static const UINT32 clTriggerFlow = 62;
-static const UINT32 clListboxFlow = 63;
-static const UINT32 clSelected = 64;
-static const UINT32 clDragOver = 65;
-static const UINT32 clMouseOver = 66;
-static const UINT32 clMIDIlearning = 67;
-static const UINT32 clMIDILearnedIcon = 68;
-static const UINT32 clCursor = 71;
-static const UINT32 clInvalidLink = 72;
-static const UINT32 clInterfaceDesignModuleColor = 73;
-static const UINT32 clVideoModuleColor = 74;
-static const UINT32 clAudioModuleColor = 75;
-static const UINT32 clPluginModuleColor = 76;
-static const UINT32 clMIDIModuleColor = 77;
-static const UINT32 clEventModuleColor = 78;
-static const UINT32 clDataModuleColor = 79;
-static const UINT32 clArrayModuleColor = 80;
-static const UINT32 clMathModuleColor = 81;
-static const UINT32 clSubPatchModuleColor = 82;
-static const UINT32 clScriptModuleColor = 83;
-static const UINT32 clOSCModuleColor = 84;
-static const UINT32 clInterfaceCtrlModuleColor = 85;
-static const UINT32 clTextModuleColor = 86;
-static const UINT32 clFixtureModuleColor = 87;
-static const UINT32 clColorModuleColor = 88;
-static const UINT32 clNetworkModuleColor = 102;
-static const UINT32 clLiterAUDIOFlow = 89;
-static const UINT32 clLiterMIDIFlow = 90;
-static const UINT32 clLiterDATAFlow = 91;
-static const UINT32 clLiterARRAYFlow = 92;
-static const UINT32 clLiterTextFlow = 93;
-static const UINT32 clLiterColorFlow = 94;
-static const UINT32 clLiterPointerFlow = 95;
-static const UINT32 clLiterBitwiseFlow = 96;
-static const UINT32 clLiterVideoFlow = 97;
-static const UINT32 clLiterSwitchFlow = 98;
-static const UINT32 clLiterTriggerFlow = 99;
-static const UINT32 clLiterListboxFlow = 100;
-static const UINT32 clGridColor = 101;
-static const UINT32 clMenuForeGround = 103;
-static const UINT32 clMenuMouseOver = 104;
-static const UINT32 clHintsBack = 105;
-static const UINT32 clHintsFont = 106;
+static constexpr UINT32 clg0 = 1;
+static constexpr UINT32 clg1 = 2;
+static constexpr UINT32 clg2 = 3;
+static constexpr UINT32 clg3 = 4;
+static constexpr UINT32 clg4 = 5;
+static constexpr UINT32 clg5 = 6;
+static constexpr UINT32 clg6 = 7;
+static constexpr UINT32 clg7 = 8;
+static constexpr UINT32 clg8 = 9;
+static constexpr UINT32 clg9 = 10;
+static constexpr UINT32 clg10 = 11;
+static constexpr UINT32 clg11 = 12;
+static constexpr UINT32 clWhite = 13;
+static constexpr UINT32 cl0 = 14;
+static constexpr UINT32 cl1 = 15;
+static constexpr UINT32 cl2 = 16;
+static constexpr UINT32 cl3 = 17;
+static constexpr UINT32 cl4 = 18;
+static constexpr UINT32 cl5 = 19;
+static constexpr UINT32 cl6 = 20;
+static constexpr UINT32 cl7 = 21;
+static constexpr UINT32 cl8 = 22;
+static constexpr UINT32 cl9 = 23;
+static constexpr UINT32 cl10 = 24;
+static constexpr UINT32 cl11 = 25;
+static constexpr UINT32 cl12 = 26;
+static constexpr UINT32 cl13 = 27;
+static constexpr UINT32 cl14 = 28;
+static constexpr UINT32 cl15 = 29;
+static constexpr UINT32 cl16 = 30;
+static constexpr UINT32 cl17 = 31;
+static constexpr UINT32 cl18 = 32;
+static constexpr UINT32 cl19 = 33;
+static constexpr UINT32 cl20 = 34;
+static constexpr UINT32 cl21 = 35;
+static constexpr UINT32 cl22 = 36;
+static constexpr UINT32 cl23 = 37;
+static constexpr UINT32 clRed = 38;
+static constexpr UINT32 clMainBack = 39;
+static constexpr UINT32 clDarkPanelBack = 40;
+static constexpr UINT32 clLiterPanelBack = 41;
+static constexpr UINT32 clMoreLitePanelBack = 42;
+static constexpr UINT32 clVeryLitePanelBack = 43;
+static constexpr UINT32 clFontLight = 44;
+static constexpr UINT32 clFontColored = 47;
+static constexpr UINT32 clSwitchOnColored = 48;
+static constexpr UINT32 clDataFlow = 50;
+static constexpr UINT32 clMIDIFlow = 51;
+static constexpr UINT32 clAudioFlow = 52;
+static constexpr UINT32 clArrayFlow = 53;
+static constexpr UINT32 clTextFlow = 54;
+static constexpr UINT32 clColorFlow = 55;
+static constexpr UINT32 clPointerFlow = 56;
+static constexpr UINT32 clVuMeterMIDI = 57;
+static constexpr UINT32 clVuMeterAudio = 58;
+static constexpr UINT32 clBitwiseFlow = 59;
+static constexpr UINT32 clVideoFlow = 60;
+static constexpr UINT32 clSwitchFlow = 61;
+static constexpr UINT32 clTriggerFlow = 62;
+static constexpr UINT32 clListboxFlow = 63;
+static constexpr UINT32 clSelected = 64;
+static constexpr UINT32 clDragOver = 65;
+static constexpr UINT32 clMouseOver = 66;
+static constexpr UINT32 clMIDIlearning = 67;
+static constexpr UINT32 clMIDILearnedIcon = 68;
+static constexpr UINT32 clCursor = 71;
+static constexpr UINT32 clInvalidLink = 72;
+static constexpr UINT32 clInterfaceDesignModuleColor = 73;
+static constexpr UINT32 clVideoModuleColor = 74;
+static constexpr UINT32 clAudioModuleColor = 75;
+static constexpr UINT32 clPluginModuleColor = 76;
+static constexpr UINT32 clMIDIModuleColor = 77;
+static constexpr UINT32 clEventModuleColor = 78;
+static constexpr UINT32 clDataModuleColor = 79;
+static constexpr UINT32 clArrayModuleColor = 80;
+static constexpr UINT32 clMathModuleColor = 81;
+static constexpr UINT32 clSubPatchModuleColor = 82;
+static constexpr UINT32 clScriptModuleColor = 83;
+static constexpr UINT32 clOSCModuleColor = 84;
+static constexpr UINT32 clInterfaceCtrlModuleColor = 85;
+static constexpr UINT32 clTextModuleColor = 86;
+static constexpr UINT32 clFixtureModuleColor = 87;
+static constexpr UINT32 clColorModuleColor = 88;
+static constexpr UINT32 clNetworkModuleColor = 102;
+static constexpr UINT32 clLiterAUDIOFlow = 89;
+static constexpr UINT32 clLiterMIDIFlow = 90;
+static constexpr UINT32 clLiterDATAFlow = 91;
+static constexpr UINT32 clLiterARRAYFlow = 92;
+static constexpr UINT32 clLiterTextFlow = 93;
+static constexpr UINT32 clLiterColorFlow = 94;
+static constexpr UINT32 clLiterPointerFlow = 95;
+static constexpr UINT32 clLiterBitwiseFlow = 96;
+static constexpr UINT32 clLiterVideoFlow = 97;
+static constexpr UINT32 clLiterSwitchFlow = 98;
+static constexpr UINT32 clLiterTriggerFlow = 99;
+static constexpr UINT32 clLiterListboxFlow = 100;
+static constexpr UINT32 clGridColor = 101;
+static constexpr UINT32 clMenuForeGround = 103;
+static constexpr UINT32 clMenuMouseOver = 104;
+static constexpr UINT32 clHintsBack = 105;
+static constexpr UINT32 clHintsFont = 106;
 
 //-----------------------------------------------------------------------------
-/// Event associated to the parameter
+/// @brief Event associated to the parameter
 struct UsineEvent;
 
 
-/// Handle to a parameter event. Now deprecated for the final user.
-/// @see onGetParamEvent
+/// @brief Handle to an Usine Event. Now deprecated for the final user, use @ref UsineEventClass instead.
 typedef UsineEvent* UsineEventPtr;
 
 //-----------------------------------------------------------------------------
 /// parameters type available in usine.
 /// @see TParamInfo
-typedef enum TParamType 
-{ 
+using TParamType = enum TParamType
+{
     ptTextField,            ///< Param contain a string
-    ptChooseColor,          ///< Color chooser parameter 
+    ptChooseColor,          ///< Color chooser parameter
     ptMidi,                 ///< MIDI parameter
     ptGainFader,            ///< Audio Gain parameter
     ptAudio,                ///< Audio input/output
@@ -412,21 +420,21 @@ typedef enum TParamType
     ptMidiNoteFader,        ///< MIDI note number in the Range 0..127
     ptPointerBitMap,        ///< Video or Bitmap parameters
     ptPointer,              ///< General purpose pointer
-    ptRightLed,             ///< Switch with a led on the right 
+    ptRightLed,             ///< Switch with a led on the right
     ptChooseFolder,         ///< Choose folder dialog box
     ptLeftLed,              ///< Switch with a led on the left
-	ptTriggerLed,           ///< Switch with a led on the right dedicated to triggers
-	ptFileName,             ///< Choose filename dialog box
-	ptBitwise,              ///< Bitwise 32bits parameter 
-	ptOther                 ///< Not defined
-} TParamType;
+    ptTriggerLed,           ///< Switch with a led on the right dedicated to triggers
+    ptFileName,             ///< Choose filename dialog box
+    ptBitwise,              ///< Bitwise 32bits parameter
+    ptOther                 ///< Not defined
+};
 
 //-----------------------------------------------------------------------------
 /// Possible type of callback for a parameter.
 /// @see TParamInfo
 typedef enum TFastCallBackType
 {
-	ctNormal,       ///< Processed in the normal Usine messages handler. The latency is defined by the User in the Usine Setup.  
+	ctNormal,       ///< Processed in the normal Usine messages handler. The latency is defined by the User in the Usine Setup.
 	ctImmediate,    ///< Each time the parameter change, callback is processed immediately. Be careful, the the callBack procedure is called in the audio thread.
 	ctAsynchronous  ///< Processed in the window message handler (slower than ctNormal). Use this if the process is very long or if you open a modal window.
 } TFastCallBackType;
@@ -437,7 +445,7 @@ class UsineEventClass;
 //-----------------------------------------------------------------------------
 /// Usine parameter description.
 /// Contain all the properties to define a parameter.
-/// @see onGetParamInfo 
+/// @see onGetParamInfo
 struct TParamInfo
 {
 	TParamType        ParamType;            ///< parameter type
@@ -456,7 +464,7 @@ struct TParamInfo
 	AnsiCharPtr       TextValue;            ///< default text value if param type = ptTextField
 	LongBool          ReadOnly;             ///< TRUE if the user cant modify value
 	TFastCallBackType CallBackType;         ///< see TFastCallBackType definition
-	LongBool          DontSave;             ///< specifies if the parameter need to be save or not
+	LongBool          DontSave;             ///< specifies if the parameter need to be saved or not
 	int               DisplayOrder;         ///< <b>Deprecated</b> Parameters are now ordered according to their param index choosen in onGetParamInfo
 	LongBool          IsSeparator;          ///< optional, determines if the parameter add a blank line above him in the list
 	LongBool          IsInvisible;          ///< set the parameter totally invisible
@@ -468,11 +476,11 @@ struct TParamInfo
 	LongBool		  NotUsed;              ///< Not used anymore
 	LongBool		  Translate;            ///< usine auto translate
 	[[deprecated("Deprecated: use setEventClass(UsineEventClass& e) instead")]]
-    UsineEventPtr*    EventPtr;             ///< Pointer to Event set by Usine to acces to the value of the parameter, introduced 
+    UsineEventPtr*    EventPtr;             ///< Pointer to Event set by Usine to acces to the value of the parameter, introduced
 											///< in HH3. Replace the deprecated SetEventAddress
 	AnsiCharPtr       FileNameFilter;       ///< optional: filter used to open file when ParamType = ptFileName
 											///< ie: "All files (*.*)|*.*" or "'All Images |*.png; *.jpg; *.jpeg; *.bmp; *.tiff; *.gif"
-    inline void setEventClass(UsineEventClass& e); /// 
+    void setEventClass(UsineEventClass&);   /// Bind the given event to
 
 };
 /// for backward compatibility
@@ -500,7 +508,7 @@ typedef struct TUsinePixel
 typedef TUsinePixel* TUsinePixelPtr;
 
 //-----------------------------------------------------------------------------
-/// Data type for video Frames 
+/// Data type for video Frames
 typedef struct TUsineFrame
 {
 	int Width;  ///< Width of the frame in pixels
@@ -516,49 +524,49 @@ typedef struct TUsineFrame
 typedef TUsineFrame* TUsineFramePtr;
 
 //-----------------------------------------------------------------------------
-/// Data type for ILDA Frames 
+/// Data type for ILDA Frames
 typedef struct TUsineILDAPoint
 {
 	float x;  ///< point x coordinate
 	float y;  ///< point y coordinate
 	float z;  ///< point z coordinate
-	TUsineColor       Color; ///< point color	
+	TUsineColor       Color; ///< point color
 } TUsineILDAPoint;
 
 //-----------------------------------------------------------------------------
 /// Usine Midi code format.
 typedef struct TUsineMidiCode
-{   
+{
     unsigned char Channel;	///< Midi channel of the midi code
     unsigned char Msg;		///< Message part of the midi code
     unsigned char Data1;	///< Data1 part of the midi code
     unsigned char Data2;	///< Data2 of the midi code
-} TUsineMidiCode; 
+} TUsineMidiCode;
 
 /// for backward compatibility
 typedef TUsineMidiCode UsineMidiCode;
 
 /// Possible value for a TUsineMidiCode::Msg variable.
-static const unsigned char MIDI_ALLNOTESOFF     = 0x7B; ///< Midi msg
-static const unsigned char MIDI_NOTEON          = 0x90; ///< Midi msg
-static const unsigned char MIDI_NOTEOFF         = 0x80; ///< Midi msg
-static const unsigned char MIDI_KEYAFTERTOUCH   = 0xa0; ///< Midi msg
-static const unsigned char MIDI_CONTROLCHANGE   = 0xb0; ///< Midi msg
-static const unsigned char MIDI_PROGRAMCHANGE   = 0xc0; ///< Midi msg
-static const unsigned char MIDI_CHANAFTERTOUCH  = 0xd0; ///< Midi msg
-static const unsigned char MIDI_PITCHBEND       = 0xe0; ///< Midi msg
-static const unsigned char MIDI_SYSTEMMESSAGE   = 0xf0; ///< Midi msg
-static const unsigned char MIDI_BEGINSYSEX      = 0xf0; ///< Midi msg
-static const unsigned char MIDI_MTCQUARTERFRAME = 0xf1; ///< Midi msg
-static const unsigned char MIDI_SONGPOSPTR      = 0xf2; ///< Midi msg
-static const unsigned char MIDI_SONGSELECT      = 0xf3; ///< Midi msg
-static const unsigned char MIDI_ENDSYSEX        = 0xF7; ///< Midi msg
-static const unsigned char MIDI_TIMINGCLOCK     = 0xF8; ///< Midi msg
-static const unsigned char MIDI_START           = 0xFA; ///< Midi msg
-static const unsigned char MIDI_CONTINUE        = 0xFB; ///< Midi msg
-static const unsigned char MIDI_STOP            = 0xFC; ///< Midi msg
-static const unsigned char MIDI_ACTIVESENSING   = 0xFE; ///< Midi msg
-static const unsigned char MIDI_SYSTEMRESET     = 0xFF; ///< Midi msg
+static constexpr unsigned char MIDI_ALLNOTESOFF     = 0x7B; ///< Midi msg
+static constexpr unsigned char MIDI_NOTEON          = 0x90; ///< Midi msg
+static constexpr unsigned char MIDI_NOTEOFF         = 0x80; ///< Midi msg
+static constexpr unsigned char MIDI_KEYAFTERTOUCH   = 0xa0; ///< Midi msg
+static constexpr unsigned char MIDI_CONTROLCHANGE   = 0xb0; ///< Midi msg
+static constexpr unsigned char MIDI_PROGRAMCHANGE   = 0xc0; ///< Midi msg
+static constexpr unsigned char MIDI_CHANAFTERTOUCH  = 0xd0; ///< Midi msg
+static constexpr unsigned char MIDI_PITCHBEND       = 0xe0; ///< Midi msg
+static constexpr unsigned char MIDI_SYSTEMMESSAGE   = 0xf0; ///< Midi msg
+static constexpr unsigned char MIDI_BEGINSYSEX      = 0xf0; ///< Midi msg
+static constexpr unsigned char MIDI_MTCQUARTERFRAME = 0xf1; ///< Midi msg
+static constexpr unsigned char MIDI_SONGPOSPTR      = 0xf2; ///< Midi msg
+static constexpr unsigned char MIDI_SONGSELECT      = 0xf3; ///< Midi msg
+static constexpr unsigned char MIDI_ENDSYSEX        = 0xF7; ///< Midi msg
+static constexpr unsigned char MIDI_TIMINGCLOCK     = 0xF8; ///< Midi msg
+static constexpr unsigned char MIDI_START           = 0xFA; ///< Midi msg
+static constexpr unsigned char MIDI_CONTINUE        = 0xFB; ///< Midi msg
+static constexpr unsigned char MIDI_STOP            = 0xFC; ///< Midi msg
+static constexpr unsigned char MIDI_ACTIVESENSING   = 0xFE; ///< Midi msg
+static constexpr unsigned char MIDI_SYSTEMRESET     = 0xFF; ///< Midi msg
 
 
 //-----------------------------------------------------------------------------
@@ -576,41 +584,41 @@ typedef struct TVstTimeInfo
     double cycleStartPos;       ///< 1 ppq
     double cycleEndPos;         ///< 1 ppq
     long   timeSigNumerator;    ///< time signature
-    long   timeSigDenominator;  ///< 
-    long   smpteOffset;         ///< 
+    long   timeSigDenominator;  ///<
+    long   smpteOffset;         ///<
     long   smpteFrameRate;      ///< 0:24, 1:25, 2:29.97, 3:30, 4:29.97 df, 5:30 df
     long   samplesToNextClock;  ///< midi clock resolution (24 ppq), can be negative
-    long   flags;               ///< 
+    long   flags;               ///<
     double cyclePpqPos;         ///< usine cycle ppq
 } TVstTimeInfo;
 
 
 //-----------------------------------------------------------------------------
 /// Internal messages
-static const int PW_CMD_BLOC_CHANGED			= 1;
-static const int PW_CMD_SAMPLE_RATE_CHANGED		= 2;
-static const int PW_CMD_PARAM_VALUE				= 3;
-static const int PW_CMD_PARAM_DISPLAY_VALUE		= 26;
-static const int PW_CMD_CHUNK					= 4;
-static const int PW_CMD_SHOW_PLUGIN				= 5;
-static const int PW_CMD_HIDE_PLUGIN				= 6;
-static const int PW_CMD_TOGGLE_SHOW_HIDE_PLUGIN = 7;
-static const int PW_CMD_PROGRAM_NUM				= 8;
-static const int PW_CMD_CHUNK_REQUEST			= 9;
-static const int PW_CMD_KILL					= 10;
-static const int PW_CMD_PING					= 11;
-static const int PW_CMD_PLUGIN_NAME				= 12;
-static const int PW_CMD_NUM_CHANELS_IN			= 13;
-static const int PW_CMD_NUM_CHANELS_OUT			= 14;
-static const int PW_CMD_NUM_PARAMS				= 15;
-static const int PW_CMD_PARAM_NAME				= 16;
-static const int PW_CMD_SET_PARAM_VISIBLE		= 17;
-static const int PW_CMD_SET_ALL_PARAM_VISIBLE	= 18;
-static const int PW_CMD_PROGRAM_LIST			= 21;
-static const int PW_CMD_KEYPRESSED				= 22;
-static const int PW_CMD_READY					= 23;
-static const int PW_CMD_PONG					= 24;
-static const int PW_CMD_PROCESS					= 25;
+static constexpr int PW_CMD_BLOC_CHANGED			= 1;
+static constexpr int PW_CMD_SAMPLE_RATE_CHANGED		= 2;
+static constexpr int PW_CMD_PARAM_VALUE				= 3;
+static constexpr int PW_CMD_PARAM_DISPLAY_VALUE		= 26;
+static constexpr int PW_CMD_CHUNK					= 4;
+static constexpr int PW_CMD_SHOW_PLUGIN				= 5;
+static constexpr int PW_CMD_HIDE_PLUGIN				= 6;
+static constexpr int PW_CMD_TOGGLE_SHOW_HIDE_PLUGIN = 7;
+static constexpr int PW_CMD_PROGRAM_NUM				= 8;
+static constexpr int PW_CMD_CHUNK_REQUEST			= 9;
+static constexpr int PW_CMD_KILL					= 10;
+static constexpr int PW_CMD_PING					= 11;
+static constexpr int PW_CMD_PLUGIN_NAME				= 12;
+static constexpr int PW_CMD_NUM_CHANELS_IN			= 13;
+static constexpr int PW_CMD_NUM_CHANELS_OUT			= 14;
+static constexpr int PW_CMD_NUM_PARAMS				= 15;
+static constexpr int PW_CMD_PARAM_NAME				= 16;
+static constexpr int PW_CMD_SET_PARAM_VISIBLE		= 17;
+static constexpr int PW_CMD_SET_ALL_PARAM_VISIBLE	= 18;
+static constexpr int PW_CMD_PROGRAM_LIST			= 21;
+static constexpr int PW_CMD_KEYPRESSED				= 22;
+static constexpr int PW_CMD_READY					= 23;
+static constexpr int PW_CMD_PONG					= 24;
+static constexpr int PW_CMD_PROCESS					= 25;
 
 
 //------------------------------------------------------------------
@@ -623,18 +631,18 @@ typedef enum TRescanPluginListerMode
 } TRescanPluginListerMode;
 
 /// Internal flag for the trace window.
-static const int US_CMD_TRACE					= 0xFA;
-static const int US_CMD_TRACE_ERROR				= 0xFB;
-static const int US_CMD_TRACE_WARNING			= 0xFC;
-static const int US_CMD_TRACE_PROGRESSFORM		= 0xFD;
-static const int US_CMD_TRACE_LOG				= 0xFE;
-static const int US_FLAG_NOTIFY					= 0xFF;
-static const int PL_CMD_RESCAN_PLUGINS_DONE		= 31;
-static const int PL_CMD_RESCANING				= 32;
+static constexpr int US_CMD_TRACE					= 0xFA;
+static constexpr int US_CMD_TRACE_ERROR				= 0xFB;
+static constexpr int US_CMD_TRACE_WARNING			= 0xFC;
+static constexpr int US_CMD_TRACE_PROGRESSFORM		= 0xFD;
+static constexpr int US_CMD_TRACE_LOG				= 0xFE;
+static constexpr int US_FLAG_NOTIFY					= 0xFF;
+static constexpr int PL_CMD_RESCAN_PLUGINS_DONE		= 31;
+static constexpr int PL_CMD_RESCANING				= 32;
 
 
 //-----------------------------------------------------------------------------
-/// Internal Command structure 
+/// Internal Command structure
 typedef struct TCommandPacket
 {
 	union
@@ -664,7 +672,7 @@ typedef struct TCommandPacket
 
 //-----------------------------------------------------------------------------
 /// Dialogs popup results
-/// The value returned by a popup 
+/// The value returned by a popup
 /// @see UserModuleBase::sdkDialogConfirmationYesNoCancel, UserModuleBase::sdkDialogConfirmationYesNo, UserModuleBase::sdkDialogInformationOk, UserModuleBase::sdkDialogConfirmationOKCancel
 typedef enum TDialogsResults
 {
@@ -699,7 +707,7 @@ typedef enum TDialogsResults
 
 //-----------------------------------------------------------------------------
 /// To store 2D coordinates in coefficient (from 0 to 1).
-typedef struct TPointF 
+typedef struct TPointF
 {
     float x;  ///< X Coordinates
     float y;  ///< Y coordinates
@@ -709,7 +717,7 @@ typedef struct TPointF
 typedef TPointF* TPointFPtr;
 
 /// To store 3D coordinates in coefficient (from 0 to 1).
-typedef struct T3DPointF 
+typedef struct T3DPointF
 {
     float x; ///< X Coordinates
     float y; ///< Y Coordinates
@@ -720,7 +728,7 @@ typedef struct T3DPointF
 typedef T3DPointF* T3DPointFPtr;
 
 /// To store Rectangle coordinates in coefficient (from 0 to 1).
-struct TRectF 
+struct TRectF
 {
     float left;    ///< left position
     float top;     ///< top position
@@ -730,7 +738,7 @@ struct TRectF
 
 /// Text vertical alignement.
 /// @see sdkFillText
-typedef enum TTextAlign 
+typedef enum TTextAlign
 {
     taCenter = 0, ///< centered
     taLeading,    ///< on the top
@@ -744,33 +752,33 @@ struct TModuleInfo;
 //-----------------------------------------------------------------------------
 /// Settings Panel Tab's name
 /// @see sdkAddSettingLineCaption ...
-static const AnsiCharPtr PROPERTIES_TAB_NAME	= "tab_properties";	///< Used to populate the properties tab of the Settings panel
-static const AnsiCharPtr DESIGN_TAB_NAME        = "tab_design";		///< Used to populate the design tab of the Settings panel
-static const AnsiCharPtr MOUSE_TAB_NAME         = "tab_mouse";		///< Used to populate the mouse tab of the Settings panel
-static const AnsiCharPtr OTHER_TAB_NAME			= "tab_other";		///< Used to populate the other tab of the Settings panel
-static const AnsiCharPtr REMOTE_TAB_NAME		= "tab_remote";		///< Used to populate the remote tab of the Settings panel
-static const AnsiCharPtr CURVES_TAB_NAME		= "tab_curves";		///< Used to populate the curves tab of the Settings panel
-static const AnsiCharPtr LAN_TAB_NAME		    = "tab_lan";		///< Used to populate the lan tab of the Settings panel
-static const AnsiCharPtr SIZE_TAB_NAME          = "tab_size";	    ///< Used to populate the size tab of the Settings panel
+static const auto PROPERTIES_TAB_NAME	= "tab_properties";	///< Used to populate the properties tab of the Settings panel
+static const auto DESIGN_TAB_NAME        = "tab_design";		///< Used to populate the design tab of the Settings panel
+static const auto MOUSE_TAB_NAME         = "tab_mouse";		///< Used to populate the mouse tab of the Settings panel
+static const auto OTHER_TAB_NAME			= "tab_other";		///< Used to populate the other tab of the Settings panel
+static const auto REMOTE_TAB_NAME		= "tab_remote";		///< Used to populate the remote tab of the Settings panel
+static const auto CURVES_TAB_NAME		= "tab_curves";		///< Used to populate the curves tab of the Settings panel
+static const auto LAN_TAB_NAME		    = "tab_lan";		///< Used to populate the lan tab of the Settings panel
+static const auto SIZE_TAB_NAME          = "tab_size";	    ///< Used to populate the size tab of the Settings panel
 
 /// Numeric format
 /// @see sdkAddSettingLineSingle ...
-static const AnsiCharPtr DEFAULT_FORMAT_FLOAT_3 = "%.3f"; ///< Default format for a 3 decimals number.
-static const AnsiCharPtr DEFAULT_FORMAT_FLOAT_2 = "%.2f"; ///< Default format for a 2 decimals number.
-static const AnsiCharPtr DEFAULT_FORMAT_FLOAT_1 = "%.1f"; ///< Default format for a 1 decimal number.
-static const AnsiCharPtr DEFAULT_FORMAT_INTEGER  = "%.0f"; ///<  Default format for an integer number.
-static const AnsiCharPtr DEFAULT_FORMAT_GENERAL  = "%g";   ///<  Default format for a string.
+static const auto DEFAULT_FORMAT_FLOAT_3 = "%.3f"; ///< Default format for a 3 decimals number.
+static const auto DEFAULT_FORMAT_FLOAT_2 = "%.2f"; ///< Default format for a 2 decimals number.
+static const auto DEFAULT_FORMAT_FLOAT_1 = "%.1f"; ///< Default format for a 1 decimal number.
+static const auto DEFAULT_FORMAT_INTEGER  = "%.0f"; ///<  Default format for an integer number.
+static const auto DEFAULT_FORMAT_GENERAL  = "%g";   ///<  Default format for a string.
 
-/// smooth factor used in smoothing functions 
+/// smooth factor used in smoothing functions
 /// @see sdkSmoothPrecision sdkSmoothEvent
-static const TPrecision SMOOTH_VERY_VERY_SLOW  = 0.99995f;
-static const TPrecision SMOOTH_VERY_SLOW       = 0.9999f;
-static const TPrecision SMOOTH_SLOW            = 0.9995f;
-static const TPrecision SMOOTH_MED_SLOW        = 0.999f;
-static const TPrecision SMOOTH_FAST            = 0.99f;
-static const TPrecision SMOOTH_VERY_FAST       = 0.9f;
-static const TPrecision SMOOTH_ULTRA_FAST      = 0.5f;
-static const TPrecision SMOOTH_NO_SMOOTH       = 0.f;
+static constexpr TPrecision SMOOTH_VERY_VERY_SLOW  = 0.99995f;
+static constexpr TPrecision SMOOTH_VERY_SLOW       = 0.9999f;
+static constexpr TPrecision SMOOTH_SLOW            = 0.9995f;
+static constexpr TPrecision SMOOTH_MED_SLOW        = 0.999f;
+static constexpr TPrecision SMOOTH_FAST            = 0.99f;
+static constexpr TPrecision SMOOTH_VERY_FAST       = 0.9f;
+static constexpr TPrecision SMOOTH_ULTRA_FAST      = 0.5f;
+static constexpr TPrecision SMOOTH_NO_SMOOTH       = 0.f;
 
 //-----------------------------------------------------------------------------
 // functions pointers used in TMasterInfo structure (see below)
@@ -840,7 +848,7 @@ typedef TPrecision  (*FuncMinEvt1) (UsineEventPtr in1);
 typedef void        (*FuncMaxEvt3) (UsineEventPtr in1, UsineEventPtr in2, UsineEventPtr out);
 typedef void        (*FuncMinEvt3) (UsineEventPtr in1, UsineEventPtr in2, UsineEventPtr out);
 
-typedef void  (*FuncThreshEvt2)      (const UsineEventPtr in1, UsineEventPtr out, TPrecision min, TPrecision max);
+typedef void  (*FuncThreshEvt2)      (UsineEventPtr in1, UsineEventPtr out, TPrecision min, TPrecision max);
 typedef void  (*FuncThreshEvt1)      (UsineEventPtr in1, TPrecision min, TPrecision max);
 typedef void  (*FuncMixMidiEvt3)     (UsineEventPtr in1, UsineEventPtr in2, UsineEventPtr out);
 typedef void  (*FuncMixMidiEvt2)     (UsineEventPtr in1, UsineEventPtr in2);
@@ -902,7 +910,8 @@ typedef void (*FuncSetParamValueText)	(TModuleInfo* pModuleInfo, int numParam, A
 typedef LongBool (*FuncLoading)	        (TModuleInfo* pModuleInfo);
 
 // audio callbacks
-typedef void (*FuncAudioDeviceIOCallback)	(const float** inputChannelData, int numInputChannels, float** outputChannelData, int numOutputChannels, int numSamples);
+// Changed for linux testing by basile
+typedef void (*FuncAudioDeviceIOCallback)	(const float *const *inputChannelData, int numInputChannels, float *const *outputChannelData, int numOutputChannels, int numSamples);
 
 // midi callbacks
 typedef void (*FuncMidiDeviceCallback)		(int deviceID, double TimeStamp, TUsineMidiCode midiData);
@@ -975,7 +984,7 @@ typedef AnsiCharPtr    (*FuncGetAudioQueryChannelNames) (AnsiCharPtr prefix, int
 
 // setter and getter for a setting line value
 typedef void(*FuncSetSettingValue)	(TModuleInfo* pModuleInfo, AnsiCharPtr settingName, UsineEventPtr settingEvent);
-typedef void(*FuncGetSettingValue)	(TModuleInfo* pModuleInfo, AnsiCharPtr settingName, UsineEventPtr settingEvent);
+typedef void(*FuncGetSettingValue)	(TModuleInfo* pModuleInfo, AnsiCharPtr settingName, UsineEventPtr& settingEvent);
 
 // Frames manipulation 
 typedef void(*FuncGetInputFrame)	(TModuleInfo* pModuleInfo, int numInput, TUsineFramePtr frame);
@@ -988,7 +997,7 @@ typedef TUsineColor (*FuncPixelToColor) (TUsinePixel pixel);
 typedef void(*FuncReleaseFrame)	    (TModuleInfo* pModuleInfo, TUsineFramePtr frame);
 typedef void(*FuncSetDimmerFrame)   (TModuleInfo* pModuleInfo, float dimmer, TUsineFramePtr frame);
 
-typedef void(*FuncLockPatch)                            (TModuleInfo* pModuleInfo);
+typedef void(*FuncLockCriticalSection)                            (TModuleInfo* pModuleInfo);
 typedef void(*FuncCriticalSectionLock)                  (TModuleInfo* pModuleInfo, TCriticalSectionPtr pCriticalSection, UINT32 timeout);
 typedef void(*FuncCriticalSectionUnLock)                (TModuleInfo* pModuleInfo, TCriticalSectionPtr pCriticalSection);
 typedef void(*FuncCriticalSectionDestroy)               (TModuleInfo* pModuleInfo, TCriticalSectionPtr pCriticalSection);
@@ -1283,8 +1292,8 @@ struct TMasterInfo
 	FuncRecreateParam               RecreateParam;
 	FuncLoading                     PatchLoading;
 	FuncGetSampleArrayAudioFile     GetSampleArrayAudioFile;
-	FuncLockPatch                   LockPatch;
-	FuncLockPatch                   UnLockPatch;
+	FuncLockCriticalSection                   LockPatch;
+	FuncLockCriticalSection                   UnLockPatch;
 	FuncResampleAudioFile           ResampleAudioFile;
 	FuncDenormalizeAudioEvt         DenormalizeAudioEvt;
 	FuncBoolean                     PatchJustActivated;
@@ -1347,6 +1356,8 @@ struct TMasterInfo
 
     FuncGetEvtMaxSize               GetEvtMaxSize;
     FuncBitBlit                     BitBlit;
+    FuncLockCriticalSection         LockUsineEngine;
+    FuncLockCriticalSection         UnLockUsineEngine;
 
 
 };
@@ -1380,69 +1391,69 @@ typedef enum TModuleType
 /// You fill the TModuleInfo structure in the onGetModuleInfo callback to inform Usine of the module specs.
 struct TModuleInfo 
 {
-    AnsiCharPtr     Name;           ///< short name displayed in the patch view
-    AnsiCharPtr     Description;    ///< long name displayed in the  Browser
+    AnsiCharPtr     Name{};           ///< short name displayed in the patch view
+    AnsiCharPtr     Description{};    ///< long name displayed in the  Browser
     TModuleType     ModuleType;     ///< module type: simple, form, control
-    TUsineColor     BackColor;      ///< module color in the patch view
-    int             NumberOfParams; ///< number of parameters of the module
+    TUsineColor     BackColor{};      ///< module color in the patch view
+    int             NumberOfParams{}; ///< number of parameters of the module
 
     /// Default Panel width
     ///<   if moduletype = mtControl : DefaultWidth is set to TMasterInfo.PanelWidth
     ///<   if moduletype = mtSimple : ignored
-    float       DefaultWidth;   ///< in pixel 
+    float       DefaultWidth{};   ///< in pixel
     
     // Default Panel height
     ///<   if moduletype = mtControl : DefaultHeight is set to TMasterInfo.PanelHeight
     ///<   if moduletype = mtSimple : ignored
-    float       DefaultHeight; ///< in pixel 
+    float       DefaultHeight{}; ///< in pixel
 
-    LongBool    DontProcess;        ///< FALSE by default. if TRUE, the module doesn't need any processing 
-    LongBool	CanRecord;    		///< FALSE by default. if TRUE, the module will have the Automation record functionality. 
+    LongBool    DontProcess{};        ///< FALSE by default. if TRUE, the module doesn't need any processing
+    LongBool	CanRecord{};    		///< FALSE by default. if TRUE, the module will have the Automation record functionality.
 
     //option for not show additional parameters, false by default  
-    LongBool DoNotCreateAddCtrl ;   ///< if true usine don't create parameters like mousedown, hint, etc.
+    LongBool DoNotCreateAddCtrl{} ;   ///< if true usine don't create parameters like mousedown, hint, etc.
 
     // pointer to Usine internal User Module
-    void*   UsineUserModule;    
+    void*   UsineUserModule{};
     
     // to verify that the module has been created properly
-    int     CheckCode; ///< @internal not for public use
+    int     CheckCode{}; ///< @internal not for public use
 
     // stuff for the Audio Query system and query lists
-    AnsiCharPtr     QueryListString;        ///< string to ask about entries numbers
-    AnsiCharPtr     QueryListValues;        ///< coma separated list with possible response
-    int             QueryListDefaultIdx;    ///< pre selected choice index for the coma list (0 to N-1)
+    AnsiCharPtr     QueryListString{};        ///< string to ask about entries numbers
+    AnsiCharPtr     QueryListValues{};        ///< coma separated list with possible response
+    int             QueryListDefaultIdx{};    ///< pre selected choice index for the coma list (0 to N-1)
                                         
-	AnsiCharPtr     Version;            ///< version of the module. Displayed in the Browser
+	AnsiCharPtr     Version{};            ///< version of the module. Displayed in the Browser
     
     /// FALSE by default, set to TRUE to activate the global Randomize feature.
     /// If activated you need to implement onRandomize Callback, Usine can call it at any time to initiate a Randomize. 
     /// When activated, a new entry is added in the properties tab named can be randomized and a randomize icon appear in the Contextual 
     /// Menu of the module if any and on the toolbar if any.	
-    LongBool        CanBeRandomized;    
+    LongBool        CanBeRandomized{};
 
 	// for video modules only
-	int     NumberOfVideoInputs; ///< number of video inputs must be in [0..2]
-	int     NumberOfVideoOutputs; ///< number of video outputs must be in [0..2]
+	int     NumberOfVideoInputs{}; ///< number of video inputs must be in [0..2]
+	int     NumberOfVideoOutputs{}; ///< number of video outputs must be in [0..2]
     /// FALSE by default, set to TRUE to activate the global Reset feature.
     /// If activated you need to implement onReset Callback, Usine can call it at any time to initiate a Reset.
     /// When activated, a new entry is added in the properties tab named can be reset and a reset icon appear in 
     /// the Contextual Menu of the module if any and on the toolbar if any.	
-	LongBool        CanBeReset;
+	LongBool        CanBeReset{};
 	LongBool        CanBeSavedInPreset = true;
-    LongBool        TransparentBackground;
+    LongBool        TransparentBackground{};
 
     
     // stuff for general queries
-    AnsiCharPtr QueryLabel1;  ///< query displayed label 1
-    int QueryDefaultValue1;      ///< default query value 1 value
-    int QueryMaxValue1;          ///< max query value 1 value
-    int QueryMinValue1;          ///< min query value 1 value
+    AnsiCharPtr QueryLabel1{};  ///< query displayed label 1
+    int QueryDefaultValue1{};      ///< default query value 1 value
+    int QueryMaxValue1{};          ///< max query value 1 value
+    int QueryMinValue1{};          ///< min query value 1 value
 
-    AnsiCharPtr QueryLabel2;  ///< query displayed label 2
-    int QueryDefaultValue2;      ///< default query value 2 value
-    int QueryMaxValue2;          ///< max query value 2 value
-    int QueryMinValue2;          ///< min query value 2 value
+    AnsiCharPtr QueryLabel2{};  ///< query displayed label 2
+    int QueryDefaultValue2{};      ///< default query value 2 value
+    int QueryMaxValue2{};          ///< max query value 2 value
+    int QueryMinValue2{};          ///< min query value 2 value
     
 };
 
@@ -1472,7 +1483,7 @@ struct TColorArgb
 struct TColorAhsl
 {  
     float a; ///< Alpha
-    float h; ///< Hue
+    float h; ///< Hue in degrees
     float s; ///< Saturation
     float l; ///< Luminance
 }; 
@@ -1491,7 +1502,7 @@ struct TColorAhsl
 //-----------------------------------------------------------------------------
 #define USINE_MODULE_EXPORT extern "C" __declspec( dllexport )
 //-----------------------------------------------------------------------------
-#elif (defined (USINE_OSX64))
+#elif (defined (USINE_OSX64) || defined(USINE_LIN64))
 //-----------------------------------------------------------------------------
 #define USINE_MODULE_EXPORT extern "C" __attribute__ (( visibility ("default") ))
 //-----------------------------------------------------------------------------
@@ -1621,5 +1632,3 @@ USINE_MODULE_EXPORT void ResetModule(void* pModule);
 
 /// Called by Usine when the user change the global color of the module
 USINE_MODULE_EXPORT void SetQuickColor(void* pModule, TUsineColor color);
-
-#endif // __USINE_DEFINITIONS_H__

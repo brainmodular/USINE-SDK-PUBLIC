@@ -61,6 +61,32 @@ Functions</h2></td></tr>
 <tr class="memitem:gab3e22ee46eb84b9744d41874a5ba0655"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gab3e22ee46eb84b9744d41874a5ba0655">UserModuleBase::UserModuleBase</a> ()</td></tr>
 <tr class="memdesc:gab3e22ee46eb84b9744d41874a5ba0655"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of the abstract class provided to derive user modules from.  <a href="#gab3e22ee46eb84b9744d41874a5ba0655">More...</a><br /></td></tr>
 <tr class="separator:gab3e22ee46eb84b9744d41874a5ba0655"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3bd7616b29f0bc995d13dcc63076e643"><td class="memItemLeft" align="right" valign="top"><a id="ga3bd7616b29f0bc995d13dcc63076e643"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga3bd7616b29f0bc995d13dcc63076e643">UserModuleBase::sdkDrawPathStart</a> () const</td></tr>
+<tr class="memdesc:ga3bd7616b29f0bc995d13dcc63076e643"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tell Usine to start a path sequence. A path must begin with this function, followed by a sequence of command describing the path structure and finally drawn or filled. <br /></td></tr>
+<tr class="separator:ga3bd7616b29f0bc995d13dcc63076e643"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2306be3477de029c158c99336c64aeaf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga2306be3477de029c158c99336c64aeaf">UserModuleBase::sdkDrawPathMoveTo</a> (const <a class="el" href="struct_t_point_f.html">TPointF</a> point) const</td></tr>
+<tr class="memdesc:ga2306be3477de029c158c99336c64aeaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the current position inside the path.  <a href="#ga2306be3477de029c158c99336c64aeaf">More...</a><br /></td></tr>
+<tr class="separator:ga2306be3477de029c158c99336c64aeaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4be78196876ecab180b74165f4ff6e92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga4be78196876ecab180b74165f4ff6e92">UserModuleBase::sdkDrawPathLineTo</a> (const <a class="el" href="struct_t_point_f.html">TPointF</a> point) const</td></tr>
+<tr class="memdesc:ga4be78196876ecab180b74165f4ff6e92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a line to the path, from the current position to the point provided.  <a href="#ga4be78196876ecab180b74165f4ff6e92">More...</a><br /></td></tr>
+<tr class="separator:ga4be78196876ecab180b74165f4ff6e92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf6c978295ceb8612b9f3a6cc4c662451"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaf6c978295ceb8612b9f3a6cc4c662451">UserModuleBase::sdkDrawPathQuadCurveTo</a> (const <a class="el" href="struct_t_point_f.html">TPointF</a> control, const <a class="el" href="struct_t_point_f.html">TPointF</a> point) const</td></tr>
+<tr class="memdesc:gaf6c978295ceb8612b9f3a6cc4c662451"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a quadratic curve to the path, from the current position to the point provided. The curve don't pass by the control point.  <a href="#gaf6c978295ceb8612b9f3a6cc4c662451">More...</a><br /></td></tr>
+<tr class="separator:gaf6c978295ceb8612b9f3a6cc4c662451"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7893fdf2e03a106042e60758717287e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga7893fdf2e03a106042e60758717287e8">UserModuleBase::sdkDrawPathClose</a> () const</td></tr>
+<tr class="memdesc:ga7893fdf2e03a106042e60758717287e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a line to close the path, from the current position to the first point of the path.  <a href="#ga7893fdf2e03a106042e60758717287e8">More...</a><br /></td></tr>
+<tr class="separator:ga7893fdf2e03a106042e60758717287e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga660f3ad6b4736263ac9496eaec3faf72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga660f3ad6b4736263ac9496eaec3faf72">UserModuleBase::sdkDrawPathDraw</a> (const <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> color, const float strokeThickness) const</td></tr>
+<tr class="memdesc:ga660f3ad6b4736263ac9496eaec3faf72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw the current path with the color and thickness provided.  <a href="#ga660f3ad6b4736263ac9496eaec3faf72">More...</a><br /></td></tr>
+<tr class="separator:ga660f3ad6b4736263ac9496eaec3faf72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7f9dcb45fbf00eb2d71deed842a60d87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga7f9dcb45fbf00eb2d71deed842a60d87">UserModuleBase::sdkDrawPathFill</a> (const <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> color) const</td></tr>
+<tr class="memdesc:ga7f9dcb45fbf00eb2d71deed842a60d87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill a valid path with the color and thickness provided.  <a href="#ga7f9dcb45fbf00eb2d71deed842a60d87">More...</a><br /></td></tr>
+<tr class="separator:ga7f9dcb45fbf00eb2d71deed842a60d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa6c143b69c8644050ad3bce73287b4a1"><td class="memItemLeft" align="right" valign="top"><a id="gaa6c143b69c8644050ad3bce73287b4a1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa6c143b69c8644050ad3bce73287b4a1">UserModuleBase::sdkRepaintPanel</a> () const</td></tr>
+<tr class="memdesc:gaa6c143b69c8644050ad3bce73287b4a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ask Usine to repaint the module Panel. The result is a call to the onPaint callback. <br /></td></tr>
+<tr class="separator:gaa6c143b69c8644050ad3bce73287b4a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga909a16dc3a81b1ea0a930bd50fc43d06"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_color_ahsl.html">TColorAhsl</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga909a16dc3a81b1ea0a930bd50fc43d06">sdkColorArgbToColorAhsl</a> (<a class="el" href="struct_t_color_argb.html">TColorArgb</a> c1)</td></tr>
 <tr class="memdesc:ga909a16dc3a81b1ea0a930bd50fc43d06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Various helpers around colors.  <a href="#ga909a16dc3a81b1ea0a930bd50fc43d06">More...</a><br /></td></tr>
 <tr class="separator:ga909a16dc3a81b1ea0a930bd50fc43d06"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,9 +177,9 @@ Mandatory Callbacks</h2></td></tr>
 <tr class="memitem:ga1d9d8cc50cf6b9d5c25f14d033a36ccf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga1d9d8cc50cf6b9d5c25f14d033a36ccf">UserModuleBase::onGetParamInfo</a> (int ParamIndex, <a class="el" href="struct_t_param_info.html">TParamInfo</a> *pParamInfo)=0</td></tr>
 <tr class="memdesc:ga1d9d8cc50cf6b9d5c25f14d033a36ccf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine call it for each parameters of the module to obtain it's characteristics.  <a href="#ga1d9d8cc50cf6b9d5c25f14d033a36ccf">More...</a><br /></td></tr>
 <tr class="separator:ga1d9d8cc50cf6b9d5c25f14d033a36ccf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8708af50ff9dbc603fb2888074883c92"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga8708af50ff9dbc603fb2888074883c92">UserModuleBase::onSetEventAddress</a> (int ParamIndex, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> pEvent)</td></tr>
-<tr class="memdesc:ga8708af50ff9dbc603fb2888074883c92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine call it for each parameters of the module to obtain the event handle of the parameter. Deprecated in HH3, use TModuleInfo::EventPtr.  <a href="#ga8708af50ff9dbc603fb2888074883c92">More...</a><br /></td></tr>
-<tr class="separator:ga8708af50ff9dbc603fb2888074883c92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gada7da97d5ec5dce51ea4f3fb334d30ad"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gada7da97d5ec5dce51ea4f3fb334d30ad">UserModuleBase::onSetEventAddress</a> (const int ParamIndex, const <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> pEvent)</td></tr>
+<tr class="memdesc:gada7da97d5ec5dce51ea4f3fb334d30ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine calls it for each parameters of the module to obtain the event handle of the parameter. Deprecated in HH3, use TModuleInfo::EventPtr.  <a href="#gada7da97d5ec5dce51ea4f3fb334d30ad">More...</a><br /></td></tr>
+<tr class="separator:gada7da97d5ec5dce51ea4f3fb334d30ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga10ed79484a141f7f45ad5839ce91a317"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga10ed79484a141f7f45ad5839ce91a317">UserModuleBase::onCallBack</a> (<a class="el" href="struct_t_usine_message.html">TUsineMessage</a> *Message)</td></tr>
 <tr class="memdesc:ga10ed79484a141f7f45ad5839ce91a317"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine call it to inform the module something happened.  <a href="#ga10ed79484a141f7f45ad5839ce91a317">More...</a><br /></td></tr>
 <tr class="separator:ga10ed79484a141f7f45ad5839ce91a317"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,16 +191,19 @@ Query System Callbacks</h2></td></tr>
 <tr class="memitem:gaa45533ff4e5acc87fb3f735227c99ffe"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa45533ff4e5acc87fb3f735227c99ffe">UserModuleBase::onGetNumberOfParams</a> (int queryResult1, int queryResult2)</td></tr>
 <tr class="memdesc:gaa45533ff4e5acc87fb3f735227c99ffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine call it to obtain the number of parameters of the module depending of the query result.  <a href="#gaa45533ff4e5acc87fb3f735227c99ffe">More...</a><br /></td></tr>
 <tr class="separator:gaa45533ff4e5acc87fb3f735227c99ffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga135f374650716f3c26d345f94ffb3f9a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga135f374650716f3c26d345f94ffb3f9a">UserModuleBase::onAfterQuery</a> (<a class="el" href="struct_t_master_info.html">TMasterInfo</a> *pMasterInfo, <a class="el" href="struct_t_module_info.html">TModuleInfo</a> *pModuleInfo, int queryResult1, int queryResult2)</td></tr>
-<tr class="memdesc:ga135f374650716f3c26d345f94ffb3f9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine call it after the query pop-up is closed. It let you do some things depending of the query choice.  <a href="#ga135f374650716f3c26d345f94ffb3f9a">More...</a><br /></td></tr>
-<tr class="separator:ga135f374650716f3c26d345f94ffb3f9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2601338f0004096a70bc22cd14c83004"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga2601338f0004096a70bc22cd14c83004">UserModuleBase::onAfterQuery</a> (<a class="el" href="struct_t_master_info.html">TMasterInfo</a> *pMasterInfo, <a class="el" href="struct_t_module_info.html">TModuleInfo</a> *pModuleInfo, const int queryResult1, const int queryResult2)</td></tr>
+<tr class="memdesc:ga2601338f0004096a70bc22cd14c83004"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine call it after the query pop-up is closed. It let you do some things depending of the query choice.  <a href="#ga2601338f0004096a70bc22cd14c83004">More...</a><br /></td></tr>
+<tr class="separator:ga2601338f0004096a70bc22cd14c83004"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Real-time Audio and Data Callback</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp3e7529113df79153de635f829b9469c6"></a>Usine call it if <a class="el" href="group___datatypes.html#ga6469b382c4b2898bba99e59f4fa86ed1" title="FALSE by default. if TRUE, the module doesn&#39;t need any processing. ">TModuleInfo::DontProcess</a> is not set to TRUE in onGetModuleInfo. </p>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp3e7529113df79153de635f829b9469c6"></a>Usine call it if <a class="el" href="group___datatypes.html#ga6469b382c4b2898bba99e59f4fa86ed1" title="FALSE by default. if TRUE, the module doesn&#39;t need any processing. ">TModuleInfo::DontProcess</a> is not set to TRUE in onGetModuleInfo.</p>
+<pre class="fragment">Be careful here because it's called from the audio thread at each audio tick of the audio engine.
+Keep it optimized and try to avoid any memory allocation.
+</pre><dl class="section see"><dt>See also</dt><dd><a class="el" href="group___datatypes.html#ga6469b382c4b2898bba99e59f4fa86ed1" title="FALSE by default. if TRUE, the module doesn&#39;t need any processing. ">TModuleInfo::DontProcess</a> </dd></dl>
 </td></tr>
-<tr class="memitem:ga45960407f47716a51be57fe4f5270ef8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga45960407f47716a51be57fe4f5270ef8">UserModuleBase::onProcess</a> ()</td></tr>
-<tr class="memdesc:ga45960407f47716a51be57fe4f5270ef8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Be careful here because it's called from the audio thread at each audio tick of the audio engine. Keep it optimized and try to avoid any memory allocation.  <a href="#ga45960407f47716a51be57fe4f5270ef8">More...</a><br /></td></tr>
+<tr class="memitem:ga45960407f47716a51be57fe4f5270ef8"><td class="memItemLeft" align="right" valign="top"><a id="ga45960407f47716a51be57fe4f5270ef8"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>UserModuleBase::onProcess</b> ()</td></tr>
 <tr class="separator:ga45960407f47716a51be57fe4f5270ef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
@@ -193,12 +222,12 @@ Load and Save Chunk System</h2></td></tr>
 <tr class="memitem:gabd2cc3bbe6c1d02c087cf1ef2b24bb9d"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gabd2cc3bbe6c1d02c087cf1ef2b24bb9d">UserModuleBase::onGetChunkLen</a> (<a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> Preset)</td></tr>
 <tr class="memdesc:gabd2cc3bbe6c1d02c087cf1ef2b24bb9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the chunk length estimation.  <a href="#gabd2cc3bbe6c1d02c087cf1ef2b24bb9d">More...</a><br /></td></tr>
 <tr class="separator:gabd2cc3bbe6c1d02c087cf1ef2b24bb9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga15171e905be5e57c4c72027cdb6ec4b8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga15171e905be5e57c4c72027cdb6ec4b8">UserModuleBase::onGetChunk</a> (void *chunk, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> Preset)</td></tr>
-<tr class="memdesc:ga15171e905be5e57c4c72027cdb6ec4b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provide a chunk handle to fill with additional info's.  <a href="#ga15171e905be5e57c4c72027cdb6ec4b8">More...</a><br /></td></tr>
-<tr class="separator:ga15171e905be5e57c4c72027cdb6ec4b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6973e7d6d6155690415d4d1599449522"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga6973e7d6d6155690415d4d1599449522">UserModuleBase::onSetChunk</a> (const void *chunk, int sizeInBytes, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> Preset)</td></tr>
-<tr class="memdesc:ga6973e7d6d6155690415d4d1599449522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provide a chunk handle filled by Usine to restore them into the module.  <a href="#ga6973e7d6d6155690415d4d1599449522">More...</a><br /></td></tr>
-<tr class="separator:ga6973e7d6d6155690415d4d1599449522"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2c24ee7545bbdab2c075e4f1b511ae25"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga2c24ee7545bbdab2c075e4f1b511ae25">UserModuleBase::onGetChunk</a> (void *chunk, const <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> Preset)</td></tr>
+<tr class="memdesc:ga2c24ee7545bbdab2c075e4f1b511ae25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provide a chunk handle to fill with additional info's.  <a href="#ga2c24ee7545bbdab2c075e4f1b511ae25">More...</a><br /></td></tr>
+<tr class="separator:ga2c24ee7545bbdab2c075e4f1b511ae25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad9c9eb64e45d2d7697b7c496da11b8d2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gad9c9eb64e45d2d7697b7c496da11b8d2">UserModuleBase::onSetChunk</a> (const void *chunk, const int sizeInBytes, const <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> Preset)</td></tr>
+<tr class="memdesc:gad9c9eb64e45d2d7697b7c496da11b8d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provide a chunk handle filled by Usine to restore them into the module.  <a href="#gad9c9eb64e45d2d7697b7c496da11b8d2">More...</a><br /></td></tr>
+<tr class="separator:gad9c9eb64e45d2d7697b7c496da11b8d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa8b0524e04f0894a63552bd4b759903b"><td class="memItemLeft" align="right" valign="top"><a id="gaa8b0524e04f0894a63552bd4b759903b"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa8b0524e04f0894a63552bd4b759903b">UserModuleBase::onAfterLoading</a> ()</td></tr>
 <tr class="memdesc:gaa8b0524e04f0894a63552bd4b759903b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called after the module is loaded in Usine. <br /></td></tr>
@@ -279,51 +308,106 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>UserModuleBas
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 onMouseMove</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp93bd2b4943c2f5cf5c43a365823b55f6"></a>Called by Usine when the mouse moves on the control </p>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp93bd2b4943c2f5cf5c43a365823b55f6"></a>Called by Usine when the mouse moves on the control</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Shift</td><td>State of the shift modifier key </td></tr>
+    <tr><td class="paramname">X</td><td>Cursor position first coordinate </td></tr>
+    <tr><td class="paramname">Y</td><td>Cursor position second coordinate </td></tr>
+  </table>
+  </dd>
+</dl>
 </td></tr>
 <tr class="memitem:gae172fbbc06ae1883a1a8bf7ab5bcda36"><td class="memItemLeft" align="right" valign="top"><a id="gae172fbbc06ae1883a1a8bf7ab5bcda36"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>UserModuleBase::onMouseMove</b> (<a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, float X, float Y)</td></tr>
 <tr class="separator:gae172fbbc06ae1883a1a8bf7ab5bcda36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+onMouseDown</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpa79c28f317f1a10461b8195914b8fbc7"></a>Called by Usine when the mouse is clicked down on the control</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MouseButton</td><td>Which button has been pressed </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___datatypes.html#ga4adc78edd76c6bac357cc4d579a09d52" title="Mouse buttons available for a mouse event callback. ">TMouseButton</a> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Shift</td><td>State of the shift modifier key </td></tr>
+    <tr><td class="paramname">X</td><td>Cursor position first coordinate </td></tr>
+    <tr><td class="paramname">Y</td><td>Cursor position second coordinate </td></tr>
+  </table>
+  </dd>
+</dl>
+</td></tr>
 <tr class="memitem:ga6f0203a68954c5e0df116c5933cf2851"><td class="memItemLeft" align="right" valign="top"><a id="ga6f0203a68954c5e0df116c5933cf2851"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga6f0203a68954c5e0df116c5933cf2851">UserModuleBase::onMouseDown</a> (<a class="el" href="group___datatypes.html#ga4adc78edd76c6bac357cc4d579a09d52">TMouseButton</a> MouseButton, <a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, float X, float Y)</td></tr>
-<tr class="memdesc:ga6f0203a68954c5e0df116c5933cf2851"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by Usine when the mouse is clicked down on the control. <br /></td></tr>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>UserModuleBase::onMouseDown</b> (<a class="el" href="group___datatypes.html#ga4adc78edd76c6bac357cc4d579a09d52">TMouseButton</a> MouseButton, <a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, float X, float Y)</td></tr>
 <tr class="separator:ga6f0203a68954c5e0df116c5933cf2851"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+onMouseUp</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp9df44d3d8ec9713a1baeb60c74483957"></a>Called by Usine when the mouse is clicked up on the control</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MouseButton</td><td>Which button has been released </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___datatypes.html#ga4adc78edd76c6bac357cc4d579a09d52" title="Mouse buttons available for a mouse event callback. ">TMouseButton</a> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Shift</td><td>State of the shift modifier key </td></tr>
+    <tr><td class="paramname">X</td><td>Cursor position first coordinate </td></tr>
+    <tr><td class="paramname">Y</td><td>Cursor position second coordinate </td></tr>
+  </table>
+  </dd>
+</dl>
+</td></tr>
 <tr class="memitem:gabae4c20dc3e22356dac155b290464233"><td class="memItemLeft" align="right" valign="top"><a id="gabae4c20dc3e22356dac155b290464233"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gabae4c20dc3e22356dac155b290464233">UserModuleBase::onMouseUp</a> (<a class="el" href="group___datatypes.html#ga4adc78edd76c6bac357cc4d579a09d52">TMouseButton</a> MouseButton, <a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, float X, float Y)</td></tr>
-<tr class="memdesc:gabae4c20dc3e22356dac155b290464233"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by Usine when the mouse is clicked up on the control. <br /></td></tr>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>UserModuleBase::onMouseUp</b> (<a class="el" href="group___datatypes.html#ga4adc78edd76c6bac357cc4d579a09d52">TMouseButton</a> MouseButton, <a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, float X, float Y)</td></tr>
 <tr class="separator:gabae4c20dc3e22356dac155b290464233"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+onMouseWheel</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp7ae7e98b23e9c55ff6b0e877f7cd0a5e"></a>Called by Usine when the mouse wheel is moved on the control</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Shift</td><td>State of the shift modifier key </td></tr>
+    <tr><td class="paramname">WheelDelta</td><td>The amount of scrolling done </td></tr>
+  </table>
+  </dd>
+</dl>
+</td></tr>
 <tr class="memitem:gad22b1f0a49160d2b3a254c6f03106a0e"><td class="memItemLeft" align="right" valign="top"><a id="gad22b1f0a49160d2b3a254c6f03106a0e"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gad22b1f0a49160d2b3a254c6f03106a0e">UserModuleBase::onMouseWheel</a> (<a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, int WheelDelta)</td></tr>
-<tr class="memdesc:gad22b1f0a49160d2b3a254c6f03106a0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by Usine when the mouse wheel is moved on the control. <br /></td></tr>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>UserModuleBase::onMouseWheel</b> (<a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, int WheelDelta)</td></tr>
 <tr class="separator:gad22b1f0a49160d2b3a254c6f03106a0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad1fed9f4f641a8fd5cf81202707ca85b"><td class="memItemLeft" align="right" valign="top"><a id="gad1fed9f4f641a8fd5cf81202707ca85b"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gad1fed9f4f641a8fd5cf81202707ca85b">UserModuleBase::onMouseMoveMulti</a> (<a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> X, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> Y, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> Pressed)</td></tr>
 <tr class="memdesc:gad1fed9f4f641a8fd5cf81202707ca85b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by Usine when control receives a touch-screen move event. <br /></td></tr>
 <tr class="separator:gad1fed9f4f641a8fd5cf81202707ca85b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1e503321fa55c3cd26a9e2f196ee8e17"><td class="memItemLeft" align="right" valign="top"><a id="ga1e503321fa55c3cd26a9e2f196ee8e17"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga1e503321fa55c3cd26a9e2f196ee8e17">UserModuleBase::onMouseMoveMulti</a> (<a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> *X, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> *Y, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> *Pressed)</td></tr>
-<tr class="memdesc:ga1e503321fa55c3cd26a9e2f196ee8e17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by Usine when control receives a touch-screen move event. <br /></td></tr>
-<tr class="separator:ga1e503321fa55c3cd26a9e2f196ee8e17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabeff5e9dd670ed4174fe5dcabe39464d"><td class="memItemLeft" align="right" valign="top"><a id="gabeff5e9dd670ed4174fe5dcabe39464d"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>UserModuleBase::onMouseMoveMulti</b> (<a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> &amp;X, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> &amp;Y, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> &amp;Pressed)</td></tr>
+<tr class="separator:gabeff5e9dd670ed4174fe5dcabe39464d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1133003c592c3feb200bc4403a572836"><td class="memItemLeft" align="right" valign="top"><a id="ga1133003c592c3feb200bc4403a572836"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga1133003c592c3feb200bc4403a572836">UserModuleBase::onMouseDownMulti</a> (<a class="el" href="group___datatypes.html#ga4adc78edd76c6bac357cc4d579a09d52">TMouseButton</a> MouseButton, <a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> X, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> Y, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> Pressed)</td></tr>
 <tr class="memdesc:ga1133003c592c3feb200bc4403a572836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by Usine when control receives a touch-screen down event. <br /></td></tr>
 <tr class="separator:ga1133003c592c3feb200bc4403a572836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga391217f9007dc76d87f9a9a0d5dccf8a"><td class="memItemLeft" align="right" valign="top"><a id="ga391217f9007dc76d87f9a9a0d5dccf8a"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga391217f9007dc76d87f9a9a0d5dccf8a">UserModuleBase::onMouseDownMulti</a> (<a class="el" href="group___datatypes.html#ga4adc78edd76c6bac357cc4d579a09d52">TMouseButton</a> MousButton, <a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> *X, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> *Y, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> *Pressed)</td></tr>
-<tr class="memdesc:ga391217f9007dc76d87f9a9a0d5dccf8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by Usine when control receives a touch-screen down event. <br /></td></tr>
-<tr class="separator:ga391217f9007dc76d87f9a9a0d5dccf8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga82fc27d3dfdfff6dd811e89b92f39e6f"><td class="memItemLeft" align="right" valign="top"><a id="ga82fc27d3dfdfff6dd811e89b92f39e6f"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>UserModuleBase::onMouseDownMulti</b> (<a class="el" href="group___datatypes.html#ga4adc78edd76c6bac357cc4d579a09d52">TMouseButton</a> MouseButton, <a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> &amp;X, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> &amp;Y, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> &amp;Pressed)</td></tr>
+<tr class="separator:ga82fc27d3dfdfff6dd811e89b92f39e6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabd783a3bacb246a071fb4abafc88bd39"><td class="memItemLeft" align="right" valign="top"><a id="gabd783a3bacb246a071fb4abafc88bd39"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gabd783a3bacb246a071fb4abafc88bd39">UserModuleBase::onMouseUpMulti</a> (<a class="el" href="group___datatypes.html#ga4adc78edd76c6bac357cc4d579a09d52">TMouseButton</a> MouseButton, <a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> X, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> Y, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> Pressed)</td></tr>
 <tr class="memdesc:gabd783a3bacb246a071fb4abafc88bd39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by Usine when control receives a touch-screen up event. <br /></td></tr>
 <tr class="separator:gabd783a3bacb246a071fb4abafc88bd39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga16d940b206e79db4d31e85d03f58bbee"><td class="memItemLeft" align="right" valign="top"><a id="ga16d940b206e79db4d31e85d03f58bbee"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>UserModuleBase::onMouseUpMulti</b> (<a class="el" href="group___datatypes.html#ga4adc78edd76c6bac357cc4d579a09d52">TMouseButton</a> MouseButton, <a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> *X, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> *Y, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> *Pressed)</td></tr>
-<tr class="separator:ga16d940b206e79db4d31e85d03f58bbee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae9e1e9c9993d20c8f31326d523bf7c6c"><td class="memItemLeft" align="right" valign="top"><a id="gae9e1e9c9993d20c8f31326d523bf7c6c"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>UserModuleBase::onMouseUpMulti</b> (<a class="el" href="group___datatypes.html#ga4adc78edd76c6bac357cc4d579a09d52">TMouseButton</a> MouseButton, <a class="el" href="group___datatypes.html#ga8bb64359681374c1c683a08117394377">TShiftState</a> Shift, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> &amp;X, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> &amp;Y, <a class="el" href="class_usine_event_class.html">UsineEventClass</a> &amp;Pressed)</td></tr>
+<tr class="separator:gae9e1e9c9993d20c8f31326d523bf7c6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Optional Callbacks</h2></td></tr>
 <tr class="memitem:gaf88f4c9522548738879730045d894008"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaf88f4c9522548738879730045d894008">UserModuleBase::onInitModule</a> (<a class="el" href="struct_t_master_info.html">TMasterInfo</a> *pMasterInfo, <a class="el" href="struct_t_module_info.html">TModuleInfo</a> *pModuleInfo)</td></tr>
-<tr class="memdesc:gaf88f4c9522548738879730045d894008"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine call it after onGetModuleInfo. It let you initialising some stuff.  <a href="#gaf88f4c9522548738879730045d894008">More...</a><br /></td></tr>
+<tr class="memdesc:gaf88f4c9522548738879730045d894008"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine calls this after onGetModuleInfo. It lets you initialize stuff.  <a href="#gaf88f4c9522548738879730045d894008">More...</a><br /></td></tr>
 <tr class="separator:gaf88f4c9522548738879730045d894008"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf26e975042e5144c68abef65c94a8e6e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaf26e975042e5144c68abef65c94a8e6e">UserModuleBase::onBlocSizeChange</a> (int BlocSize)</td></tr>
 <tr class="memdesc:gaf26e975042e5144c68abef65c94a8e6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine call it when the Usine BlockSize is changed.  <a href="#gaf26e975042e5144c68abef65c94a8e6e">More...</a><br /></td></tr>
@@ -384,429 +468,33 @@ DMX Out Callback</h2></td></tr>
 Graphic Canvas</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpa85b06ae6b281672428ab818808c21a3"></a>Use them in the onPaint callback to draw into a module canvas. </p>
 </td></tr>
-<tr class="memitem:gaa4a9474679f875c9c68bc0843315fd6f"><td class="memItemLeft" align="right" valign="top"><a id="gaa4a9474679f875c9c68bc0843315fd6f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa4a9474679f875c9c68bc0843315fd6f">UserModuleBase::sdkDrawPoint</a> (<a class="el" href="struct_t_point_f.html">TPointF</a> point, <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> color, float pointSize, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> rounded)</td></tr>
-<tr class="memdesc:gaa4a9474679f875c9c68bc0843315fd6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a point. <br /></td></tr>
-<tr class="separator:gaa4a9474679f875c9c68bc0843315fd6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac454f760829cea7410cf607a03f19300"><td class="memItemLeft" align="right" valign="top"><a id="gac454f760829cea7410cf607a03f19300"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gac454f760829cea7410cf607a03f19300">UserModuleBase::sdkDrawLine</a> (<a class="el" href="struct_t_point_f.html">TPointF</a> p1, <a class="el" href="struct_t_point_f.html">TPointF</a> p2, <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> color, float strokeThickness)</td></tr>
-<tr class="memdesc:gac454f760829cea7410cf607a03f19300"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a line. <br /></td></tr>
-<tr class="separator:gac454f760829cea7410cf607a03f19300"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga854d21b24a691fe2015dd40f94ef8918"><td class="memItemLeft" align="right" valign="top"><a id="ga854d21b24a691fe2015dd40f94ef8918"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga854d21b24a691fe2015dd40f94ef8918">UserModuleBase::sdkDrawPolyLine</a> (<a class="el" href="group___datatypes.html#gab2a5a7fc12828a49be23725048942edd">TPointFPtr</a> points, int numOfPoints, <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> color, float strokeThickness)</td></tr>
-<tr class="memdesc:ga854d21b24a691fe2015dd40f94ef8918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a polygon, points are stored in an array. <br /></td></tr>
-<tr class="separator:ga854d21b24a691fe2015dd40f94ef8918"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6703401f68e6601343a160ab3d215306"><td class="memItemLeft" align="right" valign="top"><a id="ga6703401f68e6601343a160ab3d215306"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga6703401f68e6601343a160ab3d215306">UserModuleBase::sdkFillPolyLine</a> (<a class="el" href="group___datatypes.html#gab2a5a7fc12828a49be23725048942edd">TPointFPtr</a> points, int numOfPoints, <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> color)</td></tr>
-<tr class="memdesc:ga6703401f68e6601343a160ab3d215306"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fille a polygon, points are stored in an array. <br /></td></tr>
-<tr class="separator:ga6703401f68e6601343a160ab3d215306"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaba1012d190aaccb9d4350c0085a68023"><td class="memItemLeft" align="right" valign="top"><a id="gaba1012d190aaccb9d4350c0085a68023"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaba1012d190aaccb9d4350c0085a68023">UserModuleBase::sdkFillRect</a> (<a class="el" href="struct_t_rect_f.html">TRectF</a> rect, <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> color, float roundRadius, <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> borderColor, float borderWith)</td></tr>
-<tr class="memdesc:gaba1012d190aaccb9d4350c0085a68023"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill a round rectangle. <br /></td></tr>
-<tr class="separator:gaba1012d190aaccb9d4350c0085a68023"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga53fb4a646a6ef7b6dc82f0221c3567e7"><td class="memItemLeft" align="right" valign="top"><a id="ga53fb4a646a6ef7b6dc82f0221c3567e7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga53fb4a646a6ef7b6dc82f0221c3567e7">UserModuleBase::sdkFillText</a> (<a class="el" href="struct_t_rect_f.html">TRectF</a> rect, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> text, <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> textColor, float fontSize, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> isBold=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> isWordWrap=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>, <a class="el" href="group___datatypes.html#ga5ca54f7d93f83c9ca3be85bcebc1b47f">TTextAlign</a> alignHorizontal=<a class="el" href="group___datatypes.html#gga5ca54f7d93f83c9ca3be85bcebc1b47fa636326e11e1f979a7bc725a489693fca">taCenter</a>, <a class="el" href="group___datatypes.html#ga5ca54f7d93f83c9ca3be85bcebc1b47f">TTextAlign</a> alignVertical=<a class="el" href="group___datatypes.html#gga5ca54f7d93f83c9ca3be85bcebc1b47fa636326e11e1f979a7bc725a489693fca">taCenter</a>, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> isVertical=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)</td></tr>
-<tr class="memdesc:ga53fb4a646a6ef7b6dc82f0221c3567e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill a text. <br /></td></tr>
-<tr class="separator:ga53fb4a646a6ef7b6dc82f0221c3567e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga74a51196e708166a2b453c4eeba75c14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga74a51196e708166a2b453c4eeba75c14">UserModuleBase::sdkBitBlit</a> (<a class="el" href="group___datatypes.html#ga9b776db52f3af21f44c93dcef1a01474">TUsinePixelPtr</a> pArray, int W, int H, <a class="el" href="struct_t_rect_f.html">TRectF</a> destRect)</td></tr>
-<tr class="memdesc:ga74a51196e708166a2b453c4eeba75c14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw an array of pixels.  <a href="#ga74a51196e708166a2b453c4eeba75c14">More...</a><br /></td></tr>
-<tr class="separator:ga74a51196e708166a2b453c4eeba75c14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Graphic Path</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp4ed51af007e8f8883d589772fdc6506d"></a></p><pre class="fragment">Example of constructing a path</pre><div class="fragment"><div class="line"><span class="comment">// begin draw path sequence</span></div><div class="line">sdkDrawPathStart ();</div><div class="line"> </div><div class="line"><span class="comment">// move to where we want to start the path</span></div><div class="line">sdkDrawPathMoveTo (<a class="code" href="group___globals.html#gaaf6dd4c77fab1e805fb1988115730cc0">sdkPointF</a>(0.25, 0.25));</div><div class="line"></div><div class="line"><span class="comment">// add a line </span></div><div class="line">sdkDrawPathLineTo (<a class="code" href="group___globals.html#gaaf6dd4c77fab1e805fb1988115730cc0">sdkPointF</a>(0.75, 0.25));</div><div class="line"></div><div class="line"><span class="comment">// add a curve </span></div><div class="line">sdkDrawPathQuadCurveTo (<a class="code" href="group___globals.html#gaaf6dd4c77fab1e805fb1988115730cc0">sdkPointF</a>(0.75, 0.75), <a class="code" href="group___globals.html#gaaf6dd4c77fab1e805fb1988115730cc0">sdkPointF</a>(0.25, 0.75));</div><div class="line"></div><div class="line"><span class="comment">// close the path </span></div><div class="line">sdkDrawPathClose ();</div><div class="line"></div><div class="line"><span class="comment">// end the command sequence and ask to draw the path</span></div><div class="line">sdkDrawPathDraw (colorTrajectory, thicknessTrajectory);</div></div><!-- fragment --> </td></tr>
-<tr class="memitem:ga53144406e3d7c000accc97cafc8faa10"><td class="memItemLeft" align="right" valign="top"><a id="ga53144406e3d7c000accc97cafc8faa10"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga53144406e3d7c000accc97cafc8faa10">UserModuleBase::sdkDrawPathStart</a> ()</td></tr>
-<tr class="memdesc:ga53144406e3d7c000accc97cafc8faa10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tell Usine to start a path sequence. A path must begin with this function, followed by a sequence of command describing the path structure and finally drawn or filled. <br /></td></tr>
-<tr class="separator:ga53144406e3d7c000accc97cafc8faa10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7cbecb75befd228cf1d6d2b563f46511"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga7cbecb75befd228cf1d6d2b563f46511">UserModuleBase::sdkDrawPathMoveTo</a> (<a class="el" href="struct_t_point_f.html">TPointF</a> point)</td></tr>
-<tr class="memdesc:ga7cbecb75befd228cf1d6d2b563f46511"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the current position inside the path.  <a href="#ga7cbecb75befd228cf1d6d2b563f46511">More...</a><br /></td></tr>
-<tr class="separator:ga7cbecb75befd228cf1d6d2b563f46511"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gada9f0cbf72390b9c4bda64c5855eff4c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gada9f0cbf72390b9c4bda64c5855eff4c">UserModuleBase::sdkDrawPathLineTo</a> (<a class="el" href="struct_t_point_f.html">TPointF</a> point)</td></tr>
-<tr class="memdesc:gada9f0cbf72390b9c4bda64c5855eff4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a line to the path, from the current position to the point provided.  <a href="#gada9f0cbf72390b9c4bda64c5855eff4c">More...</a><br /></td></tr>
-<tr class="separator:gada9f0cbf72390b9c4bda64c5855eff4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0e868a33212e42247c95aba87dbe759b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga0e868a33212e42247c95aba87dbe759b">UserModuleBase::sdkDrawPathQuadCurveTo</a> (<a class="el" href="struct_t_point_f.html">TPointF</a> control, <a class="el" href="struct_t_point_f.html">TPointF</a> point)</td></tr>
-<tr class="memdesc:ga0e868a33212e42247c95aba87dbe759b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a quadratic curve to the path, from the current position to the point provided. The curve don't pass by the control point.  <a href="#ga0e868a33212e42247c95aba87dbe759b">More...</a><br /></td></tr>
-<tr class="separator:ga0e868a33212e42247c95aba87dbe759b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7984aa264a31ef3985d9db442129a118"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga7984aa264a31ef3985d9db442129a118">UserModuleBase::sdkDrawPathClose</a> ()</td></tr>
-<tr class="memdesc:ga7984aa264a31ef3985d9db442129a118"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a line to close the path, from the current position to the first point of the path.  <a href="#ga7984aa264a31ef3985d9db442129a118">More...</a><br /></td></tr>
-<tr class="separator:ga7984aa264a31ef3985d9db442129a118"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5e7806317810def5f69fd2371d2537b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga5e7806317810def5f69fd2371d2537b2">UserModuleBase::sdkDrawPathDraw</a> (<a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> color, float strokeThickness)</td></tr>
-<tr class="memdesc:ga5e7806317810def5f69fd2371d2537b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw the current path with the color and thickness provided.  <a href="#ga5e7806317810def5f69fd2371d2537b2">More...</a><br /></td></tr>
-<tr class="separator:ga5e7806317810def5f69fd2371d2537b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7578e3afd6ca0dc556aa5d36cf6be694"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga7578e3afd6ca0dc556aa5d36cf6be694">UserModuleBase::sdkDrawPathFill</a> (<a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> color)</td></tr>
-<tr class="memdesc:ga7578e3afd6ca0dc556aa5d36cf6be694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill a valid path with the color and thickness provided.  <a href="#ga7578e3afd6ca0dc556aa5d36cf6be694">More...</a><br /></td></tr>
-<tr class="separator:ga7578e3afd6ca0dc556aa5d36cf6be694"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf26477ffb6f2ec201fc2fcd8352c6df1"><td class="memItemLeft" align="right" valign="top"><a id="gaf26477ffb6f2ec201fc2fcd8352c6df1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaf26477ffb6f2ec201fc2fcd8352c6df1">UserModuleBase::sdkRepaintPanel</a> (void)</td></tr>
-<tr class="memdesc:gaf26477ffb6f2ec201fc2fcd8352c6df1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ask Usine to repaint the module Panel. The result is a call to the onPaint callback. <br /></td></tr>
-<tr class="separator:gaf26477ffb6f2ec201fc2fcd8352c6df1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Automation Recording</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp152d2b084b03a9756bf073319b3624b8"></a>To record some values for the Automation Recording system. </p>
-</td></tr>
-<tr class="memitem:gadddf9a72e274e983827e146f90d8fb5d"><td class="memItemLeft" align="right" valign="top"><a id="gadddf9a72e274e983827e146f90d8fb5d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gadddf9a72e274e983827e146f90d8fb5d">UserModuleBase::sdkStopRecord</a> ()</td></tr>
-<tr class="memdesc:gadddf9a72e274e983827e146f90d8fb5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the recording. <br /></td></tr>
-<tr class="separator:gadddf9a72e274e983827e146f90d8fb5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga551ddd0e41e94d2a9136c191589a1943"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga551ddd0e41e94d2a9136c191589a1943">UserModuleBase::sdkProcessRecord</a> (<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> X, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> Y, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> Z)</td></tr>
-<tr class="memdesc:ga551ddd0e41e94d2a9136c191589a1943"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the recording process if it is not started and processes the recording. to stop the recording use sdkStopRecord.  <a href="#ga551ddd0e41e94d2a9136c191589a1943">More...</a><br /></td></tr>
-<tr class="separator:ga551ddd0e41e94d2a9136c191589a1943"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Settings options</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp47befcac1e7ce5d204ffd3a71ade1749"></a>Use them in onCreateSettings to add some entries in the Settings Panel. </p>
-</td></tr>
-<tr class="memitem:gab83998fae1204ec495c41779b2997e5f"><td class="memItemLeft" align="right" valign="top"><a id="gab83998fae1204ec495c41779b2997e5f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gab83998fae1204ec495c41779b2997e5f">UserModuleBase::sdkAddSettingLineCaption</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> tab, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> caption=&quot;&quot;, <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> color=0, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> Translate=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)</td></tr>
-<tr class="memdesc:gab83998fae1204ec495c41779b2997e5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">To add a text entry in a Tab of the Settings Panel. <br /></td></tr>
-<tr class="separator:gab83998fae1204ec495c41779b2997e5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga60d9878096b820e14e30f3fcce82fd84"><td class="memItemLeft" align="right" valign="top"><a id="ga60d9878096b820e14e30f3fcce82fd84"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga60d9878096b820e14e30f3fcce82fd84">UserModuleBase::sdkAddSettingLineColor</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> tab, <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> *pVal, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> Caption, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> Translate=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)</td></tr>
-<tr class="memdesc:ga60d9878096b820e14e30f3fcce82fd84"><td class="mdescLeft">&#160;</td><td class="mdescRight">To add a color selector entry in a Tab of the Settings Panel. <br /></td></tr>
-<tr class="separator:ga60d9878096b820e14e30f3fcce82fd84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2aa780de849d3840b2d0e024b3cb8606"><td class="memItemLeft" align="right" valign="top"><a id="ga2aa780de849d3840b2d0e024b3cb8606"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga2aa780de849d3840b2d0e024b3cb8606">UserModuleBase::sdkAddSettingLineBoolean</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> tab, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> *pVal, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> Caption, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> Translate=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)</td></tr>
-<tr class="memdesc:ga2aa780de849d3840b2d0e024b3cb8606"><td class="mdescLeft">&#160;</td><td class="mdescRight">To add a boolean entry in a Tab of the Settings Panel. <br /></td></tr>
-<tr class="separator:ga2aa780de849d3840b2d0e024b3cb8606"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9a892088c5dd4dda19e5bbc59a39c617"><td class="memItemLeft" align="right" valign="top"><a id="ga9a892088c5dd4dda19e5bbc59a39c617"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga9a892088c5dd4dda19e5bbc59a39c617">UserModuleBase::sdkAddSettingLineInteger</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> tab, int *pVal, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> Caption, int min, int max, <a class="el" href="group___datatypes.html#ga71dcce5659b5d2d3c6979a5c85e16041">TScale</a> scale, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> symbol, int defaultValue, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> Translate=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)</td></tr>
-<tr class="memdesc:ga9a892088c5dd4dda19e5bbc59a39c617"><td class="mdescLeft">&#160;</td><td class="mdescRight">To add an integer entry in a Tab of the Settings Panel. <br /></td></tr>
-<tr class="separator:ga9a892088c5dd4dda19e5bbc59a39c617"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga378ebaef085d9530990bf70c27e5d8e8"><td class="memItemLeft" align="right" valign="top"><a id="ga378ebaef085d9530990bf70c27e5d8e8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga378ebaef085d9530990bf70c27e5d8e8">UserModuleBase::sdkAddSettingLineSingle</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> tab, float *pVal, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> caption, float min, float max, <a class="el" href="group___datatypes.html#ga71dcce5659b5d2d3c6979a5c85e16041">TScale</a> scale, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> symbol, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> format, float defaultValue, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> Translate=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)</td></tr>
-<tr class="memdesc:ga378ebaef085d9530990bf70c27e5d8e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">To add a decimal number entry in a Tab of the Settings Panel. <br /></td></tr>
-<tr class="separator:ga378ebaef085d9530990bf70c27e5d8e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga100091041a391ee65a9484ab5fa7e148"><td class="memItemLeft" align="right" valign="top"><a id="ga100091041a391ee65a9484ab5fa7e148"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga100091041a391ee65a9484ab5fa7e148">UserModuleBase::sdkAddSettingLineCombobox</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> tab, int *pVal, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> caption, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> commaText, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> Translate=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)</td></tr>
-<tr class="memdesc:ga100091041a391ee65a9484ab5fa7e148"><td class="mdescLeft">&#160;</td><td class="mdescRight">To add a combo box entry in a Tab of the Settings Panel. <br /></td></tr>
-<tr class="separator:ga100091041a391ee65a9484ab5fa7e148"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3257568f42f3a9f61068aee97b6d5e74"><td class="memItemLeft" align="right" valign="top"><a id="ga3257568f42f3a9f61068aee97b6d5e74"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga3257568f42f3a9f61068aee97b6d5e74">UserModuleBase::sdkAddSettingsLineString</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> tab, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> pVal, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> caption, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> Translate=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)</td></tr>
-<tr class="memdesc:ga3257568f42f3a9f61068aee97b6d5e74"><td class="mdescLeft">&#160;</td><td class="mdescRight">To add a string entry in a Tab of the Settings Panel. <br /></td></tr>
-<tr class="separator:ga3257568f42f3a9f61068aee97b6d5e74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2f74a83a9252d0f64f742d6d23f8845f"><td class="memItemLeft" align="right" valign="top"><a id="ga2f74a83a9252d0f64f742d6d23f8845f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga2f74a83a9252d0f64f742d6d23f8845f">UserModuleBase::sdkSetSettingValue</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> settingName, <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a> settingEvent)</td></tr>
-<tr class="memdesc:ga2f74a83a9252d0f64f742d6d23f8845f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for an existing setting line entry. <br /></td></tr>
-<tr class="separator:ga2f74a83a9252d0f64f742d6d23f8845f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga935b59e8cd5434e8cdac891b8299fedb"><td class="memItemLeft" align="right" valign="top"><a id="ga935b59e8cd5434e8cdac891b8299fedb"></a>
-<a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga935b59e8cd5434e8cdac891b8299fedb">UserModuleBase::sdkGetSettingValue</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> settingName)</td></tr>
-<tr class="memdesc:ga935b59e8cd5434e8cdac891b8299fedb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for an existing setting line entry. <br /></td></tr>
-<tr class="separator:ga935b59e8cd5434e8cdac891b8299fedb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Contextual Menus commands</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpfd691a415a2578cc4a05a0224d434422"></a>Use them in the onCreateCommands callback to add commands in the module Contextual Menu. </p>
-</td></tr>
-<tr class="memitem:ga088b8e1474ccfc72c243a8a138dbb284"><td class="memItemLeft" align="right" valign="top"><a id="ga088b8e1474ccfc72c243a8a138dbb284"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga088b8e1474ccfc72c243a8a138dbb284">UserModuleBase::sdkAddCommand</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name, NativeInt CallbackId, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> Translate=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)</td></tr>
-<tr class="memdesc:ga088b8e1474ccfc72c243a8a138dbb284"><td class="mdescLeft">&#160;</td><td class="mdescRight">To add a Command entry in the module Contextual Menu. <br /></td></tr>
-<tr class="separator:ga088b8e1474ccfc72c243a8a138dbb284"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8ec6d122c851ca86de5efc33cea788a2"><td class="memItemLeft" align="right" valign="top"><a id="ga8ec6d122c851ca86de5efc33cea788a2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga8ec6d122c851ca86de5efc33cea788a2">UserModuleBase::sdkAddCommandSeparator</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> Translate=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)</td></tr>
-<tr class="memdesc:ga8ec6d122c851ca86de5efc33cea788a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">To add a named separator in the module Contextual Menu. <br /></td></tr>
-<tr class="separator:ga8ec6d122c851ca86de5efc33cea788a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Video Frame manipulation</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpab2e36a1f2e78a9cf90566e1112b5ab4"></a>Utils functions to help manipulate video frames </p>
-</td></tr>
-<tr class="memitem:gaefb5df25f5080606b9ea94992c31b50c"><td class="memItemLeft" align="right" valign="top"><a id="gaefb5df25f5080606b9ea94992c31b50c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaefb5df25f5080606b9ea94992c31b50c">UserModuleBase::sdkGetInputFrame</a> (int numInput, <a class="el" href="struct_t_usine_frame.html">TUsineFramePtr</a> frame)</td></tr>
-<tr class="memdesc:gaefb5df25f5080606b9ea94992c31b50c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get incoming video Frames. <br /></td></tr>
-<tr class="separator:gaefb5df25f5080606b9ea94992c31b50c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gada0fb29112a8c43376c82054b51e3855"><td class="memItemLeft" align="right" valign="top"><a id="gada0fb29112a8c43376c82054b51e3855"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gada0fb29112a8c43376c82054b51e3855">UserModuleBase::sdkSetOutputFrame</a> (int numOutput, <a class="el" href="struct_t_usine_frame.html">TUsineFramePtr</a> frame)</td></tr>
-<tr class="memdesc:gada0fb29112a8c43376c82054b51e3855"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set outgoing video Frames. <br /></td></tr>
-<tr class="separator:gada0fb29112a8c43376c82054b51e3855"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4afd0743e6c224a2d4845e48cc5a1c4b"><td class="memItemLeft" align="right" valign="top"><a id="ga4afd0743e6c224a2d4845e48cc5a1c4b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga4afd0743e6c224a2d4845e48cc5a1c4b">UserModuleBase::sdkClearFrame</a> (<a class="el" href="struct_t_usine_frame.html">TUsineFramePtr</a> frame, <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> color)</td></tr>
-<tr class="memdesc:ga4afd0743e6c224a2d4845e48cc5a1c4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear, fill a frame with a color. <br /></td></tr>
-<tr class="separator:ga4afd0743e6c224a2d4845e48cc5a1c4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab5a286fe528aeb0cd5327f5bd7acf5af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gab5a286fe528aeb0cd5327f5bd7acf5af">UserModuleBase::sdkGetNewFrame</a> (<a class="el" href="struct_t_usine_frame.html">TUsineFramePtr</a> frame, int width, int height, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> permanent)</td></tr>
-<tr class="memdesc:gab5a286fe528aeb0cd5327f5bd7acf5af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a new frame.  <a href="#gab5a286fe528aeb0cd5327f5bd7acf5af">More...</a><br /></td></tr>
-<tr class="separator:gab5a286fe528aeb0cd5327f5bd7acf5af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga420e3f23d8243af3c4a035925fd4b8ca"><td class="memItemLeft" align="right" valign="top"><a id="ga420e3f23d8243af3c4a035925fd4b8ca"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga420e3f23d8243af3c4a035925fd4b8ca">UserModuleBase::sdkReleaseFrame</a> (<a class="el" href="struct_t_usine_frame.html">TUsineFramePtr</a> frame)</td></tr>
-<tr class="memdesc:ga420e3f23d8243af3c4a035925fd4b8ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Release permanent frames. <br /></td></tr>
-<tr class="separator:ga420e3f23d8243af3c4a035925fd4b8ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5b9b372d536a34d4d7108d14128519d0"><td class="memItemLeft" align="right" valign="top"><a id="ga5b9b372d536a34d4d7108d14128519d0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga5b9b372d536a34d4d7108d14128519d0">UserModuleBase::sdkCopyFrame</a> (<a class="el" href="struct_t_usine_frame.html">TUsineFramePtr</a> srcFrame, <a class="el" href="struct_t_usine_frame.html">TUsineFramePtr</a> destFrame)</td></tr>
-<tr class="memdesc:ga5b9b372d536a34d4d7108d14128519d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy a frame into another. <br /></td></tr>
-<tr class="separator:ga5b9b372d536a34d4d7108d14128519d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa2c4c77289e86ac023f554a8c6015ae4"><td class="memItemLeft" align="right" valign="top"><a id="gaa2c4c77289e86ac023f554a8c6015ae4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa2c4c77289e86ac023f554a8c6015ae4">UserModuleBase::sdkSetDimmerFrame</a> (<a class="el" href="struct_t_usine_frame.html">TUsineFramePtr</a> frame, float dimmer)</td></tr>
-<tr class="memdesc:gaa2c4c77289e86ac023f554a8c6015ae4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a dimmer in the range [0..1] to a frame. <br /></td></tr>
-<tr class="separator:gaa2c4c77289e86ac023f554a8c6015ae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga45a9f2a65d93d5013d20c66c09b7f9ca"><td class="memItemLeft" align="right" valign="top"><a id="ga45a9f2a65d93d5013d20c66c09b7f9ca"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga45a9f2a65d93d5013d20c66c09b7f9ca">UserModuleBase::sdkSetPixel</a> (<a class="el" href="struct_t_usine_frame.html">TUsineFramePtr</a> frame, int X, int Y, <a class="el" href="struct_t_usine_pixel.html">TUsinePixel</a> pixel)</td></tr>
-<tr class="memdesc:ga45a9f2a65d93d5013d20c66c09b7f9ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a pixel at position X,Y in the frame. <br /></td></tr>
-<tr class="separator:ga45a9f2a65d93d5013d20c66c09b7f9ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga421f6cd039e0e69d7f7ee17d21cb700a"><td class="memItemLeft" align="right" valign="top"><a id="ga421f6cd039e0e69d7f7ee17d21cb700a"></a>
-<a class="el" href="struct_t_usine_pixel.html">TUsinePixel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga421f6cd039e0e69d7f7ee17d21cb700a">UserModuleBase::sdkGetPixel</a> (<a class="el" href="struct_t_usine_frame.html">TUsineFramePtr</a> frame, int X, int Y)</td></tr>
-<tr class="memdesc:ga421f6cd039e0e69d7f7ee17d21cb700a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a pixel at position X,Y in the frame. <br /></td></tr>
-<tr class="separator:ga421f6cd039e0e69d7f7ee17d21cb700a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2d56b8e7df9acb233dcba6152a0e00e7"><td class="memItemLeft" align="right" valign="top"><a id="ga2d56b8e7df9acb233dcba6152a0e00e7"></a>
-<a class="el" href="struct_t_usine_pixel.html">TUsinePixel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga2d56b8e7df9acb233dcba6152a0e00e7">UserModuleBase::sdkColorToPixel</a> (<a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> color)</td></tr>
-<tr class="memdesc:ga2d56b8e7df9acb233dcba6152a0e00e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforms a TUsineColor into a <a class="el" href="struct_t_usine_pixel.html" title="Data type for video Frames pixels used in video modules. ">TUsinePixel</a>. <br /></td></tr>
-<tr class="separator:ga2d56b8e7df9acb233dcba6152a0e00e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1a98fee8f82b2b0fc907f48cc4d47f88"><td class="memItemLeft" align="right" valign="top"><a id="ga1a98fee8f82b2b0fc907f48cc4d47f88"></a>
-<a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga1a98fee8f82b2b0fc907f48cc4d47f88">UserModuleBase::sdkPixelToColor</a> (<a class="el" href="struct_t_usine_pixel.html">TUsinePixel</a> pixel)</td></tr>
-<tr class="memdesc:ga1a98fee8f82b2b0fc907f48cc4d47f88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforms a <a class="el" href="struct_t_usine_pixel.html" title="Data type for video Frames pixels used in video modules. ">TUsinePixel</a> into a TUsineColor. <br /></td></tr>
-<tr class="separator:ga1a98fee8f82b2b0fc907f48cc4d47f88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Critical Sections</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp8519ec8627e503a7510b987eaa982ff7"></a>Critical sections functions to protect patches calculation. </p>
-</td></tr>
-<tr class="memitem:ga948153ae61c80d181ef2ee7390d0e8e1"><td class="memItemLeft" align="right" valign="top"><a id="ga948153ae61c80d181ef2ee7390d0e8e1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga948153ae61c80d181ef2ee7390d0e8e1">UserModuleBase::sdkLockPatch</a> ()</td></tr>
-<tr class="memdesc:ga948153ae61c80d181ef2ee7390d0e8e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lock the execution of the current patch to prevent memory access conflicts between the audio thread and other threads like IDLE, video, etc. <br /></td></tr>
-<tr class="separator:ga948153ae61c80d181ef2ee7390d0e8e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaab29d8b9fddcf817c670c48cf5e50d3e"><td class="memItemLeft" align="right" valign="top"><a id="gaab29d8b9fddcf817c670c48cf5e50d3e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaab29d8b9fddcf817c670c48cf5e50d3e">UserModuleBase::sdkUnLockPatch</a> ()</td></tr>
-<tr class="memdesc:gaab29d8b9fddcf817c670c48cf5e50d3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnLock the execution of the current patch. <br /></td></tr>
-<tr class="separator:gaab29d8b9fddcf817c670c48cf5e50d3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacac36730ac0f85f62fb1fdbc216c890a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gacac36730ac0f85f62fb1fdbc216c890a">UserModuleBase::sdkCriticalSectionLock</a> (<a class="el" href="group___datatypes.html#ga417a5c17ed8b4dda4389df11cf4b7240">TCriticalSectionPtr</a> pCriticalSection, UINT32 timeout=0)</td></tr>
-<tr class="memdesc:gacac36730ac0f85f62fb1fdbc216c890a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lock a critical section.  <a href="#gacac36730ac0f85f62fb1fdbc216c890a">More...</a><br /></td></tr>
-<tr class="separator:gacac36730ac0f85f62fb1fdbc216c890a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa4aae4079a00a7ad158d31d897712d67"><td class="memItemLeft" align="right" valign="top"><a id="gaa4aae4079a00a7ad158d31d897712d67"></a>
-<a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa4aae4079a00a7ad158d31d897712d67">UserModuleBase::sdkCriticalSectionTryLock</a> (<a class="el" href="group___datatypes.html#ga417a5c17ed8b4dda4389df11cf4b7240">TCriticalSectionPtr</a> pCriticalSection)</td></tr>
-<tr class="memdesc:gaa4aae4079a00a7ad158d31d897712d67"><td class="mdescLeft">&#160;</td><td class="mdescRight">TryLock a critical section. <br /></td></tr>
-<tr class="separator:gaa4aae4079a00a7ad158d31d897712d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8396c332c7e909e8ac1ff9cad89ea2ad"><td class="memItemLeft" align="right" valign="top"><a id="ga8396c332c7e909e8ac1ff9cad89ea2ad"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga8396c332c7e909e8ac1ff9cad89ea2ad">UserModuleBase::sdkCriticalSectionUnLock</a> (<a class="el" href="group___datatypes.html#ga417a5c17ed8b4dda4389df11cf4b7240">TCriticalSectionPtr</a> pCriticalSection)</td></tr>
-<tr class="memdesc:ga8396c332c7e909e8ac1ff9cad89ea2ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnLock a critical section. <br /></td></tr>
-<tr class="separator:ga8396c332c7e909e8ac1ff9cad89ea2ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac34dff5218d87d9b6ccc7ab968ba3274"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___datatypes.html#ga417a5c17ed8b4dda4389df11cf4b7240">TCriticalSectionPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gac34dff5218d87d9b6ccc7ab968ba3274">UserModuleBase::sdkCriticalSectionCreate</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> shared=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)</td></tr>
-<tr class="memdesc:gac34dff5218d87d9b6ccc7ab968ba3274"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a critical section.  <a href="#gac34dff5218d87d9b6ccc7ab968ba3274">More...</a><br /></td></tr>
-<tr class="separator:gac34dff5218d87d9b6ccc7ab968ba3274"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5b1f3925b49ae82fed9bb5baa7fc662a"><td class="memItemLeft" align="right" valign="top"><a id="ga5b1f3925b49ae82fed9bb5baa7fc662a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga5b1f3925b49ae82fed9bb5baa7fc662a">UserModuleBase::sdkCriticalSectionDestroy</a> (<a class="el" href="group___datatypes.html#ga417a5c17ed8b4dda4389df11cf4b7240">TCriticalSectionPtr</a> pCriticalSection)</td></tr>
-<tr class="memdesc:ga5b1f3925b49ae82fed9bb5baa7fc662a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a critical section. <br /></td></tr>
-<tr class="separator:ga5b1f3925b49ae82fed9bb5baa7fc662a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Threads</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp03bfaee27b3b5cfb28deef84a0f416e5"></a>Threads for multi-threading </p>
-</td></tr>
-<tr class="memitem:ga846975329d2bc9ca307c9c178180f8e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___datatypes.html#ga40768a849dbc3c55e60504779cfe081d">TThreadPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga846975329d2bc9ca307c9c178180f8e0">UserModuleBase::sdkThreadCreate</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name, FuncThreadProcess ProcessThreadProc, <a class="el" href="group___datatypes.html#ga2dc400c438444996449c9d056c0883cf">TThreadPriority</a> priority, UINT32 timeout)</td></tr>
-<tr class="memdesc:ga846975329d2bc9ca307c9c178180f8e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a thread.  <a href="#ga846975329d2bc9ca307c9c178180f8e0">More...</a><br /></td></tr>
-<tr class="separator:ga846975329d2bc9ca307c9c178180f8e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga90a855b54ff15b93edc957eb233fbd86"><td class="memItemLeft" align="right" valign="top"><a id="ga90a855b54ff15b93edc957eb233fbd86"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga90a855b54ff15b93edc957eb233fbd86">UserModuleBase::sdkThreadDestroy</a> (<a class="el" href="group___datatypes.html#ga40768a849dbc3c55e60504779cfe081d">TThreadPtr</a> pThread)</td></tr>
-<tr class="memdesc:ga90a855b54ff15b93edc957eb233fbd86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a thread. <br /></td></tr>
-<tr class="separator:ga90a855b54ff15b93edc957eb233fbd86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa4b95263d1ded224d94c59de7608dbae"><td class="memItemLeft" align="right" valign="top"><a id="gaa4b95263d1ded224d94c59de7608dbae"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa4b95263d1ded224d94c59de7608dbae">UserModuleBase::sdkThreadRestart</a> (<a class="el" href="group___datatypes.html#ga40768a849dbc3c55e60504779cfe081d">TThreadPtr</a> pThread)</td></tr>
-<tr class="memdesc:gaa4b95263d1ded224d94c59de7608dbae"><td class="mdescLeft">&#160;</td><td class="mdescRight">restart a thread. <br /></td></tr>
-<tr class="separator:gaa4b95263d1ded224d94c59de7608dbae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3e0b3556cb1ff8dc53a57fcb3fe0f1e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga3e0b3556cb1ff8dc53a57fcb3fe0f1e8">UserModuleBase::sdkThreadSetTimeOut</a> (<a class="el" href="group___datatypes.html#ga40768a849dbc3c55e60504779cfe081d">TThreadPtr</a> pThread, UINT32 timeout)</td></tr>
-<tr class="memdesc:ga3e0b3556cb1ff8dc53a57fcb3fe0f1e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">set timeout of a thread.  <a href="#ga3e0b3556cb1ff8dc53a57fcb3fe0f1e8">More...</a><br /></td></tr>
-<tr class="separator:ga3e0b3556cb1ff8dc53a57fcb3fe0f1e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Parameters setters</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp9faf7f710c4bf020d8666314526fac35"></a>Utils functions to update some Parameter property other than the Event data. </p>
-</td></tr>
-<tr class="memitem:ga767abd59305ff2ee462b4951b439a0b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga767abd59305ff2ee462b4951b439a0b8">UserModuleBase::sdkSetListBoxCommaText</a> (int numParam, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> commaText)</td></tr>
-<tr class="memdesc:ga767abd59305ff2ee462b4951b439a0b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">If the parameter is of type ptListBox, change the comma text defining the list content.  <a href="#ga767abd59305ff2ee462b4951b439a0b8">More...</a><br /></td></tr>
-<tr class="separator:ga767abd59305ff2ee462b4951b439a0b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga268d6c467c2541c294a155f11d186638"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga268d6c467c2541c294a155f11d186638">UserModuleBase::sdkSetParamCaption</a> (int numParam, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> caption)</td></tr>
-<tr class="memdesc:ga268d6c467c2541c294a155f11d186638"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the name of a parameter. It's the name showed in Usine.  <a href="#ga268d6c467c2541c294a155f11d186638">More...</a><br /></td></tr>
-<tr class="separator:ga268d6c467c2541c294a155f11d186638"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga10616146e549909f87f8ee8441a1aa25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga10616146e549909f87f8ee8441a1aa25">UserModuleBase::sdkSetParamVisible</a> (int numParam, <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> visible)</td></tr>
-<tr class="memdesc:ga10616146e549909f87f8ee8441a1aa25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a parameter visible or not.  <a href="#ga10616146e549909f87f8ee8441a1aa25">More...</a><br /></td></tr>
-<tr class="separator:ga10616146e549909f87f8ee8441a1aa25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2246621990b21c42020d3c7c666b41b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga2246621990b21c42020d3c7c666b41b3">UserModuleBase::sdkRecreateParam</a> (int numParam, <a class="el" href="struct_t_param_info.html">TParamInfo</a> *pParamInfo)</td></tr>
-<tr class="memdesc:ga2246621990b21c42020d3c7c666b41b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recreate a parameter with new settings.  <a href="#ga2246621990b21c42020d3c7c666b41b3">More...</a><br /></td></tr>
-<tr class="separator:ga2246621990b21c42020d3c7c666b41b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafa4307f65c1808d85c73de1e30fdadb3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gafa4307f65c1808d85c73de1e30fdadb3">UserModuleBase::sdkSetParamValueText</a> (int numParam, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> valueText)</td></tr>
-<tr class="memdesc:gafa4307f65c1808d85c73de1e30fdadb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">If the parameter is of type ptTextField, change the text content.  <a href="#gafa4307f65c1808d85c73de1e30fdadb3">More...</a><br /></td></tr>
-<tr class="separator:gafa4307f65c1808d85c73de1e30fdadb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadc212ca663deff2b2b7e0e54888ebe28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gadc212ca663deff2b2b7e0e54888ebe28">UserModuleBase::sdkRepaintParam</a> (int numParam)</td></tr>
-<tr class="memdesc:gadc212ca663deff2b2b7e0e54888ebe28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ask Usine to Update the parameter. Usually used after one of the function above.  <a href="#gadc212ca663deff2b2b7e0e54888ebe28">More...</a><br /></td></tr>
-<tr class="separator:gadc212ca663deff2b2b7e0e54888ebe28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Usine Objects functions</h2></td></tr>
-<tr class="memitem:ga515463093858c712f839e35cefc698b7"><td class="memItemLeft" align="right" valign="top"><a id="ga515463093858c712f839e35cefc698b7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga515463093858c712f839e35cefc698b7">UserModuleBase::sdkUsineObjectSetFloat</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> floatValue)</td></tr>
-<tr class="memdesc:ga515463093858c712f839e35cefc698b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the float value of an Usine-Object. <br /></td></tr>
-<tr class="separator:ga515463093858c712f839e35cefc698b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac45274fffcceec31047e03c0aa50060a"><td class="memItemLeft" align="right" valign="top"><a id="gac45274fffcceec31047e03c0aa50060a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gac45274fffcceec31047e03c0aa50060a">UserModuleBase::sdkUsineObjectSetInteger</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name, int integerValue)</td></tr>
-<tr class="memdesc:gac45274fffcceec31047e03c0aa50060a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the integer value of an Usine-Object. <br /></td></tr>
-<tr class="separator:gac45274fffcceec31047e03c0aa50060a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacc4d0f7b21097aff6186add48ff5fef4"><td class="memItemLeft" align="right" valign="top"><a id="gacc4d0f7b21097aff6186add48ff5fef4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gacc4d0f7b21097aff6186add48ff5fef4">UserModuleBase::sdkUsineObjectSetArray</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name, int index, <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a> floatValue)</td></tr>
-<tr class="memdesc:gacc4d0f7b21097aff6186add48ff5fef4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the float value of an Usine-Object array at the index position. <br /></td></tr>
-<tr class="separator:gacc4d0f7b21097aff6186add48ff5fef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad28003aecd7efa46c91cee077e36500c"><td class="memItemLeft" align="right" valign="top"><a id="gad28003aecd7efa46c91cee077e36500c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gad28003aecd7efa46c91cee077e36500c">UserModuleBase::sdkUsineObjectSetMIDI</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name, int index, <a class="el" href="struct_t_usine_midi_code.html">TUsineMidiCode</a> midiValue)</td></tr>
-<tr class="memdesc:gad28003aecd7efa46c91cee077e36500c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Midi value of an Usine-Object array at the index position. <br /></td></tr>
-<tr class="separator:gad28003aecd7efa46c91cee077e36500c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga25b2a201a3b2f6822e1b9bcc0a4d3569"><td class="memItemLeft" align="right" valign="top"><a id="ga25b2a201a3b2f6822e1b9bcc0a4d3569"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga25b2a201a3b2f6822e1b9bcc0a4d3569">UserModuleBase::sdkUsineObjectSetColor</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name, <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> colorValue)</td></tr>
-<tr class="memdesc:ga25b2a201a3b2f6822e1b9bcc0a4d3569"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the color value of an Usine-Object. <br /></td></tr>
-<tr class="separator:ga25b2a201a3b2f6822e1b9bcc0a4d3569"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7b660e8f2a79ce608acb6dbb32870b4b"><td class="memItemLeft" align="right" valign="top"><a id="ga7b660e8f2a79ce608acb6dbb32870b4b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga7b660e8f2a79ce608acb6dbb32870b4b">UserModuleBase::sdkUsineObjectSetArrayColor</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name, int index, <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> colorValue)</td></tr>
-<tr class="memdesc:ga7b660e8f2a79ce608acb6dbb32870b4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the color value of an Usine-Object array at the index position. <br /></td></tr>
-<tr class="separator:ga7b660e8f2a79ce608acb6dbb32870b4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9d32b0791853aa8d6a9b1ff8af802635"><td class="memItemLeft" align="right" valign="top"><a id="ga9d32b0791853aa8d6a9b1ff8af802635"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga9d32b0791853aa8d6a9b1ff8af802635">UserModuleBase::sdkUsineObjectSetTrigger</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name)</td></tr>
-<tr class="memdesc:ga9d32b0791853aa8d6a9b1ff8af802635"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a trigger value of an Usine-Object. <br /></td></tr>
-<tr class="separator:ga9d32b0791853aa8d6a9b1ff8af802635"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7ba10c53bc3ecad41646f1f506b1a28b"><td class="memItemLeft" align="right" valign="top"><a id="ga7ba10c53bc3ecad41646f1f506b1a28b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga7ba10c53bc3ecad41646f1f506b1a28b">UserModuleBase::sdkUsineObjectSetAnsiChar</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> v)</td></tr>
-<tr class="memdesc:ga7ba10c53bc3ecad41646f1f506b1a28b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the text value of an Usine-Object. <br /></td></tr>
-<tr class="separator:ga7ba10c53bc3ecad41646f1f506b1a28b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4106b232a4039e7f12a4c2e396fdcc78"><td class="memItemLeft" align="right" valign="top"><a id="ga4106b232a4039e7f12a4c2e396fdcc78"></a>
-<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga4106b232a4039e7f12a4c2e396fdcc78">UserModuleBase::sdkUsineObjectGetFloat</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name)</td></tr>
-<tr class="memdesc:ga4106b232a4039e7f12a4c2e396fdcc78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the float value of an Usine-Object. <br /></td></tr>
-<tr class="separator:ga4106b232a4039e7f12a4c2e396fdcc78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad160e0aa87adacc9a30b4384a3d64a33"><td class="memItemLeft" align="right" valign="top"><a id="gad160e0aa87adacc9a30b4384a3d64a33"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gad160e0aa87adacc9a30b4384a3d64a33">UserModuleBase::sdkUsineObjectGetInteger</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name)</td></tr>
-<tr class="memdesc:gad160e0aa87adacc9a30b4384a3d64a33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the integer value of an Usine-Object. <br /></td></tr>
-<tr class="separator:gad160e0aa87adacc9a30b4384a3d64a33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga909109f87fbfcfbfa73e3d03b14a665e"><td class="memItemLeft" align="right" valign="top"><a id="ga909109f87fbfcfbfa73e3d03b14a665e"></a>
-<a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga909109f87fbfcfbfa73e3d03b14a665e">UserModuleBase::sdkUsineObjectGetArray</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name, int index)</td></tr>
-<tr class="memdesc:ga909109f87fbfcfbfa73e3d03b14a665e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the float value of an Usine-Object array at the index position. <br /></td></tr>
-<tr class="separator:ga909109f87fbfcfbfa73e3d03b14a665e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaab50d887e2ad2a82595b277bdd45cd36"><td class="memItemLeft" align="right" valign="top"><a id="gaab50d887e2ad2a82595b277bdd45cd36"></a>
-<a class="el" href="struct_t_usine_midi_code.html">TUsineMidiCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaab50d887e2ad2a82595b277bdd45cd36">UserModuleBase::sdkUsineObjectGetMIDI</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name, int index)</td></tr>
-<tr class="memdesc:gaab50d887e2ad2a82595b277bdd45cd36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Midi value of an Usine-Object array at the index position. <br /></td></tr>
-<tr class="separator:gaab50d887e2ad2a82595b277bdd45cd36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga16bf08337534bd2c5485c4e18a35f2a1"><td class="memItemLeft" align="right" valign="top"><a id="ga16bf08337534bd2c5485c4e18a35f2a1"></a>
-<a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga16bf08337534bd2c5485c4e18a35f2a1">UserModuleBase::sdkUsineObjectGetColor</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name)</td></tr>
-<tr class="memdesc:ga16bf08337534bd2c5485c4e18a35f2a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the color value of an Usine-Object. <br /></td></tr>
-<tr class="separator:ga16bf08337534bd2c5485c4e18a35f2a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab13843c7764c4a57efad326210d44173"><td class="memItemLeft" align="right" valign="top"><a id="gab13843c7764c4a57efad326210d44173"></a>
-<a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gab13843c7764c4a57efad326210d44173">UserModuleBase::sdkUsineObjectGetArrayColor</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name, int index)</td></tr>
-<tr class="memdesc:gab13843c7764c4a57efad326210d44173"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the array value of an Usine-Object array at the index position. <br /></td></tr>
-<tr class="separator:gab13843c7764c4a57efad326210d44173"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae43af9a4ad655feb033066b98c6f0199"><td class="memItemLeft" align="right" valign="top"><a id="gae43af9a4ad655feb033066b98c6f0199"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gae43af9a4ad655feb033066b98c6f0199">UserModuleBase::sdkUsineObjectGetAnsiChar</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name)</td></tr>
-<tr class="memdesc:gae43af9a4ad655feb033066b98c6f0199"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the text value of an Usine-Object. <br /></td></tr>
-<tr class="separator:gae43af9a4ad655feb033066b98c6f0199"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga635e72605a13261a65657da14ff2e15a"><td class="memItemLeft" align="right" valign="top"><a id="ga635e72605a13261a65657da14ff2e15a"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga635e72605a13261a65657da14ff2e15a">UserModuleBase::sdkUsineObjectGetLength</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name)</td></tr>
-<tr class="memdesc:ga635e72605a13261a65657da14ff2e15a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the Event associated to an Usine-Object. <br /></td></tr>
-<tr class="separator:ga635e72605a13261a65657da14ff2e15a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadb0dde9902b299db95064f50c2ac6af1"><td class="memItemLeft" align="right" valign="top"><a id="gadb0dde9902b299db95064f50c2ac6af1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gadb0dde9902b299db95064f50c2ac6af1">UserModuleBase::sdkUsineObjectSetLength</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name, int l)</td></tr>
-<tr class="memdesc:gadb0dde9902b299db95064f50c2ac6af1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the size of the Event associated to an Usine-Object. <br /></td></tr>
-<tr class="separator:gadb0dde9902b299db95064f50c2ac6af1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaadb056847b5297c83f0a4156b0078fd7"><td class="memItemLeft" align="right" valign="top"><a id="gaadb056847b5297c83f0a4156b0078fd7"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaadb056847b5297c83f0a4156b0078fd7">UserModuleBase::sdkUsineObjectFind</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name)</td></tr>
-<tr class="memdesc:gaadb056847b5297c83f0a4156b0078fd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the list (as a comma-text) of all Usine-Objects that match with the name parameter. <br /></td></tr>
-<tr class="separator:gaadb056847b5297c83f0a4156b0078fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab744156e3b00e331f2e5fc11cff2c896"><td class="memItemLeft" align="right" valign="top"><a id="gab744156e3b00e331f2e5fc11cff2c896"></a>
-<a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gab744156e3b00e331f2e5fc11cff2c896">UserModuleBase::sdkUsineObjectExists</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name)</td></tr>
-<tr class="memdesc:gab744156e3b00e331f2e5fc11cff2c896"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns TRUE if the Usine-Objects exists. <br /></td></tr>
-<tr class="separator:gab744156e3b00e331f2e5fc11cff2c896"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab369c83c346fc83626a40e25626404df"><td class="memItemLeft" align="right" valign="top"><a id="gab369c83c346fc83626a40e25626404df"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gab369c83c346fc83626a40e25626404df">UserModuleBase::sdkUsineObjectListHash</a> ()</td></tr>
-<tr class="memdesc:gab369c83c346fc83626a40e25626404df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Hash of all Usine-Objects. This allows to determines if the list of all the Usine-Objects has changed. <br /></td></tr>
-<tr class="separator:gab369c83c346fc83626a40e25626404df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Usine Core infos and services</h2></td></tr>
-<tr class="memitem:ga26fdd2e4222377a781e817e42a7fbf77"><td class="memItemLeft" align="right" valign="top"><a id="ga26fdd2e4222377a781e817e42a7fbf77"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga26fdd2e4222377a781e817e42a7fbf77">UserModuleBase::sdkSendUsineMsg</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> Msg)</td></tr>
-<tr class="memdesc:ga26fdd2e4222377a781e817e42a7fbf77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine internal messages. <br /></td></tr>
-<tr class="separator:ga26fdd2e4222377a781e817e42a7fbf77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa19079773bb29f42987f24fc273aa9c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa19079773bb29f42987f24fc273aa9c2">UserModuleBase::sdkNotifyUsine</a> (NativeInt Target, NativeInt Msg, NativeInt WParam=0, NativeInt LParam=0, int Delay=0)</td></tr>
-<tr class="memdesc:gaa19079773bb29f42987f24fc273aa9c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usine notification.  <a href="#gaa19079773bb29f42987f24fc273aa9c2">More...</a><br /></td></tr>
-<tr class="separator:gaa19079773bb29f42987f24fc273aa9c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga924f20b2b9ec9a53adc42e9b1180c798"><td class="memItemLeft" align="right" valign="top"><a id="ga924f20b2b9ec9a53adc42e9b1180c798"></a>
-<a class="el" href="struct_t_vst_time_info.html">TVstTimeInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga924f20b2b9ec9a53adc42e9b1180c798">UserModuleBase::sdkGetVstTimeInfo</a> ()</td></tr>
-<tr class="memdesc:ga924f20b2b9ec9a53adc42e9b1180c798"><td class="mdescLeft">&#160;</td><td class="mdescRight">To access the current <a class="el" href="struct_t_vst_time_info.html" title="VST Time info structure as defined by the Steinberg VST SDK. Used by Usine to deal with time at a mus...">TVstTimeInfo</a> structure of Usine. <br /></td></tr>
-<tr class="separator:ga924f20b2b9ec9a53adc42e9b1180c798"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga81258991d936f1b4c3324ffe71f6608e"><td class="memItemLeft" align="right" valign="top"><a id="ga81258991d936f1b4c3324ffe71f6608e"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga81258991d936f1b4c3324ffe71f6608e">UserModuleBase::sdkGetTimeMs</a> ()</td></tr>
-<tr class="memdesc:ga81258991d936f1b4c3324ffe71f6608e"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the Usine global time in millisecond, precision up to nanoseconde. <br /></td></tr>
-<tr class="separator:ga81258991d936f1b4c3324ffe71f6608e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0eef9b591c3b41a4d2cf91302a88886c"><td class="memItemLeft" align="right" valign="top"><a id="ga0eef9b591c3b41a4d2cf91302a88886c"></a>
-<a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga0eef9b591c3b41a4d2cf91302a88886c">UserModuleBase::sdkPatchIsRunning</a> ()</td></tr>
-<tr class="memdesc:ga0eef9b591c3b41a4d2cf91302a88886c"><td class="mdescLeft">&#160;</td><td class="mdescRight">To check if the patch containing the module is running. <br /></td></tr>
-<tr class="separator:ga0eef9b591c3b41a4d2cf91302a88886c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga417c377b0fcd69a574293de182952edd"><td class="memItemLeft" align="right" valign="top"><a id="ga417c377b0fcd69a574293de182952edd"></a>
-<a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga417c377b0fcd69a574293de182952edd">UserModuleBase::sdkPatchLoading</a> ()</td></tr>
-<tr class="memdesc:ga417c377b0fcd69a574293de182952edd"><td class="mdescLeft">&#160;</td><td class="mdescRight">To check if the patch containing the module is loading. <br /></td></tr>
-<tr class="separator:ga417c377b0fcd69a574293de182952edd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaaf2bc81518eebaf26c1b7dfd5d8e261b"><td class="memItemLeft" align="right" valign="top"><a id="gaaf2bc81518eebaf26c1b7dfd5d8e261b"></a>
-<a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaaf2bc81518eebaf26c1b7dfd5d8e261b">UserModuleBase::sdkPatchJustActivated</a> ()</td></tr>
-<tr class="memdesc:gaaf2bc81518eebaf26c1b7dfd5d8e261b"><td class="mdescLeft">&#160;</td><td class="mdescRight">To check if the patch has just started. <br /></td></tr>
-<tr class="separator:gaaf2bc81518eebaf26c1b7dfd5d8e261b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab37203b161ee3ff3002cd6c3c4c22925"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gab37203b161ee3ff3002cd6c3c4c22925">UserModuleBase::sdkRefreshSpeedClock</a> ()</td></tr>
-<tr class="memdesc:gab37203b161ee3ff3002cd6c3c4c22925"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a tick clock at the refresh-speed of Usine, generally every 25 ms. this can reduce the cpu load for non priority tasks.  <a href="#gab37203b161ee3ff3002cd6c3c4c22925">More...</a><br /></td></tr>
-<tr class="separator:gab37203b161ee3ff3002cd6c3c4c22925"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8e738a58f112c53ba3cea0456fd7aebd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga8e738a58f112c53ba3cea0456fd7aebd">UserModuleBase::sdkSlowClock</a> ()</td></tr>
-<tr class="memdesc:ga8e738a58f112c53ba3cea0456fd7aebd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a tick clock at the slow-speed of Usine, generally every second. this can reduce the cpu load for very low priority tasks.  <a href="#ga8e738a58f112c53ba3cea0456fd7aebd">More...</a><br /></td></tr>
-<tr class="separator:ga8e738a58f112c53ba3cea0456fd7aebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4b5dac14d3ed2f67a63f49dac51f3163"><td class="memItemLeft" align="right" valign="top"><a id="ga4b5dac14d3ed2f67a63f49dac51f3163"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga4b5dac14d3ed2f67a63f49dac51f3163">UserModuleBase::sdkGetUsineUserModule</a> ()</td></tr>
-<tr class="memdesc:ga4b5dac14d3ed2f67a63f49dac51f3163"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the pointer of the Usine module. Do not use directly. <br /></td></tr>
-<tr class="separator:ga4b5dac14d3ed2f67a63f49dac51f3163"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga93daf1421b6cbbcd49a0e6ca5666dcc7"><td class="memItemLeft" align="right" valign="top"><a id="ga93daf1421b6cbbcd49a0e6ca5666dcc7"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga93daf1421b6cbbcd49a0e6ca5666dcc7">UserModuleBase::sdkGetUsineVersionNum</a> ()</td></tr>
-<tr class="memdesc:ga93daf1421b6cbbcd49a0e6ca5666dcc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the version number of Usine as a string. <br /></td></tr>
-<tr class="separator:ga93daf1421b6cbbcd49a0e6ca5666dcc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1a841439c5bf59ddc3283670573d64e8"><td class="memItemLeft" align="right" valign="top"><a id="ga1a841439c5bf59ddc3283670573d64e8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga1a841439c5bf59ddc3283670573d64e8">UserModuleBase::sdkSetModuleUserName</a> (<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name)</td></tr>
-<tr class="memdesc:ga1a841439c5bf59ddc3283670573d64e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the name of the module (as it appear in the patch, on the module title) <br /></td></tr>
-<tr class="separator:ga1a841439c5bf59ddc3283670573d64e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadf697dc2eb4b4fd6f9fddc652416c7d9"><td class="memItemLeft" align="right" valign="top"><a id="gadf697dc2eb4b4fd6f9fddc652416c7d9"></a>
-<a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gadf697dc2eb4b4fd6f9fddc652416c7d9">UserModuleBase::sdkGetModuleUserName</a> ()</td></tr>
-<tr class="memdesc:gadf697dc2eb4b4fd6f9fddc652416c7d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the name of the module (as it appear in the patch, on the module title) <br /></td></tr>
-<tr class="separator:gadf697dc2eb4b4fd6f9fddc652416c7d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Module child window</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp6387f25032fa66c756362ad579fa6363"></a>A User module can create and manage an independent child window for it's own use. Note that only one child window at a time per module is possible.</p>
-<dl class="section see"><dt>See also</dt><dd>Child Window Callbacks </dd></dl>
-</td></tr>
-<tr class="memitem:gaba8b95ec89c8bdf575b8a6395e8c5b48"><td class="memItemLeft" align="right" valign="top"><a id="gaba8b95ec89c8bdf575b8a6395e8c5b48"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><b>UserModuleBase::sdkCreateDeskWindow</b> ()</td></tr>
-<tr class="separator:gaba8b95ec89c8bdf575b8a6395e8c5b48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadcc86ca78e5eb2706162a8243279a0bf"><td class="memItemLeft" align="right" valign="top"><a id="gadcc86ca78e5eb2706162a8243279a0bf"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>UserModuleBase::sdkDestroyDeskWindow</b> ()</td></tr>
-<tr class="separator:gadcc86ca78e5eb2706162a8243279a0bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga66112a5c2a129da89f2f5c8ae350b075"><td class="memItemLeft" align="right" valign="top"><a id="ga66112a5c2a129da89f2f5c8ae350b075"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><b>UserModuleBase::sdkShowDeskWindow</b> ()</td></tr>
-<tr class="separator:ga66112a5c2a129da89f2f5c8ae350b075"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8376b5efa21956d67717d61cb8ad1fd1"><td class="memItemLeft" align="right" valign="top"><a id="ga8376b5efa21956d67717d61cb8ad1fd1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>UserModuleBase::sdkHideDeskWindow</b> ()</td></tr>
-<tr class="separator:ga8376b5efa21956d67717d61cb8ad1fd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1c952692c6f2066cfb6a1f0d12c991eb"><td class="memItemLeft" align="right" valign="top"><a id="ga1c952692c6f2066cfb6a1f0d12c991eb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>UserModuleBase::sdkSetDeskWindowClientSize</b> (int clientWidth, int clientHeight)</td></tr>
-<tr class="separator:ga1c952692c6f2066cfb6a1f0d12c991eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab1dafd0f24e75894162c1a3871857710"><td class="memItemLeft" align="right" valign="top"><a id="gab1dafd0f24e75894162c1a3871857710"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>UserModuleBase::sdkSetDeskWindowCaption</b> (<a class="el" href="struct_t_module_info.html">TModuleInfo</a> *pModuleInfo, <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> name)</td></tr>
-<tr class="separator:gab1dafd0f24e75894162c1a3871857710"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Converter utils</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpd2ab73b2f434f4a37893c8f75e8cd2d2"></a>Useful to convert between pixel coord and graphic canvas unit. </p><pre class="fragment"></pre> </td></tr>
-<tr class="memitem:ga398203f9dfc8d79e5b7e4dfa83dcacb5"><td class="memItemLeft" align="right" valign="top"><a id="ga398203f9dfc8d79e5b7e4dfa83dcacb5"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga398203f9dfc8d79e5b7e4dfa83dcacb5">UserModuleBase::sdkPixelToHeightPercent</a> (float pixel)</td></tr>
-<tr class="memdesc:ga398203f9dfc8d79e5b7e4dfa83dcacb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform the Y position in pixels into [0..1]. <br /></td></tr>
-<tr class="separator:ga398203f9dfc8d79e5b7e4dfa83dcacb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae49e31020e7ec8a1b6eeaaa502f8a1e2"><td class="memItemLeft" align="right" valign="top"><a id="gae49e31020e7ec8a1b6eeaaa502f8a1e2"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gae49e31020e7ec8a1b6eeaaa502f8a1e2">UserModuleBase::sdkPixelToWidthPercent</a> (float pixel)</td></tr>
-<tr class="memdesc:gae49e31020e7ec8a1b6eeaaa502f8a1e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform the X position in pixels into [0..1]. <br /></td></tr>
-<tr class="separator:gae49e31020e7ec8a1b6eeaaa502f8a1e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga25e759573dbe22a1361342fc6e46c90c"><td class="memItemLeft" align="right" valign="top"><a id="ga25e759573dbe22a1361342fc6e46c90c"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga25e759573dbe22a1361342fc6e46c90c">UserModuleBase::sdkHeightPercentToPixel</a> (float percent)</td></tr>
-<tr class="memdesc:ga25e759573dbe22a1361342fc6e46c90c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform [0..1] percent Y position into the position in pixels. <br /></td></tr>
-<tr class="separator:ga25e759573dbe22a1361342fc6e46c90c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3679f887ce2a41d39e25f0cc94b4b777"><td class="memItemLeft" align="right" valign="top"><a id="ga3679f887ce2a41d39e25f0cc94b4b777"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga3679f887ce2a41d39e25f0cc94b4b777">UserModuleBase::sdkWidthPercentToPixel</a> (float percent)</td></tr>
-<tr class="memdesc:ga3679f887ce2a41d39e25f0cc94b4b777"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform [0..1] percent X position into the position in pixels. <br /></td></tr>
-<tr class="separator:ga3679f887ce2a41d39e25f0cc94b4b777"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa3d6e60cd61a0b53b6c79d87976af0a2"><td class="memItemLeft" align="right" valign="top"><a id="gaa3d6e60cd61a0b53b6c79d87976af0a2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gaa3d6e60cd61a0b53b6c79d87976af0a2">UserModuleBase::sdkDrawPoint</a> (const <a class="el" href="struct_t_point_f.html">TPointF</a> point, const <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> color, const float pointSize, const <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> rounded) const</td></tr>
+<tr class="memdesc:gaa3d6e60cd61a0b53b6c79d87976af0a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a point. <br /></td></tr>
+<tr class="separator:gaa3d6e60cd61a0b53b6c79d87976af0a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2b102b7aa64dd8cdd4cbf5d1a8657640"><td class="memItemLeft" align="right" valign="top"><a id="ga2b102b7aa64dd8cdd4cbf5d1a8657640"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga2b102b7aa64dd8cdd4cbf5d1a8657640">UserModuleBase::sdkDrawLine</a> (const <a class="el" href="struct_t_point_f.html">TPointF</a> p1, const <a class="el" href="struct_t_point_f.html">TPointF</a> p2, const <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> color, const float strokeThickness) const</td></tr>
+<tr class="memdesc:ga2b102b7aa64dd8cdd4cbf5d1a8657640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a line. <br /></td></tr>
+<tr class="separator:ga2b102b7aa64dd8cdd4cbf5d1a8657640"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae1246a86a95ceae4e82e2987e3845c66"><td class="memItemLeft" align="right" valign="top"><a id="gae1246a86a95ceae4e82e2987e3845c66"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gae1246a86a95ceae4e82e2987e3845c66">UserModuleBase::sdkDrawPolyLine</a> (const <a class="el" href="group___datatypes.html#gab2a5a7fc12828a49be23725048942edd">TPointFPtr</a> points, const int numOfPoints, const <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> color, const float strokeThickness) const</td></tr>
+<tr class="memdesc:gae1246a86a95ceae4e82e2987e3845c66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a polygon, points are stored in an array. <br /></td></tr>
+<tr class="separator:gae1246a86a95ceae4e82e2987e3845c66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga19198dc04055f0e54c252316387980b9"><td class="memItemLeft" align="right" valign="top"><a id="ga19198dc04055f0e54c252316387980b9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga19198dc04055f0e54c252316387980b9">UserModuleBase::sdkFillPolyLine</a> (const <a class="el" href="group___datatypes.html#gab2a5a7fc12828a49be23725048942edd">TPointFPtr</a> points, const int numOfPoints, const <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> color) const</td></tr>
+<tr class="memdesc:ga19198dc04055f0e54c252316387980b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fille a polygon, points are stored in an array. <br /></td></tr>
+<tr class="separator:ga19198dc04055f0e54c252316387980b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga782059655a86965c684ac17ccaeb6ee2"><td class="memItemLeft" align="right" valign="top"><a id="ga782059655a86965c684ac17ccaeb6ee2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga782059655a86965c684ac17ccaeb6ee2">UserModuleBase::sdkFillRect</a> (const <a class="el" href="struct_t_rect_f.html">TRectF</a> rect, const <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> color, const float roundRadius, const <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> borderColor, const float borderWith) const</td></tr>
+<tr class="memdesc:ga782059655a86965c684ac17ccaeb6ee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill a round rectangle. <br /></td></tr>
+<tr class="separator:ga782059655a86965c684ac17ccaeb6ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1d03205926ee5710f82ee134d86798c3"><td class="memItemLeft" align="right" valign="top"><a id="ga1d03205926ee5710f82ee134d86798c3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#ga1d03205926ee5710f82ee134d86798c3">UserModuleBase::sdkFillText</a> (const <a class="el" href="struct_t_rect_f.html">TRectF</a> rect, const <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a> text, const <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a> textColor, const float fontSize, const <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> isBold=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>, const <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> isWordWrap=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>, const <a class="el" href="group___datatypes.html#ga5ca54f7d93f83c9ca3be85bcebc1b47f">TTextAlign</a> alignHorizontal=<a class="el" href="group___datatypes.html#gga5ca54f7d93f83c9ca3be85bcebc1b47fa636326e11e1f979a7bc725a489693fca">taCenter</a>, const <a class="el" href="group___datatypes.html#ga5ca54f7d93f83c9ca3be85bcebc1b47f">TTextAlign</a> alignVertical=<a class="el" href="group___datatypes.html#gga5ca54f7d93f83c9ca3be85bcebc1b47fa636326e11e1f979a7bc725a489693fca">taCenter</a>, const <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> isVertical=<a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a>) const</td></tr>
+<tr class="memdesc:ga1d03205926ee5710f82ee134d86798c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill a text. <br /></td></tr>
+<tr class="separator:ga1d03205926ee5710f82ee134d86798c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae8b2dfb26b28edcdd47e6b206d7cb626"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___globals.html#gae8b2dfb26b28edcdd47e6b206d7cb626">UserModuleBase::sdkBitBlit</a> (const <a class="el" href="group___datatypes.html#ga9b776db52f3af21f44c93dcef1a01474">TUsinePixelPtr</a> pArray, const int W, const int H, const <a class="el" href="struct_t_rect_f.html">TRectF</a> destRect) const</td></tr>
+<tr class="memdesc:gae8b2dfb26b28edcdd47e6b206d7cb626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw an array of pixels.  <a href="#gae8b2dfb26b28edcdd47e6b206d7cb626">More...</a><br /></td></tr>
+<tr class="separator:gae8b2dfb26b28edcdd47e6b206d7cb626"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h2 class="groupheader">Function Documentation</h2>
@@ -861,7 +549,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
     <tr><td class="paramname">optionalString</td><td>optional string passed to the constructor ie. the plugin filename </td></tr>
     <tr><td class="paramname">Flag</td><td>compatibility flag must be FALSE on recent versions of Usine </td></tr>
     <tr><td class="paramname">pMasterInfo</td><td>Handle to the <a class="el" href="struct_t_master_info.html" title="Contains globals infos provided by Usine and all functions handle of the module wrapper. ">TMasterInfo</a> structure </td></tr>
-    <tr><td class="paramname">optionalContent</td><td></td></tr>
+    <tr><td class="paramname">optionalContent</td><td>A string of optionnal content </td></tr>
   </table>
   </dd>
 </dl>
@@ -911,7 +599,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 
 <p>Implementation of the abstract class provided to derive user modules from. </p>
 <dl class="section author"><dt>Author</dt><dd>BrainModular team</dd></dl>
-<p>2013/05/15 first release for Hollyhock CPP SDK 6.00.226</p>
+<p>2013/05/15 first release for Hollyhock CPP SDK 6.00.226 2023/11/28 added a more modern class system to the CPP SDK</p>
 <p>This file is part of the Usine CPP SDK Version 6</p>
 <p>Please, report bugs and patch to Usine forum : <a href="#" onclick="location.href='mai'+'lto:'+'sup'+'po'+'rt@'+'br'+'ain'+'mo'+'dul'+'ar'+'.co'+'m'; return false;">suppo<span style="display: none;">.nosp@m.</span>rt@b<span style="display: none;">.nosp@m.</span>rainm<span style="display: none;">.nosp@m.</span>odul<span style="display: none;">.nosp@m.</span>ar.co<span style="display: none;">.nosp@m.</span>m</a></p>
 <p>All dependencies are under there own licence.</p>
@@ -1009,8 +697,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 
 </div>
 </div>
-<a id="ga8708af50ff9dbc603fb2888074883c92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8708af50ff9dbc603fb2888074883c92">&sect;&nbsp;</a></span>onSetEventAddress()</h2>
+<a id="gada7da97d5ec5dce51ea4f3fb334d30ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gada7da97d5ec5dce51ea4f3fb334d30ad">&sect;&nbsp;</a></span>onSetEventAddress()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1021,13 +709,13 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
         <tr>
           <td class="memname">virtual void UserModuleBase::onSetEventAddress </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">const int&#160;</td>
           <td class="paramname"><em>ParamIndex</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a>&#160;</td>
           <td class="paramname"><em>pEvent</em>&#160;</td>
         </tr>
         <tr>
@@ -1043,7 +731,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 </table>
 </div><div class="memdoc">
 
-<p>Usine call it for each parameters of the module to obtain the event handle of the parameter. Deprecated in HH3, use TModuleInfo::EventPtr. </p>
+<p>Usine calls it for each parameters of the module to obtain the event handle of the parameter. Deprecated in HH3, use TModuleInfo::EventPtr. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ParamIndex</td><td>The index of the parameter. </td></tr>
@@ -1125,7 +813,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 <p>Usine call it to obtain the number of parameters of the module depending of the query result. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">queryIndex</td><td>The index of the choice made in the query popup </td></tr>
+    <tr><td class="paramname">queryResult1</td><td>The value of the first choice made in the query popup </td></tr>
+    <tr><td class="paramname">queryResult2</td><td>The value of the second choice made in the query popup </td></tr>
   </table>
   </dd>
 </dl>
@@ -1133,8 +822,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 
 </div>
 </div>
-<a id="ga135f374650716f3c26d345f94ffb3f9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga135f374650716f3c26d345f94ffb3f9a">&sect;&nbsp;</a></span>onAfterQuery()</h2>
+<a id="ga2601338f0004096a70bc22cd14c83004"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2601338f0004096a70bc22cd14c83004">&sect;&nbsp;</a></span>onAfterQuery()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1157,13 +846,13 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">const int&#160;</td>
           <td class="paramname"><em>queryResult1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">const int&#160;</td>
           <td class="paramname"><em>queryResult2</em>&#160;</td>
         </tr>
         <tr>
@@ -1184,38 +873,11 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
   <table class="params">
     <tr><td class="paramname">pMasterInfo</td><td>The <a class="el" href="struct_t_master_info.html" title="Contains globals infos provided by Usine and all functions handle of the module wrapper. ">TMasterInfo</a> structure. </td></tr>
     <tr><td class="paramname">pModuleInfo</td><td>The <a class="el" href="struct_t_module_info.html" title="Contain characteristics and infos about the module. You fill the TModuleInfo structure in the onGetMo...">TModuleInfo</a> structure. </td></tr>
-    <tr><td class="paramname">queryIndex</td><td>The index of the choice made in the query pop-up </td></tr>
+    <tr><td class="paramname">queryResult1</td><td>The value of the first choice made in the query pop-up </td></tr>
+    <tr><td class="paramname">queryResult2</td><td>The value of the fsecond choice made in the query pop-up </td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="ga45960407f47716a51be57fe4f5270ef8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga45960407f47716a51be57fe4f5270ef8">&sect;&nbsp;</a></span>onProcess()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void UserModuleBase::onProcess </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Be careful here because it's called from the audio thread at each audio tick of the audio engine. Keep it optimized and try to avoid any memory allocation. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___datatypes.html#ga6469b382c4b2898bba99e59f4fa86ed1" title="FALSE by default. if TRUE, the module doesn&#39;t need any processing. ">TModuleInfo::DontProcess</a> </dd></dl>
 
 </div>
 </div>
@@ -1254,8 +916,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 
 </div>
 </div>
-<a id="ga15171e905be5e57c4c72027cdb6ec4b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga15171e905be5e57c4c72027cdb6ec4b8">&sect;&nbsp;</a></span>onGetChunk()</h2>
+<a id="ga2c24ee7545bbdab2c075e4f1b511ae25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2c24ee7545bbdab2c075e4f1b511ae25">&sect;&nbsp;</a></span>onGetChunk()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1272,7 +934,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td>
           <td class="paramname"><em>Preset</em>&#160;</td>
         </tr>
         <tr>
@@ -1299,8 +961,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 
 </div>
 </div>
-<a id="ga6973e7d6d6155690415d4d1599449522"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6973e7d6d6155690415d4d1599449522">&sect;&nbsp;</a></span>onSetChunk()</h2>
+<a id="gad9c9eb64e45d2d7697b7c496da11b8d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad9c9eb64e45d2d7697b7c496da11b8d2">&sect;&nbsp;</a></span>onSetChunk()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1317,13 +979,13 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">const int&#160;</td>
           <td class="paramname"><em>sizeInBytes</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td>
           <td class="paramname"><em>Preset</em>&#160;</td>
         </tr>
         <tr>
@@ -1510,7 +1172,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 </table>
 </div><div class="memdoc">
 
-<p>Usine call it after onGetModuleInfo. It let you initialising some stuff. </p>
+<p>Usine calls this after onGetModuleInfo. It lets you initialize stuff. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pMasterInfo</td><td>The <a class="el" href="struct_t_master_info.html" title="Contains globals infos provided by Usine and all functions handle of the module wrapper. ">TMasterInfo</a> structure. </td></tr>
@@ -1790,6 +1452,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
     <tr><td class="paramname">DeviceID</td><td>Index of the device to address. </td></tr>
     <tr><td class="paramname">arrayPoint</td><td>The array of ILDAPoints to send. </td></tr>
     <tr><td class="paramname">arraySize</td><td>The size of the ILDAPoints array. </td></tr>
+    <tr><td class="paramname">speedPPS</td><td>in points per second </td></tr>
   </table>
   </dd>
 </dl>
@@ -1855,8 +1518,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 
 </div>
 </div>
-<a id="ga74a51196e708166a2b453c4eeba75c14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga74a51196e708166a2b453c4eeba75c14">&sect;&nbsp;</a></span>sdkBitBlit()</h2>
+<a id="gae8b2dfb26b28edcdd47e6b206d7cb626"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae8b2dfb26b28edcdd47e6b206d7cb626">&sect;&nbsp;</a></span>sdkBitBlit()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1867,31 +1530,31 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
         <tr>
           <td class="memname">void UserModuleBase::sdkBitBlit </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga9b776db52f3af21f44c93dcef1a01474">TUsinePixelPtr</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="group___datatypes.html#ga9b776db52f3af21f44c93dcef1a01474">TUsinePixelPtr</a>&#160;</td>
           <td class="paramname"><em>pArray</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">const int&#160;</td>
           <td class="paramname"><em>W</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">const int&#160;</td>
           <td class="paramname"><em>H</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="struct_t_rect_f.html">TRectF</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_t_rect_f.html">TRectF</a>&#160;</td>
           <td class="paramname"><em>destRect</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -1914,8 +1577,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 
 </div>
 </div>
-<a id="ga7cbecb75befd228cf1d6d2b563f46511"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7cbecb75befd228cf1d6d2b563f46511">&sect;&nbsp;</a></span>sdkDrawPathMoveTo()</h2>
+<a id="ga2306be3477de029c158c99336c64aeaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2306be3477de029c158c99336c64aeaf">&sect;&nbsp;</a></span>sdkDrawPathMoveTo()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1926,9 +1589,9 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
         <tr>
           <td class="memname">void UserModuleBase::sdkDrawPathMoveTo </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_t_point_f.html">TPointF</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_t_point_f.html">TPointF</a>&#160;</td>
           <td class="paramname"><em>point</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -1939,12 +1602,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 </div><div class="memdoc">
 
 <p>Move the current position inside the path. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___globals.html#ga53144406e3d7c000accc97cafc8faa10" title="Tell Usine to start a path sequence. A path must begin with this function, followed by a sequence of ...">sdkDrawPathStart</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___globals.html#ga3bd7616b29f0bc995d13dcc63076e643" title="Tell Usine to start a path sequence. A path must begin with this function, followed by a sequence of ...">sdkDrawPathStart</a> </dd></dl>
 
 </div>
 </div>
-<a id="gada9f0cbf72390b9c4bda64c5855eff4c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gada9f0cbf72390b9c4bda64c5855eff4c">&sect;&nbsp;</a></span>sdkDrawPathLineTo()</h2>
+<a id="ga4be78196876ecab180b74165f4ff6e92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4be78196876ecab180b74165f4ff6e92">&sect;&nbsp;</a></span>sdkDrawPathLineTo()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1955,9 +1618,9 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
         <tr>
           <td class="memname">void UserModuleBase::sdkDrawPathLineTo </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_t_point_f.html">TPointF</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_t_point_f.html">TPointF</a>&#160;</td>
           <td class="paramname"><em>point</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -1968,12 +1631,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 </div><div class="memdoc">
 
 <p>Add a line to the path, from the current position to the point provided. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___globals.html#ga53144406e3d7c000accc97cafc8faa10" title="Tell Usine to start a path sequence. A path must begin with this function, followed by a sequence of ...">sdkDrawPathStart</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___globals.html#ga3bd7616b29f0bc995d13dcc63076e643" title="Tell Usine to start a path sequence. A path must begin with this function, followed by a sequence of ...">sdkDrawPathStart</a> </dd></dl>
 
 </div>
 </div>
-<a id="ga0e868a33212e42247c95aba87dbe759b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga0e868a33212e42247c95aba87dbe759b">&sect;&nbsp;</a></span>sdkDrawPathQuadCurveTo()</h2>
+<a id="gaf6c978295ceb8612b9f3a6cc4c662451"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf6c978295ceb8612b9f3a6cc4c662451">&sect;&nbsp;</a></span>sdkDrawPathQuadCurveTo()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1984,19 +1647,19 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
         <tr>
           <td class="memname">void UserModuleBase::sdkDrawPathQuadCurveTo </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_t_point_f.html">TPointF</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_t_point_f.html">TPointF</a>&#160;</td>
           <td class="paramname"><em>control</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="struct_t_point_f.html">TPointF</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_t_point_f.html">TPointF</a>&#160;</td>
           <td class="paramname"><em>point</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -2007,12 +1670,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 </div><div class="memdoc">
 
 <p>Add a quadratic curve to the path, from the current position to the point provided. The curve don't pass by the control point. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___globals.html#ga53144406e3d7c000accc97cafc8faa10" title="Tell Usine to start a path sequence. A path must begin with this function, followed by a sequence of ...">sdkDrawPathStart</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___globals.html#ga3bd7616b29f0bc995d13dcc63076e643" title="Tell Usine to start a path sequence. A path must begin with this function, followed by a sequence of ...">sdkDrawPathStart</a> </dd></dl>
 
 </div>
 </div>
-<a id="ga7984aa264a31ef3985d9db442129a118"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7984aa264a31ef3985d9db442129a118">&sect;&nbsp;</a></span>sdkDrawPathClose()</h2>
+<a id="ga7893fdf2e03a106042e60758717287e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7893fdf2e03a106042e60758717287e8">&sect;&nbsp;</a></span>sdkDrawPathClose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2024,7 +1687,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
           <td class="memname">void UserModuleBase::sdkDrawPathClose </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -2035,12 +1698,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 </div><div class="memdoc">
 
 <p>Add a line to close the path, from the current position to the first point of the path. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___globals.html#ga53144406e3d7c000accc97cafc8faa10" title="Tell Usine to start a path sequence. A path must begin with this function, followed by a sequence of ...">sdkDrawPathStart</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___globals.html#ga3bd7616b29f0bc995d13dcc63076e643" title="Tell Usine to start a path sequence. A path must begin with this function, followed by a sequence of ...">sdkDrawPathStart</a> </dd></dl>
 
 </div>
 </div>
-<a id="ga5e7806317810def5f69fd2371d2537b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5e7806317810def5f69fd2371d2537b2">&sect;&nbsp;</a></span>sdkDrawPathDraw()</h2>
+<a id="ga660f3ad6b4736263ac9496eaec3faf72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga660f3ad6b4736263ac9496eaec3faf72">&sect;&nbsp;</a></span>sdkDrawPathDraw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2051,19 +1714,19 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
         <tr>
           <td class="memname">void UserModuleBase::sdkDrawPathDraw </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a>&#160;</td>
           <td class="paramname"><em>color</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float&#160;</td>
+          <td class="paramtype">const float&#160;</td>
           <td class="paramname"><em>strokeThickness</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -2074,12 +1737,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 </div><div class="memdoc">
 
 <p>Draw the current path with the color and thickness provided. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___globals.html#ga53144406e3d7c000accc97cafc8faa10" title="Tell Usine to start a path sequence. A path must begin with this function, followed by a sequence of ...">sdkDrawPathStart</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___globals.html#ga3bd7616b29f0bc995d13dcc63076e643" title="Tell Usine to start a path sequence. A path must begin with this function, followed by a sequence of ...">sdkDrawPathStart</a> </dd></dl>
 
 </div>
 </div>
-<a id="ga7578e3afd6ca0dc556aa5d36cf6be694"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7578e3afd6ca0dc556aa5d36cf6be694">&sect;&nbsp;</a></span>sdkDrawPathFill()</h2>
+<a id="ga7f9dcb45fbf00eb2d71deed842a60d87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7f9dcb45fbf00eb2d71deed842a60d87">&sect;&nbsp;</a></span>sdkDrawPathFill()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2090,9 +1753,9 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
         <tr>
           <td class="memname">void UserModuleBase::sdkDrawPathFill </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="group___datatypes.html#ga0439f7b04ea86012f66f46f49e0d8ef0">TUsineColor</a>&#160;</td>
           <td class="paramname"><em>color</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -2103,669 +1766,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 </div><div class="memdoc">
 
 <p>Fill a valid path with the color and thickness provided. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___globals.html#ga53144406e3d7c000accc97cafc8faa10" title="Tell Usine to start a path sequence. A path must begin with this function, followed by a sequence of ...">sdkDrawPathStart</a> </dd></dl>
-
-</div>
-</div>
-<a id="ga551ddd0e41e94d2a9136c191589a1943"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga551ddd0e41e94d2a9136c191589a1943">&sect;&nbsp;</a></span>sdkProcessRecord()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UserModuleBase::sdkProcessRecord </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td>
-          <td class="paramname"><em>X</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td>
-          <td class="paramname"><em>Y</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td>
-          <td class="paramname"><em>Z</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Start the recording process if it is not started and processes the recording. to stop the recording use sdkStopRecord. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___globals.html#gadddf9a72e274e983827e146f90d8fb5d" title="Stops the recording. ">sdkStopRecord</a> </dd></dl>
-
-</div>
-</div>
-<a id="gab5a286fe528aeb0cd5327f5bd7acf5af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab5a286fe528aeb0cd5327f5bd7acf5af">&sect;&nbsp;</a></span>sdkGetNewFrame()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UserModuleBase::sdkGetNewFrame </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_t_usine_frame.html">TUsineFramePtr</a>&#160;</td>
-          <td class="paramname"><em>frame</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>height</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td>
-          <td class="paramname"><em>permanent</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get a new frame. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">permanent</td><td>Determines if the frame has a short lifespan (FALSE) or an infinite (TRUE)</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Permanent frames must be destroyed by sdkReleaseFrame</p>
-<p>Non permanent frames are released automatically </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="group___globals.html#ga420e3f23d8243af3c4a035925fd4b8ca" title="Release permanent frames. ">sdkReleaseFrame</a> </dd></dl>
-
-</div>
-</div>
-<a id="gacac36730ac0f85f62fb1fdbc216c890a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gacac36730ac0f85f62fb1fdbc216c890a">&sect;&nbsp;</a></span>sdkCriticalSectionLock()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UserModuleBase::sdkCriticalSectionLock </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga417a5c17ed8b4dda4389df11cf4b7240">TCriticalSectionPtr</a>&#160;</td>
-          <td class="paramname"><em>pCriticalSection</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">UINT32&#160;</td>
-          <td class="paramname"><em>timeout</em> = <code>0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Lock a critical section. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">timeout</td><td>must be used with precautions </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="gac34dff5218d87d9b6ccc7ab968ba3274"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac34dff5218d87d9b6ccc7ab968ba3274">&sect;&nbsp;</a></span>sdkCriticalSectionCreate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group___datatypes.html#ga417a5c17ed8b4dda4389df11cf4b7240">TCriticalSectionPtr</a> UserModuleBase::sdkCriticalSectionCreate </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td>
-          <td class="paramname"><em>shared</em> = <code><a class="el" href="group___datatypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a></code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Create a critical section. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>is a name givent to the CS for debug purposes </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ga846975329d2bc9ca307c9c178180f8e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga846975329d2bc9ca307c9c178180f8e0">&sect;&nbsp;</a></span>sdkThreadCreate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group___datatypes.html#ga40768a849dbc3c55e60504779cfe081d">TThreadPtr</a> UserModuleBase::sdkThreadCreate </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FuncThreadProcess&#160;</td>
-          <td class="paramname"><em>ProcessThreadProc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga2dc400c438444996449c9d056c0883cf">TThreadPriority</a>&#160;</td>
-          <td class="paramname"><em>priority</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">UINT32&#160;</td>
-          <td class="paramname"><em>timeout</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Create a thread. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">priority</td><td>priority of the thread : tpIDLE,tpLow,tpMedium,tpHigh </td></tr>
-    <tr><td class="paramname">timeout</td><td>timeout of the thread (execution clock) in ms. if timeout is UINT32_MAX then the thread will wait until the sdkThreadRestart is called </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ga3e0b3556cb1ff8dc53a57fcb3fe0f1e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3e0b3556cb1ff8dc53a57fcb3fe0f1e8">&sect;&nbsp;</a></span>sdkThreadSetTimeOut()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UserModuleBase::sdkThreadSetTimeOut </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga40768a849dbc3c55e60504779cfe081d">TThreadPtr</a>&#160;</td>
-          <td class="paramname"><em>pThread</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">UINT32&#160;</td>
-          <td class="paramname"><em>timeout</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>set timeout of a thread. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">timeout</td><td>timeout of the thread (execution clock) in ms </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ga767abd59305ff2ee462b4951b439a0b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga767abd59305ff2ee462b4951b439a0b8">&sect;&nbsp;</a></span>sdkSetListBoxCommaText()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UserModuleBase::sdkSetListBoxCommaText </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>numParam</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td>
-          <td class="paramname"><em>commaText</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>If the parameter is of type ptListBox, change the comma text defining the list content. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___globals.html#ga1d9d8cc50cf6b9d5c25f14d033a36ccf" title="Usine call it for each parameters of the module to obtain it&#39;s characteristics. ">onGetParamInfo</a>; </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">numParam</td><td>the param index. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ga268d6c467c2541c294a155f11d186638"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga268d6c467c2541c294a155f11d186638">&sect;&nbsp;</a></span>sdkSetParamCaption()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UserModuleBase::sdkSetParamCaption </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>numParam</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td>
-          <td class="paramname"><em>caption</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Change the name of a parameter. It's the name showed in Usine. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">numParam</td><td>the param index. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ga10616146e549909f87f8ee8441a1aa25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga10616146e549909f87f8ee8441a1aa25">&sect;&nbsp;</a></span>sdkSetParamVisible()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UserModuleBase::sdkSetParamVisible </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>numParam</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a>&#160;</td>
-          <td class="paramname"><em>visible</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set a parameter visible or not. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">numParam</td><td>the param index. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ga2246621990b21c42020d3c7c666b41b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2246621990b21c42020d3c7c666b41b3">&sect;&nbsp;</a></span>sdkRecreateParam()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UserModuleBase::sdkRecreateParam </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>numParam</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="struct_t_param_info.html">TParamInfo</a> *&#160;</td>
-          <td class="paramname"><em>pParamInfo</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Recreate a parameter with new settings. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">numParam</td><td>the param index. </td></tr>
-    <tr><td class="paramname">pParamInfo</td><td>pointer to <a class="el" href="struct_t_param_info.html" title="Usine parameter description. Contain all the properties to define a parameter. ">TParamInfo</a> structure </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="gafa4307f65c1808d85c73de1e30fdadb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gafa4307f65c1808d85c73de1e30fdadb3">&sect;&nbsp;</a></span>sdkSetParamValueText()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UserModuleBase::sdkSetParamValueText </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>numParam</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td>
-          <td class="paramname"><em>valueText</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>If the parameter is of type ptTextField, change the text content. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___globals.html#ga1d9d8cc50cf6b9d5c25f14d033a36ccf" title="Usine call it for each parameters of the module to obtain it&#39;s characteristics. ">onGetParamInfo</a>; </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">numParam</td><td>the param index. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="gadc212ca663deff2b2b7e0e54888ebe28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gadc212ca663deff2b2b7e0e54888ebe28">&sect;&nbsp;</a></span>sdkRepaintParam()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UserModuleBase::sdkRepaintParam </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>numParam</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Ask Usine to Update the parameter. Usually used after one of the function above. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">numParam</td><td>the param index. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="gaa19079773bb29f42987f24fc273aa9c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa19079773bb29f42987f24fc273aa9c2">&sect;&nbsp;</a></span>sdkNotifyUsine()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UserModuleBase::sdkNotifyUsine </td>
-          <td>(</td>
-          <td class="paramtype">NativeInt&#160;</td>
-          <td class="paramname"><em>Target</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">NativeInt&#160;</td>
-          <td class="paramname"><em>Msg</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">NativeInt&#160;</td>
-          <td class="paramname"><em>WParam</em> = <code>0</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">NativeInt&#160;</td>
-          <td class="paramname"><em>LParam</em> = <code>0</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>Delay</em> = <code>0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Usine notification. </p>
-<p>Send a message to Usine, Usine's setup or this user module. A delay maybe specified. </p>
-
-</div>
-</div>
-<a id="gab37203b161ee3ff3002cd6c3c4c22925"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab37203b161ee3ff3002cd6c3c4c22925">&sect;&nbsp;</a></span>sdkRefreshSpeedClock()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> UserModuleBase::sdkRefreshSpeedClock </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets a tick clock at the refresh-speed of Usine, generally every 25 ms. this can reduce the cpu load for non priority tasks. </p>
-<p>if (<a class="el" href="group___globals.html#gab37203b161ee3ff3002cd6c3c4c22925" title="Gets a tick clock at the refresh-speed of Usine, generally every 25 ms. this can reduce the cpu load ...">sdkRefreshSpeedClock()</a>) { doSomething(); } </p>
-
-</div>
-</div>
-<a id="ga8e738a58f112c53ba3cea0456fd7aebd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8e738a58f112c53ba3cea0456fd7aebd">&sect;&nbsp;</a></span>sdkSlowClock()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group___datatypes.html#ga16df6d519a5fa155969608a63c078ff8">LongBool</a> UserModuleBase::sdkSlowClock </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets a tick clock at the slow-speed of Usine, generally every second. this can reduce the cpu load for very low priority tasks. </p>
-<p>if (<a class="el" href="group___globals.html#ga8e738a58f112c53ba3cea0456fd7aebd" title="Gets a tick clock at the slow-speed of Usine, generally every second. this can reduce the cpu load fo...">sdkSlowClock()</a>) { doSomething(); } </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group___globals.html#ga3bd7616b29f0bc995d13dcc63076e643" title="Tell Usine to start a path sequence. A path must begin with this function, followed by a sequence of ...">sdkDrawPathStart</a> </dd></dl>
 
 </div>
 </div>
@@ -2788,9 +1789,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 <p>Various helpers around colors. </p>
 <p>Calculates HSL from RGB. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Hue</td><td>is in degrees, </td></tr>
-    <tr><td class="paramname">Lightness</td><td>is between 0 and 1, </td></tr>
-    <tr><td class="paramname">Saturation</td><td>is between 0 and 1. </td></tr>
+    <tr><td class="paramname">c1</td><td>The desired color </td></tr>
   </table>
   </dd>
 </dl>
@@ -2816,9 +1815,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 <p>Calculate RGB from HSL, reverse of RGB2HSL() </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Hue</td><td>is in degrees </td></tr>
-    <tr><td class="paramname">Lightness</td><td>is between 0 and 1 </td></tr>
-    <tr><td class="paramname">Saturation</td><td>is between 0 and 1 </td></tr>
+    <tr><td class="paramname">c1</td><td>The desired color </td></tr>
   </table>
   </dd>
 </dl>
@@ -2869,6 +1866,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
     <tr><td class="paramname">h</td><td>: float between 0 and 360 </td></tr>
     <tr><td class="paramname">s</td><td>: float between 0 and 1 </td></tr>
     <tr><td class="paramname">l</td><td>: float between 0 and 1 </td></tr>
+    <tr><td class="paramname">a</td><td>: float between 0 and 255 </td></tr>
   </table>
   </dd>
 </dl>
@@ -2919,10 +1917,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
   <table class="params">
     <tr><td class="paramname">r</td><td>: float between 0 and 1 </td></tr>
     <tr><td class="paramname">g</td><td>: float between 0 and 1 </td></tr>
-    <tr><td class="paramname">b</td><td>: float between 0 and 1 TUsineColor : the new created color </td></tr>
+    <tr><td class="paramname">b</td><td>: float between 0 and 1 </td></tr>
+    <tr><td class="paramname">a</td><td>: float between 0 and 255 </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>TUsineColor : the new created color </dd></dl>
 
 </div>
 </div>
@@ -2969,10 +1969,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
   <table class="params">
     <tr><td class="paramname">r</td><td>: int between 0 and 255 </td></tr>
     <tr><td class="paramname">g</td><td>: float between 0 and 255 </td></tr>
-    <tr><td class="paramname">b</td><td>: float between 0 and 255 TUsineColor : the new created color </td></tr>
+    <tr><td class="paramname">b</td><td>: float between 0 and 255 </td></tr>
+    <tr><td class="paramname">a</td><td>: float between 0 and 255 </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>TUsineColor : the new created color </dd></dl>
 
 </div>
 </div>
@@ -3157,6 +2159,10 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 <p>Four control point Bezier interpolation. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">p1</td><td></td></tr>
+    <tr><td class="paramname">p2</td><td></td></tr>
+    <tr><td class="paramname">p3</td><td></td></tr>
+    <tr><td class="paramname">p4</td><td></td></tr>
     <tr><td class="paramname">mu</td><td>ranges from 0 to 1, start to end of curve </td></tr>
   </table>
   </dd>
@@ -3211,6 +2217,10 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 <p>Four control float Bezier interpolation. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">p1</td><td></td></tr>
+    <tr><td class="paramname">p2</td><td></td></tr>
+    <tr><td class="paramname">p3</td><td></td></tr>
+    <tr><td class="paramname">p4</td><td></td></tr>
     <tr><td class="paramname">mu</td><td>ranges from 0 to 1, start to end of curve </td></tr>
   </table>
   </dd>
@@ -3221,7 +2231,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gro
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 5 2024 17:48:15 for Usine SDK by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2024 11:29:17 for Usine SDK by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.12
 </small></address>

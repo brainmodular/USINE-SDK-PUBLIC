@@ -12,6 +12,14 @@ Olivier Sens & the BrainModular Team
 
 
 ________________________________________________________________________________
+CPP SDK [HH6-240115] 2024/07/31
+changes
+  * Added UsineEventClass instead of the old UsineEventPtr
+  * Marked many older functions as deprecated
+  * Reformated the sdk to have a more standard structure
+  * Cleaned up the SDK
+  * Added attributes to many functions to silence some potential compiler warnings
+
 CPP SDK [HH6-240115] 2023/01/28
 changes
   * massive refactoring, potentially some code update needed

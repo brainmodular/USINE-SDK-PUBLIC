@@ -188,9 +188,13 @@ typedef void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
 typedef void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gab4c723fd11dc99a32524535ded38f1e9">TSyncObjectPtr</a></td></tr>
 <tr class="memdesc:gab4c723fd11dc99a32524535ded38f1e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Synchronization objects to synchronize threads. <br /></td></tr>
 <tr class="separator:gab4c723fd11dc99a32524535ded38f1e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad5c503102c8e425f7a6843ffdcde6138"><td class="memItemLeft" align="right" valign="top">typedef UsineEvent *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a></td></tr>
-<tr class="memdesc:gad5c503102c8e425f7a6843ffdcde6138"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to a parameter event. Now deprecated for the final user.  <a href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">More...</a><br /></td></tr>
+<tr class="memitem:gad5c503102c8e425f7a6843ffdcde6138"><td class="memItemLeft" align="right" valign="top">
+typedef UsineEvent *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gad5c503102c8e425f7a6843ffdcde6138">UsineEventPtr</a></td></tr>
+<tr class="memdesc:gad5c503102c8e425f7a6843ffdcde6138"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to an Usine Event. Now deprecated for the final user, use <a class="el" href="class_usine_event_class.html">UsineEventClass</a> instead. <br /></td></tr>
 <tr class="separator:gad5c503102c8e425f7a6843ffdcde6138"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga695f3490682a88712294dec834dd2e64"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga695f3490682a88712294dec834dd2e64">TParamType</a> = enum <a class="el" href="group___datatypes.html#ga695f3490682a88712294dec834dd2e64">TParamType</a> { ptTextField, ptChooseColor, ptMidi, ptGainFader, ptAudio, ptDataField, ptDataFader, ptButton, ptListBox, ptSwitch, ptArray, ptIpAddress, ptSmpte, ptMidiNoteFader, ptPointerBitMap, ptPointer, ptRightLed, ptChooseFolder, ptLeftLed, ptTriggerLed, ptFileName, ptBitwise, ptOther }</td></tr>
+<tr class="memdesc:ga695f3490682a88712294dec834dd2e64"><td class="mdescLeft">&#160;</td><td class="mdescRight">parameters type available in usine.  <a href="group___datatypes.html#ga695f3490682a88712294dec834dd2e64">More...</a><br /></td></tr>
+<tr class="separator:ga695f3490682a88712294dec834dd2e64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae7e1831d3d6683d6a1f9a6de99f139c9"><td class="memItemLeft" align="right" valign="top">
 typedef <a class="el" href="struct_t_param_info.html">TParamInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gae7e1831d3d6683d6a1f9a6de99f139c9">ParamInfo</a></td></tr>
 <tr class="memdesc:gae7e1831d3d6683d6a1f9a6de99f139c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">for backward compatibility <br /></td></tr>
@@ -241,39 +245,6 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:ga2dc400c438444996449c9d056c0883cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread priorities.  <a href="group___datatypes.html#ga2dc400c438444996449c9d056c0883cf">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:ga2dc400c438444996449c9d056c0883cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga07d4e5a29d675892ddc5f377533c06a5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga07d4e5a29d675892ddc5f377533c06a5">TParamType</a> { <br />
-&#160;&#160;<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5a2de4fdc5af30766c4d166d9bd8d22468">ptTextField</a>, 
-<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5aca02ede09d80c10ed6a0a79b854fae3e">ptChooseColor</a>, 
-<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5af0deee8f126bd7a1f8da9088b8ab5d25">ptMidi</a>, 
-<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5a84abb3ced49747abd2e27d7942838cd1">ptGainFader</a>, 
-<br />
-&#160;&#160;<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5ae462e9f56e506020be42373c8e2150c0">ptAudio</a>, 
-<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5ae1823244231000e2f9ef1524f5d21a3d">ptDataField</a>, 
-<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5ad756ef0542fda01792b3ad58a4384550">ptDataFader</a>, 
-<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5a296fe01a56d22cc3f75d0d90fef835b6">ptButton</a>, 
-<br />
-&#160;&#160;<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5aebb26663d3562b09fb94da11f76b6b1f">ptListBox</a>, 
-<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5a56dfa5c8a0004daf758deaacff2df9fd">ptSwitch</a>, 
-<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5a2096d5626095669a96ad20f47189c7e5">ptArray</a>, 
-<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5ae0440062fda2ee2ba620093e80a22cf3">ptIpAddress</a>, 
-<br />
-&#160;&#160;<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5a927f351e34ddb33e574a7aec2e2bf374">ptSmpte</a>, 
-<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5a95fbab0c28c6c65d7a1fc1dc2a003c0f">ptMidiNoteFader</a>, 
-<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5a9fbc7b1f191644459f618ef46d6af370">ptPointerBitMap</a>, 
-<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5a402cb9a0216374b01bc02248395fe5dd">ptPointer</a>, 
-<br />
-&#160;&#160;<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5aaf9263f3b021927a3f4d693504611865">ptRightLed</a>, 
-<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5a2ee636e2a0c93f265e06b90826ee6543">ptChooseFolder</a>, 
-<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5a8c2c8e5601641a2c12159ea250b854c4">ptLeftLed</a>, 
-<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5a7d96d42776fc479757df0102e4ac9a73">ptTriggerLed</a>, 
-<br />
-&#160;&#160;<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5aa233da0875a8f97f3fdaeb3752d10206">ptFileName</a>, 
-<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5a8e436e3d0a6b7d3dc2ae2148ab03d2b7">ptBitwise</a>, 
-<a class="el" href="group___datatypes.html#gga07d4e5a29d675892ddc5f377533c06a5a6662702aa31c7fc25cb5ea673eda6e80">ptOther</a>
-<br />
- }<tr class="memdesc:ga07d4e5a29d675892ddc5f377533c06a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">parameters type available in usine.  <a href="group___datatypes.html#ga07d4e5a29d675892ddc5f377533c06a5">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:ga07d4e5a29d675892ddc5f377533c06a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaaf3b53f4905fa4ab4d9075c958b184ee"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaaf3b53f4905fa4ab4d9075c958b184ee">TFastCallBackType</a> { <a class="el" href="group___datatypes.html#ggaaf3b53f4905fa4ab4d9075c958b184eea029a85db24d88dc2f7979c6cf5767fdd">ctNormal</a>, 
 <a class="el" href="group___datatypes.html#ggaaf3b53f4905fa4ab4d9075c958b184eea5240ff17396db3e7efe2e067b7e60d6e">ctImmediate</a>, 
 <a class="el" href="group___datatypes.html#ggaaf3b53f4905fa4ab4d9075c958b184eea62c90d203d2866faeca38c430bd19cf1">ctAsynchronous</a>
@@ -428,323 +399,324 @@ USINE_MODULE_EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a c
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ga4126ca0492af856c325a748db1cc4994"><td class="memItemLeft" align="right" valign="top">static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga4126ca0492af856c325a748db1cc4994">MSG_CHANGE</a> = 0</td></tr>
-<tr class="memdesc:ga4126ca0492af856c325a748db1cc4994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible values for <a class="el" href="struct_t_usine_message.html" title="Usine internal message. ">TUsineMessage</a> LParam.  <a href="group___datatypes.html#ga4126ca0492af856c325a748db1cc4994">More...</a><br /></td></tr>
-<tr class="separator:ga4126ca0492af856c325a748db1cc4994"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3b75e68b749565d5435984fb6108a707"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga3b75e68b749565d5435984fb6108a707">MSG_CLICK</a> = 1</td></tr>
-<tr class="memdesc:ga3b75e68b749565d5435984fb6108a707"><td class="mdescLeft">&#160;</td><td class="mdescRight">the parameter has been clicked <br /></td></tr>
-<tr class="separator:ga3b75e68b749565d5435984fb6108a707"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga81a585fc9540684d979d7e770e5fb744"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga81a585fc9540684d979d7e770e5fb744">MSG_DBLCLICK</a> = 2</td></tr>
-<tr class="memdesc:ga81a585fc9540684d979d7e770e5fb744"><td class="mdescLeft">&#160;</td><td class="mdescRight">the parameter has been double clicked <br /></td></tr>
-<tr class="separator:ga81a585fc9540684d979d7e770e5fb744"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0b5f2b76befc5bd57eb07f5657f80b00"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga0b5f2b76befc5bd57eb07f5657f80b00">MSG_SETCAPTION</a> = 3</td></tr>
-<tr class="memdesc:ga0b5f2b76befc5bd57eb07f5657f80b00"><td class="mdescLeft">&#160;</td><td class="mdescRight">change the caption of a control <br /></td></tr>
-<tr class="separator:ga0b5f2b76befc5bd57eb07f5657f80b00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6d5a097a15363d479fa444b0c7e7c4ca"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga6d5a097a15363d479fa444b0c7e7c4ca">MSG_MOUSEUP</a> = 4</td></tr>
-<tr class="memdesc:ga6d5a097a15363d479fa444b0c7e7c4ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">mouse Up <br /></td></tr>
-<tr class="separator:ga6d5a097a15363d479fa444b0c7e7c4ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0b4667e95e56c21a3646efd66849ed3c"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga0b4667e95e56c21a3646efd66849ed3c">MSG_MOUSEMOVE</a> = 5</td></tr>
-<tr class="memdesc:ga0b4667e95e56c21a3646efd66849ed3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">mouse Move <br /></td></tr>
-<tr class="separator:ga0b4667e95e56c21a3646efd66849ed3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga80d0c8324f0a05413c38e32794337a4e"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga80d0c8324f0a05413c38e32794337a4e">MSG_DROP</a> = 6</td></tr>
-<tr class="memdesc:ga80d0c8324f0a05413c38e32794337a4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">something has been dropped on the control <br /></td></tr>
-<tr class="separator:ga80d0c8324f0a05413c38e32794337a4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8cf16d5510abef9178f530fe5fa26e4f"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga8cf16d5510abef9178f530fe5fa26e4f">MSG_COMMATEXT</a> = 7</td></tr>
-<tr class="memdesc:ga8cf16d5510abef9178f530fe5fa26e4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">a comma-text has changed <br /></td></tr>
-<tr class="separator:ga8cf16d5510abef9178f530fe5fa26e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6adb78ed4155cd4039b05a8fabe91b68"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga6adb78ed4155cd4039b05a8fabe91b68">MSG_FLOATING_MOVE</a> = 8</td></tr>
-<tr class="memdesc:ga6adb78ed4155cd4039b05a8fabe91b68"><td class="mdescLeft">&#160;</td><td class="mdescRight">a floating control is moving <br /></td></tr>
-<tr class="separator:ga6adb78ed4155cd4039b05a8fabe91b68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab768ebdecdda8574df777a9edc9a15af"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gab768ebdecdda8574df777a9edc9a15af">MSG_COLLIDE</a> = 9</td></tr>
-<tr class="memdesc:gab768ebdecdda8574df777a9edc9a15af"><td class="mdescLeft">&#160;</td><td class="mdescRight">a floating control collides <br /></td></tr>
-<tr class="separator:gab768ebdecdda8574df777a9edc9a15af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga42990d8f323901d384fed1bd2d92175a"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga42990d8f323901d384fed1bd2d92175a">MSG_LOCK_CHANGED</a> = 10</td></tr>
-<tr class="memdesc:ga42990d8f323901d384fed1bd2d92175a"><td class="mdescLeft">&#160;</td><td class="mdescRight">the control lock state has changed <br /></td></tr>
-<tr class="separator:ga42990d8f323901d384fed1bd2d92175a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae22806ab962ac79feb1102aced556ed3"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gae22806ab962ac79feb1102aced556ed3">MSG_PLAY_RECORD_VALUE</a> = 11</td></tr>
-<tr class="memdesc:gae22806ab962ac79feb1102aced556ed3"><td class="mdescLeft">&#160;</td><td class="mdescRight">an automation is playing on the parameter <br /></td></tr>
-<tr class="separator:gae22806ab962ac79feb1102aced556ed3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga55b1ad25014a281279da0bea662cb5f0"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga55b1ad25014a281279da0bea662cb5f0">MSG_RIGHT_CLICK</a> = 12</td></tr>
-<tr class="memdesc:ga55b1ad25014a281279da0bea662cb5f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">mouse right click <br /></td></tr>
-<tr class="separator:ga55b1ad25014a281279da0bea662cb5f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9e83a269493285d6bc43a0f84ef5ca64"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga9e83a269493285d6bc43a0f84ef5ca64">MSG_WHEEL_UP</a> = 13</td></tr>
-<tr class="memdesc:ga9e83a269493285d6bc43a0f84ef5ca64"><td class="mdescLeft">&#160;</td><td class="mdescRight">mouse wheel up <br /></td></tr>
-<tr class="separator:ga9e83a269493285d6bc43a0f84ef5ca64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0bbe2ec13f5c05fad832e2bcd9877c09"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga0bbe2ec13f5c05fad832e2bcd9877c09">MSG_WHEEL_DOWN</a> = 14</td></tr>
-<tr class="memdesc:ga0bbe2ec13f5c05fad832e2bcd9877c09"><td class="mdescLeft">&#160;</td><td class="mdescRight">mouse wheel down <br /></td></tr>
-<tr class="separator:ga0bbe2ec13f5c05fad832e2bcd9877c09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadb8537147da4b941adfa05c005aab6c8"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gadb8537147da4b941adfa05c005aab6c8">MSG_MOUSE_WHEEL_OFF</a> = 15</td></tr>
-<tr class="memdesc:gadb8537147da4b941adfa05c005aab6c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">end wheel processing <br /></td></tr>
-<tr class="separator:gadb8537147da4b941adfa05c005aab6c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga45ff9a26575aa9c40db73ce61bc46403"><td class="memItemLeft" align="right" valign="top">static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga45ff9a26575aa9c40db73ce61bc46403">NOTIFY_TARGET_USINE</a> = 1</td></tr>
-<tr class="memdesc:ga45ff9a26575aa9c40db73ce61bc46403"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible target for a notification to Usine.  <a href="group___datatypes.html#ga45ff9a26575aa9c40db73ce61bc46403">More...</a><br /></td></tr>
-<tr class="separator:ga45ff9a26575aa9c40db73ce61bc46403"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2436a4cbeb879cd9aa9c74b63507fb46"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga2436a4cbeb879cd9aa9c74b63507fb46">NOTIFY_TARGET_SETUP</a> = 2</td></tr>
-<tr class="memdesc:ga2436a4cbeb879cd9aa9c74b63507fb46"><td class="mdescLeft">&#160;</td><td class="mdescRight">notify the setup of Usine <br /></td></tr>
-<tr class="separator:ga2436a4cbeb879cd9aa9c74b63507fb46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad9a4a481ae7ca3441398f4d15141e87f"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gad9a4a481ae7ca3441398f4d15141e87f">NOTIFY_TARGET_USER_MODULE</a> = 3</td></tr>
-<tr class="memdesc:gad9a4a481ae7ca3441398f4d15141e87f"><td class="mdescLeft">&#160;</td><td class="mdescRight">notify the current User module <br /></td></tr>
-<tr class="separator:gad9a4a481ae7ca3441398f4d15141e87f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga03d985dc4cc81986065ddc2b813da573"><td class="memItemLeft" align="right" valign="top">static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga03d985dc4cc81986065ddc2b813da573">NOTIFY_MSG_AUDIO_DRIVER_CHANGED</a> = 0xFAB000</td></tr>
-<tr class="memdesc:ga03d985dc4cc81986065ddc2b813da573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible message for a notification to Usine.  <a href="group___datatypes.html#ga03d985dc4cc81986065ddc2b813da573">More...</a><br /></td></tr>
-<tr class="separator:ga03d985dc4cc81986065ddc2b813da573"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaeb1d78ff749bfbcb0cdc14da008f39f0"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaeb1d78ff749bfbcb0cdc14da008f39f0">NOTIFY_MSG_MIDI_DRIVER_CHANGED</a> = 0xFAB001</td></tr>
-<tr class="memdesc:gaeb1d78ff749bfbcb0cdc14da008f39f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">no param <br /></td></tr>
-<tr class="separator:gaeb1d78ff749bfbcb0cdc14da008f39f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaaf848eeb1b77f6e223cee1c2ebe5c159"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaaf848eeb1b77f6e223cee1c2ebe5c159">NOTIFY_MSG_SAMPLE_RATE_CHANGED</a> = 0xFAB002</td></tr>
-<tr class="memdesc:gaaf848eeb1b77f6e223cee1c2ebe5c159"><td class="mdescLeft">&#160;</td><td class="mdescRight">param1 = samplerate <br /></td></tr>
-<tr class="separator:gaaf848eeb1b77f6e223cee1c2ebe5c159"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga14b062938508fb0411d27093761134a1"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga14b062938508fb0411d27093761134a1">NOTIFY_MSG_BLOC_SIZE_CHANGED</a> = 0xFAB003</td></tr>
-<tr class="memdesc:ga14b062938508fb0411d27093761134a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">param1 = blocsize <br /></td></tr>
-<tr class="separator:ga14b062938508fb0411d27093761134a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gade9ce0403a5757d55aa4bf8bc5d54e90"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gade9ce0403a5757d55aa4bf8bc5d54e90">NOTIFY_MSG_RESCAN_PLUGINS_DONE</a> = 0xFAB004</td></tr>
-<tr class="memdesc:gade9ce0403a5757d55aa4bf8bc5d54e90"><td class="mdescLeft">&#160;</td><td class="mdescRight">no param <br /></td></tr>
-<tr class="separator:gade9ce0403a5757d55aa4bf8bc5d54e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8d3513f8abc113046b0e86af2d09e9dd"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga8d3513f8abc113046b0e86af2d09e9dd">NOTIFY_MSG_RECREATE_CONTROLS</a> = 0xFAB005</td></tr>
-<tr class="memdesc:ga8d3513f8abc113046b0e86af2d09e9dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">no param <br /></td></tr>
-<tr class="separator:ga8d3513f8abc113046b0e86af2d09e9dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga993ee41a501e6a7340790dc6cecf0bdb"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga993ee41a501e6a7340790dc6cecf0bdb">NOTIFY_MSG_KEY_DOWN</a> = 0xFAB006</td></tr>
-<tr class="memdesc:ga993ee41a501e6a7340790dc6cecf0bdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">param1 = keycode, param2 = modifier <br /></td></tr>
-<tr class="separator:ga993ee41a501e6a7340790dc6cecf0bdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad564def670a6a92cd6404f2735bc6a0a"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gad564def670a6a92cd6404f2735bc6a0a">NOTIFY_MSG_KEY_UP</a> = 0xFAB007</td></tr>
-<tr class="memdesc:gad564def670a6a92cd6404f2735bc6a0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">param <br /></td></tr>
-<tr class="separator:gad564def670a6a92cd6404f2735bc6a0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab3e24f1c7340020965faab429c0b004a"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gab3e24f1c7340020965faab429c0b004a">NOTIFY_MSG_FOCUS_LOST</a> = 0xFAB008</td></tr>
-<tr class="memdesc:gab3e24f1c7340020965faab429c0b004a"><td class="mdescLeft">&#160;</td><td class="mdescRight">no param <br /></td></tr>
-<tr class="separator:gab3e24f1c7340020965faab429c0b004a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gace97f439fbcbb8cb8f0ab0be905f1ca4"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gace97f439fbcbb8cb8f0ab0be905f1ca4">NOTIFY_MSG_USINE_LOADED</a> = 0xFAB009</td></tr>
-<tr class="memdesc:gace97f439fbcbb8cb8f0ab0be905f1ca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">param1 = 0, param2 = 0 <br /></td></tr>
-<tr class="separator:gace97f439fbcbb8cb8f0ab0be905f1ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga412e225cb23f82fe8fc58e59dbde1890"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga412e225cb23f82fe8fc58e59dbde1890">NOTIFY_MSG_USINE_CALLBACK</a> = 0xFAB679</td></tr>
-<tr class="memdesc:ga412e225cb23f82fe8fc58e59dbde1890"><td class="mdescLeft">&#160;</td><td class="mdescRight">identify a Message-&gt;message as a callback for user module <br /></td></tr>
-<tr class="separator:ga412e225cb23f82fe8fc58e59dbde1890"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9a3d652f1138f9d0f2f25c25598989cf"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga9a3d652f1138f9d0f2f25c25598989cf">NOTIFY_MSG_ON_TOP</a> = 0xFAB67A</td></tr>
-<tr class="memdesc:ga9a3d652f1138f9d0f2f25c25598989cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">need all windows on top <br /></td></tr>
-<tr class="separator:ga9a3d652f1138f9d0f2f25c25598989cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab7766732d54537560e72aadd539b9ff2"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gab7766732d54537560e72aadd539b9ff2">NOTIFY_MSG_TO_BACK</a> = 0xFAB67B</td></tr>
-<tr class="memdesc:gab7766732d54537560e72aadd539b9ff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">need all windows to back <br /></td></tr>
-<tr class="separator:gab7766732d54537560e72aadd539b9ff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1866b91110eb20ff971f70efc617d218"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga1866b91110eb20ff971f70efc617d218">NOTIFY_MSG_RESCAN_MIDI_DEVICES</a> = 0xFAB67D</td></tr>
-<tr class="memdesc:ga1866b91110eb20ff971f70efc617d218"><td class="mdescLeft">&#160;</td><td class="mdescRight">tell Usine that Midi devices have been rescanned <br /></td></tr>
-<tr class="separator:ga1866b91110eb20ff971f70efc617d218"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga81bb35583e087f5f81e4e53b73ea65c1"><td class="memItemLeft" align="right" valign="top">
-static const NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga81bb35583e087f5f81e4e53b73ea65c1">NOTIFY_MSG_RESET_MIDI_DEVICES</a> = 0xFAB67E</td></tr>
-<tr class="memdesc:ga81bb35583e087f5f81e4e53b73ea65c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">tell Usine that Midi devices have been reset <br /></td></tr>
-<tr class="separator:ga81bb35583e087f5f81e4e53b73ea65c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga34dfde2e063a45ef1a7645f0f51ed51f"><td class="memItemLeft" align="right" valign="top">static const UINT32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga34dfde2e063a45ef1a7645f0f51ed51f">ssShift</a> = 0x1</td></tr>
-<tr class="memdesc:ga34dfde2e063a45ef1a7645f0f51ed51f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible value for a TShiftState variable.  <a href="group___datatypes.html#ga34dfde2e063a45ef1a7645f0f51ed51f">More...</a><br /></td></tr>
-<tr class="separator:ga34dfde2e063a45ef1a7645f0f51ed51f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4b0d31064cc2ded6de5b55fe260b0019"><td class="memItemLeft" align="right" valign="top">
-static const UINT32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga4b0d31064cc2ded6de5b55fe260b0019">ssAlt</a> = 0x2</td></tr>
-<tr class="memdesc:ga4b0d31064cc2ded6de5b55fe260b0019"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alt keyboard state. <br /></td></tr>
-<tr class="separator:ga4b0d31064cc2ded6de5b55fe260b0019"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1fe0b18feab9e58146773cefa8d5727b"><td class="memItemLeft" align="right" valign="top">
-static const UINT32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga1fe0b18feab9e58146773cefa8d5727b">ssCtrl</a> = 0x4</td></tr>
-<tr class="memdesc:ga1fe0b18feab9e58146773cefa8d5727b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ctrl keyboard state. <br /></td></tr>
-<tr class="separator:ga1fe0b18feab9e58146773cefa8d5727b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga475fee9a393c711a07e687f0d1288131"><td class="memItemLeft" align="right" valign="top">
-static const UINT32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga475fee9a393c711a07e687f0d1288131">ssLeft</a> = 0x8</td></tr>
-<tr class="memdesc:ga475fee9a393c711a07e687f0d1288131"><td class="mdescLeft">&#160;</td><td class="mdescRight">Left mouse button state. <br /></td></tr>
-<tr class="separator:ga475fee9a393c711a07e687f0d1288131"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga033d23555ff549dd8c86638d55b4fbd0"><td class="memItemLeft" align="right" valign="top">
-static const UINT32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga033d23555ff549dd8c86638d55b4fbd0">ssRight</a> = 0x10</td></tr>
-<tr class="memdesc:ga033d23555ff549dd8c86638d55b4fbd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Right mouse button state. <br /></td></tr>
-<tr class="separator:ga033d23555ff549dd8c86638d55b4fbd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga80f2697ad9420ccb893a47df0846513f"><td class="memItemLeft" align="right" valign="top">
-static const UINT32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga80f2697ad9420ccb893a47df0846513f">ssMiddle</a> = 0x20</td></tr>
-<tr class="memdesc:ga80f2697ad9420ccb893a47df0846513f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Middle mouse button state. <br /></td></tr>
-<tr class="separator:ga80f2697ad9420ccb893a47df0846513f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1d4bb0a92a66b0d3b78afee32263635e"><td class="memItemLeft" align="right" valign="top">
-static const UINT32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga1d4bb0a92a66b0d3b78afee32263635e">ssDouble</a> = 0x40</td></tr>
-<tr class="memdesc:ga1d4bb0a92a66b0d3b78afee32263635e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mouse Double click state. <br /></td></tr>
-<tr class="separator:ga1d4bb0a92a66b0d3b78afee32263635e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf0c97715bd8b5f29c27e9bafb1497576"><td class="memItemLeft" align="right" valign="top">
-static const UINT32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaf0c97715bd8b5f29c27e9bafb1497576">clg0</a> = 1</td></tr>
-<tr class="memdesc:gaf0c97715bd8b5f29c27e9bafb1497576"><td class="mdescLeft">&#160;</td><td class="mdescRight">Color set used by Usine. <br /></td></tr>
-<tr class="separator:gaf0c97715bd8b5f29c27e9bafb1497576"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaae88c2e73c3d27af2d8d375110411b08"><td class="memItemLeft" align="right" valign="top">static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaae88c2e73c3d27af2d8d375110411b08">MIDI_ALLNOTESOFF</a> = 0x7B</td></tr>
-<tr class="memdesc:gaae88c2e73c3d27af2d8d375110411b08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible value for a <a class="el" href="group___datatypes.html#gab9ddf939b01b33de877e5ea963d19a6c" title="Message part of the midi code. ">TUsineMidiCode::Msg</a> variable.  <a href="group___datatypes.html#gaae88c2e73c3d27af2d8d375110411b08">More...</a><br /></td></tr>
-<tr class="separator:gaae88c2e73c3d27af2d8d375110411b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab6953a4cbec3993f931917bc7b1c6967"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gab6953a4cbec3993f931917bc7b1c6967">MIDI_NOTEON</a> = 0x90</td></tr>
-<tr class="memdesc:gab6953a4cbec3993f931917bc7b1c6967"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:gab6953a4cbec3993f931917bc7b1c6967"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafb349d6e294864ce7936c582dbe42121"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gafb349d6e294864ce7936c582dbe42121">MIDI_NOTEOFF</a> = 0x80</td></tr>
-<tr class="memdesc:gafb349d6e294864ce7936c582dbe42121"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:gafb349d6e294864ce7936c582dbe42121"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0b897bde961232eeb4320423270f09d0"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga0b897bde961232eeb4320423270f09d0">MIDI_KEYAFTERTOUCH</a> = 0xa0</td></tr>
-<tr class="memdesc:ga0b897bde961232eeb4320423270f09d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:ga0b897bde961232eeb4320423270f09d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabbd5d39bf4b8664cf26de42608328c2c"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gabbd5d39bf4b8664cf26de42608328c2c">MIDI_CONTROLCHANGE</a> = 0xb0</td></tr>
-<tr class="memdesc:gabbd5d39bf4b8664cf26de42608328c2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:gabbd5d39bf4b8664cf26de42608328c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9e50e66d0e66dcb0f29eaed8f2f8a0e2"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga9e50e66d0e66dcb0f29eaed8f2f8a0e2">MIDI_PROGRAMCHANGE</a> = 0xc0</td></tr>
-<tr class="memdesc:ga9e50e66d0e66dcb0f29eaed8f2f8a0e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:ga9e50e66d0e66dcb0f29eaed8f2f8a0e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae659c34086bf14486b90fe45b4e0de11"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gae659c34086bf14486b90fe45b4e0de11">MIDI_CHANAFTERTOUCH</a> = 0xd0</td></tr>
-<tr class="memdesc:gae659c34086bf14486b90fe45b4e0de11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:gae659c34086bf14486b90fe45b4e0de11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga44a96775c38fffabb66a990c67876091"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga44a96775c38fffabb66a990c67876091">MIDI_PITCHBEND</a> = 0xe0</td></tr>
-<tr class="memdesc:ga44a96775c38fffabb66a990c67876091"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:ga44a96775c38fffabb66a990c67876091"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6542d1b892912767ce1e6e7f6490e01c"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga6542d1b892912767ce1e6e7f6490e01c">MIDI_SYSTEMMESSAGE</a> = 0xf0</td></tr>
-<tr class="memdesc:ga6542d1b892912767ce1e6e7f6490e01c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:ga6542d1b892912767ce1e6e7f6490e01c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa897dcde75142d9f9555ae707260f6a9"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaa897dcde75142d9f9555ae707260f6a9">MIDI_BEGINSYSEX</a> = 0xf0</td></tr>
-<tr class="memdesc:gaa897dcde75142d9f9555ae707260f6a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:gaa897dcde75142d9f9555ae707260f6a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3a56586bc0d3eca996a5065f2faa9020"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga3a56586bc0d3eca996a5065f2faa9020">MIDI_MTCQUARTERFRAME</a> = 0xf1</td></tr>
-<tr class="memdesc:ga3a56586bc0d3eca996a5065f2faa9020"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:ga3a56586bc0d3eca996a5065f2faa9020"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadc9f2ffe9e15475f6d478474b34cf1d7"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gadc9f2ffe9e15475f6d478474b34cf1d7">MIDI_SONGPOSPTR</a> = 0xf2</td></tr>
-<tr class="memdesc:gadc9f2ffe9e15475f6d478474b34cf1d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:gadc9f2ffe9e15475f6d478474b34cf1d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5216548c401fcc756efe080201ccf82a"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga5216548c401fcc756efe080201ccf82a">MIDI_SONGSELECT</a> = 0xf3</td></tr>
-<tr class="memdesc:ga5216548c401fcc756efe080201ccf82a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:ga5216548c401fcc756efe080201ccf82a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1f368ae0e57af866ac7b8726adb309e5"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga1f368ae0e57af866ac7b8726adb309e5">MIDI_ENDSYSEX</a> = 0xF7</td></tr>
-<tr class="memdesc:ga1f368ae0e57af866ac7b8726adb309e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:ga1f368ae0e57af866ac7b8726adb309e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf3a43054598c05481450071b490a4045"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaf3a43054598c05481450071b490a4045">MIDI_TIMINGCLOCK</a> = 0xF8</td></tr>
-<tr class="memdesc:gaf3a43054598c05481450071b490a4045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:gaf3a43054598c05481450071b490a4045"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaace1b61b4cc9b58376fd0ef12125e017"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaace1b61b4cc9b58376fd0ef12125e017">MIDI_START</a> = 0xFA</td></tr>
-<tr class="memdesc:gaace1b61b4cc9b58376fd0ef12125e017"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:gaace1b61b4cc9b58376fd0ef12125e017"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac6a0b804c210cda354cb0c0186f488b7"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gac6a0b804c210cda354cb0c0186f488b7">MIDI_CONTINUE</a> = 0xFB</td></tr>
-<tr class="memdesc:gac6a0b804c210cda354cb0c0186f488b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:gac6a0b804c210cda354cb0c0186f488b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7c3c4006eac500710cf4609298eafb1e"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga7c3c4006eac500710cf4609298eafb1e">MIDI_STOP</a> = 0xFC</td></tr>
-<tr class="memdesc:ga7c3c4006eac500710cf4609298eafb1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:ga7c3c4006eac500710cf4609298eafb1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5db635577cf29ef6c1440fab8f34f0ab"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga5db635577cf29ef6c1440fab8f34f0ab">MIDI_ACTIVESENSING</a> = 0xFE</td></tr>
-<tr class="memdesc:ga5db635577cf29ef6c1440fab8f34f0ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:ga5db635577cf29ef6c1440fab8f34f0ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2ac3126c87a10c5c1b8235ca6358ee69"><td class="memItemLeft" align="right" valign="top">
-static const unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga2ac3126c87a10c5c1b8235ca6358ee69">MIDI_SYSTEMRESET</a> = 0xFF</td></tr>
-<tr class="memdesc:ga2ac3126c87a10c5c1b8235ca6358ee69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
-<tr class="separator:ga2ac3126c87a10c5c1b8235ca6358ee69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadf978dcec1646f9e914827908af417be"><td class="memItemLeft" align="right" valign="top">
-static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gadf978dcec1646f9e914827908af417be">PW_CMD_BLOC_CHANGED</a> = 1</td></tr>
-<tr class="memdesc:gadf978dcec1646f9e914827908af417be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal messages. <br /></td></tr>
-<tr class="separator:gadf978dcec1646f9e914827908af417be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga820ec20e0804177794ab2971be278a2e"><td class="memItemLeft" align="right" valign="top">
-static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga820ec20e0804177794ab2971be278a2e">US_CMD_TRACE</a> = 0xFA</td></tr>
-<tr class="memdesc:ga820ec20e0804177794ab2971be278a2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal flag for the trace window. <br /></td></tr>
-<tr class="separator:ga820ec20e0804177794ab2971be278a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0a1a7c0efbc589ee45c4521567d1acfe"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga0a1a7c0efbc589ee45c4521567d1acfe">PROPERTIES_TAB_NAME</a> = &quot;tab_properties&quot;</td></tr>
-<tr class="memdesc:ga0a1a7c0efbc589ee45c4521567d1acfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Settings Panel Tab's name.  <a href="group___datatypes.html#ga0a1a7c0efbc589ee45c4521567d1acfe">More...</a><br /></td></tr>
-<tr class="separator:ga0a1a7c0efbc589ee45c4521567d1acfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga84c63d2d1f640b5ddf69622b8d80077f"><td class="memItemLeft" align="right" valign="top">
-static const <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga84c63d2d1f640b5ddf69622b8d80077f">DESIGN_TAB_NAME</a> = &quot;tab_design&quot;</td></tr>
-<tr class="memdesc:ga84c63d2d1f640b5ddf69622b8d80077f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to populate the design tab of the Settings panel. <br /></td></tr>
-<tr class="separator:ga84c63d2d1f640b5ddf69622b8d80077f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2a766a0ab8e2733f34c4f12782f10604"><td class="memItemLeft" align="right" valign="top">
-static const <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga2a766a0ab8e2733f34c4f12782f10604">MOUSE_TAB_NAME</a> = &quot;tab_mouse&quot;</td></tr>
-<tr class="memdesc:ga2a766a0ab8e2733f34c4f12782f10604"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to populate the mouse tab of the Settings panel. <br /></td></tr>
-<tr class="separator:ga2a766a0ab8e2733f34c4f12782f10604"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6543e87d72489092be5ce8d04e407c08"><td class="memItemLeft" align="right" valign="top">
-static const <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga6543e87d72489092be5ce8d04e407c08">OTHER_TAB_NAME</a> = &quot;tab_other&quot;</td></tr>
-<tr class="memdesc:ga6543e87d72489092be5ce8d04e407c08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to populate the other tab of the Settings panel. <br /></td></tr>
-<tr class="separator:ga6543e87d72489092be5ce8d04e407c08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga659cf56dd91d992fd5d989ae4e9d384e"><td class="memItemLeft" align="right" valign="top">
-static const <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga659cf56dd91d992fd5d989ae4e9d384e">REMOTE_TAB_NAME</a> = &quot;tab_remote&quot;</td></tr>
-<tr class="memdesc:ga659cf56dd91d992fd5d989ae4e9d384e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to populate the remote tab of the Settings panel. <br /></td></tr>
-<tr class="separator:ga659cf56dd91d992fd5d989ae4e9d384e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6ee52079c838836fb1a158f718b13129"><td class="memItemLeft" align="right" valign="top">
-static const <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga6ee52079c838836fb1a158f718b13129">CURVES_TAB_NAME</a> = &quot;tab_curves&quot;</td></tr>
-<tr class="memdesc:ga6ee52079c838836fb1a158f718b13129"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to populate the curves tab of the Settings panel. <br /></td></tr>
-<tr class="separator:ga6ee52079c838836fb1a158f718b13129"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2a28af4e27cfc4b87fb3f72691cf0619"><td class="memItemLeft" align="right" valign="top">
-static const <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga2a28af4e27cfc4b87fb3f72691cf0619">LAN_TAB_NAME</a> = &quot;tab_lan&quot;</td></tr>
-<tr class="memdesc:ga2a28af4e27cfc4b87fb3f72691cf0619"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to populate the lan tab of the Settings panel. <br /></td></tr>
-<tr class="separator:ga2a28af4e27cfc4b87fb3f72691cf0619"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga574062fd03a84f6d1e1c990793c3ad18"><td class="memItemLeft" align="right" valign="top">
-static const <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga574062fd03a84f6d1e1c990793c3ad18">SIZE_TAB_NAME</a> = &quot;tab_size&quot;</td></tr>
-<tr class="memdesc:ga574062fd03a84f6d1e1c990793c3ad18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to populate the size tab of the Settings panel. <br /></td></tr>
-<tr class="separator:ga574062fd03a84f6d1e1c990793c3ad18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga711501b3879b9016ad690ba1079b4105"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga711501b3879b9016ad690ba1079b4105">DEFAULT_FORMAT_FLOAT_3</a> = &quot;%.3f&quot;</td></tr>
-<tr class="memdesc:ga711501b3879b9016ad690ba1079b4105"><td class="mdescLeft">&#160;</td><td class="mdescRight">Numeric format.  <a href="group___datatypes.html#ga711501b3879b9016ad690ba1079b4105">More...</a><br /></td></tr>
-<tr class="separator:ga711501b3879b9016ad690ba1079b4105"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga63af087bd368c8f602d9304ef496fc69"><td class="memItemLeft" align="right" valign="top">
-static const <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga63af087bd368c8f602d9304ef496fc69">DEFAULT_FORMAT_FLOAT_2</a> = &quot;%.2f&quot;</td></tr>
-<tr class="memdesc:ga63af087bd368c8f602d9304ef496fc69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default format for a 2 decimals number. <br /></td></tr>
-<tr class="separator:ga63af087bd368c8f602d9304ef496fc69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0e134737fabd56281a5fc95b6aa127e9"><td class="memItemLeft" align="right" valign="top">
-static const <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga0e134737fabd56281a5fc95b6aa127e9">DEFAULT_FORMAT_FLOAT_1</a> = &quot;%.1f&quot;</td></tr>
-<tr class="memdesc:ga0e134737fabd56281a5fc95b6aa127e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default format for a 1 decimal number. <br /></td></tr>
-<tr class="separator:ga0e134737fabd56281a5fc95b6aa127e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4872280458ded3ef9fc91b3da8b7e0f9"><td class="memItemLeft" align="right" valign="top">
-static const <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga4872280458ded3ef9fc91b3da8b7e0f9">DEFAULT_FORMAT_INTEGER</a> = &quot;%.0f&quot;</td></tr>
-<tr class="memdesc:ga4872280458ded3ef9fc91b3da8b7e0f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default format for an integer number. <br /></td></tr>
-<tr class="separator:ga4872280458ded3ef9fc91b3da8b7e0f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf495d9e08ab514a54b75efc4b61b56ec"><td class="memItemLeft" align="right" valign="top">
-static const <a class="el" href="group___datatypes.html#ga236f8e48e5569f0aaae52e1245bfd4cc">AnsiCharPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaf495d9e08ab514a54b75efc4b61b56ec">DEFAULT_FORMAT_GENERAL</a> = &quot;%g&quot;</td></tr>
-<tr class="memdesc:gaf495d9e08ab514a54b75efc4b61b56ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default format for a string. <br /></td></tr>
-<tr class="separator:gaf495d9e08ab514a54b75efc4b61b56ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0ae30e3c658f3f34a56c1ef83a2e9a25"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga0ae30e3c658f3f34a56c1ef83a2e9a25">SMOOTH_VERY_VERY_SLOW</a> = 0.99995f</td></tr>
-<tr class="memdesc:ga0ae30e3c658f3f34a56c1ef83a2e9a25"><td class="mdescLeft">&#160;</td><td class="mdescRight">smooth factor used in smoothing functions  <a href="group___datatypes.html#ga0ae30e3c658f3f34a56c1ef83a2e9a25">More...</a><br /></td></tr>
-<tr class="separator:ga0ae30e3c658f3f34a56c1ef83a2e9a25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2688ed578bc6b8b4336bdb4e68eea2a6"><td class="memItemLeft" align="right" valign="top">static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga2688ed578bc6b8b4336bdb4e68eea2a6">MSG_CHANGE</a> = 0</td></tr>
+<tr class="memdesc:ga2688ed578bc6b8b4336bdb4e68eea2a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible values for <a class="el" href="struct_t_usine_message.html" title="Usine internal message. ">TUsineMessage</a> LParam.  <a href="group___datatypes.html#ga2688ed578bc6b8b4336bdb4e68eea2a6">More...</a><br /></td></tr>
+<tr class="separator:ga2688ed578bc6b8b4336bdb4e68eea2a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaff9ac52c186ee77e5c222341368a1a55"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaff9ac52c186ee77e5c222341368a1a55">MSG_CLICK</a> = 1</td></tr>
+<tr class="memdesc:gaff9ac52c186ee77e5c222341368a1a55"><td class="mdescLeft">&#160;</td><td class="mdescRight">the parameter has been clicked <br /></td></tr>
+<tr class="separator:gaff9ac52c186ee77e5c222341368a1a55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4d05d432ecd0ead2f154d70aff52f56e"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga4d05d432ecd0ead2f154d70aff52f56e">MSG_DBLCLICK</a> = 2</td></tr>
+<tr class="memdesc:ga4d05d432ecd0ead2f154d70aff52f56e"><td class="mdescLeft">&#160;</td><td class="mdescRight">the parameter has been double clicked <br /></td></tr>
+<tr class="separator:ga4d05d432ecd0ead2f154d70aff52f56e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9814b19b6d0e863cec16d953da132335"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga9814b19b6d0e863cec16d953da132335">MSG_SETCAPTION</a> = 3</td></tr>
+<tr class="memdesc:ga9814b19b6d0e863cec16d953da132335"><td class="mdescLeft">&#160;</td><td class="mdescRight">change the caption of a control <br /></td></tr>
+<tr class="separator:ga9814b19b6d0e863cec16d953da132335"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga63f07f63debc220de02f61a78073f262"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga63f07f63debc220de02f61a78073f262">MSG_MOUSEUP</a> = 4</td></tr>
+<tr class="memdesc:ga63f07f63debc220de02f61a78073f262"><td class="mdescLeft">&#160;</td><td class="mdescRight">mouse Up <br /></td></tr>
+<tr class="separator:ga63f07f63debc220de02f61a78073f262"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga34468167e690ec8bcd2818de05e242b2"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga34468167e690ec8bcd2818de05e242b2">MSG_MOUSEMOVE</a> = 5</td></tr>
+<tr class="memdesc:ga34468167e690ec8bcd2818de05e242b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">mouse Move <br /></td></tr>
+<tr class="separator:ga34468167e690ec8bcd2818de05e242b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacf80016aab67252c84c7e6a597a2cb15"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gacf80016aab67252c84c7e6a597a2cb15">MSG_DROP</a> = 6</td></tr>
+<tr class="memdesc:gacf80016aab67252c84c7e6a597a2cb15"><td class="mdescLeft">&#160;</td><td class="mdescRight">something has been dropped on the control <br /></td></tr>
+<tr class="separator:gacf80016aab67252c84c7e6a597a2cb15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga952ea69e4b5f3d32fa3affa54edcde79"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga952ea69e4b5f3d32fa3affa54edcde79">MSG_COMMATEXT</a> = 7</td></tr>
+<tr class="memdesc:ga952ea69e4b5f3d32fa3affa54edcde79"><td class="mdescLeft">&#160;</td><td class="mdescRight">a comma-text has changed <br /></td></tr>
+<tr class="separator:ga952ea69e4b5f3d32fa3affa54edcde79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0761a64dbb8de440f2dc886a6b54bb4a"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga0761a64dbb8de440f2dc886a6b54bb4a">MSG_FLOATING_MOVE</a> = 8</td></tr>
+<tr class="memdesc:ga0761a64dbb8de440f2dc886a6b54bb4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">a floating control is moving <br /></td></tr>
+<tr class="separator:ga0761a64dbb8de440f2dc886a6b54bb4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gada7487cf222862009b8c8f117105211e"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gada7487cf222862009b8c8f117105211e">MSG_COLLIDE</a> = 9</td></tr>
+<tr class="memdesc:gada7487cf222862009b8c8f117105211e"><td class="mdescLeft">&#160;</td><td class="mdescRight">a floating control collides <br /></td></tr>
+<tr class="separator:gada7487cf222862009b8c8f117105211e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga57c4c8bc584d33e0867974cd74647e18"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga57c4c8bc584d33e0867974cd74647e18">MSG_LOCK_CHANGED</a> = 10</td></tr>
+<tr class="memdesc:ga57c4c8bc584d33e0867974cd74647e18"><td class="mdescLeft">&#160;</td><td class="mdescRight">the control lock state has changed <br /></td></tr>
+<tr class="separator:ga57c4c8bc584d33e0867974cd74647e18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad8305e3343e19cc18bb517e28f6e2017"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gad8305e3343e19cc18bb517e28f6e2017">MSG_PLAY_RECORD_VALUE</a> = 11</td></tr>
+<tr class="memdesc:gad8305e3343e19cc18bb517e28f6e2017"><td class="mdescLeft">&#160;</td><td class="mdescRight">an automation is playing on the parameter <br /></td></tr>
+<tr class="separator:gad8305e3343e19cc18bb517e28f6e2017"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga295809e46d1a7e16b1a202f301ac8b1c"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga295809e46d1a7e16b1a202f301ac8b1c">MSG_RIGHT_CLICK</a> = 12</td></tr>
+<tr class="memdesc:ga295809e46d1a7e16b1a202f301ac8b1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">mouse right click <br /></td></tr>
+<tr class="separator:ga295809e46d1a7e16b1a202f301ac8b1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5d8d3764f545b248c25861e8a5b6ddf4"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga5d8d3764f545b248c25861e8a5b6ddf4">MSG_WHEEL_UP</a> = 13</td></tr>
+<tr class="memdesc:ga5d8d3764f545b248c25861e8a5b6ddf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">mouse wheel up <br /></td></tr>
+<tr class="separator:ga5d8d3764f545b248c25861e8a5b6ddf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf77c41749b9e04ddbe6d80800c6439f7"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaf77c41749b9e04ddbe6d80800c6439f7">MSG_WHEEL_DOWN</a> = 14</td></tr>
+<tr class="memdesc:gaf77c41749b9e04ddbe6d80800c6439f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">mouse wheel down <br /></td></tr>
+<tr class="separator:gaf77c41749b9e04ddbe6d80800c6439f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga72a8b1731bced9844210083f5c020c9a"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga72a8b1731bced9844210083f5c020c9a">MSG_MOUSE_WHEEL_OFF</a> = 15</td></tr>
+<tr class="memdesc:ga72a8b1731bced9844210083f5c020c9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">end wheel processing <br /></td></tr>
+<tr class="separator:ga72a8b1731bced9844210083f5c020c9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga381075e488cc590624ee6594774604c3"><td class="memItemLeft" align="right" valign="top">static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga381075e488cc590624ee6594774604c3">NOTIFY_TARGET_USINE</a> = 1</td></tr>
+<tr class="memdesc:ga381075e488cc590624ee6594774604c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible target for a notification to Usine.  <a href="group___datatypes.html#ga381075e488cc590624ee6594774604c3">More...</a><br /></td></tr>
+<tr class="separator:ga381075e488cc590624ee6594774604c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gade9ca2ee1fdd7d6a35fff2be673cd5b3"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gade9ca2ee1fdd7d6a35fff2be673cd5b3">NOTIFY_TARGET_SETUP</a> = 2</td></tr>
+<tr class="memdesc:gade9ca2ee1fdd7d6a35fff2be673cd5b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">notify the setup of Usine <br /></td></tr>
+<tr class="separator:gade9ca2ee1fdd7d6a35fff2be673cd5b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga188fd08f982e93206f00f64534805bf3"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga188fd08f982e93206f00f64534805bf3">NOTIFY_TARGET_USER_MODULE</a> = 3</td></tr>
+<tr class="memdesc:ga188fd08f982e93206f00f64534805bf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">notify the current User module <br /></td></tr>
+<tr class="separator:ga188fd08f982e93206f00f64534805bf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa49dc9bd111d4c79edd1347f2552c1cb"><td class="memItemLeft" align="right" valign="top">static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaa49dc9bd111d4c79edd1347f2552c1cb">NOTIFY_MSG_AUDIO_DRIVER_CHANGED</a> = 0xFAB000</td></tr>
+<tr class="memdesc:gaa49dc9bd111d4c79edd1347f2552c1cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible message for a notification to Usine.  <a href="group___datatypes.html#gaa49dc9bd111d4c79edd1347f2552c1cb">More...</a><br /></td></tr>
+<tr class="separator:gaa49dc9bd111d4c79edd1347f2552c1cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadaf2ce3f7bff802b039a117fa5312fa6"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gadaf2ce3f7bff802b039a117fa5312fa6">NOTIFY_MSG_MIDI_DRIVER_CHANGED</a> = 0xFAB001</td></tr>
+<tr class="memdesc:gadaf2ce3f7bff802b039a117fa5312fa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">no param <br /></td></tr>
+<tr class="separator:gadaf2ce3f7bff802b039a117fa5312fa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadb290b7c53bfb8e466c7cb4a706f273a"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gadb290b7c53bfb8e466c7cb4a706f273a">NOTIFY_MSG_SAMPLE_RATE_CHANGED</a> = 0xFAB002</td></tr>
+<tr class="memdesc:gadb290b7c53bfb8e466c7cb4a706f273a"><td class="mdescLeft">&#160;</td><td class="mdescRight">param1 = samplerate <br /></td></tr>
+<tr class="separator:gadb290b7c53bfb8e466c7cb4a706f273a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8875261e24406cda01f0d403fc60ca52"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga8875261e24406cda01f0d403fc60ca52">NOTIFY_MSG_BLOC_SIZE_CHANGED</a> = 0xFAB003</td></tr>
+<tr class="memdesc:ga8875261e24406cda01f0d403fc60ca52"><td class="mdescLeft">&#160;</td><td class="mdescRight">param1 = blocsize <br /></td></tr>
+<tr class="separator:ga8875261e24406cda01f0d403fc60ca52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga572e868255d64612f5c88fed948a7146"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga572e868255d64612f5c88fed948a7146">NOTIFY_MSG_RESCAN_PLUGINS_DONE</a> = 0xFAB004</td></tr>
+<tr class="memdesc:ga572e868255d64612f5c88fed948a7146"><td class="mdescLeft">&#160;</td><td class="mdescRight">no param <br /></td></tr>
+<tr class="separator:ga572e868255d64612f5c88fed948a7146"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga743cabadc7f0f4be9ea191b230607962"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga743cabadc7f0f4be9ea191b230607962">NOTIFY_MSG_RECREATE_CONTROLS</a> = 0xFAB005</td></tr>
+<tr class="memdesc:ga743cabadc7f0f4be9ea191b230607962"><td class="mdescLeft">&#160;</td><td class="mdescRight">no param <br /></td></tr>
+<tr class="separator:ga743cabadc7f0f4be9ea191b230607962"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga19c1f1569c8ffe050da4b12f69aeb72e"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga19c1f1569c8ffe050da4b12f69aeb72e">NOTIFY_MSG_KEY_DOWN</a> = 0xFAB006</td></tr>
+<tr class="memdesc:ga19c1f1569c8ffe050da4b12f69aeb72e"><td class="mdescLeft">&#160;</td><td class="mdescRight">param1 = keycode, param2 = modifier <br /></td></tr>
+<tr class="separator:ga19c1f1569c8ffe050da4b12f69aeb72e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga71fce4edacc57f9aae8cf41affd256dd"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga71fce4edacc57f9aae8cf41affd256dd">NOTIFY_MSG_KEY_UP</a> = 0xFAB007</td></tr>
+<tr class="memdesc:ga71fce4edacc57f9aae8cf41affd256dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">param <br /></td></tr>
+<tr class="separator:ga71fce4edacc57f9aae8cf41affd256dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6810257d33804eb4c82dbddfc8dbc3f7"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga6810257d33804eb4c82dbddfc8dbc3f7">NOTIFY_MSG_FOCUS_LOST</a> = 0xFAB008</td></tr>
+<tr class="memdesc:ga6810257d33804eb4c82dbddfc8dbc3f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">no param <br /></td></tr>
+<tr class="separator:ga6810257d33804eb4c82dbddfc8dbc3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5f6171348a17238995443ddf7bbf9685"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga5f6171348a17238995443ddf7bbf9685">NOTIFY_MSG_USINE_LOADED</a> = 0xFAB009</td></tr>
+<tr class="memdesc:ga5f6171348a17238995443ddf7bbf9685"><td class="mdescLeft">&#160;</td><td class="mdescRight">param1 = 0, param2 = 0 <br /></td></tr>
+<tr class="separator:ga5f6171348a17238995443ddf7bbf9685"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabd967fe6ece68a3a60edcbe5e9f9a86e"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gabd967fe6ece68a3a60edcbe5e9f9a86e">NOTIFY_MSG_USINE_CALLBACK</a> = 0xFAB679</td></tr>
+<tr class="memdesc:gabd967fe6ece68a3a60edcbe5e9f9a86e"><td class="mdescLeft">&#160;</td><td class="mdescRight">identify a Message-&gt;message as a callback for user module <br /></td></tr>
+<tr class="separator:gabd967fe6ece68a3a60edcbe5e9f9a86e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga933f209c91d7d0012a34b7e0e865b67b"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga933f209c91d7d0012a34b7e0e865b67b">NOTIFY_MSG_ON_TOP</a> = 0xFAB67A</td></tr>
+<tr class="memdesc:ga933f209c91d7d0012a34b7e0e865b67b"><td class="mdescLeft">&#160;</td><td class="mdescRight">need all windows on top <br /></td></tr>
+<tr class="separator:ga933f209c91d7d0012a34b7e0e865b67b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5b77d58a6f6178a8612be4c985fe0748"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga5b77d58a6f6178a8612be4c985fe0748">NOTIFY_MSG_TO_BACK</a> = 0xFAB67B</td></tr>
+<tr class="memdesc:ga5b77d58a6f6178a8612be4c985fe0748"><td class="mdescLeft">&#160;</td><td class="mdescRight">need all windows to back <br /></td></tr>
+<tr class="separator:ga5b77d58a6f6178a8612be4c985fe0748"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga67c8c2a7e89c7662846d5eb2a1f1c704"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga67c8c2a7e89c7662846d5eb2a1f1c704">NOTIFY_MSG_RESCAN_MIDI_DEVICES</a> = 0xFAB67D</td></tr>
+<tr class="memdesc:ga67c8c2a7e89c7662846d5eb2a1f1c704"><td class="mdescLeft">&#160;</td><td class="mdescRight">tell Usine that Midi devices have been rescanned <br /></td></tr>
+<tr class="separator:ga67c8c2a7e89c7662846d5eb2a1f1c704"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4c30484869179bc55365e90315c3ad9f"><td class="memItemLeft" align="right" valign="top">
+static constexpr NativeInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga4c30484869179bc55365e90315c3ad9f">NOTIFY_MSG_RESET_MIDI_DEVICES</a> = 0xFAB67E</td></tr>
+<tr class="memdesc:ga4c30484869179bc55365e90315c3ad9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">tell Usine that Midi devices have been reset <br /></td></tr>
+<tr class="separator:ga4c30484869179bc55365e90315c3ad9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2ca89dce27731ac7b5ded43cac40f956"><td class="memItemLeft" align="right" valign="top">static constexpr UINT32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga2ca89dce27731ac7b5ded43cac40f956">ssShift</a> = 0x1</td></tr>
+<tr class="memdesc:ga2ca89dce27731ac7b5ded43cac40f956"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible value for a TShiftState variable.  <a href="group___datatypes.html#ga2ca89dce27731ac7b5ded43cac40f956">More...</a><br /></td></tr>
+<tr class="separator:ga2ca89dce27731ac7b5ded43cac40f956"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0292f98b78d4323fc61c85d16ac32662"><td class="memItemLeft" align="right" valign="top">
+static constexpr UINT32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga0292f98b78d4323fc61c85d16ac32662">ssAlt</a> = 0x2</td></tr>
+<tr class="memdesc:ga0292f98b78d4323fc61c85d16ac32662"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alt keyboard state. <br /></td></tr>
+<tr class="separator:ga0292f98b78d4323fc61c85d16ac32662"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4585a71d93790ed571f59e34f7ca49ec"><td class="memItemLeft" align="right" valign="top">
+static constexpr UINT32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga4585a71d93790ed571f59e34f7ca49ec">ssCtrl</a> = 0x4</td></tr>
+<tr class="memdesc:ga4585a71d93790ed571f59e34f7ca49ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ctrl keyboard state. <br /></td></tr>
+<tr class="separator:ga4585a71d93790ed571f59e34f7ca49ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga57f165088d77f69d06dd26ce940046bb"><td class="memItemLeft" align="right" valign="top">
+static constexpr UINT32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga57f165088d77f69d06dd26ce940046bb">ssLeft</a> = 0x8</td></tr>
+<tr class="memdesc:ga57f165088d77f69d06dd26ce940046bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Left mouse button state. <br /></td></tr>
+<tr class="separator:ga57f165088d77f69d06dd26ce940046bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9c9b71471c2d535f9763b69f36ac2ed5"><td class="memItemLeft" align="right" valign="top">
+static constexpr UINT32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga9c9b71471c2d535f9763b69f36ac2ed5">ssRight</a> = 0x10</td></tr>
+<tr class="memdesc:ga9c9b71471c2d535f9763b69f36ac2ed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Right mouse button state. <br /></td></tr>
+<tr class="separator:ga9c9b71471c2d535f9763b69f36ac2ed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga47bd77b6d66e05f74f641f601d15dfc8"><td class="memItemLeft" align="right" valign="top">
+static constexpr UINT32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga47bd77b6d66e05f74f641f601d15dfc8">ssMiddle</a> = 0x20</td></tr>
+<tr class="memdesc:ga47bd77b6d66e05f74f641f601d15dfc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Middle mouse button state. <br /></td></tr>
+<tr class="separator:ga47bd77b6d66e05f74f641f601d15dfc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaa73eaa90c4e0b334fa68d085d6bfa2e"><td class="memItemLeft" align="right" valign="top">
+static constexpr UINT32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaaa73eaa90c4e0b334fa68d085d6bfa2e">ssDouble</a> = 0x40</td></tr>
+<tr class="memdesc:gaaa73eaa90c4e0b334fa68d085d6bfa2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mouse Double click state. <br /></td></tr>
+<tr class="separator:gaaa73eaa90c4e0b334fa68d085d6bfa2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8a623301f9f6f58332e87a046d1eda2a"><td class="memItemLeft" align="right" valign="top">
+static constexpr UINT32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga8a623301f9f6f58332e87a046d1eda2a">clg0</a> = 1</td></tr>
+<tr class="memdesc:ga8a623301f9f6f58332e87a046d1eda2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Color set used by Usine. <br /></td></tr>
+<tr class="separator:ga8a623301f9f6f58332e87a046d1eda2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa9dbdcb4fda918edea35cf80b8e4003e"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaa9dbdcb4fda918edea35cf80b8e4003e">MIDI_ALLNOTESOFF</a> = 0x7B</td></tr>
+<tr class="memdesc:gaa9dbdcb4fda918edea35cf80b8e4003e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible value for a <a class="el" href="group___datatypes.html#gab9ddf939b01b33de877e5ea963d19a6c" title="Message part of the midi code. ">TUsineMidiCode::Msg</a> variable.  <a href="group___datatypes.html#gaa9dbdcb4fda918edea35cf80b8e4003e">More...</a><br /></td></tr>
+<tr class="separator:gaa9dbdcb4fda918edea35cf80b8e4003e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3ec05166bcba64d3d708e8a3111a0355"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga3ec05166bcba64d3d708e8a3111a0355">MIDI_NOTEON</a> = 0x90</td></tr>
+<tr class="memdesc:ga3ec05166bcba64d3d708e8a3111a0355"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:ga3ec05166bcba64d3d708e8a3111a0355"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga87659b8018e139ea084d5fd0398e4de9"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga87659b8018e139ea084d5fd0398e4de9">MIDI_NOTEOFF</a> = 0x80</td></tr>
+<tr class="memdesc:ga87659b8018e139ea084d5fd0398e4de9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:ga87659b8018e139ea084d5fd0398e4de9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga454eca552cc3fb50d44a45bc190f65ae"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga454eca552cc3fb50d44a45bc190f65ae">MIDI_KEYAFTERTOUCH</a> = 0xa0</td></tr>
+<tr class="memdesc:ga454eca552cc3fb50d44a45bc190f65ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:ga454eca552cc3fb50d44a45bc190f65ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9830f03684a224de5c7738046614e361"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga9830f03684a224de5c7738046614e361">MIDI_CONTROLCHANGE</a> = 0xb0</td></tr>
+<tr class="memdesc:ga9830f03684a224de5c7738046614e361"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:ga9830f03684a224de5c7738046614e361"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6971bbb24a45224c7c008287bbb33724"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga6971bbb24a45224c7c008287bbb33724">MIDI_PROGRAMCHANGE</a> = 0xc0</td></tr>
+<tr class="memdesc:ga6971bbb24a45224c7c008287bbb33724"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:ga6971bbb24a45224c7c008287bbb33724"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga291a2ec18e183aa0dce264707fa30518"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga291a2ec18e183aa0dce264707fa30518">MIDI_CHANAFTERTOUCH</a> = 0xd0</td></tr>
+<tr class="memdesc:ga291a2ec18e183aa0dce264707fa30518"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:ga291a2ec18e183aa0dce264707fa30518"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga23f3fc6d498234337db54f927edfa601"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga23f3fc6d498234337db54f927edfa601">MIDI_PITCHBEND</a> = 0xe0</td></tr>
+<tr class="memdesc:ga23f3fc6d498234337db54f927edfa601"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:ga23f3fc6d498234337db54f927edfa601"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaea68fe742c9be3a002bc360dc4514a1b"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaea68fe742c9be3a002bc360dc4514a1b">MIDI_SYSTEMMESSAGE</a> = 0xf0</td></tr>
+<tr class="memdesc:gaea68fe742c9be3a002bc360dc4514a1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:gaea68fe742c9be3a002bc360dc4514a1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaae49aec08359d6cb827bbcf6baaea27a"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaae49aec08359d6cb827bbcf6baaea27a">MIDI_BEGINSYSEX</a> = 0xf0</td></tr>
+<tr class="memdesc:gaae49aec08359d6cb827bbcf6baaea27a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:gaae49aec08359d6cb827bbcf6baaea27a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3c91eb2a01984845ae52e096118f90e7"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga3c91eb2a01984845ae52e096118f90e7">MIDI_MTCQUARTERFRAME</a> = 0xf1</td></tr>
+<tr class="memdesc:ga3c91eb2a01984845ae52e096118f90e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:ga3c91eb2a01984845ae52e096118f90e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3b94e471292ef27e566aeb8bad0cc83a"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga3b94e471292ef27e566aeb8bad0cc83a">MIDI_SONGPOSPTR</a> = 0xf2</td></tr>
+<tr class="memdesc:ga3b94e471292ef27e566aeb8bad0cc83a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:ga3b94e471292ef27e566aeb8bad0cc83a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae7371cada22834c919149d3d147d2389"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gae7371cada22834c919149d3d147d2389">MIDI_SONGSELECT</a> = 0xf3</td></tr>
+<tr class="memdesc:gae7371cada22834c919149d3d147d2389"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:gae7371cada22834c919149d3d147d2389"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga39c8a5b0a91fd2f122841bfb63714357"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga39c8a5b0a91fd2f122841bfb63714357">MIDI_ENDSYSEX</a> = 0xF7</td></tr>
+<tr class="memdesc:ga39c8a5b0a91fd2f122841bfb63714357"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:ga39c8a5b0a91fd2f122841bfb63714357"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5a5499f48e5948136a486a3bc4b3cf0b"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga5a5499f48e5948136a486a3bc4b3cf0b">MIDI_TIMINGCLOCK</a> = 0xF8</td></tr>
+<tr class="memdesc:ga5a5499f48e5948136a486a3bc4b3cf0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:ga5a5499f48e5948136a486a3bc4b3cf0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1ca643cb15eae2ce30421b47f803146e"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga1ca643cb15eae2ce30421b47f803146e">MIDI_START</a> = 0xFA</td></tr>
+<tr class="memdesc:ga1ca643cb15eae2ce30421b47f803146e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:ga1ca643cb15eae2ce30421b47f803146e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa1a702c1f998dc429c2cf490bdcb472e"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaa1a702c1f998dc429c2cf490bdcb472e">MIDI_CONTINUE</a> = 0xFB</td></tr>
+<tr class="memdesc:gaa1a702c1f998dc429c2cf490bdcb472e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:gaa1a702c1f998dc429c2cf490bdcb472e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga763095985eece92bc6f4258b20ae851f"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga763095985eece92bc6f4258b20ae851f">MIDI_STOP</a> = 0xFC</td></tr>
+<tr class="memdesc:ga763095985eece92bc6f4258b20ae851f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:ga763095985eece92bc6f4258b20ae851f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga297b640941cd6375d09b310e22439b5c"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga297b640941cd6375d09b310e22439b5c">MIDI_ACTIVESENSING</a> = 0xFE</td></tr>
+<tr class="memdesc:ga297b640941cd6375d09b310e22439b5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:ga297b640941cd6375d09b310e22439b5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab9e2ad7245aeff3ada09bbc4786a592e"><td class="memItemLeft" align="right" valign="top">
+static constexpr unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gab9e2ad7245aeff3ada09bbc4786a592e">MIDI_SYSTEMRESET</a> = 0xFF</td></tr>
+<tr class="memdesc:gab9e2ad7245aeff3ada09bbc4786a592e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Midi msg. <br /></td></tr>
+<tr class="separator:gab9e2ad7245aeff3ada09bbc4786a592e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacfa27a3617de6ae9d87c999a89ad1098"><td class="memItemLeft" align="right" valign="top">
+static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gacfa27a3617de6ae9d87c999a89ad1098">PW_CMD_BLOC_CHANGED</a> = 1</td></tr>
+<tr class="memdesc:gacfa27a3617de6ae9d87c999a89ad1098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal messages. <br /></td></tr>
+<tr class="separator:gacfa27a3617de6ae9d87c999a89ad1098"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac3d2958e958d54fdd97e48182ba35ad9"><td class="memItemLeft" align="right" valign="top">
+static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gac3d2958e958d54fdd97e48182ba35ad9">US_CMD_TRACE</a> = 0xFA</td></tr>
+<tr class="memdesc:gac3d2958e958d54fdd97e48182ba35ad9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal flag for the trace window. <br /></td></tr>
+<tr class="separator:gac3d2958e958d54fdd97e48182ba35ad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7c718530dd87a51d999b59167aa6c430"><td class="memItemLeft" align="right" valign="top">static const auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga7c718530dd87a51d999b59167aa6c430">PROPERTIES_TAB_NAME</a> = &quot;tab_properties&quot;</td></tr>
+<tr class="memdesc:ga7c718530dd87a51d999b59167aa6c430"><td class="mdescLeft">&#160;</td><td class="mdescRight">Settings Panel Tab's name.  <a href="group___datatypes.html#ga7c718530dd87a51d999b59167aa6c430">More...</a><br /></td></tr>
+<tr class="separator:ga7c718530dd87a51d999b59167aa6c430"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabe1ef513b6852ffd08e5d08b8c652b97"><td class="memItemLeft" align="right" valign="top">
+static const auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gabe1ef513b6852ffd08e5d08b8c652b97">DESIGN_TAB_NAME</a> = &quot;tab_design&quot;</td></tr>
+<tr class="memdesc:gabe1ef513b6852ffd08e5d08b8c652b97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to populate the design tab of the Settings panel. <br /></td></tr>
+<tr class="separator:gabe1ef513b6852ffd08e5d08b8c652b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga012747ab7c6db0b1f785203ea2fe94c4"><td class="memItemLeft" align="right" valign="top">
+static const auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga012747ab7c6db0b1f785203ea2fe94c4">MOUSE_TAB_NAME</a> = &quot;tab_mouse&quot;</td></tr>
+<tr class="memdesc:ga012747ab7c6db0b1f785203ea2fe94c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to populate the mouse tab of the Settings panel. <br /></td></tr>
+<tr class="separator:ga012747ab7c6db0b1f785203ea2fe94c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga25fc8ef57487137408fe5e3d44b221cf"><td class="memItemLeft" align="right" valign="top">
+static const auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga25fc8ef57487137408fe5e3d44b221cf">OTHER_TAB_NAME</a> = &quot;tab_other&quot;</td></tr>
+<tr class="memdesc:ga25fc8ef57487137408fe5e3d44b221cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to populate the other tab of the Settings panel. <br /></td></tr>
+<tr class="separator:ga25fc8ef57487137408fe5e3d44b221cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae8bc58f0a0199277805e8a9b1d781bcd"><td class="memItemLeft" align="right" valign="top">
+static const auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gae8bc58f0a0199277805e8a9b1d781bcd">REMOTE_TAB_NAME</a> = &quot;tab_remote&quot;</td></tr>
+<tr class="memdesc:gae8bc58f0a0199277805e8a9b1d781bcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to populate the remote tab of the Settings panel. <br /></td></tr>
+<tr class="separator:gae8bc58f0a0199277805e8a9b1d781bcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga581bc4e9a90e4a9041eeec79c85e74af"><td class="memItemLeft" align="right" valign="top">
+static const auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga581bc4e9a90e4a9041eeec79c85e74af">CURVES_TAB_NAME</a> = &quot;tab_curves&quot;</td></tr>
+<tr class="memdesc:ga581bc4e9a90e4a9041eeec79c85e74af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to populate the curves tab of the Settings panel. <br /></td></tr>
+<tr class="separator:ga581bc4e9a90e4a9041eeec79c85e74af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga06dd54a42a4bfebd1d49885f0f19ffb3"><td class="memItemLeft" align="right" valign="top">
+static const auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga06dd54a42a4bfebd1d49885f0f19ffb3">LAN_TAB_NAME</a> = &quot;tab_lan&quot;</td></tr>
+<tr class="memdesc:ga06dd54a42a4bfebd1d49885f0f19ffb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to populate the lan tab of the Settings panel. <br /></td></tr>
+<tr class="separator:ga06dd54a42a4bfebd1d49885f0f19ffb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaeeb7e5a698983c256d6cc5417f1fdd3c"><td class="memItemLeft" align="right" valign="top">
+static const auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaeeb7e5a698983c256d6cc5417f1fdd3c">SIZE_TAB_NAME</a> = &quot;tab_size&quot;</td></tr>
+<tr class="memdesc:gaeeb7e5a698983c256d6cc5417f1fdd3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to populate the size tab of the Settings panel. <br /></td></tr>
+<tr class="separator:gaeeb7e5a698983c256d6cc5417f1fdd3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7143a8836833b2114bf965f32854f3ba"><td class="memItemLeft" align="right" valign="top">static const auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga7143a8836833b2114bf965f32854f3ba">DEFAULT_FORMAT_FLOAT_3</a> = &quot;%.3f&quot;</td></tr>
+<tr class="memdesc:ga7143a8836833b2114bf965f32854f3ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Numeric format.  <a href="group___datatypes.html#ga7143a8836833b2114bf965f32854f3ba">More...</a><br /></td></tr>
+<tr class="separator:ga7143a8836833b2114bf965f32854f3ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae132342bfeb63d4ada15883052643a04"><td class="memItemLeft" align="right" valign="top">
+static const auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gae132342bfeb63d4ada15883052643a04">DEFAULT_FORMAT_FLOAT_2</a> = &quot;%.2f&quot;</td></tr>
+<tr class="memdesc:gae132342bfeb63d4ada15883052643a04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default format for a 2 decimals number. <br /></td></tr>
+<tr class="separator:gae132342bfeb63d4ada15883052643a04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9f2258f94b8f592f5b314b68be8f9aa5"><td class="memItemLeft" align="right" valign="top">
+static const auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga9f2258f94b8f592f5b314b68be8f9aa5">DEFAULT_FORMAT_FLOAT_1</a> = &quot;%.1f&quot;</td></tr>
+<tr class="memdesc:ga9f2258f94b8f592f5b314b68be8f9aa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default format for a 1 decimal number. <br /></td></tr>
+<tr class="separator:ga9f2258f94b8f592f5b314b68be8f9aa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf2f4da550d70dc848872ee64462d99dc"><td class="memItemLeft" align="right" valign="top">
+static const auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gaf2f4da550d70dc848872ee64462d99dc">DEFAULT_FORMAT_INTEGER</a> = &quot;%.0f&quot;</td></tr>
+<tr class="memdesc:gaf2f4da550d70dc848872ee64462d99dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default format for an integer number. <br /></td></tr>
+<tr class="separator:gaf2f4da550d70dc848872ee64462d99dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga67a52c501c546d34fa58322af7adaf62"><td class="memItemLeft" align="right" valign="top">
+static const auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#ga67a52c501c546d34fa58322af7adaf62">DEFAULT_FORMAT_GENERAL</a> = &quot;%g&quot;</td></tr>
+<tr class="memdesc:ga67a52c501c546d34fa58322af7adaf62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default format for a string. <br /></td></tr>
+<tr class="separator:ga67a52c501c546d34fa58322af7adaf62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadc7068866aa8037d8969d6ea3ae9c341"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="group___datatypes.html#ga4aa710e093bcfc5b720bfba45308d811">TPrecision</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___datatypes.html#gadc7068866aa8037d8969d6ea3ae9c341">SMOOTH_VERY_VERY_SLOW</a> = 0.99995f</td></tr>
+<tr class="memdesc:gadc7068866aa8037d8969d6ea3ae9c341"><td class="mdescLeft">&#160;</td><td class="mdescRight">smooth factor used in smoothing functions  <a href="group___datatypes.html#gadc7068866aa8037d8969d6ea3ae9c341">More...</a><br /></td></tr>
+<tr class="separator:gadc7068866aa8037d8969d6ea3ae9c341"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><hr/>
  <pre class="fragment"> UsineDefinitions.h</pre> <dl class="section author"><dt>Author</dt><dd>BrainModular team</dd></dl>
 <pre class="fragment">    Datas and functions declarations exposed by Usine.
-</pre><p>This file is part of the Usine Hollyhock CPP SDK</p>
+</pre><p>2023/11/28 first release for Hollyhock CPP SDK : 7.10.07 2023/11/28 added a more modern class system to the CPP SDK</p>
+<p>This file is part of the Usine Hollyhock CPP SDK</p>
 <p>Please, report bugs and patch to Usine forum : <a href="#" onclick="location.href='mai'+'lto:'+'sup'+'po'+'rt@'+'br'+'ain'+'mo'+'dul'+'ar'+'.co'+'m'; return false;">suppo<span style="display: none;">.nosp@m.</span>rt@b<span style="display: none;">.nosp@m.</span>rainm<span style="display: none;">.nosp@m.</span>odul<span style="display: none;">.nosp@m.</span>ar.co<span style="display: none;">.nosp@m.</span>m</a></p>
 <p>All dependencies are under there own licence.</p>
 <p>Copyright (C) 2023 BrainModular, BeSpline, Adamson </p><hr/>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 5 2024 17:48:14 for Usine SDK by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2024 11:29:17 for Usine SDK by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.12
 </small></address>
