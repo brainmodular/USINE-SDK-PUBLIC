@@ -27,11 +27,11 @@
 #include <cassert>
 #include <cmath>
 
-std::auto_ptr<Envelope> Grain::asrEnvelope(new AsrEnvelope(10000));
-std::auto_ptr<Envelope> Grain::rcbEnvelope(new RcbEnvelope(10000));
-std::auto_ptr<Envelope> Grain::bezierEnvelope(new BezierEnvelope(10000));
-std::auto_ptr<Envelope> Grain::hanningEnvelope(new HanningEnvelope(10000));
-std::auto_ptr<Envelope> Grain::gaussianEnvelope(new GaussianEnvelope(10000));
+std::unique_ptr<Envelope> Grain::asrEnvelope(new AsrEnvelope(10000));
+std::unique_ptr<Envelope> Grain::rcbEnvelope(new RcbEnvelope(10000));
+std::unique_ptr<Envelope> Grain::bezierEnvelope(new BezierEnvelope(10000));
+std::unique_ptr<Envelope> Grain::hanningEnvelope(new HanningEnvelope(10000));
+std::unique_ptr<Envelope> Grain::gaussianEnvelope(new GaussianEnvelope(10000));
 //-----------------------------------------------------------------------------
 Grain::Grain()
     : isActive(false)

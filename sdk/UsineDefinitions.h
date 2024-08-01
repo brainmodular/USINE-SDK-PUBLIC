@@ -1011,6 +1011,7 @@ typedef void(*FuncGlobalArraySetValueColor)	    (UINT64 hash, int index, TUsineC
 typedef void(*FuncGlobalArraySetValueAnsiChar)	(UINT64 hash, int index, AnsiCharPtr value, AnsiCharPtr errorMsg);
 typedef void(*FuncGlobalArraySetValueEvt)	    (UINT64 hash, UsineEventPtr value, AnsiCharPtr errorMsg);
 
+typedef TPrecision(*FuncGlobalArrayGetSize)	            (UINT64 hash, AnsiCharPtr errorMsg);
 typedef TPrecision(*FuncGlobalArrayGetValueFloat)	    (UINT64 hash, int index, AnsiCharPtr errorMsg);
 typedef TUsineColor(*FuncGlobalArrayGetValueColor)	    (UINT64 hash, int index, AnsiCharPtr errorMsg);
 typedef AnsiCharPtr(*FuncGlobalArrayGetValueAnsiChar)	(UINT64 hash, int index, AnsiCharPtr errorMsg);
@@ -1359,6 +1360,7 @@ struct TMasterInfo
     FuncLockCriticalSection         LockUsineEngine;
     FuncLockCriticalSection         UnLockUsineEngine;
 
+    FuncGlobalArrayGetSize          GlobalArrayGetSize;
 
 };
 /// for backward compatibility

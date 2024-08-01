@@ -10,9 +10,13 @@ To report bug, please send mail to support@brainmodular.com
 
 Olivier Sens & the BrainModular Team
 
-
 ________________________________________________________________________________
-CPP SDK [HH6-240115] 2024/07/31
+CPP SDK [HH6-240901] 2024/08/01
+changes
+  * Added sdkGlobalArrayGetSize(const UINT64 hash, const AnsiCharPtr errorMsg)
+  * examples compiled with C++17
+________________________________________________________________________________
+CPP SDK [HH6-240731] 2024/07/31
 changes
   * Added UsineEventClass instead of the old UsineEventPtr
   * Marked many older functions as deprecated

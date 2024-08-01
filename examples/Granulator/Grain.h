@@ -98,11 +98,11 @@ class Grain
 
     Envelope* currentEnvelope;
 
-    static std::auto_ptr<Envelope> asrEnvelope;
-    static std::auto_ptr<Envelope> rcbEnvelope;
-    static std::auto_ptr<Envelope> bezierEnvelope;
-    static std::auto_ptr<Envelope> hanningEnvelope;
-    static std::auto_ptr<Envelope> gaussianEnvelope;
+    static std::unique_ptr<Envelope> asrEnvelope;
+    static std::unique_ptr<Envelope> rcbEnvelope;
+    static std::unique_ptr<Envelope> bezierEnvelope;
+    static std::unique_ptr<Envelope> hanningEnvelope;
+    static std::unique_ptr<Envelope> gaussianEnvelope;
    // static Envelope* gaussEnvelope;
 
 	///	Whether the grain is active or not.

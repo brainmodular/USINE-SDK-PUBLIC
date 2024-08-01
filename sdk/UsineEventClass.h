@@ -528,6 +528,13 @@ inline TPrecision sdkGlobalArrayGetValueFloat(const UINT64 hash, const int index
     return UserModuleBase::m_masterInfo->GlobalArrayGetValueFloat(hash, index, errorMsg);
 }
 
+/// Get the size of the Global Array
+[[maybe_unused]] [[nodiscard]]
+inline TPrecision sdkGlobalArrayGetSize(const UINT64 hash, const AnsiCharPtr errorMsg)
+{
+    return UserModuleBase::m_masterInfo->GlobalArrayGetSize(hash, errorMsg);
+}
+
 /// Get a color value from a color Global Array at the index
 [[maybe_unused]] [[nodiscard]]
 inline TUsineColor sdkGlobalArrayGetValueColor(const UINT64 hash, const int index, const AnsiCharPtr errorMsg)
