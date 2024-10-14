@@ -125,10 +125,6 @@ private:
 	LongBool	mouseLeftButtonDown;			
     TPointF lastMousePos;
 
-	// store the coords of our box
-    TRectF boxCoords;
-    float boxScale;
-
 	// settings
 	TUsineColor colorBox;
 

@@ -91,7 +91,6 @@ public:
     void createEvent(const int size)
     {
         UserModuleBase::m_masterInfo->CreateEvt(p_event_, size);
-        p_event_ = nullptr;
     }
 
     /// @name Events manipulation

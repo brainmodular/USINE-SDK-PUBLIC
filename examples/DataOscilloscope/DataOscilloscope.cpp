@@ -266,7 +266,7 @@ void DataOscilloscope::advance() {
             points.erase(points.begin() + i);
         }
     }
-    
+    sdkRepaintPanel();
 }
 
 //-----------------------------------------------------------------------------
@@ -294,7 +294,6 @@ void DataOscilloscope::onPaint ()
     sdkDrawPathClose();
     sdkDrawPathDraw(colorBox, 0.5);
 
-    updateBox(boxCoords.left, boxCoords.top);
 }
 
 //-------------------------------------------------------------------------
@@ -303,13 +302,6 @@ void DataOscilloscope::onPaint ()
 //-------------------------------------------------------------------------
 void DataOscilloscope::eraseBox()
 {
-    // we put all box values to -1
-    // in the paint methode, we'll check against the top value if it's negative
-    boxCoords.left = -1;
-    boxCoords.top = -1;
-    boxCoords.bottom = -1;
-    boxCoords.right = -1;
-    
     points.clear();
     
     // Ask to repaint the module
@@ -319,9 +311,6 @@ void DataOscilloscope::eraseBox()
 //-------------------------------------------------------------------------
 void DataOscilloscope::updateBox(float x, float y)
 {
-    boxCoords.bottom = y;
-    boxCoords.right = x;
-    
     // Ask to repaint the module
     sdkRepaintPanel();
 }

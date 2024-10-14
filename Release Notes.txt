@@ -11,6 +11,12 @@ To report bug, please send mail to support@brainmodular.com
 Olivier Sens & the BrainModular Team
 
 ________________________________________________________________________________
+CPP SDK [HH6-241014] 2024/10/14
+changes
+  * SDK createEvent() sets a NULL pointer
+  * examples compiled with VC++22
+
+________________________________________________________________________________
 CPP SDK [HH6-240901] 2024/08/01
 changes
   * Added sdkGlobalArrayGetSize(const UINT64 hash, const AnsiCharPtr errorMsg)

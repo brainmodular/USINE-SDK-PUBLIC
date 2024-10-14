@@ -1,0 +1,52 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\senso\\BrainModularBeSpline Dropbox\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\examples\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5E375CE0-10CA-43A7-A4FB-05D0B6AB525B}|Reverb\\Reverb.vcxproj|C:\\Users\\senso\\BrainModularBeSpline Dropbox\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\examples\\Reverb\\Reverb.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5E375CE0-10CA-43A7-A4FB-05D0B6AB525B}|Reverb\\Reverb.vcxproj|solutionrelative:Reverb\\Reverb.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E375CE0-10CA-43A7-A4FB-05D0B6AB525B}|Reverb\\Reverb.vcxproj|C:\\Users\\senso\\BrainModularBeSpline Dropbox\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\sdk\\UsineEventClass.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UsineEventClass.h",
+              "DocumentMoniker": "C:\\Users\\senso\\BrainModularBeSpline Dropbox\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\sdk\\UsineEventClass.h",
+              "RelativeDocumentMoniker": "..\\sdk\\UsineEventClass.h",
+              "ToolTip": "C:\\Users\\senso\\BrainModularBeSpline Dropbox\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\sdk\\UsineEventClass.h",
+              "RelativeToolTip": "..\\sdk\\UsineEventClass.h",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAwwF0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-10-14T09:19:33.145Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Reverb.cpp",
+              "DocumentMoniker": "C:\\Users\\senso\\BrainModularBeSpline Dropbox\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\examples\\Reverb\\Reverb.cpp",
+              "RelativeDocumentMoniker": "Reverb\\Reverb.cpp",
+              "ToolTip": "C:\\Users\\senso\\BrainModularBeSpline Dropbox\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\examples\\Reverb\\Reverb.cpp",
+              "RelativeToolTip": "Reverb\\Reverb.cpp",
+              "ViewState": "AgIAAFUBAAAAAAAAAIAwwFkBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-14T09:19:55.786Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
