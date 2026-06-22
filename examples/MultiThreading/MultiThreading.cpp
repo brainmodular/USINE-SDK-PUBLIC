@@ -6,7 +6,7 @@
 //	BrainModular team
 //
 //@brief 
-//	Implementation of the MultiThreading class.
+//	Implementation  of the MultiThreading class.
 //
 //  Example user module to show how to process audio buffers.
 //
@@ -49,7 +49,6 @@
 // includes
 //-----------------------------------------------------------------------------
 #include "MultiThreading.h"
-#include <string> 
 
 //----------------------------------------------------------------------------
 // create, general info and destroy methods
@@ -57,7 +56,7 @@
 
 //-----------------------------------------------------------------------------
 // Create
-void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new MultiThreading();
 }
@@ -70,9 +69,9 @@ void DestroyModule(void* pModule)
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "multithreading";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "multithreading sdk module example";
-const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
+constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "multithreading";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "multithreading sdk module example";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
 // browser info
 void GetBrowserInfo(TModuleInfo* pModuleInfo) 
@@ -88,25 +87,24 @@ void GetBrowserInfo(TModuleInfo* pModuleInfo)
 
 // constructor
 MultiThreading::MultiThreading()
- 
+    : thread1(nullptr), thread2(nullptr), criticalSection(nullptr)
 {
-	
-
 }
 
 // destructor
 MultiThreading::~MultiThreading()
 {
-	sdkThreadDestroy(thread1);
-	sdkThreadDestroy(thread2);
-	sdkCriticalSectionDestroy(criticalSection);
+	if (thread1 != nullptr) sdkThreadDestroy(thread1);
+	if (thread2 != nullptr) sdkThreadDestroy(thread2);
+	if (criticalSection != nullptr) sdkCriticalSectionDestroy(criticalSection);
 }
 
-void MultiThreading::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+void MultiThreading::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
 	pModuleInfo->Name				= MODULE_NAME;
 	pModuleInfo->Description		= MODULE_DESC;
 	pModuleInfo->ModuleType         = mtSimple;
+	pModuleInfo->DontProcess		= true;
 	pModuleInfo->BackColor          = sdkGetUsineColor(clDataModuleColor);
 	pModuleInfo->Version			= MODULE_VERSION;  
 	pModuleInfo->CanBeSavedInPreset = FALSE;
@@ -118,7 +116,7 @@ void MultiThreading::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pMo
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 // Get total parameters number of the module
-int MultiThreading::onGetNumberOfParams (int queryResult1, int queryResult2)
+int MultiThreading::onGetNumberOfParams(int queryResult1, int queryResult2)
 {
 	int result = 1;
     return result;
@@ -126,50 +124,38 @@ int MultiThreading::onGetNumberOfParams (int queryResult1, int queryResult2)
 
 //-----------------------------------------------------------------------------
 // Called after the query popup
-void MultiThreading::onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
+void MultiThreading::onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
 {
 }
 
 //-----------------------------------------------------------------------------
 // process for thread1
-void processThread1(void* pModule, TThreadPtr pThread)
+void MultiThreading::processThread1(void* pModule, TThreadPtr pThread)
 {
 	MultiThreading* module = static_cast<MultiThreading*>(pModule);
-	try
-	{
-		module->sdkCriticalSectionLock(module->criticalSection);
-		sdkTraceChar("thread 1");
-	}
-	catch (...)
-	{
-	}
+	module->sdkCriticalSectionLock(module->criticalSection);
+	sdkTraceChar("thread 1");
 	module->sdkCriticalSectionUnLock(module->criticalSection);
 }
 
 //-----------------------------------------------------------------------------
-// process for thread1
-void processThread2(void* pModule, TThreadPtr pThread)
+// process for thread2
+void MultiThreading::processThread2(void* pModule, TThreadPtr pThread)
 {
 	MultiThreading* module = static_cast<MultiThreading*>(pModule);
-	try
-	{
-        module->sdkCriticalSectionLock(module->criticalSection);
-		sdkTraceChar("thread 2");
-	}
-	catch (...)
-	{
-	}
+	module->sdkCriticalSectionLock(module->criticalSection);
+	sdkTraceChar("thread 2");
 	module->sdkCriticalSectionUnLock(module->criticalSection);
 }
 
 //-----------------------------------------------------------------------------
 // initialisation
-void MultiThreading::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
+void MultiThreading::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
 {
     //syncObject = sdkSyncObjectCreate();
     criticalSection = sdkCriticalSectionCreate("critical section",true);
-	thread1 = sdkThreadCreate("thread 1", &processThread1, tpMedium, 100);
-	thread2 = sdkThreadCreate("thread 2", &processThread2, tpMedium, 100);
+	thread1 = sdkThreadCreate("thread 1", &MultiThreading::processThread1, tpMedium, 100);
+	thread2 = sdkThreadCreate("thread 2", &MultiThreading::processThread2, tpMedium, 100);
 }
 
 //----------------------------------------------------------------------------
@@ -178,39 +164,29 @@ void MultiThreading::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModul
 
 //-----------------------------------------------------------------------------
 // Parameters description
-void MultiThreading::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
+void MultiThreading::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo)
 {	
 	if (ParamIndex == 0)
 	{
-	pParamInfo->ParamType			= ptArray;
-	pParamInfo->Caption				= "output";
-	pParamInfo->IsInput				= FALSE;
-	pParamInfo->IsOutput			= TRUE;
-	pParamInfo->IsSeparator			= TRUE;
-	pParamInfo->CallBackType		= ctNormal;
-	pParamInfo->SeparatorCaption	= "";
-	pParamInfo->setEventClass		(output);
-
+		pParamInfo->ParamType			= ptArray;
+		pParamInfo->Caption				= "output";
+		pParamInfo->IsInput				= FALSE;
+		pParamInfo->IsOutput			= TRUE;
+		pParamInfo->IsSeparator			= TRUE;
+		pParamInfo->CallBackType		= ctNone;
+		pParamInfo->SeparatorCaption	= "";
+		pParamInfo->setEventClass		(output);
 	}
 }
 
 
 //-----------------------------------------------------------------------------
 // Parameters callback
-void MultiThreading::onCallBack (TUsineMessage *Message) 
+void MultiThreading::onCallBack(TUsineMessage *Message) 
 {
+	if ((Message->message != NOTIFY_MSG_USINE_CALLBACK) || (Message->lParam != MSG_CHANGE))
+		return;
     // filter only message specific to this user module
-    if (Message->message == NOTIFY_MSG_USINE_CALLBACK)
-    {
-    }
+    
 }
 
-
-//-----------------------------------------------------------------------------
-// Parameters callback
-void MultiThreading::onProcess () 
-{
-	
-
-
-}

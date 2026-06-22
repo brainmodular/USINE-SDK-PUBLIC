@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\modules\\DatabaseModules\\Archives\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6CF687A7-4218-460F-AAB3-4CC7C44EE639}|DatabasePlayer.vcxproj|C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\modules\\DatabaseModules\\DatabasePlayer\\DatabasePlayer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DatabasePlayer.cpp",
+              "DocumentMoniker": "C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\modules\\DatabaseModules\\DatabasePlayer\\DatabasePlayer.cpp",
+              "RelativeDocumentMoniker": "..\\DatabasePlayer\\DatabasePlayer.cpp",
+              "ToolTip": "C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\modules\\DatabaseModules\\DatabasePlayer\\DatabasePlayer.cpp",
+              "RelativeToolTip": "..\\DatabasePlayer\\DatabasePlayer.cpp",
+              "ViewState": "AgIAAPoAAAAAAAAAAAAlwCABAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-07-29T13:08:19.465Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

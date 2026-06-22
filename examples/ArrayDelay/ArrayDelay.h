@@ -53,15 +53,12 @@
 // includes
 //-----------------------------------------------------------------------------
 #include "../../sdk/UserDefinitions.h"  
-#include <iostream>
-#include <cmath>
-#include <limits>
 
 //-----------------------------------------------------------------------------
 // defines and constantes
 //-----------------------------------------------------------------------------
-#define MAXBLOC     512
-#define MAX_DELAY   1000
+constexpr UINT32 MAXBLOC   = 512;
+constexpr UINT32 MAX_DELAY = 1000;
 
 //-----------------------------------------------------------------------------
 // structures and typedef
@@ -109,9 +106,9 @@ public:
 
 	//-----------------------------------------------------------------------------
 	// chunk system
-	int  onGetChunkLen (LongBool Preset);
-	void onGetChunk (void* chunk, LongBool Preset);
-	void onSetChunk (const void* chunk, int sizeInBytes, LongBool Preset);
+	int  onGetStateChunkLen (LongBool Preset);
+	void onGetStateChunk (void* chunk, LongBool Preset);
+	void onSetStateChunk (const void* chunk, int sizeInBytes, LongBool Preset);
 
 	//-----------------------------------------------------------------------------
 	// layout
@@ -146,13 +143,13 @@ public:
 protected:
 	//-------------------------------------------------------------------------
 	// parameters events
-      UsineEventClass arrInArray;
-      UsineEventClass arrInDelay;
-      UsineEventClass arrOutArray;	
+	UsineEventClass arrInArray;
+    UsineEventClass arrInDelay;
+    UsineEventClass arrOutArray;	
  
-    float delayLine[MAXBLOC][MAX_DELAY];
-    long delayBuffer[MAXBLOC];  
-    long readPos; 
+	float	delayLine[MAX_DELAY][MAXBLOC];
+    UINT32	delayBuffer[MAXBLOC];  
+    UINT32	readPos; 
 
 	//-------------------------------------------------------------------------
 	// public methods

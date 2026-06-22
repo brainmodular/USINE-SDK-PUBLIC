@@ -46,16 +46,13 @@
 //-----------------------------------------------------------------------------
 
 // include once, no more
-#ifndef __RGBA_COLOR_MODULE_H__
-#define __RGBA_COLOR_MODULE_H__
+#ifndef __EXAMPLE_DATA_MULTIPLY__
+#define __EXAMPLE_DATA_MULTIPLY__
 
 //-----------------------------------------------------------------------------
 // includes
 //-----------------------------------------------------------------------------
 #include "../../sdk/UserDefinitions.h"  
-#include <iostream>
-#include <cmath>
-#include <limits>
 
 //-----------------------------------------------------------------------------
 // class definition
@@ -102,4 +99,4 @@ private:
 
 }; // class DataMultiplyExample
 
-#endif //__RGBA_COLOR_MODULE_H__
+#endif //__EXAMPLE_DATA_MULTIPLY__

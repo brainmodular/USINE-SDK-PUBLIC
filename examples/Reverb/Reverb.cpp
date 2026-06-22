@@ -51,6 +51,17 @@
 #include "Reverb.h"
 
 //----------------------------------------------------------------------------
+// setup a callback_id constant for all params that specify a callback type
+//----------------------------------------------------------------------------
+constexpr NativeInt SWITCH_CBID         = 0x002100F0;
+constexpr NativeInt ROOM_SIZE_CBID      = 0x002100F1;
+constexpr NativeInt DAMPING_CBID        = 0x002100F2;
+constexpr NativeInt CHANNEL_SEP_CBID    = 0x002100F3;
+constexpr NativeInt WET_LEVEL_CBID      = 0x002100F4;
+constexpr NativeInt DRY_LEVEL_CBID      = 0x002100F5;
+
+
+//----------------------------------------------------------------------------
 // create, general info and destroy methods
 //----------------------------------------------------------------------------
 
@@ -69,12 +80,12 @@ void DestroyModule(void* pModule)
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "Reverb";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "Reverb";
-const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.1";
+constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "Reverb";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "Reverb";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.1";
 
 // browser info
-void GetBrowserInfo(ModuleInfo* pModuleInfo) 
+void GetBrowserInfo(TModuleInfo* pModuleInfo) 
 {
 	pModuleInfo->Name				= UserModuleBase::MODULE_NAME;
 	pModuleInfo->Description		= UserModuleBase::MODULE_DESC;
@@ -91,7 +102,6 @@ const float Reverb::initialRoom = 95.0f;
 const float Reverb::initialDamp = 75.0f; 
 const float Reverb::initialChannelsSeparation = 50.0f;
 const float Reverb::initialMode = 0.0f;  
-
 
 
 // constructor
@@ -197,6 +207,7 @@ void Reverb::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->ReadOnly		= FALSE;
+        pParamInfo->CallBackType    = ctNone;
         pParamInfo->setEventClass   (audioInputs[ParamIndex]);
     }
     // audioOutputs
@@ -207,6 +218,7 @@ void Reverb::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= FALSE;
 		pParamInfo->IsOutput		= TRUE;
 		pParamInfo->ReadOnly		= TRUE;
+        pParamInfo->CallBackType    = ctNone;
         pParamInfo->setEventClass   (audioOutputs[ParamIndex - numOfAudiotInsOuts]);
 	}
     // swtchMode
@@ -217,6 +229,8 @@ void Reverb::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->DefaultValue    = initialMode;
+        pParamInfo->CallBackType    = ctNormal;
+        pParamInfo->CallBackId      = SWITCH_CBID;
         pParamInfo->setEventClass   (swtchMode);
 	}
     // fdrRoomSize
@@ -232,6 +246,8 @@ void Reverb::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->Symbol          = "%";
 		pParamInfo->Format          = "%.2f";
         pParamInfo->Scale           = scExp;
+        pParamInfo->CallBackType    = ctNormal;
+        pParamInfo->CallBackId      = ROOM_SIZE_CBID;
         pParamInfo->setEventClass   (fdrRoomSize);
 	}
     // fdrDamping
@@ -246,6 +262,8 @@ void Reverb::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->DefaultValue    = initialDamp;
         pParamInfo->Symbol          = "%";
 		pParamInfo->Format          = "%.2f";
+        pParamInfo->CallBackType    = ctNormal;
+        pParamInfo->CallBackId      = DAMPING_CBID;
         pParamInfo->setEventClass   (fdrDamping);
 	}
     // fdrChannelsSeparation
@@ -260,6 +278,8 @@ void Reverb::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->DefaultValue    = initialChannelsSeparation;
 		pParamInfo->Symbol          = "%";
 		pParamInfo->Format          = "%.2f";
+        pParamInfo->CallBackType    = ctNormal;
+        pParamInfo->CallBackId      = CHANNEL_SEP_CBID;
         pParamInfo->setEventClass   (fdrChannelsSeparation);
 	}
     // gfdrWetLevel
@@ -271,6 +291,8 @@ void Reverb::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsOutput        = FALSE;
 		pParamInfo->DefaultValue    = initialWet;
 		pParamInfo->Format          = "%.2f";
+        pParamInfo->CallBackType    = ctNormal;
+        pParamInfo->CallBackId      = WET_LEVEL_CBID;
         pParamInfo->setEventClass   (gfdrWetLevel);
 	}
     // gfdrDryLevel
@@ -281,6 +303,8 @@ void Reverb::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput         = TRUE;
 		pParamInfo->IsOutput        = FALSE;
 		pParamInfo->DefaultValue    = initialDry;
+        pParamInfo->CallBackType    = ctNormal;
+        pParamInfo->CallBackId      = DRY_LEVEL_CBID;
         pParamInfo->setEventClass   (gfdrDryLevel);
 	}
 }
@@ -288,42 +312,36 @@ void Reverb::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 
 void Reverb::onCallBack (TUsineMessage *Message) 
 {
-    //  lboxMode
-	if ( (Message->wParam == (numOfAudiotInsOuts*2)) && (Message->lParam == MSG_CHANGE) ) 
-	{
-        mode = swtchMode.getData();
-        reverbParamsUpdate ();
-	}
-    //  fdrRoomSize
-	else if ( (Message->wParam == (numOfAudiotInsOuts*2) + 1) && (Message->lParam == MSG_CHANGE) ) 
-	{
-        roomsize = fdrRoomSize.getData() / 100.0f;
-        reverbParamsUpdate ();
-	}
-    // fdrDamping
-	else if ( (Message->wParam == (numOfAudiotInsOuts*2) + 2) && (Message->lParam == MSG_CHANGE) ) 
-	{
-        damp = fdrDamping.getData() / 100.0f;
-        reverbParamsUpdate ();
-	}   
-	// fdrChannelsSeparation
-	else if ( (Message->wParam == (numOfAudiotInsOuts*2) + 3) && (Message->lParam == MSG_CHANGE) ) 
-	{
-        channelsSeparation = fdrChannelsSeparation.getData() / 100.0f;
-        reverbParamsUpdate ();
-	}   
-	// gfdrWetLevel
-	else if ( (Message->wParam == (numOfAudiotInsOuts*2) + 4) && (Message->lParam == MSG_CHANGE) ) 
-	{
-        wet = sdkDbToCoeff (gfdrWetLevel.getData());
-        reverbParamsUpdate ();
-	}
-	// gfdrDryLevel
-	else if ( (Message->wParam == (numOfAudiotInsOuts*2) + 5) && (Message->lParam == MSG_CHANGE) ) 
-	{
-        dry = sdkDbToCoeff (gfdrDryLevel.getData());
-        reverbParamsUpdate ();
-	}
+    if (Message->lParam == MSG_CHANGE) {
+        switch (Message->wParam) {
+        case SWITCH_CBID:
+            mode = swtchMode.getData();
+            reverbParamsUpdate();
+            break;
+        case ROOM_SIZE_CBID:
+            roomsize = fdrRoomSize.getData() / 100.0f;
+            reverbParamsUpdate();
+            break;
+        case DAMPING_CBID:
+            damp = fdrDamping.getData() / 100.0f;
+            reverbParamsUpdate();
+            break;
+        case CHANNEL_SEP_CBID:
+            channelsSeparation = fdrChannelsSeparation.getData() / 100.0f;
+            reverbParamsUpdate();
+            break;
+        case WET_LEVEL_CBID:
+            wet = sdkDbToCoeff(gfdrWetLevel.getData());
+            reverbParamsUpdate();
+            break;
+        case DRY_LEVEL_CBID:
+            dry = sdkDbToCoeff(gfdrDryLevel.getData());
+            reverbParamsUpdate();
+            break;
+        default:
+            break;
+        }
+    }
 }
 
 void Reverb::onProcess () 
@@ -367,7 +385,6 @@ void Reverb::onProcess ()
         {
             audioOutputs[v].clearAudio();
         }
-
     }
 
     if (coeffwet2 !=0)

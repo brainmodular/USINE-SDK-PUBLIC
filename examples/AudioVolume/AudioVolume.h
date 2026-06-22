@@ -100,19 +100,19 @@ public:
 private:
 	//-------------------------------------------------------------------------
 	// parameters events
-    UsineEventClass audioInputs[USINE_MULTIPHONY_MAX];     // audio input
-    UsineEventClass audioOutputs[USINE_MULTIPHONY_MAX];    // audio output
+    UsineEventClass audioInputs[USINE_AUDIO_CHANNEL_MODULE_MAX];     // audio input
+    UsineEventClass audioOutputs[USINE_AUDIO_CHANNEL_MODULE_MAX];    // audio output
 	UsineEventClass fdrGain;
 	UsineEventClass switchMute;
 	
 	//-------------------------------------------------------------------------
-    static const int numOfParamAfterAudiotInOut = 2;
+    static constexpr int numOfParamAfterAudiotInOut = 2;
 
 	int queryResult;
 	int numOfAudiotInsOuts;
 
     TPrecision coeffGain;
-    
+
 
 }; // class AudioVolume
 

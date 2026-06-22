@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:DrawTrajectoryBox/DrawTrajectoryBox.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:ArrayDelay/ArrayDelay.xcodeproj">
    </FileRef>
    <FileRef
@@ -15,9 +18,6 @@
    </FileRef>
    <FileRef
       location = "group:DrawBox/DrawBox.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:DrawTrajectory/DrawTrajectory.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:GlobalArray/GlobalArray.xcodeproj">
@@ -45,6 +45,9 @@
    </FileRef>
    <FileRef
       location = "group:TemplateModule/TemplateModule.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:UsinePointers/UsinePointers.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:UsineObjects/UsineObjects.xcodeproj">

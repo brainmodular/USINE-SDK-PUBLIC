@@ -57,7 +57,7 @@
 
 //-----------------------------------------------------------------------------
 // Create
-void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new UsineObjects();
 }
@@ -70,9 +70,9 @@ void DestroyModule(void* pModule)
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "usine objects";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "usine objects sdk module example";
-const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
+constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "usine objects";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "usine objects sdk module example";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
 // browser info
 void GetBrowserInfo(TModuleInfo* pModuleInfo) 
@@ -99,7 +99,7 @@ UsineObjects::~UsineObjects()
 	// 
 }
 
-void UsineObjects::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+void UsineObjects::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
 	pModuleInfo->Name				= MODULE_NAME;
 	pModuleInfo->Description		= MODULE_DESC;
@@ -114,7 +114,7 @@ void UsineObjects::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModu
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 // Get total parameters number of the module
-int UsineObjects::onGetNumberOfParams (int queryResult1, int queryResult2)
+int UsineObjects::onGetNumberOfParams(int queryResult1, int queryResult2)
 {
 	int result = 2;
     return result;
@@ -122,14 +122,14 @@ int UsineObjects::onGetNumberOfParams (int queryResult1, int queryResult2)
 
 //-----------------------------------------------------------------------------
 // Called after the query popup
-void UsineObjects::onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
+void UsineObjects::onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
 {
 }
 
 
 //-----------------------------------------------------------------------------
 // initialisation
-void UsineObjects::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) {}
+void UsineObjects::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) {}
 
 //----------------------------------------------------------------------------
 // parameters and process
@@ -137,7 +137,7 @@ void UsineObjects::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleI
 
 //-----------------------------------------------------------------------------
 // Parameters description
-void UsineObjects::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
+void UsineObjects::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo)
 {	
 	if (ParamIndex == 0)
 	{
@@ -166,10 +166,10 @@ void UsineObjects::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 
 //-----------------------------------------------------------------------------
 // Parameters callback
-void UsineObjects::onCallBack (TUsineMessage *Message) 
+void UsineObjects::onCallBack(TUsineMessage *Message) 
 {
     // filter only message specific to this user module
-    if (Message->message == NOTIFY_MSG_USINE_CALLBACK)
+    if (Message->message == NOTIFY_MSG_USINE_CALLBACK) 
     {
     }
 }
@@ -192,18 +192,10 @@ std::string gen_random(const int len) {
 }
 
 
-
-const AnsiCharPtr GA_FLOAT = "GA-FLOAT";
-const AnsiCharPtr GA_COLOR = "GA-COLOR";
-const AnsiCharPtr GA_STRING = "GA-STRING";
-const AnsiCharPtr GA_EVENT = "GA-EVENT";
-
-
 //-----------------------------------------------------------------------------
-// Parameters callback
-void UsineObjects::onProcess () 
+// Process
+void UsineObjects::onProcess() 
 {
-	
 	if (sdkSlowClock())
 	{
 		std::string s;
@@ -277,6 +269,4 @@ void UsineObjects::onProcess ()
 	{
 		
 	}
-
-
 }

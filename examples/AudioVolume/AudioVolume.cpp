@@ -51,12 +51,18 @@
 #include "AudioVolume.h"
 
 //----------------------------------------------------------------------------
+// setup a callback_id constant for all params that specify a callback type
+//----------------------------------------------------------------------------
+constexpr NativeInt AUDIO_VOLUME_CBID = 0x001100F0;
+constexpr NativeInt AUDIO_MUTE_CBID   = 0x001100FF;
+
+//----------------------------------------------------------------------------
 // create, general info and destroy methods
 //----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // Create
-void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new AudioVolume();
 }
@@ -69,9 +75,9 @@ void DestroyModule(void* pModule)
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "audio volume";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "audio volume sdk module example";
-const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
+constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "audio volume";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "audio volume sdk module example";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
 // browser info
 void GetBrowserInfo(TModuleInfo* pModuleInfo) 
@@ -87,9 +93,8 @@ void GetBrowserInfo(TModuleInfo* pModuleInfo)
 
 // constructor
 AudioVolume::AudioVolume()
-    : coeffGain (1)
+	: queryResult(0), numOfAudiotInsOuts(0), coeffGain(1)
 {
-	//
 }
 
 // destructor
@@ -98,23 +103,17 @@ AudioVolume::~AudioVolume()
 	// 
 }
 
-void AudioVolume::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+void AudioVolume::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
 	pModuleInfo->Name				= MODULE_NAME;
 	pModuleInfo->Description		= MODULE_DESC;
 	pModuleInfo->ModuleType         = mtSimple;
 	pModuleInfo->BackColor          = sdkGetUsineColor(clAudioModuleColor);
 	pModuleInfo->Version			= MODULE_VERSION;
-    
-	// query for multi-channels
-	if (pMasterInfo != nullptr)
-    {
-	    pModuleInfo->QueryListString		= sdkGetAudioQueryTitle();
-	    pModuleInfo->QueryListValues	    = sdkGetAudioQueryChannelList();
-	    pModuleInfo->QueryListDefaultIdx	= 1;
-    }
+    pModuleInfo->QueryListString	= sdkGetAudioQueryTitle();
+	pModuleInfo->QueryListValues	= sdkGetAudioQueryChannelList();
+	pModuleInfo->QueryListDefaultIdx= 1;
 	pModuleInfo->CanBeSavedInPreset = FALSE;
-
 }
 
 //-----------------------------------------------------------------------------
@@ -122,12 +121,14 @@ void AudioVolume::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModul
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 // Get total parameters number of the module
-int AudioVolume::onGetNumberOfParams (int queryResult1, int queryResult2)
+int AudioVolume::onGetNumberOfParams(int queryResult1, int queryResult2)
 {
 	int result = 0;
     this->queryResult = queryResult1;
-    numOfAudiotInsOuts = sdkGetAudioQueryToNbChannels (queryResult1);
-
+	numOfAudiotInsOuts = std::min(
+		sdkGetAudioQueryToNbChannels(queryResult1),
+		(int)USINE_AUDIO_CHANNEL_MODULE_MAX
+	);
     // we want 1 in 1 out per channels
 	result = (numOfAudiotInsOuts * 2) + numOfParamAfterAudiotInOut;
 
@@ -136,14 +137,16 @@ int AudioVolume::onGetNumberOfParams (int queryResult1, int queryResult2)
 
 //-----------------------------------------------------------------------------
 // Called after the query popup
-void AudioVolume::onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
+void AudioVolume::onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
 {
 }
 
 
 //-----------------------------------------------------------------------------
 // initialisation
-void AudioVolume::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) {}
+void AudioVolume::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+{
+}
 
 //----------------------------------------------------------------------------
 // parameters and process
@@ -151,17 +154,18 @@ void AudioVolume::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleIn
 
 //-----------------------------------------------------------------------------
 // Parameters description
-void AudioVolume::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
+void AudioVolume::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo)
 {	
     // audioInputs
     if (ParamIndex < numOfAudiotInsOuts)
     {
 		pParamInfo->ParamType		= ptAudio;
-		pParamInfo->Caption			= sdkGetAudioQueryChannelNames ( "in ", ParamIndex + 1, queryResult);
+		pParamInfo->Caption			= sdkGetAudioQueryChannelNames( "in ", ParamIndex + 1, queryResult);
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->ReadOnly		= FALSE;
-		pParamInfo->setEventClass	(audioInputs[ParamIndex]);
+		pParamInfo->CallBackType    = ctNone;
+		pParamInfo->setEventClass(audioInputs[ParamIndex]);
 
         if (ParamIndex == 0)
         {
@@ -173,11 +177,12 @@ void AudioVolume::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
     else if (ParamIndex >= numOfAudiotInsOuts && ParamIndex < (numOfAudiotInsOuts*2))
     {
 		pParamInfo->ParamType		= ptAudio;
-		pParamInfo->Caption			= sdkGetAudioQueryChannelNames ( "out ", ParamIndex - numOfAudiotInsOuts + 1, queryResult);
+		pParamInfo->Caption			= sdkGetAudioQueryChannelNames( "out ", ParamIndex - numOfAudiotInsOuts + 1, queryResult);
 		pParamInfo->IsInput			= FALSE;
 		pParamInfo->IsOutput		= TRUE;
 		pParamInfo->ReadOnly		= TRUE;
-		pParamInfo->setEventClass   (audioOutputs[ParamIndex - numOfAudiotInsOuts]);
+		pParamInfo->CallBackType    = ctNone;
+		pParamInfo->setEventClass(audioOutputs[ParamIndex - numOfAudiotInsOuts]);
 
         if (ParamIndex == numOfAudiotInsOuts)
         {
@@ -193,10 +198,10 @@ void AudioVolume::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
         pParamInfo->IsSeparator		= TRUE;
-        pParamInfo->CallBackType	= ctImmediate;
+		pParamInfo->CallBackType	= ctImmediate;
+		pParamInfo->CallBackId      = AUDIO_VOLUME_CBID;
         pParamInfo->SeparatorCaption = "Volume";
-		pParamInfo->setEventClass	(fdrGain);
-
+		pParamInfo->setEventClass(fdrGain);
     }
     // switchMute
     else if (ParamIndex == (numOfAudiotInsOuts*2) + 1)
@@ -205,32 +210,33 @@ void AudioVolume::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->Caption			= "mute";
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
-        pParamInfo->CallBackType    = ctImmediate;
-		pParamInfo->setEventClass	(switchMute);
+        pParamInfo->CallBackType    = ctNormal;
+		pParamInfo->CallBackId      = AUDIO_MUTE_CBID;
+		pParamInfo->setEventClass(switchMute);
     }
 }
 
 
 //-----------------------------------------------------------------------------
 // Parameters callback
-void AudioVolume::onCallBack (TUsineMessage *Message) 
+void AudioVolume::onCallBack(TUsineMessage *Message) 
 {
-    // filter only message specific to this user module
-    if (Message->message == NOTIFY_MSG_USINE_CALLBACK)
-    {
-        // Message->wParam is equal to ParamIndex
-		if ((Message->wParam >= (numOfAudiotInsOuts*2)) && (Message->lParam == MSG_CHANGE))
-		{
-			coeffGain = sdkDbToCoeff (fdrGain.getData()) * (1.0f - switchMute.getData());
-		}
-    }
-}
+	if ((Message->message != NOTIFY_MSG_USINE_CALLBACK) || (Message->lParam != MSG_CHANGE))
+		return;
+	if (Message->wParam == AUDIO_VOLUME_CBID || Message->wParam == AUDIO_MUTE_CBID)
+	{
+		coeffGain = fdrGain.getData() * (1.0f - switchMute.getData());
+	}
+} 
 
-void AudioVolume::onProcess () 
+//-----------------------------------------------------------------------------
+// Process
+void AudioVolume::onProcess() 
 {
+	TPrecision gain = coeffGain;
 	for (int i = 0; i < numOfAudiotInsOuts; i++)
     {
 		audioOutputs[i].copyfrom(audioInputs[i]);
-        audioOutputs[i].mult(coeffGain);
+        audioOutputs[i].mult(gain);
     }
 }

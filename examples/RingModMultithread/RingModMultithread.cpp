@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------
 //@file  
-//	RingModMiltithread.cpp
+//	RingModMultithread.cpp
 //
 //@author
 //	BrainModular team
@@ -51,12 +51,18 @@
 #include "RingModMultithread.h"
 
 //----------------------------------------------------------------------------
+// setup a callback_id constant for all params that specify a callback type
+//----------------------------------------------------------------------------
+constexpr NativeInt FDR_MIX_CBID = 0x002300F0;
+
+
+//----------------------------------------------------------------------------
 // create, general info and destroy methods
 //----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // Create
-void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new RingModMultithread();
 }
@@ -69,9 +75,9 @@ void DestroyModule(void* pModule)
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "ring mod multithread";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "ring mod multithread example";
-const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
+constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "ring mod multithread";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "ring mod multithread example";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
 // browser info
 void GetBrowserInfo(TModuleInfo* pModuleInfo) 
@@ -87,35 +93,36 @@ void GetBrowserInfo(TModuleInfo* pModuleInfo)
 
 // constructor
 RingModMultithread::RingModMultithread()
-    : coeffMix (0)
+    : coeffMix(0)
+    , criticalSection(nullptr)
+    , syncObject(nullptr)
+    , thread1(nullptr)
+    , thread2(nullptr)
+	, queryResult(0)
+	, numOfAudiotInsOuts(0)
+	, cptEvents(0)
 {}
 
 // destructor
 RingModMultithread::~RingModMultithread()
 {
-	sdkThreadDestroy(thread1);
-	sdkThreadDestroy(thread2);
-	sdkSyncObjectDestroy(syncObject);
-	sdkCriticalSectionDestroy(criticalSection);
+	if (thread1 != nullptr) sdkThreadDestroy(thread1);
+	if (thread2 != nullptr) sdkThreadDestroy(thread2);
+	if (syncObject != nullptr) sdkSyncObjectDestroy(syncObject);
+	if (criticalSection != nullptr) sdkCriticalSectionDestroy(criticalSection);
 }
 
-void RingModMultithread::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+void RingModMultithread::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
 	pModuleInfo->Name				= MODULE_NAME;
 	pModuleInfo->Description		= MODULE_DESC;
 	pModuleInfo->ModuleType         = mtSimple;
 	pModuleInfo->BackColor          = sdkGetUsineColor(clAudioModuleColor);
 	pModuleInfo->Version			= MODULE_VERSION;
-    
-	// query for multi-channels
-	if (pMasterInfo != nullptr)
-    {
-	    pModuleInfo->QueryListString        = sdkGetAudioQueryTitle();
-	    pModuleInfo->QueryListValues        = sdkGetAudioQueryChannelList();
-	    pModuleInfo->QueryListDefaultIdx	= 1;
-    }
+	pModuleInfo->QueryListString    = sdkGetAudioQueryTitle();
+	pModuleInfo->QueryListValues    = sdkGetAudioQueryChannelList();
+	pModuleInfo->QueryListDefaultIdx= 1;
 	pModuleInfo->CanBeSavedInPreset = FALSE;
-
 }
 
 //-----------------------------------------------------------------------------
@@ -123,11 +130,11 @@ void RingModMultithread::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo*
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 // Get total parameters number of the module
-int RingModMultithread::onGetNumberOfParams (int queryResult1, int queryResult2)
+int RingModMultithread::onGetNumberOfParams(int queryResult1, int queryResult2)
 {
 	int result = 0;
     this->queryResult = queryResult1;
-    numOfAudiotInsOuts = sdkGetAudioQueryToNbChannels (queryResult1);
+    numOfAudiotInsOuts = std::min(sdkGetAudioQueryToNbChannels(queryResult1), (int)USINE_AUDIO_CHANNEL_MODULE_MAX);
 
     // we want 1 in 1 out per channels
 	result = (numOfAudiotInsOuts * 2) + numOfParamAfterAudiotInOut;
@@ -137,13 +144,13 @@ int RingModMultithread::onGetNumberOfParams (int queryResult1, int queryResult2)
 
 //-----------------------------------------------------------------------------
 // Called after the query popup
-void RingModMultithread::onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
+void RingModMultithread::onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
 {
 }
 
 //-----------------------------------------------------------------------------
 // common process for threads
-void processThreadCommon(void* pModule, TThreadPtr pThread, int start)
+void RingModMultithread::processThreadCommon(void* pModule, TThreadPtr pThread, int start)
 {
 	RingModMultithread* module = static_cast<RingModMultithread*>(pModule);
 	for (int i = start; i < module->numOfAudiotInsOuts; i += 2) {
@@ -159,30 +166,24 @@ void processThreadCommon(void* pModule, TThreadPtr pThread, int start)
 		module->audioOutputs[i].add(module->bufferTemp[i]);
 	}
 
-	try
-	{
-		module->sdkCriticalSectionLock(module->criticalSection);
-		module->cptEvents -= 1;
-	}
-	catch (...)
-	{
-	}
+	module->sdkCriticalSectionLock(module->criticalSection);
+	module->cptEvents -= 1;
+	const bool shouldSignal = (module->cptEvents <= 0);
 	module->sdkCriticalSectionUnLock(module->criticalSection);
-	if (module->cptEvents <= 0) {
+	if (shouldSignal) {
 		sdkSyncObjectSet(module->syncObject);
 	}
 }
 
 // process for thread1
-void processThread1(void* pModule, TThreadPtr pThread)
+void RingModMultithread::processThread1(void* pModule, TThreadPtr pThread)
 {
 	processThreadCommon(pModule, pThread, 0);
 }
 
-
 //-----------------------------------------------------------------------------
 // process for thread2
-void processThread2(void* pModule, TThreadPtr pThread)
+void RingModMultithread::processThread2(void* pModule, TThreadPtr pThread)
 {
 	processThreadCommon(pModule, pThread, 1);
 }
@@ -190,16 +191,16 @@ void processThread2(void* pModule, TThreadPtr pThread)
 
 //-----------------------------------------------------------------------------
 // initialisation
-void RingModMultithread::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) {
-	thread1 = sdkThreadCreate("thread 1", &processThread1, tpMedium, UINT32_MAX);
-	thread2 = sdkThreadCreate("thread 2", &processThread2, tpMedium, UINT32_MAX);
+void RingModMultithread::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) {
+	thread1 = sdkThreadCreate("thread 1", &RingModMultithread::processThread1, tpMedium, UINT32_MAX);
+	thread2 = sdkThreadCreate("thread 2", &RingModMultithread::processThread2, tpMedium, UINT32_MAX);
 	syncObject = sdkSyncObjectCreate();
 	criticalSection = sdkCriticalSectionCreate("critical section");
 
 	// initializing buffer temp
 	for (int v = 0; v < numOfAudiotInsOuts; ++v)
 	{
-		bufferTemp[v].createEvent(1);
+		bufferTemp[v].createEvent(sdkGetBlocSize());
 	}
 }
 
@@ -209,7 +210,7 @@ void RingModMultithread::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pM
 
 //-----------------------------------------------------------------------------
 // Parameters description
-void RingModMultithread::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
+void RingModMultithread::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo)
 {	
     // audioInputs
     if (ParamIndex < numOfAudiotInsOuts)
@@ -219,6 +220,7 @@ void RingModMultithread::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->ReadOnly		= TRUE;
+		pParamInfo->CallBackType    = ctNone;
 		pParamInfo->setEventClass	(audioInputs[ParamIndex]);
 
         if (ParamIndex == 0)
@@ -235,6 +237,7 @@ void RingModMultithread::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= FALSE;
 		pParamInfo->IsOutput		= TRUE;
 		pParamInfo->ReadOnly		= TRUE;
+		pParamInfo->CallBackType    = ctNone;
 		pParamInfo->setEventClass	(audioOutputs[ParamIndex - numOfAudiotInsOuts]);
 
         if (ParamIndex == numOfAudiotInsOuts)
@@ -251,6 +254,7 @@ void RingModMultithread::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->ReadOnly		= TRUE;
+		pParamInfo->CallBackType	= ctNone;
 		pParamInfo->setEventClass(modInput);
 
 	}
@@ -262,33 +266,35 @@ void RingModMultithread::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->IsSeparator		= FALSE;
-		pParamInfo->DefaultValue	= 0.5;
-		pParamInfo->MaxValue		= 1;
+		pParamInfo->MinValue		= 0.0f;
+		pParamInfo->MaxValue		= 1.0f;
+		pParamInfo->DefaultValue	= 0.5f;
 		pParamInfo->CallBackType	= ctNormal;
 		pParamInfo->setEventClass	(fdrMix);
-		pParamInfo->CallBackId		= 566;
+		pParamInfo->CallBackId		= FDR_MIX_CBID;
 	}
 }
 
 
 //-----------------------------------------------------------------------------
 // Parameters callback
-void RingModMultithread::onCallBack (TUsineMessage *Message) 
+void RingModMultithread::onCallBack(TUsineMessage *Message) 
 {
     // filter only message specific to this user module
     if (Message->message == NOTIFY_MSG_USINE_CALLBACK)
     {
-        // Message->wParam is equal to ParamIndex
-		if (Message->wParam == 566)
+		if (Message->lParam == MSG_CHANGE && Message->wParam == FDR_MIX_CBID)
 		{
 			coeffMix = fdrMix.getData();
 		}
     }
 } 
 
-void RingModMultithread::onProcess ()
-{   
+void RingModMultithread::onProcess()
+{
+	sdkCriticalSectionLock(criticalSection);
 	cptEvents = 2;
+	sdkCriticalSectionUnLock(criticalSection);
 	sdkSyncObjectReset(syncObject);
 	sdkThreadRestart(thread1);
 	sdkThreadRestart(thread2);

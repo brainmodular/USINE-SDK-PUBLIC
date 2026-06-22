@@ -46,26 +46,15 @@
 //-----------------------------------------------------------------------------
 
 // include once, no more
-#ifndef INCLUDED_GRANULATORMODULE_H
-#define INCLUDED_GRANULATORMODULE_H
+#ifndef __INCLUDED_GRANULATORMODULE_H__
+#define __INCLUDED_GRANULATORMODULE_H__
 
 //-----------------------------------------------------------------------------
 // includes
 //-----------------------------------------------------------------------------
-//#define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
-//#include <crtdbg.h>
-
 #include "../../sdk/UserDefinitions.h"  
-//#ifdef _DEBUG
-//   #ifndef DBG_NEW
-//      #define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
-//      #define new DBG_NEW
-//   #endif
-//#endif  // _DEBUG
-
 #include "Grain.h"
-
 #include <string>
 #include <iostream>
 #include <cassert>
@@ -77,23 +66,22 @@
 //-----------------------------------------------------------------------------
 // defines and constantes
 //-----------------------------------------------------------------------------
-#define NUM_OF_GRAIN 16
-#define ENV_ASR_SIZE 4
-#define ENV_BEZIER_SIZE 61
-#define ENV_RCB_SIZE 40
-#define ENV_HANNING_SIZE 61
-#define ENV_GAUSSIAN_SIZE 61
+static constexpr UINT32 NUM_OF_GRAIN = 16;
+static constexpr UINT32 ENV_ASR_SIZE = 4;
+static constexpr UINT32 ENV_BEZIER_SIZE = 61;
+static constexpr UINT32 ENV_RCB_SIZE = 40;
+static constexpr UINT32 ENV_HANNING_SIZE = 61;
+static constexpr UINT32 ENV_GAUSSIAN_SIZE = 61;
 
 
-#define GRAIN_DUR_MIN 0.05f
-#define GRAIN_DUR_MAX 2000.0f
-
-#define GRAIN_PITCH_MIN -48.0f
-#define GRAIN_PITCH_MAX 48.0f
+static constexpr float GRAIN_DUR_MIN = 0.05f;
+static constexpr float GRAIN_DUR_MAX = 2000.0f;
+static constexpr float GRAIN_PITCH_MIN = -48.0f;
+static constexpr float GRAIN_PITCH_MAX = 48.0f;
 
 
 // module constant
-const int MODULE_HEIGHT_DEFAULT = 134; 
+static constexpr UINT32 MODULE_HEIGHT_DEFAULT = 134;
 
 //-----------------------------------------------------------------------------
 // structures and typedef
@@ -116,7 +104,6 @@ public:
         : cbufReadPos(0)
         , audioLineNextOnset(0)
         , cbufSize(0)
-//        , grainToggle(0)
 		, numOfAudiotInsOuts (2)
 		, numOfParamAfterAudiotInOut (9)
         , usineSamplerate(0)
@@ -152,7 +139,7 @@ public:
             coordEnvRcb[i].y = 1.0f;
         }
 			
-		for (int num = 0; num < USINE_MULTIPHONY_MAX; num++)
+		for (int num = 0; num < USINE_AUDIO_CHANNEL_MODULE_MAX; num++)
         {
 			circularBuffer[num] = nullptr;
         }
@@ -175,13 +162,13 @@ public:
 public:
 	//-----------------------------------------------------------------------------
 	// module info
-	void onGetModuleInfo (MasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+	void onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
 	// query system and init
 	int  onGetNumberOfParams(int queryResult1, int queryResult2);
-	void onAfterQuery (MasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
-	void onInitModule (MasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+	void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
+	void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
 	// parameters and process
@@ -196,9 +183,9 @@ public:
 
 	//-----------------------------------------------------------------------------
 	// chunk system
-	//int  onGetChunkLen (LongBool Preset);
-	//void onGetChunk (void* chunk, LongBool Preset);
-	//void onSetChunk (const void* chunk, int sizeInBytes, LongBool Preset);
+	//int  onGetStateChunkLen (LongBool Preset);
+	//void onGetStateChunk (void* chunk, LongBool Preset);
+	//void onSetStateChunk (const void* chunk, int sizeInBytes, LongBool Preset);
 
 	//-----------------------------------------------------------------------------
 	// layout
@@ -235,8 +222,8 @@ private:
 
 	//-------------------------------------------------------------------------
 	// parameters events
-    UsineEventClass m_audioInputs [USINE_MULTIPHONY_MAX];     // audio input
-    UsineEventClass m_audioOutputs [USINE_MULTIPHONY_MAX];    // audio output
+    UsineEventClass m_audioInputs [USINE_AUDIO_CHANNEL_MODULE_MAX];     // audio input
+    UsineEventClass m_audioOutputs [USINE_AUDIO_CHANNEL_MODULE_MAX];    // audio output
 	UsineEventClass m_fdrGrainInterval;
 	UsineEventClass m_ledGrainStart;
 	UsineEventClass m_lboxGrainEnvelope;
@@ -280,12 +267,12 @@ private:
 
 	
 	///	Our delay line.
-	TPrecision* circularBuffer[USINE_MULTIPHONY_MAX];
+	TPrecision* circularBuffer[USINE_AUDIO_CHANNEL_MODULE_MAX];
     int cbufSize;
 
     /// Pointer to a temporary block of memory 
-    TPrecision* tempInputBlock[USINE_MULTIPHONY_MAX];
-    TPrecision* tempOutputBlock[USINE_MULTIPHONY_MAX];
+    TPrecision* tempInputBlock[USINE_AUDIO_CHANNEL_MODULE_MAX];
+    TPrecision* tempOutputBlock[USINE_AUDIO_CHANNEL_MODULE_MAX];
     int audioLineNextOnset;
 	///	Number of samples to the next onset.
 	int nextOnset;

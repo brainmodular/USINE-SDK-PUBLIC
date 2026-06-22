@@ -51,12 +51,17 @@
 #include "RingMod.h"
 
 //----------------------------------------------------------------------------
+// setup a callback_id constant for all params that specify a callback type
+//----------------------------------------------------------------------------
+constexpr NativeInt FDR_MIX_CBID = 0x002200F0;
+
+//----------------------------------------------------------------------------
 // create, general info and destroy methods
 //----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // Create
-void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new RingMod();
 }
@@ -69,9 +74,9 @@ void DestroyModule(void* pModule)
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "ring mod example";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "ring mod module example";
-const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
+constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "ring mod example";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "ring mod module example";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
 // browser info
 void GetBrowserInfo(TModuleInfo* pModuleInfo) 
@@ -87,7 +92,7 @@ void GetBrowserInfo(TModuleInfo* pModuleInfo)
 
 // constructor
 RingMod::RingMod()
-    : coeffMix (0)
+    : queryResult(0), numOfAudiotInsOuts(0), coeffMix (0.5)
 {
 }
 
@@ -97,23 +102,17 @@ RingMod::~RingMod()
 	// 
 }
 
-void RingMod::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+void RingMod::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
 	pModuleInfo->Name				= MODULE_NAME;
 	pModuleInfo->Description		= MODULE_DESC;
 	pModuleInfo->ModuleType         = mtSimple;
 	pModuleInfo->BackColor          = sdkGetUsineColor(clAudioModuleColor);
 	pModuleInfo->Version			= MODULE_VERSION;
-    
-	// query for multi-channels
-	if (pMasterInfo != nullptr)
-    {
-	    pModuleInfo->QueryListString        = sdkGetAudioQueryTitle();
-	    pModuleInfo->QueryListValues	    = sdkGetAudioQueryChannelList();
-	    pModuleInfo->QueryListDefaultIdx	= 1;
-    }
+	pModuleInfo->QueryListString    = sdkGetAudioQueryTitle();
+	pModuleInfo->QueryListValues	= sdkGetAudioQueryChannelList();
+	pModuleInfo->QueryListDefaultIdx= 1;
 	pModuleInfo->CanBeSavedInPreset = FALSE;
-
 }
 
 //-----------------------------------------------------------------------------
@@ -121,11 +120,11 @@ void RingMod::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInf
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 // Get total parameters number of the module
-int RingMod::onGetNumberOfParams (int queryResult1, int queryResult2)
+int RingMod::onGetNumberOfParams(int queryResult1, int queryResult2)
 {
 	int result = 0;
     this->queryResult = queryResult1;
-    numOfAudiotInsOuts = sdkGetAudioQueryToNbChannels (queryResult1);
+    numOfAudiotInsOuts = std::min(sdkGetAudioQueryToNbChannels(queryResult1), (int)USINE_AUDIO_CHANNEL_MODULE_MAX);
 
     // we want 1 in 1 out per channels
 	result = (numOfAudiotInsOuts * 2) + numOfParamAfterAudiotInOut;
@@ -135,15 +134,15 @@ int RingMod::onGetNumberOfParams (int queryResult1, int queryResult2)
 
 //-----------------------------------------------------------------------------
 // Called after the query popup
-void RingMod::onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
+void RingMod::onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
 {
 }
 
 
 //-----------------------------------------------------------------------------
 // initialisation
-void RingMod::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) {
-	bufferTemp.createEvent(1);
+void RingMod::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) {
+	bufferTemp.createEvent(sdkGetBlocSize());
 }
 
 //----------------------------------------------------------------------------
@@ -152,7 +151,7 @@ void RingMod::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
 
 //-----------------------------------------------------------------------------
 // Parameters description
-void RingMod::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
+void RingMod::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo)
 {	
     // audioInputs
     if (ParamIndex < numOfAudiotInsOuts)
@@ -162,6 +161,7 @@ void RingMod::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->ReadOnly		= TRUE;
+		pParamInfo->CallBackType    = ctNone;
 		pParamInfo->setEventClass	(audioInputs[ParamIndex]);
 
         if (ParamIndex == 0)
@@ -178,6 +178,7 @@ void RingMod::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= FALSE;
 		pParamInfo->IsOutput		= TRUE;
 		pParamInfo->ReadOnly		= TRUE;
+		pParamInfo->CallBackType    = ctNone;
 		pParamInfo->setEventClass	(audioOutputs[ParamIndex - numOfAudiotInsOuts]);
 
         if (ParamIndex == numOfAudiotInsOuts)
@@ -194,6 +195,7 @@ void RingMod::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->ReadOnly		= TRUE;
+		pParamInfo->CallBackType	= ctNone;
 		pParamInfo->setEventClass	(modInput);
 
 	}
@@ -205,32 +207,32 @@ void RingMod::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->IsSeparator		= FALSE;
-		pParamInfo->DefaultValue	= 0.5;
-		pParamInfo->MaxValue		= 1;
+		pParamInfo->MinValue		= 0.0f;
+		pParamInfo->MaxValue		= 1.0f;
+		pParamInfo->DefaultValue	= 0.5f;
 		pParamInfo->CallBackType	= ctNormal;
 		pParamInfo->setEventClass	(fdrMix);
-		pParamInfo->CallBackId		= 566;
+		pParamInfo->CallBackId		= FDR_MIX_CBID;
 	}
 }
 
 
 //-----------------------------------------------------------------------------
 // Parameters callback
-void RingMod::onCallBack (TUsineMessage *Message) 
+void RingMod::onCallBack(TUsineMessage *Message) 
 {
-    // filter only message specific to this user module
-    if (Message->message == NOTIFY_MSG_USINE_CALLBACK)
-    {
-        // Message->wParam is equal to ParamIndex
-		if (Message->wParam == 566)
-		{
-			coeffMix = fdrMix.getData();
-		}
-    }
+	if ((Message->message != NOTIFY_MSG_USINE_CALLBACK) || (Message->lParam != MSG_CHANGE))
+		return;
+ 
+	if (Message->wParam == FDR_MIX_CBID)
+	{
+		coeffMix = fdrMix.getData();
+	}
 } 
 
-void RingMod::onProcess () 
+void RingMod::onProcess() 
 {
+	const TPrecision mix = coeffMix;
 	for (int i = 0; i < numOfAudiotInsOuts; i++)
     {
 		// Multiplying
@@ -239,9 +241,9 @@ void RingMod::onProcess ()
 		// Mixing 
 		// Dry
 		bufferTemp.copyfrom(audioInputs[i]);
-		bufferTemp.mult(1.0f - coeffMix);
+		bufferTemp.mult(1.0f - mix);
 		// Wet
-		audioOutputs[i].mult(coeffMix);
+		audioOutputs[i].mult(mix);
 		// Adding 
    		audioOutputs[i].add(bufferTemp);
     }   

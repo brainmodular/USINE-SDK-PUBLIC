@@ -56,7 +56,7 @@
 
 //-----------------------------------------------------------------------------
 // Create
-void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new VideoDimmer();
 }
@@ -70,9 +70,9 @@ void DestroyModule(void* pModule)
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "video dimmer";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "video dimmer sdk module example";
-const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
+constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "video dimmer";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "video dimmer sdk module example";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
 // browser info
 void GetBrowserInfo(TModuleInfo* pModuleInfo) 
@@ -88,34 +88,31 @@ void GetBrowserInfo(TModuleInfo* pModuleInfo)
 
 // constructor
 VideoDimmer::VideoDimmer()
- 
-{
+{ 
 	//
 }
 
 // destructor
 VideoDimmer::~VideoDimmer()
 {
-
 }
 
-void VideoDimmer::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+void VideoDimmer::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	pModuleInfo->Name				= MODULE_NAME;
-	pModuleInfo->Description		= MODULE_DESC;
-	pModuleInfo->ModuleType         = mtVideo;
-	pModuleInfo->BackColor          = sdkGetUsineColor(clVideoModuleColor);
-	pModuleInfo->Version			= MODULE_VERSION;
+	pModuleInfo->Name			  	  = MODULE_NAME;
+	pModuleInfo->Description		  = MODULE_DESC;
+	pModuleInfo->ModuleType           = mtVideo;
+	pModuleInfo->BackColor            = sdkGetUsineColor(clVideoModuleColor);
+	pModuleInfo->Version			  = MODULE_VERSION;
 	pModuleInfo->NumberOfVideoInputs  = 1;
 	pModuleInfo->NumberOfVideoOutputs = 1;
 	pModuleInfo->NumberOfParams       = 3;
 
 }
 
-
 //-----------------------------------------------------------------------------
 // initialisation
-void VideoDimmer::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
+void VideoDimmer::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
 {
 	fdrPixelColor.setColor(0xFFFF0000);
 }
@@ -126,32 +123,31 @@ void VideoDimmer::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleIn
 
 //-----------------------------------------------------------------------------
 // Parameters description
-void VideoDimmer::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
+void VideoDimmer::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo)
 {	
     switch (ParamIndex)
 	{
     // fdrDimmer
     case 0:
-	
 		pParamInfo->ParamType		= ptDataFader;
 		pParamInfo->Caption			= "dimmer";
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
         pParamInfo->IsSeparator     = FALSE;
-        pParamInfo->CallBackType    = ctNormal;
+        pParamInfo->CallBackType    = ctNone;
 		pParamInfo->DefaultValue    = 1;
+		pParamInfo->MinValue		= 0;
 		pParamInfo->MaxValue        = 1;
 		pParamInfo->setEventClass	(fdrDimmer);
 		break;
-
 	// fdrPixelColor
 	case 1:
-		pParamInfo->ParamType		= ptChooseColor;
+		pParamInfo->ParamType		= ptColor;
 		pParamInfo->Caption			= "pixel color";
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->IsSeparator		= FALSE;
-		pParamInfo->CallBackType	= ctNormal;
+		pParamInfo->CallBackType	= ctNone;
 		pParamInfo->setEventClass	(fdrPixelColor);
 		break;
 	// fdrSpace
@@ -161,7 +157,7 @@ void VideoDimmer::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->IsSeparator		= FALSE;
-		pParamInfo->CallBackType	= ctNormal;
+		pParamInfo->CallBackType	= ctNone;
 		pParamInfo->MinValue		= 0;
 		pParamInfo->MaxValue		= 20;
 		pParamInfo->Format			= DEFAULT_FORMAT_INTEGER;
@@ -174,12 +170,12 @@ void VideoDimmer::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 
 //-----------------------------------------------------------------------------
 // Parameters callback
-void VideoDimmer::onCallBack (TUsineMessage *Message) 
+void VideoDimmer::onCallBack(TUsineMessage *Message) 
 {
-// no callback
+	// no callback
 }
 
-void VideoDimmer::onProcessVideo () 
+void VideoDimmer::onProcessVideo() 
 {
 	sdkGetInputFrame(1, &framei);
 	sdkGetNewFrame(&frameo, framei.Width, framei.Height, FALSE);
@@ -200,13 +196,12 @@ void VideoDimmer::onProcessVideo ()
 				for (int w = 0; w < frameo.Width; w++)
 				{
 					// dirty job to optimize
-					if ((w % skip) == 0) { sdkSetPixel(&frameo, w, h, sdkGetPixel(&framei, w, h)); }
-					if ((w % skip) == 1) { sdkSetPixel(&frameo, w, h, pix); }
+					if ((w % skip) == 0) { sdkSetFramePixel(&frameo, w, h, sdkGetFramePixel(&framei, w, h)); }
+					if ((w % skip) == 1) { sdkSetFramePixel(&frameo, w, h, pix); }
 				}
 			}
 		}
 	}
-
 	sdkSetDimmerFrame(&frameo,fdrDimmer.getData());
 	sdkSetOutputFrame(1, &frameo);
 }

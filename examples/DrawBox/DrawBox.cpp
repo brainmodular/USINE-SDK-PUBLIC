@@ -51,6 +51,13 @@
 #include "DrawBox.h"
 
 //----------------------------------------------------------------------------
+// setup a callback_id constant for all params that specify a callback type
+//----------------------------------------------------------------------------
+constexpr NativeInt RESET_CBID		= 0x001500F0;
+constexpr NativeInt RANDOMIZE_CBID  = 0x001500F1;
+
+
+//----------------------------------------------------------------------------
 // create, general info and destroy methods
 //----------------------------------------------------------------------------
 
@@ -58,23 +65,23 @@
 
 //-----------------------------------------------------------------------------
 // Create
-void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
-	pModule = new DrawBox ();
+	pModule = new DrawBox();
 }
 
 //-----------------------------------------------------------------------------
 // destroy
-void DestroyModule (void* pModule)
+void DestroyModule(void* pModule)
 {
     // cast is important to call the good destructor
 	delete ((DrawBox*)pModule);
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "draw box";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "draw box sdk module example";
-const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
+constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "draw box";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "draw box sdk module example";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
 // browser info
 void GetBrowserInfo(TModuleInfo* pModuleInfo) 
@@ -86,7 +93,7 @@ void GetBrowserInfo(TModuleInfo* pModuleInfo)
 
 //-----------------------------------------------------------------------------
 // module description
-void DrawBox::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
+void DrawBox::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
 {
 	pModuleInfo->Name				= MODULE_NAME;
 	pModuleInfo->Description		= MODULE_DESC;
@@ -99,7 +106,6 @@ void DrawBox::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInf
 	pModuleInfo->DontProcess		= TRUE;
 	pModuleInfo->Version			= MODULE_VERSION;
 	pModuleInfo->CanBeSavedInPreset = TRUE;
-
 }
 
 //-----------------------------------------------------------------------------
@@ -109,20 +115,19 @@ void DrawBox::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInf
 
 //-----------------------------------------------------------------------------
 // initialisation
-void DrawBox::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
+void DrawBox::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
 {
-	colorBox		= sdkGetUsineColor(clCursor);
+	colorBox = sdkGetUsineColor(clCursor);
 
-	mouseLeftButtonDown       = FALSE;
+	mouseLeftButtonDown = FALSE;
 	eraseBox();
 
     //sdkSetEvtNbLines (arrPointsCoordsOut, ARRAY_OUT_LINES);
-
 }
 
 //-----------------------------------------------------------------------------
 // Parameters description
-void DrawBox::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo) 
+void DrawBox::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo) 
 {	
 	switch (ParamIndex) 
 	{
@@ -133,8 +138,9 @@ void DrawBox::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->ReadOnly		= FALSE;
+		pParamInfo->IsSeparator     = TRUE;
 		pParamInfo->CallBackType    = ctImmediate;
-		pParamInfo->IsSeparator		= TRUE;
+		pParamInfo->CallBackId		= RESET_CBID;
 		pParamInfo->setEventClass	(btnErase);
 		break;
 	// btnRandomize
@@ -144,6 +150,8 @@ void DrawBox::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->ReadOnly		= FALSE;
+		pParamInfo->CallBackType	= ctImmediate;
+		pParamInfo->CallBackId		= RANDOMIZE_CBID;
 		pParamInfo->setEventClass	(btnRandomize);
 		break;
 	default:
@@ -154,36 +162,26 @@ void DrawBox::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 
 //-----------------------------------------------------------------------------
 // Parameters callback
-void DrawBox::onCallBack (TUsineMessage *Message) 
+void DrawBox::onCallBack(TUsineMessage *Message) 
 {
-	try
+	if (Message->message != NOTIFY_MSG_USINE_CALLBACK || Message->lParam != MSG_CHANGE)
+		return;
+        
+	// WParam contains the Param Number
+	switch (Message->wParam) 
 	{
-        // filter only message specific to this user module and type MS_CHANGE
-        if (Message->message == NOTIFY_MSG_USINE_CALLBACK && Message->lParam == MSG_CHANGE)
-        {
-	        // WParam contains the Param Number
-	        switch (Message->wParam) 
-	        {
-	        // Erase trajectory button input
-	        case 0:
-		        eraseBox();
-		        break;
-
-	        // randomize button input
-	        case 1:
-                onRandomize ();
-		        break;
-
-	        // default case
-	        default:
-		        // do nothing
-		        break;
-	        }
-        }
-	}
-	catch (...)
-	{
-		//sdkTraceErrorChar("error");
+	// Erase trajectory button input
+	case RESET_CBID:
+		eraseBox();
+		break;
+	// randomize button input
+	case RANDOMIZE_CBID:
+        onRandomize ();
+		break;
+	// default case
+	default:
+		// do nothing
+		break;
 	}
 }
 
@@ -209,7 +207,6 @@ void DrawBox::onSettingsHasChanged()
 	sdkRepaintPanel();
 } 
 
-
 void DrawBox::onCreateCommands()
 {
     sdkAddCommandSeparator("cmd_edit");
@@ -219,14 +216,13 @@ void DrawBox::onCreateCommands()
 
 //-----------------------------------------------------------------------------
 // paint the module panel
-void DrawBox::onPaint ()
+void DrawBox::onPaint()
 {
     // we check the box top value to see if there is something to draw 
     if (boxCoords.top >= 0)
     {
-        sdkFillRect (boxCoords, colorBox, 0, colorBox, 0);
+        sdkFillRect(boxCoords, colorBox, 0, colorBox, 0);
     }
-	
 }
 
 //-----------------------------------------------------------------------------
@@ -235,7 +231,7 @@ void DrawBox::onPaint ()
 
 //-----------------------------------------------------------------------------
 // MouseMove callback
-void DrawBox::onMouseMove (TShiftState Shift, float X, float Y)
+void DrawBox::onMouseMove(TShiftState Shift, float X, float Y)
 {
     // we only want to draw when the left mouse button is down
 	if (mouseLeftButtonDown)
@@ -250,12 +246,14 @@ void DrawBox::onMouseMove (TShiftState Shift, float X, float Y)
 
 //-----------------------------------------------------------------------------
 // MouseDown callback
-void DrawBox::onMouseDown (TMouseButton Button, TShiftState Shift, float X,float Y)
+void DrawBox::onMouseDown(TMouseButton Button, TShiftState Shift, float X,float Y)
 {
 	if (Button == mbLeft)
 	{
         float left = std::min(1.0f, std::max(X, 0.0f));
-        float top = std::min(1.0f, std::max(Y, 0.0f)) ;   
+        float top = std::min(1.0f, std::max(Y, 0.0f)) ;
+        anchorPoint.x = left;
+        anchorPoint.y = top;
         boxCoords.left = left;
         boxCoords.top = top;
         boxCoords.bottom = top;
@@ -268,14 +266,14 @@ void DrawBox::onMouseDown (TMouseButton Button, TShiftState Shift, float X,float
 
 //-----------------------------------------------------------------------------
 // MouseUp callback
-void DrawBox::onMouseUp (TMouseButton Button, TShiftState Shift, float X, float Y)
+void DrawBox::onMouseUp(TMouseButton Button, TShiftState Shift, float X, float Y)
 {
 	mouseLeftButtonDown = FALSE;
 }
 
 //-----------------------------------------------------------------------------
 // MouseWheel callback
-void DrawBox::onMouseWheel (TShiftState Shift, int WheelDelta)
+void DrawBox::onMouseWheel(TShiftState Shift, int WheelDelta)
 {
     WheelDelta > 0 ? boxScale = 1.1f : boxScale = 0.9f;
 
@@ -294,7 +292,7 @@ void DrawBox::onMouseWheel (TShiftState Shift, int WheelDelta)
 
 //-----------------------------------------------------------------------------
 // usine randomize
-void DrawBox::onRandomize ()
+void DrawBox::onRandomize()
 {
     boxCoords.left = (float)(rand() / (float)(RAND_MAX));
 	boxCoords.right = (float)(boxCoords.left + ((1 - boxCoords.left) * (rand() / (float)(RAND_MAX))));
@@ -328,10 +326,10 @@ void DrawBox::eraseBox()
 //-------------------------------------------------------------------------
 void DrawBox::updateBox(float x, float y)
 {
-    boxCoords.bottom = y;
-    boxCoords.right = x;
-    
-    // Ask to repaint the module
-    sdkRepaintPanel();
+    boxCoords.left   = std::min(anchorPoint.x, x);
+    boxCoords.right  = std::max(anchorPoint.x, x);
+    boxCoords.top    = std::min(anchorPoint.y, y);
+    boxCoords.bottom = std::max(anchorPoint.y, y);
 
+    sdkRepaintPanel();
 }

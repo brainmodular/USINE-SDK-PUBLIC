@@ -75,18 +75,17 @@ public:
 public:
 	//-----------------------------------------------------------------------------
 	// module info
-	void onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
 	// query system and init
-	void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
 	// parameters and process
-	void onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo);
-	void onCallBack (TUsineMessage *Message);
-	void onProcessVideo ();
-
+	void onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo);
+	void onCallBack(TUsineMessage *Message);
+	void onProcessVideo();
 
 	//-------------------------------------------------------------------------
 	// private members

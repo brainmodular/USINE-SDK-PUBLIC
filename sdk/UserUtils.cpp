@@ -323,3 +323,13 @@ std::string sdkIntToString(const int Number)
     os << Number; // << std::setw(Width) 
     return os.str();
 }
+
+TUsinePixel sdkColorToPixel(const TUsineColor color)
+{
+    return UserModuleBase::m_masterInfo->ColorToPixel(color);
+}
+
+TUsineColor sdkPixelToColor(const TUsinePixel pixel)
+{
+    return UserModuleBase::m_masterInfo->PixelToColor(pixel);
+}

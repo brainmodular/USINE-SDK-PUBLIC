@@ -36,6 +36,9 @@
 #include "UserModule.h"
 #include "UserUtils.h"
 #include "UsineEventClass.h"
+#include "UsineFunctions.h"
+
+
 
 /** @mainpage API Reference Documentation
     This documentation is divided in three sections who provide functions, class and datatypes needed to construct user's module to extend Usine.<br> <br>
@@ -56,7 +59,10 @@
     @ref Datatypes "Datatypes" <br>
      - This page contains all the data types used at one point in the SDK.
      - From simple typedef and constant to structure that define entire part of the module.
-    
+
+    @ref Functions "Various Functions & Helpers" <br>
+     - This page contains various functions and helpers.
+     
 
     Creating a module for Usine can become very addictive and complex.  <br>
     You can discuss about the SDK on the <a href="https://www.brainmodular.com/forums/viewforum.php?f=7">official forum section</a>

@@ -46,16 +46,14 @@
 //-----------------------------------------------------------------------------
 
 // include once, no more
-#ifndef __RGBA_COLOR_MODULE_H__
-#define __RGBA_COLOR_MODULE_H__
+#ifndef __EXAMPLE_MIDI_TRANSPOSE__
+#define __EXAMPLE_MIDI_TRANSPOSE__
 
 //-----------------------------------------------------------------------------
 // includes
 //-----------------------------------------------------------------------------
-#include "../../sdk/UserDefinitions.h"  
-#include <iostream>
+#include "../../sdk/UserDefinitions.h"
 #include <cmath>
-#include <limits>
 
 //-----------------------------------------------------------------------------
 // class definition
@@ -97,9 +95,9 @@ public:
 
 	//-----------------------------------------------------------------------------
 	// chunk system
-	//int  onGetChunkLen (LongBool Preset);
-	//void onGetChunk (void* chunk, LongBool Preset);
-	//void onSetChunk (const void* chunk, int sizeInBytes, LongBool Preset);
+	//int  onGetStateChunkLen (LongBool Preset);
+	//void onGetStateChunk (void* chunk, LongBool Preset);
+	//void onSetStateChunk (const void* chunk, int sizeInBytes, LongBool Preset);
 
 	//-----------------------------------------------------------------------------
 	// layout
@@ -142,12 +140,7 @@ private:
 	// private methods
 	//-------------------------------------------------------------------------
 private:	
-	//-------------------------------------------------------------------------
-	//RGB 
-	void updateRgbaFromColorChooser();
-	// ColorChooser
-	void updateColorChooserFromRgba();
 
 }; // class MidiTransposeExample
 
-#endif //__RGBA_COLOR_MODULE_H__
+#endif //__EXAMPLE_MIDI_TRANSPOSE__

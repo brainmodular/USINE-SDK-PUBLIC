@@ -56,7 +56,7 @@
 
 //-----------------------------------------------------------------------------
 // Create
-void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, MasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new TemplateModule();
 }
@@ -85,12 +85,12 @@ TemplateModule::~TemplateModule()
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "template";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "Template Description";
-const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
+constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "template";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "Template Description";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
 // browser info
-void GetBrowserInfo(ModuleInfo* pModuleInfo)
+void GetBrowserInfo(TModuleInfo* pModuleInfo)
 {
 	pModuleInfo->Name = UserModuleBase::MODULE_NAME;
 	pModuleInfo->Description = UserModuleBase::MODULE_DESC;
@@ -100,11 +100,12 @@ void GetBrowserInfo(ModuleInfo* pModuleInfo)
 
 //void TemplateModule::onCreate(AinsiCharPtr optionalString);
 //void TemplateModule::onDestroy(); 
-void TemplateModule::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+void TemplateModule::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
 	pModuleInfo->Name				= MODULE_NAME;
 	pModuleInfo->Description		= MODULE_DESC;
 	pModuleInfo->ModuleType         = mtSimple;
+	pModuleInfo->DontProcess		= true;
 	pModuleInfo->BackColor          = sdkGetUsineColor(clDataModuleColor);
 	pModuleInfo->NumberOfParams     = 1;
 	pModuleInfo->Version			= MODULE_VERSION;
@@ -113,13 +114,13 @@ void TemplateModule::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pMo
 
 //-----------------------------------------------------------------------------
 // query system and init
-int  TemplateModule::onGetNumberOfParams( int QIdx) {return 0;}
-void TemplateModule::onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int QIdx) {}
-void TemplateModule::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) {}
+int  TemplateModule::onGetNumberOfParams(int QIdx) { return 1; }
+void TemplateModule::onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int QIdx) {}
+void TemplateModule::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) {}
 
 //-----------------------------------------------------------------------------
 // parameters and process
-void TemplateModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
+void TemplateModule::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo)
 {	
 	switch (ParamIndex) 
     {
@@ -127,11 +128,12 @@ void TemplateModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 
         // m_txtfExample
         case 0:
-	        pParamInfo->ParamType		= ptTextField;
+	        pParamInfo->ParamType		= ptText;
 	        pParamInfo->Caption			= "text";
             pParamInfo->TextValue       = "hello world";
 	        pParamInfo->IsInput			= TRUE;
 	        pParamInfo->IsOutput		= TRUE;
+			pParamInfo->CallBackType	= ctNone;
 			pParamInfo->setEventClass   (m_txtfExample);
 	        break;
 
@@ -141,42 +143,42 @@ void TemplateModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 	}
 }
 
-void TemplateModule::onCallBack (TUsineMessage *Message) {}
-void TemplateModule::onProcess () {}
+void TemplateModule::onCallBack(TUsineMessage *Message) {}
+void TemplateModule::onProcess() {}
 
 //-----------------------------------------------------------------------------
 // midi out callbacks
-void TemplateModule::onMidiSendOut (int DeviceID, TUsineMidiCode Code) {}
-void TemplateModule::onMidiSysexSendOut (int DeviceID, char* Sysex) {}
+void TemplateModule::onMidiSendOut(int DeviceID, TUsineMidiCode Code) {}
+void TemplateModule::onMidiSysexSendOut(int DeviceID, char* Sysex) {}
 
 //-----------------------------------------------------------------------------
 // chunk system
-int  TemplateModule::onGetChunkLen (LongBool Preset) {return 0;}
-void TemplateModule::onGetChunk (void* chunk, LongBool Preset) {}
-void TemplateModule::onSetChunk (const void* chunk, int sizeInBytes, LongBool Preset) {}
+int  TemplateModule::onGetStateChunkLen(LongBool Preset) {return 0;}
+void TemplateModule::onGetStateChunk(void* chunk, LongBool Preset) {}
+void TemplateModule::onSetStateChunk(const void* chunk, int sizeInBytes, LongBool Preset) {}
 
 //-----------------------------------------------------------------------------
 // layout
 void TemplateModule::onCreateSettings() {}
 void TemplateModule::onSettingsHasChanged() {}
-void TemplateModule::onPaint () {}
+void TemplateModule::onPaint() {}
 
 //-----------------------------------------------------------------------------
 // mouse and multi touch interaction
 void TemplateModule::onMouseMove(TShiftState Shift, float X, float Y) {}
 void TemplateModule::onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X,float Y) {}
-void TemplateModule::onMouseUp (TMouseButton MouseButton, TShiftState Shift, float X,float Y) {}
+void TemplateModule::onMouseUp(TMouseButton MouseButton, TShiftState Shift, float X,float Y) {}
 void TemplateModule::onMouseMoveMulti(TShiftState Shift, UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed) {}
 void TemplateModule::onMouseDownMulti(TMouseButton MouseButton, TShiftState Shift, UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed) {}
-void TemplateModule::onMouseUpMulti (TMouseButton MouseButton, TShiftState Shift,UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed) {}
+void TemplateModule::onMouseUpMulti(TMouseButton MouseButton, TShiftState Shift,UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed) {}
 void TemplateModule::onOpenEditor() {}
 void TemplateModule::onBringToFront() {}
 
 //-----------------------------------------------------------------------------
 // audio setup update
-void TemplateModule::onBlocSizeChange (int BlocSize) {}
-void TemplateModule::onSampleRateChange (double SampleRate) {}
+void TemplateModule::onBlocSizeChange(int BlocSize) {}
+void TemplateModule::onSampleRateChange(double SampleRate) {}
 
 //-----------------------------------------------------------------------------
 // recording 
-void TemplateModule::onSetRecordedValue (TPrecision X, TPrecision Y, TPrecision Z) {}
+void TemplateModule::onSetRecordedValue(TPrecision X, TPrecision Y, TPrecision Z) {}

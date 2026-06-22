@@ -2,8 +2,8 @@
 #ifndef _ENVELOPES_H_
 #define _ENVELOPES_H_
 
-#define ENV_VAR_MIN 0.0002f
-#define ENV_VAR_MAX 1.0f
+static constexpr float ENV_VAR_MIN = 0.0002f;
+static constexpr float ENV_VAR_MAX = 1.0f;
 
 //-------------------------------------------------------------------------
 //

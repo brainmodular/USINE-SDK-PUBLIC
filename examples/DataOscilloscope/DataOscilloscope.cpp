@@ -49,7 +49,14 @@
 // includes
 //-----------------------------------------------------------------------------
 #include "DataOscilloscope.h"
-#include <vector>
+
+//----------------------------------------------------------------------------
+// setup a callback_id constant for all params that specify a callback type
+//----------------------------------------------------------------------------
+constexpr NativeInt Y_CONTROL_CBID      = 0x001300F0;
+constexpr NativeInt FDR_SPEED_CBID      = 0x001300F1;
+constexpr NativeInt COLOR_CONTROL_CBID  = 0x001300F2;
+
 
 //----------------------------------------------------------------------------
 // create, general info and destroy methods
@@ -59,35 +66,25 @@
 
 //-----------------------------------------------------------------------------
 // Create
-void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
-	pModule = new DataOscilloscope ();
+	pModule = new DataOscilloscope();
 }
 
 //-----------------------------------------------------------------------------
 // destroy
-void DestroyModule (void* pModule)
+void DestroyModule(void* pModule)
 {
     // cast is important to call the right destructor
 	delete ((DataOscilloscope*)pModule);
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "data oscilloscope example";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "data oscilloscope sdk module example";
-const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
-float EMPTY_COORD = -999.9f;
+constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "data oscilloscope example";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "data oscilloscope sdk module example";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
+constexpr float EMPTY_COORD = -999.9f;
 
-// variables
-TUsineColor drawColor;
-float moveOffset    = 0.005f;
-float yValue        = 0.0f;
-
-// TODO/WARNING :
-// This is a raw implementation given as an example : the points are stored in a vector
-// which is not the most efficient data structure for the job
-// For better cpu efficiency you may want to use a Circular Buffer instead
-std::vector<TPointF> points;
 
 // browser info
 void GetBrowserInfo(TModuleInfo* pModuleInfo) 
@@ -99,7 +96,7 @@ void GetBrowserInfo(TModuleInfo* pModuleInfo)
 
 //-----------------------------------------------------------------------------
 // module description
-void DataOscilloscope::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
+void DataOscilloscope::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
 {
 	pModuleInfo->Name				= MODULE_NAME;
 	pModuleInfo->Description		= MODULE_DESC;
@@ -112,7 +109,6 @@ void DataOscilloscope::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* p
 	pModuleInfo->DontProcess		= FALSE;
 	pModuleInfo->Version			= MODULE_VERSION;
 	pModuleInfo->CanBeSavedInPreset = TRUE;
-
 }
 
 //-----------------------------------------------------------------------------
@@ -122,21 +118,20 @@ void DataOscilloscope::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* p
 
 //-----------------------------------------------------------------------------
 // initialisation
-void DataOscilloscope::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
+void DataOscilloscope::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
 {
-	colorBox		= sdkGetUsineColor(clCursor);
-	mouseLeftButtonDown       = FALSE;
+	colorBox = sdkGetUsineColor(clCursor);
+	mouseLeftButtonDown = FALSE;
 	eraseBox();
 }
 
 //-----------------------------------------------------------------------------
 // Parameters description
-void DataOscilloscope::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo) 
-{	
+void DataOscilloscope::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo) 
+{
 	switch (ParamIndex) 
 	{
-    case 0 :
-
+    case 0:
         pParamInfo->ParamType       = ptDataField;
         pParamInfo->Caption         = "y";
         pParamInfo->IsInput         = TRUE;
@@ -146,12 +141,10 @@ void DataOscilloscope::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
         pParamInfo->MinValue        = -1.0f;
         pParamInfo->MaxValue        = 1.0f;
         pParamInfo->CallBackType    = ctImmediate;
-        pParamInfo->setEventClass   (yControl);
-        pParamInfo->CallBackId      = 88;
-
+        pParamInfo->CallBackId      = Y_CONTROL_CBID;
+        pParamInfo->setEventClass(yControl);
         break;
-            
-    case 1 :
+    case 1:
         pParamInfo->ParamType       = ptDataFader;
         pParamInfo->Caption         = "speed";
         pParamInfo->IsInput         = TRUE;
@@ -159,24 +152,21 @@ void DataOscilloscope::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
         pParamInfo->IsSeparator     = FALSE;
         pParamInfo->DefaultValue    = 0.005f;
         pParamInfo->Scale           = scLog;
+        pParamInfo->MinValue        = .0f;
         pParamInfo->MaxValue        = 0.5f;
         pParamInfo->CallBackType    = ctNormal;
-        pParamInfo->setEventClass   (fdrSpeed);
-        pParamInfo->CallBackId      = 89;
-
-        break;
-            
-    case 2 :
-
-        pParamInfo->ParamType       = ptChooseColor;
+        pParamInfo->CallBackId      = FDR_SPEED_CBID;
+        pParamInfo->setEventClass(fdrSpeed);
+        break;  
+    case 2:
+        pParamInfo->ParamType       = ptColor;
         pParamInfo->Caption         = "color";
         pParamInfo->IsInput         = TRUE;
         pParamInfo->IsOutput        = FALSE;
         pParamInfo->IsSeparator     = FALSE;
         pParamInfo->CallBackType    = ctImmediate;
-        pParamInfo->setEventClass   (colorControl);
-        pParamInfo->CallBackId      = 87;
-
+        pParamInfo->CallBackId      = COLOR_CONTROL_CBID;
+        pParamInfo->setEventClass(colorControl);
         break;
 	default:
 		// do nothing
@@ -186,37 +176,27 @@ void DataOscilloscope::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 
 //-----------------------------------------------------------------------------
 // Parameters callback
-void DataOscilloscope::onCallBack (TUsineMessage *Message) 
+void DataOscilloscope::onCallBack(TUsineMessage *Message) 
 {
-	try
-	{
-        // filter only message specific to this user module and type MS_CHANGE
-        if (Message->message == NOTIFY_MSG_USINE_CALLBACK && Message->lParam == MSG_CHANGE)
-        {
-	        // WParam contains the Param Number
-	        switch (Message->wParam) 
-	        {
-            case 87:
-                colorBox = colorControl.getColor();
-                break;
-            case 88:
-                yValue = yControl.getData();
-                break;
-            case 89:
-                moveOffset = fdrSpeed.getData();
-                break;
-
-	        // default case
-	        default:
-		        // do nothing
-		        break;
-	        }
-        }
-	}
-	catch (...)
-	{
-		//sdkTraceErrorChar("error");
-	}
+    if ((Message->message != NOTIFY_MSG_USINE_CALLBACK) || (Message->lParam != MSG_CHANGE))
+        return;
+    // WParam contains the callback id
+    switch (Message->wParam)
+    {
+    case COLOR_CONTROL_CBID:
+        colorBox = colorControl.getColor();
+        break;
+    case Y_CONTROL_CBID:
+        yValue = yControl.getData();
+        break;
+    case FDR_SPEED_CBID:
+        moveOffset = fdrSpeed.getData();
+        break;
+        // default case
+    default:
+        // do nothing
+        break;
+    }
 }
 
 //----------------------------------------------------------------------------
@@ -253,25 +233,26 @@ void DataOscilloscope::onCreateCommands()
 void DataOscilloscope::advance() {
     
     TPointF newPoint;
-    newPoint.x   = 0.0f;
-    newPoint.y    = 1 - yValue;
+    newPoint.x = 0.0f;
+    newPoint.y = 1 - yValue;
     points.push_back(newPoint);
+    TPrecision offset = moveOffset;
     
-    for (int i = 0; i < points.size(); i++){
-        // coord update
-        points[i].x += moveOffset;
-        points[i].y  += 0.0f;
-        
-        if (points[i].x >= 1.0) {
-            points.erase(points.begin() + i);
-        }
-    }
+    for (auto& p : points)
+        p.x += offset;
+ 
+    points.erase(
+        std::remove_if(points.begin(), points.end(),
+            [](const TPointF& p) { return p.x >= 1.0f; }),
+        points.end()
+    );
+
     sdkRepaintPanel();
 }
 
 //-----------------------------------------------------------------------------
 // paint the module panel
-void DataOscilloscope::onPaint ()
+void DataOscilloscope::onPaint()
 {
     // Drawing the path
     sdkDrawPathStart();
@@ -308,12 +289,6 @@ void DataOscilloscope::eraseBox()
     sdkRepaintPanel();
 }
 
-//-------------------------------------------------------------------------
-void DataOscilloscope::updateBox(float x, float y)
-{
-    // Ask to repaint the module
-    sdkRepaintPanel();
-}
 
 //--------------------------------------------------------------------------
 void DataOscilloscope::onProcess() {

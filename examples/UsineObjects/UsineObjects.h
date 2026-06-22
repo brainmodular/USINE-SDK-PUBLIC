@@ -46,8 +46,8 @@
 //-----------------------------------------------------------------------------
 
 // include once, no more
-#ifndef __EXAMPLE_GLOBAL_ARRAY_H__
-#define __EXAMPLE_GLOBAL_ARRAY_H__
+#ifndef __EXAMPLE_USINE_OBJECTS_H__
+#define __EXAMPLE_USINE_OBJECTS_H__
 
 //-----------------------------------------------------------------------------
 // includes
@@ -79,19 +79,19 @@ public:
 public:
 	//-----------------------------------------------------------------------------
 	// module info
-	void onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
 	// query system and init
 	int  onGetNumberOfParams(int queryResult1, int queryResult2);
-	void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
-	void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+	void onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
+	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
 	// parameters and process
-	void onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo);
-	void onCallBack (TUsineMessage *Message);
-	void onProcess ();
+	void onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo);
+	void onCallBack(TUsineMessage *Message);
+	void onProcess();
 
 
 	//-------------------------------------------------------------------------
@@ -104,9 +104,8 @@ private:
 	UsineEventClass arrayGet;
 
 	//-------------------------------------------------------------------------
-    static const int numOfParamAfterAudiotInOut = 2;
     
 
 }; // class UsineObjects
 
-#endif //__EXAMPLE_GLOBAL_ARRAY_H__
+#endif //__EXAMPLE_USINE_OBJECTS_H__

@@ -50,13 +50,15 @@
 //-----------------------------------------------------------------------------
 #include "TemplateModuleSimple.h"
 
+constexpr NativeInt FDR_FREQ_CBID = 0x002100F0;
+
 //----------------------------------------------------------------------------
 // create, general info and destroy methods
 //----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // Create
-void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new TemplateModuleSimple();
 }
@@ -85,12 +87,12 @@ TemplateModuleSimple::~TemplateModuleSimple()
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "template simple";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "template simple example";
-const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
+constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "template simple";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "template simple example";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
 // browser info
-void GetBrowserInfo(ModuleInfo* pModuleInfo)
+void GetBrowserInfo(TModuleInfo* pModuleInfo)
 {
 	pModuleInfo->Name = UserModuleBase::MODULE_NAME;
 	pModuleInfo->Description = UserModuleBase::MODULE_DESC;
@@ -99,11 +101,12 @@ void GetBrowserInfo(ModuleInfo* pModuleInfo)
 
 //void TemplateModuleSimple::onCreate(AinsiCharPtr optionalString);
 //void TemplateModuleSimple::onDestroy(); 
-void TemplateModuleSimple::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+void TemplateModuleSimple::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
 	pModuleInfo->Name				= MODULE_NAME;
 	pModuleInfo->Description		= MODULE_DESC;
 	pModuleInfo->ModuleType         = mtSimple;
+	pModuleInfo->DontProcess		= true;
 	pModuleInfo->BackColor          = sdkGetUsineColor(clDataModuleColor);
 	pModuleInfo->NumberOfParams     = 2;
 	pModuleInfo->Version			= MODULE_VERSION;
@@ -112,11 +115,11 @@ void TemplateModuleSimple::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInf
 
 //-----------------------------------------------------------------------------
 // init
-void TemplateModuleSimple::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) {}
+void TemplateModuleSimple::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) {}
 
 //-----------------------------------------------------------------------------
 // parameters and process
-void TemplateModuleSimple::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
+void TemplateModuleSimple::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo)
 {	
 	switch (ParamIndex) 
     {
@@ -132,6 +135,8 @@ void TemplateModuleSimple::onGetParamInfo (int ParamIndex, TParamInfo* pParamInf
 		    pParamInfo->Symbol          = "Hz";
 		    pParamInfo->Format          = "%.2f";
             pParamInfo->Scale           = scLog;
+			pParamInfo->CallBackType	= ctNormal;
+			pParamInfo->CallBackId		= FDR_FREQ_CBID;
 			pParamInfo->setEventClass	(fdrFrequence);
 
 	        break;  
@@ -143,11 +148,12 @@ void TemplateModuleSimple::onGetParamInfo (int ParamIndex, TParamInfo* pParamInf
 		    pParamInfo->IsOutput        = TRUE;
 		    pParamInfo->MinValue        = 0.05f;
 		    pParamInfo->MaxValue        = 10000.0f;
-		    pParamInfo->DefaultValue    = 0.0f;
+		    pParamInfo->DefaultValue    = 0.05f;
             pParamInfo->Symbol          = "mS";
 		    pParamInfo->Format          = "%.2f";
             pParamInfo->Scale           = scLog;
 		    pParamInfo->ReadOnly		= TRUE; // can't change the field
+			pParamInfo->CallBackType	= ctNone;
 			pParamInfo->setEventClass	(fdrPeriod);
 			break;
 
@@ -158,15 +164,17 @@ void TemplateModuleSimple::onGetParamInfo (int ParamIndex, TParamInfo* pParamInf
 }
 
 
-void TemplateModuleSimple::onCallBack (TUsineMessage *Message) 
+void TemplateModuleSimple::onCallBack(TUsineMessage *Message) 
 {
+	if ((Message->message != NOTIFY_MSG_USINE_CALLBACK) || (Message->lParam != MSG_CHANGE))
+		return;
 	// WParam contains the Param Number
 	switch (Message->wParam) 
 	{
 	// Selected point index data field input/output
-	case 0:
+	case FDR_FREQ_CBID:
 		if (Message->lParam == MSG_CHANGE) 
-            computePeriod ();
+            computePeriod();
 		break;
 
 	// default case
@@ -176,13 +184,15 @@ void TemplateModuleSimple::onCallBack (TUsineMessage *Message)
 	}
 }
 
-void TemplateModuleSimple::onProcess () 
+void TemplateModuleSimple::onProcess() 
 {
-
 }
 
 
-void TemplateModuleSimple::computePeriod ()
+void TemplateModuleSimple::computePeriod()
 {
-    fdrPeriod.setData(1000.0f / fdrFrequence.getData());
+	TPrecision freq = fdrFrequence.getData();
+	if (freq == 0)
+		return;
+    fdrPeriod.setData(1000.0f / freq);
 }

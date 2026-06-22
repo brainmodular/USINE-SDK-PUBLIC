@@ -33,6 +33,7 @@
 // includes
 //-----------------------------------------------------------------------------
 #include "UsineDefinitions.h"
+#include "UserModule.h"
 #include <string>
 #include <cmath>
 
@@ -48,13 +49,17 @@ constexpr float LN10S20 = 0.115129254f;
 constexpr int MID_NOTE_ON   = 144;
 constexpr int MID_VOL_RANGE = 127;
 
-/// @addtogroup Globals
+/// @addtogroup Functions
 /// @{
+
+//-----------------------------------------------------------------------------
+/// @name Colors
+/// @{
+/// Various helpers around colors.
 
 //-----------------------------------------------------------------------------
 // global color utilities functions
 //-----------------------------------------------------------------------------
-/// Various helpers around colors.
 
 /// Calculates HSL from RGB.
 /// @param c1 The desired color
@@ -104,6 +109,22 @@ TUsineColor sdkAlphaColor (float r, float g, float b, float a=1.0 );
 /// @return TUsineColor : the new created color
 TUsineColor sdkAlphaColor (int r, int g, int b, int a=255 );
 
+
+/// Transforms a TUsineColor into a TUsinePixel
+/// @param color color to transform to a pixel (from uint32 to RGBA) 
+TUsinePixel sdkColorToPixel(const TUsineColor color);
+
+/// Transforms a TUsinePixel into a TUsineColor
+/// @param pixel pixel to transform to a color (from RGBA to uint32)
+TUsineColor sdkPixelToColor(const TUsinePixel pixel);
+
+/// @}
+
+//-----------------------------------------------------------------------------
+/// @name Geometry and Points
+/// @{
+/// Various Geometric helpers.
+
 //-----------------------------------------------------------------------------
 // global geometric utilities functions
 //-----------------------------------------------------------------------------
@@ -146,17 +167,35 @@ TPointF sdkBezier4 (TPointF p1, TPointF p2, TPointF p3, TPointF p4, float mu);
 /// @param mu ranges from 0 to 1, start to end of curve
 float sdkBezier4 (float p1, float p2, float p3, float p4, float mu);
 
+/// @}
+
+//-----------------------------------------------------------------------------
+/// @name Numeric Utilities Functions
+/// @{
+/// Various Numerical Functions.
+
 //-----------------------------------------------------------------------------
 // global numeric utilities functions
 //-----------------------------------------------------------------------------
+/// Convert a coefficient to decibel.
 float sdkCoeffToDb (float Coeff);
+
+/// Convert a decibel to coefficient.
 float sdkDbToCoeff (float Gain);
+
+/// Square a float value.
 inline float sqr(const float x)
 {
     return x*x;
 }
 
+/// Convert a float to a string with a given precision and width.
 std::string sdkFloatToString (const float Number, const int Prec=0, const int Width=0);
+
+/// Convert an integer to a string.
 std::string sdkIntToString (const int Number);
 
+
 /// @}
+
+

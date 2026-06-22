@@ -51,12 +51,24 @@
 #include "Granulator.h"
 
 //----------------------------------------------------------------------------
+// setup a callback_id constant for all params that specify a callback type
+//----------------------------------------------------------------------------
+constexpr NativeInt INTERVAL_CBID	= 0x001700F0;
+constexpr NativeInt GRAIN_ENV_CBID	= 0x001700F1;
+constexpr NativeInt ENV_VAR_CBID	= 0x001700F2;
+constexpr NativeInt DURATION_CBID	= 0x001700F3;
+constexpr NativeInt PITCH_CBID		= 0x001700F4;
+constexpr NativeInt GRAIN_MODE_CBID = 0x001700F5;
+constexpr NativeInt GRAIN_GO_CBID	= 0x001700F6;
+
+
+//----------------------------------------------------------------------------
 // create, general info and destroy methods
 //----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // Create
-void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, MasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new GranulatorModule();
 }
@@ -70,9 +82,9 @@ void DestroyModule (void* pModule)
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "Granulator";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "Granulator";
-const AnsiCharPtr UserModuleBase::MODULE_VERSION = "2.3";
+constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "Granulator";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "Granulator";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "2.3";
 
 // browser info
 void GetBrowserInfo(TModuleInfo* pModuleInfo) 
@@ -84,7 +96,7 @@ void GetBrowserInfo(TModuleInfo* pModuleInfo)
 
 //-----------------------------------------------------------------------------
 // module description
-void GranulatorModule::onGetModuleInfo (MasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
+void GranulatorModule::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
 {
 	pModuleInfo->Name				= MODULE_NAME;
 	pModuleInfo->Description		= MODULE_DESC;
@@ -124,14 +136,14 @@ int GranulatorModule::onGetNumberOfParams (int queryResult1, int queryResult2)
 
 //-----------------------------------------------------------------------------
 // Called after the query popup
-void GranulatorModule::onAfterQuery (MasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
+void GranulatorModule::onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
 {
 }
 
 
 //-----------------------------------------------------------------------------
 // initialisation
-void GranulatorModule::onInitModule (MasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
+void GranulatorModule::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
 {
 	m_LineColor = sdkGetUsineColor(clAudioFlow);
 	m_mouseLastButtonDown = -1;
@@ -181,6 +193,7 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput				= TRUE;
 		pParamInfo->IsOutput			= FALSE;
 		pParamInfo->ReadOnly			= FALSE;
+		pParamInfo->CallBackType		= ctNone;
 		pParamInfo->setEventClass		(m_audioInputs[ParamIndex]);
     }
     // audio output
@@ -191,6 +204,7 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput				= FALSE;
 		pParamInfo->IsOutput			= TRUE;
 		pParamInfo->ReadOnly			= TRUE;
+		pParamInfo->CallBackType		= ctNone;
 		pParamInfo->setEventClass		(m_audioOutputs[ParamIndex - numOfAudiotInsOuts]);
     }
     // grain on trigger led
@@ -204,6 +218,7 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsOutput			= TRUE;
 		pParamInfo->ReadOnly			= TRUE;
         pParamInfo->IsSeparator			= TRUE;
+		pParamInfo->CallBackType		= ctNone;
 		pParamInfo->setEventClass		(m_ledGrainStart);
     }
     // next grain interval fader
@@ -222,6 +237,7 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly			= FALSE;
 		pParamInfo->IsStoredInPreset	= TRUE;
 		pParamInfo->CallBackType		= ctImmediate;
+		pParamInfo->CallBackId			= INTERVAL_CBID;
 		pParamInfo->setEventClass		(m_fdrGrainInterval);
 	}
     // grain envelope listbox
@@ -236,6 +252,7 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly			= FALSE;
 		pParamInfo->IsStoredInPreset	= TRUE;
 		pParamInfo->CallBackType		= ctImmediate;
+		pParamInfo->CallBackId			= GRAIN_ENV_CBID;
 		pParamInfo->setEventClass		(m_lboxGrainEnvelope);
 	}  
     // grain envelope variable
@@ -252,6 +269,7 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly			= FALSE;
 		pParamInfo->IsStoredInPreset	= TRUE;
 		pParamInfo->CallBackType		= ctImmediate;
+		pParamInfo->CallBackId			= ENV_VAR_CBID;
 		pParamInfo->setEventClass		(m_fdrGrainEnvelopeSkrew);
 	}
     // grain duration fader
@@ -270,6 +288,7 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly			= FALSE;
 		pParamInfo->IsStoredInPreset	= TRUE;
 		pParamInfo->CallBackType		= ctImmediate;
+		pParamInfo->CallBackId			= DURATION_CBID;
 		pParamInfo->setEventClass		(m_fdrGrainDuration);
 	}
     // pitch fader
@@ -287,6 +306,7 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly			= FALSE;
 		pParamInfo->IsStoredInPreset	= TRUE;
 		pParamInfo->CallBackType		= ctImmediate;
+		pParamInfo->CallBackId			= PITCH_CBID;
 		pParamInfo->setEventClass		(m_fdrGrainPitch);
 	}
     // grain mode listbox
@@ -301,6 +321,7 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->ReadOnly			= FALSE;
 		pParamInfo->IsStoredInPreset	= TRUE;
 		pParamInfo->CallBackType		= ctImmediate;
+		pParamInfo->CallBackId			= GRAIN_MODE_CBID;
 		pParamInfo->setEventClass		(m_lboxGrainMode);
 	}  
     // grain go button // used in Button mode
@@ -311,7 +332,8 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= TRUE;
 		pParamInfo->CallBackType    = ctImmediate;
-		pParamInfo->setEventClass				(m_btnGrainGo);
+		pParamInfo->CallBackId		= GRAIN_GO_CBID;
+		pParamInfo->setEventClass	(m_btnGrainGo);
     }
 	// default case
     else
@@ -323,45 +345,35 @@ void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 //-----------------------------------------------------------------------------
 // Parameters callback
 void GranulatorModule::onCallBack (TUsineMessage* Message) 
-{ 
-    //  grain interval fader
-	 if ( (Message->wParam == (numOfAudiotInsOuts*2) + 1) && (Message->lParam == MSG_CHANGE) ) 
-	{
-        changeInterval();
+{
+	if (Message->lParam == MSG_CHANGE) {
+		switch (Message->wParam)
+		{
+		case INTERVAL_CBID:
+			changeInterval();
+			break;
+		case GRAIN_ENV_CBID:
+			changeGrainEnvelope();
+			break;
+		case ENV_VAR_CBID:
+			changeEnvelopeVar();
+			break;
+		case DURATION_CBID:
+			changeDuration();
+			break;
+		case PITCH_CBID:
+			changePitch();
+			break;
+		case GRAIN_MODE_CBID:
+			changeGrainMode();
+			break;
+		case GRAIN_GO_CBID:
+			grainGo();
+			break;
+		default:
+			break;
+		}
 	}
-    // grain envelope listbox
-	else if ( (Message->wParam == (numOfAudiotInsOuts*2) + 2) && (Message->lParam == MSG_CHANGE) ) 
-	{
-        changeGrainEnvelope();
-	}   
-	// grain envelope variable
-	else if ( (Message->wParam == (numOfAudiotInsOuts*2) + 3) && (Message->lParam == MSG_CHANGE) ) 
-	{
-        changeEnvelopeVar();
-
-	}   
-	// duration fader input changed
-	else if ( (Message->wParam == (numOfAudiotInsOuts*2) + 4) && (Message->lParam == MSG_CHANGE) ) 
-	{
-        changeDuration();
-
-	}
-	// pitch fader input changed
-	else if ( (Message->wParam == (numOfAudiotInsOuts*2) + 5) && (Message->lParam == MSG_CHANGE) ) 
-	{
-        changePitch();
-
-	}
-    // grain mode listbox
-    else if ( (Message->wParam == (numOfAudiotInsOuts*2) + 6) && (Message->lParam == MSG_CHANGE) ) 
-	{
-        changeGrainMode();
-	}  
-    // grain go button // used in Button mode
-    else if ( (Message->wParam == (numOfAudiotInsOuts*2) + 7) && (Message->lParam == MSG_CHANGE) ) 
-	{
-        grainGo();
-    }
 }
 
 //-----------------------------------------------------------------------------
@@ -541,7 +553,7 @@ void GranulatorModule::onMouseMove(TShiftState Shift, float X, float Y)
         
 		try
 		{
-			sdkProcessRecord(dur, grainEnvelopeVar, pitch );
+			sdkProcessRecordAutomation(dur, grainEnvelopeVar, pitch );
 		}
 		catch (std::exception& /*e*/) 
 		{
@@ -562,7 +574,7 @@ void GranulatorModule::onMouseUp (TMouseButton MouseButton, TShiftState Shift, f
 		
 		try
 		{
-			sdkStopRecord ();
+			sdkStopRecordAutomation();
 		}
 		catch (std::exception& /*e*/) 
 		{

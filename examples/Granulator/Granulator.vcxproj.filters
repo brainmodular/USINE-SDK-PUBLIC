@@ -19,6 +19,9 @@
     <ClInclude Include="..\..\sdk\UsineEventClass.h">
       <Filter>sdk</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\sdk\UsineFunctions.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sdk\UserUtils.cpp">

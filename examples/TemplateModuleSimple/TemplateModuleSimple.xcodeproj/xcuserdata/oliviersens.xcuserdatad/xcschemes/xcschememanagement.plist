@@ -6,6 +6,8 @@
 	<dict>
 		<key>TemplateModuleSimple.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>15</integer>
 		</dict>

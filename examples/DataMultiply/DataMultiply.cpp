@@ -51,28 +51,33 @@
 #include "DataMultiply.h"
 
 //----------------------------------------------------------------------------
+// setup a callback_id constant for all params that specify a callback type
+//----------------------------------------------------------------------------
+constexpr NativeInt DATA_MULTIPLY_CBID = 0x001200FF;
+
+//----------------------------------------------------------------------------
 // create, general info and destroy methods
 //----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // Create
-void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new DataMultiplyExample ();
 }
 
 //-----------------------------------------------------------------------------
 // destroy
-void DestroyModule (void* pModule) 
+void DestroyModule(void* pModule) 
 {
     // cast is important to call the good destructor
 	delete ((DataMultiplyExample*)pModule);
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "data multiply";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "data multiply sdk module example";
-const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
+constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "data multiply";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "data multiply sdk module example";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
 // browser info
 void GetBrowserInfo(TModuleInfo* pModuleInfo) 
@@ -84,9 +89,8 @@ void GetBrowserInfo(TModuleInfo* pModuleInfo)
 
 //-----------------------------------------------------------------------------
 // module description
-void DataMultiplyExample::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
+void DataMultiplyExample::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
 {
-
 	//identification of the module
 	pModuleInfo->Name				= MODULE_NAME;
 	pModuleInfo->Description		= MODULE_DESC;
@@ -96,7 +100,6 @@ void DataMultiplyExample::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo
 	pModuleInfo->Version			= MODULE_VERSION;
 	pModuleInfo->DontProcess		= TRUE;
 	pModuleInfo->CanBeSavedInPreset = FALSE;
-
 }
 
 //-----------------------------------------------------------------------------
@@ -114,7 +117,7 @@ void DataMultiplyExample::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo
 
 //-----------------------------------------------------------------------------
 // Parameters description
-void DataMultiplyExample::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo) 
+void DataMultiplyExample::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo) 
 {
 	// all parameters declared in the module class		
 	switch (ParamIndex) 
@@ -125,21 +128,20 @@ void DataMultiplyExample::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo
 		pParamInfo->Caption			= "a";
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
-		pParamInfo->CallBackType	= ctImmediate;
+		pParamInfo->CallBackType	= ctNormal;
+		pParamInfo->CallBackId      = DATA_MULTIPLY_CBID;
 		pParamInfo->setEventClass	(dtfInputA);
-
 		break;
-
 	// dtfInputB
 	case 1:
 		pParamInfo->ParamType		= ptDataField;
 		pParamInfo->Caption			= "b";
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
-		pParamInfo->CallBackType	= ctImmediate;
+		pParamInfo->CallBackType	= ctNormal;
+		pParamInfo->CallBackId      = DATA_MULTIPLY_CBID;
 		pParamInfo->setEventClass	(dtfInputB);
 		break;
-
 	// dftOutput
 	case 2:
 		pParamInfo->ParamType		= ptDataField;
@@ -147,10 +149,9 @@ void DataMultiplyExample::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo
 		pParamInfo->IsInput			= FALSE;
 		pParamInfo->IsOutput		= TRUE;
 		pParamInfo->DontSave		= TRUE;
+		pParamInfo->CallBackType    = ctNone;
 		pParamInfo->setEventClass	(dtfOutput);
-
 		break;
-
 	// default case
 	default:
 		break;
@@ -159,25 +160,12 @@ void DataMultiplyExample::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo
 
 //-----------------------------------------------------------------------------
 // Parameters callback
-void DataMultiplyExample::onCallBack (TUsineMessage* Message) 
+void DataMultiplyExample::onCallBack(TUsineMessage* Message) 
 {
-	try
+	if ((Message->message != NOTIFY_MSG_USINE_CALLBACK) || (Message->lParam != MSG_CHANGE))
+		return;
+	if (Message->wParam == DATA_MULTIPLY_CBID)
 	{
-        if (Message->message == NOTIFY_MSG_USINE_CALLBACK)
-        {
-            int paramIndex = (int)Message->wParam;
-
-		    if ((paramIndex == 0 || paramIndex == 1) && (Message->lParam == MSG_CHANGE))
-		    {
-			    sdkMultEvt3 (dtfInputA, dtfInputB, dtfOutput);
-		    }
-        }
-	}
-	catch (...)
-	{
-		//sdkTraceErrorChar("error");
+		sdkMultEvt3(dtfInputA, dtfInputB, dtfOutput);
 	}
 }
-
-
-

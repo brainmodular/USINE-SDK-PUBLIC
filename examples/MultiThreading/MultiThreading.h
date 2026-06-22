@@ -79,22 +79,18 @@ public:
 public:
 	//-----------------------------------------------------------------------------
 	// module info
-	void onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
 	// query system and init
 	int  onGetNumberOfParams(int queryResult1, int queryResult2);
-	void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
-	void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+	void onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
+	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
 	// parameters and process
-	void onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo);
-	void onCallBack (TUsineMessage *Message);
-	void onProcess ();
-
-	//TSyncObjectPtr syncObject;
-	TCriticalSectionPtr criticalSection;
+	void onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo);
+	void onCallBack(TUsineMessage *Message);
 
 	//-------------------------------------------------------------------------
 	// private members
@@ -103,11 +99,12 @@ private:
 	//-------------------------------------------------------------------------
 	// parameters events
 	UsineEventClass output;
-	float  array[100];
 	TThreadPtr thread1, thread2;
+	//TSyncObjectPtr syncObject;
+	TCriticalSectionPtr criticalSection;
 
-	/*static void processThread1(void* pModule, TThreadPtr pThread);
-	static void processThread2(void* pModule, TThreadPtr pThread);*/
+	static void processThread1(void* pModule, TThreadPtr pThread);
+	static void processThread2(void* pModule, TThreadPtr pThread);
     
 
 }; // class MultiThreading

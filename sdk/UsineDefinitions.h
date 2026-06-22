@@ -33,7 +33,7 @@
 //-----------------------------------------------------------------------------
 // target platform preprocessor define
 //-----------------------------------------------------------------------------
-#if defined (_WIN64)
+#if defined(_WIN64)
     #define USINE_WIN64 1
 #elif defined (__APPLE_CPP__) || defined(__APPLE_CC__)
     #define USINE_OSX64 1
@@ -79,13 +79,12 @@
 #else
   #error "conditional compilation error!"
 #endif
-//-----------------------------------------------------------------------------
+#include <cstdint>
 
 //-----------------------------------------------------------------------------
-// version of the SDK
-// to use in GetSDKVersion function to return the SDK version number
-static constexpr int SDK_VERSION = 701007;
-
+/// version of the SDK
+/// to use in GetSDKVersion function to return the SDK version number
+static constexpr int SDK_VERSION = 702002;
 
 //-----------------------------------------------------------------------------
 #if (defined (USINE_WIN64))
@@ -113,15 +112,22 @@ typedef  uint32_t UINT32 ;
 /// @{
 
 /// Number of audio in or out channels for modules
-#define USINE_MULTIPHONY_MAX 144
+static constexpr UINT32 USINE_AUDIO_CHANNEL_MODULE_MAX = 192;
+
+[[deprecated("user USINE_AUDIO_CHANNEL_MODULE_MAX instead")]]
+static constexpr UINT32 USINE_MULTIPHONY_MAX = USINE_AUDIO_CHANNEL_MODULE_MAX;
+
 /// Max number of input audio channels for the sound card
-#define USINE_MAX_AUDIO_INPUTS 256
+static constexpr UINT32 USINE_MAX_SOUNDCARD_AUDIO_INPUTS = 256;
+
 /// Max number of output audio channels for the sound card
-#define USINE_MAX_AUDIO_OUTPUTS 256
+static constexpr UINT32  USINE_MAX_SOUNDCARD_AUDIO_OUTPUTS = 256;
+
 /// Max size of Audio Blocs in Usine
-#define USINE_MAX_AUDIO_EVT_SIZE 1024  
+static constexpr UINT32 USINE_MAX_AUDIO_EVT_SIZE = 1024;
+
 /// Max number of MIDI devices connected
-#define USINE_MAX_MIDI_DEVICES 64
+static constexpr UINT32 USINE_MAX_MIDI_DEVICES = 64;
 
 //-----------------------------------------------------------------------------
 /// Custom bool type to match the 4 bytes DELPHI LongBool type.
@@ -131,10 +137,10 @@ typedef int LongBool;
 typedef LongBool* LongBoolPtr;
 
 /// To test LongBool equality against false. @see LongBool
-#define FALSE 0 
+static constexpr int FALSE = 0;
 
 /// To test LongBool equality against true. @see LongBool 
-#define TRUE  1 
+static constexpr int TRUE = 1;
 
 //-----------------------------------------------------------------------------
 /// Pointer to an ANSI string variable.
@@ -154,86 +160,128 @@ typedef uint8_t BYTE;
 //----------------------------------------------------------------------------
 /// Usine internal message 
 /// @see onCallback
+/// This structure is used to send messages to Usine from the User Module.
+/// It is used in the onCallback function to send messages to Usine,
+/// to send messages to Usine from the User Module,
+/// to notify Usine of changes in the User Module.
+/// The message is sent to Usine using the sdkNotifyUsine function.
 typedef struct TUsineMessage 
 {
-    NativeInt message; ///< the parameter value has changed
-    NativeInt wParam;  ///< the parameter value has changed
+	NativeInt message; ///< the message type, see @ref mParam "TUsineMessage.message possible values"
+	NativeInt wParam;  ///< @ref wParam "TUsineMessage.wParam possible values"
     NativeInt lParam;  ///< @ref lParam "TUsineMessage.lParam possible values"
-    NativeInt result;  ///< the parameter value has changed
+	NativeInt result;  ///< not used, reserved for future use
 } TUsineMessage;
 
 /// for backward compatibility
 typedef TUsineMessage UsineMessage;
 
 
+/// --------------------------------------------------------------------------<summary>
+/// Possible values for @see sdkNotifyUsine callback mode param
+/// Determines the usine message queue used, subsequentely on which thread
+/// 
+using TNotifyUsineMode = enum TNotifyUsineMode : int32_t
+{
+    numMainThread,
+    numAsync,
+    numVideo,
+    numRealTime,
+    numGraphic,
+    numNetwork
+};
+
 
 //----------------------------------------------------------------------------
-/// Possible values for TUsineMessage LParam.
-static constexpr NativeInt MSG_CHANGE     = 0;  ///< the parameter value has changed
-static constexpr NativeInt MSG_CLICK      = 1;  ///< the parameter has been clicked
-static constexpr NativeInt MSG_DBLCLICK   = 2;  ///< the parameter has been double clicked
-static constexpr NativeInt MSG_SETCAPTION = 3;  ///< change the caption of a control
-static constexpr NativeInt MSG_MOUSEUP    = 4;  ///< mouse Up
-static constexpr NativeInt MSG_MOUSEMOVE  = 5;  ///< mouse Move
-static constexpr NativeInt MSG_DROP       = 6;  ///< something has been dropped on the control
-static constexpr NativeInt MSG_COMMATEXT  = 7;  ///< a comma-text has changed
-static constexpr NativeInt MSG_FLOATING_MOVE        = 8;  ///< a floating control is moving
-static constexpr NativeInt MSG_COLLIDE              = 9;  ///< a floating control collides
-static constexpr NativeInt MSG_LOCK_CHANGED         = 10; ///< the control lock state has changed
-static constexpr NativeInt MSG_PLAY_RECORD_VALUE    = 11; ///< an automation is playing on the parameter
-static constexpr NativeInt MSG_RIGHT_CLICK          = 12; ///< mouse right click
-static constexpr NativeInt MSG_WHEEL_UP             = 13; ///< mouse wheel up
-static constexpr NativeInt MSG_WHEEL_DOWN           = 14; ///< mouse wheel down
-static constexpr NativeInt MSG_MOUSE_WHEEL_OFF      = 15; ///< end wheel processing
+/// Possible values for TUsineMessage.lParam.
+/// @ref UsineMessages
+/// These values are used to specify the type of message sent to or received from Usine.
+/// They are used in the lParam field of the TUsineMessage structure.
+static constexpr NativeInt MSG_CHANGE				  = 0;  ///< the parameter value has changed
+static constexpr NativeInt MSG_CLICK				  = 1;  ///< the parameter has been clicked
+static constexpr NativeInt MSG_DBLCLICK				  = 2;  ///< the parameter has been double clicked
+static constexpr NativeInt MSG_SETCAPTION			  = 3;  ///< change the caption of a control
+static constexpr NativeInt MSG_MOUSEUP				  = 4;  ///< mouse Up
+static constexpr NativeInt MSG_MOUSEMOVE			  = 5;  ///< mouse Move
+static constexpr NativeInt MSG_DROP					  = 6;  ///< something has been dropped on the control
+static constexpr NativeInt MSG_COMMATEXT			  = 7;  ///< a comma-text has changed
+static constexpr NativeInt MSG_FLOATING_MOVE          = 8;  ///< a floating control is moving
+static constexpr NativeInt MSG_COLLIDE                = 9;  ///< a floating control collides
+static constexpr NativeInt MSG_LOCK_CHANGED           = 10; ///< the control lock state has changed
+static constexpr NativeInt MSG_PLAY_RECORD_VALUE      = 11; ///< an automation is playing on the parameter
+static constexpr NativeInt MSG_RIGHT_CLICK            = 12; ///< mouse right click
+static constexpr NativeInt MSG_WHEEL_UP               = 13; ///< mouse wheel up
+static constexpr NativeInt MSG_WHEEL_DOWN             = 14; ///< mouse wheel down
+static constexpr NativeInt MSG_MOUSE_WHEEL_OFF        = 15; ///< end wheel processing
+static constexpr NativeInt MSG_CHUNK_DESTROYED        = 16; ///< sent when a chunk is destroyed
+static constexpr NativeInt MSG_CHUNK_ITEM_LIST_CHANGED= 17; ///< sent when the list of items in a chunk as changed
 
 //----------------------------------------------------------------------------
 /// Possible target for a notification to Usine @see sdkNotifyUsine
+/// These values are used to specify the target of the notification.
+/// @defgroup UsineMessagesTargets
 static constexpr NativeInt NOTIFY_TARGET_USINE        = 1;  ///< notify the main Usine panel
 static constexpr NativeInt NOTIFY_TARGET_SETUP        = 2;  ///< notify the setup of Usine
 static constexpr NativeInt NOTIFY_TARGET_USER_MODULE  = 3;  ///< notify the current User module
 
 //----------------------------------------------------------------------------
-/// Possible message for a notification to Usine @see sdkNotifyUsine
+/// Possible values for wParam TUsineMessage.message 
+/// These values are used to specify the type of message sent to Usine.
+/// They are used in the message field of the TUsineMessage structure.
 static constexpr NativeInt NOTIFY_MSG_AUDIO_DRIVER_CHANGED	= 0xFAB000;  ///< no param
 static constexpr NativeInt NOTIFY_MSG_MIDI_DRIVER_CHANGED	= 0xFAB001;  ///< no param
-static constexpr NativeInt NOTIFY_MSG_SAMPLE_RATE_CHANGED	= 0xFAB002;  ///< param1 = samplerate
-static constexpr NativeInt NOTIFY_MSG_BLOC_SIZE_CHANGED		= 0xFAB003;  ///< param1 = blocsize
+static constexpr NativeInt NOTIFY_MSG_SAMPLE_RATE_CHANGED	= 0xFAB002;  ///< wparam = samplerate
+static constexpr NativeInt NOTIFY_MSG_BLOC_SIZE_CHANGED		= 0xFAB003;  ///< wparam = blocsize
 static constexpr NativeInt NOTIFY_MSG_RESCAN_PLUGINS_DONE	= 0xFAB004;  ///< no param
 static constexpr NativeInt NOTIFY_MSG_RECREATE_CONTROLS		= 0xFAB005;  ///< no param
-static constexpr NativeInt NOTIFY_MSG_KEY_DOWN		        = 0xFAB006;  ///< param1 = keycode, param2 = modifier
-static constexpr NativeInt NOTIFY_MSG_KEY_UP		        = 0xFAB007;  ///< param
+static constexpr NativeInt NOTIFY_MSG_KEY_DOWN		        = 0xFAB006;  ///< wparam = keycode, lparam = modifier
+static constexpr NativeInt NOTIFY_MSG_KEY_UP                = 0xFAB007;  ///< param = keycode, lparam = modifier
 static constexpr NativeInt NOTIFY_MSG_FOCUS_LOST	        = 0xFAB008;  ///< no param
-
-// used by usine at startup to notify devices (in onCallback ()) that the loaded phase is complete
-static constexpr NativeInt NOTIFY_MSG_USINE_LOADED	        = 0xFAB009;  ///< param1 = 0, param2 = 0
+static constexpr NativeInt NOTIFY_MSG_USINE_LOADED	        = 0xFAB009;  ///< wparam = 0, laram2 = 0 used by usine at startup to notify devices (in onCallback ()) that the loaded phase is completed
 static constexpr NativeInt NOTIFY_MSG_USINE_CALLBACK        = 0xFAB679;  ///< identify a Message->message as a callback for user module
 static constexpr NativeInt NOTIFY_MSG_ON_TOP                = 0xFAB67A;  ///< need all windows on top
 static constexpr NativeInt NOTIFY_MSG_TO_BACK               = 0xFAB67B;  ///< need all windows to back
 static constexpr NativeInt NOTIFY_MSG_RESCAN_MIDI_DEVICES   = 0xFAB67D;  ///< tell Usine that Midi devices have been rescanned
 static constexpr NativeInt NOTIFY_MSG_RESET_MIDI_DEVICES    = 0xFAB67E;  ///< tell Usine that Midi devices have been reset
-
-static constexpr NativeInt CALLBACK_WPARAM_LIMIT = 0xF000000;
-
+static constexpr NativeInt CALLBACK_JOB_END                 = 0xFABA00;  ///< tell Usine to run user defined post task process
+static constexpr NativeInt CALLBACK_WPARAM_LIMIT            = 0xF000000;
 
 
 //----------------------------------------------------------------------------
 /// keys state modifier.
 /// @see MouseEventsCallbacks
+/// This is used to describe the state of the keyboard and mouse buttons during mouse events.
+/// It is a bitmask that can contain multiple states at the same time.
+/// It is used in the onMouseMove, onMouseDown, onMouseUp, onMouseMoveMulti, onMouseDownMulti, and onMouseUpMulti callbacks.
+/// It allows to know if the Shift, Alt, Ctrl keys are pressed, as well as the state of the mouse buttons.
+/// It is also used to describe the state of the mouse buttons during multi-touch events.
 typedef UINT32 TShiftState;
 
 /// Possible value for a TShiftState variable.
 /// @see onMouseMove, onMouseDown, onMouseUp, onMouseMoveMulti, onMouseDownMulti, onMouseUpMulti
-static constexpr UINT32 ssShift  = 0x1;	///< Shift keyboard state
-static constexpr UINT32 ssAlt    = 0x2;  ///< Alt keyboard state
-static constexpr UINT32 ssCtrl   = 0x4;  ///< Ctrl keyboard state
-static constexpr UINT32 ssLeft   = 0x8;  ///< Left mouse button state
-static constexpr UINT32 ssRight  = 0x10; ///< Right mouse button state
-static constexpr UINT32 ssMiddle = 0x20; ///< Middle mouse button state
-static constexpr UINT32 ssDouble = 0x40; ///< Mouse Double click state
+/// These values are used to describe the state of the keyboard and mouse buttons during mouse events.
+/// They are used in the TShiftState variable.
+/// They are bitwise OR-ed together to describe the state of the keyboard and mouse buttons.
+static constexpr UINT32 ssShift      = 0x1;	///< Shift keyboard state
+static constexpr UINT32 ssAlt        = 0x2;  ///< Alt keyboard state
+static constexpr UINT32 ssCtrl       = 0x4;  ///< Ctrl keyboard state
+static constexpr UINT32 ssLeft       = 0x8;  ///< Left mouse button state
+static constexpr UINT32 ssRight      = 0x10; ///< Right mouse button state
+static constexpr UINT32 ssMiddle     = 0x20; ///< Middle mouse button state
+static constexpr UINT32 ssDouble     = 0x40; ///< Mouse Double click state
+static constexpr UINT32 ssTouch      = 0x80; ///< Mouse touch screen click state
+static constexpr UINT32 ssPen        = 0x100; ///< Mouse pen click state
+static constexpr UINT32 ssCommand    = 0x200; ///< Mouse Command state
+static constexpr UINT32 ssHorizontal = 0x400; ///< Mouse Horizontal state
+
+
 
 //----------------------------------------------------------------------------
 /// Mouse buttons available for a mouse event callback.
 /// @see onMouseMove, onMouseDown, onMouseUp, onMouseMoveMulti, onMouseDownMulti, onMouseUpMulti
+/// This enum is used to specify which mouse button was pressed or released during a mouse event.
+/// It is used in the TMouseButton parameter of the onMouseDown and onMouseUp callbacks.
+/// It allows to differentiate between the left, right, and middle mouse buttons.
 typedef enum TMouseButton
 {
     mbLeft,		///< Left mouse button
@@ -245,7 +293,8 @@ typedef enum TMouseButton
 //-----------------------------------------------------------------------------
 /// Scale type available for a parameter.
 /// @see TParamInfo
-typedef enum TScale
+/// This enum is used to specify the type of scale used for a parameter.
+typedef enum TScale : int32_t
 {
     scLinear,   ///< Linear type of scale
     scLog,      ///< Logarithmic  type of scale
@@ -254,6 +303,8 @@ typedef enum TScale
 
 //-----------------------------------------------------------------------------
 /// Usine native color format.
+/// @see TUsineColor
+/// This type is used to represent colors in Usine.
 typedef UINT32 TUsineColor;
 
 // for backward compatibility
@@ -263,32 +314,52 @@ typedef TUsineColor UsineColor;
 
 //-----------------------------------------------------------------------------
 /// handle to an audio file.
+/// @see sdkOpenAudioFile, sdkCloseAudioFile
+/// This type is used to represent an audio file in Usine.
+/// It is a pointer to a private audio file structure 
 typedef void* TAudioFilePtr;
 
 //-----------------------------------------------------------------------------
 /// handle to a critical section.
+/// @see sdkCreateCriticalSection, sdkEnterCriticalSection, sdkLeaveCriticalSection, sdkDeleteCriticalSection
+/// This type is used to represent a critical section in Usine.
+/// Critical sections are used to synchronize access to shared resources between threads.
 typedef void* TCriticalSectionPtr;
 
 //-----------------------------------------------------------------------------
 /// handle to a thread.
+/// @see sdkCreateThread, sdkStartThread, sdkStopThread, sdkRestartThread, sdkThreadSetTimeOut
+/// This type is used to represent a thread in Usine.
+/// Threads are used to execute code concurrently with the main Usine thread.
+/// They allow to perform background tasks without blocking the main Usine interface.
 typedef void* TThreadPtr;
 
 /// Thread priorities.
-typedef enum TThreadPriority
+/// @see TThreadPriority
+/// This enum is used to specify the priority of a thread.
+/// It is used in the sdkCreateThread function to set the priority of the thread.
+/// It is important to choose the right priority for a thread to ensure that it does not block the main Usine interface or other important threads.
+typedef enum TThreadPriority : int32_t
 {
-    tpIDLE,     ///< executed when the application is in IDLE state
-    tpLow,      ///< low priority
-    tpMedium,   ///< medium priority
-    tpHigh      ///< time critical priority
+    tpIDLE,         ///< executed when the application is in IDLE state
+    tpLow,          ///< low priority
+    tpMedium,       ///< medium priority
+    tpRealTime,     ///< real time priority
+    tpTimeCritical  ///< time critical priority
 } TThreadPriority;
 
 //-----------------------------------------------------------------------------
 /// Synchronization objects to synchronize threads.
+/// @see sdkCreateSyncObject, sdkDestroySyncObject, sdkEnterSyncObject, sdkLeaveSyncObject
+/// This type is used to represent a synchronization object in Usine.
+/// Synchronization objects are used to synchronize threads.
 typedef void* TSyncObjectPtr;
 
 
 //-----------------------------------------------------------------------------
 /// Color set used by Usine.
+/// @see sdkGetColor, sdkSetColor
+/// This enum is used to specify the color set used by Usine.
 static constexpr UINT32 clg0 = 1;
 static constexpr UINT32 clg1 = 2;
 static constexpr UINT32 clg2 = 3;
@@ -390,22 +461,65 @@ static constexpr UINT32 clMenuForeGround = 103;
 static constexpr UINT32 clMenuMouseOver = 104;
 static constexpr UINT32 clHintsBack = 105;
 static constexpr UINT32 clHintsFont = 106;
+static constexpr UINT32 cl3DModuleColor = 107;
+static constexpr UINT32 clFileModuleColor = 108;
+static constexpr UINT32 clSettingsInlets = 109;
+static constexpr UINT32 clChunkFlow = 110;
+static constexpr UINT32 clLiterChunkFlow = 111;
+static constexpr UINT32 clChunkModuleColor = 112;
+
+
+// --------------------
+/// Possible value for an Usine pointer.
+/// @see UsineEventClass
+/// These values are used to specify the type of data stored in a Usine pointer.
+/// They are used in the getPointerDataType function of the UsineEventClass.
+/// They allow to differentiate between different types of data stored in the pointer.
+static constexpr UINT32 usinePtrFloat    = 0x0;	///< floats
+static constexpr UINT32 usinePtrInt      = 0x1;	///< integers
+static constexpr UINT32 usinePtrString   = 0x2;	///< strings
+static constexpr UINT32 usinePtrMidi     = 0x3;	///< MIDI codes
+static constexpr UINT32 usinePtrColor    = 0x4;	///< colors
+static constexpr UINT32 usinePtrAudio    = 0x5;	///< audio data
+static constexpr UINT32 usinePtrBitwise  = 0x6;	///< bitwise data
+static constexpr UINT32 usinePtrChunk    = 0x6;	///< chunk data
+
+
 
 //-----------------------------------------------------------------------------
 /// @brief Event associated to the parameter
+/// @see UsineEventClass
+/// This structure is used to represent an event in Usine.
+/// It is used to store the data associated with a parameter.
+/// It is used in the UsineEventClass to access the data of a parameter.
 struct UsineEvent;
 
 
-/// @brief Handle to an Usine Event. Now deprecated for the final user, use @ref UsineEventClass instead.
+/// @brief Handle to an Usine Event. 
+/// Now deprecated for the final user, use @ref UsineEventClass instead.
+/// @see UsineEventClass
+/// This type is used to represent an event in Usine.
+/// It is a pointer to a UsineEvent structure.
+/// It is used to store the data associated with a parameter.
 typedef UsineEvent* UsineEventPtr;
+
+typedef void* UsinetPtr;
+
+// compatibility with older versions
+#define ptChooseColor ptColor
+#define ptTextField ptText
 
 //-----------------------------------------------------------------------------
 /// parameters type available in usine.
 /// @see TParamInfo
-using TParamType = enum TParamType
+/// This enum is used to specify the type of a parameter.
+/// It is used in the TParamInfo structure to define the type of a parameter.
+/// It allows to differentiate between different types of parameters, such as text fields, color choosers, MIDI parameters, audio gain faders, and more.
+/// It is used in the onGetParamInfo function to define the parameters of a module.
+using TParamType = enum TParamType : int32_t
 {
-    ptTextField,            ///< Param contain a string
-    ptChooseColor,          ///< Color chooser parameter
+    ptText,                 ///< Param contain a string
+    ptColor,                ///< Color parameter
     ptMidi,                 ///< MIDI parameter
     ptGainFader,            ///< Audio Gain parameter
     ptAudio,                ///< Audio input/output
@@ -426,17 +540,39 @@ using TParamType = enum TParamType
     ptTriggerLed,           ///< Switch with a led on the right dedicated to triggers
     ptFileName,             ///< Choose filename dialog box
     ptBitwise,              ///< Bitwise 32bits parameter
+	ptCardinalHexa,         ///< Cardinal number in hexa format 
     ptOther                 ///< Not defined
+};
+
+/// --------------------------------------------------------------------------<summary>
+/// Possible values for the @see sdkSetLastSettingInOutletMode
+/// This enum is used to specify the mode of the last setting in an outlet.
+/// Determines if the last created setting appears as an inlet, outlet, both or invisible.
+using TSettingInOutletMode = enum TSettingInOutletMode : int32_t
+{
+    siomInOut,
+    siomIn,
+    siomOut,
+    siomNone,
+    sioOther
 };
 
 //-----------------------------------------------------------------------------
 /// Possible type of callback for a parameter.
 /// @see TParamInfo
-typedef enum TFastCallBackType
+/// This enum is used to specify the type of callback for a parameter.
+/// It is used in the TParamInfo structure to define how the parameter should be processed when its value changes.
+/// It allows to choose between a normal callback, an immediate callback, or an asynchronous callback.
+typedef enum TFastCallBackType : int32_t
 {
 	ctNormal,       ///< Processed in the normal Usine messages handler. The latency is defined by the User in the Usine Setup.
 	ctImmediate,    ///< Each time the parameter change, callback is processed immediately. Be careful, the the callBack procedure is called in the audio thread.
-	ctAsynchronous  ///< Processed in the window message handler (slower than ctNormal). Use this if the process is very long or if you open a modal window.
+    ctAsynchronous, ///< Processed in the window message handler (slower than ctNormal). Use this if the process is very long or if you open a modal window.
+    cttVideo,       ///< Processed in the video thread.
+    cbtRealTime,    ///< Fast but not immediate realtime.
+    cbtGraphic,     ///< Graphic thread (Main thread but slower).
+    cbtNetwork,     ///< realtime thread dedicated to network operations.
+    ctNone          ///< No callback, the parameter change is not notified.
 } TFastCallBackType;
 
 // Forward declaration
@@ -446,6 +582,10 @@ class UsineEventClass;
 /// Usine parameter description.
 /// Contain all the properties to define a parameter.
 /// @see onGetParamInfo
+/// This structure is used to define a parameter in Usine.
+/// It contains all the properties of a parameter, such as its type, caption, input/output ports, scale, color, min/max values, default value, symbol, format, list box strings, text value, read-only state, callback type, and more.
+/// It is used in the onGetParamInfo function to define the parameters of a module.
+/// It allows to create and manage parameters in Usine modules.
 struct TParamInfo
 {
 	TParamType        ParamType;            ///< parameter type
@@ -459,28 +599,38 @@ struct TParamInfo
 	TPrecision        MaxValue;             ///< max param value
 	TPrecision        DefaultValue;         ///< default param value, when created
 	AnsiCharPtr       Symbol;               ///< displayed symbol
-	AnsiCharPtr       Format;               ///< format string of the displayed value
+	AnsiCharPtr       Format;               ///< format string of the displayed value @see NumericFormats    
 	AnsiCharPtr       ListBoxStrings;       ///< if listbox looks like '"item1","item2"'
-	AnsiCharPtr       TextValue;            ///< default text value if param type = ptTextField
+	AnsiCharPtr       TextValue;            ///< default text value if param type = ptText	LongBool          ReadOnly;             ///< TRUE if the user cant modify value
 	LongBool          ReadOnly;             ///< TRUE if the user cant modify value
-	TFastCallBackType CallBackType;         ///< see TFastCallBackType definition
+    TFastCallBackType CallBackType;         ///< see TFastCallBackType definition
 	LongBool          DontSave;             ///< specifies if the parameter need to be saved or not
-	int               DisplayOrder;         ///< <b>Deprecated</b> Parameters are now ordered according to their param index choosen in onGetParamInfo
+	[[deprecated("Parameters are now ordered according to their param index choosen in onGetParamInfo")]]
+    int               DisplayOrder;         ///< <b>Deprecated</b> Parameters are now ordered according to their param index choosen in onGetParamInfo
 	LongBool          IsSeparator;          ///< optional, determines if the parameter add a blank line above him in the list
 	LongBool          IsInvisible;          ///< set the parameter totally invisible
 	LongBool          IsStoredInPreset;     ///< set the param stored in the preset (default false)
 	AnsiCharPtr       SavedName;            ///< optional: ident used to save the value in inifiles. if NULL Caption is used
 	AnsiCharPtr	      SeparatorCaption;     ///< optional, if isSeparator,  show a section name
-	NativeInt         CallBackId;           ///< the id of the param for the callback, setEvent and param (choose a value up to 0x00000FFE)
+	NativeInt         CallBackId;           ///< the id of the param for the callback, setEvent and param - Set up a constexpr NativeInt with a value up to 0xF000000
 	LongBool		  IsVisibleByDefault;   ///< TRUE by default
 	LongBool		  NotUsed;              ///< Not used anymore
 	LongBool		  Translate;            ///< usine auto translate
 	[[deprecated("Deprecated: use setEventClass(UsineEventClass& e) instead")]]
     UsineEventPtr*    EventPtr;             ///< Pointer to Event set by Usine to acces to the value of the parameter, introduced
 											///< in HH3. Replace the deprecated SetEventAddress
+
 	AnsiCharPtr       FileNameFilter;       ///< optional: filter used to open file when ParamType = ptFileName
-											///< ie: "All files (*.*)|*.*" or "'All Images |*.png; *.jpg; *.jpeg; *.bmp; *.tiff; *.gif"
-    void setEventClass(UsineEventClass&);   /// Bind the given event to
+											///< ie: "All files (*.*)|*.*" or "'All Images |*.png; *.jpg; *.jpeg; *.bmp; *.tiff; *.gif" 
+    LongBool          AllowZeroLenAsInput;  ///< tels Usine that the parameter can receive null array's
+	
+    UINT32            PointerDataType;          ///< if the parameter is a pointer, this is the type of the pointer @see UsinePointerTypes
+                                                ///< This is used to specify the type of data stored in the pointer.
+                                                ///< It is used in the UsineEventClass to access the data of a parameter.
+												///< It is used in the getPointerDataType function of the UsineEventClass.
+	UINT32  	   PointerDataInitialSize;      ///< if the parameter is a pointer, this is the initial size of the pointer data
+    
+    void setEventClass(UsineEventClass&);   ///< Bind the given event to
 
 };
 /// for backward compatibility
@@ -488,6 +638,10 @@ typedef TParamInfo ParamInfo;
 
 //-----------------------------------------------------------------------------
 /// Data type for video Frames pixels used in video modules
+/// @see TUsineFrame
+/// This structure is used to represent a pixel in a video frame.
+/// It contains the color components of the pixel, which are used to represent the color of the pixel in a video frame.
+/// It is used in the TUsineFrame structure to define the pixels of a video frame.
 typedef struct TUsinePixel
 {
 #if (defined (USINE_WIN64))
@@ -505,10 +659,16 @@ typedef struct TUsinePixel
 
 //-----------------------------------------------------------------------------
 /// data type Pixels Pointer
+/// @see TUsineFrame
+/// This type is used to represent a pointer to an array of pixels in a video frame.
 typedef TUsinePixel* TUsinePixelPtr;
 
 //-----------------------------------------------------------------------------
 /// Data type for video Frames
+/// @see TUsineFrame
+/// This structure is used to represent a video frame in Usine.
+/// It contains the width and height of the frame, a pointer to the pixels array, a validity flag, and some internal pointers that should not be used by the user.
+/// It is used in video modules to define the video frames that are processed by the module.
 typedef struct TUsineFrame
 {
 	int Width;  ///< Width of the frame in pixels
@@ -525,6 +685,9 @@ typedef TUsineFrame* TUsineFramePtr;
 
 //-----------------------------------------------------------------------------
 /// Data type for ILDA Frames
+/// @see TUsineILDAPoint
+/// This structure is used to represent a point in an ILDA frame.
+/// It contains the x, y, and z coordinates of the point, as well as the color of the point.
 typedef struct TUsineILDAPoint
 {
 	float x;  ///< point x coordinate
@@ -535,6 +698,9 @@ typedef struct TUsineILDAPoint
 
 //-----------------------------------------------------------------------------
 /// Usine Midi code format.
+/// @see TUsineMidiCode
+/// This structure is used to represent a MIDI code in Usine.
+/// It contains the MIDI channel, message type, data1, and data2 fields.
 typedef struct TUsineMidiCode
 {
     unsigned char Channel;	///< Midi channel of the midi code
@@ -547,6 +713,9 @@ typedef struct TUsineMidiCode
 typedef TUsineMidiCode UsineMidiCode;
 
 /// Possible value for a TUsineMidiCode::Msg variable.
+/// @see TUsineMidiCode
+/// These values are used to specify the type of MIDI message.
+/// They are used in the TUsineMidiCode structure to define the MIDI message type.
 static constexpr unsigned char MIDI_ALLNOTESOFF     = 0x7B; ///< Midi msg
 static constexpr unsigned char MIDI_NOTEON          = 0x90; ///< Midi msg
 static constexpr unsigned char MIDI_NOTEOFF         = 0x80; ///< Midi msg
@@ -573,6 +742,8 @@ static constexpr unsigned char MIDI_SYSTEMRESET     = 0xFF; ///< Midi msg
 /// VST Time info structure as defined by the Steinberg VST SDK.
 /// Used by Usine to deal with time at a musical point of view.
 /// @see TMasterInfo, sdkGetVstTimeInfo
+/// This structure is used to represent the time information in Usine.
+/// It contains various fields that describe the current time position, sample rate, tempo, time signature, SMPTE offset, and other timing-related information.
 typedef struct TVstTimeInfo
 {
     double samplePos;           ///< current location
@@ -595,6 +766,9 @@ typedef struct TVstTimeInfo
 
 //-----------------------------------------------------------------------------
 /// Internal messages
+/// These values are used to specify the type of command sent to a plugin.
+/// They are used in the TCommandPacket structure to define the command type.
+/// They allow to differentiate between different types of commands, such as block size changes, sample rate changes, parameter value changes, chunk requests, and more.
 static constexpr int PW_CMD_BLOC_CHANGED			= 1;
 static constexpr int PW_CMD_SAMPLE_RATE_CHANGED		= 2;
 static constexpr int PW_CMD_PARAM_VALUE				= 3;
@@ -623,14 +797,17 @@ static constexpr int PW_CMD_PROCESS					= 25;
 
 //------------------------------------------------------------------
 /// Internal plugin-lister scan mode
-typedef enum TRescanPluginListerMode
+/// This enum is used to specify the mode of the plugin lister during a rescan.
+typedef enum TRescanPluginListerMode : int32_t
 {
-	  rsmVerify
-	, rsmAll
-	, rsmChanges
+      rsmVerify = 0	///< Verify the plugins without rescanning them
+    , rsmAll = 1	///< Rescan all plugins
+    , rsmChanges = 2 ///< Rescan only the plugins that have changed since the last scan
 } TRescanPluginListerMode;
 
 /// Internal flag for the trace window.
+/// This enum is used to specify the type of trace message.
+/// It is used in the TCommandPacket structure to define the trace message type.
 static constexpr int US_CMD_TRACE					= 0xFA;
 static constexpr int US_CMD_TRACE_ERROR				= 0xFB;
 static constexpr int US_CMD_TRACE_WARNING			= 0xFC;
@@ -659,7 +836,7 @@ typedef struct TCommandPacket
 		struct
 		{
 			int blocksize;
-			int sizes[USINE_MULTIPHONY_MAX];
+			int sizes[USINE_AUDIO_CHANNEL_MODULE_MAX];
 			int nbMidi;
 			int processCounter;
 			TVstTimeInfo timeInfo;
@@ -674,7 +851,10 @@ typedef struct TCommandPacket
 /// Dialogs popup results
 /// The value returned by a popup
 /// @see UserModuleBase::sdkDialogConfirmationYesNoCancel, UserModuleBase::sdkDialogConfirmationYesNo, UserModuleBase::sdkDialogInformationOk, UserModuleBase::sdkDialogConfirmationOKCancel
-typedef enum TDialogsResults
+/// This enum is used to specify the result of a dialog box.
+/// It is used in the dialog box functions to return the result of the dialog box.
+/// It allows to differentiate between different types of results, such as OK, Cancel, Abort, Retry, Ignore, Yes, No, Close, Help, Try Again, Continue, and None.
+typedef enum TDialogsResults : int32_t
 {
 	  idOk       = 1
 	, idCancel   = 2
@@ -707,6 +887,9 @@ typedef enum TDialogsResults
 
 //-----------------------------------------------------------------------------
 /// To store 2D coordinates in coefficient (from 0 to 1).
+/// @see TPointFPtr
+/// This structure is used to represent a point in 2D space.
+/// It contains the x and y coordinates of the point, which are used to represent the position of the point in 2D space.
 typedef struct TPointF
 {
     float x;  ///< X Coordinates
@@ -714,9 +897,14 @@ typedef struct TPointF
 } TPointF;
 
 /// To store an array of 2D coordinates.
+/// @see TPointF
+/// This type is used to represent an array of points in 2D space.
 typedef TPointF* TPointFPtr;
 
 /// To store 3D coordinates in coefficient (from 0 to 1).
+/// @see T3DPointFPtr
+/// This structure is used to represent a point in 3D space.
+/// It contains the x, y, and z coordinates of the point, which are used to represent the position of the point in 3D space.
 typedef struct T3DPointF
 {
     float x; ///< X Coordinates
@@ -725,9 +913,14 @@ typedef struct T3DPointF
 } T3DPointF;
 
 /// To store an array of 3D coordinates.
+/// @see T3DPointF
+/// This type is used to represent an array of points in 3D space.
 typedef T3DPointF* T3DPointFPtr;
 
 /// To store Rectangle coordinates in coefficient (from 0 to 1).
+/// @see TRectFPtr
+/// This structure is used to represent a rectangle in 2D space.
+/// It contains the left, top, right, and bottom coordinates of the rectangle, which are used to represent the position and size of the rectangle in 2D space.
 struct TRectF
 {
     float left;    ///< left position
@@ -737,10 +930,11 @@ struct TRectF
 };
 
 /// Text vertical alignement.
-/// @see sdkFillText
+/// This enum is used to specify the vertical alignment of text in Usine.
+/// It is used in the sdkFillText function to define how the text should be aligned vertically.
+
 typedef enum TTextAlign
-{
-    taCenter = 0, ///< centered
+{   taCenter = 0, ///< centered
     taLeading,    ///< on the top
     taTrailing   ///< at the bottom
 } TTextAlign;
@@ -750,27 +944,43 @@ struct TMasterInfo;
 struct TModuleInfo;
 
 //-----------------------------------------------------------------------------
+
 /// Settings Panel Tab's name
-/// @see sdkAddSettingLineCaption ...
+/// These constants are used to define the names of the tabs in the Settings panel.
+/// They are used in the sdkAddSettingLine... functions to populate the tabs of the Settings panel.
+/// @addtogroup SettingsPanelTabs Settings Panel Tabs Names
+/// @{
 static const auto PROPERTIES_TAB_NAME	= "tab_properties";	///< Used to populate the properties tab of the Settings panel
-static const auto DESIGN_TAB_NAME        = "tab_design";		///< Used to populate the design tab of the Settings panel
-static const auto MOUSE_TAB_NAME         = "tab_mouse";		///< Used to populate the mouse tab of the Settings panel
-static const auto OTHER_TAB_NAME			= "tab_other";		///< Used to populate the other tab of the Settings panel
+static const auto DESIGN_TAB_NAME       = "tab_design";		///< Used to populate the design tab of the Settings panel
+static const auto MOUSE_TAB_NAME        = "tab_mouse";		///< Used to populate the mouse tab of the Settings panel
+static const auto OTHER_TAB_NAME		= "tab_other";		///< Used to populate the other tab of the Settings panel
 static const auto REMOTE_TAB_NAME		= "tab_remote";		///< Used to populate the remote tab of the Settings panel
 static const auto CURVES_TAB_NAME		= "tab_curves";		///< Used to populate the curves tab of the Settings panel
 static const auto LAN_TAB_NAME		    = "tab_lan";		///< Used to populate the lan tab of the Settings panel
-static const auto SIZE_TAB_NAME          = "tab_size";	    ///< Used to populate the size tab of the Settings panel
+static const auto SIZE_TAB_NAME         = "tab_size";	    ///< Used to populate the size tab of the Settings panel
+/// @}
 
-/// Numeric format
-/// @see sdkAddSettingLineSingle ...
+
+/// Numeric formats
+/// These constants are used to define the default format strings for numeric values in Usine.
+/// see @ref TParamInfo::Format
+/// @addtogroup NumericFormats Numeric Formats
+/// @{
+static const auto DEFAULT_FORMAT_FLOAT_6 = "%.6f"; ///< Default format for a 3 decimals number.
+static const auto DEFAULT_FORMAT_FLOAT_5 = "%.5f"; ///< Default format for a 3 decimals number.
+static const auto DEFAULT_FORMAT_FLOAT_4 = "%.4f"; ///< Default format for a 3 decimals number.
 static const auto DEFAULT_FORMAT_FLOAT_3 = "%.3f"; ///< Default format for a 3 decimals number.
 static const auto DEFAULT_FORMAT_FLOAT_2 = "%.2f"; ///< Default format for a 2 decimals number.
 static const auto DEFAULT_FORMAT_FLOAT_1 = "%.1f"; ///< Default format for a 1 decimal number.
 static const auto DEFAULT_FORMAT_INTEGER  = "%.0f"; ///<  Default format for an integer number.
 static const auto DEFAULT_FORMAT_GENERAL  = "%g";   ///<  Default format for a string.
+/// @}
 
 /// smooth factor used in smoothing functions
-/// @see sdkSmoothPrecision sdkSmoothEvent
+/// These constants are used to define the smoothing factors used in Usine.
+/// They are used in the sdkSmoothPrecision and sdkSmoothEvent functions to smooth the values of parameters and events.
+/// @addtogroup SmoothFactor Smooth Factor
+/// @{
 static constexpr TPrecision SMOOTH_VERY_VERY_SLOW  = 0.99995f;
 static constexpr TPrecision SMOOTH_VERY_SLOW       = 0.9999f;
 static constexpr TPrecision SMOOTH_SLOW            = 0.9995f;
@@ -779,6 +989,19 @@ static constexpr TPrecision SMOOTH_FAST            = 0.99f;
 static constexpr TPrecision SMOOTH_VERY_FAST       = 0.9f;
 static constexpr TPrecision SMOOTH_ULTRA_FAST      = 0.5f;
 static constexpr TPrecision SMOOTH_NO_SMOOTH       = 0.f;
+/// @}
+
+/// Predefined for usine pointers
+/// @addtogroup UsinePointerTypes Usine pointers Types
+/// @{
+static UINT32  USINE_POINTER_FLOAT   = 0x0;  ///< floats pointer
+static UINT32  USINE_POINTER_INT     = 0x1;  ///< integers pointer
+static UINT32  USINE_POINTER_STRING  = 0x2;  ///< strings pointer
+static UINT32  USINE_POINTER_MIDI    = 0x3;  ///< MIDI codes pointer
+static UINT32  USINE_POINTER_COLOR   = 0x4;  ///< colors pointer
+static UINT32  USINE_POINTER_AUDIO   = 0x5;  ///< audio data pointer
+static UINT32  USINE_POINTER_BITWISE = 0x6;  ///< bitwises pointer
+// @}
 
 //-----------------------------------------------------------------------------
 // functions pointers used in TMasterInfo structure (see below)
@@ -796,6 +1019,9 @@ typedef void (*FuncAddSettingLineInteger)	(TModuleInfo* pModuleInfo, AnsiCharPtr
 typedef void (*FuncAddSettingLineSingle)	(TModuleInfo* pModuleInfo, AnsiCharPtr tab, float* pVal, AnsiCharPtr caption, float min, float max, TScale scale, AnsiCharPtr symbol, AnsiCharPtr format, float defaultValue, LongBool Translate);
 typedef void (*FuncAddSettingLineCombobox)	(TModuleInfo* pModuleInfo, AnsiCharPtr tab, int* pVal, AnsiCharPtr caption, AnsiCharPtr commaText, LongBool Translate);
 typedef void (*FuncAddSettingsLineString)	(TModuleInfo* pModuleInfo, AnsiCharPtr tab, AnsiCharPtr pVal, AnsiCharPtr caption, LongBool Translate);
+typedef void (*FuncSetLastSettingCallbackID)(TModuleInfo* pModuleInfo, NativeInt id);
+typedef void (*FuncSetLastSettingInOutletMode)(TModuleInfo* pModuleInfo, TSettingInOutletMode Mode);
+
 
 // internal messages
 typedef void (*FuncSendMessage)    (TModuleInfo* pModuleInfo, AnsiCharPtr Msg);
@@ -892,7 +1118,7 @@ typedef void (*FuncTraceChar)       (AnsiCharPtr s);
 typedef void (*FuncTraceInteger)    (Int64 i);
 typedef void (*FuncTracePrecision)  (TPrecision f);
 typedef void (*FuncTraceLogChar)    (AnsiCharPtr s, LongBool showInSplashForm);
-typedef void (*FuncTraceSplashChar) (AnsiCharPtr s, int autoClose);
+typedef void (*FuncTraceSplashChar) (AnsiCharPtr s, LongBool autoClose);
 typedef void (*FuncTraceErrorChar)  (AnsiCharPtr s);
 
 // smooth functions
@@ -924,10 +1150,13 @@ typedef double			(*FuncGetSampleRate)		();
 typedef TVstTimeInfo*	(*FuncGetVstTimeInfo)		(TModuleInfo* pModuleInfo);
 typedef int				(*FuncCreatePlugInsTree)    ();
 
-typedef void (*FuncNotifyUsine)	(TModuleInfo* pModuleInfo, NativeInt Target, NativeInt Msg, NativeInt Param1, NativeInt Param2, int Delay);
+typedef void (*FuncNotifyUsineOld)	(TModuleInfo* pModuleInfo, NativeInt Target, NativeInt Msg, NativeInt Param1, NativeInt Param2, int Delay);
+typedef void (*FuncNotifyUsine)  	(TModuleInfo* pModuleInfo, NativeInt Target, NativeInt Msg, NativeInt Param1, NativeInt Param2, TNotifyUsineMode callbackMode, int Delay);
+
 
 // draw functions
 typedef void (*FuncDrawPoint)		(TModuleInfo* pModuleInfo, TPointF point, TUsineColor color, float size, LongBool rounded);
+typedef void (*FuncDrawMultiPoints) (TModuleInfo* pModuleInfo, TPointFPtr points,TUsineColor* colors,float size, LongBool rounded, int numberOfPoints);
 typedef void (*FuncDrawLine)		(TModuleInfo* pModuleInfo, TPointF p1, TPointF p2, TUsineColor color, float strokeThickness);
 typedef void (*FuncDrawPolyLine)	(TModuleInfo* pModuleInfo, TPointFPtr points, int sizeList, TUsineColor color, float strokeThickness);
 // draw path functions
@@ -947,8 +1176,8 @@ typedef void (*FuncFillPolyLine)	(TModuleInfo* pModuleInfo, TPointFPtr points, i
 typedef void (*FuncBitBlit)	(TModuleInfo* pModuleInfo, TUsinePixelPtr pArray, int W, int H, TRectF destRect);
 
 // record functions
-typedef void (*FuncStopRecord)		(TModuleInfo* pModuleInfo);
-typedef void (*FuncProcessRecord)	(TModuleInfo* pModuleInfo, TPrecision X, TPrecision Y, TPrecision Z);
+typedef void (*FuncStopRecordAutomation)		(TModuleInfo* pModuleInfo);
+typedef void (*FuncProcessRecordAutomation)	(TModuleInfo* pModuleInfo, TPrecision X, TPrecision Y, TPrecision Z);
 
 
 typedef TUsineColor (*FuncGetUsineColor) ( UINT32 colorName);
@@ -957,8 +1186,9 @@ typedef void  (*FuncAddCommand)           (TModuleInfo* pModuleInfo, AnsiCharPtr
 typedef void  (*FuncAddCommandSeparator)  (TModuleInfo* pModuleInfo, AnsiCharPtr name, LongBool Translate);
 typedef NativeInt (*FuncGetUsineMainWindow) (); // NSWindow sur mac
 typedef void* (*FuncGetMacNSView) (); // NSView sur mac
+typedef NativeInt (*FuncGetUsineControl) ();
 
-typedef void*  (*FuncNeedRemoteUpdate)          (TModuleInfo* pModuleInfo, int numParam);
+typedef void*  (*FuncNotUsed)                   ();
 typedef double (*FuncGetTimeMs)                 (TModuleInfo* pModuleInfo); // precision up to nanoseconde
 typedef void   (*FuncSetDeskWindowClientSize)   (TModuleInfo* pModuleInfo, int clientWidth, int clientHeight);
 typedef void*  (*FuncCreateDeskWindow)          (TModuleInfo* pModuleInfo);
@@ -969,10 +1199,13 @@ typedef void   (*FuncSetDeskWindowCaption)      (TModuleInfo* pModuleInfo, AnsiC
 
 typedef LongBool(*FuncBoolean)                  (TModuleInfo* pModuleInfo);
 
+typedef AnsiCharPtr(*FuncLocateFile)		    (TModuleInfo* pModuleInfo, AnsiCharPtr fileName, LongBool disableDialog);
+
 
 // setter and getter for the name of the module (as it appear in the patch, on the module title)
 typedef void(*FuncSetModuleUserName)			(TModuleInfo* pModuleInfo, AnsiCharPtr name);
 typedef AnsiCharPtr(*FuncGetModuleUserName)		(TModuleInfo* pModuleInfo);
+
 
 // return the nb off audio channels from QueryIndex
 typedef int   (*FuncGetAudioQueryToNbChannels) (int qQueryIndex);
@@ -1040,29 +1273,79 @@ typedef AnsiCharPtr    (*FuncUsineObjectFind)           (TModuleInfo* pModuleInf
 typedef LongBool       (*FuncUsineObjectExists)         (TModuleInfo* pModuleInfo, AnsiCharPtr name);
 typedef AnsiCharPtr    (*FuncUsineObjectListHash)       (TModuleInfo* pModuleInfo);
 class UserModuleBase;
+
+// threads
 typedef void       (*FuncThreadProcess)     (void* pModule, TThreadPtr pThread);
 typedef TThreadPtr (*FuncThreadCreate)      (TModuleInfo* pModuleInfo, AnsiCharPtr name, FuncThreadProcess ProcessThreadProc, TThreadPriority priority, UINT32 timeout);
 typedef void       (*FuncThreadDestroy)     (TThreadPtr pThread);
 typedef void       (*FuncThreadRestart)     (TThreadPtr pThread);
 typedef void       (*FuncThreadSetTimeOut)  (TThreadPtr pThread,UINT32 timeout);
 
+// syncObjects
 typedef TSyncObjectPtr (*FuncSyncObjectCreate)   ();
 typedef void           (*FuncSyncObjectDestroy)  (TSyncObjectPtr pSyncObject);
 typedef void           (*FuncSyncObjectSet)      (TSyncObjectPtr pSyncObject);
 typedef void           (*FuncSyncObjectReset)    (TSyncObjectPtr pSyncObject);
 typedef LongBool       (*FuncSyncObjectWait)  (TSyncObjectPtr pSyncObject, UINT32 timeout);
 
+// FFT
+typedef void* TUsineFFTPtr;
+typedef TUsineFFTPtr (*FuncFFTCreate) (UINT32 size);
+typedef void (*FuncFFTDestroy) (TUsineFFTPtr pFFT);
+typedef void (*FuncFFTProc) (TUsineFFTPtr pFFT, float* pAudio, float* pRe, float* pIm);
 
+typedef void (*FuncProgressBar) (const AnsiCharPtr caption, const TUsineColor color, const int progress );
+
+// usine pointers
+typedef void* TUsinePtr;
+typedef TUsinePtr (*FuncGetPointerData) (UsineEventPtr e);
+typedef void (*FuncSetPointerDataSize) (UsineEventPtr e, UINT32 size);
+typedef void (*FuncSetPointerDataChanged) (UsineEventPtr e);
+typedef UINT32 (*FuncGetPointerDataSize) (UsineEventPtr e);
+typedef UINT32 (*FuncGetPointerDataType) (UsineEventPtr e);
+
+// chunks
+typedef void* TUsineChunkPtr;
+
+/// Possible chunk operations 
+enum TChunkOperation : int32_t
+{
+	coAddOrModifyItem,  ///< add or modify an item in the chunk
+    coGetItem,          ///< get an item from the chunk
+	coClearItem,        ///< clear an item in the chunk (set its length to 0)
+	coDeleteItem,       ///< delete an item from the chunk
+	coClearChunk,       ///< delete all items in the chunk (but keep the chunk)
+	coDeleteChunk       ///< delete the chunk 
+};
+
+/// Possible Data types for chunk operations
+enum TFlowType : int32_t
+{
+	ftNone        = 0x0,        ///< (0)
+    ftDataFloat   = 0x1,        ///< (1)
+    ftDataInteger = (0x1 << 3), ///< (8)
+    ftTextGeneral = (0x1 << 11),///< (2048)
+    ftColor       = (0x1 << 17) ///< (131072)
+};
+
+typedef TUsineChunkPtr(*FuncGetChunk) (TModuleInfo* pModuleInfo, AnsiCharPtr chunkName);
+typedef int (*FuncGetChunkItemCount) (TModuleInfo* pModuleInfo, TUsineChunkPtr chunk);
+typedef LongBool (*FuncChunkOperation)(TModuleInfo* pModuleInfo, TUsineChunkPtr chunk, AnsiCharPtr itemName, TFlowType flowType, UsineEventPtr payload, TChunkOperation operation, int index);
+typedef void (*FuncChunkSubscribe)(TModuleInfo* pModuleInfo, TUsineChunkPtr chunk, AnsiCharPtr itemName, NativeInt callbackID, LongBool immediate);
+typedef void (*FuncChunkUnSubscribe)(TModuleInfo* pModuleInfo, TUsineChunkPtr chunk, AnsiCharPtr itemName);
+typedef void (*FuncChunkUnSubscribeAll)(TModuleInfo* pModuleInfo);
 
 //-----------------------------------------------------------------------------
 /// Contains globals infos provided by Usine and all functions handle of the module wrapper.
+/// This structure is filled by Usine at the module initialization.
+/// It is a private structure used to access Usine functions and data.
 struct TMasterInfo 
 {
-    int                     BlocSize;				///< size of Usine audio blocs (number of samples)
+    int                     BlocSize;				
     NativeUInt              NSApplication;
-    FuncRepaintPanel        RepaintPanel;			///< ask Usine to repaint the module Panel
-    FuncGetUsineMainWindow  GetUsineMainWindow;		///< Usine mainform handle (THandle)
-    FuncGetMacNSView        GetMacNSView;		    ///< pointer to Usine internal User Module
+    FuncRepaintPanel        RepaintPanel;			
+    FuncGetUsineMainWindow  GetUsineMainWindow;     
+    FuncGetMacNSView        GetMacNSView;		    
 
     // add layout lines in the layout panel
     FuncAddSettingLineCaption	AddSettingLineCaption;
@@ -1094,8 +1377,8 @@ struct TMasterInfo
     FuncGetEvtArrayData    GetEvtArrayData;
     FuncSetEvtPointer      SetEvtPointer;
     FuncGetEvtPointer      GetEvtPointer;
-    FuncNotImplemented	   SetEvtArrayPointer;
-    FuncNotImplemented	   GetEvtArrayPointer;
+    FuncNotImplemented	   NotUsed1;
+    FuncNotImplemented	   NotUsed2;
     FuncSetEvtArrayMidi    SetEvtArrayMidi;
     FuncGetEvtArrayMidi    GetEvtArrayMidi;
     FuncSetEvtPChar        SetEvtPChar;
@@ -1178,13 +1461,13 @@ struct TMasterInfo
     FuncSmoothPrecision    SmoothPrecision;
     FuncSmoothEvent        SmoothEvent;
     FuncMultEvt2Audio      MultEvt2Audio;
-    [[deprecated("Deprecated: use the constant USINE_MAX_AUDIO_INPUTS instead")]]
+    [[deprecated("Deprecated: use the constant USINE_MAX_SOUNDCARD_AUDIO_INPUTS instead")]]
 	int	MAX_AUDIO_INPUTS;
-    [[deprecated("Deprecated: use the constant USINE_MAX_AUDIO_OUTPUTS instead")]]
+    [[deprecated("Deprecated: use the constant USINE_MAX_SOUNDCARD_AUDIO_OUTPUTS instead")]]
     int MAX_AUDIO_OUTUTS;
     [[deprecated("Deprecated: use the constant USINE_MAX_MIDI_DEVICES instead")]]
     int MAX_MIDI_DEVICES;
-    [[deprecated("Deprecated: use the constant USINE_MULTIPHONY_MAX instead")]]
+    [[deprecated("Deprecated: use the constant USINE_AUDIO_CHANNEL_MODULE_MAX instead")]]
     int MULTIPHONY_MAX;
 
 	FuncSetListBoxCommaText	    SetListBoxCommaText;
@@ -1205,7 +1488,7 @@ struct TMasterInfo
     
     AnsiCharPtr             GlobalApplicationPath;
     FuncCreatePlugInsTree   CreatePlugInsTree;
-    FuncNotifyUsine         NotifyUsine;
+    FuncNotifyUsineOld      NotifyUsineOld;
     FuncTraceSplashChar     TraceSplashChar;	
 
     FuncDialogBox		DialogConfirmationYesNoCancel;
@@ -1225,14 +1508,14 @@ struct TMasterInfo
 	FuncSetEvtColor		        SetEvtColor;
 	FuncGetEvtColor		        GetEvtColor;
     
-	FuncFillPolyLine		FillPolyLine;
-	FuncStopRecord			StopRecord;
-	FuncProcessRecord		ProcessRecord;
+	FuncFillPolyLine		            FillPolyLine;
+	FuncStopRecordAutomation			StopRecordAutomation;
+    FuncProcessRecordAutomation		    ProcessRecordAutomation;
     
     FuncAddCommand              AddCommand;
     FuncAddCommandSeparator     AddCommandSeparator;
 	FuncAddSettingLineCombobox  AddSettingLineCombobox;
-    FuncNeedRemoteUpdate        NeedRemoteUpdate;
+    FuncNotUsed                 NotUsed3;
     
     AnsiCharPtr                 UsineVersion; 
     FuncSetParamValueText       SetParamValueText;
@@ -1257,12 +1540,11 @@ struct TMasterInfo
     FuncDrawPathDraw                DrawPathDraw;
     FuncDrawPathFill                DrawPathFill;
     FuncDrawPathClose               DrawPathClose;
-	FuncNotImplemented              SetEvtNbLinesDeprecated;
+	FuncNotImplemented              NotUsed4;
 	FuncBoolean                     PatchIsRunning;
     FuncDrawPathQuadCurveTo         DrawPathQuadCurveTo;	
-    FuncNotImplemented              GetEvtNbLinesDeprecated;
-    [[deprecated ("Usine Version is no longer used in the SDK;\nYou should not use it,\n Usine will send always the value 0")]]
-    int                             UsineVersionType;
+    FuncNotImplemented              NotUsed5;
+    int                             UsineVersionInteger;
     AnsiCharPtr                     UsineLanguage;
 	AnsiCharPtr                     AudioQueryTitle;
 	AnsiCharPtr                     BlockSizeList;
@@ -1293,8 +1575,8 @@ struct TMasterInfo
 	FuncRecreateParam               RecreateParam;
 	FuncLoading                     PatchLoading;
 	FuncGetSampleArrayAudioFile     GetSampleArrayAudioFile;
-	FuncLockCriticalSection                   LockPatch;
-	FuncLockCriticalSection                   UnLockPatch;
+	FuncLockCriticalSection         LockPatch;
+	FuncLockCriticalSection         UnLockPatch;
 	FuncResampleAudioFile           ResampleAudioFile;
 	FuncDenormalizeAudioEvt         DenormalizeAudioEvt;
 	FuncBoolean                     PatchJustActivated;
@@ -1361,7 +1643,36 @@ struct TMasterInfo
     FuncLockCriticalSection         UnLockUsineEngine;
 
     FuncGlobalArrayGetSize          GlobalArrayGetSize;
+    
+    // fft
+    FuncFFTProc                     FFTForward;
+    FuncFFTProc                     FFTInverse;
+    FuncFFTCreate                   FFTCreate;
+    FuncFFTDestroy                  FFTDestroy;
 
+    FuncProgressBar                 ProgressBar;
+
+	// Usine pointer
+    FuncGetPointerData              GetPointerData;
+    FuncSetPointerDataSize          SetPointerDataSize;
+    FuncGetPointerDataSize          GetPointerDataSize;
+    FuncGetPointerDataType          GetPointerDataType;
+	FuncSetPointerDataChanged       SetPointerDataChanged;
+    
+    FuncDrawMultiPoints             DrawMultiPoints;
+    FuncSetLastSettingCallbackID    SetLastSettingCallbackID;
+    FuncSetLastSettingInOutletMode  SetLastSettingInOutletMode;
+
+	// chunks
+    FuncGetChunk            GetChunk;
+    FuncChunkOperation      ChunkOperation;
+	FuncChunkSubscribe      ChunkSubscribe;
+	FuncChunkUnSubscribe    ChunkUnSubscribe;
+	FuncChunkUnSubscribeAll ChunkUnSubscribeAll;
+	FuncGetChunkItemCount   GetChunkItemCount;
+
+	FuncLocateFile          LocateFile;
+    FuncNotifyUsine         NotifyUsine;
 };
 /// for backward compatibility
 typedef TMasterInfo MasterInfo;
@@ -1369,7 +1680,9 @@ typedef TMasterInfo MasterInfo;
 //-----------------------------------------------------------------------------
 /// Possible type of user modules.
 /// @see onGetModuleInfo, TModuleInfo
-typedef enum TModuleType 
+/// This enum is used to define the type of module you are creating.
+/// It is used by Usine to display the module in the Browser and in the Patch view.
+typedef enum TModuleType : int32_t
 { 
     mtSimple,           ///< module without graphic canvas
     mtVideo,            ///< video module
@@ -1391,17 +1704,18 @@ typedef enum TModuleType
 //-----------------------------------------------------------------------------
 /// Contain characteristics and infos about the module.
 /// You fill the TModuleInfo structure in the onGetModuleInfo callback to inform Usine of the module specs.
+/// This structure is used by Usine to display the module in the Browser and in the Patch view.
 struct TModuleInfo 
 {
     AnsiCharPtr     Name{};           ///< short name displayed in the patch view
     AnsiCharPtr     Description{};    ///< long name displayed in the  Browser
-    TModuleType     ModuleType;     ///< module type: simple, form, control
+    TModuleType     ModuleType;       ///< module type: simple, form, control
     TUsineColor     BackColor{};      ///< module color in the patch view
     int             NumberOfParams{}; ///< number of parameters of the module
 
     /// Default Panel width
     ///<   if moduletype = mtControl : DefaultWidth is set to TMasterInfo.PanelWidth
-    ///<   if moduletype = mtSimple : ignored
+    ///<   if moduletype = mtSimple  : ignored
     float       DefaultWidth{};   ///< in pixel
     
     // Default Panel height
@@ -1410,7 +1724,7 @@ struct TModuleInfo
     float       DefaultHeight{}; ///< in pixel
 
     LongBool    DontProcess{};        ///< FALSE by default. if TRUE, the module doesn't need any processing
-    LongBool	CanRecord{};    		///< FALSE by default. if TRUE, the module will have the Automation record functionality.
+    LongBool	CanRecord{};          ///< FALSE by default. if TRUE, the module will have the Automation record functionality.
 
     //option for not show additional parameters, false by default  
     LongBool DoNotCreateAddCtrl{} ;   ///< if true usine don't create parameters like mousedown, hint, etc.
@@ -1435,8 +1749,9 @@ struct TModuleInfo
     LongBool        CanBeRandomized{};
 
 	// for video modules only
-	int     NumberOfVideoInputs{}; ///< number of video inputs must be in [0..2]
+	int     NumberOfVideoInputs{};  ///< number of video inputs must be in [0..2]
 	int     NumberOfVideoOutputs{}; ///< number of video outputs must be in [0..2]
+
     /// FALSE by default, set to TRUE to activate the global Reset feature.
     /// If activated you need to implement onReset Callback, Usine can call it at any time to initiate a Reset.
     /// When activated, a new entry is added in the properties tab named can be reset and a reset icon appear in 
@@ -1447,12 +1762,12 @@ struct TModuleInfo
 
     
     // stuff for general queries
-    AnsiCharPtr QueryLabel1{};  ///< query displayed label 1
+    AnsiCharPtr QueryLabel1{};     ///< query displayed label 1
     int QueryDefaultValue1{};      ///< default query value 1 value
     int QueryMaxValue1{};          ///< max query value 1 value
     int QueryMinValue1{};          ///< min query value 1 value
 
-    AnsiCharPtr QueryLabel2{};  ///< query displayed label 2
+    AnsiCharPtr QueryLabel2{};     ///< query displayed label 2
     int QueryDefaultValue2{};      ///< default query value 2 value
     int QueryMaxValue2{};          ///< max query value 2 value
     int QueryMinValue2{};          ///< min query value 2 value
@@ -1460,18 +1775,20 @@ struct TModuleInfo
 };
 
 /// for backward compatibility
-typedef TModuleInfo ModuleInfo;
+// typedef TModuleInfo ModuleInfo;
 
 //-----------------------------------------------------------------------------
 /// To store 2D coordinates in pixels (integer).
+/// This structure is used to store coordinates in pixels for various purposes, such as drawing or positioning elements.
 struct TPointI 
 {
     int x;  ///<X Coordinates
-    int y; ///<X Coordinates
+    int y;  ///<X Coordinates
 };
 
 //-----------------------------------------------------------------------------
 /// To store color information in ARGB format (from 0 to 1).
+/// This structure is used to represent colors in the ARGB format, where each component (alpha, red, green, blue) is a float value ranging from 0 to 1.
 struct TColorArgb
 {
     float a; ///< Alpha 
@@ -1482,6 +1799,7 @@ struct TColorArgb
 
 //-----------------------------------------------------------------------------
 /// To store color information in AHSL format (from 0 to 1).
+/// This structure is used to represent colors in the AHSL format, where each component (alpha, hue, saturation, luminance) is a float value.
 struct TColorAhsl
 {  
     float a; ///< Alpha
@@ -1511,47 +1829,48 @@ struct TColorAhsl
 #else
   #error "condidionnal compilation error!"
 #endif
-//-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// create, general info and destroy
-// called by usine to get the version of the SDK used
+//-----------------------------------------------------------------------------
+/// @name Exported Functions of the module
+/// @{
+//-----------------------------------------------------------------------------
+/// create, general info and destroy
+/// called by usine to get the version of the SDK used
 USINE_MODULE_EXPORT int GetSDKVersion(void);
-// called by usine to get implementation type (language + compilator) of the module
-//USINE_MODULE_EXPORT SdkImplementation GetImplementation(void);
-// Create Module
+/// Create Module
 USINE_MODULE_EXPORT void Create(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent);
-// Destroy Module
+/// Destroy Module
 USINE_MODULE_EXPORT void Destroy(void* pModule);
-// called by usine to get module informations for the browser
+/// called by usine to get module informations for the browser
 USINE_MODULE_EXPORT void BrowserInfo (TModuleInfo* pModuleInfo);
-// called by usine to get module informations
+/// called by usine to get module informations
 USINE_MODULE_EXPORT void GetModuleInfo (void* pModule, TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 //-----------------------------------------------------------------------------
-// query system and init
-// Get total parameters number of the module
+/// query system and init
+/// Get total parameters number of the module
 USINE_MODULE_EXPORT int GetNumberOfParams(void* pModule, int queryResult1, int queryResult2);
-// called after the query popup
+/// called after the query popup
 USINE_MODULE_EXPORT void AfterQuery (void* pModule, TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
-// initialization procedure
+/// initialization procedure
 USINE_MODULE_EXPORT void InitModule (void* pModule, TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 //-----------------------------------------------------------------------------
-// parameters and process
-// called by usine to get params informations
+/// parameters and process
+/// called by usine to get params informations
 USINE_MODULE_EXPORT void GetParamInfo (void* pModule, int ParamIndex, TParamInfo* pParamInfo);
-// tels to the module what are the effectives events address
-// no longer used in HH3 see TModuleInfo::EventPtr
+/// tels to the module what are the effectives events address
+/// no longer used in HH3 see TModuleInfo::EventPtr
 USINE_MODULE_EXPORT void SetEventAddress (void* pModule, int ParamIndex, UsineEventPtr pEvent);
-// called by Usine when a parameter value has changed
+/// called by Usine when a parameter value has changed
 USINE_MODULE_EXPORT void CallBack (void* pModule, TUsineMessage *Message);
-// main process procedure
+/// main process procedure
 USINE_MODULE_EXPORT void Process (void* pModule);
-// main process procedure
+/// main process procedure
 USINE_MODULE_EXPORT void ProcessVideo(void* pModule);
 
-// midi out callbacks
+/// midi out callbacks
 /// called by Usine to send out midi
 USINE_MODULE_EXPORT void MidiSendOut (void* pModule, int DeviceID, TUsineMidiCode Code);
 
@@ -1564,11 +1883,11 @@ USINE_MODULE_EXPORT void MidiSysexSendOut (void* pModule, int DeviceID, char** S
 /// called by Usine to send out OSC messages
 USINE_MODULE_EXPORT void DMXSendOut (void* pModule, int deviceId, char* ByteArray, int len, int universeNum);
 
-// Laser out callbacks
+/// Laser out callbacks
 /// called by Usine to send ILDA frames
-USINE_MODULE_EXPORT void LaserSendOut(void* pModule, int DeviceID, TUsineILDAPoint** arrayPoint, int arraySize, int speedPPS);
+USINE_MODULE_EXPORT void LaserSendOut (void* pModule, int DeviceID, TUsineILDAPoint** arrayPoint, int arraySize, int speedPPS);
 
-// chunk system
+/// chunk system
 /// returns the chunk string len, needed for master memory allocation
 USINE_MODULE_EXPORT int GetChunkLen (void* pModule, LongBool Preset);
 /// get the chunk string used to store modules intern data
@@ -1576,16 +1895,16 @@ USINE_MODULE_EXPORT int GetChunkLen (void* pModule, LongBool Preset);
 USINE_MODULE_EXPORT void GetChunk (void* pModule, void* chunk, LongBool Preset);
 
 /// chunk string send by Usine when loading
-USINE_MODULE_EXPORT void SetChunk(void* pModule, const void* chunk, LongBool Preset, int sizeInBytes);
+USINE_MODULE_EXPORT void SetChunk (void* pModule, const void* chunk, LongBool Preset, int sizeInBytes);
 
 /// called after the module is loaded
 USINE_MODULE_EXPORT void AfterLoading (void* pModule);
 
-// layout option and commands
+/// layout option and commands
 /// create user defined layout options in the 'edit layout' panel
-USINE_MODULE_EXPORT void CreateSettings(void* pModule);
+USINE_MODULE_EXPORT void CreateSettings (void* pModule);
 /// Called when something has changed in the layout
-USINE_MODULE_EXPORT void SettingsHasChanged(void* pModule);
+USINE_MODULE_EXPORT void SettingsHasChanged (void* pModule);
 /// resize the panel
 USINE_MODULE_EXPORT void Resize (void* pModule, float W, float H);
 /// called by Usine to paint the panel
@@ -1593,7 +1912,7 @@ USINE_MODULE_EXPORT void Paint (void* pModule);
 /// called by Usine to create commands of the module
 USINE_MODULE_EXPORT void CreateCommands(void* pModule);
 
-// mouse and multi touch
+/// mouse and multi touch
 /// mouse move event
 USINE_MODULE_EXPORT void MouseMove(void* pModule, TShiftState Shift, float X, float Y);
 /// mouse down event
@@ -1617,7 +1936,7 @@ USINE_MODULE_EXPORT void CloseEditor(void* pModule);
 //Called by Usine to resize the plugin Window
 USINE_MODULE_EXPORT void ResizeEditor(void* pModule, int width, int height);
 
-// usine infos callbacks
+/// usine infos callbacks
 /// Called by when the bloc size changes
 USINE_MODULE_EXPORT void OnBlocSizeChange (void* pModule, int BlocSize);
 /// Called by when the audio sample rate changes
@@ -1634,3 +1953,6 @@ USINE_MODULE_EXPORT void ResetModule(void* pModule);
 
 /// Called by Usine when the user change the global color of the module
 USINE_MODULE_EXPORT void SetQuickColor(void* pModule, TUsineColor color);
+
+
+/// @}

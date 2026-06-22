@@ -8,7 +8,7 @@
 //@brief 
 //	Definitions of the GlobalArray class.
 //
-//  Example user module to show how to process audio buffers.
+//  Example user module to show how to process global arrays.
 //
 //@historic 
 //	2015/02/23
@@ -52,7 +52,8 @@
 //-----------------------------------------------------------------------------
 // includes
 //-----------------------------------------------------------------------------
-#include "../../sdk/UserDefinitions.h"  
+#include "../../sdk/UserDefinitions.h"
+#include <random>
 
 //-----------------------------------------------------------------------------
 // defines and constantes
@@ -83,13 +84,13 @@ public:
 
 	//-----------------------------------------------------------------------------
 	// query system and init
-	void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
+	//void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
 	void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
 	// parameters and process
 	void onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo);
-	void onCallBack (TUsineMessage *Message);
+	//void onCallBack (TUsineMessage *Message);
 	void onProcess ();
 
 
@@ -102,9 +103,8 @@ private:
 	UsineEventClass arraySet;
 	UsineEventClass arrayGet;
 
-	//-------------------------------------------------------------------------
-    static const int numOfParamAfterAudiotInOut = 2;
-    
+	std::mt19937 rng;
+	std::uniform_real_distribution<float> fdist;
 
 }; // class GlobalArray
 

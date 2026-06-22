@@ -53,15 +53,13 @@
 // includes
 //-----------------------------------------------------------------------------
 #include "../../sdk/UserDefinitions.h"  
-#include <iostream>
-#include <cmath>
 
 //-----------------------------------------------------------------------------
 // defines and constantes
 //-----------------------------------------------------------------------------
 
 // Panel Height
-const int DEFAULT_MODULEHEIGHT = 134;  
+constexpr int DEFAULT_MODULEHEIGHT = 134;  
 
 
 //-----------------------------------------------------------------------------
@@ -130,6 +128,7 @@ private:
 	// store the mouse left button state
 	LongBool	mouseLeftButtonDown;			
     TPointF lastMousePos;
+    TPointF anchorPoint;
 
 	// store the coords of our box
     TRectF boxCoords;

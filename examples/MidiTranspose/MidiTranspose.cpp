@@ -56,23 +56,23 @@
 
 //-----------------------------------------------------------------------------
 // Create
-void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
-	pModule = new MidiTransposeExample ();
+	pModule = new MidiTransposeExample();
 }
 
 //-----------------------------------------------------------------------------
 // destroy
-void DestroyModule (void* pModule) 
+void DestroyModule(void* pModule) 
 {
     // cast is important to call the good destructor
 	delete ((MidiTransposeExample*)pModule);
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "midi transpose";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "midi transpose sdk module example";
-const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
+constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "midi transpose";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "midi transpose sdk module example";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
 // browser info
 void GetBrowserInfo(TModuleInfo* pModuleInfo) 
@@ -84,7 +84,7 @@ void GetBrowserInfo(TModuleInfo* pModuleInfo)
 
 //-----------------------------------------------------------------------------
 // module description
-void MidiTransposeExample::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
+void MidiTransposeExample::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
 {
 	//identification of the module
 	pModuleInfo->Name				= MODULE_NAME;
@@ -102,7 +102,7 @@ void MidiTransposeExample::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInf
 
 //-----------------------------------------------------------------------------
 // Parameters description
-void MidiTransposeExample::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo) 
+void MidiTransposeExample::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo) 
 {
 	// all parameters declared in the module class		
 	switch (ParamIndex) 
@@ -113,7 +113,7 @@ void MidiTransposeExample::onGetParamInfo (int ParamIndex, TParamInfo* pParamInf
 		pParamInfo->Caption				= "in";
 		pParamInfo->IsInput				= TRUE;
 		pParamInfo->IsOutput			= FALSE;
-		pParamInfo->CallBackType		= ctImmediate;
+		pParamInfo->CallBackType		= ctNone;
 		pParamInfo->setEventClass		(midiIn);
 		break;
 
@@ -123,6 +123,7 @@ void MidiTransposeExample::onGetParamInfo (int ParamIndex, TParamInfo* pParamInf
 		pParamInfo->Caption				= "out";
 		pParamInfo->IsInput				= FALSE;
 		pParamInfo->IsOutput			= TRUE;
+		pParamInfo->CallBackType		= ctNone;
 		pParamInfo->setEventClass		(midiOut);
 		break;
 
@@ -138,7 +139,7 @@ void MidiTransposeExample::onGetParamInfo (int ParamIndex, TParamInfo* pParamInf
 		pParamInfo->Symbol				= "halftone";
 		pParamInfo->Format				= "%.0f";
 		pParamInfo->IsStoredInPreset	= TRUE;
-		pParamInfo->CallBackType		= ctImmediate;
+		pParamInfo->CallBackType		= ctNone;
 		pParamInfo->setEventClass		(fdrPitch);
 		break;
 
@@ -148,7 +149,7 @@ void MidiTransposeExample::onGetParamInfo (int ParamIndex, TParamInfo* pParamInf
 	}
 }
 
-void MidiTransposeExample::onProcess () 
+void MidiTransposeExample::onProcess() 
 {
     int sizeMidiIn = midiIn.getSize();
     midiOut.setSize(0);
@@ -156,14 +157,14 @@ void MidiTransposeExample::onProcess ()
     if (sizeMidiIn > 0)
     {
         midiOut.copyfrom(midiIn);
-        int pitch = (int)fdrPitch.getData();
+        int pitch = static_cast<int>(std::round(fdrPitch.getData()));
 
 	    for (int i = 0; i < sizeMidiIn; i++)
         {
             TUsineMidiCode code = midiOut.getArrayMidi(i);
            if (code.Msg ==  MIDI_NOTEON || code.Msg ==  MIDI_NOTEOFF)
            {
-                code.Data1 = std::min (127, std::max (0, (int)code.Data1 + pitch));
+                code.Data1 = std::min(127, std::max (0, (int)code.Data1 + pitch));
                 midiOut.setArrayMidi(i, code);
            }
         }

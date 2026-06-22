@@ -58,10 +58,9 @@
 // defines and constantes
 //-----------------------------------------------------------------------------
 // Panel Height
-const int DEFAULT_MODULEHEIGHT = 134;  
-
-#define PAD_OBJ_MAX 4
-#define PAD_INS_PER_OBJ 2
+constexpr UINT32 DEFAULT_MODULEHEIGHT = 134;
+constexpr UINT32 PAD_OBJ_MAX = 4;
+constexpr UINT32 PAD_INS_PER_OBJ = 2;
 
 //-----------------------------------------------------------------------------
 // class definition
@@ -77,7 +76,7 @@ public:
 	SimplePad();
 
     // destructor
-	~SimplePad(){};
+	~SimplePad() {};
 
 	//-------------------------------------------------------------------------
 	// public methods inherited from UserModule
@@ -85,35 +84,35 @@ public:
 public:
 	//-----------------------------------------------------------------------------
 	// module info
-	void onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
 	// query system and init
-	void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
 	// parameters and process
-	void onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo);
-	void onCallBack (TUsineMessage *Message);
+	void onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo);
+	void onCallBack(TUsineMessage *Message);
 
 	//-----------------------------------------------------------------------------
 	// chunk system
-	int  onGetChunkLen (LongBool Preset);
-	void onGetChunk (void* chunk, LongBool Preset);
-	void onSetChunk (const void* chunk, int sizeInBytes, LongBool Preset);
+	int  onGetStateChunkLen(LongBool Preset);
+	void onGetStateChunk(void* chunk, LongBool Preset);
+	void onSetStateChunk(const void* chunk, int sizeInBytes, LongBool Preset);
 
 	//-----------------------------------------------------------------------------
 	// layout
 	void onCreateSettings();
 	void onSettingsHasChanged();
     void onCreateCommands();
-	void onPaint ();
+	void onPaint();
 
 	//-----------------------------------------------------------------------------
 	// mouse and multi touch interaction
 	void onMouseMove(TShiftState Shift, float X, float Y);
 	void onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X,float Y);
-	void onMouseUp (TMouseButton MouseButton, TShiftState Shift, float X,float Y);
+	void onMouseUp(TMouseButton MouseButton, TShiftState Shift, float X,float Y);
 	
 	//void onMouseMoveMulti(TShiftState Shift, UsineEventPtr X, UsineEventPtr Y);
 	//void onMouseDownMulti(TMouseButton MouseButton, TShiftState Shift, UsineEventPtr X, UsineEventPtr Y);
@@ -121,11 +120,11 @@ public:
 
     //-----------------------------------------------------------------------------
     // usine preset randomize
-    virtual void onRandomize ();
+    virtual void onRandomize();
 
 	//-----------------------------------------------------------------------------
 	// recording 
-	 void onSetRecordedValue (TPrecision X, TPrecision Y, TPrecision Z);
+	 void onSetRecordedValue(TPrecision X, TPrecision Y, TPrecision Z);
 
 	//-----------------------------------------------------------------------------
 	// recording 
@@ -164,10 +163,10 @@ private:
 private:
     void resetPads();
 
-    void updatePad (int padIndex, float x, float y);
+    void updatePad(int padIndex, float x, float y);
 
     // return -1 if no hit, otherwise, the pad index (0 to PAD_OBJ_MAX - 1)
-    int padHitTest (float x, float y);
+    int padHitTest(float x, float y);
 
 }; // class SimplePad
 

@@ -8,7 +8,7 @@
 //@brief 
 //	Implementation of the GlobalArray class.
 //
-//  Example user module to show how to process audio buffers.
+//  Example user module to show how to process global array.
 //
 //@historic 
 //	2015/02/23
@@ -49,7 +49,7 @@
 // includes
 //-----------------------------------------------------------------------------
 #include "GlobalArray.h"
-#include <string> 
+#include <string>
 
 //----------------------------------------------------------------------------
 // create, general info and destroy methods
@@ -57,7 +57,7 @@
 
 //-----------------------------------------------------------------------------
 // Create
-void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new GlobalArray();
 }
@@ -70,9 +70,15 @@ void DestroyModule(void* pModule)
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "global array";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "global array sdk module example";
-const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
+constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "global array";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "global array sdk module example";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
+
+constexpr AnsiCharPtr GA_FLOAT = "GA-FLOAT";
+constexpr AnsiCharPtr GA_COLOR = "GA-COLOR";
+constexpr AnsiCharPtr GA_STRING = "GA-STRING";
+constexpr AnsiCharPtr GA_EVENT = "GA-EVENT";
+
 
 // browser info
 void GetBrowserInfo(TModuleInfo* pModuleInfo) 
@@ -87,8 +93,7 @@ void GetBrowserInfo(TModuleInfo* pModuleInfo)
 //-------------------------------------------------------------------------
 
 // constructor
-GlobalArray::GlobalArray()
- 
+GlobalArray::GlobalArray() : rng(std::random_device{}()), fdist(0.0f, 1.0f)
 {
 	//
 }
@@ -99,7 +104,7 @@ GlobalArray::~GlobalArray()
 	// 
 }
 
-void GlobalArray::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+void GlobalArray::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
 	pModuleInfo->Name				= MODULE_NAME;
 	pModuleInfo->Description		= MODULE_DESC;
@@ -108,20 +113,21 @@ void GlobalArray::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModul
 	pModuleInfo->Version			= MODULE_VERSION;  
 	pModuleInfo->CanBeSavedInPreset = FALSE;
 	pModuleInfo->NumberOfParams     = 2;
-
 }
 
 
 //-----------------------------------------------------------------------------
 // Called after the query popup
-void GlobalArray::onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
-{
-}
+//void GlobalArray::onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
+//{
+//}
 
 
 //-----------------------------------------------------------------------------
 // initialisation
-void GlobalArray::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) {}
+void GlobalArray::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+{
+}
 
 //----------------------------------------------------------------------------
 // parameters and process
@@ -129,73 +135,64 @@ void GlobalArray::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleIn
 
 //-----------------------------------------------------------------------------
 // Parameters description
-void GlobalArray::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
+void GlobalArray::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo)
 {	
 	if (ParamIndex == 0)
 	{
-	pParamInfo->ParamType           = ptArray;
-	pParamInfo->Caption             = "array set";
-	pParamInfo->IsInput             = TRUE;
-	pParamInfo->IsOutput            = FALSE;
-	pParamInfo->IsSeparator         = TRUE;
-	pParamInfo->CallBackType        = ctNormal;
-	pParamInfo->SeparatorCaption    = "";
-	pParamInfo->setEventClass       (arraySet);
-
+		pParamInfo->ParamType           = ptArray;
+		pParamInfo->Caption             = "array set";
+		pParamInfo->IsInput             = TRUE;
+		pParamInfo->IsOutput            = FALSE;
+		pParamInfo->IsSeparator         = TRUE;
+		pParamInfo->CallBackType        = ctNone;
+		pParamInfo->SeparatorCaption    = "";
+		pParamInfo->setEventClass       (arraySet);
 	}
-	 else if (ParamIndex == 1)
+	else if (ParamIndex == 1)
 	{
-	pParamInfo->ParamType           = ptArray;
-	pParamInfo->Caption             = "array get";
-	pParamInfo->IsInput             = FALSE;
-	pParamInfo->IsOutput            = TRUE;
-	pParamInfo->CallBackType        = ctNormal;
-	pParamInfo->setEventClass       (arrayGet);
+		pParamInfo->ParamType           = ptArray;
+		pParamInfo->Caption             = "array get";
+		pParamInfo->IsInput             = FALSE;
+		pParamInfo->IsOutput            = TRUE;
+		pParamInfo->CallBackType        = ctNone;
+		pParamInfo->setEventClass       (arrayGet);
 	}
-
 }
 
 
 //-----------------------------------------------------------------------------
 // Parameters callback
-void GlobalArray::onCallBack (TUsineMessage *Message) 
-{
-    // filter only message specific to this user module
-    if (Message->message == NOTIFY_MSG_USINE_CALLBACK)
-    {
-    }
-}
+//void GlobalArray::onCallBack(TUsineMessage *Message) 
+//{
+//    // filter only message specific to this user module
+//    if (Message->message == NOTIFY_MSG_USINE_CALLBACK)
+//    {
+//    }
+//}
 
 //-----------------------------------------------------------------------------
 // random string generator
-std::string gen_random(const int len) {
-	static const char alphanum[] =
+static std::string gen_random(const int len, std::mt19937 seed) {
+	static const std::string alphanum = {
 		"0123456789"
 		"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-		"abcdefghijklmnopqrstuvwxyz";
+		"abcdefghijklmnopqrstuvwxyz"
+	};
+    static std::uniform_int_distribution<size_t> dist(0, alphanum.size() - 1);
 	std::string tmp_s;
-	tmp_s.reserve(len);
+	tmp_s.resize(len);
 
-	for (int i = 0; i < len; ++i) {
-		tmp_s += alphanum[rand() % (sizeof(alphanum) - 1)];
+	for (char& c : tmp_s) {
+		c = alphanum[dist(seed)];
 	}
-
 	return tmp_s;
 }
 
 
-
-const AnsiCharPtr GA_FLOAT = "GA-FLOAT";
-const AnsiCharPtr GA_COLOR = "GA-COLOR";
-const AnsiCharPtr GA_STRING = "GA-STRING";
-const AnsiCharPtr GA_EVENT = "GA-EVENT";
-
-
 //-----------------------------------------------------------------------------
-// Parameters callback
-void GlobalArray::onProcess () 
+// Process
+void GlobalArray::onProcess() 
 {
-	
 	if (sdkSlowClock())
 	{
 		sdkTraceChar(sdkGlobalArrayGetAllNames());		
@@ -206,6 +203,7 @@ void GlobalArray::onProcess ()
 		float v;
 		std::string s;
 		TUsineColor c;
+		
 
 		// Global Array Float
 		hash = sdkGlobalArrayGetHash(GA_FLOAT);
@@ -214,13 +212,13 @@ void GlobalArray::onProcess ()
 			// set
 			for (int i = 0; i < 16; i++)
 			{
-				v = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+				v = fdist(rng);
 				sdkGlobalArraySetValueFloat(hash, i, v, GA_FLOAT);
 			}
 			// get
 			v = sdkGlobalArrayGetValueFloat(hash, 0, GA_FLOAT);
 			s = "FLOAT = " + std::to_string(v);
-			sdkTraceChar((AnsiCharPtr)s.c_str());
+			sdkTraceChar(const_cast<AnsiCharPtr>(s.c_str()));
 		}
 
 		// Global Array Color
@@ -230,14 +228,14 @@ void GlobalArray::onProcess ()
 			// set
 			for (int i = 0; i < 16; i++)
 			{
-				float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-				c = (TUsineColor)(r * 0xFFFFFFFF);
+				float r = fdist(rng);
+				c = static_cast<TUsineColor>(r * 0xFFFFFFFF);
 				sdkGlobalArraySetValueColor(hash, i, c, GA_COLOR);
 			}
 			// get
 			c = sdkGlobalArrayGetValueColor(hash, 0, GA_COLOR);
 			s = "COLOR = " + std::to_string(c);
-			sdkTraceChar((AnsiCharPtr)s.c_str());
+			sdkTraceChar(const_cast<AnsiCharPtr>(s.c_str()));
 		}
 
 		// Global Array String
@@ -247,8 +245,8 @@ void GlobalArray::onProcess ()
 			// set
 			for (int i = 0; i < 16; i++)
 			{
-				s = gen_random(5);
-				sdkGlobalArraySetValueAnsiChar(hash, i, (AnsiCharPtr)s.c_str(), GA_STRING);
+				s = gen_random(5, rng);
+				sdkGlobalArraySetValueAnsiChar(hash, i, const_cast<AnsiCharPtr>(s.c_str()), GA_STRING);
 			}
 			// get
 			sdkTraceChar(sdkGlobalArrayGetValueAnsiChar(hash, 0, GA_STRING));
@@ -259,9 +257,10 @@ void GlobalArray::onProcess ()
 		if (hash > 0)
 		{
 			// set
+			arraySet.setSize(16);
 			for (int i = 0; i < 16; i++)
 			{
-				v = 1.0f + static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+				v = fdist(rng);
 				arraySet.setArrayData(i, v);
 			}
 			sdkGlobalArraySetValueEvt(hash, arraySet, GA_EVENT);
@@ -269,6 +268,4 @@ void GlobalArray::onProcess ()
 			sdkGlobalArrayGetValueEvt(hash, GA_EVENT, arrayGet);
 		}
 	}
-
-
 }

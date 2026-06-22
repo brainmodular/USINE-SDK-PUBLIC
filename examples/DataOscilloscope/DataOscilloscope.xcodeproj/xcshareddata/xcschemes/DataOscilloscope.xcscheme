@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1400"
+   LastUpgradeVersion = "1420"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -42,8 +42,7 @@
       allowLocationSimulation = "YES">
       <PathRunnable
          runnableDebuggingMode = "0"
-         BundleIdentifier = "com.brainmodular.usine"
-         FilePath = "/Applications/Usine-MacOS-M1-M2-6.0.230512.app">
+         FilePath = "/Users/senso/PAServer/scratch-dir/senso-ARM/Usinehh7.app">
       </PathRunnable>
    </LaunchAction>
    <ProfileAction

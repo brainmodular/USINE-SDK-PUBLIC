@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4EAD14861A9E2D8400784045"
-               BuildableName = "VideoDimmer.usr-osx64"
+               BuildableName = "VideoDimmer.usr-macos64uni"
                BlueprintName = "VideoDimmer"
                ReferencedContainer = "container:VideoDimmer.xcodeproj">
             </BuildableReference>
@@ -49,7 +49,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4EAD14861A9E2D8400784045"
-            BuildableName = "VideoDimmer.usr-osx64"
+            BuildableName = "VideoDimmer.usr-macos64uni"
             BlueprintName = "VideoDimmer"
             ReferencedContainer = "container:VideoDimmer.xcodeproj">
          </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4EAD14861A9E2D8400784045"
-            BuildableName = "VideoDimmer.usr-osx64"
+            BuildableName = "VideoDimmer.usr-macos64uni"
             BlueprintName = "VideoDimmer"
             ReferencedContainer = "container:VideoDimmer.xcodeproj">
          </BuildableReference>

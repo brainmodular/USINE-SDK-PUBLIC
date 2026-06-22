@@ -50,29 +50,34 @@
 #include "float.h"
 
 
+//----------------------------------------------------------------------------
+// setup a callback_id constant for all params that specify a callback type
+//----------------------------------------------------------------------------
+constexpr NativeInt ARR_IN_DELAY_CBID = 0x001000FF;
+
 
 //----------------------------------------------------------------------------
 // create, general info and destroy methods
 //----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 // Create module
-void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new ArrayDelay();
 }
 
 //-----------------------------------------------------------------------------
 // destroy module
-void DestroyModule (void* pModule) 
+void DestroyModule(void* pModule) 
 {
 	// cast is important to call the good destructor
 	delete ((ArrayDelay*)pModule);
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "array delay";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "array delay SDK example";
-const AnsiCharPtr UserModuleBase::MODULE_VERSION = "2.0";
+constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "array delay";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "array delay SDK example";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "2.0";
 
 // browser info
 void GetBrowserInfo(TModuleInfo* pModuleInfo) 
@@ -83,18 +88,11 @@ void GetBrowserInfo(TModuleInfo* pModuleInfo)
 }
 
 //-----------------------------------------------------------------------------
-ArrayDelay::ArrayDelay ()
-    : readPos (0)
+ArrayDelay::ArrayDelay()
+    : arrInArray(nullptr), arrInDelay(nullptr), arrOutArray(nullptr), readPos(0)
 {
-    int i,j;
-    for (i = 0; i < MAXBLOC; i++)
-    {
-	    delayBuffer[i] = 0;
-	    for (j = 0; j < MAX_DELAY; j++)
-        {
-		    delayLine[i][j] = 0;
-	    }
-    }
+	std::memset(delayLine, 0, sizeof(delayLine));
+	std::memset(delayBuffer, 0, sizeof(delayBuffer));
 }
 
 //-----------------------------------------------------------------------------------------
@@ -105,7 +103,7 @@ ArrayDelay::~ArrayDelay()
 
 //void ArrayDelay::onCreate(AnsiCharPtr optionalString);
 //void ArrayDelay::onDestroy(); 
-void ArrayDelay::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+void ArrayDelay::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
 	pModuleInfo->Name				= MODULE_NAME;
 	pModuleInfo->Description		= MODULE_DESC;
@@ -123,7 +121,7 @@ void ArrayDelay::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModule
 
 //-----------------------------------------------------------------------------
 // parameters and process
-void ArrayDelay::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
+void ArrayDelay::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo)
 {	
 	switch (ParamIndex) 
     {
@@ -133,10 +131,10 @@ void ArrayDelay::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->Caption			= "array in";
 		pParamInfo->IsInput			= true;
 		pParamInfo->IsOutput		= false;
-		pParamInfo->ReadOnly		= true;
+		//pParamInfo->ReadOnly		= true;
         pParamInfo->MinValue		= - FLT_MAX;
 		pParamInfo->MaxValue		= FLT_MAX;
-		pParamInfo->CallBackType	= ctImmediate;
+		pParamInfo->CallBackType	= ctNone;
 		pParamInfo->setEventClass     (arrInArray);
 		break;
 
@@ -146,9 +144,11 @@ void ArrayDelay::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->Caption			= "delay in blocs";
 		pParamInfo->IsInput			= true;
 		pParamInfo->IsOutput		= false;
-		pParamInfo->ReadOnly		= true;
+		//pParamInfo->ReadOnly		= true;
 		pParamInfo->MinValue		= 0;
 		pParamInfo->MaxValue		= MAX_DELAY;
+		pParamInfo->CallBackType	= ctImmediate;
+		pParamInfo->CallBackId		= ARR_IN_DELAY_CBID;
 		pParamInfo->setEventClass     (arrInDelay);
 		break;
 
@@ -158,9 +158,10 @@ void ArrayDelay::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->Caption			= "array out";
 		pParamInfo->IsInput			= false;
 		pParamInfo->IsOutput		= true;
-		pParamInfo->ReadOnly		= true;
+		//pParamInfo->ReadOnly		= true;
         pParamInfo->MinValue		= - FLT_MAX;
 		pParamInfo->MaxValue		= FLT_MAX;
+		pParamInfo->CallBackType    = ctNone;
 		pParamInfo->setEventClass     (arrOutArray);
 		break;
 
@@ -170,54 +171,54 @@ void ArrayDelay::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 	}
 }
 
-void ArrayDelay::onCallBack (TUsineMessage *Message) 
+void ArrayDelay::onCallBack(TUsineMessage *Message) 
 {	
+	if ((Message->message != NOTIFY_MSG_USINE_CALLBACK) || (Message->lParam != MSG_CHANGE))
+		return;
     // arrInArray
-    if ((Message->wParam == 1) && (Message->lParam == MSG_CHANGE))
+    if (Message->wParam == ARR_IN_DELAY_CBID)
     {
-        int i;
-		int length = arrInDelay.getSize();
+        UINT32 i;
+		UINT32 length = std::min((UINT32)arrInDelay.getSize(), MAXBLOC);
 
 		for (i=0; i < length; i++)
 		{
-			delayBuffer[i] = (long)arrInDelay.getArrayData(i);
-
+			delayBuffer[i] = std::lround(arrInDelay.getArrayData(i));
+			if (delayBuffer[i] < 0) delayBuffer[i] = 0;
 		}
-		for (i = length; i < MAXBLOC; i++)
-		{
-			delayBuffer[i] = 0;
-
-		}
-	}
+	//	for (i = length; i < MAXBLOC; i++)
+	//	{
+	//		delayBuffer[i] = 0;
+	//	}
+	} 
 }
 
-void ArrayDelay::onProcess () 
+void ArrayDelay::onProcess()
 {	
-    int length = arrInArray.getSize();
+    UINT32 length = std::min((UINT32)arrInArray.getSize(), MAXBLOC);
+	UINT32 lengthDelay = std::min((UINT32)arrInDelay.getSize(), MAXBLOC);
 
 	arrOutArray.setSize(length);
-	readPos = (readPos + 1) % MAX_DELAY ;
-			
-	for ( int i = 0; i < length; i++ )
-	{
-		long writePos = (readPos + delayBuffer[i]) % MAX_DELAY ;
-		delayLine[i][writePos] = arrInArray.getArrayData(i);
-		arrOutArray.setArrayData(i, delayLine[i][readPos]);
-		delayLine[i][readPos] = 0;
+	readPos = (readPos + 1) % MAX_DELAY;
 
+	for (UINT32 i = 0; i < length; i++)
+	{
+		UINT32 writePos = (readPos + delayBuffer[i % lengthDelay]) % MAX_DELAY;
+		delayLine[writePos][i] = arrInArray.getArrayData(i);
+		arrOutArray.setArrayData(i, delayLine[readPos][i]);
+	//	delayLine[readPos][i] = 0;
 	}
 }
 
 //-----------------------------------------------------------------------------
 // midi out callbacks
-//void ArrayDelay::onMidiSendOut (int DeviceID, UsineMidiCode Code) {}
-//void ArrayDelay::onMidiSysexSendOut (int DeviceID, char* Sysex) {}
+ //void ArrayDelay::onMidiSysexSendOut (int DeviceID, char* Sysex) {}
 //
 //-----------------------------------------------------------------------------
 // chunk system
-//int  ArrayDelay::onGetChunkLen (LongBool Preset) {return 0;}
-//void ArrayDelay::onGetChunk (void* chunk, LongBool Preset) {}
-//void ArrayDelay::onSetChunk (const void* chunk, int sizeInBytes, LongBool Preset) {}
+//int  ArrayDelay::onGetStateChunkLen (LongBool Preset) {return 0;}
+//void ArrayDelay::onGetStateChunk (void* chunk, LongBool Preset) {}
+//void ArrayDelay::onSetStateChunk (const void* chunk, int sizeInBytes, LongBool Preset) {}
 //
 //-----------------------------------------------------------------------------
 // layout

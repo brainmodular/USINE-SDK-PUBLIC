@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------
 //@file  
-//	RingModMiltithread.h
+//	RingModMultithread.h
 //
 //@author
 //	BrainModular team
@@ -46,13 +46,13 @@
 //-----------------------------------------------------------------------------
 
 // include once, no more
-#ifndef __RING_MOD_MULTITHREAD_H__
-#define __RING_MOD_MULTITHREAD_H__
+#ifndef __EXAMPLE_RING_MOD_MULTITHREAD_H__
+#define __EXAMPLE_RING_MOD_MULTITHREAD_H__
 
 //-----------------------------------------------------------------------------
 // includes
 //-----------------------------------------------------------------------------
-#include "../../sdk/UserDefinitions.h"  
+#include "../../sdk/UserDefinitions.h"
 
 //-----------------------------------------------------------------------------
 // defines and constantes
@@ -79,44 +79,47 @@ public:
 public:
 	//-----------------------------------------------------------------------------
 	// module info
-	void onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
 	// query system and init
 	int  onGetNumberOfParams(int queryResult1, int queryResult2);
-	void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
-	void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+	void onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
+	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
 	// parameters and process
-	void onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo);
-	void onCallBack (TUsineMessage *Message);
-	void onProcess ();
-
-	// parameters events	
-	UsineEventClass audioInputs[USINE_MULTIPHONY_MAX];     // audio input	
-	UsineEventClass audioOutputs[USINE_MULTIPHONY_MAX];    // audio output
-	UsineEventClass modInput;                            // mod input
-	UsineEventClass bufferTemp[USINE_MULTIPHONY_MAX];
-	UsineEventClass fdrMix;
-	TPrecision coeffMix;
-
-	TCriticalSectionPtr criticalSection;
-	TSyncObjectPtr syncObject;
-
-	//-------------------------------------------------------------------------
-	int queryResult;
-	int numOfAudiotInsOuts;
-	int cptEvents;
+	void onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo);
+	void onCallBack(TUsineMessage *Message);
+	void onProcess();
 
 	//-------------------------------------------------------------------------
 	// private members
 	//-------------------------------------------------------------------------
 private:
 	//-------------------------------------------------------------------------
-	static const int numOfParamAfterAudiotInOut = 2;
+	// parameters events
+	UsineEventClass audioInputs[USINE_AUDIO_CHANNEL_MODULE_MAX];
+	UsineEventClass audioOutputs[USINE_AUDIO_CHANNEL_MODULE_MAX];
+	UsineEventClass modInput;
+	UsineEventClass bufferTemp[USINE_AUDIO_CHANNEL_MODULE_MAX];
+	UsineEventClass fdrMix;
+	TPrecision coeffMix;
+
+	TCriticalSectionPtr criticalSection;
+	TSyncObjectPtr syncObject;
 	TThreadPtr thread1, thread2;
-    
+
+	int queryResult;
+	int numOfAudiotInsOuts;
+	int cptEvents;
+
+	static const int numOfParamAfterAudiotInOut = 2;
+
+	static void processThreadCommon(void* pModule, TThreadPtr pThread, int start);
+	static void processThread1(void* pModule, TThreadPtr pThread);
+	static void processThread2(void* pModule, TThreadPtr pThread);
+
 }; // class RingModMultithread
 
-#endif //__RING_MOD_MULTITHREAD_H__
+#endif //__EXAMPLE_RING_MOD_MULTITHREAD_H__

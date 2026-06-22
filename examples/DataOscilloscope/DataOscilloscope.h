@@ -46,22 +46,22 @@
 //-----------------------------------------------------------------------------
 
 // include once, no more
-#ifndef __EXAMPLE_DRAW_BOX_H__
-#define __EXAMPLE_DRAW_BOX_H__
+#ifndef __EXAMPLE_OSCILLOSCOPE_H__
+#define __EXAMPLE_OSCILLOSCOPE_H__
 
 //-----------------------------------------------------------------------------
 // includes
 //-----------------------------------------------------------------------------
 #include "../../sdk/UserDefinitions.h"  
-#include <iostream>
 #include <cmath>
+#include <vector>
 
 //-----------------------------------------------------------------------------
 // defines and constantes
 //-----------------------------------------------------------------------------
 
 // Panel Height
-const int DEFAULT_MODULEHEIGHT = 134;  
+constexpr int DEFAULT_MODULEHEIGHT = 134;  
 
 
 //-----------------------------------------------------------------------------
@@ -112,8 +112,6 @@ private:
 	
 	//-------------------------------------------------------------------------
 	// parameters events
-	UsineEventClass btnErase;			// Erase trajectory button input
-    UsineEventClass listSmooth;       // smooth modes
     UsineEventClass fdrSpeed;         // cube advancement step
     UsineEventClass yControl;         // value to display
     UsineEventClass colorControl;     // color to display the value
@@ -122,11 +120,20 @@ private:
 	// Other	
 		
 	// store the mouse left button state
-	LongBool	mouseLeftButtonDown;			
+	LongBool mouseLeftButtonDown;			
     TPointF lastMousePos;
 
 	// settings
 	TUsineColor colorBox;
+
+	TPrecision moveOffset = 0.005f;
+	TPrecision yValue = 0.0f;
+
+	// TODO/WARNING :
+	// This is a raw implementation given as an example : the points are stored in a vector
+	// which is not the most efficient data structure for the job
+	// For better cpu efficiency you may want to use a Circular Buffer instead
+	std::vector<TPointF> points;
 
 
 	//-------------------------------------------------------------------------
@@ -134,10 +141,8 @@ private:
 	//-------------------------------------------------------------------------
 private:
     void eraseBox();
-    void updateBox(float x, float y);
     void advance();
-
 
 }; // class DataOscilloscope
 
-#endif // __EXAMPLE_DRAW_BOX_H__
+#endif // __EXAMPLE_OSCILLOSCOPE_H__

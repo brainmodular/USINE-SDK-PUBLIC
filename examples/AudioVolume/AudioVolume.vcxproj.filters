@@ -31,5 +31,8 @@
     <ClInclude Include="..\..\sdk\UsineEventClass.h">
       <Filter>sdk</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\sdk\UsineFunctions.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

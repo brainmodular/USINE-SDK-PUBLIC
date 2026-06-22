@@ -51,6 +51,14 @@
 #include "SimplePad.h"
 
 using namespace std;
+
+//----------------------------------------------------------------------------
+// setup a callback_id constant for all params that specify a callback type
+//----------------------------------------------------------------------------
+constexpr NativeInt RANDOMIZE_CBID = 0x002400F0;
+constexpr NativeInt ARR_POS_X_CBID = 0x002400F1;
+constexpr NativeInt ARR_POS_Y_CBID = 0x002400F2;
+
 //----------------------------------------------------------------------------
 // create, general info and destroy methods
 //----------------------------------------------------------------------------
@@ -59,23 +67,23 @@ using namespace std;
 
 //-----------------------------------------------------------------------------
 // Create
-void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
-	pModule = new SimplePad ();
+	pModule = new SimplePad();
 }
 
 //-----------------------------------------------------------------------------
 // destroy
-void DestroyModule (void* pModule)
+void DestroyModule(void* pModule)
 {
     // cast is important to call the good destructor
 	delete ((SimplePad*)pModule);
 }
 
 // module constants for browser info and module info
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "simple pad";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "simple pad sdk module example";
-const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
+constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "simple pad";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "simple pad sdk module example";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
 // browser info
 void GetBrowserInfo(TModuleInfo* pModuleInfo) 
@@ -88,7 +96,7 @@ void GetBrowserInfo(TModuleInfo* pModuleInfo)
 //-------------------------------------------------------------------------
 // public constructors/destructors
 //-------------------------------------------------------------------------
-SimplePad::SimplePad ()
+SimplePad::SimplePad()
     : sizePad (20)
     , mouseLeftButtonDown (FALSE)
     , selectedPad (-1)
@@ -99,7 +107,7 @@ SimplePad::SimplePad ()
 
 //-----------------------------------------------------------------------------
 // module description
-void SimplePad::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
+void SimplePad::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
 {
 	pModuleInfo->Name				= MODULE_NAME;
 	pModuleInfo->Description		= MODULE_DESC;
@@ -122,7 +130,7 @@ void SimplePad::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleI
 
 //-----------------------------------------------------------------------------
 // initialisation
-void SimplePad::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
+void SimplePad::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
 {
 	colorPad = sdkGetUsineColor(clVuMeterAudio);
 
@@ -131,7 +139,7 @@ void SimplePad::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo
 
 //-----------------------------------------------------------------------------
 // Parameters description
-void SimplePad::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo) 
+void SimplePad::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo) 
 {	
     // btnRandomize
     if (ParamIndex == 0)
@@ -141,6 +149,8 @@ void SimplePad::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsInput			= TRUE;
 		pParamInfo->IsOutput		= FALSE;
 		pParamInfo->ReadOnly		= FALSE;
+        pParamInfo->CallBackType    = ctNormal;
+        pParamInfo->CallBackId      = RANDOMIZE_CBID;
 		pParamInfo->setEventClass   (btnRandomize);
 	}
     // arrPosX
@@ -152,7 +162,8 @@ void SimplePad::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsOutput		= TRUE;
 		pParamInfo->MinValue		= 0;
 		pParamInfo->MaxValue		= 1;
-		pParamInfo->CallBackType    = ctImmediate;
+		pParamInfo->CallBackType    = ctNormal;
+        pParamInfo->CallBackId      = ARR_POS_X_CBID;
 		pParamInfo->DontSave		= TRUE;
 		pParamInfo->setEventClass   (arrPosX);
 	}
@@ -165,7 +176,8 @@ void SimplePad::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 		pParamInfo->IsOutput		= TRUE;
 		pParamInfo->MinValue		= 0;
 		pParamInfo->MaxValue		= 1;
-		pParamInfo->CallBackType    = ctImmediate;
+        pParamInfo->CallBackType    = ctNormal;
+        pParamInfo->CallBackId      = ARR_POS_Y_CBID;
 		pParamInfo->DontSave		= TRUE;
 		pParamInfo->setEventClass   (arrPosY);
 	}
@@ -173,36 +185,32 @@ void SimplePad::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
 
 //-----------------------------------------------------------------------------
 // Parameters callback
-void SimplePad::onCallBack (TUsineMessage *Message) 
+void SimplePad::onCallBack(TUsineMessage *Message) 
 {
 	try
 	{
         if (Message->message == NOTIFY_MSG_USINE_CALLBACK && Message->lParam == MSG_CHANGE)
         {
-            int ParamIndex = (int)Message->wParam;
-            
-            // btnRandomize
-            if (ParamIndex == 0)
-	        {
+            switch (Message->wParam) {
+            case RANDOMIZE_CBID:
                 onRandomize();
-	        }
-            // arrPosX
-            else if (ParamIndex == 1)
-            {
-		        for (int i = 0; i < PAD_OBJ_MAX; i++)
+                break;
+            case ARR_POS_X_CBID:
+                for (int i = 0; i < PAD_OBJ_MAX; i++)
                 {
                     posTab[i].x = arrPosX.getArrayData(i);
                 }
                 sdkRepaintPanel();
-            }
-            // arrPosY
-            else if (ParamIndex == 2)
-            {
-		        for (int i = 0; i < PAD_OBJ_MAX; i++)
+                break;
+            case ARR_POS_Y_CBID:
+                for (int i = 0; i < PAD_OBJ_MAX; i++)
                 {
                     posTab[i].y = 1.0f - arrPosY.getArrayData(i);
                 }
                 sdkRepaintPanel();
+                break;
+            default:
+                break;
             }
         }
 	}
@@ -218,7 +226,7 @@ void SimplePad::onCallBack (TUsineMessage *Message)
 
 //-----------------------------------------------------------------------------
 // compute the lentgh of the chunk string 
-int SimplePad::onGetChunkLen (LongBool Preset) 
+int SimplePad::onGetStateChunkLen(LongBool Preset) 
 {
 	// no differences between the chunk for wkp/pat and for presets
     // compute the chunk string lentgh to save points coords of pads
@@ -229,7 +237,7 @@ int SimplePad::onGetChunkLen (LongBool Preset)
 
 //-----------------------------------------------------------------------------
 // store module datas in the chunk string
-void SimplePad::onGetChunk (void* chunk, LongBool Preset) 
+void SimplePad::onGetStateChunk(void* chunk, LongBool Preset) 
 {
 	// no differences between the chunk for wkp/pat and for presets 
 	// copy points coords array into the chunk
@@ -238,7 +246,7 @@ void SimplePad::onGetChunk (void* chunk, LongBool Preset)
 
 //-----------------------------------------------------------------------------
 // restore module datas from the chunk string
-void SimplePad::onSetChunk (const void* chunk, int sizeInBytes, LongBool Preset) 
+void SimplePad::onSetStateChunk(const void* chunk, int sizeInBytes, LongBool Preset) 
 {
 	// no differences between the chunk for wkp/pat and for presets
 
@@ -265,8 +273,8 @@ void SimplePad::onCreateSettings()
 {
 	// we had our user section in the edit layout panel
 	sdkAddSettingLineCaption(DESIGN_TAB_NAME, "pad");
-	sdkAddSettingLineColor( DESIGN_TAB_NAME, &colorPad, "color" );
-	sdkAddSettingLineInteger( DESIGN_TAB_NAME, &sizePad, "size", 1, 30, scLinear, "px", 20);
+	sdkAddSettingLineColor(DESIGN_TAB_NAME, &colorPad, "color");
+	sdkAddSettingLineInteger(DESIGN_TAB_NAME, &sizePad, "size", 1, 30, scLinear, "px", 20);
 }
 
 //-----------------------------------------------------------------------------
@@ -287,7 +295,7 @@ void SimplePad::onCreateCommands()
 
 //-----------------------------------------------------------------------------
 // paint the module panel
-void SimplePad::onPaint ()
+void SimplePad::onPaint()
 {
     for (int i = 0; i < PAD_OBJ_MAX; i++)
     {
@@ -301,34 +309,33 @@ void SimplePad::onPaint ()
 
 //-----------------------------------------------------------------------------
 // MouseMove callback
-void SimplePad::onMouseMove (TShiftState Shift, float X, float Y)
+void SimplePad::onMouseMove(TShiftState Shift, float X, float Y)
 {
     // we only want to draw when the left mouse button is down
 	if (mouseLeftButtonDown && selectedPad >= 0)
 	{
         float posX = X + selectedPadOffsetX;
         float posY = Y + selectedPadOffsetY;
-		updatePad (selectedPad, std::min(1.0f, std::max(posX, 0.0f)), std::min(1.0f, std::max(posY, 0.0f)));
+		updatePad(selectedPad, std::min(1.0f, std::max(posX, 0.0f)), std::min(1.0f, std::max(posY, 0.0f)));
         
 		try
 		{
-			sdkProcessRecord((TPrecision)selectedPad, posX, posY);
+			sdkProcessRecordAutomation((TPrecision)selectedPad, posX, posY);
 		}
 		catch (std::exception& /*e*/) 
 		{
 		}
-
         sdkRepaintPanel();
 	}		
 }
 
 //-----------------------------------------------------------------------------
 // MouseDown callback
-void SimplePad::onMouseDown (TMouseButton Button, TShiftState Shift, float X,float Y)
+void SimplePad::onMouseDown(TMouseButton Button, TShiftState Shift, float X,float Y)
 {
 	if (Button == mbLeft)
 	{
-        selectedPad = padHitTest (std::min(1.0f, std::max(X, 0.0f)), std::min(1.0f, std::max(Y, 0.0f)));
+        selectedPad = padHitTest(std::min(1.0f, std::max(X, 0.0f)), std::min(1.0f, std::max(Y, 0.0f)));
 		// we store the state of the left button
 		mouseLeftButtonDown = TRUE;
 	}
@@ -336,14 +343,14 @@ void SimplePad::onMouseDown (TMouseButton Button, TShiftState Shift, float X,flo
 
 //-----------------------------------------------------------------------------
 // MouseUp callback
-void SimplePad::onMouseUp (TMouseButton Button, TShiftState Shift, float X, float Y)
+void SimplePad::onMouseUp(TMouseButton Button, TShiftState Shift, float X, float Y)
 {
 	mouseLeftButtonDown = FALSE;
     selectedPad = -1;
 
     try
 	{
-		sdkStopRecord ();
+		sdkStopRecordAutomation();
 	}
 	catch (std::exception& /*e*/) 
 	{
@@ -369,7 +376,7 @@ void SimplePad::onMouseUpMulti(TMouseButton MouseButton, TShiftState Shift, Usin
 
 //-----------------------------------------------------------------------------
 // usine preset randomize
-void SimplePad::onRandomize ()
+void SimplePad::onRandomize()
 {
     float posX;
     float posY;
@@ -387,7 +394,7 @@ void SimplePad::onRandomize ()
 
 //-----------------------------------------------------------------------------
 // recording 
-void SimplePad::onSetRecordedValue (TPrecision X, TPrecision Y, TPrecision Z)
+void SimplePad::onSetRecordedValue(TPrecision X, TPrecision Y, TPrecision Z)
 {
     updatePad((int)X, Y, Z);
 }
@@ -396,7 +403,7 @@ void SimplePad::onSetRecordedValue (TPrecision X, TPrecision Y, TPrecision Z)
 // recording 
 void SimplePad::onSetQuickColor(TUsineColor color)
 {
- colorPad = color;
+     colorPad = color;
 }
 
 
@@ -429,10 +436,9 @@ void SimplePad::updatePad(int padIndex, float x, float y)
 
     // Ask to repaint the module
     sdkRepaintPanel();
-
 }
 
-int SimplePad::padHitTest (float x, float y)
+int SimplePad::padHitTest(float x, float y)
 {
     int result = -1;
      
@@ -457,6 +463,5 @@ int SimplePad::padHitTest (float x, float y)
             return result;
         }
     }
-
     return result;
 }

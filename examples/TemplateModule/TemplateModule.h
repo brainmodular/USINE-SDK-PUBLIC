@@ -53,9 +53,6 @@
 // includes
 //-----------------------------------------------------------------------------
 #include "../../sdk/UserDefinitions.h"  
-#include <iostream>
-#include <cmath>
-#include <limits>
 
 //-----------------------------------------------------------------------------
 // defines and constantes
@@ -90,57 +87,57 @@ public:
 public:
 	//-----------------------------------------------------------------------------
 	// module info
-	void onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
 	// query system and init
-	int  onGetNumberOfParams( int QIdx);
-	void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int QIdx);
-	void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+	int  onGetNumberOfParams(int QIdx);
+	void onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int QIdx);
+	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 
 	//-----------------------------------------------------------------------------
 	// parameters and process
-	void onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo);
-	void onCallBack (TUsineMessage *Message);
-	void onProcess ();
+	void onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo);
+	void onCallBack(TUsineMessage *Message);
+	void onProcess();
 
 	//-----------------------------------------------------------------------------
 	// midi out callbacks
-	void onMidiSendOut (int DeviceID, TUsineMidiCode Code);
-	void onMidiSysexSendOut (int DeviceID, char* Sysex);
+	void onMidiSendOut(int DeviceID, TUsineMidiCode Code);
+	void onMidiSysexSendOut(int DeviceID, char* Sysex);
 
 	//-----------------------------------------------------------------------------
 	// chunk system
-	int  onGetChunkLen (LongBool Preset);
-	void onGetChunk (void* chunk, LongBool Preset);
-	void onSetChunk (const void* chunk, int sizeInBytes, LongBool Preset);
+	int  onGetStateChunkLen(LongBool Preset);
+	void onGetStateChunk(void* chunk, LongBool Preset);
+	void onSetStateChunk(const void* chunk, int sizeInBytes, LongBool Preset);
 
 	//-----------------------------------------------------------------------------
 	// layout
 	void onCreateSettings();
 	void onSettingsHasChanged();
     //void onCreateCommands();
-	void onPaint ();
+	void onPaint();
 
 	//-----------------------------------------------------------------------------
 	// mouse and multi touch interaction
 	void onMouseMove(TShiftState Shift, float X, float Y);
 	void onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X,float Y);
-	void onMouseUp (TMouseButton MouseButton, TShiftState Shift, float X,float Y);
+	void onMouseUp(TMouseButton MouseButton, TShiftState Shift, float X,float Y);
 	void onMouseMoveMulti(TShiftState Shift, UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed);
 	void onMouseDownMulti(TMouseButton MouseButton, TShiftState Shift, UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed);
-	void onMouseUpMulti (TMouseButton MouseButton, TShiftState Shift,UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed);
+	void onMouseUpMulti(TMouseButton MouseButton, TShiftState Shift,UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed);
 	void onOpenEditor();
 	void onBringToFront();
 
 	//-----------------------------------------------------------------------------
 	// audio setup update
-	void onBlocSizeChange (int BlocSize);
-	void onSampleRateChange (double SampleRate);
+	void onBlocSizeChange(int BlocSize);
+	void onSampleRateChange(double SampleRate);
 	
 	//-----------------------------------------------------------------------------
 	// recording 
-	void onSetRecordedValue (TPrecision X, TPrecision Y, TPrecision Z);
+	void onSetRecordedValue(TPrecision X, TPrecision Y, TPrecision Z);
 
 	//-------------------------------------------------------------------------
 	// public methods

@@ -1,0 +1,100 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\modules\\ArrayDistance\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{04FE2E44-F512-407E-A320-19B7A2263646}|ArrayDistance.vcxproj|C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\sdk\\UserModule.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04FE2E44-F512-407E-A320-19B7A2263646}|ArrayDistance.vcxproj|C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\sdk\\UsineDefinitions.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04FE2E44-F512-407E-A320-19B7A2263646}|ArrayDistance.vcxproj|C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\sdk\\UserUtils.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04FE2E44-F512-407E-A320-19B7A2263646}|ArrayDistance.vcxproj|C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\sdk\\UsineEventClass.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04FE2E44-F512-407E-A320-19B7A2263646}|ArrayDistance.vcxproj|C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\sdk\\UsineFunctions.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UsineEventClass.h",
+              "DocumentMoniker": "C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\sdk\\UsineEventClass.h",
+              "RelativeDocumentMoniker": "..\\..\\sdk\\UsineEventClass.h",
+              "ToolTip": "C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\sdk\\UsineEventClass.h",
+              "RelativeToolTip": "..\\..\\sdk\\UsineEventClass.h",
+              "ViewState": "AgIAAK4AAAAAAAAAAAAAAMcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-15T16:26:07.13Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UsineDefinitions.h",
+              "DocumentMoniker": "C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\sdk\\UsineDefinitions.h",
+              "RelativeDocumentMoniker": "..\\..\\sdk\\UsineDefinitions.h",
+              "ToolTip": "C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\sdk\\UsineDefinitions.h",
+              "RelativeToolTip": "..\\..\\sdk\\UsineDefinitions.h",
+              "ViewState": "AgIAAJUEAAAAAAAAAAAlwLEEAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-15T16:26:30.954Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserUtils.h",
+              "DocumentMoniker": "C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\sdk\\UserUtils.h",
+              "RelativeDocumentMoniker": "..\\..\\sdk\\UserUtils.h",
+              "ToolTip": "C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\sdk\\UserUtils.h",
+              "RelativeToolTip": "..\\..\\sdk\\UserUtils.h",
+              "ViewState": "AgIAAKYAAAAAAAAAAAAQwLMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-15T16:23:54.779Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserModule.h",
+              "DocumentMoniker": "C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\sdk\\UserModule.h",
+              "RelativeDocumentMoniker": "..\\..\\sdk\\UserModule.h",
+              "ToolTip": "C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\sdk\\UserModule.h",
+              "RelativeToolTip": "..\\..\\sdk\\UserModule.h",
+              "ViewState": "AgIAAMwEAAAAAAAAAAAlwEAFAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-15T16:20:40.083Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UsineFunctions.h",
+              "DocumentMoniker": "C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\sdk\\UsineFunctions.h",
+              "RelativeDocumentMoniker": "..\\..\\sdk\\UsineFunctions.h",
+              "ToolTip": "C:\\Users\\senso\\Adamson\\BrainModular\\Usine\\USINE-SDK-PRIVATE\\sdk\\UsineFunctions.h",
+              "RelativeToolTip": "..\\..\\sdk\\UsineFunctions.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-15T16:18:53.555Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

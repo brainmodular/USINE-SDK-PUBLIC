@@ -12,9 +12,7 @@
     <ClCompile Include="..\..\sdk\UserModule.cpp">
       <Filter>sdk</Filter>
     </ClCompile>
-    <ClCompile Include="VideoDimmer.cpp">
-      <Filter>sdk</Filter>
-    </ClCompile>
+    <ClCompile Include="VideoDimmer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sdk\UserDefinitions.h">
@@ -31,6 +29,9 @@
     </ClInclude>
     <ClInclude Include="VideoDimmer.h" />
     <ClInclude Include="..\..\sdk\UsineEventClass.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdk\UsineFunctions.h">
       <Filter>sdk</Filter>
     </ClInclude>
   </ItemGroup>
