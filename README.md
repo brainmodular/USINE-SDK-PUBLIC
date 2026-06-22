@@ -21,6 +21,8 @@ like Matrix and devices. Sources are provided and are good
 examples of the integration.
 
 #### resources
-  * Read the Online SDK API references [documentation](http://www.brainmodular.com/sdkdoc/)
-  * Check sources files on [github](https://github.com/brainmodular/USINE-SDK-PUBLIC)
-  * Thanks to the user imodularsynth, for his step by step guide
+  * sources files on [sources](https://github.com/brainmodular/USINE-SDK-PUBLIC)
+  * wiki and manuals on [wiki](https://github.com/brainmodular/USINE-SDK-PUBLIC/wiki)
+  * forum on [forum](https://forum.brainmodular.com/)
+  * YouTube channel on [youtube](https://www.youtube.com/channel/UC1g0k3J6x5Z8z5F7G9Q9V1A)
+  * download Usine on [usine](https://www.brainmodular.com/usine.php)
