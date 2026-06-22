@@ -92,8 +92,11 @@ void UserModuleBase::CallBack(TUsineMessage* Message)
     {
         // sanity check
         if (Message->wParam < CALLBACK_WPARAM_LIMIT) {
-            // if wParam is set to CALLBACK_JOB_END bypass normal user callback to run task on non priority thread
-            if (Message->wParam == CALLBACK_JOB_END) {
+            // if wParam is set to CALLBACK_JOB_{START || END} bypass normal user callback to run task on non priority thread
+            if (Message->wParam == CALLBACK_JOB_START) {
+                processStartJob();
+            }
+            else if (Message->wParam == CALLBACK_JOB_END) {
                 terminateJob();
             }
             else {
@@ -113,6 +116,13 @@ void UserModuleBase::CallBack(TUsineMessage* Message)
 
 void UserModuleBase::startJob()
 {
+    sdkNotifyUsine(NOTIFY_TARGET_USER_MODULE, NOTIFY_MSG_USINE_CALLBACK,
+        CALLBACK_JOB_START, MSG_CHANGE, TNotifyUsineMode::numRealTime, 25
+    );
+}
+
+void UserModuleBase::processStartJob()
+{
     if (!m_taskRunning) {
         m_taskRunning = true;
         try {
@@ -124,6 +134,9 @@ void UserModuleBase::startJob()
         catch (...) {
             m_taskRunning = false;
         }
+    }
+    else {
+        startJob();
     }
 }
 

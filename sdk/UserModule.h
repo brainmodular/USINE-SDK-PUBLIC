@@ -1759,6 +1759,7 @@ private:
     bool m_taskStarted = false;
 
     static void processThreadJob(void* pModule, TThreadPtr pThread);
+    void processStartJob();
     void notifyUsineOnJobEnd() const;
     void terminateJob();
 

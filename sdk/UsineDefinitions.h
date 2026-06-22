@@ -243,7 +243,8 @@ static constexpr NativeInt NOTIFY_MSG_ON_TOP                = 0xFAB67A;  ///< ne
 static constexpr NativeInt NOTIFY_MSG_TO_BACK               = 0xFAB67B;  ///< need all windows to back
 static constexpr NativeInt NOTIFY_MSG_RESCAN_MIDI_DEVICES   = 0xFAB67D;  ///< tell Usine that Midi devices have been rescanned
 static constexpr NativeInt NOTIFY_MSG_RESET_MIDI_DEVICES    = 0xFAB67E;  ///< tell Usine that Midi devices have been reset
-static constexpr NativeInt CALLBACK_JOB_END                 = 0xFABA00;  ///< tell Usine to run user defined post task process
+static constexpr NativeInt CALLBACK_JOB_START               = 0xFABA00;  ///< tell Usine to run user defined task process
+static constexpr NativeInt CALLBACK_JOB_END                 = 0xFABA01;  ///< tell Usine to run user defined post task process
 static constexpr NativeInt CALLBACK_WPARAM_LIMIT            = 0xF000000;
 
 
