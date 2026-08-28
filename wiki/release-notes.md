@@ -8,6 +8,7 @@ SDK version history and changelog.
 ## SDK 702002 — Hollyhock 7 (Current)
 
 - Background job system ([[examples/background-job|BackgroundJob]]) with lifecycle hooks (`startJob()`, `onJobBegin`, `onJobProcess`, `onJobEnd`)
+- Added `sdkChunkExist` and `sdkChunkItemExist` — check whether a chunk or a chunk item exists without creating it (fields appended at the end of `TMasterInfo`, older modules stay ABI-compatible)
 - Updated examples with modern C++ practices
 - Job management handled by SDK for the user
 

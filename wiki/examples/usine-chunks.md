@@ -33,6 +33,10 @@ Demonstrates the Usine Chunks system for sharing named data between modules. Chu
 ## Chunk API Pattern
 
 ```cpp
+// Check existence without creating anything
+LongBool chunkFound = sdkChunkExist("mychunk");
+LongBool itemFound  = sdkChunkItemExist("mychunk", "item1");
+
 // Get or create a chunk
 TUsineChunkPtr chunk = sdkGetChunk("mychunk");
 
@@ -58,6 +62,7 @@ sdkChunkUnSubscribeAll();
 ## Key Concepts Demonstrated
 
 - **`sdkGetChunk`** — get or create a named chunk
+- **`sdkChunkExist` / `sdkChunkItemExist`** — check whether a chunk or a chunk item exists, without creating it
 - **`sdkChunkOperation`** — read/write chunk items with `coAddOrModifyItem` and `coGetItem`
 - **`sdkChunkSubscribe`** — receive notifications when chunk data changes
 - **Flow types**: `ftDataFloat` for float data, `ftTextGeneral` for text

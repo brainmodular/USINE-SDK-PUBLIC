@@ -740,6 +740,29 @@ static constexpr unsigned char MIDI_SYSTEMRESET     = 0xFF; ///< Midi msg
 
 
 //-----------------------------------------------------------------------------
+/// Bit values of the TVstTimeInfo::flags field, as defined by the Steinberg VST 2.4 SDK (VstTimeInfoFlags).
+/// The transport bits describe the transport state; the xxxValid bits indicate which
+/// fields of the structure are filled in (samplePos and sampleRate are always valid).
+/// @see TVstTimeInfo
+typedef enum TVstTimeInfoFlags : int32_t
+{
+    vtiTransportChanged     = 1 << 0,  ///< indicates that play, cycle or record state has changed
+    vtiTransportPlaying     = 1 << 1,  ///< set while the transport is running
+    vtiTransportCycleActive = 1 << 2,  ///< set while the cycle (loop) is active
+    vtiTransportRecording   = 1 << 3,  ///< set while recording
+    vtiAutomationWriting    = 1 << 6,  ///< set while automation write mode is active
+    vtiAutomationReading    = 1 << 7,  ///< set while automation read mode is active
+    vtiNanosValid           = 1 << 8,  ///< nanoSeconds is valid
+    vtiPpqPosValid          = 1 << 9,  ///< PpqPos and cyclePpqPos are valid
+    vtiTempoValid           = 1 << 10, ///< tempo is valid
+    vtiBarsValid            = 1 << 11, ///< barStartPos is valid
+    vtiCyclePosValid        = 1 << 12, ///< cycleStartPos and cycleEndPos are valid
+    vtiTimeSigValid         = 1 << 13, ///< timeSigNumerator and timeSigDenominator are valid
+    vtiSmpteValid           = 1 << 14, ///< smpteOffset and smpteFrameRate are valid
+    vtiClockValid           = 1 << 15  ///< samplesToNextClock is valid
+} TVstTimeInfoFlags;
+
+//-----------------------------------------------------------------------------
 /// VST Time info structure as defined by the Steinberg VST SDK.
 /// Used by Usine to deal with time at a musical point of view.
 /// @see TMasterInfo, sdkGetVstTimeInfo
@@ -755,13 +778,13 @@ typedef struct TVstTimeInfo
     double barStartPos;         ///< last bar start, in 1 ppq
     double cycleStartPos;       ///< 1 ppq
     double cycleEndPos;         ///< 1 ppq
-    long   timeSigNumerator;    ///< time signature
-    long   timeSigDenominator;  ///<
-    long   smpteOffset;         ///<
-    long   smpteFrameRate;      ///< 0:24, 1:25, 2:29.97, 3:30, 4:29.97 df, 5:30 df
-    long   samplesToNextClock;  ///< midi clock resolution (24 ppq), can be negative
-    long   flags;               ///<
-    double cyclePpqPos;         ///< usine cycle ppq
+    int32_t timeSigNumerator;   ///< time signature
+    int32_t timeSigDenominator; ///<
+    int32_t smpteOffset;        ///<
+    int32_t smpteFrameRate;     ///< 0:24, 1:25, 2:29.97, 3:30, 4:29.97 df, 5:30 df
+    int32_t samplesToNextClock; ///< midi clock resolution (24 ppq), can be negative
+    int32_t flags;              ///< @see TVstTimeInfoFlags, VstInt32 in the VST 2.4 spec (long was 8 bytes on 64-bit macOS/Linux and broke the layout)
+    double cyclePpqPos;         ///< usine only cycle ppq, not in the VST specifications
 } TVstTimeInfo;
 
 
@@ -1335,6 +1358,8 @@ typedef LongBool (*FuncChunkOperation)(TModuleInfo* pModuleInfo, TUsineChunkPtr 
 typedef void (*FuncChunkSubscribe)(TModuleInfo* pModuleInfo, TUsineChunkPtr chunk, AnsiCharPtr itemName, NativeInt callbackID, LongBool immediate);
 typedef void (*FuncChunkUnSubscribe)(TModuleInfo* pModuleInfo, TUsineChunkPtr chunk, AnsiCharPtr itemName);
 typedef void (*FuncChunkUnSubscribeAll)(TModuleInfo* pModuleInfo);
+typedef LongBool (*FuncChunkExist)(TModuleInfo* pModuleInfo, AnsiCharPtr chunkName);
+typedef LongBool (*FuncChunkItemExist)(TModuleInfo* pModuleInfo, AnsiCharPtr chunkName, AnsiCharPtr itemName);
 
 //-----------------------------------------------------------------------------
 /// Contains globals infos provided by Usine and all functions handle of the module wrapper.
@@ -1674,6 +1699,10 @@ struct TMasterInfo
 
 	FuncLocateFile          LocateFile;
     FuncNotifyUsine         NotifyUsine;
+
+	// appended at the end to preserve the ABI of modules built against older headers
+	FuncChunkExist          ChunkExist;
+	FuncChunkItemExist      ChunkItemExist;
 };
 /// for backward compatibility
 typedef TMasterInfo MasterInfo;

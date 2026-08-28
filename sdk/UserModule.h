@@ -1630,6 +1630,23 @@ public:
         m_masterInfo->ChunkUnSubscribeAll(m_moduleInfo);
 	}
 
+	/// Check if a chunk exists. Unlike @ref sdkGetChunk, this function never creates the chunk.
+	/// @param chunkname The name of the chunk to look for.
+	/// @return TRUE if the chunk exists.
+    [[maybe_unused]] inline LongBool sdkChunkExist(AnsiCharPtr chunkname) const
+    {
+        return m_masterInfo->ChunkExist(m_moduleInfo, chunkname);
+    }
+
+	/// Check if an item exists within a chunk, without creating anything.
+	/// @param chunkname The name of the chunk to look for.
+	/// @param itemName The name of the item within the chunk.
+	/// @return TRUE if both the chunk and the item exist. FALSE when the chunk itself does not exist.
+    [[maybe_unused]] inline LongBool sdkChunkItemExist(AnsiCharPtr chunkname, AnsiCharPtr itemName) const
+    {
+        return m_masterInfo->ChunkItemExist(m_moduleInfo, chunkname, itemName);
+    }
+
     /// @}
 
 

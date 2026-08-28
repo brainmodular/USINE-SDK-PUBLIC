@@ -301,5 +301,5 @@ void DataSampler::aggBuffersB()
 
 void DataSampler::triggerBufferCallback() const
 {
-    sdkNotifyUsine(NOTIFY_TARGET_USER_MODULE, NOTIFY_MSG_USINE_CALLBACK, AGG_BUFFER_CONTENT_CBID, MSG_CHANGE);
+    sdkNotifyUsine(NOTIFY_TARGET_USER_MODULE, NOTIFY_MSG_USINE_CALLBACK, AGG_BUFFER_CONTENT_CBID, MSG_CHANGE, TNotifyUsineMode::numRealTime, 0);
 }

@@ -1,5 +1,5 @@
 # SDK Functions Reference
-#sdk #reference #functions #audio #threading #files #fft #trace #dialog #math
+#sdk #reference #functions #audio #threading #files #fft #trace #dialog #math #chunks
 
 Global utility functions available to all modules. These are inline wrappers around `TMasterInfo` function pointers.
 
@@ -75,6 +75,41 @@ float val = sdkGlobalArrayGetValueFloat(hash, 0);  // 42.0
 ```
 
 > **Example:** See [[examples/global-array|GlobalArray]] for global array usage.
+
+---
+
+## Chunks
+
+Named key-value stores shared between modules, with change notifications. See [[examples/usine-chunks|UsineChunks]].
+
+| Function | Returns | Description |
+|----------|---------|-------------|
+| `sdkGetChunk(AnsiCharPtr chunkName)` | `TUsineChunkPtr` | Get a chunk by name. Creates it if it doesn't exist |
+| `sdkChunkExist(AnsiCharPtr chunkName)` | `LongBool` | Check if a chunk exists. Never creates it |
+| `sdkChunkItemExist(AnsiCharPtr chunkName, AnsiCharPtr itemName)` | `LongBool` | Check if an item exists within a chunk. Never creates anything |
+| `sdkGetChunkItemCount(TUsineChunkPtr chunk)` | `int` | Number of items in the chunk |
+| `sdkChunkOperation(chunk, itemName, flowType, payload, operation, index = -1)` | `void` | Read/write/clear/delete chunk items. See `TChunkOperation` in [[sdk/data-types|Data Types]] |
+| `sdkChunkSubscribe(chunk, itemName, callbackID, immediate)` | `void` | Receive notifications in `onCallBack` when the chunk or item changes |
+| `sdkChunkUnSubscribe(chunk, itemName)` | `void` | Stop notifications for a chunk or item |
+| `sdkChunkUnSubscribeAll()` | `void` | Cancel every chunk subscription of the module |
+
+### Usage
+```cpp
+// check existence without creating anything
+if (sdkChunkItemExist("mychunk", "item1"))
+{
+    TUsineChunkPtr chunk = sdkGetChunk("mychunk");
+    sdkChunkOperation(chunk, "item1", ftDataFloat, outputEvent, coGetItem, -1);
+}
+
+// subscribe to changes (fires callbackID in onCallBack)
+sdkChunkSubscribe(sdkGetChunk("mychunk"), "item1", MY_CALLBACK_ID, TRUE);
+
+// cleanup in the destructor
+sdkChunkUnSubscribeAll();
+```
+
+> **Example:** See [[examples/usine-chunks|UsineChunks]] for chunk system usage.
 
 ---
 
