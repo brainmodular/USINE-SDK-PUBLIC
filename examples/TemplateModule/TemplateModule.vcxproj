@@ -27,10 +27,12 @@
     <ClInclude Include="..\..\sdk\UserDefinitions.h" />
     <ClInclude Include="..\..\sdk\UserModule.h" />
     <ClInclude Include="..\..\sdk\UserUtils.h" />
+    <ClInclude Include="..\..\sdk\UserError.h" />
     <ClInclude Include="..\..\sdk\UsineDefinitions.h" />
     <ClInclude Include="..\..\sdk\UsineEventClass.h" />
     <ClInclude Include="..\..\sdk\UsineFunctions.h" />
     <ClInclude Include="TemplateModule.h" />
+    <ClInclude Include="ModuleDefinition.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0D75B3F7-C531-4C56-9A28-EED6C299779E}</ProjectGuid>

@@ -1,823 +1,378 @@
 //-----------------------------------------------------------------------------
-//@file  
-//	DrawTrajectoryBox.cpp
+// @file    DrawTrajectoryBox.cpp
+// @author  BrainModular team
+// @brief   Draws a trajectory with the mouse, shows painting, settings, commands and chunks.
 //
-//@author
-//	BrainModular team
-//
-//@brief 
-//	Implementation of the TDrawTrajectoryBoxModule class
-//
-//HISTORIC 
-//	2013/05/15
-//    first release for Hollyhock CPP SDK 6.00.226 
-//
-//IMPORTANT
-//	This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs and patch to Usine forum :
-//  support@brainmodular.com 
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE.
-//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// includes
-//-----------------------------------------------------------------------------
+#include <cmath>
+#include <numbers>
 #include "DrawTrajectoryBox.h"
-#include "float.h"
+#include "ModuleDefinition.h"
 
-//----------------------------------------------------------------------------
-// setup a callback_id constant for all params that specify a callback type
-//----------------------------------------------------------------------------
-constexpr NativeInt POINT_INDEX_CBID		= 0x001600F0;
-constexpr NativeInt ERASE_CBID				= 0x001600F1;
-constexpr NativeInt RANDOMIZE_CBID			= 0x001600F2;
-constexpr NativeInt POINTS_COORDS_IN_CBID	= 0x001600F3;
-constexpr NativeInt POINTS_COORDS_OUT_CBID	= 0x001600F4;
+namespace
+{
+	float clamp01(float value)
+	{
+		return std::clamp(value, 0.0f, 1.0f);
+	}
 
-// pParamInfo->CallBackId
+	float randomUnit()
+	{
+		return static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
+	}
+}
 
-//----------------------------------------------------------------------------
-// create, general info and destroy methods
-//----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// Create
 void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
-	pModule = new TDrawTrajectoryBoxModule ();
+	pModule = new DrawTrajectoryBox();
 }
 
-//-----------------------------------------------------------------------------
-// destroy
 void DestroyModule(void* pModule)
 {
-    // cast is important to call the good destructor
-	delete ((TDrawTrajectoryBoxModule*)pModule);
+	// cast is important to call the good destructor
+	delete static_cast<DrawTrajectoryBox*>(pModule);
 }
 
-// module constants for browser info and module info
-constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "draw trajectory";
-constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "Draw Trajectory Example";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "2.21";
-
-// browser info
-void GetBrowserInfo(TModuleInfo* pModuleInfo) 
+void DrawTrajectoryBox::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	pModuleInfo->Name				= UserModuleBase::MODULE_NAME;
-	pModuleInfo->Description		= UserModuleBase::MODULE_DESC;
-	pModuleInfo->Version			= UserModuleBase::MODULE_VERSION;
-}
-
-//-----------------------------------------------------------------------------
-// module description
-void TDrawTrajectoryBoxModule::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
-{
-	pModuleInfo->Name				= MODULE_NAME;
-	pModuleInfo->Description		= MODULE_DESC;
 	pModuleInfo->ModuleType         = mtControl;
 	pModuleInfo->BackColor          = sdkGetUsineColor(clInterfaceDesignModuleColor);
-	pModuleInfo->NumberOfParams     = 8;
-	pModuleInfo->DefaultWidth		= DEFAULT_MODULEHEIGHT;
-	pModuleInfo->DefaultHeight		= DEFAULT_MODULEHEIGHT;
-	pModuleInfo->DontProcess		= FALSE;
-    pModuleInfo->CanBeRandomized    = TRUE;
-	pModuleInfo->Version			= MODULE_VERSION;
+	pModuleInfo->DefaultWidth       = DEFAULT_MODULE_SIZE;
+	pModuleInfo->DefaultHeight      = DEFAULT_MODULE_SIZE;
+	pModuleInfo->DontProcess        = FALSE;
+	pModuleInfo->CanBeRandomized    = TRUE;
 	pModuleInfo->CanBeSavedInPreset = TRUE;
 }
 
-//-----------------------------------------------------------------------------
-// query system and init methods
-//-----------------------------------------------------------------------------
-// query system not used
-
-//-----------------------------------------------------------------------------
-// initialisation
-void TDrawTrajectoryBoxModule::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
+void DrawTrajectoryBox::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	colorTrajectory		= sdkGetUsineColor(clDataFlow);
-	colorCurrentPoint	= sdkGetUsineColor(clCursor);
-	
-	thicknessTrajectory = 2;
-
-	m_mouseLeftButtonDown       = FALSE;
-	m_tabTrajectoryCoords.num	= 0;
-	m_selPointIndexValue		= -1;
-
-	// edit layout params
-	m_boolInverseYAxis          = FALSE;
-    m_boolIsYAxisInversed       = FALSE;
-	m_indexDiameter		        = 4;
-
-    m_boolClosedLine            = FALSE;
-    m_boolSmoothLine            = FALSE;
-
+	colorTrajectory = sdkGetUsineColor(clDataFlow);
+	colorCursor     = sdkGetUsineColor(clCursor);
 }
 
-//-----------------------------------------------------------------------------
-// Parameters description
-void TDrawTrajectoryBoxModule::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo) 
-{	
-	switch (ParamIndex) 
-	{
-	// PointsCount data field output
-	case 0: 
-		pParamInfo->ParamType			= ptDataField;
-		pParamInfo->Caption				= "nbpoints";
-		pParamInfo->IsInput				= FALSE;
-		pParamInfo->IsOutput			= TRUE;
-		pParamInfo->MinValue			= 0;
-		pParamInfo->MaxValue			= MAXPOINTS;
-		pParamInfo->DefaultValue		= 0;
-		pParamInfo->Symbol				= " pt";
-		pParamInfo->Format				= "%.0f";
-		pParamInfo->ReadOnly			= TRUE;
-		pParamInfo->CallBackType        = ctNone;
-		pParamInfo->setEventClass		(m_dtfPointsCount);
-		break;
-
-     // Selected point index data field input/output
-     case 1:
-		pParamInfo->ParamType			= ptDataField;
-		pParamInfo->Caption				= "cursor pos";
-		pParamInfo->IsInput				= TRUE;
-		pParamInfo->IsOutput			= FALSE;
-		pParamInfo->DefaultValue		= -1;
-		pParamInfo->Symbol				= "";
-		pParamInfo->Format				= "%.0f";
-		pParamInfo->ReadOnly			= FALSE;
-		pParamInfo->CallBackType		= ctImmediate; 
-		pParamInfo->CallBackId			= POINT_INDEX_CBID;
-		pParamInfo->IsStoredInPreset	= TRUE;
-		pParamInfo->setEventClass		(m_dtfSelPointIndex);
-		break;
-
-     // Selected point X coord fader output
-     case 2:
-		pParamInfo->ParamType       = ptDataFader;
-		pParamInfo->Caption         = "pos X";
-		pParamInfo->IsInput         = FALSE;
-		pParamInfo->IsOutput        = TRUE;
-		pParamInfo->MinValue        = 0;
-		pParamInfo->MaxValue        = 1;
-		pParamInfo->DefaultValue    = 0;
-		pParamInfo->Symbol          = "";
-		pParamInfo->Format          = "%.3f";
-		pParamInfo->ReadOnly		= TRUE;
-		pParamInfo->IsSeparator		= TRUE;
-		pParamInfo->CallBackType	= ctNone;
-		pParamInfo->setEventClass	(m_fdrSelPointX);
-		break;
-
-     // Selected point Y coord fader output
-      case 3:
-		pParamInfo->ParamType       = ptDataFader;
-		pParamInfo->Caption         = "pos Y";
-		pParamInfo->IsInput         = FALSE;
-		pParamInfo->IsOutput        = TRUE;
-		pParamInfo->MinValue        = 0;
-		pParamInfo->MaxValue        = 1;
-		pParamInfo->DefaultValue    = 0;
-		pParamInfo->Symbol          = "";
-		pParamInfo->Format          = "%.3f";
-		pParamInfo->ReadOnly		= TRUE;
-		pParamInfo->CallBackType	= ctNone;
-		pParamInfo->setEventClass	(m_fdrSelPointY);
-		break;
-
-	// Erase trajectory button input
-	case 4:
-		pParamInfo->ParamType		= ptButton;
-		pParamInfo->Caption			= "reset";
-		pParamInfo->IsInput			= TRUE;
-		pParamInfo->IsOutput		= FALSE;
-		pParamInfo->ReadOnly		= FALSE;
-		pParamInfo->CallBackType    = ctImmediate;
-		pParamInfo->CallBackId		= ERASE_CBID;
-		pParamInfo->IsSeparator		= TRUE;
-		pParamInfo->setEventClass	(m_btnErase);
-		break;
-
-	// m_btnRandomize
-	case 5:
-		pParamInfo->ParamType		= ptButton;
-		pParamInfo->Caption			= "randomize";
-		pParamInfo->IsInput			= TRUE;
-		pParamInfo->IsOutput		= FALSE;
-		pParamInfo->ReadOnly		= FALSE;
-		pParamInfo->CallBackType	= ctImmediate;
-		pParamInfo->CallBackId		= RANDOMIZE_CBID;
-		pParamInfo->setEventClass	(m_btnRandomize);
-		break;
-
-    // arrPointsCoordsIn
-    case 6:
-        pParamInfo->ParamType		= ptArray;
-		pParamInfo->Caption			= "coords in";
-		pParamInfo->IsInput			= TRUE;
-		pParamInfo->IsOutput		= FALSE;
-		pParamInfo->MinValue		= - FLT_MAX;
-		pParamInfo->MaxValue		= FLT_MAX;
-		pParamInfo->ReadOnly		= FALSE;
-		pParamInfo->CallBackType    = ctImmediate;
-		pParamInfo->CallBackId		= POINTS_COORDS_IN_CBID;
-        pParamInfo->IsSeparator     = TRUE;
-		pParamInfo->DontSave		= TRUE;
-		pParamInfo->setEventClass	(arrPointsCoordsIn);
-        break;
-
-    // arrPointsCoordsOut
-    case 7:
-        pParamInfo->ParamType		= ptArray;
-		pParamInfo->Caption			= "coords out";
-		pParamInfo->IsInput			= FALSE;
-		pParamInfo->IsOutput		= TRUE;
-		pParamInfo->MinValue		= - FLT_MAX;
-		pParamInfo->MaxValue		= FLT_MAX;
-		pParamInfo->CallBackType    = ctImmediate;
-		pParamInfo->CallBackId		= POINTS_COORDS_OUT_CBID;
-		pParamInfo->DontSave		= TRUE;
-		pParamInfo->setEventClass	(arrPointsCoordsOut);
-		break;
-	default:
-		// do nothing
-		break;
-	}
+void DrawTrajectoryBox::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+{
+	sdkCreateParam(nbPointsFdrOutParamInfo, nbPointsFdrOut);
+	sdkCreateParam(selPointIndexFdrInParamInfo, selPointIndexFdrIn);
+	sdkCreateParam(selPointXFdrOutParamInfo, selPointXFdrOut);
+	sdkCreateParam(selPointYFdrOutParamInfo, selPointYFdrOut);
+	sdkCreateParam(resetBtnInParamInfo, resetBtnIn);
+	sdkCreateParam(randomizeBtnInParamInfo, randomizeBtnIn);
+	sdkCreateParam(coordsArrInParamInfo, coordsArrIn);
+	sdkCreateParam(coordsArrOutParamInfo, coordsArrOut);
 }
 
-	
-
-//-----------------------------------------------------------------------------
-// Parameters callback
-void TDrawTrajectoryBoxModule::onCallBack(TUsineMessage* Message)
+void DrawTrajectoryBox::onCallBack(TUsineMessage* Message)
 {
 	if ((Message->message != NOTIFY_MSG_USINE_CALLBACK) || (Message->lParam != MSG_CHANGE))
 		return;
-	// WParam contains the Param Number
+
 	switch (Message->wParam)
 	{
-	// Selected point index data field input/output
-	case POINT_INDEX_CBID:
-	{
-		int tmp = (int)m_dtfSelPointIndex.getData();
-		if (m_selPointIndexValue != tmp)
+		case SEL_POINT_INDEX_FDR_CBID:
 		{
-			m_selPointIndexValue = tmp;
-			m_trajectoryThickness = m_dtfSelPointIndex.getData() - m_selPointIndexValue;
-
-			// Ask to repaint the module
+			const TPrecision cursorPos = selPointIndexFdrIn.getData();
+			const int        index     = static_cast<int>(cursorPos);
+			selPointFraction = cursorPos - index;
+			if (index != selPointIndex)
+			{
+				selPointIndex = index;
+				sdkRepaintPanel();
+			}
+			break;
+		}
+		case RESET_BTN_CBID:
+			clearTrajectory();
 			sdkRepaintPanel();
-		}
-		break;
-	}
-	// Erase trajectory button input
-	case ERASE_CBID:
-	{
-		m_tabTrajectoryCoords.num = 0;
-		m_selPointIndexValue = -1;
-		m_dtfPointsCount.setData(0.0f);
-		m_dtfSelPointIndex.setData(-1.0f);
-
-		// Ask to repaint the module
-		sdkRepaintPanel();
-		break;
-	}
-	// randomize button input
-	case RANDOMIZE_CBID:
-		onRandomize();
-		break;
-	// arrPointsCoordsIn
-	case POINTS_COORDS_IN_CBID:
-	{
-		int coordsInSize = arrPointsCoordsIn.getSize();
-		int arrayDim = 3;
-
-		int totalInPoints = std::min((UINT32)coordsInSize / arrayDim, MAXPOINTS);
-		TPointF newCoord;
-
-		for (int i = 0; i < totalInPoints; i++)
+			break;
+		case RANDOMIZE_BTN_CBID:
+			onRandomize();
+			break;
+		case COORDS_ARR_IN_CBID:
 		{
-			// extract arrai in point
-			newCoord.x = arrPointsCoordsIn.getArrayData(i * arrayDim);
-			newCoord.y = arrPointsCoordsIn.getArrayData((i * arrayDim) + 1);
+			const int inPoints = coordsArrIn.getSize() / LINES_PER_POINT;
+			if (inPoints > MAXPOINTS)
+				sdkRaiseError(WARNING_MAX_POINTS);
+			const int total = std::min(inPoints, MAXPOINTS);
 
-			// apply inverse option if necessary
-			if (m_boolIsYAxisInversed != FALSE)
-				newCoord.y = 1.0f - newCoord.y;
+			coordsArrOut.setSize(total * LINES_PER_POINT);
+			for (int i = 0; i < total; i++)
+			{
+				TPointF point { .x = coordsArrIn.getArrayData(i * LINES_PER_POINT), .y = coordsArrIn.getArrayData(i * LINES_PER_POINT + 1) };
+				if (isYAxisInversed != FALSE)
+					point.y = 1.0f - point.y;
+				trajectory.points[i] = point;
 
-			// populate points tab
-			m_tabTrajectoryCoords.Tab[i].x = newCoord.x;
-			m_tabTrajectoryCoords.Tab[i].y = newCoord.y;
-
-			// populate output array
-			arrPointsCoordsOut.setArrayData(i * arrayDim, m_tabTrajectoryCoords.Tab[i].x);
-			arrPointsCoordsOut.setArrayData((i * arrayDim) + 1, m_tabTrajectoryCoords.Tab[i].y);
-
-			// always 3 lines for the array out
-			if (arrayDim >= 3)
-				arrPointsCoordsOut.setArrayData((i * arrayDim) + 2, arrPointsCoordsIn.getArrayData(i * arrayDim) + 2);
-			else
-				arrPointsCoordsOut.setArrayData((i * arrayDim) + 2, 0.5f);
+				coordsArrOut.setArrayData(i * LINES_PER_POINT, point.x);
+				coordsArrOut.setArrayData(i * LINES_PER_POINT + 1, point.y);
+				coordsArrOut.setArrayData(i * LINES_PER_POINT + 2, coordsArrIn.getArrayData(i * LINES_PER_POINT + 2));
+			}
+			trajectory.num = total;
+			nbPointsFdrOut.setData(static_cast<float>(total));
+			computeAllControlPoints();
+			sdkRepaintPanel();
+			break;
 		}
-		m_tabTrajectoryCoords.num = totalInPoints;
-		// update points counter
-		m_dtfPointsCount.setData((float)m_tabTrajectoryCoords.num);
-
-		arrPointsCoordsOut.setSize(totalInPoints * ARRAY_OUT_LINES);
-
-		computeAllControlPoints();
-
-		// Ask to repaint the module
-		sdkRepaintPanel();
-		break;
-	}
-	// arrPointsCoordsOut
-	case POINTS_COORDS_OUT_CBID:
-	{
-		int totalInPoints = std::min(arrPointsCoordsOut.getSize() / ARRAY_OUT_LINES, MAXPOINTS);
-
-		for (int i = 0; i < totalInPoints; i++)
+		case COORDS_ARR_OUT_CBID:
 		{
-			// populate points tab
-			m_tabTrajectoryCoords.Tab[i].x = arrPointsCoordsOut.getArrayData(i * ARRAY_OUT_LINES);
-			m_tabTrajectoryCoords.Tab[i].y = arrPointsCoordsOut.getArrayData((i * ARRAY_OUT_LINES) + 1);
+			const int total = std::min(coordsArrOut.getSize() / LINES_PER_POINT, MAXPOINTS);
+			for (int i = 0; i < total; i++)
+				trajectory.points[i] = { .x = coordsArrOut.getArrayData(i * LINES_PER_POINT), .y = coordsArrOut.getArrayData(i * LINES_PER_POINT + 1) };
+			trajectory.num = total;
+			nbPointsFdrOut.setData(static_cast<float>(total));
+			computeAllControlPoints();
+			sdkRepaintPanel();
+			break;
 		}
-		m_tabTrajectoryCoords.num = totalInPoints;
-		// update points counter
-		m_dtfPointsCount.setData((float)m_tabTrajectoryCoords.num);
-		// Ask to repaint the module
-		sdkRepaintPanel();
-		break;
-	}
-	// default case
-	default:
-		// do nothing
-		break;
+		default:
+			break;
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Main process
-void TDrawTrajectoryBoxModule::onProcess() 
+void DrawTrajectoryBox::onProcess()
 {
-	if (m_selPointIndexValue > -1 && m_selPointIndexValue < m_tabTrajectoryCoords.num)
+	if (selPointIndex < 0 || selPointIndex >= trajectory.num)
+		return;
+
+	TPointF point = trajectory.points[selPointIndex];
+	if (selPointIndex < trajectory.num - 1)
 	{
-		TPointF point = m_tabTrajectoryCoords.Tab[m_selPointIndexValue];
-        		
-        if (m_selPointIndexValue < m_tabTrajectoryCoords.num-1)
-		{
-			point.x = point.x + (m_tabTrajectoryCoords.Tab[m_selPointIndexValue+1].x - point.x ) * m_trajectoryThickness;
-			point.y = point.y + (m_tabTrajectoryCoords.Tab[m_selPointIndexValue+1].y - point.y ) * m_trajectoryThickness;
-		}
-
-		m_fdrSelPointX.setData(point.x);
-		m_fdrSelPointY.setData(point.y);
+		const TPointF& next = trajectory.points[selPointIndex + 1];
+		point.x += (next.x - point.x) * selPointFraction;
+		point.y += (next.y - point.y) * selPointFraction;
 	}
+
+	selPointXFdrOut.setData(point.x);
+	selPointYFdrOut.setData(point.y);
 }
 
-//----------------------------------------------------------------------------
-// chunk system
-//----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// compute the lentgh of the chunk string 
-int TDrawTrajectoryBoxModule::onGetStateChunkLen(LongBool Preset) 
+// same chunk for workspaces, patches and presets: the number of points, then the points
+int DrawTrajectoryBox::onGetStateChunkLen(LongBool Preset)
 {
-	// no differences between the chunk for wkp/pat and for presets
-
-	// compute the chunk string lentgh to save points coords array
-	int ChunkLen = sizeof(m_tabTrajectoryCoords.num) + (sizeof(TPointF) * m_tabTrajectoryCoords.num);
-	
-	return ChunkLen;
+	return static_cast<int>(sizeof(trajectory.num) + sizeof(TPointF) * trajectory.num);
 }
 
-//-----------------------------------------------------------------------------
-// store module datas in the chunk string
-void TDrawTrajectoryBoxModule::onGetStateChunk(void* chunk, LongBool Preset) 
+void DrawTrajectoryBox::onGetStateChunk(void* chunk, LongBool Preset)
 {
-	// no differences between the chunk for wkp/pat and for presets
-    
-	memcpy(chunk, &(m_tabTrajectoryCoords.num), sizeof(m_tabTrajectoryCoords.num));
-	// copy points coords array into the chunk
-	memcpy((void*)((char*)chunk + sizeof(m_tabTrajectoryCoords.num)), &(m_tabTrajectoryCoords.Tab), (sizeof(TPointF) * m_tabTrajectoryCoords.num));
-
+	auto* bytes = static_cast<std::byte*>(chunk);
+	std::memcpy(bytes, &trajectory.num, sizeof(trajectory.num));
+	std::memcpy(bytes + sizeof(trajectory.num), trajectory.points.data(), sizeof(TPointF) * trajectory.num);
 }
 
-//-----------------------------------------------------------------------------
-// restore module datas from the chunk string
-void TDrawTrajectoryBoxModule::onSetStateChunk(const void* chunk, int sizeInBytes, LongBool Preset) 
+void DrawTrajectoryBox::onSetStateChunk(const void* chunk, int sizeInBytes, LongBool Preset)
 {
-	// no differences between the chunk for wkp/pat and for presets
-    int tmp = sizeof(m_tabTrajectoryCoords.num);
+	if (chunk == nullptr || sizeInBytes <= 0)
+		return;
 
-	// copy points coords array from the chunk
-	memcpy(&(m_tabTrajectoryCoords.num), chunk, sizeof(m_tabTrajectoryCoords.num));
-	memcpy(&(m_tabTrajectoryCoords.Tab), (void*)((char*)chunk + tmp), sizeof(TPointF) * m_tabTrajectoryCoords.num);
+	// the chunk comes from a file: never trust its point count
+	const auto* bytes = static_cast<const std::byte*>(chunk);
+	int         num   = 0;
+	if (sizeInBytes >= static_cast<int>(sizeof(num)))
+		std::memcpy(&num, bytes, sizeof(num));
 
-    computeAllControlPoints();
-    
-    arrPointsCoordsOut.setSize(m_tabTrajectoryCoords.num * ARRAY_OUT_LINES);
-        
-    for (int i = 0; i < m_tabTrajectoryCoords.num; i++)
-    {
-        arrPointsCoordsOut.setArrayData(i * ARRAY_OUT_LINES, m_tabTrajectoryCoords.Tab[i].x);
-        arrPointsCoordsOut.setArrayData((i * ARRAY_OUT_LINES) + 1, m_tabTrajectoryCoords.Tab[i].y);
-        arrPointsCoordsOut.setArrayData((i * ARRAY_OUT_LINES) + 2, 0.5f);
-    }
+	const int expectedSize = static_cast<int>(sizeof(num) + sizeof(TPointF) * std::max(num, 0));
+	if (sizeInBytes < static_cast<int>(sizeof(num)) || num < 0 || num > MAXPOINTS || sizeInBytes < expectedSize)
+	{
+		sdkRaiseError(ERROR_INVALID_CHUNK);
+		return;
+	}
 
-	// update points counter
-	m_dtfPointsCount.setData((float)m_tabTrajectoryCoords.num);
+	trajectory.num = num;
+	std::memcpy(trajectory.points.data(), bytes + sizeof(num), sizeof(TPointF) * num);
+	computeAllControlPoints();
+
+	coordsArrOut.setSize(num * LINES_PER_POINT);
+	for (int i = 0; i < num; i++)
+		writePointOut(i);
+
+	nbPointsFdrOut.setData(static_cast<float>(num));
 }
 
-//-----------------------------------------------------------------------------
-// Global Randomize
-void TDrawTrajectoryBoxModule::onRandomize()
+void DrawTrajectoryBox::onRandomize()
 {
-	m_tabTrajectoryCoords.num = 0;
-	m_selPointIndexValue = -1;
-	m_dtfPointsCount.setData(0.0f);
-	m_dtfSelPointIndex.setData(-1.0f);
-
+	clearTrajectory();
 	computeLissajous();
-
-	// Ask to repaint the module
 	sdkRepaintPanel();
 }
 
-//----------------------------------------------------------------------------
-// layout
-//----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// create user defined layout options in the 'edit layout' panel
-void TDrawTrajectoryBoxModule::onCreateSettings()
+void DrawTrajectoryBox::onCreateSettings()
 {
-	// we had our user section in the edit layout panel
+	// adds our own section in the 'edit layout' panel
 	sdkAddSettingLineCaption(DESIGN_TAB_NAME, "trajectory");
-	sdkAddSettingLineBoolean( DESIGN_TAB_NAME, &m_boolInverseYAxis, "inverse Y axis");
-	//sdkAddSettingLineSeparator();
-	sdkAddSettingLineColor( DESIGN_TAB_NAME, &colorTrajectory, "line color" );
-	sdkAddSettingLineInteger( DESIGN_TAB_NAME, &thicknessTrajectory, "line width", 1, 100, scLog, "pix", 2 );
-	//sdkAddSettingLineSeparator();
-	sdkAddSettingLineColor( DESIGN_TAB_NAME, &colorCurrentPoint, "cursor color" );
-	sdkAddSettingLineInteger( DESIGN_TAB_NAME, &m_indexDiameter, "cursor width", 0, 100, scLog, "pix", 2 );
-	sdkAddSettingLineBoolean( DESIGN_TAB_NAME, &m_boolClosedLine, "closed line");
-	sdkAddSettingLineBoolean( DESIGN_TAB_NAME, &m_boolSmoothLine, "smooth line");
+	sdkAddSettingLineBoolean(DESIGN_TAB_NAME, &inverseYAxis, "inverse Y axis");
+	sdkAddSettingLineColor(DESIGN_TAB_NAME, &colorTrajectory, "line color");
+	sdkAddSettingLineInteger(DESIGN_TAB_NAME, &lineThickness, "line width", 1, 100, scLog, "pix", 2);
+	sdkAddSettingLineColor(DESIGN_TAB_NAME, &colorCursor, "cursor color");
+	sdkAddSettingLineInteger(DESIGN_TAB_NAME, &cursorDiameter, "cursor width", 0, 100, scLog, "pix", 2);
+	sdkAddSettingLineBoolean(DESIGN_TAB_NAME, &closedLine, "closed line");
+	sdkAddSettingLineBoolean(DESIGN_TAB_NAME, &smoothLine, "smooth line");
 }
 
-//-----------------------------------------------------------------------------
-// Callback which indicate that the user has changed someting in the layout
-// You'll probably need to redreaw
-void TDrawTrajectoryBoxModule::onSettingsHasChanged()
+void DrawTrajectoryBox::onSettingsHasChanged()
 {
 	toggleInverseYAxis();
-	
-	// Ask to repaint the module
 	sdkRepaintPanel();
-} 
-
-
-void TDrawTrajectoryBoxModule::onCreateCommands()
-{
-    sdkAddCommandSeparator("cmd_edit", TRUE);
-    sdkAddCommand("cmd_reset", 4, TRUE);
-    sdkAddCommand("cmd_randomize", 5, TRUE);
 }
 
-//-----------------------------------------------------------------------------
-// paint the module panel
-void TDrawTrajectoryBoxModule::onPaint()
+void DrawTrajectoryBox::onCreateCommands()
 {
-	// draw points if needed
-	if (m_tabTrajectoryCoords.num > 1) 
+	// a command triggers onCallBack with its callback id, like the matching button
+	sdkAddCommandSeparator("cmd_edit", TRUE);
+	sdkAddCommand("cmd_reset", RESET_BTN_CBID, TRUE);
+	sdkAddCommand("cmd_randomize", RANDOMIZE_BTN_CBID, TRUE);
+}
+
+void DrawTrajectoryBox::onPaint()
+{
+	if (trajectory.num > 1)
 	{
-		int totalpoints = m_tabTrajectoryCoords.num;
-		//sdkDrawPolyLine (m_tabTrajectoryCoords.Tab, totalpoints, colorTrajectory, (float)thicknessTrajectory);
-        
-        // begin draw path sequence
-        sdkDrawPathStart ();
-
-        sdkDrawPathMoveTo (m_tabTrajectoryCoords.Tab[0]);
-        
-        if (m_boolSmoothLine != FALSE)
-        {
-            for (int i = 1; i < totalpoints; i++)
-            {
-                sdkDrawPathQuadCurveTo (m_tabTrajectoryCoords.TabControls[i], m_tabTrajectoryCoords.Tab[i]); 
-                // for debug
-		        //sdkDrawPoint (m_tabTrajectoryCoords.TabControls[i], sdkGetUsineColor(clMidiFlow), 5, true );
-    
-            }
-        }
-        else
-        {
-            for (int i = 1; i < totalpoints; i++)
-            {
-                sdkDrawPathLineTo (m_tabTrajectoryCoords.Tab[i]); 
-            }
-        }
-
-        if (m_boolClosedLine != FALSE && totalpoints > 2)
-            sdkDrawPathClose ();
-
-        // end draw path sequence
-        sdkDrawPathDraw (colorTrajectory, (float)thicknessTrajectory);
-	}
-
-	// draw current index point if needed
-	if (m_selPointIndexValue < m_tabTrajectoryCoords.num && m_selPointIndexValue >= 0) 
-	{
-		//float radius =  std::max(0.001f, m_indexDiameter / 100.0f );
-		float radius =  (float)std::max(1, m_indexDiameter);
-		sdkDrawPoint (this->m_tabTrajectoryCoords.Tab[this->m_selPointIndexValue], colorCurrentPoint, radius, true );
-	}	
-}
-
-//-----------------------------------------------------------------------------
-// mouse and multi touch
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// MouseMove callback
-void TDrawTrajectoryBoxModule::onMouseMove(TShiftState Shift, float X, float Y)
-{
-	if ( m_mouseLeftButtonDown && (m_tabTrajectoryCoords.num < MAXPOINTS - 1))
-	{
-		appendTrajectory( std::min(1.0f, std::max(X, 0.0f)), std::min(1.0f, std::max(Y, 0.0f)) );
-	}		
-}
-
-//-----------------------------------------------------------------------------
-// MouseDown callback
-void TDrawTrajectoryBoxModule::onMouseDown(TMouseButton Button, TShiftState Shift, float X,float Y)
-{
-	if (Button == mbLeft)
-	{
-		// so, left mouse button is down
-		m_mouseLeftButtonDown = TRUE;
-		appendTrajectory( std::min(1.0f, std::max(X, 0.0f)), std::min(1.0f, std::max(Y, 0.0f)) );
-	}
-}
-
-//-----------------------------------------------------------------------------
-// MouseUp callback
-void TDrawTrajectoryBoxModule::onMouseUp(TMouseButton Button, TShiftState Shift, float X, float Y)
-{
-	m_mouseLeftButtonDown = FALSE;
-}
-
-//-----------------------------------------------------------------------------
-// Multi touch callbacks not used
-
-//-------------------------------------------------------------------------
-// private methods implementation
-//-----------------------------------------------------------------------
-//-------------------------------------------------------------------------
-// deal with the inverse Y axis option
-void TDrawTrajectoryBoxModule::toggleInverseYAxis()
-{
-	if ( (m_tabTrajectoryCoords.num >= 1) && 
-        ((m_boolInverseYAxis == FALSE && m_boolIsYAxisInversed != FALSE) || (m_boolInverseYAxis != FALSE && m_boolIsYAxisInversed == FALSE))
-        ) 
-    {
-			
-		int totalpoints = this->m_tabTrajectoryCoords.num;
-		TPointF newCoordCoeff;
-
-		for (int i = 0; i < totalpoints; i++)
+		sdkDrawPathStart();
+		sdkDrawPathMoveTo(trajectory.points[0]);
+		for (int i = 1; i < trajectory.num; i++)
 		{
-            newCoordCoeff.x = m_tabTrajectoryCoords.Tab[i].x;
-            newCoordCoeff.y = 1.0f - m_tabTrajectoryCoords.Tab[i].y;
-
-            this->m_tabTrajectoryCoords.Tab[i] = newCoordCoeff;
-            
-//            int index = i * ARRAY_OUT_LINES;
-//            int tmp = sdkGetEvtSize (arrPointsCoordsOut);
-            arrPointsCoordsOut.setArrayData((i * ARRAY_OUT_LINES) + 1, newCoordCoeff.y);
-
+			if (smoothLine != FALSE)
+				sdkDrawPathQuadCurveTo(trajectory.controls[i], trajectory.points[i]);
+			else
+				sdkDrawPathLineTo(trajectory.points[i]);
 		}
+		if (closedLine != FALSE && trajectory.num > 2)
+			sdkDrawPathClose();
+		sdkDrawPathDraw(colorTrajectory, static_cast<float>(lineThickness));
 	}
-    m_boolIsYAxisInversed = m_boolInverseYAxis;
 
+	if (selPointIndex >= 0 && selPointIndex < trajectory.num)
+		sdkDrawPoint(trajectory.points[selPointIndex], colorCursor, static_cast<float>(std::max(1, cursorDiameter)), TRUE);
 }
 
-/*
-void TDrawTrajectoryBoxModule::applyInverseYAxis()
+void DrawTrajectoryBox::onMouseMove(TShiftState Shift, float X, float Y)
 {
-	if ( (m_tabTrajectoryCoords.num >= 1) && 
-         (m_boolIsYAxisInversed != FALSE)
-        ) 
-    {
-			
-		int totalpoints = this->m_tabTrajectoryCoords.num;
-		TPointF newCoordCoeff;
+	if (mouseLeftButtonDown)
+		appendTrajectory(clamp01(X), clamp01(Y));
+}
 
-		for (int i = 0; i < totalpoints; i++)
+void DrawTrajectoryBox::onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X, float Y)
+{
+	if (MouseButton != mbLeft)
+		return;
+
+	mouseLeftButtonDown = true;
+	appendTrajectory(clamp01(X), clamp01(Y));
+}
+
+void DrawTrajectoryBox::onMouseUp(TMouseButton MouseButton, TShiftState Shift, float X, float Y)
+{
+	mouseLeftButtonDown = false;
+}
+
+void DrawTrajectoryBox::clearTrajectory()
+{
+	trajectory.num = 0;
+	selPointIndex  = -1;
+	coordsArrOut.setSize(0);
+	nbPointsFdrOut.setData(0.0f);
+	selPointIndexFdrIn.setData(-1.0f);
+}
+
+void DrawTrajectoryBox::toggleInverseYAxis()
+{
+	if ((inverseYAxis != FALSE) != (isYAxisInversed != FALSE))
+	{
+		for (int i = 0; i < trajectory.num; i++)
 		{
-            newCoordCoeff.x = m_tabTrajectoryCoords.Tab[i].x;
-            newCoordCoeff.y = 1.0f - m_tabTrajectoryCoords.Tab[i].y;
-
-            this->m_tabTrajectoryCoords.Tab[i] = newCoordCoeff;
+			trajectory.points[i].y = 1.0f - trajectory.points[i].y;
+			coordsArrOut.setArrayData(i * LINES_PER_POINT + 1, trajectory.points[i].y);
 		}
+		computeAllControlPoints();
+	}
+	isYAxisInversed = inverseYAxis;
+}
 
+void DrawTrajectoryBox::appendTrajectory(float X, float Y)
+{
+	if (trajectory.num >= MAXPOINTS)
+		return;
+
+	const TPointF point { .x = X, .y = Y };
+
+	// ignore the mouse moves smaller than one pixel
+	if (trajectory.num > 0)
+	{
+		const TPointF& last = trajectory.points[trajectory.num - 1];
+		if (std::abs(point.x - last.x) <= sdkPixelToWidthPercent(1) && std::abs(point.y - last.y) <= sdkPixelToHeightPercent(1))
+			return;
 	}
 
+	addPoint(point);
+	if (trajectory.num == MAXPOINTS)
+		sdkRaiseError(WARNING_MAX_POINTS);
+
+	sdkRepaintPanel();
 }
-*/
 
-//-------------------------------------------------------------------------
-// append a point coords in the m_tabTrajectoryCoords structure
-// TODO : make it protected methode
-void TDrawTrajectoryBoxModule::appendTrajectory(float X, float Y) 
+void DrawTrajectoryBox::addPoint(const TPointF& point)
 {
-	TPointF lastCoordCoeff;
-    
-    if (m_tabTrajectoryCoords.num > 0)
-    {
-        lastCoordCoeff = m_tabTrajectoryCoords.Tab[m_tabTrajectoryCoords.num-1];
-    }
-    else
-    {
-        lastCoordCoeff.x = -1.0f;
-        lastCoordCoeff.y = -1.0f;
-    }
+	trajectory.points[trajectory.num] = point;
+	trajectory.num++;
 
-	TPointF newCoordCoeff;
-	newCoordCoeff.x = X;
-	newCoordCoeff.y = Y;
+	coordsArrOut.setSize(trajectory.num * LINES_PER_POINT);
+	writePointOut(trajectory.num - 1);
+	computeControlPoint(trajectory.num - 1);
+	nbPointsFdrOut.setData(static_cast<float>(trajectory.num));
+}
 
-    float percentWidthForOnePixel = sdkPixelToWidthPercent (1);
-    float percentHeightForOnePixel = sdkPixelToHeightPercent (1);
-    // deal with the inverse Y axis option
-    //if (m_boolInverseYAxis != FALSE)  newCoordCoeff.y = 1.0f -newCoordCoeff.y;
+void DrawTrajectoryBox::writePointOut(int index)
+{
+	coordsArrOut.setArrayData(index * LINES_PER_POINT, trajectory.points[index].x);
+	coordsArrOut.setArrayData(index * LINES_PER_POINT + 1, trajectory.points[index].y);
+	coordsArrOut.setArrayData(index * LINES_PER_POINT + 2, 0.5f);
+}
 
-	if ((newCoordCoeff.x > (lastCoordCoeff.x + percentWidthForOnePixel)) ||
-		(newCoordCoeff.x < (lastCoordCoeff.x - percentWidthForOnePixel)) ||
-		(newCoordCoeff.y < (lastCoordCoeff.y - percentHeightForOnePixel)) ||
-		(newCoordCoeff.y > (lastCoordCoeff.y + percentHeightForOnePixel)) )
+void DrawTrajectoryBox::computeLissajous()
+{
+	const float a      = 1.0f + 2.0f * randomUnit();
+	const float b      = 1.0f + 2.0f * randomUnit();
+	const float phaseA = randomUnit();
+	const float phaseB = randomUnit();
+
+	TPointF first {};
+	float   distToFirst = 0.0f;
+	int     j           = 0;
+	do
 	{
-		// update values
-		m_tabTrajectoryCoords.Tab[m_tabTrajectoryCoords.num] = newCoordCoeff;
-		m_tabTrajectoryCoords.num++;
-        
-        int newSize = m_tabTrajectoryCoords.num * ARRAY_OUT_LINES;
-        arrPointsCoordsOut.setSize(newSize);
-        arrPointsCoordsOut.setArrayData(newSize - 3, newCoordCoeff.x);
-        arrPointsCoordsOut.setArrayData(newSize - 2, newCoordCoeff.y);
-        arrPointsCoordsOut.setArrayData(newSize - 1, 0.5f);
+		const float   t = j * 2.0f * std::numbers::pi_v<float> / 30.0f;
+		const TPointF point { .x = 0.5f + std::cos(a * t + phaseA) / 2.0f, .y = 0.5f + std::cos(b * t + phaseB) / 2.0f };
+		if (j == 0)
+			first = point;
 
-        if (m_tabTrajectoryCoords.num >= 1)
-            computeControlPoint (m_tabTrajectoryCoords.num - 1);
+		addPoint(point);
 
-		// update points counter
-		m_dtfPointsCount.setData((float)m_tabTrajectoryCoords.num);
-
-        
-		// Ask to repaint the module
-		sdkRepaintPanel();
+		distToFirst = std::hypot(point.x - first.x, point.y - first.y);
+		j++;
 	}
+	// stops when the curve comes back near its first point
+	while (!((j > 10 && distToFirst < 0.1f) || j > LISS_MAXPOINTS));
 }
 
-void TDrawTrajectoryBoxModule::computeControlPoint(int pointIndex)
+// smoothing needs the previous point: the control point is one of the two other
+// corners of the rectangle formed by the previous and the current point
+void DrawTrajectoryBox::computeControlPoint(int pointIndex)
 {
-    // smoothing line need at least 2 points to compute control point
-	if (pointIndex >= 1 && pointIndex < m_tabTrajectoryCoords.num) 
-	{
-        TPointF lastCoord;
-        TPointF currentCoord;
-        //TPointF nextCoord;
-        TPointF controlCoord;
-        //float tmpDelta;
+	if (pointIndex < 1 || pointIndex >= trajectory.num)
+		return;
 
-        lastCoord = m_tabTrajectoryCoords.Tab[pointIndex -1 ]; 
-        currentCoord = m_tabTrajectoryCoords.Tab[pointIndex];
-        //nextCoord = m_tabTrajectoryCoords.Tab[pointIndex + 1];
+	const TPointF& last    = trajectory.points[pointIndex - 1];
+	const TPointF& current = trajectory.points[pointIndex];
+	const bool sameDirection = (current.x - last.x >= 0) == (current.y - last.y >= 0);
 
-        //controlCoord.x = lastCoord.x;
-        //controlCoord.y = currentCoord.y;
-        
-        // found x coord of the control point
-        float tmpDeltaX = currentCoord.x - lastCoord.x;
-        float tmpDeltaY = currentCoord.y - lastCoord.y;
-
-        if (tmpDeltaX >= 0)
-        {
-            if (tmpDeltaY >= 0)
-            {
-                controlCoord.x = currentCoord.x;
-                controlCoord.y = lastCoord.y;
-            }
-            else
-            {
-                controlCoord.x = lastCoord.x;
-                controlCoord.y = currentCoord.y;
-            }
-        }
-        else
-        {
-            if (tmpDeltaY >= 0)
-            {
-                controlCoord.x = lastCoord.x;
-                controlCoord.y = currentCoord.y;
-            }
-            else
-            {
-                controlCoord.x = currentCoord.x;
-                controlCoord.y = lastCoord.y;
-            }
-        }
-
-        m_tabTrajectoryCoords.TabControls[pointIndex] = controlCoord;
-    }
+	trajectory.controls[pointIndex] = sameDirection ? TPointF { .x = current.x, .y = last.y }
+	                                                : TPointF { .x = last.x, .y = current.y };
 }
 
-void TDrawTrajectoryBoxModule::computeAllControlPoints()
-{	
-    // smoothing line need at least 2 points to compute control point
-	if (m_tabTrajectoryCoords.num > 1) 
-	{
-	    int totalpoints = m_tabTrajectoryCoords.num;
-
-        for (int i = 1; i < totalpoints; i++)
-        {
-            computeControlPoint (i);
-        }
-    }
-}
-	
-void TDrawTrajectoryBoxModule::computeLissajous()
+void DrawTrajectoryBox::computeAllControlPoints()
 {
-    int j = 0;
-    float x0,y0,t,x,y = 0;
-    float a = 1+2*(float)(rand() / (float)(RAND_MAX));
-    float b = 1+2*(float)(rand() / (float)(RAND_MAX));
-    float c = (float)(rand() / (float)(RAND_MAX));
-    float d = (float)(rand() / (float)(RAND_MAX));  
-	TPointF newCoord;
-    m_tabTrajectoryCoords.num = 0;
-
-    do  
-    {        
-        t = j*2*PI/30;  
-        x = (float)0.5+cos(a*t+c)/2;
-        y = (float)0.5+cos(b*t+d)/2;          
-        if (j == 0)
-        {
-          x0 = x;
-          y0 = y;
-        }
-         
-        //SetLength(Output,(j+1)*3);
-         
-	    newCoord.x = x;
-	    newCoord.y = y;
-        //SetDataArrayValue(Output,3*j,x);
-        //SetDataArrayValue(Output,(3*j)+1,y);           
-        //SetDataArrayValue(Output,(3*j)+2,1);  
-        
-		m_tabTrajectoryCoords.Tab[m_tabTrajectoryCoords.num] = newCoord;
-		m_tabTrajectoryCoords.num++;
-
-        int newSize = m_tabTrajectoryCoords.num * ARRAY_OUT_LINES;
-        arrPointsCoordsOut.setSize(newSize);
-		arrPointsCoordsOut.setArrayData(newSize - 3, newCoord.x);
-        arrPointsCoordsOut.setArrayData(newSize - 2, newCoord.y);
-        arrPointsCoordsOut.setArrayData(newSize - 1, 0.5f);
-		// update points counter
-		m_dtfPointsCount.setData((float)m_tabTrajectoryCoords.num); 
-
-        d = sqrt(sqr(x-x0)+sqr(y-y0));
-        j = j+1;
-        //until ((j>10) and (d<0.1)) or (j >LISS_MAXPOINTS);  
-    }while (!(((j>10) && (d<0.1)) || (j >LISS_MAXPOINTS)));
-  // fermer le path
-  //SetLength(Output,(j+1)*3);      
-  //SetDataArrayValue(Output,3*j,x0);
-  //SetDataArrayValue(Output,(3*j)+1,y0);           
-  //SetDataArrayValue(Output,(3*j)+2,1); 
+	for (int i = 1; i < trajectory.num; i++)
+		computeControlPoint(i);
 }

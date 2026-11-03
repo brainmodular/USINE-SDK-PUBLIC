@@ -1,55 +1,51 @@
-// Comb filter class declaration
+//-----------------------------------------------------------------------------
+// @file    comb.hpp
+// @author  Jezar at Dreampoint, adapted by BrainModular team
+// @brief   Lowpass feedback comb filter of the Freeverb reverb model.
 //
-// Written by Jezar at Dreampoint, June 2000
-// http://www.dreampoint.co.uk
-// This code is public domain
+// This file is part of the Usine Hollyhock CPP SDK.
+// Based on Freeverb, written by Jezar at Dreampoint in June 2000 and placed in the public domain.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
+//-----------------------------------------------------------------------------
+#pragma once
 
-#ifndef _comb_
-#define _comb_
-
+#include <span>
 #include "denormals.h"
 
 class comb
 {
 public:
-					comb();
-			void	setbuffer(float *buf, int size);
-	inline  float	process(float inp);
-			void	mute();
-			void	setdamp(float val);
-			float	getdamp();
-			void	setfeedback(float val);
-			float	getfeedback();
+	void  setbuffer(std::span<float> buf);
+	float process(float input);
+	void  mute();
+	void  setdamp(float val);
+	[[nodiscard]] float getdamp() const;
+	void  setfeedback(float val);
+	[[nodiscard]] float getfeedback() const;
+
 private:
-	float	feedback;
-	float	filterstore;
-	float	damp1;
-	float	damp2;
-	float	*buffer;
-	int		bufsize;
-	int		bufidx;
+	float            feedback    = 0.0f;
+	float            filterstore = 0.0f;
+	float            damp1       = 0.0f;
+	float            damp2       = 0.0f;
+	std::span<float> buffer;
+	size_t           bufidx      = 0;
 };
 
-
-// Big to inline - but crucial for speed
-
+// inlined because it is called for every sample
 inline float comb::process(float input)
 {
-	float output;
-
-	output = buffer[bufidx];
+	float output = buffer[bufidx];
 	undenormalise(output);
 
-	filterstore = (output*damp2) + (filterstore*damp1);
+	filterstore = output * damp2 + filterstore * damp1;
 	undenormalise(filterstore);
 
-	buffer[bufidx] = input + (filterstore*feedback);
+	buffer[bufidx] = input + filterstore * feedback;
 
-	if(++bufidx>=bufsize) bufidx = 0;
+	if (++bufidx >= buffer.size())
+		bufidx = 0;
 
 	return output;
 }
-
-#endif //_comb_
-
-//ends

@@ -64,16 +64,23 @@ Your project structure should look like:
 MyModule
 ├── SDK
 │   ├── UserDefinitions.h
+│   ├── UserError.h
 │   ├── UserModule.cpp
 │   ├── UserModule.h
 │   ├── UsineDefinitions.h
 │   ├── UsineEventClass.h
 │   ├── UsineFunctions.h
+│   ├── UserUtils.cpp
 │   └── UserUtils.h
 └── MyModule
+    ├── ModuleDefinition.h
     ├── MyModule.cpp
     └── MyModule.h
 ```
+
+`ModuleDefinition.h` holds the module constants, the callback ids and the parameters, see [[sdk/module-conventions|Module Conventions]].
+
+`UsineChunks.h` is optional: it is only needed by a module that reads chunks with `UsineChunk`, and it is not included by `UserDefinitions.h`.
 
 ---
 
@@ -88,6 +95,8 @@ Click your project in the Navigator, then select your target under **TARGETS**. 
 ### Target: Build Settings
 
 Select **All** at the top to show all settings, then configure:
+
+**C++ Language Dialect** — set to **C++20** (`CLANG_CXX_LANGUAGE_STANDARD = c++20`), needed by the parameter descriptions.
 
 **Build Active Architecture Only** — set to **No**:
 
@@ -195,6 +204,7 @@ Set `VALID_ARCHS` to `arm64`:
 | Build Active Arch Only | No | No | No |
 | Executable Prefix | (empty) | (empty) | (empty) |
 | Deployment Target | 10.13 | 10.13 | 10.13 |
+| C++ Language Dialect | C++20 | C++20 | C++20 |
 | Library Type | Dynamic | Dynamic | Dynamic |
 
 ---

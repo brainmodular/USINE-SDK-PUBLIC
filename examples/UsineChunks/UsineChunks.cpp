@@ -1,258 +1,124 @@
 //-----------------------------------------------------------------------------
-//@file  
-//	UsineChunks.cpp
+// @file    UsineChunks.cpp
+// @author  BrainModular team
+// @brief   Shares data with other modules through a Usine chunk and its notifications.
 //
-//@author
-//	BrainModular team
-//
-//@brief 
-//	Implementation of the UsineChunks class.
-//
-//  Example user module to show how to process audio buffers.
-//
-//@historic 
-//	2015/02/23
-//    first release for Hollyhock CPP SDK 6.04.001
-//
-//@IMPORTANT
-//	This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs :
-//  support@brainmodular.com 
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE.
-//
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// includes
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2025-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
 #include "UsineChunks.h"
-#include "../../sdk/UsineDefinitions.h"  
+#include "ModuleDefinition.h"
+#include <random>
 
-constexpr NativeInt CHUNK_SUB_DEL_CBID  = 0x00000FF0;
-constexpr NativeInt CHUNK_SUB_ITEM_CBID = 0x00000FF1;
-constexpr NativeInt CHUNK_SUB_TEXT_CBID = 0x00000FF2;
-constexpr NativeInt SET_ITEM_CBID		= 0x00000AC0;
-constexpr NativeInt SET_TEXT_CBID		= 0x00000AC1;
-
-//----------------------------------------------------------------------------
-// create, general info and destroy methods
-//----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// Create
 void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new UsineChunks();
 }
 
-// destroy
-void DestroyModule(void* pModule) 
+void DestroyModule(void* pModule)
 {
 	// cast is important to call the good destructor
-	delete ((UsineChunks*)pModule);
+	delete static_cast<UsineChunks*>(pModule);
 }
 
-// module constants for browser info and module info
-constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "usine chunks";
-constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "usine chunks sdk module example";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
-
-constexpr AnsiCharPtr CHUNK_NAME = "mychunk";
-
-// browser info
-void GetBrowserInfo(TModuleInfo* pModuleInfo) 
-{
-	pModuleInfo->Name				= UserModuleBase::MODULE_NAME;
-	pModuleInfo->Description		= UserModuleBase::MODULE_DESC;
-	pModuleInfo->Version			= UserModuleBase::MODULE_VERSION;
-}
-
-//-------------------------------------------------------------------------
-// module constructors/destructors
-//-------------------------------------------------------------------------
-
-// constructor
-UsineChunks::UsineChunks()
-{
-	//
-}
-
-// destructor
 UsineChunks::~UsineChunks()
 {
-	// we unsubscribe from all chunk notifications
 	sdkChunkUnSubscribeAll();
 }
 
 void UsineChunks::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	pModuleInfo->Name				= MODULE_NAME;
-	pModuleInfo->Description		= MODULE_DESC;
 	pModuleInfo->ModuleType         = mtSimple;
 	pModuleInfo->BackColor          = sdkGetUsineColor(clChunkModuleColor);
-	pModuleInfo->Version			= MODULE_VERSION;    
 	pModuleInfo->CanBeSavedInPreset = FALSE;
 }
 
-//-----------------------------------------------------------------------------
-// query system and init methods
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-// Get total parameters number of the module
-int UsineChunks::onGetNumberOfParams(int queryResult1, int queryResult2)
+void UsineChunks::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	int result = 4;
-    return result;
-}
-
-//-----------------------------------------------------------------------------
-// Called after the query popup
-void UsineChunks::onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
-{
-}
-
-//-----------------------------------------------------------------------------
-// initialisation
-void UsineChunks::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
-{
-	// we get the chunk pointer and create the chunk if it doesn't exist
+	// gets the chunk, it is created if it doesn't exist yet
 	chunkPtr = sdkGetChunk(CHUNK_NAME);
-	// we subscribe to chunk notifications to check if it has been deleted or cleared
-	sdkChunkSubscribe(chunkPtr, "", CHUNK_SUB_DEL_CBID, TRUE);
-	// we subscribe to chunk notifications for the item "item1"
-	sdkChunkSubscribe(chunkPtr, "item1", CHUNK_SUB_ITEM_CBID, TRUE);
-	// we subscribe to chunk notifications for the item "commatxt"
-	sdkChunkSubscribe(chunkPtr, "commatxt", CHUNK_SUB_TEXT_CBID, TRUE);
-	// fill output parameter with a default comma text
-	chunkStringGet.setPChar(dummyCommaText);
-	// we write into the chunk "commatxt" the default comma text
-	sdkChunkOperation(chunkPtr, "commatxt", ftTextGeneral, chunkStringGet, coAddOrModifyItem);
+
+	// an empty item name subscribes to the chunk itself: destroyed or item list changed
+	sdkChunkSubscribe(chunkPtr, "", CHUNK_SUB_CBID, TRUE);
+	sdkChunkSubscribe(chunkPtr, ITEM_FLOAT_NAME, CHUNK_SUB_ITEM_CBID, TRUE);
+	sdkChunkSubscribe(chunkPtr, ITEM_TEXT_NAME, CHUNK_SUB_TEXT_CBID, TRUE);
+
+	getCommaTxtOut.setPChar(DEFAULT_COMMA_TEXT);
+	sdkChunkOperation(chunkPtr, ITEM_TEXT_NAME, ftTextGeneral, getCommaTxtOut, coAddOrModifyItem);
+	fillBulkTestData();
 }
 
-//----------------------------------------------------------------------------
-// parameters and process
-//----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// Parameters description
-void UsineChunks::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo)
-{	
-	if (ParamIndex == 0)
-	{
-		pParamInfo->ParamType = ptArray;
-		pParamInfo->Caption = "set item1";
-		pParamInfo->IsInput = TRUE;
-		pParamInfo->IsOutput = FALSE;
-		pParamInfo->IsSeparator = TRUE;
-		pParamInfo->CallBackType = ctImmediate;
-		pParamInfo->CallBackId = SET_ITEM_CBID; // you can choose a value up to 0x00000FFE
-		pParamInfo->SeparatorCaption = "";
-		pParamInfo->setEventClass(chunkFloatSet);
-
-	}
-	else if (ParamIndex == 1)
-	{
-		pParamInfo->ParamType = ptText;
-		pParamInfo->Caption = "commatxt idx 1";
-		pParamInfo->IsInput = TRUE;
-		pParamInfo->IsOutput = FALSE;
-		pParamInfo->IsSeparator = TRUE;
-		pParamInfo->CallBackType = ctImmediate;
-		pParamInfo->CallBackId = SET_TEXT_CBID; // you can choose a value up to 0x00000FFE
-		pParamInfo->SeparatorCaption = "";
-		pParamInfo->setEventClass(chunkStringSet);
-	}
-	else if (ParamIndex == 2)
-	{
-		pParamInfo->ParamType = ptArray;
-		pParamInfo->Caption = "get item1";
-		pParamInfo->IsInput = FALSE;
-		pParamInfo->IsOutput = TRUE;
-		pParamInfo->CallBackType = ctNone;
-		pParamInfo->setEventClass(chunkFloatGet);
-	}
-	else if (ParamIndex == 3)
-	{
-		pParamInfo->ParamType = ptText;
-		pParamInfo->Caption = "get commatxt";
-		pParamInfo->IsInput = FALSE;
-		pParamInfo->IsOutput = TRUE;
-		pParamInfo->CallBackType = ctNone;
-		pParamInfo->setEventClass(chunkStringGet);
-		pParamInfo->DontSave = TRUE; // we don't want to save this param
-	}
-}
-
-//-----------------------------------------------------------------------------
-// Parameters callback
-void UsineChunks::onCallBack(TUsineMessage *Message) 
+void UsineChunks::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-    // filter only message specific to this user module
+	sdkCreateParam(setItemArrInParamInfo, setItemArrIn);
+	sdkCreateParam(setCommaTxtInParamInfo, setCommaTxtIn);
+	sdkCreateParam(getItemArrOutParamInfo, getItemArrOut);
+	sdkCreateParam(getCommaTxtOutParamInfo, getCommaTxtOut);
+	sdkCreateParam(getChunkDataBtnInParamInfo, getChunkDataBtnIn);
+	sdkCreateParam(setChunkDataBtnInParamInfo, setChunkDataBtnIn);
+}
+
+void UsineChunks::onCallBack(TUsineMessage* Message)
+{
 	if (Message->message != NOTIFY_MSG_USINE_CALLBACK)
 		return;
 
-	if (Message->lParam == MSG_CHANGE)
+	// the chunk notifications come with their own lParam
+	if (Message->lParam == MSG_CHUNK_DESTROYED && Message->wParam == CHUNK_SUB_CBID)
 	{
-		// check the callback id to identify the parameter : input "set item1"
-		if (Message->wParam == SET_ITEM_CBID)
-		{
-			// we write into the chunk "item1" the values of the input parameter "set item1"
-			sdkChunkOperation(chunkPtr, "item1", ftDataFloat, chunkFloatSet, coAddOrModifyItem);
-		}
-		else if (Message->wParam == SET_TEXT_CBID)
-		{
-			// we write into the chunk "commatxt" the values of the input parameter "commatxt idx 1"
-			// but only then value at the index 1
-			sdkChunkOperation(chunkPtr, "commatxt", ftTextGeneral, chunkStringSet, coAddOrModifyItem, 1);
-		}
-		else if (Message->wParam == CHUNK_SUB_ITEM_CBID)
-		{
-			// the chunk item "item1" has changed
-			// we copy the chunk "item1" values to the output parameter "get item1"
-			sdkChunkOperation(chunkPtr, "item1", ftDataFloat, chunkFloatGet, coGetItem);
-		}
-		else if (Message->wParam == CHUNK_SUB_TEXT_CBID)
-		{
-			// the chunk item "commatxt" has changed
-			// we copy the chunk "commatxt" values to the output parameter "get commatxt"
-			sdkChunkOperation(chunkPtr, "commatxt", ftTextGeneral, chunkStringGet, coGetItem);
-		}
+		sdkRaiseError(WARNING_CHUNK_DESTROYED, CHUNK_NAME);
+		return;
 	}
-	else if (Message->lParam == MSG_CHUNK_DESTROYED)
+	if (Message->lParam == MSG_CHUNK_ITEM_LIST_CHANGED && Message->wParam == CHUNK_SUB_CBID)
 	{
-		if (Message->wParam == CHUNK_SUB_DEL_CBID)
-		{
-			// do something if needed like unsubscribe ?
-		}
+		sdkRaiseError(INFO_CHUNK_ITEMS_CHANGED, CHUNK_NAME);
+		return;
 	}
-	else if (Message->lParam == MSG_CHUNK_ITEM_LIST_CHANGED)
+	if (Message->lParam != MSG_CHANGE)
+		return;
+
+	switch (Message->wParam)
 	{
-		if (Message->wParam == CHUNK_SUB_DEL_CBID)
+		// inputs: write in the chunk
+		case SET_ITEM_ARR_CBID:
+			sdkChunkOperation(chunkPtr, ITEM_FLOAT_NAME, ftDataFloat, setItemArrIn, coAddOrModifyItem);
+			break;
+		case SET_COMMA_TXT_CBID:
+			// only writes the value at index 1 of the comma text
+			sdkChunkOperation(chunkPtr, ITEM_TEXT_NAME, ftTextGeneral, setCommaTxtIn, coAddOrModifyItem, 1);
+			break;
+
+		// subscriptions: an item changed, possibly written by another module, read it back
+		case CHUNK_SUB_ITEM_CBID:
+			sdkChunkOperation(chunkPtr, ITEM_FLOAT_NAME, ftDataFloat, getItemArrOut, coGetItem);
+			break;
+		case CHUNK_SUB_TEXT_CBID:
+			sdkChunkOperation(chunkPtr, ITEM_TEXT_NAME, ftTextGeneral, getCommaTxtOut, coGetItem);
+			break;
+		case GET_CHUNK_DATA_BTN_CBID:
 		{
-			// do something if needed like unsubscribe ?
+			UINT32 bulk_size = sdkGetChunkItemSize(chunkPtr, DATA_BULK_ITEM_NAME);
+			data_buffer.clear();
+			data_buffer.resize(bulk_size);
+			sdkGetChunkToFloatPointer(chunkPtr, DATA_BULK_ITEM_NAME, data_buffer.data());
+			sdkSetChunkFromFloatPointer(chunkPtr, DATA_BULK_ITEM_NAME_COPY, data_bulk.data(), static_cast<UINT32>(bulk_size));
+			break;
 		}
+		case SET_CHUNK_DATA_BTN_CBID:
+			sdkSetChunkFromFloatPointer(chunkPtr, DATA_BULK_ITEM_NAME, data_bulk.data(), static_cast<UINT32>(kBulkSize));
+			break;
+		default:
+			break;
 	}
+}
+
+
+
+void UsineChunks::fillBulkTestData()
+{
+    std::mt19937 rng(12345);                                  // fixed seed = reproducible
+    std::uniform_real_distribution<float> dist(-1.f, 1.f);
+    for (auto& v : data_bulk)
+        v = dist(rng);
 }

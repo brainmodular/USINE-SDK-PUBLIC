@@ -20,6 +20,9 @@
       location = "group:DrawBox/DrawBox.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:DragAndDrop/DragAndDrop.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:GlobalArray/GlobalArray.xcodeproj">
    </FileRef>
    <FileRef
@@ -53,9 +56,9 @@
       location = "group:UsineObjects/UsineObjects.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:VideoDimmer/VideoDimmer.xcodeproj">
+      location = "group:UsineChunks/UsineChunks.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:SimplePad/../TemplateModuleSimple/TemplateModuleSimple.xcodeproj">
+      location = "group:VideoDimmer/VideoDimmer.xcodeproj">
    </FileRef>
 </Workspace>

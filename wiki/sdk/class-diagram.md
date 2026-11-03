@@ -19,20 +19,20 @@ classDiagram
         #TModuleInfo* m_moduleInfo
         #TMasterInfo* m_masterInfo$
         +onGetModuleInfo()* 🔴
-        +onGetParamInfo()* 🔴
+        +onCreateParameters()
+        +sdkCreateParam()
         +onCallBack() 🟡
         +onProcess() 🔵
         +onProcessVideo() 🔵
-        +onInitModule()
-        +onGetNumberOfParams()
         +onAfterQuery()
+        +onInitModule()
         +startJob()
         +onJobBegin()
         +onJobProcess()
         +onJobEnd()
-        +onGetChunkLen()
-        +onGetChunk()
-        +onSetChunk()
+        +onGetStateChunkLen()
+        +onGetStateChunk()
+        +onSetStateChunk()
         +onCreateSettings()
         +onPaint() 🟢
         +onMouseDown() 🟢
@@ -160,6 +160,8 @@ classDiagram
         mtDeviceLaser
         mtDeviceOther
         mtPluginWrapper
+        mtPluginLister
+        mtBackgroundJob
         mtOther
     }
 
@@ -431,10 +433,12 @@ classDiagram
 |----------|----------|
 | `UserDefinitions.h` | Master include — pulls in all other headers |
 | `UsineDefinitions.h` | All types, structs, enums, constants, `TMasterInfo`, `TModuleInfo`, `TParamInfo` |
-| `UserModule.h` | `UserModuleBase` class definition, 3 mandatory global functions |
-| `UserModule.cpp` | `UserModuleBase` implementation, DLL export bridge functions |
-| `UsineEventClass.h` | `UsineEventClass` wrapper class |
+| `UserModule.h` | `UserModuleBase` class definition, declaration of the global functions `CreateModule`, `DestroyModule` (implemented by the module) and `GetBrowserInfo` |
+| `UserModule.cpp` | `UserModuleBase` implementation, DLL export bridge functions, `GetBrowserInfo` |
+| `UsineEventClass.h` | `UsineEventClass` wrapper class, `sdkCreateParam` |
 | `UsineFunctions.h` | Inline SDK utility functions (wrappers around `TMasterInfo` pointers) |
+| `UserError.h` | `RegisterError`, `sdkRaiseError` and the verbosity level |
+| `UsineChunks.h` | `UsineChunk`, typed reader of a Usine chunk (not included by `UserDefinitions.h`) |
 | `UserUtils.h` | Color conversion, geometry, numeric helper functions |
 
 ## Inheritance Pattern
@@ -449,10 +453,10 @@ classDiagram
 
     class YourModule {
         <<your code>>
-        -UsineEventClass input
-        -UsineEventClass output
+        -UsineEventClass inputFdrIn
+        -UsineEventClass outputFdrOut
         +onGetModuleInfo()
-        +onGetParamInfo()
+        +onCreateParameters()
         +onCallBack()
         +onProcess()
     }
@@ -484,9 +488,9 @@ flowchart LR
 
     MI -->|provides function ptrs| UMB
     UMB -->|fills| MOD
-    UMB -->|fills per param| PI
-    PI -->|binds via setEventClass| EVT1
-    PI -->|binds via setEventClass| EVT2
+    PI -->|constexpr in ModuleDefinition.h| UMB
+    UMB -->|sdkCreateParam binds| EVT1
+    UMB -->|sdkCreateParam binds| EVT2
     MSG -->|delivered to onCallBack| UMB
     EVT1 -->|read in onProcess| UMB
     UMB -->|write in onProcess| EVT2

@@ -1,0 +1,42 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AudioAnalysisDescriptors", "AudioAnalysisDescriptors.vcxproj", "{2FE6787C-2CC4-4BF9-B811-C7B2E2513BE6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_SDK_FFT|ARM64 = Debug_SDK_FFT|ARM64
+		Debug_SDK_FFT|x64 = Debug_SDK_FFT|x64
+		Debug_SDK_FFT|x86 = Debug_SDK_FFT|x86
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2FE6787C-2CC4-4BF9-B811-C7B2E2513BE6}.Debug_SDK_FFT|ARM64.ActiveCfg = Debug|ARM64
+		{2FE6787C-2CC4-4BF9-B811-C7B2E2513BE6}.Debug_SDK_FFT|x64.ActiveCfg = Debug|x64
+		{2FE6787C-2CC4-4BF9-B811-C7B2E2513BE6}.Debug_SDK_FFT|x86.ActiveCfg = Debug|Win32
+		{2FE6787C-2CC4-4BF9-B811-C7B2E2513BE6}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{2FE6787C-2CC4-4BF9-B811-C7B2E2513BE6}.Debug|ARM64.Build.0 = Debug|ARM64
+		{2FE6787C-2CC4-4BF9-B811-C7B2E2513BE6}.Debug|x64.ActiveCfg = Release|x64
+		{2FE6787C-2CC4-4BF9-B811-C7B2E2513BE6}.Debug|x64.Build.0 = Release|x64
+		{2FE6787C-2CC4-4BF9-B811-C7B2E2513BE6}.Debug|x86.ActiveCfg = Debug|Win32
+		{2FE6787C-2CC4-4BF9-B811-C7B2E2513BE6}.Debug|x86.Build.0 = Debug|Win32
+		{2FE6787C-2CC4-4BF9-B811-C7B2E2513BE6}.Release|ARM64.ActiveCfg = Release|ARM64
+		{2FE6787C-2CC4-4BF9-B811-C7B2E2513BE6}.Release|ARM64.Build.0 = Release|ARM64
+		{2FE6787C-2CC4-4BF9-B811-C7B2E2513BE6}.Release|x64.ActiveCfg = Release|x64
+		{2FE6787C-2CC4-4BF9-B811-C7B2E2513BE6}.Release|x64.Build.0 = Release|x64
+		{2FE6787C-2CC4-4BF9-B811-C7B2E2513BE6}.Release|x86.ActiveCfg = Release|Win32
+		{2FE6787C-2CC4-4BF9-B811-C7B2E2513BE6}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {94F2B8A2-C9AB-44DC-B39F-C545AA7465BB}
+	EndGlobalSection
+EndGlobal

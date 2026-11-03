@@ -12,6 +12,7 @@ Welcome to the **Usine Hollyhock SDK** documentation wiki. This SDK allows you t
 ### Architecture & Reference
 - [[sdk/class-diagram|SDK Class Diagram]] — Complete Mermaid class diagram of the SDK
 - [[sdk/module-architecture|Module Architecture]] — How modules work, lifecycle, and data flow
+- [[sdk/module-conventions|Module Conventions]] — Files, naming, errors and style followed by every example
 - [[sdk/user-module-base|UserModuleBase Class]] — The base class every module inherits from
 - [[sdk/usine-event-class|UsineEventClass]] — The main data container class
 - [[sdk/data-types|Data Types & Constants]] — All SDK types, structs, enums, and constants
@@ -22,9 +23,7 @@ Welcome to the **Usine Hollyhock SDK** documentation wiki. This SDK allows you t
 ### Examples
 
 #### Templates
-- [[examples/template-module-simple|TemplateModuleSimple]] — Minimal starting template
 - [[examples/template-module|TemplateModule]] — Full template with all callback stubs
-- [[examples/my-module|MyModule]] — Simple frequency-to-period converter
 
 #### Audio Processing
 - [[examples/audio-volume|AudioVolume]] — Multi-channel gain control with mute
@@ -32,7 +31,7 @@ Welcome to the **Usine Hollyhock SDK** documentation wiki. This SDK allows you t
 - [[examples/ring-mod-multithread|RingModMultithread]] — Ring modulator with parallel threading
 - [[examples/reverb|Reverb]] — Freeverb-based reverb processor
 - [[examples/granulator|Granulator]] — Granular synthesis engine
-- [[examples/array-delay|ArrayDelay]] — Per-channel array delay line
+- [[examples/array-delay|ArrayDelay]] — Per-element array delay line
 
 #### Data & MIDI Processing
 - [[examples/data-multiply|DataMultiply]] — Simple data multiplication
@@ -41,6 +40,7 @@ Welcome to the **Usine Hollyhock SDK** documentation wiki. This SDK allows you t
 
 #### Graphics & Visualization
 - [[examples/data-oscilloscope|DataOscilloscope]] — Scrolling waveform display
+- [[examples/drag-and-drop|DragAndDrop]] — Files dropped on the panel
 - [[examples/draw-box|DrawBox]] — Interactive rectangle drawing
 - [[examples/draw-trajectory-box|DrawTrajectoryBox]] — Trajectory drawing with bezier curves
 - [[examples/simple-pad|SimplePad]] — Multi-pad XY controller
@@ -53,10 +53,11 @@ Welcome to the **Usine Hollyhock SDK** documentation wiki. This SDK allows you t
 - [[examples/usine-chunks|UsineChunks]] — Chunk-based data persistence
 - [[examples/usine-objects|UsineObjects]] — Remote object access API
 - [[examples/usine-pointers|UsinePointers]] — Raw pointer data passing
+- [[examples/error-handling|ErrorHandling]] — Registered errors, warnings and infos with verbosity filtering
 
 ---
 
-**SDK Version:** 702002 (Hollyhock 7)  
+**SDK Version:** 703003 (Hollyhock 7)  
 **License:** MIT  
 **Copyright:** BrainModular / Adamson
 

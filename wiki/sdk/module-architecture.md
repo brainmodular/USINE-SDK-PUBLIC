@@ -19,6 +19,8 @@ A Usine user module is a C++ dynamic library (DLL/dylib) that Usine loads at run
 | Device Laser | `mtDeviceLaser` | ILDA laser device | — |
 | Device Other | `mtDeviceOther` | Other device types | — |
 | Plugin Wrapper | `mtPluginWrapper` | VST/AU plugin wrapper | — |
+| Plugin Lister | `mtPluginLister` | Plugin lister | — |
+| Background Job | `mtBackgroundJob` | Module with a background job, the SDK adds its `processing` outputs | [[examples/background-job|BackgroundJob]] |
 | Other | `mtOther` | Other module types | — |
 
 See [[sdk/data-types|Data Types]] for the full `TModuleType` enum.
@@ -27,12 +29,11 @@ See [[sdk/data-types|Data Types]] for the full `TModuleType` enum.
 
 ```mermaid
 flowchart TD
-    A[GetBrowserInfo] -->|Usine lists module in browser| B[CreateModule]
-    B --> C[onGetModuleInfo]
+    A["GetBrowserInfo (SDK)"] -->|Usine lists module in browser| B[CreateModule]
+    B -->|SDK sets Name, Description, Version| C[onGetModuleInfo]
     C --> D{Query needed?}
-    D -->|Yes| E[onGetNumberOfParams]
-    E --> F[onAfterQuery]
-    D -->|No| G[onGetParamInfo × N]
+    D -->|Yes| F[onAfterQuery]
+    D -->|No| G[onCreateParameters]
     F --> G
     G --> H[onInitModule]
     H --> I[onBlocSizeChange / onSampleRateChange]
@@ -49,9 +50,9 @@ flowchart TD
     style L fill:#da5,color:#fff
 ```
 
-## Three Mandatory Global Functions
+## Global Functions
 
-Every module DLL must export exactly three functions:
+Usine calls three global functions of the module library. The module implements two of them, the SDK the third one.
 
 ### CreateModule
 ```cpp
@@ -67,13 +68,15 @@ void DestroyModule(void* pModule);
 ```
 Called by Usine to destroy the module. Cast back to your class and `delete` it.
 
-### GetBrowserInfo
+### GetBrowserInfo (implemented by the SDK)
 ```cpp
 void GetBrowserInfo(TModuleInfo* pModuleInfo);
 ```
-Called by Usine to populate the module browser. Set at minimum `Name` and `Description`.
+Called by Usine to populate the module browser. `UserModule.cpp` implements it: it sets `Name`, `Description` and `Version` from the `MODULE_*` constants defined in `ModuleDefinition.h`. The SDK also calls it before `onGetModuleInfo`, so these three fields are already set there.
 
-See [[getting-started|Getting Started]] for a complete minimal implementation.
+> **Warning:** don't implement `GetBrowserInfo` in the module: it would be defined twice and the link would fail.
+
+See [[getting-started|Getting Started]] for a complete minimal implementation, and [[sdk/module-conventions|Module Conventions]] for the files of a module.
 
 ## Data Flow: The Event System
 
@@ -117,34 +120,58 @@ graph LR
 
 ### Event Binding
 
-Parameters are bound to events in `onGetParamInfo()` using `setEventClass()`:
+Each parameter is described by a `constexpr TParamInfo` in `ModuleDefinition.h`, and created in `onCreateParameters()` with `sdkCreateParam()`, which also binds it to its event:
 
 ```cpp
-UsineEventClass myInput;
-UsineEventClass myOutput;
+// ModuleDefinition.h
+inline constexpr TParamInfo inputFdrInParamInfo {
+	.ParamType    = ptDataField,
+	.Caption      = "input",
+	.IsInput      = TRUE,
+	.IsOutput     = FALSE,
+	.CallBackType = ctNormal,
+	.CallBackId   = INPUT_FDR_CBID
+};
 
-void onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo) override
+// MyModule.cpp
+void MyModule::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-    if (ParamIndex == 0)
-    {
-        pParamInfo->Caption = "input";
-        pParamInfo->IsInput = TRUE;
-        pParamInfo->setEventClass(myInput);  // bind event
-    }
-    // ...
+	sdkCreateParam(inputFdrInParamInfo, inputFdrIn);
+	sdkCreateParam(outputFdrOutParamInfo, outputFdrOut);
 }
 ```
 
-Once bound, Usine automatically populates input events and reads output events.
+Once bound, Usine automatically populates input events and reads output events. Parameters appear in the order they are created.
+
+> **Note:** `onGetParamInfo()` with `setEventClass()` and `NumberOfParams` is the legacy way to declare parameters. New modules don't set `NumberOfParams` (it stays at 0) and use `onCreateParameters()`.
 
 ## Callback System
 
 ### Message Structure
 
 Callbacks receive a [[sdk/data-types|TUsineMessage]] with:
-- `message` — always `MSG_CHANGE` for parameter changes
-- `wParam` — the `CallBackId` you assigned in `onGetParamInfo()`
-- `lParam` — message type (`MSG_CHANGE`, `MSG_CLICK`, `MSG_DBLCLICK`, etc.)
+- `message` — `NOTIFY_MSG_USINE_CALLBACK` for the messages sent to the module
+- `wParam` — the `CallBackId` of the parameter (or of the command, chunk subscription...)
+- `lParam` — message type (`MSG_CHANGE`, `MSG_CLICK`, `MSG_DBLCLICK`, `MSG_CHUNK_DESTROYED`, etc.)
+
+Every example filters the message the same way before dispatching on `wParam`:
+
+```cpp
+void MyModule::onCallBack(TUsineMessage* Message)
+{
+	if ((Message->message != NOTIFY_MSG_USINE_CALLBACK) || (Message->lParam != MSG_CHANGE))
+		return;
+
+	switch (Message->wParam)
+	{
+		case INPUT_FDR_CBID:
+			outputFdrOut.setData(inputFdrIn.getData() * 2.0f);
+			break;
+		default:
+			break;
+	}
+}
+```
 
 ### Callback Types
 
@@ -209,19 +236,33 @@ Set `DontProcess = TRUE` in `onGetModuleInfo()` if your module doesn't need audi
 Modules can support variable channel counts using the **audio query system** (see [[sdk/sdk-functions|sdkGetAudioQueryTitle]]):
 
 ```cpp
-void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override
+void AudioVolume::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-    pModuleInfo->QueryListString = sdkGetAudioQueryTitle();
-    pModuleInfo->QueryListValues = sdkGetAudioQueryChannelList();
-    pModuleInfo->QueryListDefaultIdx = 1;
+	pModuleInfo->QueryListString     = sdkGetAudioQueryTitle();
+	pModuleInfo->QueryListValues     = sdkGetAudioQueryChannelList();
+	pModuleInfo->QueryListDefaultIdx = 1;
 }
 
-int onGetNumberOfParams(int QIdx1, int QIdx2) override
+// called after the query popup, before onCreateParameters
+void AudioVolume::onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
 {
-    numChannels = sdkGetAudioQueryToNbChannels(QIdx1);
-    return numChannels * 2 + extraParams;  // inputs + outputs + controls
+	queryResult       = queryResult1;
+	numOfAudioInsOuts = std::min(sdkGetAudioQueryToNbChannels(queryResult1), static_cast<int>(USINE_AUDIO_CHANNEL_MODULE_MAX));
+}
+
+void AudioVolume::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+{
+	for (int num = 0; num < numOfAudioInsOuts; num++)
+	{
+		TParamInfo audioIn = audioInParamInfo;
+		audioIn.Caption    = sdkGetAudioQueryChannelNames("in ", num + 1, queryResult);
+		sdkCreateParam(audioIn, audioInputs[num]);
+	}
+	// ... same for the outputs, then the controls
 }
 ```
+
+Clamp the channel count to `USINE_AUDIO_CHANNEL_MODULE_MAX`: the event arrays of the module have this size.
 
 **Examples:** [[examples/audio-volume|AudioVolume]], [[examples/ring-mod|RingMod]], [[examples/reverb|Reverb]], [[examples/granulator|Granulator]]
 
@@ -232,30 +273,34 @@ For long-running tasks that can't run in `onProcess()`:
 ```mermaid
 sequenceDiagram
     participant User
-    participant Main as Main Thread
+    participant Usine as Usine (callbacks)
     participant Job as Job Thread
 
-    User->>Main: Click "start job"
-    Main->>Job: startJob()
+    User->>Usine: Click "start job"
+    Usine->>Usine: onCallBack() calls startJob()
+    Usine->>Job: CALLBACK_JOB_START starts the job thread
     Job->>Job: onJobBegin()
     Job->>Job: onJobProcess() — heavy work
-    Job-->>Main: notify completion
-    Main->>Main: onJobEnd() — collect results
+    Job-->>Usine: CALLBACK_JOB_END (sdkNotifyUsine)
+    Usine->>Usine: onJobEnd() — collect results
 ```
 
 ```cpp
-void onCallBack(TUsineMessage* Message) override
+void BackgroundJob::onCallBack(TUsineMessage* Message)
 {
-    if (/* user clicked start */)
-        startJob();  // launches background thread
+	// ...
+	if (Message->wParam == START_BTN_CBID)
+		startJob();
 }
 
-void onJobBegin() override { /* setup */ }
-void onJobProcess() override { /* heavy computation here */ }
-void onJobEnd() override { /* collect results, update UI */ }
+void BackgroundJob::onJobBegin()   { /* setup */ }
+void BackgroundJob::onJobProcess() { /* heavy computation here */ }
+void BackgroundJob::onJobEnd()     { /* collect results, update outputs */ }
 ```
 
-`onJobBegin` and `onJobProcess` run on a background thread. `onJobEnd` runs on the main thread.
+`startJob()` doesn't run anything itself: it notifies Usine, and the SDK starts the job thread when the notification comes back. `onJobBegin` and `onJobProcess` run on the job thread. When they return, the SDK notifies Usine again and calls `onJobEnd` from the callback dispatch, in real-time mode (`numRealTime`). If a job is still running, the new start is postponed until it ends.
+
+With `ModuleType = mtBackgroundJob`, the SDK also creates two outputs after the parameters of the module: `processing`, on while the job runs, and `processing time`, the duration of the last job (see [[sdk/user-module-base|UserModuleBase]]).
 
 **Example:** [[examples/background-job|BackgroundJob]]
 
@@ -264,21 +309,29 @@ void onJobEnd() override { /* collect results, update UI */ }
 For saving/loading custom module state beyond parameter values:
 
 ```cpp
-int onGetChunkLen(LongBool Preset) override
+int MyModule::onGetStateChunkLen(LongBool Preset)
 {
-    return sizeof(MyData);
+	return static_cast<int>(sizeof(myData));
 }
 
-void onGetChunk(void* chunk, LongBool Preset) override
+void MyModule::onGetStateChunk(void* chunk, LongBool Preset)
 {
-    memcpy(chunk, &myData, sizeof(MyData));
+	std::memcpy(chunk, &myData, sizeof(myData));
 }
 
-void onSetChunk(const void* chunk, int sizeInBytes, LongBool Preset) override
+void MyModule::onSetStateChunk(const void* chunk, int sizeInBytes, LongBool Preset)
 {
-    memcpy(&myData, chunk, sizeInBytes);
+	// the chunk comes from a file: check its size before reading it
+	if (sizeInBytes < static_cast<int>(sizeof(myData)))
+	{
+		sdkRaiseError(ERROR_INVALID_CHUNK);
+		return;
+	}
+	std::memcpy(&myData, chunk, sizeof(myData));
 }
 ```
+
+> **Note:** these callbacks save the state of the module itself. The **Usine chunks** of [[examples/usine-chunks|UsineChunks]] are a different system: named data shared between modules.
 
 **Examples:** [[examples/draw-trajectory-box|DrawTrajectoryBox]], [[examples/simple-pad|SimplePad]], [[examples/usine-chunks|UsineChunks]]
 
@@ -334,12 +387,29 @@ graph LR
     end
 ```
 
-- Use `std::atomic<>` for values shared between `onProcess()` and `onCallBack()` — see [[examples/audio-volume|AudioVolume]]
+- A value written in `onCallBack()` and read in `onProcess()` crosses threads, unless the callback is `ctImmediate` (audio thread). Copy it into a local at the start of `onProcess()` so the whole bloc uses the same value (see [[examples/ring-mod|RingMod]]), and use `std::atomic<>` or a critical section for anything bigger than a single value
 - Use `sdkCriticalSectionCreate/Lock/UnLock` for complex shared state — see [[examples/multithreading|MultiThreading]]
 - Use `sdkSyncObjectCreate/Set/Wait` for thread synchronization — see [[examples/ring-mod-multithread|RingModMultithread]]
 - Never lock in `onProcess()` if it can be avoided
 
+## Errors and Messages
+
+Modules report errors, warnings and infos with `sdkRaiseError`, never with the raw `sdkTrace*` functions. Each message is registered once with `RegisterError` in `ModuleDefinition.h`, the user can filter them with a verbosity level:
+
+```cpp
+// ModuleDefinition.h
+inline const int WARNING_MAX_POINTS = RegisterError(Level::Warn, "maximum number of points reached");
+
+// MyModule.cpp
+if (trajectory.num == MAXPOINTS)
+	sdkRaiseError(WARNING_MAX_POINTS);
+```
+
+See [[examples/error-handling|ErrorHandling]] and [[sdk/module-conventions|Module Conventions]].
+
 ## Related Pages
+
+- [[sdk/module-conventions|Module Conventions]] — Files, naming and style of a module
 
 - [[sdk/user-module-base|UserModuleBase Class]] — Complete callback reference
 - [[sdk/usine-event-class|UsineEventClass]] — Event manipulation API

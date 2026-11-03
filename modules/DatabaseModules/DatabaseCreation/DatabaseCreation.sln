@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DatabaseCreation", "DatabaseCreation.vcxproj", "{6FC6A0D4-DDC7-4301-8813-3A7F6FCD015D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6FC6A0D4-DDC7-4301-8813-3A7F6FCD015D}.Debug|ARM64.ActiveCfg = Debug|x64
+		{6FC6A0D4-DDC7-4301-8813-3A7F6FCD015D}.Debug|x64.ActiveCfg = Debug|x64
+		{6FC6A0D4-DDC7-4301-8813-3A7F6FCD015D}.Debug|x64.Build.0 = Debug|x64
+		{6FC6A0D4-DDC7-4301-8813-3A7F6FCD015D}.Debug|x86.ActiveCfg = Debug|x64
+		{6FC6A0D4-DDC7-4301-8813-3A7F6FCD015D}.Release|ARM64.ActiveCfg = Release|x64
+		{6FC6A0D4-DDC7-4301-8813-3A7F6FCD015D}.Release|x64.ActiveCfg = Release|x64
+		{6FC6A0D4-DDC7-4301-8813-3A7F6FCD015D}.Release|x64.Build.0 = Release|x64
+		{6FC6A0D4-DDC7-4301-8813-3A7F6FCD015D}.Release|x86.ActiveCfg = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C3C6CB44-8688-4350-AAF9-C53E4DA8E211}
+	EndGlobalSection
+EndGlobal

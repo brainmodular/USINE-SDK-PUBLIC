@@ -1,335 +1,168 @@
 //-----------------------------------------------------------------------------
-//@file  
-//	DrawBox.cpp
+// @file    DrawBox.cpp
+// @author  BrainModular team
+// @brief   Draws a box with the mouse, shows painting and mouse interactions.
 //
-//@author
-//	BrainModular team
-//
-//@brief 
-//	Implementation of the DrawBox class
-//
-//  Example user module of a graphical interface with mouse interactions.
-//
-//@historic 
-//	2015/02/23
-//    first release for Hollyhock CPP SDK 6.04.001
-//
-//@IMPORTANT
-//	This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs :
-//  support@brainmodular.com 
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE.
-//
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// includes
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2015-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
 #include "DrawBox.h"
+#include "ModuleDefinition.h"
 
-//----------------------------------------------------------------------------
-// setup a callback_id constant for all params that specify a callback type
-//----------------------------------------------------------------------------
-constexpr NativeInt RESET_CBID		= 0x001500F0;
-constexpr NativeInt RANDOMIZE_CBID  = 0x001500F1;
+namespace
+{
+	float clamp01(float value)
+	{
+		return std::clamp(value, 0.0f, 1.0f);
+	}
 
+	float randomUnit()
+	{
+		return static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
+	}
+}
 
-//----------------------------------------------------------------------------
-// create, general info and destroy methods
-//----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// Create
 void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new DrawBox();
 }
 
-//-----------------------------------------------------------------------------
-// destroy
 void DestroyModule(void* pModule)
 {
-    // cast is important to call the good destructor
-	delete ((DrawBox*)pModule);
+	// cast is important to call the good destructor
+	delete static_cast<DrawBox*>(pModule);
 }
 
-// module constants for browser info and module info
-constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "draw box";
-constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "draw box sdk module example";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
-
-// browser info
-void GetBrowserInfo(TModuleInfo* pModuleInfo) 
+void DrawBox::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	pModuleInfo->Name				= UserModuleBase::MODULE_NAME;
-	pModuleInfo->Description		= UserModuleBase::MODULE_DESC;
-	pModuleInfo->Version			= UserModuleBase::MODULE_VERSION;
-}
-
-//-----------------------------------------------------------------------------
-// module description
-void DrawBox::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
-{
-	pModuleInfo->Name				= MODULE_NAME;
-	pModuleInfo->Description		= MODULE_DESC;
 	pModuleInfo->ModuleType         = mtControl;
 	pModuleInfo->BackColor          = sdkGetUsineColor(clInterfaceDesignModuleColor);
-	pModuleInfo->NumberOfParams     = 2;
-	pModuleInfo->DefaultWidth		= DEFAULT_MODULEHEIGHT;
-	pModuleInfo->DefaultHeight		= DEFAULT_MODULEHEIGHT;
-    pModuleInfo->CanBeRandomized    = TRUE;
-	pModuleInfo->DontProcess		= TRUE;
-	pModuleInfo->Version			= MODULE_VERSION;
+	pModuleInfo->DefaultWidth       = DEFAULT_MODULE_SIZE;
+	pModuleInfo->DefaultHeight      = DEFAULT_MODULE_SIZE;
+	pModuleInfo->CanBeRandomized    = TRUE;
+	pModuleInfo->DontProcess        = TRUE;
 	pModuleInfo->CanBeSavedInPreset = TRUE;
 }
 
-//-----------------------------------------------------------------------------
-// query system and init methods
-//-----------------------------------------------------------------------------
-// query system not used
-
-//-----------------------------------------------------------------------------
-// initialisation
-void DrawBox::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
+void DrawBox::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
 	colorBox = sdkGetUsineColor(clCursor);
-
-	mouseLeftButtonDown = FALSE;
 	eraseBox();
-
-    //sdkSetEvtNbLines (arrPointsCoordsOut, ARRAY_OUT_LINES);
 }
 
-//-----------------------------------------------------------------------------
-// Parameters description
-void DrawBox::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo) 
-{	
-	switch (ParamIndex) 
-	{
-	// Erase trajectory button input
-	case 0:
-		pParamInfo->ParamType		= ptButton;
-		pParamInfo->Caption			= "reset";
-		pParamInfo->IsInput			= TRUE;
-		pParamInfo->IsOutput		= FALSE;
-		pParamInfo->ReadOnly		= FALSE;
-		pParamInfo->IsSeparator     = TRUE;
-		pParamInfo->CallBackType    = ctImmediate;
-		pParamInfo->CallBackId		= RESET_CBID;
-		pParamInfo->setEventClass	(btnErase);
-		break;
-	// btnRandomize
-	case 1:
-		pParamInfo->ParamType		= ptButton;
-		pParamInfo->Caption			= "randomize";
-		pParamInfo->IsInput			= TRUE;
-		pParamInfo->IsOutput		= FALSE;
-		pParamInfo->ReadOnly		= FALSE;
-		pParamInfo->CallBackType	= ctImmediate;
-		pParamInfo->CallBackId		= RANDOMIZE_CBID;
-		pParamInfo->setEventClass	(btnRandomize);
-		break;
-	default:
-		// do nothing
-		break;
-	}
-}
-
-//-----------------------------------------------------------------------------
-// Parameters callback
-void DrawBox::onCallBack(TUsineMessage *Message) 
+void DrawBox::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	if (Message->message != NOTIFY_MSG_USINE_CALLBACK || Message->lParam != MSG_CHANGE)
+	sdkCreateParam(resetBtnInParamInfo, resetBtnIn);
+	sdkCreateParam(randomizeBtnInParamInfo, randomizeBtnIn);
+}
+
+void DrawBox::onCallBack(TUsineMessage* Message)
+{
+	if ((Message->message != NOTIFY_MSG_USINE_CALLBACK) || (Message->lParam != MSG_CHANGE))
 		return;
-        
-	// WParam contains the Param Number
-	switch (Message->wParam) 
+
+	switch (Message->wParam)
 	{
-	// Erase trajectory button input
-	case RESET_CBID:
-		eraseBox();
-		break;
-	// randomize button input
-	case RANDOMIZE_CBID:
-        onRandomize ();
-		break;
-	// default case
-	default:
-		// do nothing
-		break;
+		case RESET_BTN_CBID:
+			eraseBox();
+			break;
+		case RANDOMIZE_BTN_CBID:
+			onRandomize();
+			break;
+		default:
+			break;
 	}
 }
 
-//----------------------------------------------------------------------------
-// layout
-//----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// create user defined layout options in the 'edit layout' panel
 void DrawBox::onCreateSettings()
 {
-	// we had our user section in the edit layout panel
+	// adds our own section in the 'edit layout' panel
 	sdkAddSettingLineCaption(DESIGN_TAB_NAME, "box");
-	sdkAddSettingLineColor( DESIGN_TAB_NAME, &colorBox, "box color" );
+	sdkAddSettingLineColor(DESIGN_TAB_NAME, &colorBox, "box color");
 }
 
-//-----------------------------------------------------------------------------
-// Callback which indicate that the user has changed someting in the layout
-// You'll probably need to redreaw
 void DrawBox::onSettingsHasChanged()
 {
-	// Ask to repaint the module
 	sdkRepaintPanel();
-} 
+}
 
 void DrawBox::onCreateCommands()
 {
-    sdkAddCommandSeparator("cmd_edit");
-    sdkAddCommand("cmd_reset", 0);
-    sdkAddCommand("cmd_randomize", 1);
+	// a command triggers onCallBack with its callback id, like the matching button
+	sdkAddCommandSeparator("cmd_edit");
+	sdkAddCommand("cmd_reset", RESET_BTN_CBID);
+	sdkAddCommand("cmd_randomize", RANDOMIZE_BTN_CBID);
 }
 
-//-----------------------------------------------------------------------------
-// paint the module panel
 void DrawBox::onPaint()
 {
-    // we check the box top value to see if there is something to draw 
-    if (boxCoords.top >= 0)
-    {
-        sdkFillRect(boxCoords, colorBox, 0, colorBox, 0);
-    }
+	if (boxCoords.top >= 0)
+		sdkFillRect(boxCoords, colorBox, 0, colorBox, 0);
 }
 
-//-----------------------------------------------------------------------------
-// mouse and multi touch
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// MouseMove callback
 void DrawBox::onMouseMove(TShiftState Shift, float X, float Y)
 {
-    // we only want to draw when the left mouse button is down
 	if (mouseLeftButtonDown)
-	{
-		updateBox (std::min(1.0f, std::max(X, 0.0f)), std::min(1.0f, std::max(Y, 0.0f)));
-	}	
+		updateBox(clamp01(X), clamp01(Y));
 
-    // collecte mouse pos in case of zoom
-    lastMousePos.x = X;
-    lastMousePos.y = Y;
+	// kept for the mouse wheel zoom, which is centered on the mouse
+	lastMousePos = { .x = X, .y = Y };
 }
 
-//-----------------------------------------------------------------------------
-// MouseDown callback
-void DrawBox::onMouseDown(TMouseButton Button, TShiftState Shift, float X,float Y)
+void DrawBox::onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X, float Y)
 {
-	if (Button == mbLeft)
-	{
-        float left = std::min(1.0f, std::max(X, 0.0f));
-        float top = std::min(1.0f, std::max(Y, 0.0f)) ;
-        anchorPoint.x = left;
-        anchorPoint.y = top;
-        boxCoords.left = left;
-        boxCoords.top = top;
-        boxCoords.bottom = top;
-        boxCoords.right = left;
+	if (MouseButton != mbLeft)
+		return;
 
-		// we store the state of the left button
-		mouseLeftButtonDown = TRUE;
-	}
+	anchorPoint = { .x = clamp01(X), .y = clamp01(Y) };
+	boxCoords   = { .left = anchorPoint.x, .top = anchorPoint.y, .right = anchorPoint.x, .bottom = anchorPoint.y };
+
+	mouseLeftButtonDown = true;
 }
 
-//-----------------------------------------------------------------------------
-// MouseUp callback
-void DrawBox::onMouseUp(TMouseButton Button, TShiftState Shift, float X, float Y)
+void DrawBox::onMouseUp(TMouseButton MouseButton, TShiftState Shift, float X, float Y)
 {
-	mouseLeftButtonDown = FALSE;
+	mouseLeftButtonDown = false;
 }
 
-//-----------------------------------------------------------------------------
-// MouseWheel callback
 void DrawBox::onMouseWheel(TShiftState Shift, int WheelDelta)
 {
-    WheelDelta > 0 ? boxScale = 1.1f : boxScale = 0.9f;
+	if (boxCoords.top < 0)
+		return;
 
-    // apply the scale
-    boxCoords.left      = (boxCoords.left - lastMousePos.x) * boxScale + lastMousePos.x; 
-    boxCoords.top       = (boxCoords.top - lastMousePos.y) * boxScale + lastMousePos.y; 
-    boxCoords.bottom    = (boxCoords.bottom - lastMousePos.y) * boxScale + lastMousePos.y;  
-    boxCoords.right     = (boxCoords.right - lastMousePos.x) * boxScale + lastMousePos.x; 
-    
-    // limit to canvas bounds
-    boxCoords.left      = std::min(1.0f, std::max(boxCoords.left, 0.0f)); 
-    boxCoords.top       = std::min(1.0f, std::max(boxCoords.top, 0.0f)); 
-    boxCoords.bottom    = std::min(1.0f, std::max(boxCoords.bottom, 0.0f));  
-    boxCoords.right     = std::min(1.0f, std::max(boxCoords.right, 0.0f)); 
-}
+	const float boxScale = (WheelDelta > 0) ? 1.1f : 0.9f;
 
-//-----------------------------------------------------------------------------
-// usine randomize
-void DrawBox::onRandomize()
-{
-    boxCoords.left = (float)(rand() / (float)(RAND_MAX));
-	boxCoords.right = (float)(boxCoords.left + ((1 - boxCoords.left) * (rand() / (float)(RAND_MAX))));
-	boxCoords.top = (float)(rand() / (float)(RAND_MAX));
-	boxCoords.bottom = (float)(boxCoords.top + ((1 - boxCoords.top) * (rand() / (float)(RAND_MAX))));
-    
-	// Ask to repaint the module
+	boxCoords.left   = clamp01((boxCoords.left - lastMousePos.x) * boxScale + lastMousePos.x);
+	boxCoords.right  = clamp01((boxCoords.right - lastMousePos.x) * boxScale + lastMousePos.x);
+	boxCoords.top    = clamp01((boxCoords.top - lastMousePos.y) * boxScale + lastMousePos.y);
+	boxCoords.bottom = clamp01((boxCoords.bottom - lastMousePos.y) * boxScale + lastMousePos.y);
+
 	sdkRepaintPanel();
 }
 
-//-----------------------------------------------------------------------------
-// Multi touch callbacks not used
-
-//-------------------------------------------------------------------------
-// private methods implementation
-//-----------------------------------------------------------------------
-//-------------------------------------------------------------------------
-void DrawBox::eraseBox()
+void DrawBox::onRandomize()
 {
-    // we put all box values to -1
-    // in the paint methode, we'll check against the top value if it's negative
-    boxCoords.left = -1;
-    boxCoords.top = -1;
-    boxCoords.bottom = -1;
-    boxCoords.right = -1;
-    
-    // Ask to repaint the module
-    sdkRepaintPanel();
+	boxCoords.left   = randomUnit();
+	boxCoords.right  = boxCoords.left + (1.0f - boxCoords.left) * randomUnit();
+	boxCoords.top    = randomUnit();
+	boxCoords.bottom = boxCoords.top + (1.0f - boxCoords.top) * randomUnit();
+
+	sdkRepaintPanel();
 }
 
-//-------------------------------------------------------------------------
+void DrawBox::eraseBox()
+{
+	boxCoords = { .left = -1.0f, .top = -1.0f, .right = -1.0f, .bottom = -1.0f };
+
+	sdkRepaintPanel();
+}
+
 void DrawBox::updateBox(float x, float y)
 {
-    boxCoords.left   = std::min(anchorPoint.x, x);
-    boxCoords.right  = std::max(anchorPoint.x, x);
-    boxCoords.top    = std::min(anchorPoint.y, y);
-    boxCoords.bottom = std::max(anchorPoint.y, y);
+	const auto [left, right] = std::minmax(anchorPoint.x, x);
+	const auto [top, bottom] = std::minmax(anchorPoint.y, y);
+	boxCoords = { .left = left, .top = top, .right = right, .bottom = bottom };
 
-    sdkRepaintPanel();
+	sdkRepaintPanel();
 }

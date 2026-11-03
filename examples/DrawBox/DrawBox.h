@@ -1,152 +1,50 @@
 //-----------------------------------------------------------------------------
-//@file  
-//	DrawBox.h
+// @file    DrawBox.h
+// @author  BrainModular team
+// @brief   Draws a box with the mouse, shows painting and mouse interactions.
 //
-//@author
-//	BrainModular team
-//
-//@brief 
-//	Definitions of the DrawBox class.
-//
-//  Example user module of a graphical interface with mouse interactions.
-//
-//@historic 
-//	2015/02/23
-//    first release for Hollyhock CPP SDK 6.04.001
-//
-//@IMPORTANT
-//	This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs :
-//  support@brainmodular.com
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE.
-//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2015-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
+#pragma once
 
-// include once, no more
-#ifndef __EXAMPLE_DRAW_BOX_H__
-#define __EXAMPLE_DRAW_BOX_H__
+#include "../../sdk/UserDefinitions.h"
 
-//-----------------------------------------------------------------------------
-// includes
-//-----------------------------------------------------------------------------
-#include "../../sdk/UserDefinitions.h"  
+constexpr int DEFAULT_MODULE_SIZE = 134;
 
-//-----------------------------------------------------------------------------
-// defines and constantes
-//-----------------------------------------------------------------------------
-
-// Panel Height
-constexpr int DEFAULT_MODULEHEIGHT = 134;  
-
-
-//-----------------------------------------------------------------------------
-// class definition
-//-----------------------------------------------------------------------------
 class DrawBox : public UserModuleBase
 {
-	//-------------------------------------------------------------------------
-	// public constructors/destructors
-	//-------------------------------------------------------------------------
 public:
+	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCallBack(TUsineMessage* Message) override;
 
-    // constructor
-	DrawBox(){};
+	void onCreateSettings() override;
+	void onSettingsHasChanged() override;
+	void onCreateCommands() override;
+	void onPaint() override;
 
-    // destructor
-	~DrawBox(){};
+	void onMouseMove(TShiftState Shift, float X, float Y) override;
+	void onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X, float Y) override;
+	void onMouseUp(TMouseButton MouseButton, TShiftState Shift, float X, float Y) override;
+	void onMouseWheel(TShiftState Shift, int WheelDelta) override;
 
-	//-------------------------------------------------------------------------
-	// public methods inherited from UserModule
-	//-------------------------------------------------------------------------
-public:
-	//-----------------------------------------------------------------------------
-	// module info
-	void onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+	void onRandomize() override;
 
-	//-----------------------------------------------------------------------------
-	// query system and init
-	void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
-
-	//-----------------------------------------------------------------------------
-	// parameters and process
-	void onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo);
-	void onCallBack (TUsineMessage *Message);
-
-	//-----------------------------------------------------------------------------
-	// layout
-	void onCreateSettings();
-	void onSettingsHasChanged();
-    void onCreateCommands();
-	void onPaint ();
-
-	//-----------------------------------------------------------------------------
-	// mouse and multi touch interaction
-	void onMouseMove(TShiftState Shift, float X, float Y);
-	void onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X,float Y);
-	void onMouseUp (TMouseButton MouseButton, TShiftState Shift, float X,float Y);
-    void onMouseWheel (TShiftState Shift, int WheelDelta);
-
-    //-----------------------------------------------------------------------------
-    // usine preset randomize
-    virtual void onRandomize ();
-	//-------------------------------------------------------------------------
-	// private members
-	//-------------------------------------------------------------------------
 private:
-	
-	//-------------------------------------------------------------------------
-	// parameters events
-	UsineEventClass btnErase;			// Erase trajectory button input
-	UsineEventClass btnRandomize;     // randomize button input
+	UsineEventClass resetBtnIn;
+	UsineEventClass randomizeBtnIn;
 
-	//-------------------------------------------------------------------------
-	// Other	
-		
-	// store the mouse left button state
-	LongBool	mouseLeftButtonDown;			
-    TPointF lastMousePos;
-    TPointF anchorPoint;
+	bool    mouseLeftButtonDown = false;
+	TPointF lastMousePos        = {};
+	TPointF anchorPoint         = {};
 
-	// store the coords of our box
-    TRectF boxCoords;
-    float boxScale;
+	// a negative top means there is no box to draw
+	TRectF      boxCoords = {};
+	TUsineColor colorBox  = 0;
 
-	// settings
-	TUsineColor colorBox;
-
-
-	//-------------------------------------------------------------------------
-	// private methods
-	//-------------------------------------------------------------------------
-private:
-    void eraseBox();
-
-    void updateBox(float x, float y);
-
-
-}; // class DrawBox
-
-#endif // __EXAMPLE_DRAW_BOX_H__
+	void eraseBox();
+	void updateBox(float x, float y);
+};

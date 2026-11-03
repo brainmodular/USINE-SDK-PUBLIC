@@ -1,0 +1,578 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4F12E71E2DC24F4E007487BE /* f0_YIN.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E6EF2DC24F4E007487BE /* f0_YIN.h */; };
+		4F12E71F2DC24F4E007487BE /* SpectralSkewness.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E70D2DC24F4E007487BE /* SpectralSkewness.h */; };
+		4F12E7202DC24F4E007487BE /* OddToEvenRatio.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E6F72DC24F4E007487BE /* OddToEvenRatio.h */; };
+		4F12E7212DC24F4E007487BE /* SpectralSpread.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E7112DC24F4E007487BE /* SpectralSpread.h */; };
+		4F12E7222DC24F4E007487BE /* Sharpness.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E6FB2DC24F4E007487BE /* Sharpness.h */; };
+		4F12E7232DC24F4E007487BE /* SpectralDecrease.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E7012DC24F4E007487BE /* SpectralDecrease.h */; };
+		4F12E7242DC24F4E007487BE /* AudioAnalysis.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E6ED2DC24F4E007487BE /* AudioAnalysis.h */; };
+		4F12E7252DC24F4E007487BE /* Hdescriptors.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E71B2DC24F4E007487BE /* Hdescriptors.h */; };
+		4F12E7262DC24F4E007487BE /* Loudness.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E6F32DC24F4E007487BE /* Loudness.h */; };
+		4F12E7272DC24F4E007487BE /* RMS.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E6F92DC24F4E007487BE /* RMS.h */; };
+		4F12E7282DC24F4E007487BE /* Hanalysis.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E7182DC24F4E007487BE /* Hanalysis.h */; };
+		4F12E7292DC24F4E007487BE /* MFCC.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E6F52DC24F4E007487BE /* MFCC.h */; };
+		4F12E72A2DC24F4E007487BE /* SpectralPeaks.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E7092DC24F4E007487BE /* SpectralPeaks.h */; };
+		4F12E72B2DC24F4E007487BE /* SpectralRolloff.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E70B2DC24F4E007487BE /* SpectralRolloff.h */; };
+		4F12E72C2DC24F4E007487BE /* SpectralTonality.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E7132DC24F4E007487BE /* SpectralTonality.h */; };
+		4F12E72D2DC24F4E007487BE /* Inharmonicity.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E6F12DC24F4E007487BE /* Inharmonicity.h */; };
+		4F12E72E2DC24F4E007487BE /* SpectralSlope.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E70F2DC24F4E007487BE /* SpectralSlope.h */; };
+		4F12E72F2DC24F4E007487BE /* SpectralCrest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E6FF2DC24F4E007487BE /* SpectralCrest.h */; };
+		4F12E7302DC24F4E007487BE /* Hfeatures.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E71C2DC24F4E007487BE /* Hfeatures.h */; };
+		4F12E7312DC24F4E007487BE /* SpectralCentroid.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E6FD2DC24F4E007487BE /* SpectralCentroid.h */; };
+		4F12E7322DC24F4E007487BE /* HaudioBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E71A2DC24F4E007487BE /* HaudioBuffer.h */; };
+		4F12E7332DC24F4E007487BE /* SpectralFlatness.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E7052DC24F4E007487BE /* SpectralFlatness.h */; };
+		4F12E7342DC24F4E007487BE /* SpectralKurtosis.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E7072DC24F4E007487BE /* SpectralKurtosis.h */; };
+		4F12E7352DC24F4E007487BE /* SpectralEntropy.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E7032DC24F4E007487BE /* SpectralEntropy.h */; };
+		4F12E7362DC24F4E007487BE /* Tristimulus.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F12E7152DC24F4E007487BE /* Tristimulus.h */; };
+		4F12E7372DC24F4E007487BE /* SpectralCrest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E7002DC24F4E007487BE /* SpectralCrest.cpp */; };
+		4F12E7382DC24F4E007487BE /* SpectralKurtosis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E7082DC24F4E007487BE /* SpectralKurtosis.cpp */; };
+		4F12E7392DC24F4E007487BE /* MFCC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E6F62DC24F4E007487BE /* MFCC.cpp */; };
+		4F12E73A2DC24F4E007487BE /* SpectralCentroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E6FE2DC24F4E007487BE /* SpectralCentroid.cpp */; };
+		4F12E73B2DC24F4E007487BE /* Loudness.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E6F42DC24F4E007487BE /* Loudness.cpp */; };
+		4F12E73C2DC24F4E007487BE /* SpectralRolloff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E70C2DC24F4E007487BE /* SpectralRolloff.cpp */; };
+		4F12E73D2DC24F4E007487BE /* Inharmonicity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E6F22DC24F4E007487BE /* Inharmonicity.cpp */; };
+		4F12E73E2DC24F4E007487BE /* SpectralSkewness.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E70E2DC24F4E007487BE /* SpectralSkewness.cpp */; };
+		4F12E73F2DC24F4E007487BE /* SpectralSlope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E7102DC24F4E007487BE /* SpectralSlope.cpp */; };
+		4F12E7402DC24F4E007487BE /* SpectralSpread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E7122DC24F4E007487BE /* SpectralSpread.cpp */; };
+		4F12E7412DC24F4E007487BE /* Tristimulus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E7162DC24F4E007487BE /* Tristimulus.cpp */; };
+		4F12E7422DC24F4E007487BE /* Hanalysis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E7192DC24F4E007487BE /* Hanalysis.cpp */; };
+		4F12E7432DC24F4E007487BE /* SpectralTonality.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E7142DC24F4E007487BE /* SpectralTonality.cpp */; };
+		4F12E7442DC24F4E007487BE /* SpectralDecrease.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E7022DC24F4E007487BE /* SpectralDecrease.cpp */; };
+		4F12E7452DC24F4E007487BE /* SpectralFlatness.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E7062DC24F4E007487BE /* SpectralFlatness.cpp */; };
+		4F12E7462DC24F4E007487BE /* SpectralPeaks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E70A2DC24F4E007487BE /* SpectralPeaks.cpp */; };
+		4F12E7472DC24F4E007487BE /* OddToEvenRatio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E6F82DC24F4E007487BE /* OddToEvenRatio.cpp */; };
+		4F12E7482DC24F4E007487BE /* Sharpness.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E6FC2DC24F4E007487BE /* Sharpness.cpp */; };
+		4F12E7492DC24F4E007487BE /* SpectralEntropy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E7042DC24F4E007487BE /* SpectralEntropy.cpp */; };
+		4F12E74A2DC24F4E007487BE /* AudioAnalysis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E6EE2DC24F4E007487BE /* AudioAnalysis.cpp */; };
+		4F12E74B2DC24F4E007487BE /* RMS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E6FA2DC24F4E007487BE /* RMS.cpp */; };
+		4F12E74C2DC24F4E007487BE /* f0_YIN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F12E6F02DC24F4E007487BE /* f0_YIN.cpp */; };
+		4F1A59B32E32672D0033817A /* AudioAnalysisDescriptors.usr-macos64uni in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4FE8FCCD2DBFC1EC0056C629 /* AudioAnalysisDescriptors.usr-macos64uni */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4FB1C0312DD5EA4700F54BA9 /* UsineFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FB1C0302DD5EA4200F54BA9 /* UsineFunctions.h */; };
+		4FE8FD972DBFC2520056C629 /* UserDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE8FD8F2DBFC2520056C629 /* UserDefinitions.h */; };
+		4FE8FD982DBFC2520056C629 /* UserModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE8FD902DBFC2520056C629 /* UserModule.h */; };
+		4FE8FD992DBFC2520056C629 /* UsineEventClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE8FD952DBFC2520056C629 /* UsineEventClass.h */; };
+		4FE8FD9A2DBFC2520056C629 /* UsineDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE8FD942DBFC2520056C629 /* UsineDefinitions.h */; };
+		4FE8FD9B2DBFC2520056C629 /* UserUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE8FD922DBFC2520056C629 /* UserUtils.h */; };
+		4FE8FD9C2DBFC2520056C629 /* UserUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FE8FD932DBFC2520056C629 /* UserUtils.cpp */; };
+		4FE8FD9D2DBFC2520056C629 /* UserModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FE8FD912DBFC2520056C629 /* UserModule.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4F72CEC02DE48167005746BE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "$(SRCROOT)/../../bin/AudioAnalysis";
+			dstSubfolderSpec = 0;
+			files = (
+				4F1A59B32E32672D0033817A /* AudioAnalysisDescriptors.usr-macos64uni in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		4F12E6ED2DC24F4E007487BE /* AudioAnalysis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioAnalysis.h; sourceTree = "<group>"; };
+		4F12E6EE2DC24F4E007487BE /* AudioAnalysis.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AudioAnalysis.cpp; sourceTree = "<group>"; };
+		4F12E6EF2DC24F4E007487BE /* f0_YIN.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = f0_YIN.h; sourceTree = "<group>"; };
+		4F12E6F02DC24F4E007487BE /* f0_YIN.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = f0_YIN.cpp; sourceTree = "<group>"; };
+		4F12E6F12DC24F4E007487BE /* Inharmonicity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Inharmonicity.h; sourceTree = "<group>"; };
+		4F12E6F22DC24F4E007487BE /* Inharmonicity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Inharmonicity.cpp; sourceTree = "<group>"; };
+		4F12E6F32DC24F4E007487BE /* Loudness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Loudness.h; sourceTree = "<group>"; };
+		4F12E6F42DC24F4E007487BE /* Loudness.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Loudness.cpp; sourceTree = "<group>"; };
+		4F12E6F52DC24F4E007487BE /* MFCC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MFCC.h; sourceTree = "<group>"; };
+		4F12E6F62DC24F4E007487BE /* MFCC.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MFCC.cpp; sourceTree = "<group>"; };
+		4F12E6F72DC24F4E007487BE /* OddToEvenRatio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OddToEvenRatio.h; sourceTree = "<group>"; };
+		4F12E6F82DC24F4E007487BE /* OddToEvenRatio.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OddToEvenRatio.cpp; sourceTree = "<group>"; };
+		4F12E6F92DC24F4E007487BE /* RMS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMS.h; sourceTree = "<group>"; };
+		4F12E6FA2DC24F4E007487BE /* RMS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RMS.cpp; sourceTree = "<group>"; };
+		4F12E6FB2DC24F4E007487BE /* Sharpness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sharpness.h; sourceTree = "<group>"; };
+		4F12E6FC2DC24F4E007487BE /* Sharpness.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sharpness.cpp; sourceTree = "<group>"; };
+		4F12E6FD2DC24F4E007487BE /* SpectralCentroid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpectralCentroid.h; sourceTree = "<group>"; };
+		4F12E6FE2DC24F4E007487BE /* SpectralCentroid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpectralCentroid.cpp; sourceTree = "<group>"; };
+		4F12E6FF2DC24F4E007487BE /* SpectralCrest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpectralCrest.h; sourceTree = "<group>"; };
+		4F12E7002DC24F4E007487BE /* SpectralCrest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpectralCrest.cpp; sourceTree = "<group>"; };
+		4F12E7012DC24F4E007487BE /* SpectralDecrease.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpectralDecrease.h; sourceTree = "<group>"; };
+		4F12E7022DC24F4E007487BE /* SpectralDecrease.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpectralDecrease.cpp; sourceTree = "<group>"; };
+		4F12E7032DC24F4E007487BE /* SpectralEntropy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpectralEntropy.h; sourceTree = "<group>"; };
+		4F12E7042DC24F4E007487BE /* SpectralEntropy.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpectralEntropy.cpp; sourceTree = "<group>"; };
+		4F12E7052DC24F4E007487BE /* SpectralFlatness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpectralFlatness.h; sourceTree = "<group>"; };
+		4F12E7062DC24F4E007487BE /* SpectralFlatness.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpectralFlatness.cpp; sourceTree = "<group>"; };
+		4F12E7072DC24F4E007487BE /* SpectralKurtosis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpectralKurtosis.h; sourceTree = "<group>"; };
+		4F12E7082DC24F4E007487BE /* SpectralKurtosis.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpectralKurtosis.cpp; sourceTree = "<group>"; };
+		4F12E7092DC24F4E007487BE /* SpectralPeaks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpectralPeaks.h; sourceTree = "<group>"; };
+		4F12E70A2DC24F4E007487BE /* SpectralPeaks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpectralPeaks.cpp; sourceTree = "<group>"; };
+		4F12E70B2DC24F4E007487BE /* SpectralRolloff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpectralRolloff.h; sourceTree = "<group>"; };
+		4F12E70C2DC24F4E007487BE /* SpectralRolloff.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpectralRolloff.cpp; sourceTree = "<group>"; };
+		4F12E70D2DC24F4E007487BE /* SpectralSkewness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpectralSkewness.h; sourceTree = "<group>"; };
+		4F12E70E2DC24F4E007487BE /* SpectralSkewness.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpectralSkewness.cpp; sourceTree = "<group>"; };
+		4F12E70F2DC24F4E007487BE /* SpectralSlope.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpectralSlope.h; sourceTree = "<group>"; };
+		4F12E7102DC24F4E007487BE /* SpectralSlope.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpectralSlope.cpp; sourceTree = "<group>"; };
+		4F12E7112DC24F4E007487BE /* SpectralSpread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpectralSpread.h; sourceTree = "<group>"; };
+		4F12E7122DC24F4E007487BE /* SpectralSpread.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpectralSpread.cpp; sourceTree = "<group>"; };
+		4F12E7132DC24F4E007487BE /* SpectralTonality.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpectralTonality.h; sourceTree = "<group>"; };
+		4F12E7142DC24F4E007487BE /* SpectralTonality.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpectralTonality.cpp; sourceTree = "<group>"; };
+		4F12E7152DC24F4E007487BE /* Tristimulus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tristimulus.h; sourceTree = "<group>"; };
+		4F12E7162DC24F4E007487BE /* Tristimulus.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tristimulus.cpp; sourceTree = "<group>"; };
+		4F12E7182DC24F4E007487BE /* Hanalysis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hanalysis.h; sourceTree = "<group>"; };
+		4F12E7192DC24F4E007487BE /* Hanalysis.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Hanalysis.cpp; sourceTree = "<group>"; };
+		4F12E71A2DC24F4E007487BE /* HaudioBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HaudioBuffer.h; sourceTree = "<group>"; };
+		4F12E71B2DC24F4E007487BE /* Hdescriptors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hdescriptors.h; sourceTree = "<group>"; };
+		4F12E71C2DC24F4E007487BE /* Hfeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hfeatures.h; sourceTree = "<group>"; };
+		4FB1C0302DD5EA4200F54BA9 /* UsineFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsineFunctions.h; sourceTree = "<group>"; };
+		4FE8FCCD2DBFC1EC0056C629 /* AudioAnalysisDescriptors.usr-macos64uni */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "AudioAnalysisDescriptors.usr-macos64uni"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FE8FD8F2DBFC2520056C629 /* UserDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefinitions.h; sourceTree = "<group>"; };
+		4FE8FD902DBFC2520056C629 /* UserModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModule.h; sourceTree = "<group>"; };
+		4FE8FD912DBFC2520056C629 /* UserModule.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UserModule.cpp; sourceTree = "<group>"; };
+		4FE8FD922DBFC2520056C629 /* UserUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserUtils.h; sourceTree = "<group>"; };
+		4FE8FD932DBFC2520056C629 /* UserUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UserUtils.cpp; sourceTree = "<group>"; };
+		4FE8FD942DBFC2520056C629 /* UsineDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsineDefinitions.h; sourceTree = "<group>"; };
+		4FE8FD952DBFC2520056C629 /* UsineEventClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsineEventClass.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4F93AE7E2D8C17FA00783484 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4F12E7172DC24F4E007487BE /* functions */ = {
+			isa = PBXGroup;
+			children = (
+				4F12E6EF2DC24F4E007487BE /* f0_YIN.h */,
+				4F12E6F02DC24F4E007487BE /* f0_YIN.cpp */,
+				4F12E6F12DC24F4E007487BE /* Inharmonicity.h */,
+				4F12E6F22DC24F4E007487BE /* Inharmonicity.cpp */,
+				4F12E6F32DC24F4E007487BE /* Loudness.h */,
+				4F12E6F42DC24F4E007487BE /* Loudness.cpp */,
+				4F12E6F52DC24F4E007487BE /* MFCC.h */,
+				4F12E6F62DC24F4E007487BE /* MFCC.cpp */,
+				4F12E6F72DC24F4E007487BE /* OddToEvenRatio.h */,
+				4F12E6F82DC24F4E007487BE /* OddToEvenRatio.cpp */,
+				4F12E6F92DC24F4E007487BE /* RMS.h */,
+				4F12E6FA2DC24F4E007487BE /* RMS.cpp */,
+				4F12E6FB2DC24F4E007487BE /* Sharpness.h */,
+				4F12E6FC2DC24F4E007487BE /* Sharpness.cpp */,
+				4F12E6FD2DC24F4E007487BE /* SpectralCentroid.h */,
+				4F12E6FE2DC24F4E007487BE /* SpectralCentroid.cpp */,
+				4F12E6FF2DC24F4E007487BE /* SpectralCrest.h */,
+				4F12E7002DC24F4E007487BE /* SpectralCrest.cpp */,
+				4F12E7012DC24F4E007487BE /* SpectralDecrease.h */,
+				4F12E7022DC24F4E007487BE /* SpectralDecrease.cpp */,
+				4F12E7032DC24F4E007487BE /* SpectralEntropy.h */,
+				4F12E7042DC24F4E007487BE /* SpectralEntropy.cpp */,
+				4F12E7052DC24F4E007487BE /* SpectralFlatness.h */,
+				4F12E7062DC24F4E007487BE /* SpectralFlatness.cpp */,
+				4F12E7072DC24F4E007487BE /* SpectralKurtosis.h */,
+				4F12E7082DC24F4E007487BE /* SpectralKurtosis.cpp */,
+				4F12E7092DC24F4E007487BE /* SpectralPeaks.h */,
+				4F12E70A2DC24F4E007487BE /* SpectralPeaks.cpp */,
+				4F12E70B2DC24F4E007487BE /* SpectralRolloff.h */,
+				4F12E70C2DC24F4E007487BE /* SpectralRolloff.cpp */,
+				4F12E70D2DC24F4E007487BE /* SpectralSkewness.h */,
+				4F12E70E2DC24F4E007487BE /* SpectralSkewness.cpp */,
+				4F12E70F2DC24F4E007487BE /* SpectralSlope.h */,
+				4F12E7102DC24F4E007487BE /* SpectralSlope.cpp */,
+				4F12E7112DC24F4E007487BE /* SpectralSpread.h */,
+				4F12E7122DC24F4E007487BE /* SpectralSpread.cpp */,
+				4F12E7132DC24F4E007487BE /* SpectralTonality.h */,
+				4F12E7142DC24F4E007487BE /* SpectralTonality.cpp */,
+				4F12E7152DC24F4E007487BE /* Tristimulus.h */,
+				4F12E7162DC24F4E007487BE /* Tristimulus.cpp */,
+			);
+			path = functions;
+			sourceTree = "<group>";
+		};
+		4F12E71D2DC24F4E007487BE /* Hanalysis */ = {
+			isa = PBXGroup;
+			children = (
+				4F12E7172DC24F4E007487BE /* functions */,
+				4F12E7182DC24F4E007487BE /* Hanalysis.h */,
+				4F12E7192DC24F4E007487BE /* Hanalysis.cpp */,
+				4F12E71A2DC24F4E007487BE /* HaudioBuffer.h */,
+				4F12E71B2DC24F4E007487BE /* Hdescriptors.h */,
+				4F12E71C2DC24F4E007487BE /* Hfeatures.h */,
+			);
+			path = Hanalysis;
+			sourceTree = "<group>";
+		};
+		4F93AE772D8C17FA00783484 = {
+			isa = PBXGroup;
+			children = (
+				4F12E6ED2DC24F4E007487BE /* AudioAnalysis.h */,
+				4F12E6EE2DC24F4E007487BE /* AudioAnalysis.cpp */,
+				4F12E71D2DC24F4E007487BE /* Hanalysis */,
+				4FE8FD962DBFC2520056C629 /* sdk */,
+				4FE8FCCD2DBFC1EC0056C629 /* AudioAnalysisDescriptors.usr-macos64uni */,
+			);
+			sourceTree = "<group>";
+		};
+		4FE8FD962DBFC2520056C629 /* sdk */ = {
+			isa = PBXGroup;
+			children = (
+				4FB1C0302DD5EA4200F54BA9 /* UsineFunctions.h */,
+				4FE8FD8F2DBFC2520056C629 /* UserDefinitions.h */,
+				4FE8FD902DBFC2520056C629 /* UserModule.h */,
+				4FE8FD912DBFC2520056C629 /* UserModule.cpp */,
+				4FE8FD922DBFC2520056C629 /* UserUtils.h */,
+				4FE8FD932DBFC2520056C629 /* UserUtils.cpp */,
+				4FE8FD942DBFC2520056C629 /* UsineDefinitions.h */,
+				4FE8FD952DBFC2520056C629 /* UsineEventClass.h */,
+			);
+			name = sdk;
+			path = ../../sdk;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		4F93AE7C2D8C17FA00783484 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F12E71E2DC24F4E007487BE /* f0_YIN.h in Headers */,
+				4F12E71F2DC24F4E007487BE /* SpectralSkewness.h in Headers */,
+				4F12E7202DC24F4E007487BE /* OddToEvenRatio.h in Headers */,
+				4F12E7212DC24F4E007487BE /* SpectralSpread.h in Headers */,
+				4F12E7222DC24F4E007487BE /* Sharpness.h in Headers */,
+				4F12E7232DC24F4E007487BE /* SpectralDecrease.h in Headers */,
+				4F12E7242DC24F4E007487BE /* AudioAnalysis.h in Headers */,
+				4F12E7252DC24F4E007487BE /* Hdescriptors.h in Headers */,
+				4F12E7262DC24F4E007487BE /* Loudness.h in Headers */,
+				4F12E7272DC24F4E007487BE /* RMS.h in Headers */,
+				4F12E7282DC24F4E007487BE /* Hanalysis.h in Headers */,
+				4F12E7292DC24F4E007487BE /* MFCC.h in Headers */,
+				4F12E72A2DC24F4E007487BE /* SpectralPeaks.h in Headers */,
+				4F12E72B2DC24F4E007487BE /* SpectralRolloff.h in Headers */,
+				4F12E72C2DC24F4E007487BE /* SpectralTonality.h in Headers */,
+				4F12E72D2DC24F4E007487BE /* Inharmonicity.h in Headers */,
+				4F12E72E2DC24F4E007487BE /* SpectralSlope.h in Headers */,
+				4F12E72F2DC24F4E007487BE /* SpectralCrest.h in Headers */,
+				4F12E7302DC24F4E007487BE /* Hfeatures.h in Headers */,
+				4F12E7312DC24F4E007487BE /* SpectralCentroid.h in Headers */,
+				4F12E7322DC24F4E007487BE /* HaudioBuffer.h in Headers */,
+				4F12E7332DC24F4E007487BE /* SpectralFlatness.h in Headers */,
+				4F12E7342DC24F4E007487BE /* SpectralKurtosis.h in Headers */,
+				4F12E7352DC24F4E007487BE /* SpectralEntropy.h in Headers */,
+				4F12E7362DC24F4E007487BE /* Tristimulus.h in Headers */,
+				4FE8FD972DBFC2520056C629 /* UserDefinitions.h in Headers */,
+				4FE8FD982DBFC2520056C629 /* UserModule.h in Headers */,
+				4FE8FD992DBFC2520056C629 /* UsineEventClass.h in Headers */,
+				4FE8FD9A2DBFC2520056C629 /* UsineDefinitions.h in Headers */,
+				4FB1C0312DD5EA4700F54BA9 /* UsineFunctions.h in Headers */,
+				4FE8FD9B2DBFC2520056C629 /* UserUtils.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		4F93AE7F2D8C17FA00783484 /* AudioAnalysisDescriptors */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4F93AE8B2D8C17FA00783484 /* Build configuration list for PBXNativeTarget "AudioAnalysisDescriptors" */;
+			buildPhases = (
+				4F93AE7C2D8C17FA00783484 /* Headers */,
+				4F93AE7D2D8C17FA00783484 /* Sources */,
+				4F93AE7E2D8C17FA00783484 /* Frameworks */,
+				4F72CEC02DE48167005746BE /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AudioAnalysisDescriptors;
+			packageProductDependencies = (
+			);
+			productName = HarmonicAnalysis;
+			productReference = 4FE8FCCD2DBFC1EC0056C629 /* AudioAnalysisDescriptors.usr-macos64uni */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4F93AE782D8C17FA00783484 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					4F93AE7F2D8C17FA00783484 = {
+						CreatedOnToolsVersion = 16.2;
+						LastSwiftMigration = 1620;
+					};
+				};
+			};
+			buildConfigurationList = 4F93AE7B2D8C17FA00783484 /* Build configuration list for PBXProject "AudioAnalysisDescriptors" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4F93AE772D8C17FA00783484;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 4F93AE772D8C17FA00783484;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4F93AE7F2D8C17FA00783484 /* AudioAnalysisDescriptors */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4F93AE7D2D8C17FA00783484 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FE8FD9C2DBFC2520056C629 /* UserUtils.cpp in Sources */,
+				4FE8FD9D2DBFC2520056C629 /* UserModule.cpp in Sources */,
+				4F12E7372DC24F4E007487BE /* SpectralCrest.cpp in Sources */,
+				4F12E7382DC24F4E007487BE /* SpectralKurtosis.cpp in Sources */,
+				4F12E7392DC24F4E007487BE /* MFCC.cpp in Sources */,
+				4F12E73A2DC24F4E007487BE /* SpectralCentroid.cpp in Sources */,
+				4F12E73B2DC24F4E007487BE /* Loudness.cpp in Sources */,
+				4F12E73C2DC24F4E007487BE /* SpectralRolloff.cpp in Sources */,
+				4F12E73D2DC24F4E007487BE /* Inharmonicity.cpp in Sources */,
+				4F12E73E2DC24F4E007487BE /* SpectralSkewness.cpp in Sources */,
+				4F12E73F2DC24F4E007487BE /* SpectralSlope.cpp in Sources */,
+				4F12E7402DC24F4E007487BE /* SpectralSpread.cpp in Sources */,
+				4F12E7412DC24F4E007487BE /* Tristimulus.cpp in Sources */,
+				4F12E7422DC24F4E007487BE /* Hanalysis.cpp in Sources */,
+				4F12E7432DC24F4E007487BE /* SpectralTonality.cpp in Sources */,
+				4F12E7442DC24F4E007487BE /* SpectralDecrease.cpp in Sources */,
+				4F12E7452DC24F4E007487BE /* SpectralFlatness.cpp in Sources */,
+				4F12E7462DC24F4E007487BE /* SpectralPeaks.cpp in Sources */,
+				4F12E7472DC24F4E007487BE /* OddToEvenRatio.cpp in Sources */,
+				4F12E7482DC24F4E007487BE /* Sharpness.cpp in Sources */,
+				4F12E7492DC24F4E007487BE /* SpectralEntropy.cpp in Sources */,
+				4F12E74A2DC24F4E007487BE /* AudioAnalysis.cpp in Sources */,
+				4F12E74B2DC24F4E007487BE /* RMS.cpp in Sources */,
+				4F12E74C2DC24F4E007487BE /* f0_YIN.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4F93AE892D8C17FA00783484 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "";
+				SDKROOT = macosx;
+				SYMROOT = /tmp;
+			};
+			name = Debug;
+		};
+		4F93AE8A2D8C17FA00783484 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "";
+				SDKROOT = macosx;
+				SYMROOT = /tmp;
+			};
+			name = Release;
+		};
+		4F93AE8C2D8C17FA00783484 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				EXECUTABLE_EXTENSION = "usr-macos64uni";
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				HEADER_SEARCH_PATHS = "";
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = "";
+				NEW_SETTING = "";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "-U -Xlinker _objc_loadClassref";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				SYMROOT = /tmp;
+			};
+			name = Debug;
+		};
+		4F93AE8D2D8C17FA00783484 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				EXECUTABLE_EXTENSION = "usr-macos64uni";
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				HEADER_SEARCH_PATHS = "";
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = "";
+				NEW_SETTING = "";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "-U -Xlinker _objc_loadClassref";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
+				SWIFT_VERSION = 6.0;
+				SYMROOT = /tmp;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4F93AE7B2D8C17FA00783484 /* Build configuration list for PBXProject "AudioAnalysisDescriptors" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F93AE892D8C17FA00783484 /* Debug */,
+				4F93AE8A2D8C17FA00783484 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4F93AE8B2D8C17FA00783484 /* Build configuration list for PBXNativeTarget "AudioAnalysisDescriptors" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F93AE8C2D8C17FA00783484 /* Debug */,
+				4F93AE8D2D8C17FA00783484 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4F93AE782D8C17FA00783484 /* Project object */;
+}

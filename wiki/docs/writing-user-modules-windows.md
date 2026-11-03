@@ -14,7 +14,7 @@ This guide was written for Usine Hollyhock 6+ and Visual Studio Community 2022. 
 
 ## Prerequisites
 
-- **Visual Studio 2022** (Community, Professional, or Enterprise) with C++ workload installed
+- **Visual Studio 2022 or later** (Community, Professional, or Enterprise) with C++ workload installed. The example projects of the SDK use Visual Studio 2026 (toolset v145)
 - **Usine Hollyhock** installed on your system
 - The **Usine SDK** downloaded and extracted to your hard disk
 
@@ -59,22 +59,27 @@ First, add the SDK files to your project:
 
 The SDK files to include are:
 - `UserDefinitions.h`
+- `UserError.h`
 - `UserModule.cpp`
 - `UserModule.h`
 - `UsineDefinitions.h`
 - `UsineEventClass.h`
 - `UsineFunctions.h`
+- `UserUtils.cpp`
 - `UserUtils.h`
+
+`UsineChunks.h` is optional: it is only needed by a module that reads chunks with `UsineChunk`, and it is not included by `UserDefinitions.h`.
 
 ---
 
-## Step 3: Add Your Module Class
+## Step 3: Add Your Module Files
 
 1. Right-click your project in the Solution Explorer and navigate to **Add > Class...**
 
 ![Add class](images/windows/vs-add-class.png)
 
 2. Enter the class name (e.g., `MyModule`) and click **OK**
+3. Right-click **Header Files** and add a new header named `ModuleDefinition.h`: it will hold the module constants, the callback ids and the parameters (see [[sdk/module-conventions|Module Conventions]])
 
 Your project structure should now look like this:
 
@@ -83,14 +88,17 @@ Your project structure should now look like this:
 ```
 MyModule (Solution)
 ├── Header Files
+│   ├── ModuleDefinition.h
 │   └── MyModule.h
 ├── SDK
 │   ├── UserDefinitions.h
+│   ├── UserError.h
 │   ├── UserModule.cpp
 │   ├── UserModule.h
 │   ├── UsineDefinitions.h
 │   ├── UsineEventClass.h
 │   ├── UsineFunctions.h
+│   ├── UserUtils.cpp
 │   └── UserUtils.h
 └── Source Files
     └── MyModule.cpp
@@ -115,7 +123,7 @@ Set the **Configuration Type** to **Dynamic Library (.dll)**:
 | Setting | Value |
 |---------|-------|
 | **Configuration Type** | **Dynamic Library (.dll)** |
-| C++ Language Standard | C++17 or later (recommended) |
+| **C++ Language Standard** | **ISO C++20 Standard (/std:c++20)**, needed by the parameter descriptions |
 
 ### Advanced
 
@@ -180,7 +188,7 @@ To debug your module directly in Visual Studio:
 | Target File Extension | `.usr-win64` |
 | Character Set | Multi-Byte Character Set |
 | Additional Include Directories | `..\..\sdk` (relative) |
-| C++ Standard | C++17 |
+| C++ Standard | C++20 |
 | Debug Command | `C:\Usine HH7\Bin\Usine.exe` |
 
 ---

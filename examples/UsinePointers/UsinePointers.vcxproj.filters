@@ -11,6 +11,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UsinePointers.h" />
+    <ClInclude Include="ModuleDefinition.h" />
     <ClInclude Include="..\..\sdk\UserDefinitions.h">
       <Filter>sdk</Filter>
     </ClInclude>
@@ -18,6 +19,9 @@
       <Filter>sdk</Filter>
     </ClInclude>
     <ClInclude Include="..\..\sdk\UserUtils.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdk\UserError.h">
       <Filter>sdk</Filter>
     </ClInclude>
     <ClInclude Include="..\..\sdk\UsineDefinitions.h">

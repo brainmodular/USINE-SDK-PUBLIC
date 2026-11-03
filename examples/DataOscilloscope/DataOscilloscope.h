@@ -1,148 +1,46 @@
 //-----------------------------------------------------------------------------
-//@file  
-//	DataOscilloscope.h
+// @file    DataOscilloscope.h
+// @author  BrainModular team
+// @brief   Draws a scrolling curve of a data input in the module panel.
 //
-//@author
-//	BrainModular team
-//
-//@brief 
-//	Definitions of the DataOscilloscope class.
-//
-//  Example user module of a graphical interface with mouse interactions.
-//
-//@historic 
-//	2015/02/23
-//    first release for Hollyhock CPP SDK 6.04.001
-//
-//@IMPORTANT
-//	This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs :
-//  support@brainmodular.com
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE.
-//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2015-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
+#pragma once
 
-// include once, no more
-#ifndef __EXAMPLE_OSCILLOSCOPE_H__
-#define __EXAMPLE_OSCILLOSCOPE_H__
-
-//-----------------------------------------------------------------------------
-// includes
-//-----------------------------------------------------------------------------
-#include "../../sdk/UserDefinitions.h"  
-#include <cmath>
 #include <vector>
+#include "../../sdk/UserDefinitions.h"
 
-//-----------------------------------------------------------------------------
-// defines and constantes
-//-----------------------------------------------------------------------------
+constexpr int DEFAULT_MODULE_SIZE = 134;
 
-// Panel Height
-constexpr int DEFAULT_MODULEHEIGHT = 134;  
-
-
-//-----------------------------------------------------------------------------
-// class definition
-//-----------------------------------------------------------------------------
 class DataOscilloscope : public UserModuleBase
 {
-	//-------------------------------------------------------------------------
-	// public constructors/destructors
-	//-------------------------------------------------------------------------
 public:
+	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCallBack(TUsineMessage* Message) override;
+	void onProcess() override;
 
-    // constructor
-	DataOscilloscope(){};
+	void onCreateSettings() override;
+	void onSettingsHasChanged() override;
+	void onCreateCommands() override;
+	void onPaint() override;
 
-    // destructor
-	~DataOscilloscope(){};
-
-	//-------------------------------------------------------------------------
-	// public methods inherited from UserModule
-	//-------------------------------------------------------------------------
-public:
-	//-----------------------------------------------------------------------------
-	// module info
-	void onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
-
-	//-----------------------------------------------------------------------------
-	// query system and init
-	void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
-
-	//-----------------------------------------------------------------------------
-	// parameters and process
-	void onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo);
-	void onCallBack (TUsineMessage *Message);
-    void onProcess();
-
-	//-----------------------------------------------------------------------------
-	// layout
-	void onCreateSettings();
-	void onSettingsHasChanged();
-    void onCreateCommands();
-	void onPaint ();
-
-	//-------------------------------------------------------------------------
-	// private members
-	//-------------------------------------------------------------------------
 private:
-	
-	//-------------------------------------------------------------------------
-	// parameters events
-    UsineEventClass fdrSpeed;         // cube advancement step
-    UsineEventClass yControl;         // value to display
-    UsineEventClass colorControl;     // color to display the value
+	UsineEventClass yFdrIn;
+	UsineEventClass speedFdrIn;
+	UsineEventClass boxColIn;
 
-	//-------------------------------------------------------------------------
-	// Other	
-		
-	// store the mouse left button state
-	LongBool mouseLeftButtonDown;			
-    TPointF lastMousePos;
+	TUsineColor colorBox   = 0;
+	TPrecision  moveOffset = 0.005f;
+	TPrecision  yValue     = 0.0f;
 
-	// settings
-	TUsineColor colorBox;
-
-	TPrecision moveOffset = 0.005f;
-	TPrecision yValue = 0.0f;
-
-	// TODO/WARNING :
-	// This is a raw implementation given as an example : the points are stored in a vector
-	// which is not the most efficient data structure for the job
-	// For better cpu efficiency you may want to use a Circular Buffer instead
+	// a vector is the simplest container for this example,
+	// a circular buffer would be more cpu efficient
 	std::vector<TPointF> points;
 
-
-	//-------------------------------------------------------------------------
-	// private methods
-	//-------------------------------------------------------------------------
-private:
-    void eraseBox();
-    void advance();
-
-}; // class DataOscilloscope
-
-#endif // __EXAMPLE_OSCILLOSCOPE_H__
+	void eraseBox();
+	void advance();
+};

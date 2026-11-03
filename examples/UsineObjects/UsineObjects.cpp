@@ -1,272 +1,100 @@
 //-----------------------------------------------------------------------------
-//@file  
-//	UsineObjects.cpp
+// @file    UsineObjects.cpp
+// @author  BrainModular team
+// @brief   Reads and writes Usine objects (faders, arrays, texts, triggers) by their path.
 //
-//@author
-//	BrainModular team
-//
-//@brief 
-//	Implementation of the UsineObjects class.
-//
-//  Example user module to show how to process audio buffers.
-//
-//@historic 
-//	2015/02/23
-//    first release for Hollyhock CPP SDK 6.04.001
-//
-//@IMPORTANT
-//	This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs :
-//  support@brainmodular.com 
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE.
-//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2015-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// includes
-//-----------------------------------------------------------------------------
+#include <string>
 #include "UsineObjects.h"
-#include <string> 
+#include "ModuleDefinition.h"
 
-//----------------------------------------------------------------------------
-// create, general info and destroy methods
-//----------------------------------------------------------------------------
+namespace
+{
+	float randomUnit()
+	{
+		return static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
+	}
 
-//-----------------------------------------------------------------------------
-// Create
+	std::string randomString(int len)
+	{
+		static const std::string alphanum = "0123456789"
+		                                    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+		                                    "abcdefghijklmnopqrstuvwxyz";
+		std::string result(len, ' ');
+		for (char& c : result)
+			c = alphanum[std::rand() % alphanum.size()];
+		return result;
+	}
+
+	std::string indexedValue(int index, const std::string& value)
+	{
+		return "[" + std::to_string(index) + "] = " + value;
+	}
+}
+
 void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new UsineObjects();
 }
 
-// destroy
-void DestroyModule(void* pModule) 
+void DestroyModule(void* pModule)
 {
 	// cast is important to call the good destructor
-	delete ((UsineObjects*)pModule);
-}
-
-// module constants for browser info and module info
-constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "usine objects";
-constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "usine objects sdk module example";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
-
-// browser info
-void GetBrowserInfo(TModuleInfo* pModuleInfo) 
-{
-	pModuleInfo->Name				= UserModuleBase::MODULE_NAME;
-	pModuleInfo->Description		= UserModuleBase::MODULE_DESC;
-	pModuleInfo->Version			= UserModuleBase::MODULE_VERSION;
-}
-
-//-------------------------------------------------------------------------
-// module constructors/destructors
-//-------------------------------------------------------------------------
-
-// constructor
-UsineObjects::UsineObjects()
- 
-{
-	//
-}
-
-// destructor
-UsineObjects::~UsineObjects()
-{
-	// 
+	delete static_cast<UsineObjects*>(pModule);
 }
 
 void UsineObjects::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	pModuleInfo->Name				= MODULE_NAME;
-	pModuleInfo->Description		= MODULE_DESC;
 	pModuleInfo->ModuleType         = mtSimple;
 	pModuleInfo->BackColor          = sdkGetUsineColor(clDataModuleColor);
-	pModuleInfo->Version			= MODULE_VERSION;    
 	pModuleInfo->CanBeSavedInPreset = FALSE;
 }
 
-//-----------------------------------------------------------------------------
-// query system and init methods
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-// Get total parameters number of the module
-int UsineObjects::onGetNumberOfParams(int queryResult1, int queryResult2)
+void UsineObjects::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	int result = 2;
-    return result;
+	sdkCreateParam(setArrInParamInfo, setArrIn);
+	sdkCreateParam(getArrOutParamInfo, getArrOut);
 }
 
-//-----------------------------------------------------------------------------
-// Called after the query popup
-void UsineObjects::onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
+void UsineObjects::onProcess()
 {
-}
+	if (!sdkSlowClock())
+		return;
 
+	sdkRaiseError(INFO_VIDEO_OBJECTS, sdkUsineObjectFind("video"));
+	sdkRaiseError(INFO_OBJECTS_HASH, sdkUsineObjectListHash());
 
-//-----------------------------------------------------------------------------
-// initialisation
-void UsineObjects::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) {}
+	// a single value
+	sdkUsineObjectSetFloat(PATH_FADER_DATA, randomUnit());
+	sdkRaiseError(INFO_FADER_DATA, std::to_string(sdkUsineObjectGetFloat(PATH_FADER_DATA)));
 
-//----------------------------------------------------------------------------
-// parameters and process
-//----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// Parameters description
-void UsineObjects::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo)
-{	
-	if (ParamIndex == 0)
+	// a data array: write the input of the arraydata module, read its output
+	sdkUsineObjectSetLength(PATH_ARRAY_IN, OBJECT_ARRAY_SIZE);
+	for (int i = 0; i < OBJECT_ARRAY_SIZE; i++)
 	{
-	pParamInfo->ParamType			= ptArray;
-	pParamInfo->Caption				= "array set";
-	pParamInfo->IsInput				= TRUE;
-	pParamInfo->IsOutput			= FALSE;
-	pParamInfo->IsSeparator			= TRUE;
-	pParamInfo->CallBackType		= ctNormal;
-	pParamInfo->SeparatorCaption	= "";
-	pParamInfo->setEventClass		(arraySet);
-
+		sdkUsineObjectSetArray(PATH_ARRAY_IN, i, 100.0f * randomUnit());
+		sdkRaiseError(INFO_ARRAY_OUT, indexedValue(i, std::to_string(sdkUsineObjectGetArray(PATH_ARRAY_OUT, i))));
 	}
-	 else if (ParamIndex == 1)
+
+	// a color array
+	sdkUsineObjectSetLength(PATH_COLOR_ARRAY, OBJECT_ARRAY_SIZE);
+	sdkUsineObjectSetInteger(PATH_COLOR_ROWS, OBJECT_ARRAY_SIZE);
+	sdkRaiseError(INFO_COLOR_ARRAY_LENGTH, std::to_string(sdkUsineObjectGetLength(PATH_COLOR_ARRAY)));
+	for (int i = 0; i < OBJECT_ARRAY_SIZE; i++)
 	{
-	pParamInfo->ParamType			= ptArray;
-	pParamInfo->Caption				= "array get";
-	pParamInfo->IsInput				= FALSE;
-	pParamInfo->IsOutput			= TRUE;
-	pParamInfo->CallBackType		= ctNormal;
-	pParamInfo->setEventClass		(arrayGet);
+		sdkUsineObjectSetArrayColor(PATH_COLOR_ARRAY, i, static_cast<TUsineColor>(randomUnit() * 0xFFFFFFFF));
+		sdkRaiseError(INFO_COLOR_ARRAY, indexedValue(i, std::to_string(sdkUsineObjectGetArrayColor(PATH_COLOR_ARRAY, i))));
 	}
 
-}
+	// a text
+	if (sdkUsineObjectExists(PATH_COMMA_TEXT))
+		sdkRaiseError(INFO_COMMA_TEXT_EXISTS);
+	sdkUsineObjectSetAnsiChar(PATH_COMMA_TEXT, randomString(50).c_str());
+	sdkRaiseError(INFO_COMMA_TEXT, sdkUsineObjectGetAnsiChar(PATH_COMMA_TEXT));
 
-
-//-----------------------------------------------------------------------------
-// Parameters callback
-void UsineObjects::onCallBack(TUsineMessage *Message) 
-{
-    // filter only message specific to this user module
-    if (Message->message == NOTIFY_MSG_USINE_CALLBACK) 
-    {
-    }
-}
-
-//-----------------------------------------------------------------------------
-// random string generator
-std::string gen_random(const int len) {
-	static const char alphanum[] =
-		"0123456789"
-		"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-		"abcdefghijklmnopqrstuvwxyz";
-	std::string tmp_s;
-	tmp_s.reserve(len);
-
-	for (int i = 0; i < len; ++i) {
-		tmp_s += alphanum[rand() % (sizeof(alphanum) - 1)];
-	}
-
-	return tmp_s;
-}
-
-
-//-----------------------------------------------------------------------------
-// Process
-void UsineObjects::onProcess() 
-{
-	if (sdkSlowClock())
-	{
-		std::string s;
-		int size = 16;
-		float v;
-		sdkTraceChar("FIND ALL video OBJECTS:");;
-		sdkTraceChar(sdkUsineObjectFind("video"));
-		sdkTraceChar("OBJECTS HASH:");
-		sdkTraceChar(sdkUsineObjectListHash());
-		
-		// float value
-		v = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-		sdkUsineObjectSetFloat("usine.workspace.rack01.patch01.faderdata", v);
-		v = sdkUsineObjectGetFloat("usine.workspace.rack01.patch01.faderdata");
-		s = "FLOAT = " + std::to_string(v);		
-		sdkTraceChar(s.c_str());
-		
-		// data array
-		sdkUsineObjectSetLength("usine.workspace.rack01.patch01.arraydata.array-in", size);
-		for (int i = 0; i < size; i++)
-		{
-			v = 100.0f * static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-			sdkUsineObjectSetArray("usine.workspace.rack01.patch01.arraydata.array-in", i, v);
-			v = sdkUsineObjectGetArray("usine.workspace.rack01.patch01.arraydata.array-out",i);
-			s = "ARRAYDATA["+std::to_string(i)+"] = " + std::to_string(v);
-			sdkTraceChar(s.c_str());
-		}
-
-		// color array
-		sdkUsineObjectSetLength("usine.workspace.rack01.patch01.arraycolor.color-array", size);
-		sdkUsineObjectSetInteger("usine.workspace.rack01.patch01.arraycolor.num-of-rows", size);
-		for (int i = 0; i < size; i++)
-		{
-			v = 100.0f * static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-			sdkUsineObjectSetArrayColor("usine.workspace.rack01.patch01.arraycolor.color-array", i, (TUsineColor)(v * 0xFFFFFFFF));
-			UINT32 c = sdkUsineObjectGetArrayColor("usine.workspace.rack01.patch01.arraycolor.color-array", i);
-			s = "COLORARRAY[" + std::to_string(i) + "] = " + std::to_string(c);
-			sdkTraceChar(s.c_str());
-		}
-
-		// color array
-		sdkUsineObjectSetLength("usine.workspace.rack01.patch01.arraycolor.color-array", size);
-		sdkUsineObjectSetInteger("usine.workspace.rack01.patch01.arraycolor.num-of-rows", size);
-		
-		// get the length
-		int l = sdkUsineObjectGetLength("usine.workspace.rack01.patch01.arraycolor.color-array");
-		s = "LENGTH = "+ std::to_string(l);
-		sdkTraceChar(s.c_str());
-
-		for (int i = 0; i < size; i++)
-		{
-			v = 100.0f * static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-			sdkUsineObjectSetArrayColor("usine.workspace.rack01.patch01.arraycolor.color-array", i, (TUsineColor)(v * 0xFFFFFFFF));
-			UINT32 c = sdkUsineObjectGetArrayColor("usine.workspace.rack01.patch01.arraycolor.color-array", i);
-			s = "COLORARRAY[" + std::to_string(i) + "] = " + std::to_string(c);
-			sdkTraceChar(s.c_str());
-		}
-		// string
-		if (sdkUsineObjectExists("usine.workspace.rack01.patch01.string.comma-text"))
-		{
-			sdkTraceChar("string.comma-text EXISTS !!");
-		}
-		s = gen_random(50);
-		sdkUsineObjectSetAnsiChar("usine.workspace.rack01.patch01.string.comma-text", s.c_str());
-		sdkTraceChar(sdkUsineObjectGetAnsiChar("usine.workspace.rack01.patch01.string.comma-text"));
-
-		// trigger
-		sdkUsineObjectSetTrigger("usine.workspace.rack01.patch01.trigger");
-	}
-	if (sdkRefreshSpeedClock())
-	{
-		
-	}
+	// a trigger
+	sdkUsineObjectSetTrigger(PATH_TRIGGER);
 }

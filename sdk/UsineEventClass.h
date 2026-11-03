@@ -80,6 +80,11 @@ public:
     /// Not for public use.
     UsineEventPtr &event() { return p_event_; }
 
+    void setEvent(UsineEventPtr e)
+    {
+        p_event_ = e;
+    } 
+
     /// Destroy the contained event and deallocate the memory.
 	/// The contained event will be set to nullptr.
     [[maybe_unused]]
@@ -93,10 +98,20 @@ public:
     /// @note The former contained event will not be deleted.
     /// @see sdkCreateEvent.
     [[maybe_unused]]
-    void createEvent(const int size)
+    void createEvent(AnsiCharPtr name, const int capacity)
     {
-        UserModuleBase::m_masterInfo->CreateEvt(p_event_, size);
+        UserModuleBase::m_masterInfo->CreateEvt(p_event_, capacity);
     }
+
+    /// Allocate a new event and point to it.
+    /// @note The former contained event will not be deleted.
+    /// @see sdkCreateEvent.
+    [[maybe_unused]]
+    void createEvent(const int capacity)
+    {
+        UserModuleBase::m_masterInfo->CreateEvt(p_event_, capacity);
+    }
+
 
     /// @name Events manipulation
     /// @{
@@ -181,6 +196,13 @@ public:
 	/// @param e The event to multiply this one by.
     [[maybe_unused]]
     void mult(const UsineEventClass &e) const { UserModuleBase::m_masterInfo->MultEvt2(e.p_event_, p_event_); }
+
+    /// Multiply this event by two other.
+	/// @note This operation is equivalent to sdkMultEvt3.
+	/// @param e1 The event to multiply this one by.
+	/// @param e2 The event to multiply this one by.
+    [[maybe_unused]]
+    void mult(const UsineEventClass &e1, const UsineEventClass &e2) const { UserModuleBase::m_masterInfo->MultEvt3(e1.p_event_, e2.p_event_, p_event_); }
 
     /// Compute the modulo of this event by the other one and store the result inplace.
 	// @note This operation is equivalent to sdkModEvt3.
@@ -521,6 +543,12 @@ private:
 
 /// @}
 
+// Because of circular inclusion of UserModule.h 
+// The definition of this function must come after the declaration of UsineEventClass
+inline void UserModuleBase::sdkCreateParam(const TParamInfo &paramInfo, UsineEventClass &eventClass)
+{
+    eventClass.setEvent(UserModuleBase::m_masterInfo->CreateParam(m_moduleInfo, &paramInfo));
+}
 
 // The definition of this function must come after the declaration of UsineEventClass
 #if defined(__GNUC__)

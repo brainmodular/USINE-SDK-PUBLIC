@@ -1,48 +1,44 @@
-// Allpass filter declaration
+//-----------------------------------------------------------------------------
+// @file    allpass.hpp
+// @author  Jezar at Dreampoint, adapted by BrainModular team
+// @brief   Allpass filter of the Freeverb reverb model.
 //
-// Written by Jezar at Dreampoint, June 2000
-// http://www.dreampoint.co.uk
-// This code is public domain
+// This file is part of the Usine Hollyhock CPP SDK.
+// Based on Freeverb, written by Jezar at Dreampoint in June 2000 and placed in the public domain.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
+//-----------------------------------------------------------------------------
+#pragma once
 
-#ifndef _allpass_
-#define _allpass_
+#include <span>
 #include "denormals.h"
 
 class allpass
 {
 public:
-					allpass();
-			void	setbuffer(float *buf, int size);
-	inline  float	process(float inp);
-			void	mute();
-			void	setfeedback(float val);
-			float	getfeedback();
-// private:
-	float	feedback;
-	float	*buffer;
-	int		bufsize;
-	int		bufidx;
+	void  setbuffer(std::span<float> buf);
+	float process(float input);
+	void  mute();
+	void  setfeedback(float val);
+	[[nodiscard]] float getfeedback() const;
+
+private:
+	float            feedback = 0.0f;
+	std::span<float> buffer;
+	size_t           bufidx = 0;
 };
 
-
-// Big to inline - but crucial for speed
-
+// inlined because it is called for every sample
 inline float allpass::process(float input)
 {
-	float output;
-	float bufout;
-	
-	bufout = buffer[bufidx];
+	float bufout = buffer[bufidx];
 	undenormalise(bufout);
-	
-	output = -input + bufout;
-	buffer[bufidx] = input + (bufout*feedback);
 
-	if(++bufidx>=bufsize) bufidx = 0;
+	const float output = -input + bufout;
+	buffer[bufidx]     = input + bufout * feedback;
+
+	if (++bufidx >= buffer.size())
+		bufidx = 0;
 
 	return output;
 }
-
-#endif//_allpass
-
-//ends

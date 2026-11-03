@@ -1,11 +1,11 @@
 # Reverb
 #example #audio #query #advanced
 
-**Freeverb-based multi-channel reverb processor.**
+**Freeverb-based multi-channel reverb.**
 
 | | |
 |---|---|
-| **Module Name** | `Reverb` |
+| **Module Name** | `reverb` |
 | **Type** | `mtSimple` |
 | **Color** | `clAudioModuleColor` |
 | **Version** | 1.1 |
@@ -13,45 +13,60 @@
 
 ## Description
 
-A full reverb effect based on the Freeverb algorithm. Features room size, damping, channel separation, wet/dry mix, and freeze mode. Supports multi-channel audio via the query system.
+A reverb based on the Freeverb algorithm, written by Jezar at Dreampoint and placed in the public domain. Room size, damping, channel separation, wet and dry levels, and a freeze mode. Supports multi-channel audio via the query system: each channel also feeds the reverb of the other channels.
+
+## Files
+
+| File | Contains |
+|------|----------|
+| `Reverb.h/.cpp` | The module |
+| `comb.hpp/.cpp`, `allpass.hpp/.cpp` | The Freeverb filters |
+| `tuning.h` | The Freeverb tuning values |
+| `denormals.h` | `undenormalise()`, flushes the denormal floats to zero |
+| `ModuleDefinition.h` | Module constants, callback ids, default values and parameters |
 
 ## Parameters
 
-Dynamic count (N = number of channels):
+Created in `onCreateParameters`, N is the number of channels chosen in the query popup:
 
-| # | Name | Type | I/O | Range | Details |
-|---|------|------|-----|-------|---------|
-| 0..N-1 | `in 1/2...` | `ptAudio` | Input | — | Audio inputs |
-| N..2N-1 | `out 1/2...` | `ptAudio` | Output | — | Audio outputs |
-| 2N | `freeze` | `ptSwitch` | Input | — | Freeze reverb tail |
-| 2N+1 | `room size` | `ptDataFader` | Input | 0.1 – 100% | Room size (`scExp`) |
-| 2N+2 | `damping` | `ptDataFader` | Input | 0 – 100% | High frequency damping |
-| 2N+3 | `channels separation` | `ptDataFader` | Input | 0 – 100% | Stereo width / channel spread |
-| 2N+4 | `wet level` | `ptGainFader` | Input | — | Wet signal level (dB) |
-| 2N+5 | `dry level` | `ptGainFader` | Input | — | Dry signal level (dB) |
+| # | Name | Member | Type | I/O | Details |
+|---|------|--------|------|-----|---------|
+| 0..N-1 | `in 1`, `in 2`, ... | `audioInputs[]` | `ptAudio` | Input | Audio inputs |
+| N..2N-1 | `out 1`, `out 2`, ... | `audioOutputs[]` | `ptAudio` | Output | Audio outputs |
+| 2N | `freeze` | `modeSwIn` | `ptSwitch` | Input | Freezes the reverb tail |
+| 2N+1 | `room size` | `roomSizeFdrIn` | `ptDataFader` | Input | 0.1 – 100 % (`scExp`) |
+| 2N+2 | `damping` | `dampingFdrIn` | `ptDataFader` | Input | 0 – 100 % |
+| 2N+3 | `channels separation` | `channelsSeparationFdrIn` | `ptDataFader` | Input | 0 – 100 % |
+| 2N+4 | `wet level` | `wetLevelFdrIn` | `ptGainFader` | Input | dB |
+| 2N+5 | `dry level` | `dryLevelFdrIn` | `ptGainFader` | Input | dB |
+
+All the inputs have a `ctNormal` callback, their ids are named after the members (`ROOM_SIZE_FDR_CBID`...). Every callback ends in `reverbParamsUpdate()`.
 
 ## How It Works
 
-Implements the classic Freeverb algorithm:
-1. **8 comb filters** in parallel per channel (with tuned delay lengths)
-2. **4 allpass filters** in series (for diffusion)
-3. **Stereo spread** tuning for channel separation
-4. **Wet/dry mixing** with smoothing for glitch-free parameter changes
+The Freeverb algorithm, for each channel:
+1. **8 comb filters** in parallel, with tuned buffer sizes
+2. **4 allpass filters** in series, for diffusion
+3. Each channel gets slightly longer buffers (`stereospread`) to decorrelate the channels
+4. **Wet and dry levels** smoothed at each bloc to avoid clicks
+
+The channel separation splits the wet level between the reverb of the channel itself (`wet1`) and the reverb of the other channels (`wet2`).
 
 ### Freeze Mode
-When enabled, comb filter feedback is set to 1.0 and damping to 0, creating an infinite sustain.
+
+When enabled, the comb feedback is set to 1 and the damping to 0, and the input is muted: the reverb tail sustains forever.
 
 ## Key Concepts Demonstrated
 
-- **Complex DSP algorithm** with helper classes (Comb filter, Allpass filter)
-- **Audio query** for dynamic multi-channel support
-- **`createEvent`/`destroyEvent`** for temporary audio buffers
-- **Parameter smoothing** for click-free parameter changes
-- **Multiple helper classes** within a single module
+- **DSP helper classes** (comb and allpass filters) in their own files
+- **Audio query** for a dynamic number of channels
+- **Work events** with `createEvent` / `destroyEvent`
+- **Parameter smoothing** for click-free changes
+- **Third party code**: public domain code adapted to the SDK conventions
 
 ## SDK Callbacks Used
 
-`onGetModuleInfo` · `onGetNumberOfParams` · `onAfterQuery` · `onInitModule` · `onGetParamInfo` · `onCallBack` · `onProcess`
+`onGetModuleInfo` · `onAfterQuery` · `onInitModule` · `onCreateParameters` · `onCallBack` · `onProcess`
 
 ## Related Examples
 

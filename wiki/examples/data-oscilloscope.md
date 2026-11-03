@@ -1,53 +1,55 @@
 # DataOscilloscope
 #example #data #drawing #settings #control #graphics
 
-**Scrolling waveform display with custom drawing.**
+**Scrolling curve of a data input.**
 
 | | |
 |---|---|
-| **Module Name** | `data oscilloscope example` |
+| **Module Name** | `data oscilloscope` |
 | **Type** | `mtControl` |
 | **Color** | `clInterfaceDesignModuleColor` |
+| **Version** | 1.0 |
 | **Source** | `examples/DataOscilloscope/` |
 
 ## Description
 
-A visual oscilloscope that displays incoming data as a scrolling waveform. Demonstrates custom drawing with the path API, settings panels, and contextual menus.
+Draws the values of a data input as a curve that scrolls in the panel. Demonstrates custom drawing with the path API, the settings panel and the contextual menu.
 
 ## Parameters
 
-| # | Name | Type | I/O | Range | Scale | Default | Callback |
-|---|------|------|-----|-------|-------|---------|----------|
-| 0 | `y` | `ptDataField` | Input | -1 to 1 | Linear | 0.5 | `ctImmediate` |
-| 1 | `speed` | `ptDataFader` | Input | 0 to 0.5 | `scLog` | 0.005 | `ctNormal` |
-| 2 | `color` | `ptColor` | Input | — | — | — | `ctImmediate` |
+| # | Name | Member | Type | I/O | Range | Default | Callback |
+|---|------|--------|------|-----|-------|---------|----------|
+| 0 | `y` | `yFdrIn` | `ptDataField` | Input | -1 – 1 | 0.5 | `ctImmediate` (`Y_FDR_CBID`) |
+| 1 | `speed` | `speedFdrIn` | `ptDataFader` | Input | 0 – 0.5, `scLog` | 0.005 | `ctNormal` (`SPEED_FDR_CBID`) |
+| 2 | `color` | `boxColIn` | `ptColor` | Input | — | — | `ctImmediate` (`BOX_COL_CBID`) |
 
 ## How It Works
 
-1. **`onCallBack`**: Stores incoming y value, speed offset, and color using `std::atomic` for thread safety
-2. **`onProcess`**: On `sdkRefreshSpeedClock()` tick, calls `advance()` which:
-   - Adds a new point at x=0 with current y value
-   - Shifts all existing points to the right by the speed offset
-   - Removes points that have scrolled past x=1.0
-   - Calls `sdkRepaintPanel()` to trigger redraw
-3. **`onPaint`**: Draws a smooth path through all stored points using the path drawing API
+1. **`onCallBack`**: stores the y value, the scroll speed and the color
+2. **`onProcess`**: on each `sdkRefreshSpeedClock()` tick, `advance()`:
+   - adds a point at x = 0 with the current y value
+   - moves all the points to the right by the speed
+   - removes the points that scrolled past x = 1
+   - asks a repaint with `sdkRepaintPanel()`
+3. **`onPaint`**: draws a segment between each pair of consecutive points with the path API
+
+The points are stored in a `std::vector`, the simplest container for an example. A circular buffer would be more efficient.
 
 ## Key Concepts Demonstrated
 
-- **`mtControl`** module type with custom canvas
+- **`mtControl`** module type with a custom panel
 - **Path drawing API**: `sdkDrawPathStart()`, `sdkDrawPathMoveTo()`, `sdkDrawPathLineTo()`, `sdkDrawPathClose()`, `sdkDrawPathDraw()`
-- **`sdkRefreshSpeedClock()`** for frame-rate-aware animation updates
-- **Settings panel**: `sdkAddSettingLineColor()` for persistent color settings
-- **Contextual menu**: `onCreateCommands()` for right-click actions
-- **`std::atomic`** for safe data sharing between audio and GUI threads
+- **`sdkRefreshSpeedClock()`** to animate at the refresh rate of Usine
+- **Settings panel**: `sdkAddSettingLineColor()` for the color of the curve
+- **Contextual menu**: `onCreateCommands()`
 
 ## SDK Callbacks Used
 
-`onGetModuleInfo` · `onInitModule` · `onGetParamInfo` · `onCallBack` · `onProcess` · `onCreateSettings` · `onSettingsHasChanged` · `onCreateCommands` · `onPaint`
+`onGetModuleInfo` · `onInitModule` · `onCreateParameters` · `onCallBack` · `onProcess` · `onCreateSettings` · `onSettingsHasChanged` · `onCreateCommands` · `onPaint`
 
 ## Related Examples
 
-- [[examples/data-sampler|DataSampler]] — Data recording with visualization
+- [[examples/data-sampler|DataSampler]] — Data recording with drawing
 - [[examples/draw-box|DrawBox]] — Simpler custom drawing
 - [[examples/draw-trajectory-box|DrawTrajectoryBox]] — Advanced path drawing
 

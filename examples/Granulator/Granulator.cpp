@@ -1,743 +1,388 @@
 //-----------------------------------------------------------------------------
-//@file  
-//	GranulatorModule.cpp
+// @file    Granulator.cpp
+// @author  BrainModular team
+// @brief   Granular synthesis on live audio inputs, with automation recording.
+//          Inspired from the granulator of the Fragmental VST plugin by Niall Moody.
 //
-//@author
-//	BrainModular team
-//
-//@brief 
-//	Implementation of the GranulatorModule class.
-//
-//  Inspired from the granulator part of the Fragmental-v1.02 VST plugin from niall moody.
-//
-//HISTORIC 
-//	2013/05/15
-//    first release for Hollyhock CPP SDK 6.00.226 
-//
-//IMPORTANT
-//	This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs and patch to Usine forum :
-//  support@brainmodular.com 
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015, 2019 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE.
-//
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// includes
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
 #include "Granulator.h"
+#include "ModuleDefinition.h"
 
-//----------------------------------------------------------------------------
-// setup a callback_id constant for all params that specify a callback type
-//----------------------------------------------------------------------------
-constexpr NativeInt INTERVAL_CBID	= 0x001700F0;
-constexpr NativeInt GRAIN_ENV_CBID	= 0x001700F1;
-constexpr NativeInt ENV_VAR_CBID	= 0x001700F2;
-constexpr NativeInt DURATION_CBID	= 0x001700F3;
-constexpr NativeInt PITCH_CBID		= 0x001700F4;
-constexpr NativeInt GRAIN_MODE_CBID = 0x001700F5;
-constexpr NativeInt GRAIN_GO_CBID	= 0x001700F6;
-
-
-//----------------------------------------------------------------------------
-// create, general info and destroy methods
-//----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// Create
-void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
-	pModule = new GranulatorModule();
+	pModule = new Granulator();
 }
 
-//-----------------------------------------------------------------------------
-// destroy
-void DestroyModule (void* pModule) 
+void DestroyModule(void* pModule)
 {
 	// cast is important to call the good destructor
-	delete ((GranulatorModule*)pModule);
+	delete static_cast<Granulator*>(pModule);
 }
 
-// module constants for browser info and module info
-constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "Granulator";
-constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "Granulator";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "2.3";
-
-// browser info
-void GetBrowserInfo(TModuleInfo* pModuleInfo) 
+void Granulator::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	pModuleInfo->Name				= UserModuleBase::MODULE_NAME;
-	pModuleInfo->Description		= UserModuleBase::MODULE_DESC;
-	pModuleInfo->Version			= UserModuleBase::MODULE_VERSION;
-}
-
-//-----------------------------------------------------------------------------
-// module description
-void GranulatorModule::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
-{
-	pModuleInfo->Name				= MODULE_NAME;
-	pModuleInfo->Description		= MODULE_DESC;
 	pModuleInfo->ModuleType         = mtControl;
 	pModuleInfo->BackColor          = sdkGetUsineColor(clAudioModuleColor);
-	pModuleInfo->DefaultWidth		= 100;
-	pModuleInfo->DefaultHeight		= 100;
-	pModuleInfo->NumberOfParams     = 10;
-	pModuleInfo->DontProcess		= FALSE;
-	pModuleInfo->Version			= MODULE_VERSION;
-	pModuleInfo->CanRecord			= TRUE;
-	
-	// query ask for number of audio channels
-	if (pMasterInfo != nullptr)
-    {
-	    pModuleInfo->QueryListString        = sdkGetAudioQueryTitle();
-	    pModuleInfo->QueryListValues	    = sdkGetAudioQueryChannelList();
-	    pModuleInfo->QueryListDefaultIdx	= 1;
-    }
+	pModuleInfo->DefaultWidth       = 100;
+	pModuleInfo->DefaultHeight      = 100;
+	pModuleInfo->DontProcess        = FALSE;
+	pModuleInfo->CanRecord          = TRUE;
 	pModuleInfo->CanBeSavedInPreset = TRUE;
 
+	// the audio query functions need Usine, pMasterInfo is null when the module is only listed in the browser
+	if (pMasterInfo != nullptr)
+	{
+		pModuleInfo->QueryListString     = sdkGetAudioQueryTitle();
+		pModuleInfo->QueryListValues     = sdkGetAudioQueryChannelList();
+		pModuleInfo->QueryListDefaultIdx = 1;
+	}
 }
 
-//-----------------------------------------------------------------------------
-// query system and init methods
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-// Get total parameters number of the module
-int GranulatorModule::onGetNumberOfParams (int queryResult1, int queryResult2)
+// called after the query popup, before onCreateParameters
+void Granulator::onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
 {
-	int result = 0;
-    this->queryResult = queryResult1;
-    numOfAudiotInsOuts = sdkGetAudioQueryToNbChannels (queryResult1);
-	result = (numOfAudiotInsOuts * 2) + numOfParamAfterAudiotInOut;
-    return result;
+	queryResult       = queryResult1;
+	numOfAudioInsOuts = std::min(sdkGetAudioQueryToNbChannels(queryResult1), static_cast<int>(USINE_AUDIO_CHANNEL_MODULE_MAX));
 }
 
-//-----------------------------------------------------------------------------
-// Called after the query popup
-void GranulatorModule::onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
+void Granulator::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
+	lineColor = sdkGetUsineColor(clAudioFlow);
+
+	for (size_t type = 0; type < envelopePoints.size(); type++)
+		envelopePoints[type].assign(ENVELOPE_GRAPH_POINTS[type], TPointF {});
+
+	grains.clear();
+	grains.resize(numOfAudioInsOuts);
+
+	grainIntervalMs = grainIntervalFdrIn.getData();
+	grainDurationMs = grainDurationFdrIn.getData();
+	// allocates the delay lines and converts the durations in samples
+	onSampleRateChange(sdkGetSampleRate());
+	changeDuration();
+	changePitch();
+	changeEnvelopeVar();
 }
 
-
-//-----------------------------------------------------------------------------
-// initialisation
-void GranulatorModule::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
+void Granulator::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	m_LineColor = sdkGetUsineColor(clAudioFlow);
-	m_mouseLastButtonDown = -1;
-	m_mouseLastCoords.x = 0;
-	m_mouseLastCoords.y = 0;
-	m_unusedY = 0;
-	m_unusedZ = 0;
-    
-    dimPitch.left = 0.25f;
-    dimPitch.top = 0.5f;
-    dimPitch.right = 0.75f;
-    dimPitch.bottom = 0.75f;
-    
-    dimGrainDuration.left = 0.25f;
-    dimGrainDuration.top = 0.75f;
-    dimGrainDuration.right = 0.75f;
-    dimGrainDuration.bottom = 1.0f;
-    	
-	for (int num = 0; num < numOfAudiotInsOuts; num++)
+	for (int num = 0; num < numOfAudioInsOuts; num++)
 	{
-		currentGrain.push_back(new Grain[NUM_OF_GRAIN]);
-		        
-		for (int i = 0; i < NUM_OF_GRAIN; i++)
-        {
-            currentGrain[num][i].setModule(this);
-        }
+		TParamInfo audioIn = audioInParamInfo;
+		audioIn.Caption    = sdkGetAudioQueryChannelNames("in ", num + 1, queryResult);
+		sdkCreateParam(audioIn, audioInputs[num]);
 	}
 
-    onSampleRateChange(sdkGetSampleRate());
-    changeDuration();
-    changePitch();
+	for (int num = 0; num < numOfAudioInsOuts; num++)
+	{
+		TParamInfo audioOut = audioOutParamInfo;
+		audioOut.Caption    = sdkGetAudioQueryChannelNames("out ", num + 1, queryResult);
+		sdkCreateParam(audioOut, audioOutputs[num]);
+	}
+
+	sdkCreateParam(grainStartSwOutParamInfo, grainStartSwOut);
+	sdkCreateParam(grainIntervalFdrInParamInfo, grainIntervalFdrIn);
+	sdkCreateParam(grainEnvelopeLboxInParamInfo, grainEnvelopeLboxIn);
+	sdkCreateParam(grainEnvVarFdrInParamInfo, grainEnvVarFdrIn);
+	sdkCreateParam(grainDurationFdrInParamInfo, grainDurationFdrIn);
+	sdkCreateParam(grainPitchFdrInParamInfo, grainPitchFdrIn);
+	sdkCreateParam(grainModeLboxInParamInfo, grainModeLboxIn);
+	sdkCreateParam(grainGoBtnInParamInfo, grainGoBtnIn);
 }
 
-//----------------------------------------------------------------------------
-// parameters and process
-//----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// Parameters description
-void GranulatorModule::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo) 
-{	
-    // audio input
-    if (ParamIndex < numOfAudiotInsOuts)
-    {
-		pParamInfo->ParamType			= ptAudio;
-		pParamInfo->Caption				= sdkGetAudioQueryChannelNames ( "in ", ParamIndex + 1, queryResult);
-		pParamInfo->IsInput				= TRUE;
-		pParamInfo->IsOutput			= FALSE;
-		pParamInfo->ReadOnly			= FALSE;
-		pParamInfo->CallBackType		= ctNone;
-		pParamInfo->setEventClass		(m_audioInputs[ParamIndex]);
-    }
-    // audio output
-    else if (ParamIndex >= numOfAudiotInsOuts && ParamIndex < (numOfAudiotInsOuts*2))
-    {
-		pParamInfo->ParamType			= ptAudio;
-		pParamInfo->Caption				= sdkGetAudioQueryChannelNames ( "out ", ParamIndex - numOfAudiotInsOuts + 1, queryResult);
-		pParamInfo->IsInput				= FALSE;
-		pParamInfo->IsOutput			= TRUE;
-		pParamInfo->ReadOnly			= TRUE;
-		pParamInfo->CallBackType		= ctNone;
-		pParamInfo->setEventClass		(m_audioOutputs[ParamIndex - numOfAudiotInsOuts]);
-    }
-    // grain on trigger led
-    else if (ParamIndex == (numOfAudiotInsOuts*2))
-	{
-		pParamInfo->ParamType			= ptTriggerLed;
-		pParamInfo->Caption				= "trig out";
-		pParamInfo->Symbol				= "";
-		pParamInfo->Format				= "%.0f";
-		pParamInfo->IsInput				= FALSE;
-		pParamInfo->IsOutput			= TRUE;
-		pParamInfo->ReadOnly			= TRUE;
-        pParamInfo->IsSeparator			= TRUE;
-		pParamInfo->CallBackType		= ctNone;
-		pParamInfo->setEventClass		(m_ledGrainStart);
-    }
-    // next grain interval fader
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 1)
-	{
-		pParamInfo->ParamType			= ptDataFader;
-		pParamInfo->Caption				= "interval";
-		pParamInfo->IsInput				= TRUE;
-		pParamInfo->IsOutput			= FALSE;
-		pParamInfo->MinValue			= -1000.0f; // can put negatif interval, ex : -1000.0f
-		pParamInfo->MaxValue			= 20000.0f;
-		pParamInfo->DefaultValue		= 100.0f;
-        pParamInfo->Scale				= scLog;
-		pParamInfo->Symbol				= " ms";
-		pParamInfo->Format				= "%.3f";
-		pParamInfo->ReadOnly			= FALSE;
-		pParamInfo->IsStoredInPreset	= TRUE;
-		pParamInfo->CallBackType		= ctImmediate;
-		pParamInfo->CallBackId			= INTERVAL_CBID;
-		pParamInfo->setEventClass		(m_fdrGrainInterval);
-	}
-    // grain envelope listbox
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 2)
-	{
-		pParamInfo->ParamType			= ptListBox;
-		pParamInfo->Caption				= "grain env";
-		pParamInfo->IsInput				= TRUE;
-		pParamInfo->IsOutput			= FALSE;
-		pParamInfo->ListBoxStrings		= "\"Linear ASR\",\"Bezier\",\"Raised Cosine Bell\",\"Hanning\",\"Gaussian\"";
-		pParamInfo->DefaultValue		= 0;  // set to 'Linear ASR' value
-		pParamInfo->ReadOnly			= FALSE;
-		pParamInfo->IsStoredInPreset	= TRUE;
-		pParamInfo->CallBackType		= ctImmediate;
-		pParamInfo->CallBackId			= GRAIN_ENV_CBID;
-		pParamInfo->setEventClass		(m_lboxGrainEnvelope);
-	}  
-    // grain envelope variable
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 3)
-	{
-		pParamInfo->ParamType			= ptDataFader;
-		pParamInfo->Caption				= "env var";
-		pParamInfo->IsInput				= TRUE;
-		pParamInfo->IsOutput			= FALSE;
-		pParamInfo->MinValue			= ENV_VAR_MIN;
-		pParamInfo->MaxValue			= ENV_VAR_MAX;
-		pParamInfo->DefaultValue		= 0.5f;
-		pParamInfo->Format				= "%.3f";
-		pParamInfo->ReadOnly			= FALSE;
-		pParamInfo->IsStoredInPreset	= TRUE;
-		pParamInfo->CallBackType		= ctImmediate;
-		pParamInfo->CallBackId			= ENV_VAR_CBID;
-		pParamInfo->setEventClass		(m_fdrGrainEnvelopeSkrew);
-	}
-    // grain duration fader
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 4)
-	{
-		pParamInfo->ParamType			= ptDataFader;
-		pParamInfo->Caption				= "duration";
-		pParamInfo->IsInput				= TRUE;
-		pParamInfo->IsOutput			= FALSE;
-		pParamInfo->MinValue			= GRAIN_DUR_MIN;
-		pParamInfo->MaxValue			= GRAIN_DUR_MAX;
-		pParamInfo->DefaultValue		= 100.0f;
-        pParamInfo->Scale				= scLog;
-		pParamInfo->Symbol				= " ms";
-		pParamInfo->Format				= "%.3f";
-		pParamInfo->ReadOnly			= FALSE;
-		pParamInfo->IsStoredInPreset	= TRUE;
-		pParamInfo->CallBackType		= ctImmediate;
-		pParamInfo->CallBackId			= DURATION_CBID;
-		pParamInfo->setEventClass		(m_fdrGrainDuration);
-	}
-    // pitch fader
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 5)
-	{
-		pParamInfo->ParamType			= ptDataFader;
-		pParamInfo->Caption				= "pitch";
-		pParamInfo->IsInput				= TRUE;
-		pParamInfo->IsOutput			= FALSE;
-		pParamInfo->MinValue			= GRAIN_PITCH_MIN;
-		pParamInfo->MaxValue			= GRAIN_PITCH_MAX;
-		pParamInfo->DefaultValue		= 0.0f;
-		pParamInfo->Symbol				= " ht";
-		pParamInfo->Format				= "%.0f";
-		pParamInfo->ReadOnly			= FALSE;
-		pParamInfo->IsStoredInPreset	= TRUE;
-		pParamInfo->CallBackType		= ctImmediate;
-		pParamInfo->CallBackId			= PITCH_CBID;
-		pParamInfo->setEventClass		(m_fdrGrainPitch);
-	}
-    // grain mode listbox
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 6)
-	{
-		pParamInfo->ParamType			= ptListBox;
-		pParamInfo->Caption				= "grain mode";
-		pParamInfo->IsInput				= TRUE;
-		pParamInfo->IsOutput			= FALSE;
-		pParamInfo->ListBoxStrings		= "\"Interval\",\"Play Button\"";
-		pParamInfo->DefaultValue		= 0;  // set to 'Interval' value
-		pParamInfo->ReadOnly			= FALSE;
-		pParamInfo->IsStoredInPreset	= TRUE;
-		pParamInfo->CallBackType		= ctImmediate;
-		pParamInfo->CallBackId			= GRAIN_MODE_CBID;
-		pParamInfo->setEventClass		(m_lboxGrainMode);
-	}  
-    // grain go button // used in Button mode
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 7)
-	{
-		pParamInfo->ParamType		= ptButton;
-		pParamInfo->Caption			= "play";
-		pParamInfo->IsInput			= TRUE;
-		pParamInfo->IsOutput		= TRUE;
-		pParamInfo->CallBackType    = ctImmediate;
-		pParamInfo->CallBackId		= GRAIN_GO_CBID;
-		pParamInfo->setEventClass	(m_btnGrainGo);
-    }
-	// default case
-    else
-    {
-	}
-}
-
-
-//-----------------------------------------------------------------------------
-// Parameters callback
-void GranulatorModule::onCallBack (TUsineMessage* Message) 
+void Granulator::onCallBack(TUsineMessage* Message)
 {
-	if (Message->lParam == MSG_CHANGE) {
-		switch (Message->wParam)
-		{
-		case INTERVAL_CBID:
+	if ((Message->message != NOTIFY_MSG_USINE_CALLBACK) || (Message->lParam != MSG_CHANGE))
+		return;
+
+	switch (Message->wParam)
+	{
+		case GRAIN_INTERVAL_FDR_CBID:
 			changeInterval();
 			break;
-		case GRAIN_ENV_CBID:
+		case GRAIN_ENVELOPE_LBOX_CBID:
 			changeGrainEnvelope();
 			break;
-		case ENV_VAR_CBID:
+		case GRAIN_ENV_VAR_FDR_CBID:
 			changeEnvelopeVar();
 			break;
-		case DURATION_CBID:
+		case GRAIN_DURATION_FDR_CBID:
 			changeDuration();
 			break;
-		case PITCH_CBID:
+		case GRAIN_PITCH_FDR_CBID:
 			changePitch();
 			break;
-		case GRAIN_MODE_CBID:
+		case GRAIN_MODE_LBOX_CBID:
 			changeGrainMode();
 			break;
-		case GRAIN_GO_CBID:
-			grainGo();
+		case GRAIN_GO_BTN_CBID:
+			wantNewGrain = true;
 			break;
 		default:
 			break;
-		}
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Main process
-void GranulatorModule::onProcess () 
+void Granulator::onProcess()
 {
-    int i, num;
+	if (cbufSize == 0)
+		return;
 
-	if (m_ledGrainStart.getData() == 1.0f)
-		m_ledGrainStart.setData(0.0f);
-    
-	blockSize = sdkGetBlocSize();
+	// the trigger led stays on during one bloc
+	if (grainStartSwOut.getData() == 1.0f)
+		grainStartSwOut.setData(0.0f);
 
-	for (num = 0; num < numOfAudiotInsOuts; num++)
-    {
-        m_audioOutputs[num].setSize(blockSize);
-        tempInputBlock[num] = m_audioInputs[num].getDataAddr();
-        tempOutputBlock[num] = m_audioOutputs[num].getDataAddr();
-    }
+	const int blockSize = sdkGetBlocSize();
+	std::array<TPrecision*, USINE_AUDIO_CHANNEL_MODULE_MAX> inBlock {};
+	std::array<TPrecision*, USINE_AUDIO_CHANNEL_MODULE_MAX> outBlock {};
+	ChannelFlags                                            isConnected {};
+	for (int num = 0; num < numOfAudioInsOuts; num++)
+	{
+		audioOutputs[num].setSize(blockSize);
+		inBlock[num]     = audioInputs[num].getDataAddr();
+		outBlock[num]    = audioOutputs[num].getDataAddr();
+		isConnected[num] = (audioInputs[num].getSize() == blockSize);
+	}
 
-	//Calculate grain scheduling stuff.
-	for (i = 0; i < blockSize; ++i)
-	{		        
-        if (currentGrainMode == 0)
+	for (int i = 0; i < blockSize; i++)
+	{
+		if (currentGrainMode == GrainMode::Interval)
 		{
-			//Check onset.
 			--audioLineNextOnset;
-
-			if(audioLineNextOnset < 0)
+			if (audioLineNextOnset < 0)
 			{
 				audioLineNextOnset = grainSize + grainInterval - 1;
-				wantNewGrain = true;  
+				wantNewGrain       = true;
 			}
 		}
 
-        for (num = 0; num < numOfAudiotInsOuts; num++)
-        {
-            if (m_audioInputs[num].getSize() == blockSize)
-            {
-		        //TPrecision val = sdkGetEvtArrayData(m_audioInputs[num], i);
-		        circularBuffer[num][cbufReadPos] = *(tempInputBlock[num] + i);
+		// in the Play Button mode, a grain can only start on the first sample of a bloc
+		if (wantNewGrain && (currentGrainMode == GrainMode::Interval || i == 0))
+			startNewGrain(isConnected);
+		wantNewGrain = false;
 
-		        //Now clear outputs.
-		        tempOutputBlock[num][i] = 0.0f;
+		for (int num = 0; num < numOfAudioInsOuts; num++)
+		{
+			outBlock[num][i] = 0.0f;
+			if (!isConnected[num])
+				continue;
 
-		        // Interval mode
-		        if (wantNewGrain && currentGrainMode == 0)
-		        {
-				   generateNewGrain(num); 
-		        }
-		        // PlayButton mode
-		        else if (wantNewGrain && i == 0)
-		        {
-				        generateNewGrain(num);
-		        }
+			circularBuffer[num][cbufReadPos] = inBlock[num][i];
+			for (Grain& grain : grains[num])
+				grain.addSampleTo(outBlock[num][i]);
+		}
 
-		        for (int j = 0; j < NUM_OF_GRAIN; j++)
-		        {
-			        if(currentGrain[num][j].getIsActive())
-			        {
-				        currentGrain[num][j].getSample(tempOutputBlock[num] + i);
-			        }
-		        } 
-            }
-            else
-            {
-                //sdkSetEvtArrayData (m_audioOutputs[num], i, 0);
-                *(tempOutputBlock[num] + i) = 0.0f;
-            }
-        }
-        if (wantNewGrain)
-		    wantNewGrain = false;
-
-		// update buffer read pos
-		++cbufReadPos;
-		if (cbufReadPos >= (cbufSize))
-			cbufReadPos -= cbufSize;
-		assert(cbufReadPos <(cbufSize));
+		cbufReadPos = (cbufReadPos + 1) % cbufSize;
 	}
-
-    if (currentGrainMode == 0)
-        nextOnset =  audioLineNextOnset;
 }
 
-//----------------------------------------------------------------------------
-// layout
-//----------------------------------------------------------------------------
-
-void GranulatorModule::onCreateSettings()
+void Granulator::onCreateSettings()
 {
 	sdkAddSettingLineCaption(DESIGN_TAB_NAME, "line", 0);
-	sdkAddSettingLineSingle(DESIGN_TAB_NAME,  &m_LineThickness, "line width", 0, 100, scLog, "pix", DEFAULT_FORMAT_FLOAT_2, 2.0f );
-	sdkAddSettingLineColor(DESIGN_TAB_NAME,  &m_LineColor, "line color" );
+	sdkAddSettingLineSingle(DESIGN_TAB_NAME, &lineThickness, "line width", 0, 100, scLog, "pix", DEFAULT_FORMAT_FLOAT_2, 2.0f);
+	sdkAddSettingLineColor(DESIGN_TAB_NAME, &lineColor, "line color");
 }
 
-void GranulatorModule::onSettingsHasChanged()
+void Granulator::onSettingsHasChanged()
 {
-	// ask to repaint the panel
 	sdkRepaintPanel();
-} 
-
-//-----------------------------------------------------------------------------
-// paint the module panel
-void GranulatorModule::onPaint () 
-{
-	switch (currentGrainEnvType)
-	{
-			
-	default:
-	case Grain::ENV_ASR:
-		sdkDrawPolyLine(coordEnvAsr, ENV_ASR_SIZE, m_LineColor,  m_LineThickness );
-		break;
-
-	case Grain::ENV_BEZIER:
-		sdkDrawPolyLine(coordEnvBezier, ENV_BEZIER_SIZE, m_LineColor, m_LineThickness );
-		break;
-
-	case Grain::ENV_RCB:
-		sdkDrawPolyLine(coordEnvRcb, ENV_RCB_SIZE, m_LineColor, m_LineThickness );
-		break;
-
-	case Grain::ENV_HANN:
-		sdkDrawPolyLine(coordEnvHanning, ENV_HANNING_SIZE, m_LineColor, m_LineThickness );
-		break;
-
-	case Grain::ENV_GAUSS:
-		sdkDrawPolyLine(coordEnvGaussian, ENV_GAUSSIAN_SIZE, m_LineColor, m_LineThickness );
-		break;
-			
-	}
-    
-    // grain pitch info
-    sdkFillText( dimPitch, (AnsiCharPtr)((caPitch+ " ht").c_str ()), sdkGetUsineColor(clFontLight), 0.12f);
-    // grain duration info
-    sdkFillText( dimGrainDuration, (AnsiCharPtr)((caGrainDuration + " ms").c_str ()), sdkGetUsineColor(clFontLight), 0.12f);
 }
 
-//-----------------------------------------------------------------------------
-// mouse and multi touch interaction
-void GranulatorModule::onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X,float Y)
+void Granulator::onPaint()
+{
+	std::vector<TPointF>& points = currentEnvelopePoints();
+	if (!points.empty())
+		sdkDrawPolyLine(points.data(), static_cast<int>(points.size()), lineColor, lineThickness);
+
+	sdkFillText(dimPitch, (caPitch + " ht").c_str(), sdkGetUsineColor(clFontLight), 0.12f);
+	sdkFillText(dimGrainDuration, (caGrainDuration + " ms").c_str(), sdkGetUsineColor(clFontLight), 0.12f);
+}
+
+void Granulator::onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X, float Y)
 {
 	if (MouseButton == mbLeft)
 	{
-		isRecording = true;
-		m_mouseLastButtonDown = (int)mbLeft;
+		isRecording         = true;
+		mouseLeftButtonDown = true;
 	}
 
-	m_mouseLastCoords.x = X;
-	m_mouseLastCoords.y = Y;
+	mouseLastCoords = { .x = X, .y = Y };
 }
 
-void GranulatorModule::onMouseMove(TShiftState Shift, float X, float Y)
+// dragging in the panel edits the grain and records the moves as an automation
+void Granulator::onMouseMove(TShiftState Shift, float X, float Y)
 {
-	if (isRecording && (m_mouseLastButtonDown == (int)mbLeft) )
+	if (isRecording && mouseLeftButtonDown)
 	{
-        float pitch = m_fdrGrainPitch.getData();
-        float dur = m_fdrGrainDuration.getData();
-        
-        if (Shift & ssShift)
-        {
-            // Shift Y slide change the pitch
-            pitch = std::min(GRAIN_PITCH_MAX, std::max(GRAIN_PITCH_MIN, pitch - ((Y - m_mouseLastCoords.y)*5)));
-            m_fdrGrainPitch.setData(pitch);
-            changePitch();
-        }
-        else
-        {
-            // Y slide change the envVar
-            grainEnvelopeVar = std::min(1.0f, std::max(0.0f, grainEnvelopeVar - (Y - m_mouseLastCoords.y)));
-            m_fdrGrainEnvelopeSkrew.setData(grainEnvelopeVar);
-            changeEnvelopeVar();
-        }
-        // X slide change the grain duration
-		dur = std::min(GRAIN_DUR_MAX, std::max(GRAIN_DUR_MIN, dur + (X - m_mouseLastCoords.x)*10));
-		m_fdrGrainDuration.setData(dur);
+		float pitch = grainPitchFdrIn.getData();
+		float dur   = grainDurationFdrIn.getData();
+
+		if (Shift & ssShift)
+		{
+			// Shift + vertical move changes the pitch
+			pitch = std::clamp(pitch - (Y - mouseLastCoords.y) * 5, GRAIN_PITCH_MIN, GRAIN_PITCH_MAX);
+			grainPitchFdrIn.setData(pitch);
+			changePitch();
+		}
+		else
+		{
+			// vertical move changes the envelope variable
+			grainEnvelopeVar = std::clamp(grainEnvelopeVar - (Y - mouseLastCoords.y), 0.0f, 1.0f);
+			grainEnvVarFdrIn.setData(grainEnvelopeVar);
+			changeEnvelopeVar();
+		}
+
+		// horizontal move changes the grain duration
+		dur = std::clamp(dur + (X - mouseLastCoords.x) * 10, GRAIN_DUR_MIN, GRAIN_DUR_MAX);
+		grainDurationFdrIn.setData(dur);
 		changeDuration();
-        
+
 		try
 		{
-			sdkProcessRecordAutomation(dur, grainEnvelopeVar, pitch );
+			sdkProcessRecordAutomation(dur, grainEnvelopeVar, pitch);
 		}
-		catch (std::exception& /*e*/) 
+		catch (std::exception&)
 		{
-			//const char* result(e.what());
-			//TraceErrorPChar ((AnsiCharPtr)NormalizeString(result).c_str());
+			sdkRaiseError(ERROR_RECORD_AUTOMATION);
 		}
-	}	
-	m_mouseLastCoords.x = X;
-	m_mouseLastCoords.y = Y;
+	}
+
+	mouseLastCoords = { .x = X, .y = Y };
 }
 
-void GranulatorModule::onMouseUp (TMouseButton MouseButton, TShiftState Shift, float X,float Y)
+void Granulator::onMouseUp(TMouseButton MouseButton, TShiftState Shift, float X, float Y)
 {
-	if (isRecording )
+	if (isRecording)
 	{
 		isRecording = false;
-		//StopRecord ();
-		
 		try
 		{
 			sdkStopRecordAutomation();
 		}
-		catch (std::exception& /*e*/) 
+		catch (std::exception&)
 		{
-			//const char* result(e.what());
-			//TraceErrorPChar ((AnsiCharPtr)NormalizeString(result).c_str());
+			sdkRaiseError(ERROR_STOP_RECORD_AUTOMATION);
 		}
 	}
-	if (m_mouseLastButtonDown == mbLeft)
+
+	if (MouseButton == mbLeft)
+		mouseLeftButtonDown = false;
+}
+
+void Granulator::onSampleRateChange(double SampleRate)
+{
+	usineSampleRate = static_cast<float>(SampleRate);
+	// room for the longest grain (2 s, with a margin) read at the highest pitch (x16)
+	cbufSize    = static_cast<int>(2.1 * 16 * usineSampleRate);
+	cbufReadPos = 0;
+
+	for (size_t num = 0; num < grains.size(); num++)
 	{
-		// mouse is no more down
-		m_mouseLastButtonDown = -1;
+		circularBuffer[num].assign(cbufSize, 0.0f);
+		for (Grain& grain : grains[num])
+			grain.setInputBuffer(circularBuffer[num]);
 	}
+
+	grainInterval = msToSamples(grainIntervalMs);
+	grainSize     = msToSamples(grainDurationMs);
 }
 
-//-----------------------------------------------------------------------------
-// audio setup update
-void GranulatorModule::onSampleRateChange (double SampleRate)
+// replays the values recorded in onMouseMove: X = grain duration, Y = envelope variable, Z = pitch
+void Granulator::onSetRecordedValue(TPrecision X, TPrecision Y, TPrecision Z)
 {
-    usineSamplerate = (float)SampleRate; 
-    cbufSize = (int)(2.1 * 16 * usineSamplerate);
-	
-	for (int num = 0; num < numOfAudiotInsOuts; num++)
-	{
-		if (circularBuffer[num] != nullptr)
-		{
-			delete[] circularBuffer[num];
-			circularBuffer[num] = nullptr;
-		}
+	grainDurationFdrIn.setData(std::clamp(X, GRAIN_DUR_MIN, GRAIN_DUR_MAX));
+	changeDuration();
 
-		circularBuffer[num] = new TPrecision[cbufSize];
-		memset(circularBuffer[num], 0, (sizeof(float) * cbufSize));
+	grainEnvelopeVar = std::clamp(Y, 0.0f, 1.0f);
+	grainEnvVarFdrIn.setData(grainEnvelopeVar);
+	changeEnvelopeVar();
 
-		for (int i = 0; i < NUM_OF_GRAIN; i++)
-		{
-			currentGrain[num][i].setInputBuffer(circularBuffer[num], cbufSize);
-		}
-	}
+	grainPitchFdrIn.setData(std::clamp(Z, GRAIN_PITCH_MIN, GRAIN_PITCH_MAX));
+	changePitch();
 }
 
-//-----------------------------------------------------------------------------
-// recording 
-void GranulatorModule::onSetRecordedValue (TPrecision X, TPrecision Y, TPrecision Z)
+void Granulator::changeGrainEnvelope()
 {
-    // X = grain dur, Y = env skrew, Z = grain pitch
-    float dur = std::min(GRAIN_DUR_MAX, std::max(GRAIN_DUR_MIN, X));
-    m_fdrGrainDuration.setData(dur);
-    changeDuration();
-    
-    grainEnvelopeVar = std::min(1.0f, std::max(0.0f, Y));
-    m_fdrGrainEnvelopeSkrew.setData(grainEnvelopeVar);
-    changeEnvelopeVar();
-    
-    float pitch = std::min(GRAIN_PITCH_MAX, std::max(GRAIN_PITCH_MIN, Z));
-    m_fdrGrainPitch.setData(pitch);
-    changePitch();
+	const int item      = static_cast<int>(grainEnvelopeLboxIn.getData());
+	currentEnvelopeType = static_cast<EnvelopeType>(std::clamp(item, 0, ENVELOPE_TYPE_COUNT - 1));
+	changeEnvelopeVar();
 }
 
-//-------------------------------------------------------------------------
-// private methods implementation
-//-------------------------------------------------------------------------
-//
-void GranulatorModule::changeGrainEnvelope()
+void Granulator::changeEnvelopeVar()
 {
-    currentGrainEnvType = (Grain::EnvType)(int)m_lboxGrainEnvelope.getData();
-    changeEnvelopeVar();
-}
+	grainEnvelopeVar = grainEnvVarFdrIn.getData();
 
-//-------------------------------------------------------------------------
-//
-void GranulatorModule::changeEnvelopeVar()
-{
-    grainEnvelopeVar = (float)m_fdrGrainEnvelopeSkrew.getData();
-
-    switch (currentGrainEnvType)
-    {
-    default:
-    case Grain::ENV_ASR:
-        currentGrain[0][0].getGraphPoints( Grain::ENV_ASR, grainEnvelopeVar, coordEnvAsr, ENV_ASR_SIZE);
-        break;
-
-    case Grain::ENV_BEZIER:
-        currentGrain[0][0].getGraphPoints( Grain::ENV_BEZIER, grainEnvelopeVar, coordEnvBezier, ENV_BEZIER_SIZE);
-        break;
-
-    case Grain::ENV_RCB:
-        currentGrain[0][0].getGraphPoints( Grain::ENV_RCB, grainEnvelopeVar, coordEnvRcb, ENV_RCB_SIZE);
-        break;
-
-    case Grain::ENV_HANN:
-        currentGrain[0][0].getGraphPoints( Grain::ENV_HANN, grainEnvelopeVar, coordEnvHanning, ENV_HANNING_SIZE);
-        break;
-
-    case Grain::ENV_GAUSS:
-        currentGrain[0][0].getGraphPoints( Grain::ENV_GAUSS, grainEnvelopeVar, coordEnvGaussian, ENV_GAUSSIAN_SIZE);
-        break;
-    }
-
-    // finally ask a repaint
-	sdkRepaintPanel();  
-}
-
-//-------------------------------------------------------------------------
-//
-void GranulatorModule::changeInterval()
-{
-	// converstion from milliseconds to sample
-    grainInterval = static_cast<int>(floor((m_fdrGrainInterval.getData() * usineSamplerate * 0.001f )+ 0.5f ));
-
-}
-
-//-------------------------------------------------------------------------
-//
-void GranulatorModule::changeDuration()
-{
-	// converstion from milliseconds to sample
-    float sizeInMs = m_fdrGrainDuration.getData();
-    grainSize = static_cast<int>(floor((sizeInMs * usineSamplerate * 0.001f ) + 0.5f ));
-    caGrainDuration = sdkFloatToString (sizeInMs, 2, 8);
-	sdkRepaintPanel();
-}   
-    
-//-------------------------------------------------------------------------
-// 
-void GranulatorModule::changePitch()
-{
-    float tempf;
-                
-    tempf = (float)m_fdrGrainPitch.getData();
-    pitchIncrement = pow(2.0f, tempf/12.0f);
-    caPitch = sdkFloatToString (tempf, 0, 8);
+	// the curves are allocated in onInitModule
+	std::vector<TPointF>& points = currentEnvelopePoints();
+	if (!points.empty())
+		Grain::getGraphPoints(currentEnvelopeType, grainEnvelopeVar, points);
 	sdkRepaintPanel();
 }
-    
-//-------------------------------------------------------------------------
-// 
-void GranulatorModule::changeGrainMode()
+
+void Granulator::changeInterval()
 {
-	// 0 mean Interval mode
-	// 1 mean PlayButton mode
-	currentGrainMode = (int)m_lboxGrainMode.getData();
-}
-    
-//-------------------------------------------------------------------------
-// 
-void GranulatorModule::grainGo()
-{
-	wantNewGrain = true;
+	grainIntervalMs = grainIntervalFdrIn.getData();
+	grainInterval   = msToSamples(grainIntervalMs);
 }
 
-void GranulatorModule::generateNewGrain(int num)
+void Granulator::changeDuration()
 {
+	grainDurationMs = grainDurationFdrIn.getData();
+	grainSize       = msToSamples(grainDurationMs);
+	caGrainDuration = sdkFloatToString(grainDurationMs, 2, 8);
+	sdkRepaintPanel();
+}
 
-    currentGrain[num][nextNewGrainIndex].setEnvelope(currentGrainEnvType); 
-    currentGrain[num][nextNewGrainIndex].activate( 
-            grainEnvelopeVar
-        , cbufReadPos
-		, grainSize
-        , pitchIncrement
-        );
-  
-	//grainToggle = (grainToggle + 1) % 2;
+void Granulator::changePitch()
+{
+	const float pitch = grainPitchFdrIn.getData();
+	pitchIncrement    = std::pow(2.0f, pitch / 12.0f);
+	caPitch           = sdkFloatToString(pitch, 0, 8);
+	sdkRepaintPanel();
+}
+
+void Granulator::changeGrainMode()
+{
+	currentGrainMode = (grainModeLboxIn.getData() >= 1.0f) ? GrainMode::PlayButton : GrainMode::Interval;
+}
+
+void Granulator::startNewGrain(const ChannelFlags& isConnected)
+{
+	bool started = false;
+	bool overlap = false;
+	for (int num = 0; num < numOfAudioInsOuts; num++)
+	{
+		if (!isConnected[num])
+			continue;
+
+		Grain& grain = grains[num][nextNewGrainIndex];
+		overlap = overlap || grain.getIsActive();
+		grain.setEnvelope(currentEnvelopeType);
+		grain.activate(grainEnvelopeVar, cbufReadPos, grainSize, pitchIncrement);
+		started = true;
+	}
+
+	if (!started)
+		return;
+
+	// warns once when grains start to overlap, not for every new grain
+	if (overlap && !grainOverlapWarned)
+		sdkRaiseError(WARNING_GRAIN_OVERLAP);
+	grainOverlapWarned = overlap;
+
 	nextNewGrainIndex = (nextNewGrainIndex + 1) % NUM_OF_GRAIN;
-
-    m_ledGrainStart.setData(1.0f);    
+	grainStartSwOut.setData(1.0f);
 }
 
+int Granulator::msToSamples(float ms) const
+{
+	return static_cast<int>(std::floor(ms * usineSampleRate * 0.001f + 0.5f));
+}
+
+std::vector<TPointF>& Granulator::currentEnvelopePoints()
+{
+	return envelopePoints[static_cast<size_t>(currentEnvelopeType)];
+}

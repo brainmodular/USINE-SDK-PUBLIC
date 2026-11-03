@@ -1,60 +1,59 @@
 # MidiTranspose
 #example #midi #simple
 
-**MIDI note transposition utility.**
+**MIDI note transposition.**
 
 | | |
 |---|---|
 | **Module Name** | `midi transpose` |
 | **Type** | `mtSimple` |
 | **Color** | `clMIDIModuleColor` |
+| **Version** | 1.0 |
 | **Source** | `examples/MidiTranspose/` |
 
 ## Description
 
-Transposes incoming MIDI note messages by a specified number of semitones. Demonstrates MIDI event processing using `TUsineMidiCode` and array-based MIDI access.
+Transposes the incoming MIDI notes by a number of semitones. Demonstrates MIDI processing with `TUsineMidiCode` and the MIDI array access of `UsineEventClass`.
 
 ## Parameters
 
-| # | Name | Type | I/O | Range | Details |
-|---|------|------|-----|-------|---------|
-| 0 | `in` | `ptMidi` | Input | — | MIDI input stream |
-| 1 | `out` | `ptMidi` | Output | — | Transposed MIDI output |
-| 2 | `pitch` | `ptDataFader` | Input | -127 – +127 ht | Transposition amount (IsStoredInPreset) |
+| # | Name | Member | Type | I/O | Details |
+|---|------|--------|------|-----|---------|
+| 0 | `in` | `midiIn` | `ptMidi` | Input | MIDI input |
+| 1 | `out` | `midiOut` | `ptMidi` | Output | Transposed MIDI |
+| 2 | `pitch` | `pitchFdrIn` | `ptDataFader` | Input | -127 – +127 halftones, IsStoredInPreset, no callback |
 
 ## How It Works
 
 In `onProcess`:
-1. Copies MIDI input to output
-2. Iterates through each MIDI message in the event
-3. For NOTEON and NOTEOFF messages, adds the pitch offset to Data1 (note number)
-4. Clamps the result to 0–127
+1. Copies the MIDI input to the output
+2. Goes through each MIDI message of the output
+3. For `MIDI_NOTEON` and `MIDI_NOTEOFF` messages, adds the pitch to `Data1` (the note number), clamped to 0 – 127
 
 ```cpp
-for (int i = 0; i < size; i++)
+const int pitch = static_cast<int>(std::round(pitchFdrIn.getData()));
+for (int i = 0; i < sizeMidiIn; i++)
 {
-    TUsineMidiCode code = midiOut.getArrayMidi(i);
-    if (code.Msg == MIDI_NOTEON || code.Msg == MIDI_NOTEOFF)
-    {
-        int note = code.Data1 + (int)pitch;
-        code.Data1 = std::clamp(note, 0, 127);
-        midiOut.setArrayMidi(i, code);
-    }
+	TUsineMidiCode code = midiOut.getArrayMidi(i);
+	if (code.Msg == MIDI_NOTEON || code.Msg == MIDI_NOTEOFF)
+	{
+		code.Data1 = std::min(127, std::max(0, static_cast<int>(code.Data1) + pitch));
+		midiOut.setArrayMidi(i, code);
+	}
 }
 ```
 
 ## Key Concepts Demonstrated
 
-- **`ptMidi`** parameter type for MIDI streams
-- **`TUsineMidiCode`** structure: Channel, Msg, Data1, Data2
-- **`getArrayMidi` / `setArrayMidi`** for MIDI event access
-- **MIDI constants**: `MIDI_NOTEON`, `MIDI_NOTEOFF`
-- **Process-driven** module (no callbacks needed for the main logic)
-- **`IsStoredInPreset`** for pitch offset persistence
+- **`ptMidi`** parameters for MIDI streams
+- **`TUsineMidiCode`**: Channel, Msg, Data1, Data2
+- **`getArrayMidi` / `setArrayMidi`** to access the messages
+- **A parameter without callback**: `pitch` is read directly in `onProcess`
+- **`IsStoredInPreset`** to save the pitch in presets
 
 ## SDK Callbacks Used
 
-`onGetModuleInfo` · `onGetParamInfo` · `onProcess`
+`onGetModuleInfo` · `onCreateParameters` · `onProcess`
 
 ## Related Examples
 

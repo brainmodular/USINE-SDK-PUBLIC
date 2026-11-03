@@ -32,16 +32,27 @@ These functions support the multi-channel audio query system:
 
 ### Usage
 ```cpp
-void onGetModuleInfo(TMasterInfo*, TModuleInfo* pModuleInfo) override
+void AudioVolume::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-    pModuleInfo->QueryListString = sdkGetAudioQueryTitle();
-    pModuleInfo->QueryListValues = sdkGetAudioQueryChannelList();
+	pModuleInfo->QueryListString     = sdkGetAudioQueryTitle();
+	pModuleInfo->QueryListValues     = sdkGetAudioQueryChannelList();
+	pModuleInfo->QueryListDefaultIdx = 1;
 }
 
-int onGetNumberOfParams(int QIdx1, int QIdx2) override
+void AudioVolume::onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
 {
-    numChannels = sdkGetAudioQueryToNbChannels(QIdx1);
-    return numChannels * 2 + controlParams;
+	queryResult       = queryResult1;
+	numOfAudioInsOuts = std::min(sdkGetAudioQueryToNbChannels(queryResult1), static_cast<int>(USINE_AUDIO_CHANNEL_MODULE_MAX));
+}
+
+void AudioVolume::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+{
+	for (int num = 0; num < numOfAudioInsOuts; num++)
+	{
+		TParamInfo audioIn = audioInParamInfo;
+		audioIn.Caption    = sdkGetAudioQueryChannelNames("in ", num + 1, queryResult);
+		sdkCreateParam(audioIn, audioInputs[num]);
+	}
 }
 ```
 
@@ -56,22 +67,24 @@ Shared data arrays accessible across all modules in a workspace.
 | Function | Description |
 |----------|-------------|
 | `sdkGlobalArrayGetHash(AnsiCharPtr name)` | Get hash for named global array. Returns `UINT64` |
-| `sdkGlobalArraySetValueFloat(UINT64 hash, int index, TPrecision value)` | Set float value at index |
-| `sdkGlobalArrayGetValueFloat(UINT64 hash, int index)` | Get float value at index. Returns `TPrecision` |
-| `sdkGlobalArraySetValueColor(UINT64 hash, int index, TUsineColor value)` | Set color value at index |
-| `sdkGlobalArrayGetValueColor(UINT64 hash, int index)` | Get color value at index. Returns `TUsineColor` |
-| `sdkGlobalArraySetValueAnsiChar(UINT64 hash, int index, AnsiCharPtr value)` | Set string value at index |
-| `sdkGlobalArrayGetValueAnsiChar(UINT64 hash, int index)` | Get string value at index. Returns `AnsiCharPtr` |
-| `sdkGlobalArraySetValueEvt(UINT64 hash, UsineEventPtr value)` | Set entire event |
-| `sdkGlobalArrayGetValueEvt(UINT64 hash, UsineEventPtr value)` | Get entire event |
-| `sdkGlobalArrayGetSize(UINT64 hash)` | Get array size. Returns `int` |
-| `sdkGlobalArrayGetAllNames()` | Get all names as comma-text. Returns `AnsiCharPtr` |
+| `sdkGlobalArraySetValueFloat(UINT64 hash, int index, TPrecision value, AnsiCharPtr errorMsg)` | Set float value at index |
+| `sdkGlobalArrayGetValueFloat(UINT64 hash, int index, AnsiCharPtr errorMsg)` | Get float value at index. Returns `TPrecision` |
+| `sdkGlobalArraySetValueColor(UINT64 hash, int index, TUsineColor value, AnsiCharPtr errorMsg)` | Set color value at index |
+| `sdkGlobalArrayGetValueColor(UINT64 hash, int index, AnsiCharPtr errorMsg)` | Get color value at index. Returns `TUsineColor` |
+| `sdkGlobalArraySetValueAnsiChar(UINT64 hash, int index, AnsiCharPtr value, AnsiCharPtr errorMsg)` | Set string value at index |
+| `sdkGlobalArrayGetValueAnsiChar(UINT64 hash, int index, AnsiCharPtr errorMsg)` | Get string value at index. Returns `AnsiCharPtr` |
+| `sdkGlobalArraySetValueEvt(UINT64 hash, UsineEventPtr value, AnsiCharPtr errorMsg)` | Set entire event |
+| `sdkGlobalArrayGetValueEvt(UINT64 hash, AnsiCharPtr errorMsg, UsineEventPtr result)` | Get entire event |
+| `sdkGlobalArrayGetSize(UINT64 hash, AnsiCharPtr errorMsg)` | Get array size. Returns `TPrecision` |
+| `sdkGlobalArrayGetAllNames()` | Get all names as comma-text. Returns `AnsiCharPtr`. Can be slow |
+
+`errorMsg` is the text Usine reports if the operation fails: the examples give the name of the array.
 
 ### Usage
 ```cpp
 UINT64 hash = sdkGlobalArrayGetHash("my-shared-data");
-sdkGlobalArraySetValueFloat(hash, 0, 42.0f);
-float val = sdkGlobalArrayGetValueFloat(hash, 0);  // 42.0
+sdkGlobalArraySetValueFloat(hash, 0, 42.0f, "my-shared-data");
+float val = sdkGlobalArrayGetValueFloat(hash, 0, "my-shared-data");  // 42.0
 ```
 
 > **Example:** See [[examples/global-array|GlobalArray]] for global array usage.
@@ -92,6 +105,11 @@ Named key-value stores shared between modules, with change notifications. See [[
 | `sdkChunkSubscribe(chunk, itemName, callbackID, immediate)` | `void` | Receive notifications in `onCallBack` when the chunk or item changes |
 | `sdkChunkUnSubscribe(chunk, itemName)` | `void` | Stop notifications for a chunk or item |
 | `sdkChunkUnSubscribeAll()` | `void` | Cancel every chunk subscription of the module |
+| `sdkSetChunkFromFloatPointer(chunk, itemName, float* payload, UINT32 size)` | `LongBool` | Write `size` floats in an item in one call, without an event |
+| `sdkGetChunkItemSize(chunk, itemName)` | `UINT32` | Number of values of an item |
+| `sdkGetChunkToFloatPointer(chunk, itemName, float* payload)` | `UINT32` | Copy a float item into `payload`, which must hold `sdkGetChunkItemSize` values |
+
+These are methods of `UserModuleBase`, call them from the module.
 
 ### Usage
 ```cpp
@@ -105,9 +123,44 @@ if (sdkChunkItemExist("mychunk", "item1"))
 // subscribe to changes (fires callbackID in onCallBack)
 sdkChunkSubscribe(sdkGetChunk("mychunk"), "item1", MY_CALLBACK_ID, TRUE);
 
+// a whole float buffer, written and read back in one call
+TUsineChunkPtr chunk = sdkGetChunk("mychunk");
+sdkSetChunkFromFloatPointer(chunk, "data_bulk", buffer.data(), static_cast<UINT32>(buffer.size()));
+std::vector<float> data(sdkGetChunkItemSize(chunk, "data_bulk"));
+sdkGetChunkToFloatPointer(chunk, "data_bulk", data.data());
+
 // cleanup in the destructor
 sdkChunkUnSubscribeAll();
 ```
+
+### UsineChunk reader
+
+`sdk/UsineChunks.h` holds `UsineChunk`, a helper that reads typed values from a named chunk in one call. Reading never creates the chunk nor the item: the getters return `false`, or the fallback value, when one is missing. The header is not included by `UserDefinitions.h`, include it yourself.
+
+```cpp
+#include "../../sdk/UsineChunks.h"
+
+UsineChunk reader(this, "mychunk");
+
+std::vector<float> values;
+if (reader.getFloats("item1", values))
+{
+    // ...
+}
+int         count = reader.getInt("count", 0);
+std::string names;
+reader.getText("commatxt", names);
+```
+
+| Method | Returns | Description |
+|--------|---------|-------------|
+| `exists()` | `bool` | The chunk exists |
+| `has(item)` | `bool` | The chunk and the item exist |
+| `getFloats(item, std::vector<float>&)` / `getInts(item, std::vector<int>&)` | `bool` | Read a float or integer array |
+| `getText(item, std::string&)` | `bool` | Read a text (a comma text is returned as is) |
+| `getFloat(item, fallback)` / `getInt(item, fallback)` | `float` / `int` | First value of the item, or `fallback` |
+
+A `UsineChunk` is not thread-safe: it reuses one event for every read.
 
 > **Example:** See [[examples/usine-chunks|UsineChunks]] for chunk system usage.
 
@@ -117,7 +170,8 @@ sdkChunkUnSubscribeAll();
 
 | Function | Returns | Description |
 |----------|---------|-------------|
-| `sdkGetBlocSize()` | `int` | Current audio block size |
+| `sdkGetBlocSize()` | `int` | Current audio block size, in samples |
+| `sdkGetBlockDuration()` | `double` | Duration of an audio block, in ms |
 | `sdkGetSampleRate()` | `double` | Current sample rate |
 | `sdkGetUsineBlockSizeList()` | `AnsiCharPtr` | Available block sizes |
 | `sdkGetUsineDefaultBlockSizeIndex()` | `int` | Default block size index |
@@ -235,7 +289,34 @@ sdkFFTDestroy(fft);
 
 ---
 
+## Errors, Warnings and Infos
+
+Modules report what happens with the error system of `sdk/UserError.h` rather than with the raw trace functions below: each message is registered once, and the user can filter them with a verbosity level.
+
+| Function | Description |
+|----------|-------------|
+| `RegisterError(Level level, const char* message)` | Registers a message (`Level::Error`, `Level::Warn` or `Level::Info`), returns its index |
+| `sdkRaiseError(int index, bool force_log = false)` | Traces the message, `force_log` also writes a warning or an info in the Usine log file |
+| `sdkRaiseError(int index, const char* extraMsg, bool force_log = false)` | Same, with `extraMsg` appended to the message |
+| `sdkRaiseError(int index, const std::string& extraMsg, bool force_log = false)` | Same, with a `std::string` |
+| `setVerbosityLevel(Verbosity v)` | `Verbosity::None`, `Error`, `Warn`, `Info` or `All`: the messages above this level are not traced |
+
+```cpp
+// ModuleDefinition.h
+inline const int ERROR_POINTER_NOT_FLOAT = RegisterError(Level::Error, "the pointer is not type float");
+
+// UsinePointers.cpp
+if (ptrIn.getPointerDataType() != usinePtrFloat)
+	sdkRaiseError(ERROR_POINTER_NOT_FLOAT);
+```
+
+> **Example:** See [[examples/error-handling|ErrorHandling]].
+
+---
+
 ## Trace & Logging
+
+Low level functions, used by `sdkRaiseError` and by the SDK itself.
 
 | Function | Description |
 |----------|-------------|

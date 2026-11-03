@@ -1,0 +1,483 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4F303DC62DE5E53200F05FB8 /* Database Creation.usr-macos64uni in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4F303DC52DE5E52A00F05FB8 /* Database Creation.usr-macos64uni */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4F6456E02E13E7BA0052D0DF /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6456DD2E13E7BA0052D0DF /* sqlite3.h */; };
+		4F6456E12E13E7BA0052D0DF /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 4F6456DE2E13E7BA0052D0DF /* sqlite3.c */; };
+		4F6456FC2E13E7DC0052D0DF /* sptree.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6456F62E13E7DC0052D0DF /* sptree.h */; };
+		4F6456FD2E13E7DC0052D0DF /* Hdescriptors.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6456F52E13E7DC0052D0DF /* Hdescriptors.h */; };
+		4F6456FE2E13E7DC0052D0DF /* DataStructs.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6456E42E13E7DC0052D0DF /* DataStructs.h */; };
+		4F6456FF2E13E7DC0052D0DF /* HaudioBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6456F42E13E7DC0052D0DF /* HaudioBuffer.h */; };
+		4F6457002E13E7DC0052D0DF /* RMS.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6456EA2E13E7DC0052D0DF /* RMS.h */; };
+		4F6457012E13E7DC0052D0DF /* MFCC.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6456E82E13E7DC0052D0DF /* MFCC.h */; };
+		4F6457022E13E7DC0052D0DF /* f0_YIN.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6456E52E13E7DC0052D0DF /* f0_YIN.h */; };
+		4F6457032E13E7DC0052D0DF /* vptree.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6456FA2E13E7DC0052D0DF /* vptree.h */; };
+		4F6457042E13E7DC0052D0DF /* tsne.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6456F82E13E7DC0052D0DF /* tsne.h */; };
+		4F6457052E13E7DC0052D0DF /* SpectralCentroid.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6456EC2E13E7DC0052D0DF /* SpectralCentroid.h */; };
+		4F6457062E13E7DC0052D0DF /* HFeatures.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6456E72E13E7DC0052D0DF /* HFeatures.h */; };
+		4F6457072E13E7DC0052D0DF /* SpectralFlatness.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6456EE2E13E7DC0052D0DF /* SpectralFlatness.h */; };
+		4F6457082E13E7DC0052D0DF /* SpectralSpread.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6456F02E13E7DC0052D0DF /* SpectralSpread.h */; };
+		4F6457092E13E7DC0052D0DF /* StatisticsFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6456F22E13E7DC0052D0DF /* StatisticsFunctions.h */; };
+		4F64570A2E13E7DC0052D0DF /* SpectralSpread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F6456F12E13E7DC0052D0DF /* SpectralSpread.cpp */; };
+		4F64570B2E13E7DC0052D0DF /* SpectralCentroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F6456ED2E13E7DC0052D0DF /* SpectralCentroid.cpp */; };
+		4F64570C2E13E7DC0052D0DF /* tsne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F6456F92E13E7DC0052D0DF /* tsne.cpp */; };
+		4F64570D2E13E7DC0052D0DF /* f0_YIN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F6456E62E13E7DC0052D0DF /* f0_YIN.cpp */; };
+		4F64570E2E13E7DC0052D0DF /* MFCC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F6456E92E13E7DC0052D0DF /* MFCC.cpp */; };
+		4F64570F2E13E7DC0052D0DF /* SpectralFlatness.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F6456EF2E13E7DC0052D0DF /* SpectralFlatness.cpp */; };
+		4F6457102E13E7DC0052D0DF /* RMS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F6456EB2E13E7DC0052D0DF /* RMS.cpp */; };
+		4F6457112E13E7DC0052D0DF /* sptree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F6456F72E13E7DC0052D0DF /* sptree.cpp */; };
+		4F64572A2E13E7EA0052D0DF /* DatabaseCreation.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6457282E13E7EA0052D0DF /* DatabaseCreation.h */; };
+		4F64572B2E13E7EA0052D0DF /* DatabaseCreation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F6457292E13E7EA0052D0DF /* DatabaseCreation.cpp */; };
+		4FA6E5E62EE70D08008BBF0E /* UserModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FA6E5D72EE70D08008BBF0E /* UserModule.cpp */; };
+		4FA6E5E72EE70D08008BBF0E /* UserUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FA6E5D92EE70D08008BBF0E /* UserUtils.cpp */; };
+		4FA6E5E82EE70D08008BBF0E /* UserUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA6E5D82EE70D08008BBF0E /* UserUtils.h */; };
+		4FA6E5E92EE70D08008BBF0E /* UserDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA6E5D52EE70D08008BBF0E /* UserDefinitions.h */; };
+		4FA6E5EA2EE70D08008BBF0E /* UsineEventClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA6E5DB2EE70D08008BBF0E /* UsineEventClass.h */; };
+		4FA6E5EB2EE70D08008BBF0E /* UsineFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA6E5DC2EE70D08008BBF0E /* UsineFunctions.h */; };
+		4FA6E5EC2EE70D08008BBF0E /* UserModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA6E5D62EE70D08008BBF0E /* UserModule.h */; };
+		4FA6E5ED2EE70D08008BBF0E /* UsineDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA6E5DA2EE70D08008BBF0E /* UsineDefinitions.h */; };
+		4FE6B2DE2E28FD9F00BD77B4 /* Loudness.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FE6B2DD2E28FD9E00BD77B4 /* Loudness.cpp */; };
+		4FE6B2DF2E28FD9F00BD77B4 /* Loudness.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE6B2DC2E28FD9E00BD77B4 /* Loudness.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4F666BB92DE5D279009265B7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(SRCROOT)/../../../bin/DatabaseModules";
+			dstSubfolderSpec = 0;
+			files = (
+				4F303DC62DE5E53200F05FB8 /* Database Creation.usr-macos64uni in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		4F303DC52DE5E52A00F05FB8 /* Database Creation.usr-macos64uni */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "Database Creation.usr-macos64uni"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F6456DD2E13E7BA0052D0DF /* sqlite3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
+		4F6456DE2E13E7BA0052D0DF /* sqlite3.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
+		4F6456E42E13E7DC0052D0DF /* DataStructs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DataStructs.h; path = ../libs/utils/DataStructs.h; sourceTree = SOURCE_ROOT; };
+		4F6456E52E13E7DC0052D0DF /* f0_YIN.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = f0_YIN.h; sourceTree = "<group>"; };
+		4F6456E62E13E7DC0052D0DF /* f0_YIN.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = f0_YIN.cpp; sourceTree = "<group>"; };
+		4F6456E72E13E7DC0052D0DF /* HFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFeatures.h; sourceTree = "<group>"; };
+		4F6456E82E13E7DC0052D0DF /* MFCC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MFCC.h; sourceTree = "<group>"; };
+		4F6456E92E13E7DC0052D0DF /* MFCC.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MFCC.cpp; sourceTree = "<group>"; };
+		4F6456EA2E13E7DC0052D0DF /* RMS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMS.h; sourceTree = "<group>"; };
+		4F6456EB2E13E7DC0052D0DF /* RMS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RMS.cpp; sourceTree = "<group>"; };
+		4F6456EC2E13E7DC0052D0DF /* SpectralCentroid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpectralCentroid.h; sourceTree = "<group>"; };
+		4F6456ED2E13E7DC0052D0DF /* SpectralCentroid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpectralCentroid.cpp; sourceTree = "<group>"; };
+		4F6456EE2E13E7DC0052D0DF /* SpectralFlatness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpectralFlatness.h; sourceTree = "<group>"; };
+		4F6456EF2E13E7DC0052D0DF /* SpectralFlatness.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpectralFlatness.cpp; sourceTree = "<group>"; };
+		4F6456F02E13E7DC0052D0DF /* SpectralSpread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpectralSpread.h; sourceTree = "<group>"; };
+		4F6456F12E13E7DC0052D0DF /* SpectralSpread.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpectralSpread.cpp; sourceTree = "<group>"; };
+		4F6456F22E13E7DC0052D0DF /* StatisticsFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatisticsFunctions.h; sourceTree = "<group>"; };
+		4F6456F42E13E7DC0052D0DF /* HaudioBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HaudioBuffer.h; path = ../libs/utils/HaudioBuffer.h; sourceTree = SOURCE_ROOT; };
+		4F6456F52E13E7DC0052D0DF /* Hdescriptors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Hdescriptors.h; path = ../libs/utils/Hdescriptors.h; sourceTree = SOURCE_ROOT; };
+		4F6456F62E13E7DC0052D0DF /* sptree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sptree.h; sourceTree = "<group>"; };
+		4F6456F72E13E7DC0052D0DF /* sptree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sptree.cpp; sourceTree = "<group>"; };
+		4F6456F82E13E7DC0052D0DF /* tsne.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tsne.h; sourceTree = "<group>"; };
+		4F6456F92E13E7DC0052D0DF /* tsne.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tsne.cpp; sourceTree = "<group>"; };
+		4F6456FA2E13E7DC0052D0DF /* vptree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vptree.h; sourceTree = "<group>"; };
+		4F6457282E13E7EA0052D0DF /* DatabaseCreation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DatabaseCreation.h; path = ../DatabaseCreation/DatabaseCreation.h; sourceTree = SOURCE_ROOT; };
+		4F6457292E13E7EA0052D0DF /* DatabaseCreation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = DatabaseCreation.cpp; path = ../DatabaseCreation/DatabaseCreation.cpp; sourceTree = SOURCE_ROOT; };
+		4FA6E5D52EE70D08008BBF0E /* UserDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefinitions.h; sourceTree = "<group>"; };
+		4FA6E5D62EE70D08008BBF0E /* UserModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModule.h; sourceTree = "<group>"; };
+		4FA6E5D72EE70D08008BBF0E /* UserModule.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UserModule.cpp; sourceTree = "<group>"; };
+		4FA6E5D82EE70D08008BBF0E /* UserUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserUtils.h; sourceTree = "<group>"; };
+		4FA6E5D92EE70D08008BBF0E /* UserUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UserUtils.cpp; sourceTree = "<group>"; };
+		4FA6E5DA2EE70D08008BBF0E /* UsineDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsineDefinitions.h; sourceTree = "<group>"; };
+		4FA6E5DB2EE70D08008BBF0E /* UsineEventClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsineEventClass.h; sourceTree = "<group>"; };
+		4FA6E5DC2EE70D08008BBF0E /* UsineFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsineFunctions.h; sourceTree = "<group>"; };
+		4FE6B2DC2E28FD9E00BD77B4 /* Loudness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Loudness.h; sourceTree = "<group>"; };
+		4FE6B2DD2E28FD9E00BD77B4 /* Loudness.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Loudness.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4F666B862DE5D014009265B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4F6456DF2E13E7BA0052D0DF /* sqlite3lib */ = {
+			isa = PBXGroup;
+			children = (
+				4F6456DD2E13E7BA0052D0DF /* sqlite3.h */,
+				4F6456DE2E13E7BA0052D0DF /* sqlite3.c */,
+			);
+			name = sqlite3lib;
+			path = ../libs/sqlite3lib;
+			sourceTree = SOURCE_ROOT;
+		};
+		4F6456F32E13E7DC0052D0DF /* functions */ = {
+			isa = PBXGroup;
+			children = (
+				4FE6B2DC2E28FD9E00BD77B4 /* Loudness.h */,
+				4FE6B2DD2E28FD9E00BD77B4 /* Loudness.cpp */,
+				4F6456E52E13E7DC0052D0DF /* f0_YIN.h */,
+				4F6456E62E13E7DC0052D0DF /* f0_YIN.cpp */,
+				4F6456E72E13E7DC0052D0DF /* HFeatures.h */,
+				4F6456E82E13E7DC0052D0DF /* MFCC.h */,
+				4F6456E92E13E7DC0052D0DF /* MFCC.cpp */,
+				4F6456EA2E13E7DC0052D0DF /* RMS.h */,
+				4F6456EB2E13E7DC0052D0DF /* RMS.cpp */,
+				4F6456EC2E13E7DC0052D0DF /* SpectralCentroid.h */,
+				4F6456ED2E13E7DC0052D0DF /* SpectralCentroid.cpp */,
+				4F6456EE2E13E7DC0052D0DF /* SpectralFlatness.h */,
+				4F6456EF2E13E7DC0052D0DF /* SpectralFlatness.cpp */,
+				4F6456F02E13E7DC0052D0DF /* SpectralSpread.h */,
+				4F6456F12E13E7DC0052D0DF /* SpectralSpread.cpp */,
+				4F6456F22E13E7DC0052D0DF /* StatisticsFunctions.h */,
+			);
+			name = functions;
+			path = ../libs/utils/functions;
+			sourceTree = SOURCE_ROOT;
+		};
+		4F6456FB2E13E7DC0052D0DF /* tsne */ = {
+			isa = PBXGroup;
+			children = (
+				4F6456F62E13E7DC0052D0DF /* sptree.h */,
+				4F6456F72E13E7DC0052D0DF /* sptree.cpp */,
+				4F6456F82E13E7DC0052D0DF /* tsne.h */,
+				4F6456F92E13E7DC0052D0DF /* tsne.cpp */,
+				4F6456FA2E13E7DC0052D0DF /* vptree.h */,
+			);
+			name = tsne;
+			path = ../libs/utils/tsne;
+			sourceTree = SOURCE_ROOT;
+		};
+		4F666B6C2DE5CF8A009265B7 = {
+			isa = PBXGroup;
+			children = (
+				4F6457282E13E7EA0052D0DF /* DatabaseCreation.h */,
+				4F6457292E13E7EA0052D0DF /* DatabaseCreation.cpp */,
+				4F6456E42E13E7DC0052D0DF /* DataStructs.h */,
+				4F6456F32E13E7DC0052D0DF /* functions */,
+				4F6456F42E13E7DC0052D0DF /* HaudioBuffer.h */,
+				4F6456F52E13E7DC0052D0DF /* Hdescriptors.h */,
+				4F6456FB2E13E7DC0052D0DF /* tsne */,
+				4F6456DF2E13E7BA0052D0DF /* sqlite3lib */,
+				4F303DC52DE5E52A00F05FB8 /* Database Creation.usr-macos64uni */,
+				4FA6E5DD2EE70D08008BBF0E /* sdk */,
+			);
+			sourceTree = "<group>";
+		};
+		4FA6E5DD2EE70D08008BBF0E /* sdk */ = {
+			isa = PBXGroup;
+			children = (
+				4FA6E5D52EE70D08008BBF0E /* UserDefinitions.h */,
+				4FA6E5D62EE70D08008BBF0E /* UserModule.h */,
+				4FA6E5D72EE70D08008BBF0E /* UserModule.cpp */,
+				4FA6E5D82EE70D08008BBF0E /* UserUtils.h */,
+				4FA6E5D92EE70D08008BBF0E /* UserUtils.cpp */,
+				4FA6E5DA2EE70D08008BBF0E /* UsineDefinitions.h */,
+				4FA6E5DB2EE70D08008BBF0E /* UsineEventClass.h */,
+				4FA6E5DC2EE70D08008BBF0E /* UsineFunctions.h */,
+			);
+			name = sdk;
+			path = "/Users/senso/Adamson/BrainModular/Usine/USINE-SDK-PRIVATE/sdk";
+			sourceTree = "<absolute>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		4F666B842DE5D014009265B7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F6456FC2E13E7DC0052D0DF /* sptree.h in Headers */,
+				4F6456FD2E13E7DC0052D0DF /* Hdescriptors.h in Headers */,
+				4F6456FE2E13E7DC0052D0DF /* DataStructs.h in Headers */,
+				4F6456FF2E13E7DC0052D0DF /* HaudioBuffer.h in Headers */,
+				4F6457002E13E7DC0052D0DF /* RMS.h in Headers */,
+				4F6457012E13E7DC0052D0DF /* MFCC.h in Headers */,
+				4F6457022E13E7DC0052D0DF /* f0_YIN.h in Headers */,
+				4F6457032E13E7DC0052D0DF /* vptree.h in Headers */,
+				4F6457042E13E7DC0052D0DF /* tsne.h in Headers */,
+				4F64572A2E13E7EA0052D0DF /* DatabaseCreation.h in Headers */,
+				4FA6E5E82EE70D08008BBF0E /* UserUtils.h in Headers */,
+				4FA6E5E92EE70D08008BBF0E /* UserDefinitions.h in Headers */,
+				4FA6E5EA2EE70D08008BBF0E /* UsineEventClass.h in Headers */,
+				4FA6E5EB2EE70D08008BBF0E /* UsineFunctions.h in Headers */,
+				4FA6E5EC2EE70D08008BBF0E /* UserModule.h in Headers */,
+				4FA6E5ED2EE70D08008BBF0E /* UsineDefinitions.h in Headers */,
+				4F6457052E13E7DC0052D0DF /* SpectralCentroid.h in Headers */,
+				4F6457062E13E7DC0052D0DF /* HFeatures.h in Headers */,
+				4F6457072E13E7DC0052D0DF /* SpectralFlatness.h in Headers */,
+				4FE6B2DF2E28FD9F00BD77B4 /* Loudness.h in Headers */,
+				4F6457082E13E7DC0052D0DF /* SpectralSpread.h in Headers */,
+				4F6457092E13E7DC0052D0DF /* StatisticsFunctions.h in Headers */,
+				4F6456E02E13E7BA0052D0DF /* sqlite3.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		4F666B832DE5D014009265B7 /* Database Creation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4F666B872DE5D014009265B7 /* Build configuration list for PBXNativeTarget "Database Creation" */;
+			buildPhases = (
+				4F666B842DE5D014009265B7 /* Headers */,
+				4F666B852DE5D014009265B7 /* Sources */,
+				4F666B862DE5D014009265B7 /* Frameworks */,
+				4F666BB92DE5D279009265B7 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Database Creation";
+			packageProductDependencies = (
+			);
+			productName = DatabaseCreation;
+			productReference = 4F303DC52DE5E52A00F05FB8 /* Database Creation.usr-macos64uni */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4F666B6D2DE5CF8A009265B7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1620;
+			};
+			buildConfigurationList = 4F666B702DE5CF8A009265B7 /* Build configuration list for PBXProject "DatabaseCreation" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4F666B6C2DE5CF8A009265B7;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 4F666B6C2DE5CF8A009265B7;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4F666B832DE5D014009265B7 /* Database Creation */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4F666B852DE5D014009265B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F6456E12E13E7BA0052D0DF /* sqlite3.c in Sources */,
+				4F64570A2E13E7DC0052D0DF /* SpectralSpread.cpp in Sources */,
+				4FA6E5E62EE70D08008BBF0E /* UserModule.cpp in Sources */,
+				4FA6E5E72EE70D08008BBF0E /* UserUtils.cpp in Sources */,
+				4F64570B2E13E7DC0052D0DF /* SpectralCentroid.cpp in Sources */,
+				4F64570C2E13E7DC0052D0DF /* tsne.cpp in Sources */,
+				4F64570D2E13E7DC0052D0DF /* f0_YIN.cpp in Sources */,
+				4FE6B2DE2E28FD9F00BD77B4 /* Loudness.cpp in Sources */,
+				4F64570E2E13E7DC0052D0DF /* MFCC.cpp in Sources */,
+				4F64570F2E13E7DC0052D0DF /* SpectralFlatness.cpp in Sources */,
+				4F6457102E13E7DC0052D0DF /* RMS.cpp in Sources */,
+				4F6457112E13E7DC0052D0DF /* sptree.cpp in Sources */,
+				4F64572B2E13E7EA0052D0DF /* DatabaseCreation.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4F666B7E2DE5CF8A009265B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-lsqlite3";
+				SDKROOT = macosx;
+				SYMROOT = /tmp;
+			};
+			name = Debug;
+		};
+		4F666B7F2DE5CF8A009265B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-lsqlite3";
+				SDKROOT = macosx;
+				SYMROOT = /tmp;
+			};
+			name = Release;
+		};
+		4F666B882DE5D014009265B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_EXTENSION = "usr-macos64uni";
+				EXECUTABLE_PREFIX = "";
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SYMROOT = /tmp/DatabaseCreation;
+			};
+			name = Debug;
+		};
+		4F666B892DE5D014009265B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_EXTENSION = "usr-macos64uni";
+				EXECUTABLE_PREFIX = "";
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SYMROOT = /tmp/DatabaseCreation;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4F666B702DE5CF8A009265B7 /* Build configuration list for PBXProject "DatabaseCreation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F666B7E2DE5CF8A009265B7 /* Debug */,
+				4F666B7F2DE5CF8A009265B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4F666B872DE5D014009265B7 /* Build configuration list for PBXNativeTarget "Database Creation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F666B882DE5D014009265B7 /* Debug */,
+				4F666B892DE5D014009265B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4F666B6D2DE5CF8A009265B7 /* Project object */;
+}

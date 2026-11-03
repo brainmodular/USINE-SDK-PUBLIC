@@ -16,16 +16,18 @@ UsineEventClass();                          // Default constructor (null event)
 explicit UsineEventClass(UsineEventPtr e);  // Wrap existing event pointer
 ```
 
-> **Note:** `UsineEventClass` is **non-copyable** (copy assignment is deleted). Events are typically bound to parameters via `TParamInfo::setEventClass()` and managed by Usine.
+> **Note:** `UsineEventClass` is **non-copyable** (copy assignment is deleted). Events are typically bound to parameters with `sdkCreateParam()` in `onCreateParameters` and managed by Usine. An event created with `createEvent()` belongs to the module, which must destroy it with `destroyEvent()`.
 
 ### Manual Event Management
 
 ```cpp
-void createEvent(int size);   // Allocate a new event with given size
-void destroyEvent();          // Destroy the event and set to nullptr
+void createEvent(int capacity);                    // Allocate a new event with given capacity
+void createEvent(AnsiCharPtr name, int capacity);  // Same, the name is not used
+void destroyEvent();                               // Destroy the event and set to nullptr
+void setEvent(UsineEventPtr e);                    // Bind an existing event, used by sdkCreateParam
 ```
 
-Use `createEvent`/`destroyEvent` for temporary events (e.g., intermediate buffers in audio processing). Events bound to parameters are managed automatically.
+Use `createEvent`/`destroyEvent` for temporary events (e.g., intermediate buffers in audio processing), in `onInitModule` and in the destructor. `createEvent` doesn't free the former event. Events bound to parameters with `sdkCreateParam` are managed by Usine.
 
 ## Core Access
 
@@ -106,6 +108,7 @@ void add(UsineEventClass& e);          // Element-wise addition
 void sub(UsineEventClass& e);          // Element-wise subtraction
 void mult(TPrecision factor);          // Multiply all elements by scalar
 void mult(UsineEventClass& e);         // Element-wise multiplication
+void mult(UsineEventClass& e1, UsineEventClass& e2); // This event = e1 * e2 (element-wise)
 void div(UsineEventClass& e);          // Element-wise division
 void mod(UsineEventClass& e);          // Element-wise modulo
 void power(UsineEventClass& e);        // Element-wise power
@@ -165,21 +168,20 @@ void smooth(TPrecision& oldValue, TPrecision target, TPrecision factor);
 ### Basic Data Processing
 See [[examples/data-multiply|DataMultiply]] for a complete example.
 ```cpp
-UsineEventClass input, output;
+UsineEventClass aFdrIn, bFdrIn, resultFdrOut;
 
-// In onProcess:
-float value = input.getData();
-output.setData(value * 2.0f);
+// In onCallBack:
+resultFdrOut.mult(aFdrIn, bFdrIn);
 ```
 
 ### Audio Processing
 See [[examples/audio-volume|AudioVolume]] for a complete example.
 ```cpp
-UsineEventClass audioIn, audioOut, gain;
+UsineEventClass audioIn, audioOut, gainAudioIn;
 
 // In onProcess:
 audioOut.copyfrom(audioIn);
-audioOut.multAudio(gain);
+audioOut.multAudio(gainAudioIn);
 ```
 
 ### Array Manipulation
@@ -188,7 +190,7 @@ UsineEventClass arrayEvt;
 
 arrayEvt.createEvent(10);
 for (int i = 0; i < 10; i++)
-    arrayEvt.setArrayData(i, (float)i);
+    arrayEvt.setArrayData(i, static_cast<float>(i));
 
 float val = arrayEvt.getArrayData(5);  // 5.0
 arrayEvt.pushArrayData(99.0f);         // appends, now size=11

@@ -8,58 +8,61 @@
 | **Module Name** | `video dimmer` |
 | **Type** | `mtVideo` |
 | **Color** | `clVideoModuleColor` |
+| **Version** | 1.0 |
 | **Source** | `examples/VideoDimmer/` |
 
 ## Description
 
-A video processing module that applies a dimmer effect and an optional pixel grid pattern. Demonstrates the `mtVideo` module type with frame input/output and pixel-level manipulation.
+A video module that dims its input and can draw a grid pattern on it. Demonstrates the `mtVideo` module type, with a video input, a video output and pixel access. Written by Olivier Sens (senso).
 
 ## Parameters
 
-| # | Name | Type | I/O | Range | Default | Callback |
-|---|------|------|-----|-------|---------|----------|
-| 0 | `dimmer` | `ptDataFader` | Input | 0–1 | 1 | None |
-| 1 | `pixel color` | `ptColor` | Input | — | Red (0xFFFF0000) | None |
-| 2 | `inter space` | `ptDataFader` | Input | 0–20 (integer) | 1 | None |
+| # | Name | Member | Type | I/O | Range | Default | Callback |
+|---|------|--------|------|-----|-------|---------|----------|
+| 0 | `dimmer` | `dimmerFdrIn` | `ptDataFader` | Input | 0 – 1 | 1 | None |
+| 1 | `pixel color` | `pixelColIn` | `ptColor` | Input | — | Red (0xFFFF0000) | None |
+| 2 | `inter space` | `spaceFdrIn` | `ptDataFader` | Input | 0 – 20 (integer) | 1 | None |
+
+The parameters have no callback: their values are read in `onProcessVideo`.
 
 ## How It Works
 
-Processing happens in **`onProcessVideo`** (not `onProcess`):
+Processing happens in **`onProcessVideo`**, called by the video thread, not in `onProcess`:
 
-1. Gets input frame: `sdkGetInputFrame(0, &inputFrame)`
-2. Creates new output frame: `sdkGetNewFrame(&outputFrame, w, h, FALSE)`
-3. If `inter space == 0`: copies frame directly with `sdkCopyFrame`
-4. If `inter space > 0`: creates a grid effect:
-   - Every N-th pixel: copied from input
-   - Every (N+1)-th pixel: replaced with custom color
-   - Other pixels: set to black
-5. Applies dimmer: `sdkSetDimmerFrame(&outputFrame, dimmerValue)`
-6. Sets output: `sdkSetOutputFrame(0, &outputFrame)`
+1. Gets the input frame: `sdkGetInputFrame(1, &frameIn)`
+2. Gets a new output frame of the same size: `sdkGetNewFrame(&frameOut, w, h, FALSE)`
+3. If `inter space` is 0: copies the frame with `sdkCopyFrame`
+4. Otherwise, draws a grid on one line out of `inter space`:
+   - one pixel out of `inter space` is copied from the input
+   - the next pixel takes the grid color
+   - the other pixels stay black
+5. Applies the dimmer: `sdkSetDimmerFrame(&frameOut, dimmer)`
+6. Sets the output: `sdkSetOutputFrame(1, &frameOut)`
 
 ## Key Concepts Demonstrated
 
 - **`mtVideo`** module type
-- **`NumberOfVideoInputs = 1`**, **`NumberOfVideoOutputs = 1`** in module info
-- **`onProcessVideo`** instead of `onProcess` for video modules
+- **`NumberOfVideoInputs = 1`**, **`NumberOfVideoOutputs = 1`** in the module info
+- **`onProcessVideo`** instead of `onProcess`
 - **Video frame API**:
-  - `sdkGetInputFrame` — get input frame
-  - `sdkGetNewFrame` — allocate output frame
-  - `sdkCopyFrame` — copy frame data
-  - `sdkClearFrame` — clear frame to color
+  - `sdkGetInputFrame` — get the input frame
+  - `sdkGetNewFrame` — allocate an output frame
+  - `sdkCopyFrame` — copy a frame
+  - `sdkClearFrame` — fill a frame with a color
   - `sdkGetFramePixel` / `sdkSetFramePixel` — pixel access
-  - `sdkSetDimmerFrame` — apply brightness
-  - `sdkSetOutputFrame` — set output frame
-- **`sdkColorToPixel`** — convert `TUsineColor` to `TUsinePixel`
+  - `sdkSetDimmerFrame` — apply a brightness
+  - `sdkSetOutputFrame` — set the output frame
+- **`sdkColorToPixel`** — convert a `TUsineColor` to a `TUsinePixel`
 
 ## SDK Callbacks Used
 
-`onGetModuleInfo` · `onInitModule` · `onGetParamInfo` · `onCallBack` · `onProcessVideo`
+`onGetModuleInfo` · `onInitModule` · `onCreateParameters` · `onProcessVideo`
 
 ## Related Examples
 
-This is the only video processing example in the SDK. For other module types, see:
+This is the only video example of the SDK. For other module types, see:
 - [[examples/audio-volume|AudioVolume]] — Audio processing
-- [[examples/data-oscilloscope|DataOscilloscope]] — Custom visual rendering (mtControl)
+- [[examples/data-oscilloscope|DataOscilloscope]] — Custom drawing (`mtControl`)
 
 ### SDK Reference
 

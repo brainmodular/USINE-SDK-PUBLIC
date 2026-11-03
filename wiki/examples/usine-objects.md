@@ -1,76 +1,80 @@
 # UsineObjects
 #example #data #advanced
 
-**Remote object access API for reading/writing workspace values.**
+**Reads and writes Usine objects by their path.**
 
 | | |
 |---|---|
 | **Module Name** | `usine objects` |
 | **Type** | `mtSimple` |
 | **Color** | `clDataModuleColor` |
+| **Version** | 1.0 |
 | **Source** | `examples/UsineObjects/` |
 
 ## Description
 
-Demonstrates the Usine Objects API for remotely reading and writing values of any named object in the Usine workspace hierarchy. Objects are addressed by their full path (e.g., `"usine.workspace.rack01.patch01.faderdata"`).
+Demonstrates the Usine Objects API, which reads and writes any named object of the workspace. Objects are addressed by their full path, like `"usine.workspace.rack01.patch01.faderdata"`. The paths used by the module are constants of `ModuleDefinition.h`: create the matching objects in the first patch of the first rack to see it work.
 
 ## Parameters
 
-| # | Name | Type | I/O | Callback |
-|---|------|------|-----|----------|
-| 0 | `array set` | `ptArray` | Input | `ctNormal` |
-| 1 | `array get` | `ptArray` | Output | `ctNormal` |
+| # | Name | Member | Type | I/O | Callback |
+|---|------|--------|------|-----|----------|
+| 0 | `array set` | `setArrIn` | `ptArray` | Input | `ctNormal` |
+| 1 | `array get` | `getArrOut` | `ptArray` | Output | `ctNormal` |
 
 ## How It Works
 
-In `onProcess`, on each `sdkSlowClock` tick, demonstrates all object operations:
+In `onProcess`, on each `sdkSlowClock()` tick:
 
-- **Find**: `sdkUsineObjectFind("video")` — search objects by pattern
-- **List**: `sdkUsineObjectListHash()` — get all object hashes
-- **Float**: `sdkUsineObjectSetFloat/GetFloat` — set/get single values
-- **Array**: `sdkUsineObjectSetArray/GetArray/SetLength` — set/get arrays
-- **Color**: `sdkUsineObjectSetArrayColor/GetArrayColor` — color arrays
-- **String**: `sdkUsineObjectSetAnsiChar/GetAnsiChar` — text values
-- **Integer**: `sdkUsineObjectSetInteger/GetInteger` — integer values
-- **Trigger**: `sdkUsineObjectSetTrigger` — trigger objects
-- **Exists**: `sdkUsineObjectExists` — check if object exists
-- **Length**: `sdkUsineObjectGetLength` — get array length
+- **Find**: `sdkUsineObjectFind("video")`, objects whose name contains a text
+- **List**: `sdkUsineObjectListHash()`
+- **Float**: `sdkUsineObjectSetFloat` / `sdkUsineObjectGetFloat` on `faderdata`
+- **Data array**: `sdkUsineObjectSetLength` and `sdkUsineObjectSetArray` on the input of `arraydata`, `sdkUsineObjectGetArray` on its output
+- **Color array**: `sdkUsineObjectSetArrayColor` / `sdkUsineObjectGetArrayColor`, `sdkUsineObjectSetInteger` for the number of rows, `sdkUsineObjectGetLength`
+- **Text**: `sdkUsineObjectExists`, `sdkUsineObjectSetAnsiChar` / `sdkUsineObjectGetAnsiChar`
+- **Trigger**: `sdkUsineObjectSetTrigger`
+
+Each value read is raised as an info message.
 
 ## Object API Pattern
 
 ```cpp
-// Set a float value on a named object
-sdkUsineObjectSetFloat("usine.workspace.rack01.patch01.fader", 0.5f);
+sdkUsineObjectSetFloat("usine.workspace.rack01.patch01.faderdata", 0.5f);
+TPrecision val = sdkUsineObjectGetFloat("usine.workspace.rack01.patch01.faderdata");
 
-// Get a float value
-float val = sdkUsineObjectGetFloat("usine.workspace.rack01.patch01.fader");
+// arrays are written one element at a time
+sdkUsineObjectSetLength(PATH_ARRAY_IN, 16);
+sdkUsineObjectSetArray(PATH_ARRAY_IN, index, value);
 
-// Set an array
-sdkUsineObjectSetLength("my.array.object", 16);
-sdkUsineObjectSetArray("my.array.object", myEvent);
-
-// Check existence
-LongBool exists = sdkUsineObjectExists("some.object.name");
-
-// Find objects by pattern
+LongBool    exists  = sdkUsineObjectExists(PATH_COMMA_TEXT);
 AnsiCharPtr results = sdkUsineObjectFind("video");
 ```
 
+## Messages
+
+| Message | Level | Raised when |
+|---------|-------|-------------|
+| `INFO_VIDEO_OBJECTS`, `INFO_OBJECTS_HASH` | Info | Results of the find and list functions |
+| `INFO_FADER_DATA`, `INFO_ARRAY_OUT`, `INFO_COLOR_ARRAY`, `INFO_COLOR_ARRAY_LENGTH`, `INFO_COMMA_TEXT` | Info | Values read back from the objects |
+| `INFO_COMMA_TEXT_EXISTS` | Info | The text object exists |
+
+Set the verbosity level to `Warn` to hide them, see [[examples/error-handling|ErrorHandling]].
+
 ## Key Concepts Demonstrated
 
-- **Remote object access** — read/write any named object in the workspace
-- **Object path hierarchy** — dot-separated path notation
-- **Multiple data types** — float, integer, array, color, string, trigger
-- **Object discovery** — find and list objects by name pattern
+- **Object access by path**: read and write any named object of the workspace
+- **Several data types**: float, integer, array, color array, text, trigger
+- **Object discovery**: find and list objects
+- **Paths as named constants** instead of repeated strings
 
 ## SDK Callbacks Used
 
-`onGetModuleInfo` · `onGetNumberOfParams` · `onAfterQuery` · `onInitModule` · `onGetParamInfo` · `onCallBack` · `onProcess`
+`onGetModuleInfo` · `onCreateParameters` · `onProcess`
 
 ## Related Examples
 
 - [[examples/global-array|GlobalArray]] — Global array sharing
-- [[examples/usine-chunks|UsineChunks]] — Chunk-based data sharing
+- [[examples/usine-chunks|UsineChunks]] — Data shared through chunks
 
 ### SDK Reference
 

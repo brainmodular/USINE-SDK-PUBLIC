@@ -1,5 +1,15 @@
-//	Grain.h - Simple class representing a single grain.
-//	---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+// @file    Grain.h
+// @author  Niall Moody, adapted by BrainModular team
+// @brief   A single grain, reads the delay line of the Granulator through an envelope.
+//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Adapted from the Fragmental VST plugin, see the original notice below.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
+//-----------------------------------------------------------------------------
+// Original notice:
+//
 //	Copyright (c) 2006-2007 Niall Moody
 //
 //	Permission is hereby granted, free of charge, to any person obtaining a
@@ -19,116 +29,46 @@
 //	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 //	FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //	DEALINGS IN THE SOFTWARE.
-//	---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+#pragma once
 
-
-#ifndef GRAIN_H_
-#define GRAIN_H_
-
-#ifdef WIN32
-#define strictinline __forceinline
-#elif defined (__GNUC__)
-#define strictinline inline __attribute__((always_inline))
-#else
-#define strictinline inline
-#endif
-
-#include "Envelopes.h"
 #include <memory>
+#include <span>
+#include "Envelopes.h"
 
-class GranulatorModule;
-
-///	Simple class representing a single grain.
 class Grain
 {
-  public:
-	///	Constructor.
-	Grain();
+public:
+	/// Sets the (mono) buffer where the input audio is stored.
+	void setInputBuffer(std::span<TPrecision> inputBuffer);
 
-	///	Destructor.
-	~Grain();
+	/// Resets the grain and starts it.
+	/// @param envVar The envelope variable.
+	/// @param startPos Position in the buffer to start reading from.
+	/// @param size Size of the grain in samples.
+	/// @param inc The pitch increment (1 = original pitch).
+	void activate(float envVar, int startPos, int size, float inc);
 
-    enum EnvType
-    {
-        ENV_ASR,        // Linear Attack/Sustain/Release
-        ENV_BEZIER,      // Bezier
-        ENV_RCB,         // Raised Cosine Bell 
-        ENV_HANN,       // Hanning
-        ENV_GAUSS      // Gaussian
-    };
+	void setEnvelope(EnvelopeType type);
 
-	///	Used to set the buffer and it's size in the plugin's constructor.
-	/*!
-		\param delayLine Pointer to the (mono) buffer where the input audio
-		is stored.
-		\param size Size of delayLine.
-	 */
-	void setInputBuffer(TPrecision* inputBuffer, int size);
+	/// Fills points with the shape of an envelope, to paint it.
+	static void getGraphPoints(EnvelopeType type, float envVar, std::span<TPointF> points);
 
-    void setModule(GranulatorModule* parent);
+	[[nodiscard]] bool getIsActive() const { return isActive; }
 
-	///	Call this when the Grain is activated to reset various internal parameters.
-	/*!
-		\param startPos Position in buffer to start reading from.
-		\param size Size of the Grain in samples.
-		\param inc The pitchIncrement to use (to change the grain's pitch).
-	 */
-	void activate( float envVar, int startPos, int size, float inc);
-	//void activate(EnvType envType, int startPos, int size, float inc);
+	/// Adds the next sample of this grain to sample.
+	void addSampleTo(TPrecision& sample);
 
-    void setEnvelope(EnvType envType);
+private:
+	std::unique_ptr<Envelope> currentEnvelope = makeEnvelope(EnvelopeType::Asr, 10);
+	std::span<TPrecision>     buffer;
 
-    void getGraphPoints(EnvType envType, float envVar, TPointF Points[], int NumOfPoints);
-
-	///	Returns whether this block is active or not.
-	strictinline bool getIsActive() const {return isActive;};
-
-	///	Returns the next block of audio for this Grain.
-	/*!
-		\param audioBlock Pointer to a mono array of a block of audio
-		samples to write to.
-		\param numSamples Number of samples in audioBlock.
-	 */
-	//void getBlock(float *audioBlock, int numSamples);
-	void getSample(TPrecision* audioBlock);
-    int getActualPos() {return (startPosition + static_cast<int>(index)) % bufferSize;};
-
-  private:
-    GranulatorModule* module;
-
-    Envelope* currentEnvelope;
-
-    static std::unique_ptr<Envelope> asrEnvelope;
-    static std::unique_ptr<Envelope> rcbEnvelope;
-    static std::unique_ptr<Envelope> bezierEnvelope;
-    static std::unique_ptr<Envelope> hanningEnvelope;
-    static std::unique_ptr<Envelope> gaussianEnvelope;
-   // static Envelope* gaussEnvelope;
-
-	///	Whether the grain is active or not.
-	bool isActive;
-
-	///	Pointer to the (mono) buffer where the input audio is stored.
-	TPrecision* buffer;
-
-	///	Size of the buffer.
-	int bufferSize;
-
-	///	Current index in the buffer.
-	float index;
-
-	///	current read position in the grain buffer.
-	float grainIndex;
-
-	///	Increment controlling how fast the buffer is played back.
-	float pitchIncrement;
-
-	///	Start point in the buffer.
-	int startPosition;
-
-	///	Size of the current Grain.
-	int grainSize;
-
+	bool  isActive       = false;
+	// read position relative to startPosition, moves by pitchIncrement each sample
+	float index          = 0.0f;
+	// position in the envelope, moves by 1 each sample
+	float grainIndex     = 0.0f;
+	float pitchIncrement = 1.0f;
+	int   startPosition  = 0;
+	int   grainSize      = 0;
 };
-
-#endif

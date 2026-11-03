@@ -1,171 +1,46 @@
 //-----------------------------------------------------------------------------
-//@file  
-//	DataMultiply.cpp
+// @file    DataMultiply.cpp
+// @author  BrainModular team
+// @brief   Multiplies two data inputs, shows how to update outputs when inputs change.
 //
-//@author
-//	BrainModular team
-//
-//@brief 
-//	Implementation of the DataMultiplyExample class.
-//
-//  Example user module to show how to update outputs from inputs change.
-//
-//@historic 
-//	2015/02/23
-//    first release for Hollyhock CPP SDK 6.04.001
-//
-//@IMPORTANT
-//	This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs  :
-//  support@brainmodular.com
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE.
-//
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// includes
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2015-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
 #include "DataMultiply.h"
+#include "ModuleDefinition.h"
 
-//----------------------------------------------------------------------------
-// setup a callback_id constant for all params that specify a callback type
-//----------------------------------------------------------------------------
-constexpr NativeInt DATA_MULTIPLY_CBID = 0x001200FF;
-
-//----------------------------------------------------------------------------
-// create, general info and destroy methods
-//----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// Create
 void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
-	pModule = new DataMultiplyExample ();
+	pModule = new DataMultiply();
 }
 
-//-----------------------------------------------------------------------------
-// destroy
-void DestroyModule(void* pModule) 
+void DestroyModule(void* pModule)
 {
-    // cast is important to call the good destructor
-	delete ((DataMultiplyExample*)pModule);
+	// cast is important to call the good destructor
+	delete static_cast<DataMultiply*>(pModule);
 }
 
-// module constants for browser info and module info
-constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "data multiply";
-constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "data multiply sdk module example";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
-
-// browser info
-void GetBrowserInfo(TModuleInfo* pModuleInfo) 
+void DataMultiply::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	pModuleInfo->Name				= UserModuleBase::MODULE_NAME;
-	pModuleInfo->Description		= UserModuleBase::MODULE_DESC;
-	pModuleInfo->Version			= UserModuleBase::MODULE_VERSION;
-}
-
-//-----------------------------------------------------------------------------
-// module description
-void DataMultiplyExample::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
-{
-	//identification of the module
-	pModuleInfo->Name				= MODULE_NAME;
-	pModuleInfo->Description		= MODULE_DESC;
 	pModuleInfo->ModuleType         = mtSimple;
 	pModuleInfo->BackColor          = sdkGetUsineColor(clDataModuleColor);
-	pModuleInfo->NumberOfParams     = 3;
-	pModuleInfo->Version			= MODULE_VERSION;
-	pModuleInfo->DontProcess		= TRUE;
+	pModuleInfo->DontProcess        = TRUE;
 	pModuleInfo->CanBeSavedInPreset = FALSE;
 }
 
-//-----------------------------------------------------------------------------
-// query system and init methods
-//-----------------------------------------------------------------------------
-// query system not used
-
-//void DataMultiplyExample::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
-//{
-//}
-
-//----------------------------------------------------------------------------
-// parameters and process
-//----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// Parameters description
-void DataMultiplyExample::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo) 
+void DataMultiply::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	// all parameters declared in the module class		
-	switch (ParamIndex) 
-	{
-	// dtfInputA
-	case 0:
-		pParamInfo->ParamType		= ptDataField;
-		pParamInfo->Caption			= "a";
-		pParamInfo->IsInput			= TRUE;
-		pParamInfo->IsOutput		= FALSE;
-		pParamInfo->CallBackType	= ctNormal;
-		pParamInfo->CallBackId      = DATA_MULTIPLY_CBID;
-		pParamInfo->setEventClass	(dtfInputA);
-		break;
-	// dtfInputB
-	case 1:
-		pParamInfo->ParamType		= ptDataField;
-		pParamInfo->Caption			= "b";
-		pParamInfo->IsInput			= TRUE;
-		pParamInfo->IsOutput		= FALSE;
-		pParamInfo->CallBackType	= ctNormal;
-		pParamInfo->CallBackId      = DATA_MULTIPLY_CBID;
-		pParamInfo->setEventClass	(dtfInputB);
-		break;
-	// dftOutput
-	case 2:
-		pParamInfo->ParamType		= ptDataField;
-		pParamInfo->Caption			= "result";
-		pParamInfo->IsInput			= FALSE;
-		pParamInfo->IsOutput		= TRUE;
-		pParamInfo->DontSave		= TRUE;
-		pParamInfo->CallBackType    = ctNone;
-		pParamInfo->setEventClass	(dtfOutput);
-		break;
-	// default case
-	default:
-		break;
-	}
+	sdkCreateParam(aFdrInParamInfo, aFdrIn);
+	sdkCreateParam(bFdrInParamInfo, bFdrIn);
+	sdkCreateParam(resultFdrOutParamInfo, resultFdrOut);
 }
 
-//-----------------------------------------------------------------------------
-// Parameters callback
-void DataMultiplyExample::onCallBack(TUsineMessage* Message) 
+void DataMultiply::onCallBack(TUsineMessage* Message)
 {
 	if ((Message->message != NOTIFY_MSG_USINE_CALLBACK) || (Message->lParam != MSG_CHANGE))
 		return;
-	if (Message->wParam == DATA_MULTIPLY_CBID)
-	{
-		sdkMultEvt3(dtfInputA, dtfInputB, dtfOutput);
-	}
+
+	if (Message->wParam == INPUT_FDR_CBID)
+		resultFdrOut.mult(aFdrIn, bFdrIn);
 }

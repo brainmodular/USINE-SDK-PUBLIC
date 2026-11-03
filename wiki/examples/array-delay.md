@@ -1,7 +1,7 @@
 # ArrayDelay
 #example #array #data #callback #simple
 
-**Per-channel array delay line.**
+**Delays each element of an array by its own number of blocs.**
 
 | | |
 |---|---|
@@ -13,34 +13,38 @@
 
 ## Description
 
-Delays each element of an input array by a per-element delay amount (in blocks). Uses a circular buffer delay line to apply independent delay offsets to each array element.
+Delays each element of an input array by a per-element delay, expressed in blocs. A circular buffer of `MAX_DELAY` arrays stores the past values, each element is written at its own distance from the read position.
 
 ## Parameters
 
-| # | Name | Type | I/O | Range | Callback |
-|---|------|------|-----|-------|----------|
-| 0 | `array in` | `ptArray` | Input | — | None |
-| 1 | `delay in blocs` | `ptArray` | Input | 0 – 1000 | `ctImmediate` |
-| 2 | `array out` | `ptArray` | Output | — | None |
+Created in `onCreateParameters` from the `TParamInfo` of `ModuleDefinition.h`.
+
+| # | Name | Member | Type | I/O | Range | Callback |
+|---|------|--------|------|-----|-------|----------|
+| 0 | `array in` | `arrIn` | `ptArray` | Input | — | None |
+| 1 | `delay in blocs` | `delayArrIn` | `ptArray` | Input | 0 – 999 | `ctImmediate` (`DELAY_ARR_CBID`) |
+| 2 | `array out` | `arrOut` | `ptArray` | Output | — | None |
 
 ## How It Works
 
-1. **`onCallBack`**: When delay input changes, reads per-element delay values into a `delayBuffer[]` array, clamping negatives to 0
-2. **`onProcess`**: Uses a circular delay line (`delayLine[MAX_DELAY][MAXBLOC]`):
-   - For each element: writes input at `(readPos + delayBuffer[i]) % MAX_DELAY`
-   - Reads output from `readPos`
-   - Increments `readPos` each block
+1. **`onInitModule`**: Clears the delay line and the delays (`delayLine[MAX_DELAY][MAXBLOC]`, `delayBuffer[MAXBLOC]`).
+2. **`onCallBack`**: When `delay in blocs` changes, rounds each delay and clamps it to `0 .. MAX_DELAY - 1`.
+3. **`onProcess`**: Advances `readPos` by one bloc, then for each element `i`:
+   - writes the input at `(readPos + delay[i]) % MAX_DELAY`
+   - reads the output at `readPos`
+
+When the delay array is shorter than the input, its values are repeated (`delay[i % lengthDelay]`). An empty delay array means no delay.
 
 ## Key Concepts Demonstrated
 
-- **`ptArray`** parameter type for variable-size data
-- **Circular buffer** delay line implementation
-- **Per-element delay offsets** — each array element has independent delay
-- **`ctImmediate`** callback for instant parameter updates on audio thread
+- **`ptArray`** parameters for variable-size data, limited to `MAXBLOC` elements
+- **Circular buffer** delay line
+- **`ctImmediate`** callback: the delays are updated in the audio thread as soon as they change
+- **`onInitModule`** for the initialization of the module state
 
 ## SDK Callbacks Used
 
-`onGetModuleInfo` · `onGetParamInfo` · `onCallBack` · `onProcess`
+`onGetModuleInfo` · `onInitModule` · `onCreateParameters` · `onCallBack` · `onProcess`
 
 ## Related Examples
 
@@ -50,3 +54,4 @@ Delays each element of an input array by a per-element delay amount (in blocks).
 ### SDK Reference
 
 - [[sdk/user-module-base|UserModuleBase Class]]
+- [[sdk/module-conventions|Module Conventions]]

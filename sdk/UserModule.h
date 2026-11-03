@@ -32,6 +32,7 @@
 // includes
 //----------------------------------------------------------------------------
 #include <algorithm>
+#include <atomic>
 #include <sstream>
 #include <iomanip>
 #include "UsineDefinitions.h"
@@ -40,6 +41,7 @@
 #define SDK_UNUSED(expr) do { (void)(expr); } while (0)
 
 class UsineEventClass;
+
 
 
 //-----------------------------------------------------------------------------
@@ -74,9 +76,7 @@ void DestroyModule(void *pModule);
 /// @brief Called by usine to get module informations for the browser
 /// When the browser open the folder where the module is stored.
 void GetBrowserInfo(TModuleInfo *pModuleInfo);
-
 /// @}
-
 
 //-----------------------------------------------------------------------------
 // class definition
@@ -123,10 +123,24 @@ public:
     /// @param pModuleInfo The TModuleInfo structure to describe the module characteristics
     virtual void onGetModuleInfo(TMasterInfo *pMasterInfo, TModuleInfo *pModuleInfo) =0;
 
+    /// Usine call it to let the module create its parameters dynamically.
+    /// @param pMasterInfo The TMasterInfo structure. can be null.
+    /// @param pModuleInfo The TModuleInfo structure of the module
+	/// @note Optional, the default implementation does nothing. Override it to create parameters with sdkCreateParam.
+    virtual void onCreateParameters(TMasterInfo *pMasterInfo, TModuleInfo *pModuleInfo)
+    {
+        SDK_UNUSED(pMasterInfo);
+        SDK_UNUSED(pModuleInfo);
+    }
+
     /// Usine call it for each parameters of the module to obtain it's characteristics. 
     /// @param ParamIndex The index of the parameter.
     /// @param pParamInfo Handle to the info structure of the parameter.
-    virtual void onGetParamInfo(int ParamIndex, TParamInfo *pParamInfo) =0;
+    virtual void onGetParamInfo(int ParamIndex, TParamInfo *pParamInfo)
+    {
+        SDK_UNUSED(ParamIndex);
+        SDK_UNUSED(pParamInfo);
+    }
 
 
 	/// Deprecated since HH3, use pParamInfo->setEventClass	(...); Called only for backward compatibility.
@@ -483,6 +497,32 @@ public:
                                 UsineEventClass &Pressed)
     {
     }
+
+    /// Called by Usine when dragged content is dropped on the module panel
+    /// @name onDragDrop
+    /// @param FilesList UTF-8 comma-text with the dropped file names, valid only during the call
+    /// @param X Cursor position first coordinate
+    /// @param Y Cursor position second coordinate
+    virtual void onDragDrop(AnsiCharPtr FilesList, float X, float Y)
+    {
+        SDK_UNUSED(FilesList);
+        SDK_UNUSED(X);
+        SDK_UNUSED(Y);
+    }
+
+    /// Called by Usine while dragged content hovers over the module panel
+    /// @name onAcceptDragOver
+    /// @param FilesList UTF-8 comma-text with the dragged file names, valid only during the call
+    /// @param X Cursor position first coordinate
+    /// @param Y Cursor position second coordinate
+    /// @return TRUE to accept the drop, FALSE otherwise (default)
+    virtual LongBool onAcceptDragOver(AnsiCharPtr FilesList, float X, float Y)
+    {
+        SDK_UNUSED(FilesList);
+        SDK_UNUSED(X);
+        SDK_UNUSED(Y);
+        return FALSE;
+    }
     /// @}
 
     //-----------------------------------------------------------------------------
@@ -604,6 +644,7 @@ public:
     // internal use
     void AfterQueryPopup(TMasterInfo *pMasterInfo, TModuleInfo *pModuleInfo, int queryResult1, int queryResult2);
     void Init(TMasterInfo *pMasterInfo, TModuleInfo *pModuleInfo);
+    void CreateJobParameters();
     void InitInfosStructures(TMasterInfo *pMasterInfo, TModuleInfo *pModuleInfo);
     void CallBack(TUsineMessage *Message);
     void ResizeModule(float contentWidth, float contentHeight);
@@ -1236,6 +1277,12 @@ public:
         m_masterInfo->RecreateParam(m_moduleInfo, numParam, pParamInfo);
     }
 
+    /// Create a new parameter with the given settings.
+    /// @param pParamInfo pointer to TParamInfo structure
+    /// @return the event associated with the newly created parameter
+	/// @note The definition is in UsineEventClass.h, where UsineEventClass is a complete type.
+    void sdkCreateParam(const TParamInfo& paramInfo, UsineEventClass& eventClass);
+
     /// If the parameter is of type ptText, change the text content. @see onGetParamInfo;
     /// @param numParam the param index.
     /// @param valueText the value string
@@ -1594,7 +1641,7 @@ public:
 	/// @param operation The type of operation to perform on the chunk. @ref TChunkOperation
 	/// @param index The index position for operations that require it, such as inserting or deleting items in a list. Default is -1 for all indexes.
 	/// @note The payload must be created with sdkCreateEvent before calling this function or can be @ref UsineEventClass.
-    [[maybe_unused]] inline void sdkChunkOperation (TUsineChunkPtr chunk, AnsiCharPtr itemName, TFlowType flowType, UsineEventPtr payload, TChunkOperation operation, int index = -1) const
+    [[maybe_unused]] inline void sdkChunkOperation(TUsineChunkPtr chunk, AnsiCharPtr itemName, TFlowType flowType, UsineEventPtr payload, TChunkOperation operation, int index = -1) const
     {
 		m_masterInfo->ChunkOperation(m_moduleInfo, chunk, itemName, flowType, payload, operation, index);
     }
@@ -1609,7 +1656,7 @@ public:
 	/// - MSG_CHANGE : the chunk or chunk item has changed
 	/// - MSG_CHUNK_CLEARED : the chunk has been cleared
 	/// - MSG_CHUNK_DELETED : the chunk has been deleted
-	    [[maybe_unused]] inline void sdkChunkSubscribe(TUsineChunkPtr chunk, AnsiCharPtr itemName, NativeUInt callbackID, LongBool immediate) const
+	[[maybe_unused]] inline void sdkChunkSubscribe(TUsineChunkPtr chunk, AnsiCharPtr itemName, NativeUInt callbackID, LongBool immediate) const
     {
         m_masterInfo->ChunkSubscribe(m_moduleInfo, chunk, itemName, callbackID, immediate);
 	}
@@ -1646,6 +1693,22 @@ public:
     {
         return m_masterInfo->ChunkItemExist(m_moduleInfo, chunkname, itemName);
     }
+
+    [[maybe_unused]] inline LongBool sdkSetChunkFromFloatPointer(TUsineChunkPtr chunk, AnsiCharPtr itemName, float* payload, UINT32 size) const
+    {
+        return m_masterInfo->SetChunkFromFloatPointer(m_moduleInfo, chunk, itemName, payload, size);
+    }
+
+    [[maybe_unused]] inline UINT32 sdkGetChunkToFloatPointer(TUsineChunkPtr chunk, AnsiCharPtr itemName, float* payload) const
+    {
+        return m_masterInfo->GetChunkToFloatPointer(m_moduleInfo, chunk, itemName, payload);
+    }
+
+    [[maybe_unused]] inline UINT32 sdkGetChunkItemSize(TUsineChunkPtr chunk, AnsiCharPtr itemName) const
+    {
+        return m_masterInfo->GetChunkItemSize(m_moduleInfo, chunk, itemName);
+    }
+
 
     /// @}
 
@@ -1741,7 +1804,12 @@ public:
     }
     /// @}
 
-
+    /// getter for ModuleType
+    /// @return the ModuleType
+    TModuleType getModuleType() const
+    {
+        return m_moduleInfo->ModuleType;
+    }
 
     //------------------------------------------------------------------------
     // TMasterInfo
@@ -1774,6 +1842,12 @@ private:
     TThreadPtr m_job_thread = nullptr;
     bool m_taskRunning = false;
     bool m_taskStarted = false;
+
+    // job parameters created automatically when ModuleType is mtBackgroundJob
+    UsineEventPtr m_jobProcessingEvt = nullptr;
+    UsineEventPtr m_jobTimeEvt = nullptr;
+    double m_jobStartTimeMs = 0.0;
+    std::atomic<double> m_jobDurationMs { 0.0 }; // written by the job thread, read on job end
 
     static void processThreadJob(void* pModule, TThreadPtr pThread);
     void processStartJob();

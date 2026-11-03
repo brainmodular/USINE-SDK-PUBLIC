@@ -1,68 +1,72 @@
 # TemplateModule
 #example #template #callback #reference
 
-**Full template with all callback stubs implemented.**
+**Complete template overriding every callback.**
 
 | | |
 |---|---|
 | **Module Name** | `template` |
 | **Type** | `mtSimple` |
 | **Color** | `clDataModuleColor` |
+| **Version** | 1.0 |
 | **Source** | `examples/TemplateModule/` |
 
 ## Description
 
-A comprehensive template that implements **every available SDK callback** as an empty stub. Use this as a reference or starting point when you need to implement advanced features like chunk persistence, mouse interaction, multi-touch, MIDI output, video, or automation recording.
+A template that overrides **every callback** of `UserModuleBase` with an empty body, with the right signatures and `override`. Use it as a reference, or as a starting point for a module that needs chunks, mouse interaction, multi-touch, MIDI output, video, jobs or automation recording. Remove the callbacks you don't use.
+
+`ModuleDefinition.h` shows where to put the messages and the callback ids, with commented examples.
 
 ## Parameters
 
-| # | Name | Type | I/O | Callback |
-|---|------|------|-----|----------|
-| 0 | `text` | `ptText` | Input/Output | None |
+| # | Name | Member | Type | I/O | Callback |
+|---|------|--------|------|-----|----------|
+| 0 | `text` | `exampleTxtIn` | `ptText` | Input/Output | None |
 
 The text parameter is initialized with `"hello world"`.
 
-## Key Concepts Demonstrated
+## Callbacks
 
-This template provides empty implementations for every callback category:
+The header groups the callbacks by topic:
 
-### Module Lifecycle
-- `onGetModuleInfo` — Module description
-- `onGetNumberOfParams` / `onAfterQuery` — Query system
-- `onInitModule` — Post-initialization
-- `onBlocSizeChange` / `onSampleRateChange` — Audio configuration changes
+### Module info, query and init
+- `onGetModuleInfo`, `onAfterQuery`, `onCreateParameters`, `onInitModule`
 
-### Processing
-- `onProcess` — Real-time audio/data processing
-- `onCallBack` — Parameter change handling
+### Parameters and process
+- `onCallBack`, `onProcess`, `onProcessVideo`
 
-### Persistence
-- `onGetChunkLen` / `onGetChunk` / `onSetChunk` — Custom state serialization
+### Background job
+- `onJobBegin`, `onJobProcess`, `onJobEnd`
 
-### User Interface
-- `onCreateSettings` / `onSettingsHasChanged` — Settings panel
-- `onPaint` — Custom canvas drawing
-- `onMouseMove` / `onMouseDown` / `onMouseUp` — Mouse interaction
-- `onMouseMoveMulti` / `onMouseDownMulti` / `onMouseUpMulti` — Multi-touch
+### Chunks
+- `onGetStateChunkLen`, `onGetStateChunk`, `onSetStateChunk`, `onAfterLoading`
 
-### External
-- `onMidiSendOut` / `onMidiSysexSendOut` — MIDI output
-- `onOpenEditor` / `onBringToFront` — Child window management
-- `onSetRecordedValue` — Automation playback
+### Layout, panel and contextual menu
+- `onCreateSettings`, `onSettingsHasChanged`, `onCreateCommands`, `onResize`, `onPaint`
 
-## Usage
+### Mouse and multi-touch
+- `onMouseMove`, `onMouseDown`, `onMouseUp`, `onMouseWheel`
+- `onMouseMoveMulti`, `onMouseDownMulti`, `onMouseUpMulti` (the `UsineEventClass&` variants)
 
-Copy this template as a starting point and remove the callbacks you don't need. Keep only what your module actually uses.
+### Editor window
+- `onOpenEditor`, `onBringToFront`, `onCloseEditor`, `onResizeEditor`
 
-## SDK Callbacks Used
+### Audio setup
+- `onBlocSizeChange`, `onSampleRateChange`
 
-All callbacks are implemented as empty stubs.
+### Global features
+- `onSetRecordedValue`, `onRandomize`, `onReset`, `onSetQuickColor` (enabled by `CanRecord`, `CanBeRandomized`, `CanBeReset`)
+
+### MIDI out devices
+- `onMidiSendOut`, `onMidiSysexSendOut`
+
+The deprecated `onGetParamInfo`, `onGetNumberOfParams` and `onSetEventAddress` are not listed: new modules create their parameters in `onCreateParameters`.
 
 ## Related Examples
 
-- [[examples/template-module-simple|TemplateModuleSimple]] — Minimal template (recommended starting point)
-- [[examples/my-module|MyModule]] — Simple working example
+- [[getting-started|Getting Started]] — Writing a first module from scratch
 
 ### SDK Reference
 
 - [[sdk/user-module-base|UserModuleBase Class]]
+- [[sdk/module-conventions|Module Conventions]]

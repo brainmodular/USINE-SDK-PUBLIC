@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\sqlite3lib">
+      <UniqueIdentifier>{526328b4-92b3-4ac5-9b00-8fcecd28562f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sdk">
+      <UniqueIdentifier>{180d1a34-9e38-4aa8-940b-51df38d23b42}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\libs\sqlite3lib\sqlite3.c">
+      <Filter>Source Files\sqlite3lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sdk\UserModule.cpp">
+      <Filter>Source Files\sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sdk\UserUtils.cpp">
+      <Filter>Source Files\sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\utils\KDTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DatabasePlayer\DatabasePlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\libs\sqlite3lib\sqlite3.h">
+      <Filter>Source Files\sqlite3lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sdk\UserDefinitions.h">
+      <Filter>Source Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sdk\UserModule.h">
+      <Filter>Source Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sdk\UserUtils.h">
+      <Filter>Source Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sdk\UsineDefinitions.h">
+      <Filter>Source Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sdk\UsineEventClass.h">
+      <Filter>Source Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sdk\UsineFunctions.h">
+      <Filter>Source Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\utils\HaudioBuffer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\utils\KDTree.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DatabasePlayer\DatabasePlayer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,333 +1,125 @@
 //-----------------------------------------------------------------------------
-//@file  
-//	GranulatorModule.h
+// @file    Granulator.h
+// @author  BrainModular team
+// @brief   Granular synthesis on live audio inputs, with automation recording.
+//          Inspired from the granulator of the Fragmental VST plugin by Niall Moody.
 //
-//@author
-//	BrainModular team
-//
-//@brief 
-//	Definitions of the GranulatorModule class.
-//
-//  Inspired from the granulator part of the Fragmental-v1.02 VST plugin from niall moody.
-//
-//HISTORIC 
-//	2013/05/15
-//    first release for Hollyhock CPP SDK 6.00.226 
-//
-//IMPORTANT
-//	This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs and patch to Usine forum :
-//  support@brainmodular.com 
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015, 2019 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE.
-//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
+#pragma once
 
-// include once, no more
-#ifndef __INCLUDED_GRANULATORMODULE_H__
-#define __INCLUDED_GRANULATORMODULE_H__
-
-//-----------------------------------------------------------------------------
-// includes
-//-----------------------------------------------------------------------------
-#include <stdlib.h>
-#include "../../sdk/UserDefinitions.h"  
-#include "Grain.h"
+#include <array>
 #include <string>
-#include <iostream>
-#include <cassert>
-#include <cmath>
 #include <vector>
-#include <limits>
+#include "../../sdk/UserDefinitions.h"
+#include "Grain.h"
 
+constexpr int NUM_OF_GRAIN = 16;
 
-//-----------------------------------------------------------------------------
-// defines and constantes
-//-----------------------------------------------------------------------------
-static constexpr UINT32 NUM_OF_GRAIN = 16;
-static constexpr UINT32 ENV_ASR_SIZE = 4;
-static constexpr UINT32 ENV_BEZIER_SIZE = 61;
-static constexpr UINT32 ENV_RCB_SIZE = 40;
-static constexpr UINT32 ENV_HANNING_SIZE = 61;
-static constexpr UINT32 ENV_GAUSSIAN_SIZE = 61;
+// number of points of the painted curve, for each EnvelopeType
+constexpr std::array<int, ENVELOPE_TYPE_COUNT> ENVELOPE_GRAPH_POINTS = { 4, 61, 40, 61, 61 };
 
+constexpr float GRAIN_DUR_MIN   = 0.05f;
+constexpr float GRAIN_DUR_MAX   = 2000.0f;
+constexpr float GRAIN_PITCH_MIN = -48.0f;
+constexpr float GRAIN_PITCH_MAX = 48.0f;
 
-static constexpr float GRAIN_DUR_MIN = 0.05f;
-static constexpr float GRAIN_DUR_MAX = 2000.0f;
-static constexpr float GRAIN_PITCH_MIN = -48.0f;
-static constexpr float GRAIN_PITCH_MAX = 48.0f;
-
-
-// module constant
-static constexpr UINT32 MODULE_HEIGHT_DEFAULT = 134;
-
-//-----------------------------------------------------------------------------
-// structures and typedef
-//-----------------------------------------------------------------------------
-
-// structures and typedef goes here
-
-//-----------------------------------------------------------------------------
-// class definition
-//-----------------------------------------------------------------------------
-class GranulatorModule : public UserModuleBase
+// the order must match the items of the grain mode list box
+enum class GrainMode
 {
+	Interval,
+	PlayButton
+};
 
-    //-------------------------------------------------------------------------
-	// public constructors/destructors
-	//-------------------------------------------------------------------------
+class Granulator : public UserModuleBase
+{
 public:
-    // constructor
-	GranulatorModule()
-        : cbufReadPos(0)
-        , audioLineNextOnset(0)
-        , cbufSize(0)
-		, numOfAudiotInsOuts (2)
-		, numOfParamAfterAudiotInOut (9)
-        , usineSamplerate(0)
-        , pitchIncrement(1.0f)
-		, currentGrainEnvType(Grain::ENV_ASR)
-        , grainEnvelopeVar(0.0f)
-        , grainInterval(0)
-        , grainSize(4410)
-        , nextOnset(0)
-        , m_LineThickness(2)
-		, wantNewGrain(false)
-		, currentGrainMode (0)
-		, nextNewGrainIndex (0)
-		, isRecording (false)
-	{
-		//_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
+	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2) override;
+	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCallBack(TUsineMessage* Message) override;
+	void onProcess() override;
 
-        for (int i = 0; i < ENV_ASR_SIZE; i++)
-        {
-            coordEnvAsr[i].x = (1.0f / static_cast<float>(ENV_ASR_SIZE)) * static_cast<float>(i);
-            coordEnvAsr[i].y = 1.0f;
-        }
+	void onCreateSettings() override;
+	void onSettingsHasChanged() override;
+	void onPaint() override;
 
-        for (int i = 0; i < ENV_BEZIER_SIZE; i++)
-        {
-            coordEnvBezier[i].x = (1.0f / static_cast<float>(ENV_BEZIER_SIZE)) * static_cast<float>(i);
-            coordEnvBezier[i].y = 1.0f;
-        }
+	void onMouseMove(TShiftState Shift, float X, float Y) override;
+	void onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X, float Y) override;
+	void onMouseUp(TMouseButton MouseButton, TShiftState Shift, float X, float Y) override;
 
-        for (int i = 0; i < ENV_RCB_SIZE; i++)
-        {
-            coordEnvRcb[i].x = (1.0f / static_cast<float>(ENV_RCB_SIZE)) * static_cast<float>(i);
-            coordEnvRcb[i].y = 1.0f;
-        }
-			
-		for (int num = 0; num < USINE_AUDIO_CHANNEL_MODULE_MAX; num++)
-        {
-			circularBuffer[num] = nullptr;
-        }
-	};
+	void onSampleRateChange(double SampleRate) override;
+	void onSetRecordedValue(TPrecision X, TPrecision Y, TPrecision Z) override;
 
-    // destructor
-	~GranulatorModule()
-	{
-		currentGrain.clear();
-		for (int num = 0; num < numOfAudiotInsOuts; num++)
-		{
-			delete [] circularBuffer[num]; 
-		}
-	};
-
-
-	//-------------------------------------------------------------------------
-	// public methods inherited from UserModule
-	//-------------------------------------------------------------------------
-public:
-	//-----------------------------------------------------------------------------
-	// module info
-	void onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
-
-	//-----------------------------------------------------------------------------
-	// query system and init
-	int  onGetNumberOfParams(int queryResult1, int queryResult2);
-	void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
-	void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
-
-	//-----------------------------------------------------------------------------
-	// parameters and process
-	void onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo);
-	void onCallBack (TUsineMessage *Message);
-	void onProcess ();
-
-	//-----------------------------------------------------------------------------
-	// midi out callbacks
-	//void onMidiSendOut (int DeviceID, UsineMidiCode Code);
-	//void onMidiSysexSendOut (int DeviceID, char* Sysex);
-
-	//-----------------------------------------------------------------------------
-	// chunk system
-	//int  onGetStateChunkLen (LongBool Preset);
-	//void onGetStateChunk (void* chunk, LongBool Preset);
-	//void onSetStateChunk (const void* chunk, int sizeInBytes, LongBool Preset);
-
-	//-----------------------------------------------------------------------------
-	// layout
-	void onCreateSettings();
-	void onSettingsHasChanged();
-    //void onCreateCommands();
-	void onPaint ();
-
-	//-----------------------------------------------------------------------------
-	// mouse and multi touch interaction
-	void onMouseMove(TShiftState Shift, float X, float Y);
-	void onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X,float Y);
-	void onMouseUp (TMouseButton MouseButton, TShiftState Shift, float X,float Y);
-	//void onMouseMoveMulti(TShiftState Shift, UsineEventPtr X, UsineEventPtr Y);
-	//void onMouseDownMulti(TMouseButton MouseButton, TShiftState Shift, UsineEventPtr X, UsineEventPtr Y);
-	//void onMouseUpMulti (TMouseButton MouseButton, TShiftState Shift,UsineEventPtr X, UsineEventPtr Y);
-	//void onOpenEditor();
-	//void onBringToFront();
-
-	//-----------------------------------------------------------------------------
-	// audio setup update
-	//void onBlocSizeChange (int BlocSize);
-	void onSampleRateChange (double SampleRate);
-	
-	//-----------------------------------------------------------------------------
-	// recording 
-	 void onSetRecordedValue (TPrecision X, TPrecision Y, TPrecision Z);
-
-
-	//-------------------------------------------------------------------------
-	// private members
-	//-------------------------------------------------------------------------
 private:
+	using AudioEvents  = std::array<UsineEventClass, USINE_AUDIO_CHANNEL_MODULE_MAX>;
+	using ChannelFlags = std::array<bool, USINE_AUDIO_CHANNEL_MODULE_MAX>;
 
-	//-------------------------------------------------------------------------
-	// parameters events
-    UsineEventClass m_audioInputs [USINE_AUDIO_CHANNEL_MODULE_MAX];     // audio input
-    UsineEventClass m_audioOutputs [USINE_AUDIO_CHANNEL_MODULE_MAX];    // audio output
-	UsineEventClass m_fdrGrainInterval;
-	UsineEventClass m_ledGrainStart;
-	UsineEventClass m_lboxGrainEnvelope;
-	UsineEventClass m_fdrGrainEnvelopeSkrew;
-	UsineEventClass m_fdrGrainDuration;
-	UsineEventClass m_fdrGrainPitch;
-	UsineEventClass m_lboxGrainMode;
-	UsineEventClass m_btnGrainGo;
-    	
-	//-------------------------------------------------------------------------
-	int queryResult;
-	int numOfAudiotInsOuts;
-	int numOfParamAfterAudiotInOut;
+	AudioEvents     audioInputs;
+	AudioEvents     audioOutputs;
+	UsineEventClass grainStartSwOut;
+	UsineEventClass grainIntervalFdrIn;
+	UsineEventClass grainEnvelopeLboxIn;
+	UsineEventClass grainEnvVarFdrIn;
+	UsineEventClass grainDurationFdrIn;
+	UsineEventClass grainPitchFdrIn;
+	UsineEventClass grainModeLboxIn;
+	UsineEventClass grainGoBtnIn;
 
-	// Graphic attributes of the envelope curve
-    float m_LineThickness;
-	TUsineColor m_LineColor;
+	int queryResult       = 0;
+	int numOfAudioInsOuts = 2;
 
+	// settings of the 'edit layout' panel
+	float       lineThickness = 2.0f;
+	TUsineColor lineColor     = 0;
 
-    // list of points to paint the grain envelope 
-    TPointF coordEnvAsr[ENV_ASR_SIZE];
-    TPointF coordEnvBezier[ENV_BEZIER_SIZE];
-    TPointF coordEnvRcb[ENV_RCB_SIZE];
-    TPointF coordEnvHanning[ENV_HANNING_SIZE];
-    TPointF coordEnvGaussian[ENV_GAUSSIAN_SIZE];
-    
-    TRectF  dimGrainDuration;
-    std::string caGrainDuration;
-    TRectF  dimPitch;
-    std::string caPitch;
-    
-    /// 
-    float usineSamplerate;
+	// points of the envelope curves painted in the panel, one curve per EnvelopeType
+	std::array<std::vector<TPointF>, ENVELOPE_TYPE_COUNT> envelopePoints;
 
-    
-	///	Current read position in the delay line.
-    int cbufReadPos;
+	TRectF      dimPitch         { .left = 0.25f, .top = 0.5f, .right = 0.75f, .bottom = 0.75f };
+	TRectF      dimGrainDuration { .left = 0.25f, .top = 0.75f, .right = 0.75f, .bottom = 1.0f };
+	std::string caPitch;
+	std::string caGrainDuration;
 
-    /// 
-    int blockSize;
+	float usineSampleRate = 0.0f;
 
-	
-	///	Our delay line.
-	TPrecision* circularBuffer[USINE_AUDIO_CHANNEL_MODULE_MAX];
-    int cbufSize;
+	// one delay line per channel, the grains read in it
+	std::array<std::vector<TPrecision>, USINE_AUDIO_CHANNEL_MODULE_MAX> circularBuffer;
+	int                                                                 cbufSize    = 0;
+	int                                                                 cbufReadPos = 0;
 
-    /// Pointer to a temporary block of memory 
-    TPrecision* tempInputBlock[USINE_AUDIO_CHANNEL_MODULE_MAX];
-    TPrecision* tempOutputBlock[USINE_AUDIO_CHANNEL_MODULE_MAX];
-    int audioLineNextOnset;
-	///	Number of samples to the next onset.
-	int nextOnset;
+	// NUM_OF_GRAIN grains per channel, reused in a round robin
+	std::vector<std::array<Grain, NUM_OF_GRAIN>> grains;
+	int                                          nextNewGrainIndex  = 0;
+	bool                                         grainOverlapWarned = false;
 
-    /// 
-//    int grainToggle;
+	EnvelopeType currentEnvelopeType = EnvelopeType::Asr;
+	GrainMode    currentGrainMode    = GrainMode::Interval;
+	float        grainEnvelopeVar    = 0.0f;
+	float        pitchIncrement      = 1.0f;
+	float        grainDurationMs     = 100.0f;
+	float        grainIntervalMs     = 0.0f;
+	// grainSize, grainInterval and audioLineNextOnset are in samples
+	int          grainSize           = 4410;
+	int          grainInterval       = 0;
+	int          audioLineNextOnset  = 0;
+	bool         wantNewGrain        = false;
 
-	///	Our currentGrain.
-	//Grain currentGrain[NUM_OF_GRAIN];
-	std::vector <Grain*> currentGrain;
-	int nextNewGrainIndex;
+	bool    isRecording         = false;
+	bool    mouseLeftButtonDown = false;
+	TPointF mouseLastCoords     = {};
 
-    /// current envelope used
-    Grain::EnvType currentGrainEnvType;
+	void changeGrainEnvelope();
+	void changeEnvelopeVar();
+	void changeInterval();
+	void changeDuration();
+	void changePitch();
+	void changeGrainMode();
+	void startNewGrain(const ChannelFlags& isConnected);
 
-    float grainEnvelopeVar;
-
-	///	Current pitchIncrement (used to pitch the currentGrain).
-	float pitchIncrement;
-
-	///	Current size of the currentGrain.
-	int grainSize;
-
-    /// interval between current grain and next grain
-    int grainInterval;
-
-
-	int currentGrainMode;
-	bool wantNewGrain;
-	
-	bool isRecording;
-	int			m_mouseLastButtonDown;	    // -1 = no button, other see TMouseButton in UsineDefinition.h
-	TPointF		m_mouseLastCoords;
-	TPrecision	m_unusedY;
-	TPrecision	m_unusedZ;
-
-	//-------------------------------------------------------------------------
-	// private methods
-	//-------------------------------------------------------------------------
-private:
-
-	//-------------------------------------------------------------------------
-    //
-    void changeGrainEnvelope();
-    void changeEnvelopeVar();
-    void changeInterval();
-    void changeDuration();
-    void changePitch();
-    void changeGrainMode();
-    
-	//-------------------------------------------------------------------------
-    // 
-    void grainGo();
-	void generateNewGrain(int num);
-
-}; // class GranulatorModule
-
-#endif //INCLUDED_GRANULATORMODULE_H
+	[[nodiscard]] int                   msToSamples(float ms) const;
+	[[nodiscard]] std::vector<TPointF>& currentEnvelopePoints();
+};

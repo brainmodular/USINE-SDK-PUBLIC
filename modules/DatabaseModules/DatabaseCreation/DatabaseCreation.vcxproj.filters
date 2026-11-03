@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\sqlite3lib">
+      <UniqueIdentifier>{adda3b87-ac04-4d09-ab3f-6c83d1a3d2a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tsne">
+      <UniqueIdentifier>{6fe141aa-d936-4878-8503-4c3b1b3801ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\functions">
+      <UniqueIdentifier>{4eb406d3-8dfc-4925-b7ab-af3ab12ec217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sdk">
+      <UniqueIdentifier>{de267327-33d8-4a84-9504-8d39ae145e6b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\libs\sqlite3lib\sqlite3.c">
+      <Filter>Source Files\sqlite3lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\utils\tsne\sptree.cpp">
+      <Filter>Source Files\tsne</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\utils\tsne\tsne.cpp">
+      <Filter>Source Files\tsne</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\utils\functions\f0_YIN.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\utils\functions\MFCC.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\utils\functions\RMS.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\utils\functions\SpectralCentroid.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\utils\functions\SpectralFlatness.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\utils\functions\SpectralSpread.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DatabaseCreation\DatabaseCreation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sdk\UserModule.cpp">
+      <Filter>Source Files\sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sdk\UserUtils.cpp">
+      <Filter>Source Files\sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\utils\functions\Loudness.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\libs\sqlite3lib\sqlite3.h">
+      <Filter>Source Files\sqlite3lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\utils\tsne\sptree.h">
+      <Filter>Source Files\tsne</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\utils\tsne\tsne.h">
+      <Filter>Source Files\tsne</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\utils\tsne\vptree.h">
+      <Filter>Source Files\tsne</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\utils\functions\f0_YIN.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\utils\functions\HFeatures.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\utils\functions\MFCC.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\utils\functions\RMS.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\utils\functions\SpectralCentroid.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\utils\functions\SpectralFlatness.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\utils\functions\SpectralSpread.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\utils\functions\StatisticsFunctions.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\utils\HaudioBuffer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\utils\Hdescriptors.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DatabaseCreation\DatabaseCreation.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sdk\UserDefinitions.h">
+      <Filter>Source Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sdk\UserModule.h">
+      <Filter>Source Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sdk\UserUtils.h">
+      <Filter>Source Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sdk\UsineDefinitions.h">
+      <Filter>Source Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sdk\UsineEventClass.h">
+      <Filter>Source Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sdk\UsineFunctions.h">
+      <Filter>Source Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\utils\functions\Loudness.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

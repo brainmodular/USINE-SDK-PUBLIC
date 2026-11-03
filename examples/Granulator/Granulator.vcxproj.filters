@@ -10,12 +10,16 @@
     <ClInclude Include="..\..\sdk\UserUtils.h">
       <Filter>sdk</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\sdk\UserError.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\sdk\UsineDefinitions.h">
       <Filter>sdk</Filter>
     </ClInclude>
     <ClInclude Include="Envelopes.h" />
     <ClInclude Include="Grain.h" />
     <ClInclude Include="Granulator.h" />
+    <ClInclude Include="ModuleDefinition.h" />
     <ClInclude Include="..\..\sdk\UsineEventClass.h">
       <Filter>sdk</Filter>
     </ClInclude>

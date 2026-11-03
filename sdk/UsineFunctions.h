@@ -244,8 +244,16 @@ inline void sdkUsineMidiSysexDeviceCallback(const int deviceID, const double Tim
 [[maybe_unused]]
 inline int sdkGetBlocSize()
 {
-    return UserModuleBase::m_masterInfo->BlocSize;
+    return UserModuleBase::m_masterInfo->GetBlockSize();
 }
+
+/// To get the duration of the current Usine audio block, in milliseconds.
+[[maybe_unused]]
+inline double sdkGetBlockDuration()
+{
+    return UserModuleBase::m_masterInfo->GetBlockDuration();
+}
+
 
 /// To get the current Usine sample rate
 [[maybe_unused]]
@@ -1057,7 +1065,7 @@ inline void sdkSubEvt3(UsineEventPtr e1, UsineEventPtr e2, UsineEventPtr dest)
 
 /// Subtract values of two events and store the result into e2.
 /// @deprecated Deprecated: use UsineEventClass::sub instead
-/// This function subtracts the values of e2 from e1 and stores the result in e2.
+/// This function subtracts the values of e1 from e2 and stores the result in e2.
 [[maybe_unused]]
 [[deprecated("Deprecated: use UsineEventClass::sub instead")]]
 inline void sdkSubEvt2(UsineEventPtr e1, UsineEventPtr e2)

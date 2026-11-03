@@ -23,8 +23,8 @@ All types, structures, enumerations, and constants used by the Usine SDK.
 
 | Constant | Value | Description |
 |----------|-------|-------------|
-| `SDK_VERSION` | `702002` | Current SDK version number |
-| `USINE_AUDIO_CHANNEL_MODULE_MAX` | `144` | Maximum audio input/output channels |
+| `SDK_VERSION` | `703003` | Current SDK version number |
+| `USINE_AUDIO_CHANNEL_MODULE_MAX` | `192` | Maximum audio input/output channels |
 | `USINE_MAX_SOUNDCARD_AUDIO_INPUTS` | `256` | Maximum sound card inputs |
 | `USINE_MAX_SOUNDCARD_AUDIO_OUTPUTS` | `256` | Maximum sound card outputs |
 | `USINE_MAX_AUDIO_EVT_SIZE` | `1024` | Maximum audio block size |
@@ -220,6 +220,7 @@ Module category types.
 | `mtDeviceOther` | Other device type |
 | `mtPluginWrapper` | VST/AU plugin wrapper |
 | `mtPluginLister` | Plugin lister |
+| `mtBackgroundJob` | Module with a background job: the SDK adds the `processing` and `processing time` outputs |
 | `mtOther` | Other module type |
 
 ### TParamType
@@ -251,8 +252,9 @@ Parameter types determine how a parameter appears and behaves.
 | `ptBitwise` | Bitwise data |
 | `ptCardinalHexa` | Hexadecimal value |
 | `ptOther` | Other parameter type |
+| `ptDataFieldBounded` | Same as `ptDataField`, bounded to `MinValue` and `MaxValue` |
 
-> See [[sdk/user-module-base|UserModuleBase]] for how to use `TParamType` in `onGetParamInfo`.
+> See [[sdk/user-module-base|UserModuleBase]] for how to describe a parameter with `TParamInfo` and create it in `onCreateParameters`, and [[sdk/module-conventions|Module Conventions]] for the abbreviation of each type in the parameter names.
 
 ### TScale
 Parameter value scaling.
@@ -384,8 +386,9 @@ Setting inlet/outlet modes.
 
 | Constant | Value | Description |
 |----------|-------|-------------|
-| `CALLBACK_JOB_END` | `0xFABA00` | Background job finished |
-| `CALLBACK_WPARAM_LIMIT` | `0xF000000` | Max callback ID value |
+| `CALLBACK_JOB_START` | `0xFABA00` | Starts the background job, sent by `startJob()` |
+| `CALLBACK_JOB_END` | `0xFABA01` | Background job finished, calls `onJobEnd` |
+| `CALLBACK_WPARAM_LIMIT` | `0xF000000` | The callback ids must stay below this value, the SDK ignores the others |
 
 ---
 

@@ -1,15 +1,23 @@
-// Macro for killing denormalled numbers
+//-----------------------------------------------------------------------------
+// @file    denormals.h
+// @author  Jezar at Dreampoint, adapted by BrainModular team
+// @brief   Flushes denormal floats to zero, they are very slow to process.
 //
-// Written by Jezar at Dreampoint, June 2000
-// http://www.dreampoint.co.uk
-// Based on IS_DENORMAL macro by Jon Watte
-// This code is public domain
+// This file is part of the Usine Hollyhock CPP SDK.
+// Based on Freeverb, written by Jezar at Dreampoint in June 2000 and placed in
+// the public domain, itself based on the IS_DENORMAL macro by Jon Watte.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
+//-----------------------------------------------------------------------------
+#pragma once
 
-#ifndef _denormals_
-#define _denormals_
+#include <cstdint>
+#include <cstring>
 
-#define undenormalise(sample) if(((*(unsigned int*)&sample)&0x7f800000)==0) sample=0.0f
-
-#endif//_denormals_
-
-//ends
+inline void undenormalise(float& sample)
+{
+	std::uint32_t bits;
+	std::memcpy(&bits, &sample, sizeof(bits));
+	if ((bits & 0x7f800000) == 0)
+		sample = 0.0f;
+}

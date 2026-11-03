@@ -25,8 +25,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimplePad", "SimplePad\Simp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TemplateModule", "TemplateModule\TemplateModule.vcxproj", "{0D75B3F7-C531-4C56-9A28-EED6C299779E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TemplateModuleSimple", "TemplateModuleSimple\TemplateModuleSimple.vcxproj", "{E227B327-1E67-4954-8CC6-199D73440A0F}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UsineObjects", "UsineObjects\UsineObjects.vcxproj", "{B101A600-448F-4D21-B0D0-A1A88EB79F53}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VideoDimmer", "VideoDimmer\VideoDimmer.vcxproj", "{39792AE8-C93C-436D-993D-D8A15E319C2F}"
@@ -46,6 +44,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DataSampler", "DataSampler\DataSampler.vcxproj", "{247EF2F5-81B9-409C-9D02-CBEDDFDCA438}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BackgroundJob", "BackgroundJob\BackgroundJob.vcxproj", "{A451A620-1E70-4401-AB0D-309D4A98EE73}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ErrorHandling", "ErrorHandling\ErrorHandling.vcxproj", "{2A2DE6DB-FD0E-44C4-9709-987C7CD0C933}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DragAndDrop", "DragAndDrop\DragAndDrop.vcxproj", "{1E067799-186B-4D67-B8AA-2BCC6D46C853}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -143,14 +145,6 @@ Global
 		{0D75B3F7-C531-4C56-9A28-EED6C299779E}.Release|x64.Build.0 = Release|x64
 		{0D75B3F7-C531-4C56-9A28-EED6C299779E}.Release|x86.ActiveCfg = Release|Win32
 		{0D75B3F7-C531-4C56-9A28-EED6C299779E}.Release|x86.Build.0 = Release|Win32
-		{E227B327-1E67-4954-8CC6-199D73440A0F}.Debug|x64.ActiveCfg = Debug|x64
-		{E227B327-1E67-4954-8CC6-199D73440A0F}.Debug|x64.Build.0 = Debug|x64
-		{E227B327-1E67-4954-8CC6-199D73440A0F}.Debug|x86.ActiveCfg = Debug|Win32
-		{E227B327-1E67-4954-8CC6-199D73440A0F}.Debug|x86.Build.0 = Debug|Win32
-		{E227B327-1E67-4954-8CC6-199D73440A0F}.Release|x64.ActiveCfg = Release|x64
-		{E227B327-1E67-4954-8CC6-199D73440A0F}.Release|x64.Build.0 = Release|x64
-		{E227B327-1E67-4954-8CC6-199D73440A0F}.Release|x86.ActiveCfg = Release|Win32
-		{E227B327-1E67-4954-8CC6-199D73440A0F}.Release|x86.Build.0 = Release|Win32
 		{B101A600-448F-4D21-B0D0-A1A88EB79F53}.Debug|x64.ActiveCfg = Debug|x64
 		{B101A600-448F-4D21-B0D0-A1A88EB79F53}.Debug|x64.Build.0 = Debug|x64
 		{B101A600-448F-4D21-B0D0-A1A88EB79F53}.Debug|x86.ActiveCfg = Debug|Win32
@@ -231,6 +225,22 @@ Global
 		{A451A620-1E70-4401-AB0D-309D4A98EE73}.Release|x64.Build.0 = Release|x64
 		{A451A620-1E70-4401-AB0D-309D4A98EE73}.Release|x86.ActiveCfg = Release|Win32
 		{A451A620-1E70-4401-AB0D-309D4A98EE73}.Release|x86.Build.0 = Release|Win32
+		{2A2DE6DB-FD0E-44C4-9709-987C7CD0C933}.Debug|x64.ActiveCfg = Debug|x64
+		{2A2DE6DB-FD0E-44C4-9709-987C7CD0C933}.Debug|x64.Build.0 = Debug|x64
+		{2A2DE6DB-FD0E-44C4-9709-987C7CD0C933}.Debug|x86.ActiveCfg = Debug|Win32
+		{2A2DE6DB-FD0E-44C4-9709-987C7CD0C933}.Debug|x86.Build.0 = Debug|Win32
+		{2A2DE6DB-FD0E-44C4-9709-987C7CD0C933}.Release|x64.ActiveCfg = Release|x64
+		{2A2DE6DB-FD0E-44C4-9709-987C7CD0C933}.Release|x64.Build.0 = Release|x64
+		{2A2DE6DB-FD0E-44C4-9709-987C7CD0C933}.Release|x86.ActiveCfg = Release|Win32
+		{2A2DE6DB-FD0E-44C4-9709-987C7CD0C933}.Release|x86.Build.0 = Release|Win32
+		{1E067799-186B-4D67-B8AA-2BCC6D46C853}.Debug|x64.ActiveCfg = Debug|x64
+		{1E067799-186B-4D67-B8AA-2BCC6D46C853}.Debug|x64.Build.0 = Debug|x64
+		{1E067799-186B-4D67-B8AA-2BCC6D46C853}.Debug|x86.ActiveCfg = Debug|Win32
+		{1E067799-186B-4D67-B8AA-2BCC6D46C853}.Debug|x86.Build.0 = Debug|Win32
+		{1E067799-186B-4D67-B8AA-2BCC6D46C853}.Release|x64.ActiveCfg = Release|x64
+		{1E067799-186B-4D67-B8AA-2BCC6D46C853}.Release|x64.Build.0 = Release|x64
+		{1E067799-186B-4D67-B8AA-2BCC6D46C853}.Release|x86.ActiveCfg = Release|Win32
+		{1E067799-186B-4D67-B8AA-2BCC6D46C853}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,114 +1,42 @@
 //-----------------------------------------------------------------------------
-//@file  
-//	UsineChunks.h
+// @file    UsineChunks.h
+// @author  BrainModular team
+// @brief   Shares data with other modules through a Usine chunk and its notifications.
 //
-//@author
-//	BrainModular team
-//
-//@brief 
-//	Definitions of the UsineChunks class.
-//
-//  Example user module to show how to process audio buffers.
-//
-//@historic 
-//	2015/02/23
-//    first release for Hollyhock CPP SDK 6.04.001
-//
-//@IMPORTANT
-//	This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs :
-//  support@brainmodular.com 
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE.
-//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2025-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
+#pragma once
 
-// include once, no more
-#ifndef __EXAMPLE_USINE_CHUNKS_H__
-#define __EXAMPLE_USINE_CHUNKS_H__
-
-//-----------------------------------------------------------------------------
-// includes
-//-----------------------------------------------------------------------------
-#include "../../sdk/UserDefinitions.h"  
+#include "../../sdk/UserDefinitions.h"
+#include <vector>
+#include <array>
 
 
-//-----------------------------------------------------------------------------
-// defines and constantes
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// class definition
-//-----------------------------------------------------------------------------
 class UsineChunks : public UserModuleBase
 {
-    //-------------------------------------------------------------------------
-	// module constructors/destructors
-	//-------------------------------------------------------------------------
 public:
-    // constructor
-	UsineChunks();
+	~UsineChunks() override;
 
-    // destructor
-	virtual ~UsineChunks();
+	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCallBack(TUsineMessage* Message) override;
 
-	//-------------------------------------------------------------------------
-	// public methods inherited from UserModule
-	//-------------------------------------------------------------------------
-public:
-	//-----------------------------------------------------------------------------
-	// module info
-	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
-
-	//-----------------------------------------------------------------------------
-	// query system and init
-	int  onGetNumberOfParams(int queryResult1, int queryResult2);
-	void onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
-	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
-
-	//-----------------------------------------------------------------------------
-	// parameters and process
-	void onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo);
-	void onCallBack(TUsineMessage *Message);
-
-	//-------------------------------------------------------------------------
-	// private members
-	//-------------------------------------------------------------------------
 private:
-	//-------------------------------------------------------------------------
-	// parameters events
-	UsineEventClass chunkFloatSet;
-	UsineEventClass chunkStringSet;
-	UsineEventClass chunkFloatGet;
-	UsineEventClass chunkStringGet;
+	UsineEventClass setItemArrIn;
+	UsineEventClass setCommaTxtIn;
+	UsineEventClass getItemArrOut;
+	UsineEventClass getCommaTxtOut;
+	UsineEventClass getChunkDataBtnIn;
+	UsineEventClass setChunkDataBtnIn;
 
-	//-------------------------------------------------------------------------
 	TUsineChunkPtr chunkPtr = nullptr;
-	AnsiCharPtr dummyCommaText = "value1,value2,value3,value4";
 
+    static constexpr int kBulkSize = 10000;
+    std::array<float, kBulkSize> data_bulk{};
+	std::vector<float>	data_buffer;
 
-}; // class UsineChunks
-
-#endif //__EXAMPLE_USINE_CHUNKS_H__
+	void	fillBulkTestData();
+};

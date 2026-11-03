@@ -1,0 +1,27 @@
+#ifndef __SPECTRAL_DECREASE_H__
+#define __SPECTRAL_DECREASE_H__
+
+#ifdef  _WIN32
+#include "../Hfeatures.h"
+#endif // Windows
+
+#ifdef __APPLE__
+#include "Hfeatures.h"
+#endif // MacOs
+
+
+
+class SpectralDecrease{
+public:
+
+    SpectralDecrease() {};
+
+    ~SpectralDecrease() {};
+
+    void process(Features& features, Results& results);
+    
+};
+
+#endif //__SPECTRAL_DECREASE_H__
+    
+    

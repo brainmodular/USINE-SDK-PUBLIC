@@ -1,61 +1,65 @@
 # BackgroundJob
 #example #threading #advanced
 
-**Asynchronous background task execution.**
+**Long computation in a background thread with the job API.**
 
 | | |
 |---|---|
-| **Module Name** | `big task async process test` |
-| **Type** | `mtSimple` |
+| **Module Name** | `background job` |
+| **Type** | `mtBackgroundJob` |
 | **Color** | `clInterfaceDesignModuleColor` |
+| **Version** | 1.0 |
 | **Source** | `examples/BackgroundJob/` |
 
 ## Description
 
-Demonstrates the SDK's background job system for executing heavy computations without blocking the audio thread. Shows the complete job lifecycle: begin, process, and end hooks.
+Demonstrates the background job system of the SDK, to run a heavy computation without blocking Usine. The module overrides the three job callbacks and starts the job from a button.
 
 ## Parameters
 
-| # | Name | Type | I/O | Range | Callback |
-|---|------|------|-----|-------|----------|
-| 0 | `data1` | `ptDataField` | Input | 0–1 | `ctImmediate` |
-| 1 | `data2` | `ptDataField` | Input | 0–1 | `ctImmediate` |
-| 2 | `start job` | `ptButton` | Input | — | `ctImmediate` |
-| 3 | `processing` | `ptRightLed` | Output (ReadOnly, DontSave) | — | None |
-| 4 | `out` | `ptDataField` | Output (ReadOnly, DontSave) | — | None |
+| # | Name | Member | Type | I/O | Callback |
+|---|------|--------|------|-----|----------|
+| 0 | `data1` | `oneFdrIn` | `ptDataField` | Input, 0 – 1 | `ctImmediate` (`ONE_FDR_CBID`) |
+| 1 | `data2` | `twoFdrIn` | `ptDataField` | Input, 0 – 1 | `ctImmediate` (`TWO_FDR_CBID`) |
+| 2 | `start job` | `startBtnIn` | `ptButton` | Input | `ctImmediate` (`START_BTN_CBID`) |
+| 3 | `out` | `outFdrOut` | `ptDataField` | Output (ReadOnly, DontSave) | None |
+| 4 | `processing` | — | `ptRightLed` | Output (ReadOnly, DontSave), created by the SDK | None |
+| 5 | `processing time` | — | `ptDataField` (ms) | Output (ReadOnly, DontSave), created by the SDK | None |
+
+Parameters 4 and 5 are added by the SDK because the module type is `mtBackgroundJob`, see [[sdk/user-module-base|UserModuleBase: automatic job parameters]].
 
 ## How It Works
 
-1. User sets `data1` and `data2` input values
-2. Clicking `start job` calls `startJob()` (SDK method)
-3. **`onJobBegin`** (background thread): Sets processing LED on
-4. **`onJobProcess`** (background thread): Runs heavy computation (100M iterations of nested sin calculations)
-5. **`onJobEnd`** (main thread): Sets processing LED off, outputs the result
+1. `onCallBack` stores `data1` and `data2`, and calls `startJob()` when `start job` is clicked.
+2. The SDK switches the `processing` led on and starts the job thread.
+3. **`onJobBegin`** (job thread): nothing to set up here.
+4. **`onJobProcess`** (job thread): runs the computation, 100 million iterations of nested `std::sin`.
+5. **`onJobEnd`** (called back by Usine once the job is done): writes the result.
+6. The SDK writes the duration in `processing time` and switches the led off.
 
 ## Job Lifecycle
 
 ```
 User clicks "start job"
-    └── startJob()
-        ├── onJobBegin()      ← background thread: setup
-        ├── onJobProcess()    ← background thread: heavy work
-        └── onJobEnd()        ← main thread: collect results
+    └── onCallBack() → startJob()        ← notifies Usine
+        ├── onJobBegin()                  ← job thread
+        ├── onJobProcess()                ← job thread: heavy work
+        └── onJobEnd()                    ← callback dispatch, after the job thread
 ```
 
-> **Important:** `onJobBegin` and `onJobProcess` run on a background thread. `onJobEnd` runs on the main thread, making it safe to update outputs and UI.
+`startJob()` only asks Usine to start the job, the SDK starts the job thread when the notification comes back. A start requested while a job is running waits for the end of that job.
 
 ## Key Concepts Demonstrated
 
-- **`startJob()`** — launches the background job thread
-- **`onJobBegin/onJobProcess/onJobEnd`** lifecycle hooks
-- **`DontProcess = TRUE`** — no audio processing needed
-- **`CanBeRandomized = TRUE`** — randomize support
-- **`ptRightLed`** as a processing indicator
-- Thread-safe result passing via class member variables
+- **`startJob()`** and the **`onJobBegin` / `onJobProcess` / `onJobEnd`** callbacks
+- **`mtBackgroundJob`**: `processing` led and `processing time` output managed by the SDK
+- **`DontProcess = TRUE`**: no audio processing needed
+- **`CanBeRandomized = TRUE`**: randomize support
+- Values copied in members before the job, read by the job thread
 
 ## SDK Callbacks Used
 
-`onGetModuleInfo` · `onInitModule` · `onGetParamInfo` · `onCallBack` · `onProcess` · `onJobBegin` · `onJobProcess` · `onJobEnd`
+`onGetModuleInfo` · `onCreateParameters` · `onCallBack` · `onJobBegin` · `onJobProcess` · `onJobEnd`
 
 ## Related Examples
 
@@ -65,4 +69,4 @@ User clicks "start job"
 ### SDK Reference
 
 - [[sdk/user-module-base|UserModuleBase Class]]
-- [[sdk/sdk-functions|SDK Functions - Synchronization]]
+- [[sdk/module-architecture|Module Architecture]] — Background jobs

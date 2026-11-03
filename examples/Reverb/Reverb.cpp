@@ -1,533 +1,293 @@
 //-----------------------------------------------------------------------------
-//@file  
-//	Reverb.cpp
+// @file    Reverb.cpp
+// @author  BrainModular team
+// @brief   Multichannel reverb based on the Freeverb model, with cross-channel feeds.
 //
-//@author
-//	BrainModular team
-//
-//@brief 
-//	Implementation of the Reverb class.
-//
-//  A reverb module based on the original freeverb algo.
-//
-//HISTORIC 
-//	2013/08/27
-//    first release for Hollyhock CPP SDK 6.02.011
-//
-//IMPORTANT
-//	This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs and patch to Usine forum :
-//  support@brainmodular.com 
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015, 2019 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE.
-//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// includes
-//-----------------------------------------------------------------------------
+#include <span>
 #include "Reverb.h"
+#include "ModuleDefinition.h"
 
-//----------------------------------------------------------------------------
-// setup a callback_id constant for all params that specify a callback type
-//----------------------------------------------------------------------------
-constexpr NativeInt SWITCH_CBID         = 0x002100F0;
-constexpr NativeInt ROOM_SIZE_CBID      = 0x002100F1;
-constexpr NativeInt DAMPING_CBID        = 0x002100F2;
-constexpr NativeInt CHANNEL_SEP_CBID    = 0x002100F3;
-constexpr NativeInt WET_LEVEL_CBID      = 0x002100F4;
-constexpr NativeInt DRY_LEVEL_CBID      = 0x002100F5;
-
-
-//----------------------------------------------------------------------------
-// create, general info and destroy methods
-//----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// Create
-void CreateModule (void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new Reverb();
 }
 
-// destroy
-void DestroyModule(void* pModule) 
+void DestroyModule(void* pModule)
 {
 	// cast is important to call the good destructor
-	delete ((Reverb*)pModule);
+	delete static_cast<Reverb*>(pModule);
 }
 
-// module constants for browser info and module info
-constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "Reverb";
-constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "Reverb";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.1";
-
-// browser info
-void GetBrowserInfo(TModuleInfo* pModuleInfo) 
-{
-	pModuleInfo->Name				= UserModuleBase::MODULE_NAME;
-	pModuleInfo->Description		= UserModuleBase::MODULE_DESC;
-	pModuleInfo->Version			= UserModuleBase::MODULE_VERSION;
-}
-
-//-------------------------------------------------------------------------
-// module constructors/destructors
-//-------------------------------------------------------------------------
-
-const float Reverb::initialWet = 0.0f;
-const float Reverb::initialDry = -200.0f;
-const float Reverb::initialRoom = 95.0f; 
-const float Reverb::initialDamp = 75.0f; 
-const float Reverb::initialChannelsSeparation = 50.0f;
-const float Reverb::initialMode = 0.0f;  
-
-
-// constructor
-Reverb::Reverb()
-    : numOfAudiotInsOuts(2)
-    , numOfParamAfterAudiotInOut(6)
-{}
-
-// destructor
 Reverb::~Reverb()
 {
-    for(int v = 0; v < numOfAudiotInsOuts; ++v)
-    {
-        if (temp[v] != nullptr)
-            temp[v].destroyEvent();
-        
-        if (temp2[v] != nullptr)
-            temp2[v].destroyEvent();
-        
-        if (processInput[v] != nullptr)
-            processInput[v].destroyEvent();
-        
-        if (processOutput[v] != nullptr)
-            processOutput[v].destroyEvent();
-    }
+	for (int v = 0; v < numOfAudioInsOuts; ++v)
+	{
+		if (temp[v] != nullptr)
+			temp[v].destroyEvent();
+		if (processInput[v] != nullptr)
+			processInput[v].destroyEvent();
+		if (processOutput[v] != nullptr)
+			processOutput[v].destroyEvent();
+	}
 }
 
-
-
-//void Reverb::onCreate(AnsiCharPtr optionalString);
-//void Reverb::onDestroy(); 
-void Reverb::onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+void Reverb::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	pModuleInfo->Name				= MODULE_NAME;
-	pModuleInfo->Description		= MODULE_DESC;
 	pModuleInfo->ModuleType         = mtSimple;
 	pModuleInfo->BackColor          = sdkGetUsineColor(clAudioModuleColor);
-	pModuleInfo->NumberOfParams     = (numOfAudiotInsOuts * 2) + numOfParamAfterAudiotInOut;
-	pModuleInfo->DontProcess		= FALSE;
-	pModuleInfo->Version			= MODULE_VERSION;
+	pModuleInfo->DontProcess        = FALSE;
 	pModuleInfo->CanBeSavedInPreset = FALSE;
-	// query ask for number of audio channels
+
+	// the audio query functions need Usine, pMasterInfo is null when the module is only listed in the browser
 	if (pMasterInfo != nullptr)
-    {
-	    pModuleInfo->QueryListString        = sdkGetAudioQueryTitle();
-	    pModuleInfo->QueryListValues	    = sdkGetAudioQueryChannelList();
-	    pModuleInfo->QueryListDefaultIdx	= 1;
-    }
+	{
+		pModuleInfo->QueryListString     = sdkGetAudioQueryTitle();
+		pModuleInfo->QueryListValues     = sdkGetAudioQueryChannelList();
+		pModuleInfo->QueryListDefaultIdx = 1;
+	}
 }
 
-//-----------------------------------------------------------------------------
-// query system and init methods
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-// Get total parameters number of the module
-int Reverb::onGetNumberOfParams (int queryResult1, int queryResult2)
+// called after the query popup, before onCreateParameters
+void Reverb::onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
 {
-	int result = 0;
-    this->queryResult = queryResult1;
-    numOfAudiotInsOuts = sdkGetAudioQueryToNbChannels (queryResult1);
-	result = (numOfAudiotInsOuts * 2) + numOfParamAfterAudiotInOut;
-    return result;
+	queryResult       = queryResult1;
+	numOfAudioInsOuts = std::min(sdkGetAudioQueryToNbChannels(queryResult1), static_cast<int>(USINE_AUDIO_CHANNEL_MODULE_MAX));
 }
 
-//-----------------------------------------------------------------------------
-// Called after the query popup
-void Reverb::onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
+void Reverb::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
+	for (int v = 0; v < numOfAudioInsOuts; ++v)
+	{
+		temp[v].createEvent(1);
+		processInput[v].createEvent(1);
+		processOutput[v].createEvent(1);
+	}
+
+	reverbInit();
+	mode               = INITIAL_MODE;
+	roomsize           = INITIAL_ROOM / 100.0f;
+	damp               = INITIAL_DAMP / 100.0f;
+	channelsSeparation = INITIAL_CHANNELS_SEPARATION / 100.0f;
+	wet                = sdkDbToCoeff(INITIAL_WET);
+	dry                = sdkDbToCoeff(INITIAL_DRY);
+	reverbParamsUpdate();
 }
 
-
-void Reverb::onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
+void Reverb::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	
-    for(int v = 0; v < numOfAudiotInsOuts; ++v)
-    {
-        temp[v].createEvent(1);
-        temp2[v].createEvent(1);
-        processInput[v].createEvent(1);
-        processOutput[v].createEvent(1);
-    }
+	for (int num = 0; num < numOfAudioInsOuts; num++)
+	{
+		TParamInfo audioIn = audioInParamInfo;
+		audioIn.Caption    = sdkGetAudioQueryChannelNames("in ", num + 1, queryResult);
+		sdkCreateParam(audioIn, audioInputs[num]);
+	}
 
-    reverbInit ();
-    mode = initialMode;
-    roomsize = initialRoom / 100.0f;
-    damp = initialDamp / 100.0f;
-    channelsSeparation = initialChannelsSeparation / 100.0f;
-    wet = sdkDbToCoeff (initialWet);
-    dry = sdkDbToCoeff (initialDry);
-    reverbParamsUpdate ();
+	for (int num = 0; num < numOfAudioInsOuts; num++)
+	{
+		TParamInfo audioOut = audioOutParamInfo;
+		audioOut.Caption    = sdkGetAudioQueryChannelNames("out ", num + 1, queryResult);
+		sdkCreateParam(audioOut, audioOutputs[num]);
+	}
+
+	sdkCreateParam(modeSwInParamInfo, modeSwIn);
+	sdkCreateParam(roomSizeFdrInParamInfo, roomSizeFdrIn);
+	sdkCreateParam(dampingFdrInParamInfo, dampingFdrIn);
+	sdkCreateParam(channelsSeparationFdrInParamInfo, channelsSeparationFdrIn);
+	sdkCreateParam(wetLevelFdrInParamInfo, wetLevelFdrIn);
+	sdkCreateParam(dryLevelFdrInParamInfo, dryLevelFdrIn);
 }
 
-//-----------------------------------------------------------------------------
-// parameters and process
-void Reverb::onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo)
+void Reverb::onCallBack(TUsineMessage* Message)
 {
-    // audioInputs
-    if (ParamIndex < numOfAudiotInsOuts)
-    {
+	if ((Message->message != NOTIFY_MSG_USINE_CALLBACK) || (Message->lParam != MSG_CHANGE))
+		return;
 
-		pParamInfo->ParamType		= ptAudio;
-		pParamInfo->Caption			= sdkGetAudioQueryChannelNames ( "in ", ParamIndex + 1, queryResult);
-		pParamInfo->IsInput			= TRUE;
-		pParamInfo->IsOutput		= FALSE;
-		pParamInfo->ReadOnly		= FALSE;
-        pParamInfo->CallBackType    = ctNone;
-        pParamInfo->setEventClass   (audioInputs[ParamIndex]);
-    }
-    // audioOutputs
-    else if (ParamIndex >= numOfAudiotInsOuts && ParamIndex < (numOfAudiotInsOuts*2))
-    {
-		pParamInfo->ParamType		= ptAudio;
-		pParamInfo->Caption			= sdkGetAudioQueryChannelNames ( "out ", ParamIndex - numOfAudiotInsOuts + 1, queryResult);
-		pParamInfo->IsInput			= FALSE;
-		pParamInfo->IsOutput		= TRUE;
-		pParamInfo->ReadOnly		= TRUE;
-        pParamInfo->CallBackType    = ctNone;
-        pParamInfo->setEventClass   (audioOutputs[ParamIndex - numOfAudiotInsOuts]);
-	}
-    // swtchMode
-    else if (ParamIndex == (numOfAudiotInsOuts*2))
+	switch (Message->wParam)
 	{
-		pParamInfo->ParamType		= ptSwitch;
-		pParamInfo->Caption			= "freeze";
-		pParamInfo->IsInput			= TRUE;
-		pParamInfo->IsOutput		= FALSE;
-		pParamInfo->DefaultValue    = initialMode;
-        pParamInfo->CallBackType    = ctNormal;
-        pParamInfo->CallBackId      = SWITCH_CBID;
-        pParamInfo->setEventClass   (swtchMode);
+		case MODE_SW_CBID:
+			mode = modeSwIn.getData();
+			break;
+		case ROOM_SIZE_FDR_CBID:
+			roomsize = roomSizeFdrIn.getData() / 100.0f;
+			break;
+		case DAMPING_FDR_CBID:
+			damp = dampingFdrIn.getData() / 100.0f;
+			break;
+		case CHANNELS_SEPARATION_FDR_CBID:
+			channelsSeparation = channelsSeparationFdrIn.getData() / 100.0f;
+			break;
+		case WET_LEVEL_FDR_CBID:
+			wet = sdkDbToCoeff(wetLevelFdrIn.getData());
+			break;
+		case DRY_LEVEL_FDR_CBID:
+			dry = sdkDbToCoeff(dryLevelFdrIn.getData());
+			break;
+		default:
+			return;
 	}
-    // fdrRoomSize
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 1)
-	{
-        pParamInfo->ParamType       = ptDataFader;
-		pParamInfo->Caption         = "room size";
-		pParamInfo->IsInput         = TRUE;
-		pParamInfo->IsOutput        = FALSE;
-		pParamInfo->MinValue        = 0.1f;
-		pParamInfo->MaxValue        = 100.0f;
-		pParamInfo->DefaultValue    = initialRoom;
-		pParamInfo->Symbol          = "%";
-		pParamInfo->Format          = "%.2f";
-        pParamInfo->Scale           = scExp;
-        pParamInfo->CallBackType    = ctNormal;
-        pParamInfo->CallBackId      = ROOM_SIZE_CBID;
-        pParamInfo->setEventClass   (fdrRoomSize);
-	}
-    // fdrDamping
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 2)
-	{
-		pParamInfo->ParamType       = ptDataFader;
-		pParamInfo->Caption         = "damping";
-		pParamInfo->IsInput         = TRUE;
-		pParamInfo->IsOutput        = FALSE;
-		pParamInfo->MinValue        = 0.0f;
-		pParamInfo->MaxValue        = 100.0f;
-		pParamInfo->DefaultValue    = initialDamp;
-        pParamInfo->Symbol          = "%";
-		pParamInfo->Format          = "%.2f";
-        pParamInfo->CallBackType    = ctNormal;
-        pParamInfo->CallBackId      = DAMPING_CBID;
-        pParamInfo->setEventClass   (fdrDamping);
-	}
-    // fdrChannelsSeparation
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 3)
-	{
-		pParamInfo->ParamType       = ptDataFader;
-		pParamInfo->Caption         = "channels separation";
-		pParamInfo->IsInput         = TRUE;
-		pParamInfo->IsOutput        = FALSE;
-		pParamInfo->MinValue        = 0.0f;
-		pParamInfo->MaxValue        = 100.0f;
-		pParamInfo->DefaultValue    = initialChannelsSeparation;
-		pParamInfo->Symbol          = "%";
-		pParamInfo->Format          = "%.2f";
-        pParamInfo->CallBackType    = ctNormal;
-        pParamInfo->CallBackId      = CHANNEL_SEP_CBID;
-        pParamInfo->setEventClass   (fdrChannelsSeparation);
-	}
-    // gfdrWetLevel
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 4)
-	{
-		pParamInfo->ParamType       = ptGainFader;
-		pParamInfo->Caption         = "wet level";
-		pParamInfo->IsInput         = TRUE;
-		pParamInfo->IsOutput        = FALSE;
-		pParamInfo->DefaultValue    = initialWet;
-		pParamInfo->Format          = "%.2f";
-        pParamInfo->CallBackType    = ctNormal;
-        pParamInfo->CallBackId      = WET_LEVEL_CBID;
-        pParamInfo->setEventClass   (gfdrWetLevel);
-	}
-    // gfdrDryLevel
-    else if (ParamIndex == (numOfAudiotInsOuts*2) + 5)
-	{
-		pParamInfo->ParamType       = ptGainFader;
-		pParamInfo->Caption         = "dry level";
-		pParamInfo->IsInput         = TRUE;
-		pParamInfo->IsOutput        = FALSE;
-		pParamInfo->DefaultValue    = initialDry;
-        pParamInfo->CallBackType    = ctNormal;
-        pParamInfo->CallBackId      = DRY_LEVEL_CBID;
-        pParamInfo->setEventClass   (gfdrDryLevel);
-	}
+	reverbParamsUpdate();
 }
 
-
-void Reverb::onCallBack (TUsineMessage *Message) 
+void Reverb::onProcess()
 {
-    if (Message->lParam == MSG_CHANGE) {
-        switch (Message->wParam) {
-        case SWITCH_CBID:
-            mode = swtchMode.getData();
-            reverbParamsUpdate();
-            break;
-        case ROOM_SIZE_CBID:
-            roomsize = fdrRoomSize.getData() / 100.0f;
-            reverbParamsUpdate();
-            break;
-        case DAMPING_CBID:
-            damp = fdrDamping.getData() / 100.0f;
-            reverbParamsUpdate();
-            break;
-        case CHANNEL_SEP_CBID:
-            channelsSeparation = fdrChannelsSeparation.getData() / 100.0f;
-            reverbParamsUpdate();
-            break;
-        case WET_LEVEL_CBID:
-            wet = sdkDbToCoeff(gfdrWetLevel.getData());
-            reverbParamsUpdate();
-            break;
-        case DRY_LEVEL_CBID:
-            dry = sdkDbToCoeff(gfdrDryLevel.getData());
-            reverbParamsUpdate();
-            break;
-        default:
-            break;
-        }
-    }
-}
+	const int sampleFrames = sdkGetBlocSize();
+	for (int num = 0; num < numOfAudioInsOuts; num++)
+	{
+		if (audioInputs[num].getSize() != sampleFrames)
+			audioInputs[num].clearAudio();
+		if (audioOutputs[num].getSize() != sampleFrames)
+			audioOutputs[num].clearAudio();
+	}
 
-void Reverb::onProcess () 
-{ 	
-	 
-    int  sampleFrames = sdkGetBlocSize ();
-    for (int num = 0; num < numOfAudiotInsOuts; num++)
-	{        
-        if (audioInputs[num].getSize() != sampleFrames)
-            audioInputs[num].clearAudio();
-        
-        if (audioOutputs[num].getSize() != sampleFrames)
-	        audioOutputs[num].clearAudio();
-    }
+	currentwet1 = currentwet1 * smooth + (1.0f - smooth) * wet1;
+	currentwet2 = currentwet2 * smooth + (1.0f - smooth) * wet2;
+	currentdry  = currentdry * smooth + (1.0f - smooth) * dry;
 
+	const float coeffwet1 = currentwet1 * gain;
+	const float coeffwet2 = (numOfAudioInsOuts > 2) ? currentwet2 * gain / static_cast<float>(numOfAudioInsOuts - 1)
+	                                                : currentwet2 * gain;
 
-    currentwet1 = currentwet1 * smooth + (1.0f - smooth) * wet1;
-    currentwet2 = currentwet2 * smooth + (1.0f - smooth) * wet2;
-    currentdry = currentdry * smooth +  (1.0f - smooth) * dry;
+	// reverb input of each channel, and dry part of the outputs
+	for (int v = 0; v < numOfAudioInsOuts; ++v)
+	{
+		processInput[v].copyfrom(audioInputs[v]);
+		processInput[v].mult(coeffwet1);
+		processOutput[v].clearAudio();
 
-    coeffwet1 = currentwet1 * gain;
+		if (currentdry != 0)
+		{
+			audioOutputs[v].copyfrom(audioInputs[v]);
+			audioOutputs[v].mult(currentdry);
+		}
+		else
+		{
+			audioOutputs[v].clearAudio();
+		}
+	}
 
-    if (numOfAudiotInsOuts > 2)
-        coeffwet2 = currentwet2 * gain / (float)(numOfAudiotInsOuts - 1);
-    else
-        coeffwet2 = currentwet2 * gain;
+	// each channel also feeds the reverb of the other channels
+	if (coeffwet2 != 0)
+	{
+		for (int v = 0; v < numOfAudioInsOuts; ++v)
+		{
+			temp[v].copyfrom(audioInputs[v]);
+			temp[v].mult(coeffwet2);
+		}
+		for (int v = 0; v < numOfAudioInsOuts; ++v)
+		{
+			for (int n = 0; n < numOfAudioInsOuts; ++n)
+			{
+				if (v != n)
+					processInput[v].add(temp[n]);
+			}
+		}
+	}
 
-    for(int v = 0; v < numOfAudiotInsOuts; ++v)
-    {
-        processInput[v].copyfrom(audioInputs[v]);
-        processInput[v].mult(coeffwet1);
-        processOutput[v].clearAudio();
+	for (int v = 0; v < numOfAudioInsOuts; ++v)
+	{
+		const TPrecision* in  = processInput[v].getDataAddr();
+		TPrecision*       out = processOutput[v].getDataAddr();
+		if (in == nullptr || out == nullptr)
+			continue;
 
-        // dry part
-        if (currentdry != 0)
-        {
-            audioOutputs[v].copyfrom(audioInputs[v]);
-            audioOutputs[v].mult(currentdry);
-        }
-        else
-        {
-            audioOutputs[v].clearAudio();
-        }
-    }
+		const std::span<comb>    combs     = std::span(combvoices).subspan(v * numcombs, numcombs);
+		const std::span<allpass> allpasses = std::span(allpassvoices).subspan(v * numallpasses, numallpasses);
+		for (int s = 0; s < sampleFrames; ++s)
+		{
+			// combs in parallel, then allpasses in series
+			for (comb& filter : combs)
+				out[s] += filter.process(in[s]);
+			for (allpass& filter : allpasses)
+				out[s] = filter.process(out[s]);
+		}
+	}
 
-    if (coeffwet2 !=0)
-    {
-        for(int v = 0; v < numOfAudiotInsOuts; ++v)
-        {
-            temp[v].copyfrom(audioInputs[v]);
-            temp[v].mult(coeffwet2);       
-        }
-        for(int v = 0; v < numOfAudiotInsOuts; ++v)
-        {
-            for(int n=0; n < numOfAudiotInsOuts; ++n)
-            {
-                if(v != n)
-                    processInput[v].add(temp[n]);
-            }
-        }
-    }
-    
+	for (int v = 0; v < numOfAudioInsOuts; ++v)
+	{
+		processOutput[v].mult(currentwet1);
+		audioOutputs[v].add(processOutput[v]);
+	}
 
-    for(int v = 0; v < numOfAudiotInsOuts; ++v)
-    {
-        int vc = v * numcombs;   
-        int va = v * numallpasses; 
-        TPrecision* processInputPtr = processInput[v].getDataAddr();
-        TPrecision* processOutputPtr = processOutput[v].getDataAddr();
-        if ((processOutputPtr != NULL) && (processInputPtr != NULL))
-        {
-            for (int s = 0; s < sampleFrames; ++s)
-            {
-                // Accumulate comb filters in parallel
-                for(int c = 0; c < numcombs; ++c)
-                {
-                    // sdkSetEvtArrayData (processOutput[v], s, *(processOutputPtr + s) + combvoices[vc + c].process(*(processInputPtr + s)));
-                    *(processOutputPtr + s) = *(processOutputPtr + s) + combvoices[vc + c].process(*(processInputPtr + s));
-                }
-                
-                // Feed through allpasses in series
-                for(int a = 0; a < numallpasses; ++a)
-                {
-                    // sdkSetEvtArrayData (processOutput[v], s, allpassvoices[va + a].process(*(processOutputPtr + s)));
-                    *(processOutputPtr + s) = allpassvoices[va + a].process(*(processOutputPtr + s));
-                }
-            }
-        }
-    }
-    
-    
-    for(int v = 0; v < numOfAudiotInsOuts; ++v)
-    {
-        processOutput[v].mult(currentwet1);
-        audioOutputs[v].add(processOutput[v]);
-    }
-    
-    
-    if (currentwet2 !=0)
-    {
-
-        for(int v = 0; v < numOfAudiotInsOuts; ++v)
-        {
-            temp[v].copyfrom(audioOutputs[v]);
-            temp[v].mult(currentwet2);
-        }
-
-        for(int v = 0; v < numOfAudiotInsOuts; ++v)
-        {
-            for(int n=0;n<numOfAudiotInsOuts; n++)
-            {
-                if(v != n)
-                    audioOutputs[v].add(temp[n]);
-            }
-        }
-    }
+	if (currentwet2 != 0)
+	{
+		for (int v = 0; v < numOfAudioInsOuts; ++v)
+		{
+			temp[v].copyfrom(audioOutputs[v]);
+			temp[v].mult(currentwet2);
+		}
+		for (int v = 0; v < numOfAudioInsOuts; ++v)
+		{
+			for (int n = 0; n < numOfAudioInsOuts; n++)
+			{
+				if (v != n)
+					audioOutputs[v].add(temp[n]);
+			}
+		}
+	}
 }
 
 void Reverb::reverbInit()
 {
-    currentwet1 = 0.0f;
-    currentwet2 = 0.0f;
-    currentdry = 0.0f;
+	currentwet1 = 0.0f;
+	currentwet2 = 0.0f;
+	currentdry  = 0.0f;
 
-    // setting size from number off voices
-    combvoices.resize(numcombs * numOfAudiotInsOuts);
-    allpassvoices.resize(numallpasses * numOfAudiotInsOuts);
+	const int numCombVoices    = numcombs * numOfAudioInsOuts;
+	const int numAllpassVoices = numallpasses * numOfAudioInsOuts;
+	combvoices.assign(numCombVoices, comb());
+	allpassvoices.assign(numAllpassVoices, allpass());
+	bufcombvoices.assign(numCombVoices, {});
+	bufallpassvoices.assign(numAllpassVoices, {});
 
-    combtuningvoices.resize(numcombs * numOfAudiotInsOuts);
-    allpasstuningvoices.resize(numallpasses * numOfAudiotInsOuts);
+	for (int v = 0; v < numOfAudioInsOuts; ++v)
+	{
+		// each channel gets slightly longer buffers to decorrelate the channels
+		const int spread = static_cast<int>((static_cast<float>(stereospread) / static_cast<float>(numOfAudioInsOuts)) * v);
 
+		for (int c = 0; c < numcombs; ++c)
+		{
+			const int index = v * numcombs + c;
+			bufcombvoices[index].assign(combtuning[c] + spread, 0.0f);
+			combvoices[index].setbuffer(bufcombvoices[index]);
+			combvoices[index].mute();
+		}
 
-    // populate all list
-    for (int v = 0; v < numOfAudiotInsOuts; ++v)
-    {
-        for (int c = 0; c < numcombs; ++c)
-        {
-            int wichcomb = v * numcombs + c;
-            combtuningvoices[wichcomb] = combtuning[c] + (int)(((float)stereospread / (float)numOfAudiotInsOuts) * v);
-            bufcombvoices[c].resize(numOfAudiotInsOuts);
-            bufcombvoices[c][v].resize(combtuningvoices[wichcomb]);
-            combvoices[wichcomb].setbuffer(&bufcombvoices[c][v][0],combtuningvoices[wichcomb]);
-            combvoices[wichcomb].mute ();
-        }
-        
-        for (int a = 0; a < numallpasses; ++a)
-        {
-            int wichallpass = v * numallpasses + a;
-            allpasstuningvoices[wichallpass] = allpasstuning[a] + (int)(((float)stereospread / (float)numOfAudiotInsOuts) * v);
-            bufallpassvoices[a].resize(numOfAudiotInsOuts);
-            bufallpassvoices[a][v].resize(allpasstuningvoices[wichallpass]);
-            allpassvoices[wichallpass].setbuffer(&bufallpassvoices[a][v][0],allpasstuningvoices[wichallpass]);
-            allpassvoices[wichallpass].setfeedback(0.5);
-            allpassvoices[wichallpass].mute ();
-
-        }
-    }
+		for (int a = 0; a < numallpasses; ++a)
+		{
+			const int index = v * numallpasses + a;
+			bufallpassvoices[index].assign(allpasstuning[a] + spread, 0.0f);
+			allpassvoices[index].setbuffer(bufallpassvoices[index]);
+			allpassvoices[index].setfeedback(0.5f);
+			allpassvoices[index].mute();
+		}
+	}
 }
 
 void Reverb::reverbParamsUpdate()
 {
-// Recalculate internal values after parameter change
-
-	wet1 = wet*(channelsSeparation/2 + 0.5f);
-	wet2 = wet*((1-channelsSeparation)/2);
+	wet1 = wet * (channelsSeparation / 2.0f + 0.5f);
+	wet2 = wet * ((1.0f - channelsSeparation) / 2.0f);
 
 	if (mode >= freezemode)
 	{
-		roomsize1 = 1;
-		damp1 = 0;
-		gain = muted;
+		roomsize1 = 1.0f;
+		damp1     = 0.0f;
+		gain      = muted;
 	}
 	else
 	{
 		roomsize1 = roomsize;
-		damp1 = damp;
-		gain = fixedgain;
+		damp1     = damp;
+		gain      = fixedgain;
 	}
 
-    for (int v = 0; v < numOfAudiotInsOuts; ++v)
-    {
-        for (int c = 0; c < numcombs; ++c)
-        {
-            int wichcomb = v * numcombs + c;
-            combvoices[wichcomb].setfeedback(roomsize1);
-            combvoices[wichcomb].setdamp(damp1);
-        }
-    }
+	for (comb& voice : combvoices)
+	{
+		voice.setfeedback(roomsize1);
+		voice.setdamp(damp1);
+	}
 }

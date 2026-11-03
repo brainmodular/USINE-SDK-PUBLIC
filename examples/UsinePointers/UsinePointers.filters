@@ -28,6 +28,7 @@
       <Filter>sdk</Filter>
     </ClInclude>
     <ClInclude Include="UsinePointers.h" />
+    <ClInclude Include="ModuleDefinition.h" />
     <ClInclude Include="..\..\sdk\UsineEventClass.h">
       <Filter>sdk</Filter>
     </ClInclude>

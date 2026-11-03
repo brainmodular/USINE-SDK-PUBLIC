@@ -1,173 +1,65 @@
 //-----------------------------------------------------------------------------
-//@file  
-//	SimplePad.h
+// @file    SimplePad.h
+// @author  BrainModular team
+// @brief   Pads moved with the mouse, shows chunks, automation recording and quick color.
 //
-//@author
-//	BrainModular team
-//
-//@brief 
-//	Definitions of the SimplePad class.
-//
-//  Example user module of a graphical interface with multi touch interactions.
-//
-//@historic 
-//	2015/02/23
-//    first release for Hollyhock CPP SDK 6.04.001
-//
-//@IMPORTANT
-//	This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs :
-//  support@brainmodular.com 
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE.
-//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2015-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
+#pragma once
 
-// include once, no more
-#ifndef __EXAMPLE_SIMPLE_PAD_H__
-#define __EXAMPLE_SIMPLE_PAD_H__
-
-//-----------------------------------------------------------------------------
-// includes
-//-----------------------------------------------------------------------------
+#include <array>
 #include "../../sdk/UserDefinitions.h"
 
-//-----------------------------------------------------------------------------
-// defines and constantes
-//-----------------------------------------------------------------------------
-// Panel Height
-constexpr UINT32 DEFAULT_MODULEHEIGHT = 134;
-constexpr UINT32 PAD_OBJ_MAX = 4;
-constexpr UINT32 PAD_INS_PER_OBJ = 2;
+constexpr int DEFAULT_MODULE_SIZE = 134;
+constexpr int PAD_OBJ_MAX         = 4;
 
-//-----------------------------------------------------------------------------
-// class definition
-//-----------------------------------------------------------------------------
 class SimplePad : public UserModuleBase
 {
-	//-------------------------------------------------------------------------
-	// public constructors/destructors
-	//-------------------------------------------------------------------------
 public:
+	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCallBack(TUsineMessage* Message) override;
 
-    // constructor
-	SimplePad();
+	int  onGetStateChunkLen(LongBool Preset) override;
+	void onGetStateChunk(void* chunk, LongBool Preset) override;
+	void onSetStateChunk(const void* chunk, int sizeInBytes, LongBool Preset) override;
 
-    // destructor
-	~SimplePad() {};
+	void onCreateSettings() override;
+	void onSettingsHasChanged() override;
+	void onCreateCommands() override;
+	void onPaint() override;
 
-	//-------------------------------------------------------------------------
-	// public methods inherited from UserModule
-	//-------------------------------------------------------------------------
-public:
-	//-----------------------------------------------------------------------------
-	// module info
-	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+	void onMouseMove(TShiftState Shift, float X, float Y) override;
+	void onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X, float Y) override;
+	void onMouseUp(TMouseButton MouseButton, TShiftState Shift, float X, float Y) override;
 
-	//-----------------------------------------------------------------------------
-	// query system and init
-	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+	void onRandomize() override;
+	void onSetRecordedValue(TPrecision X, TPrecision Y, TPrecision Z) override;
+	void onSetQuickColor(TUsineColor color) override;
 
-	//-----------------------------------------------------------------------------
-	// parameters and process
-	void onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo);
-	void onCallBack(TUsineMessage *Message);
-
-	//-----------------------------------------------------------------------------
-	// chunk system
-	int  onGetStateChunkLen(LongBool Preset);
-	void onGetStateChunk(void* chunk, LongBool Preset);
-	void onSetStateChunk(const void* chunk, int sizeInBytes, LongBool Preset);
-
-	//-----------------------------------------------------------------------------
-	// layout
-	void onCreateSettings();
-	void onSettingsHasChanged();
-    void onCreateCommands();
-	void onPaint();
-
-	//-----------------------------------------------------------------------------
-	// mouse and multi touch interaction
-	void onMouseMove(TShiftState Shift, float X, float Y);
-	void onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X,float Y);
-	void onMouseUp(TMouseButton MouseButton, TShiftState Shift, float X,float Y);
-	
-	//void onMouseMoveMulti(TShiftState Shift, UsineEventPtr X, UsineEventPtr Y);
-	//void onMouseDownMulti(TMouseButton MouseButton, TShiftState Shift, UsineEventPtr X, UsineEventPtr Y);
-	//void onMouseUpMulti(TMouseButton MouseButton, TShiftState Shift, UsineEventPtr X, UsineEventPtr Y);
-
-    //-----------------------------------------------------------------------------
-    // usine preset randomize
-    virtual void onRandomize();
-
-	//-----------------------------------------------------------------------------
-	// recording 
-	 void onSetRecordedValue(TPrecision X, TPrecision Y, TPrecision Z);
-
-	//-----------------------------------------------------------------------------
-	// recording 
-	void onSetQuickColor(TUsineColor color);
-
-
-	//-------------------------------------------------------------------------
-	// private members
-	//-------------------------------------------------------------------------
 private:
-	
-	//-------------------------------------------------------------------------
-	// parameters events
-    UsineEventClass arrPosX;  
-    UsineEventClass arrPosY;  
-	
-	UsineEventClass btnRandomize; 
+	UsineEventClass randomizeBtnIn;
+	UsineEventClass posXArrOut;
+	UsineEventClass posYArrOut;
 
-	//-------------------------------------------------------------------------
-	// used to store pad pos in the chunk	
-	TPointF posTab[PAD_OBJ_MAX];
-    
-	// store the mouse left button state
-	LongBool	mouseLeftButtonDown;			
-    int selectedPad;
-    float selectedPadOffsetX;
-    float selectedPadOffsetY;
+	// saved in the patch with the chunk system
+	std::array<TPointF, PAD_OBJ_MAX> posTab {};
+	static constexpr int             CHUNK_SIZE = static_cast<int>(sizeof(TPointF) * PAD_OBJ_MAX);
 
-	// settings
-	TUsineColor colorPad;
-    int sizePad;
-    
-	//-------------------------------------------------------------------------
-	// private methods
-	//-------------------------------------------------------------------------
-private:
-    void resetPads();
+	bool  mouseLeftButtonDown = false;
+	int   selectedPad         = -1;
+	float selectedPadOffsetX  = 0.0f;
+	float selectedPadOffsetY  = 0.0f;
 
-    void updatePad(int padIndex, float x, float y);
+	// settings of the 'edit layout' panel
+	TUsineColor colorPad = 0;
+	int         sizePad  = 20;
 
-    // return -1 if no hit, otherwise, the pad index (0 to PAD_OBJ_MAX - 1)
-    int padHitTest(float x, float y);
-
-}; // class SimplePad
-
-#endif // __EXAMPLE_SIMPLE_PAD_H__
+	void resetPads();
+	void updatePad(int padIndex, float x, float y);
+	// returns the index of the pad under (x, y), or -1
+	[[nodiscard]] int padHitTest(float x, float y);
+};

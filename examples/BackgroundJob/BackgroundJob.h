@@ -1,81 +1,34 @@
-// include once, no more
-#ifndef __BACKGROUND_JOB_H__
-#define __BACKGROUND_JOB_H__
+//-----------------------------------------------------------------------------
+// @file    BackgroundJob.h
+// @author  BrainModular team
+// @brief   Runs a long computation in a background thread with the job API.
+//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
+//-----------------------------------------------------------------------------
+#pragma once
 
-//-----------------------------------------------------------------------------
-// includes
-//-----------------------------------------------------------------------------
-#include "../../sdk/UserDefinitions.h"  
+#include "../../sdk/UserDefinitions.h"
 
-//-----------------------------------------------------------------------------
-// defines and constantes
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// class definition
-//-----------------------------------------------------------------------------
 class BackgroundJob : public UserModuleBase
 {
-	//-------------------------------------------------------------------------
-	// public constructors/destructors
-	//-------------------------------------------------------------------------
 public:
+	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCallBack(TUsineMessage* Message) override;
 
-	// constructor
-	BackgroundJob() {};
+	void onJobBegin() override;
+	void onJobProcess() override;
+	void onJobEnd() override;
 
-	// destructor
-	~BackgroundJob() {};
-
-	//-------------------------------------------------------------------------
-	// public methods inherited from UserModule
-	//-------------------------------------------------------------------------
-public:
-	//-----------------------------------------------------------------------------
-	// module info
-	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
-
-	//-----------------------------------------------------------------------------
-	// query system and init
-	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
-
-	//-----------------------------------------------------------------------------
-	//-----------------------------------------------------------------------------
-	// parameters and process
-	void onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo);
-	void onCallBack(TUsineMessage* Message);
-
-	//---------------------------------------------------------------------------
-	//-------------------------------------------------------------------------
-	// private members
-	//-------------------------------------------------------------------------
 private:
+	UsineEventClass oneFdrIn;
+	UsineEventClass twoFdrIn;
+	UsineEventClass startBtnIn;
+	UsineEventClass outFdrOut;
 
-	//-------------------------------------------------------------------------
-	// parameters events
-	UsineEventClass dataOne;
-	UsineEventClass dataTwo;
-	UsineEventClass dataOut;
-	UsineEventClass start;
-	UsineEventClass processing;
-
-	static constexpr int numOfParams = 5;
-
-	TPrecision valueOne = .0f;
-	TPrecision valueTwo = .0f;
-	TPrecision retValue = .0f;
-
-	//-------------------------------------------------------------------------
-	// private methods
-	//-------------------------------------------------------------------------
-private:
-	
-	void onJobBegin();
-	void onJobProcess();
-	void onJobEnd();
-
-
-
-}; // class BackgroundJob
-
-#endif // __BACKGROUND_JOB_H__
+	TPrecision valueOne = 0.0f;
+	TPrecision valueTwo = 0.0f;
+	TPrecision retValue = 0.0f;
+};

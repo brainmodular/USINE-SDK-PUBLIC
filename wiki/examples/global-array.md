@@ -1,76 +1,85 @@
 # GlobalArray
 #example #array #data #advanced
 
-**Shared global array manipulation across modules.**
+**Writes and reads Usine global arrays.**
 
 | | |
 |---|---|
 | **Module Name** | `global array` |
 | **Type** | `mtSimple` |
 | **Color** | `clArrayModuleColor` |
+| **Version** | 1.0 |
 | **Source** | `examples/GlobalArray/` |
 
 ## Description
 
-Demonstrates the Global Array API for sharing data across modules in a workspace. Shows how to create, read, and write global arrays of different types: float, color, string, and event.
+Demonstrates the Global Array API, which shares data between all the modules of a workspace. The module writes random values in four global arrays of different types and reads them back. Create the global arrays `GA-FLOAT`, `GA-COLOR`, `GA-STRING` and `GA-EVENT` in Usine to see it work.
 
 ## Parameters
 
-| # | Name | Type | I/O | Callback |
-|---|------|------|-----|----------|
-| 0 | `array set` | `ptArray` | Input | None |
-| 1 | `array get` | `ptArray` | Output | None |
+| # | Name | Member | Type | I/O | Callback |
+|---|------|--------|------|-----|----------|
+| 0 | `array set` | `setArrIn` | `ptArray` | Input | None |
+| 1 | `array get` | `getArrOut` | `ptArray` | Output | None |
 
 ## How It Works
 
-In `onProcess`, on each `sdkRefreshSpeedClock` tick:
+In `onProcess`, on each `sdkRefreshSpeedClock()` tick, for each global array found (a hash of 0 means it doesn't exist):
 
-1. **Float array** (`GA-FLOAT`): Sets 16 random floats, reads back index 0
-2. **Color array** (`GA-COLOR`): Sets 16 random colors, reads back index 0
-3. **String array** (`GA-STRING`): Sets 16 random strings, reads back index 0
-4. **Event array** (`GA-EVENT`): Sets entire event with 16 random values, gets entire event back
+1. **`GA-FLOAT`**: writes `GA_SIZE` random floats, reads back index 0
+2. **`GA-COLOR`**: writes `GA_SIZE` random colors, reads back index 0
+3. **`GA-STRING`**: writes `GA_SIZE` random strings, reads back index 0
+4. **`GA-EVENT`**: writes `array set` filled with random values, reads it back into `array get`
 
-On `sdkSlowClock`, traces all global array names via `sdkGlobalArrayGetAllNames()`.
+On `sdkSlowClock()`, raises the names of all the global arrays.
 
 ## API Pattern
 
 ```cpp
-// Get or create a named global array
-UINT64 hash = sdkGlobalArrayGetHash("my-array-name");
+// a hash of 0 means the global array does not exist
+UINT64 hash = sdkGlobalArrayGetHash("GA-FLOAT");
 
-// Write values
-sdkGlobalArraySetValueFloat(hash, index, value);
-sdkGlobalArraySetValueColor(hash, index, color);
-sdkGlobalArraySetValueAnsiChar(hash, index, "text");
-sdkGlobalArraySetValueEvt(hash, eventPtr);
+// the last argument is the name used in the error messages of Usine
+sdkGlobalArraySetValueFloat(hash, index, value, "GA-FLOAT");
+sdkGlobalArraySetValueColor(hash, index, color, "GA-COLOR");
+sdkGlobalArraySetValueAnsiChar(hash, index, "text", "GA-STRING");
+sdkGlobalArraySetValueEvt(hash, setArrIn, "GA-EVENT");
 
-// Read values
-float val = sdkGlobalArrayGetValueFloat(hash, index);
-TUsineColor col = sdkGlobalArrayGetValueColor(hash, index);
-AnsiCharPtr str = sdkGlobalArrayGetValueAnsiChar(hash, index);
-sdkGlobalArrayGetValueEvt(hash, eventPtr);
+TPrecision  val = sdkGlobalArrayGetValueFloat(hash, index, "GA-FLOAT");
+TUsineColor col = sdkGlobalArrayGetValueColor(hash, index, "GA-COLOR");
+AnsiCharPtr str = sdkGlobalArrayGetValueAnsiChar(hash, index, "GA-STRING");
+sdkGlobalArrayGetValueEvt(hash, "GA-EVENT", getArrOut);
 
-// Query
-int size = sdkGlobalArrayGetSize(hash);
 AnsiCharPtr names = sdkGlobalArrayGetAllNames();
 ```
 
+## Messages
+
+| Message | Level | Raised when |
+|---------|-------|-------------|
+| `INFO_GA_NAMES` | Info | On each slow clock, with the names of the global arrays |
+| `INFO_GA_FLOAT`, `INFO_GA_COLOR`, `INFO_GA_STRING` | Info | On each refresh tick, with the value read at index 0 |
+
+Set the verbosity level to `Warn` to hide them, see [[examples/error-handling|ErrorHandling]].
+
 ## Key Concepts Demonstrated
 
-- **`sdkGlobalArrayGetHash`** — hash-based global array identification
-- **Multiple data types** — float, color, string, event
-- **Cross-module data sharing** — any module can read/write the same named array
-- **`sdkSlowClock`** / **`sdkRefreshSpeedClock`** — different update rates
+- **`sdkGlobalArrayGetHash`**: hash-based identification of a global array
+- **Several data types**: float, color, string, event
+- **Data shared between modules**: any module can read and write the same named array
+- **`sdkSlowClock`** / **`sdkRefreshSpeedClock`**: two update rates in `onProcess`
+- **`sdkRaiseError` with an extra text** to trace values
 
 ## SDK Callbacks Used
 
-`onGetModuleInfo` · `onInitModule` · `onGetParamInfo` · `onProcess`
+`onGetModuleInfo` · `onCreateParameters` · `onProcess`
 
 ## Related Examples
 
-- [[examples/usine-objects|UsineObjects]] — Remote object access (another sharing mechanism)
-- [[examples/usine-chunks|UsineChunks]] — Chunk-based shared data
+- [[examples/usine-objects|UsineObjects]] — Object access by path, another sharing mechanism
+- [[examples/usine-chunks|UsineChunks]] — Data shared through chunks
 
 ### SDK Reference
 
 - [[sdk/user-module-base|UserModuleBase Class]]
+- [[sdk/sdk-functions|SDK Functions]] — Global array functions

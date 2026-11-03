@@ -1,184 +1,89 @@
 //-----------------------------------------------------------------------------
-//@file  
-//	TemplateModule.cpp
+// @file    TemplateModule.cpp
+// @author  BrainModular team
+// @brief   Complete template to start from: overrides every callback of UserModuleBase.
+//          Remove the callbacks you don't need.
 //
-//@author
-//	BrainModular team
-//
-//@brief 
-//	Implementation of the TemplateModule class.
-//
-//  A template include to start from for new user module.
-//
-//@historic 
-//	2013/05/15
-//    first release for Hollyhock CPP SDK 6.00.226 
-//
-//@IMPORTANT
-//	This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs and patch to Usine forum :
-//  support@brainmodular.com 
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015, 2019 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE.
-//
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// includes
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
 #include "TemplateModule.h"
+#include "ModuleDefinition.h"
 
-//----------------------------------------------------------------------------
-// create, general info and destroy methods
-//----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// Create
 void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new TemplateModule();
 }
 
-// destroy
-void DestroyModule(void* pModule) 
+void DestroyModule(void* pModule)
 {
 	// cast is important to call the good destructor
-	delete ((TemplateModule*)pModule);
+	delete static_cast<TemplateModule*>(pModule);
 }
 
-//-------------------------------------------------------------------------
-// module constructors/destructors
-//-------------------------------------------------------------------------
-
-// constructor
-TemplateModule::TemplateModule()
-{
-	//
-}
-
-// destructor
-TemplateModule::~TemplateModule()
-{
-	// 
-}
-
-// module constants for browser info and module info
-constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "template";
-constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "Template Description";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
-
-// browser info
-void GetBrowserInfo(TModuleInfo* pModuleInfo)
-{
-	pModuleInfo->Name = UserModuleBase::MODULE_NAME;
-	pModuleInfo->Description = UserModuleBase::MODULE_DESC;
-	pModuleInfo->Version = UserModuleBase::MODULE_VERSION;
-}
-
-
-//void TemplateModule::onCreate(AinsiCharPtr optionalString);
-//void TemplateModule::onDestroy(); 
 void TemplateModule::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	pModuleInfo->Name				= MODULE_NAME;
-	pModuleInfo->Description		= MODULE_DESC;
-	pModuleInfo->ModuleType         = mtSimple;
-	pModuleInfo->DontProcess		= true;
-	pModuleInfo->BackColor          = sdkGetUsineColor(clDataModuleColor);
-	pModuleInfo->NumberOfParams     = 1;
-	pModuleInfo->Version			= MODULE_VERSION;
-	pModuleInfo->DontProcess		= false;
+	pModuleInfo->ModuleType     = mtSimple;
+	pModuleInfo->BackColor      = sdkGetUsineColor(clDataModuleColor);
+	pModuleInfo->DontProcess    = FALSE;
 }
 
-//-----------------------------------------------------------------------------
-// query system and init
-int  TemplateModule::onGetNumberOfParams(int QIdx) { return 1; }
-void TemplateModule::onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int QIdx) {}
+void TemplateModule::onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2) {}
+
+void TemplateModule::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+{
+	sdkCreateParam(exampleTxtInParamInfo, exampleTxtIn);
+}
+
 void TemplateModule::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) {}
 
-//-----------------------------------------------------------------------------
-// parameters and process
-void TemplateModule::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo)
-{	
-	switch (ParamIndex) 
-    {
-        // Add all parameters declared in the module class, example :
+void TemplateModule::onCallBack(TUsineMessage* Message)
+{
+	if ((Message->message != NOTIFY_MSG_USINE_CALLBACK) || (Message->lParam != MSG_CHANGE))
+		return;
 
-        // m_txtfExample
-        case 0:
-	        pParamInfo->ParamType		= ptText;
-	        pParamInfo->Caption			= "text";
-            pParamInfo->TextValue       = "hello world";
-	        pParamInfo->IsInput			= TRUE;
-	        pParamInfo->IsOutput		= TRUE;
-			pParamInfo->CallBackType	= ctNone;
-			pParamInfo->setEventClass   (m_txtfExample);
-	        break;
-
-	        // default case
-        default:
-	        break;
-	}
+	// Message->wParam holds the callback id of the parameter that changed
 }
 
-void TemplateModule::onCallBack(TUsineMessage *Message) {}
 void TemplateModule::onProcess() {}
+void TemplateModule::onProcessVideo() {}
 
-//-----------------------------------------------------------------------------
-// midi out callbacks
-void TemplateModule::onMidiSendOut(int DeviceID, TUsineMidiCode Code) {}
-void TemplateModule::onMidiSysexSendOut(int DeviceID, char* Sysex) {}
+void TemplateModule::onJobBegin() {}
+void TemplateModule::onJobProcess() {}
+void TemplateModule::onJobEnd() {}
 
-//-----------------------------------------------------------------------------
-// chunk system
-int  TemplateModule::onGetStateChunkLen(LongBool Preset) {return 0;}
+int  TemplateModule::onGetStateChunkLen(LongBool Preset) { return 0; }
 void TemplateModule::onGetStateChunk(void* chunk, LongBool Preset) {}
 void TemplateModule::onSetStateChunk(const void* chunk, int sizeInBytes, LongBool Preset) {}
+void TemplateModule::onAfterLoading() {}
 
-//-----------------------------------------------------------------------------
-// layout
 void TemplateModule::onCreateSettings() {}
 void TemplateModule::onSettingsHasChanged() {}
+void TemplateModule::onCreateCommands() {}
+void TemplateModule::onResize(float contentWidth, float contentHeight) {}
 void TemplateModule::onPaint() {}
 
-//-----------------------------------------------------------------------------
-// mouse and multi touch interaction
 void TemplateModule::onMouseMove(TShiftState Shift, float X, float Y) {}
-void TemplateModule::onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X,float Y) {}
-void TemplateModule::onMouseUp(TMouseButton MouseButton, TShiftState Shift, float X,float Y) {}
-void TemplateModule::onMouseMoveMulti(TShiftState Shift, UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed) {}
-void TemplateModule::onMouseDownMulti(TMouseButton MouseButton, TShiftState Shift, UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed) {}
-void TemplateModule::onMouseUpMulti(TMouseButton MouseButton, TShiftState Shift,UsineEventClass* X, UsineEventClass* Y, UsineEventClass* Pressed) {}
+void TemplateModule::onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X, float Y) {}
+void TemplateModule::onMouseUp(TMouseButton MouseButton, TShiftState Shift, float X, float Y) {}
+void TemplateModule::onMouseWheel(TShiftState Shift, int WheelDelta) {}
+void TemplateModule::onMouseMoveMulti(TShiftState Shift, UsineEventClass& X, UsineEventClass& Y, UsineEventClass& Pressed) {}
+void TemplateModule::onMouseDownMulti(TMouseButton MouseButton, TShiftState Shift, UsineEventClass& X, UsineEventClass& Y, UsineEventClass& Pressed) {}
+void TemplateModule::onMouseUpMulti(TMouseButton MouseButton, TShiftState Shift, UsineEventClass& X, UsineEventClass& Y, UsineEventClass& Pressed) {}
+
 void TemplateModule::onOpenEditor() {}
 void TemplateModule::onBringToFront() {}
+void TemplateModule::onCloseEditor() {}
+void TemplateModule::onResizeEditor(int width, int height) {}
 
-//-----------------------------------------------------------------------------
-// audio setup update
 void TemplateModule::onBlocSizeChange(int BlocSize) {}
 void TemplateModule::onSampleRateChange(double SampleRate) {}
 
-//-----------------------------------------------------------------------------
-// recording 
 void TemplateModule::onSetRecordedValue(TPrecision X, TPrecision Y, TPrecision Z) {}
+void TemplateModule::onRandomize() {}
+void TemplateModule::onReset() {}
+void TemplateModule::onSetQuickColor(TUsineColor color) {}
+
+void TemplateModule::onMidiSendOut(int DeviceID, TUsineMidiCode Code) {}
+void TemplateModule::onMidiSysexSendOut(int DeviceID, char** Sysex, int sysexSize) {}

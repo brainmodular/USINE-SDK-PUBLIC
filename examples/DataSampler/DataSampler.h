@@ -1,109 +1,58 @@
-// include once, no more
-#ifndef __EXAMPLE_DATA_SAMPLER_H__
-#define __EXAMPLE_DATA_SAMPLER_H__
+//-----------------------------------------------------------------------------
+// @file    DataSampler.h
+// @author  BrainModular team
+// @brief   Records a data input and plays it back in a loop, with a double buffer.
+//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
+//-----------------------------------------------------------------------------
+#pragma once
 
-//-----------------------------------------------------------------------------
-// includes
-//-----------------------------------------------------------------------------
-#include "../../sdk/UserDefinitions.h"  
-#include <iostream>
-#include <cmath>
 #include <vector>
-#include <memory>
+#include "../../sdk/UserDefinitions.h"
 
-//-----------------------------------------------------------------------------
-// defines and constantes
-//-----------------------------------------------------------------------------
+constexpr int DEFAULT_MODULE_SIZE = 134;
 
-// Panel Height
-const int DEFAULT_MODULEHEIGHT = 134;
-
-//-----------------------------------------------------------------------------
-// class definition
-//-----------------------------------------------------------------------------
 class DataSampler : public UserModuleBase
 {
-	//-------------------------------------------------------------------------
-	// public constructors/destructors
-	//-------------------------------------------------------------------------
 public:
+	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCallBack(TUsineMessage* Message) override;
+	void onProcess() override;
 
-	// constructor
-	DataSampler() {};
+	void onCreateSettings() override;
+	void onSettingsHasChanged() override;
+	void onPaint() override;
 
-	// destructor
-	~DataSampler() {};
-
-	//-------------------------------------------------------------------------
-	// public methods inherited from UserModule
-	//-------------------------------------------------------------------------
-public:
-	//-----------------------------------------------------------------------------
-	// module info
-	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
-
-	//-----------------------------------------------------------------------------
-	// query system and init
-	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
-
-	//-----------------------------------------------------------------------------
-	// parameters and process
-	void onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo);
-	void onCallBack(TUsineMessage* Message);
-	void onProcess();
-
-	//-----------------------------------------------------------------------------
-	// layout
-	void onCreateSettings();
-	void onSettingsHasChanged();
-	//void onCreateCommands();
-	void onPaint();
-
-	//-------------------------------------------------------------------------
-	// private members
-	//-------------------------------------------------------------------------
 private:
+	UsineEventClass dataFdrIn;
+	UsineEventClass recSwIn;
+	UsineEventClass clearBtnIn;
+	UsineEventClass boxColIn;
+	UsineEventClass outFdrOut;
 
-	//-------------------------------------------------------------------------
-	// parameters events
-	UsineEventClass dataIn;
-	UsineEventClass toggleRec;
-	UsineEventClass colorControl;     // color to display the value
-	UsineEventClass envOut;
+	TUsineColor colorBox = 0;
+	bool        isRec    = false;
 
-	const int numOfParams = 5;
+	int bufferIdx    = 0;
+	int bufferLength = 0;
 
-	//-------------------------------------------------------------------------
-	// Other
+	// onProcess fills currentBuf, when it is full the buffers are swapped
+	// and previousBuf is appended to bufRecord outside of the audio process
+	static constexpr size_t BUFFER_SIZE = 2000;
+	std::vector<TPrecision>  bufA;
+	std::vector<TPrecision>  bufB;
+	std::vector<TPrecision>  bufRecord;
+	std::vector<TPrecision>* currentBuf  = &bufA;
+	std::vector<TPrecision>* previousBuf = &bufB;
 
-	// settings
-	TUsineColor colorBox;
-
-	LongBool isRec = false;
-
-	int buffer_idx = 0;
-	int buffer_length = 0;
-
-	static const int buffer_size = 2000;
-	std::vector<TPrecision>	bufA;
-	std::vector<TPrecision>	bufB;
-	std::vector<TPrecision>	bufRecord;
-
-	std::vector<TPrecision>* currentBuf;
-	std::vector<TPrecision>* previousBuf;
-
-	//-------------------------------------------------------------------------
-	// private methods
-	//-------------------------------------------------------------------------
-private:
 	void initBuffers();
 	void resetBuffers();
 	void swapBuffers();
-	void aggBuffers();
-	void aggBuffersB();
-
+	void aggPreviousBuffer();
+	void aggCurrentBuffer();
 	void triggerBufferCallback() const;
-
-}; // class DataSampler
-
-#endif // __EXAMPLE_DATA_SAMPLER_H__
+};

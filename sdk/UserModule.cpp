@@ -34,7 +34,34 @@
 #include "UserModule.h"
 #include "UsineEventClass.h"
 #include "UsineFunctions.h"
+#include <cmath>
 //#include <format>
+
+//-----------------------------------------------------------------------------
+// parameters created automatically for mtBackgroundJob modules
+constexpr TParamInfo jobProcessingParamInfo {
+    .ParamType = ptRightLed,
+    .Caption = "processing",
+    .IsInput = FALSE,
+    .IsOutput = TRUE,
+    .ReadOnly = TRUE,
+    .CallBackType = ctNone,
+    .DontSave = TRUE,
+    .IsSeparator = TRUE,
+    .SeparatorCaption = "job"
+};
+
+constexpr TParamInfo jobProcessingTimeParamInfo {
+    .ParamType = ptDataField,
+    .Caption = "processing time",
+    .IsInput = FALSE,
+    .IsOutput = TRUE,
+    .MaxValue = 1e9f,
+    .Symbol = "ms",
+    .ReadOnly = TRUE,
+    .CallBackType = ctNone,
+    .DontSave = TRUE
+};
 
 // constructor
 UserModuleBase::UserModuleBase()
@@ -73,14 +100,20 @@ void UserModuleBase::Init(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
     onInitModule(m_masterInfo, m_moduleInfo);
 }
 
+void UserModuleBase::CreateJobParameters()
+{
+    m_jobProcessingEvt = m_masterInfo->CreateParam(m_moduleInfo, &jobProcessingParamInfo);
+    m_jobTimeEvt = m_masterInfo->CreateParam(m_moduleInfo, &jobProcessingTimeParamInfo);
+}
+
 // IMPORTANT : it's up to you to initialize the user module before further use
 void UserModuleBase::InitInfosStructures(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-    if (pMasterInfo != nullptr)
+    if (m_masterInfo == nullptr && pMasterInfo != nullptr)
     {
         m_masterInfo = pMasterInfo;
     }
-    if (pModuleInfo != nullptr)
+    if (m_moduleInfo == nullptr && pModuleInfo != nullptr)
     {
         m_moduleInfo = pModuleInfo;
     }
@@ -117,7 +150,7 @@ void UserModuleBase::CallBack(TUsineMessage* Message)
 void UserModuleBase::startJob()
 {
     sdkNotifyUsine(NOTIFY_TARGET_USER_MODULE, NOTIFY_MSG_USINE_CALLBACK,
-        CALLBACK_JOB_START, MSG_CHANGE, TNotifyUsineMode::numRealTime, 25
+        CALLBACK_JOB_START, MSG_CHANGE, TNotifyUsineMode::numRealTime
     );
 }
 
@@ -125,6 +158,10 @@ void UserModuleBase::processStartJob()
 {
     if (!m_taskRunning) {
         m_taskRunning = true;
+        m_jobStartTimeMs = sdkGetTimeMs();
+        if (m_jobProcessingEvt != nullptr) {
+            UsineEventClass(m_jobProcessingEvt).setData(1.0f);
+        }
         try {
             if (m_job_thread == nullptr) {
                 m_job_thread = sdkThreadCreate("thread job", &UserModuleBase::processThreadJob, tpMedium, UINT32_MAX);
@@ -133,6 +170,9 @@ void UserModuleBase::processStartJob()
         }
         catch (...) {
             m_taskRunning = false;
+            if (m_jobProcessingEvt != nullptr) {
+                UsineEventClass(m_jobProcessingEvt).setData(0.0f);
+            }
         }
     }
     else {
@@ -148,15 +188,16 @@ void UserModuleBase::processThreadJob(void* pModule, TThreadPtr pThread)
         module->onJobProcess();
     }
     catch (...) {
-        module->notifyUsineOnJobEnd();
+        // nothing more to do, job end is notified below in every case
     }
+    module->m_jobDurationMs = module->sdkGetTimeMs() - module->m_jobStartTimeMs;
     module->notifyUsineOnJobEnd();
 }
 
 void UserModuleBase::notifyUsineOnJobEnd() const
 {
     sdkNotifyUsine(NOTIFY_TARGET_USER_MODULE, NOTIFY_MSG_USINE_CALLBACK,
-        CALLBACK_JOB_END, MSG_CHANGE, TNotifyUsineMode::numRealTime, 25
+        CALLBACK_JOB_END, MSG_CHANGE, TNotifyUsineMode::numRealTime, static_cast<int>(std::ceil(m_masterInfo->GetBlockDuration()))
     );
 }
 
@@ -167,6 +208,12 @@ void UserModuleBase::terminateJob()
     }
     catch (...) {
         m_taskRunning = false;
+    }
+    if (m_jobTimeEvt != nullptr) {
+        UsineEventClass(m_jobTimeEvt).setData(static_cast<TPrecision>(m_jobDurationMs.load()));
+    }
+    if (m_jobProcessingEvt != nullptr) {
+        UsineEventClass(m_jobProcessingEvt).setData(0.0f);
     }
     m_taskRunning = false;
 }
@@ -245,15 +292,37 @@ void BrowserInfo(TModuleInfo* pModuleInfo)
     GetBrowserInfo(pModuleInfo);
 }
 
+void GetBrowserInfo(TModuleInfo *pModuleInfo)
+{
+    pModuleInfo->Name = UserModuleBase::MODULE_NAME;
+    pModuleInfo->Description = UserModuleBase::MODULE_DESC;
+    pModuleInfo->Version = UserModuleBase::MODULE_VERSION;
+}
+
 //
 void GetModuleInfo(void* pModule, TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
     sdkTraceLogChar("GetModuleInfo");
     auto* userModule = static_cast <UserModuleBase*>(pModule);
     userModule->InitInfosStructures(pMasterInfo, pModuleInfo);
+    GetBrowserInfo(pModuleInfo);
     userModule->onGetModuleInfo(pMasterInfo, pModuleInfo);
 }
 
+//
+void CreateParameters(void* pModule, TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+{
+    sdkTraceLogChar("CreateParameters");
+    auto* userModule = static_cast <UserModuleBase*>(pModule);
+    userModule->InitInfosStructures(pMasterInfo, pModuleInfo);
+
+    // user parameters first, then the SDK managed ones so user param indices don't shift
+    userModule->onCreateParameters(pMasterInfo, pModuleInfo);
+
+    if (userModule->getModuleType() == mtBackgroundJob) {
+        userModule->CreateJobParameters();
+    }
+}
 //-----------------------------------------------------------------------------
 // query system and init
 
@@ -479,6 +548,18 @@ void MouseUpMulti(void* pModule, const TMouseButton MouseButton, const TShiftSta
     // UsineEventPtr implementations
     userModule->onMouseUpMulti(MouseButton, Shift, X_AsClass, Y_AsClass, P_AsClass);
     userModule->onMouseUpMulti(MouseButton, Shift, X, Y, Pressed);
+}
+
+void DragDrop(void* pModule, AnsiCharPtr FilesList, float X, float Y)
+{
+    auto* userModule = static_cast <UserModuleBase*>(pModule);
+    userModule->onDragDrop(FilesList, X, Y);
+}
+
+LongBool AcceptDragOver(void* pModule, AnsiCharPtr FilesList, float X, float Y)
+{
+    auto* userModule = static_cast <UserModuleBase*>(pModule);
+    return userModule->onAcceptDragOver(FilesList, X, Y);
 }
 
 void OpenEditor(void* pModule)

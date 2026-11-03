@@ -1,68 +1,60 @@
 # MultiThreading
-#example #threading #advanced
+#example #threading #errors #advanced
 
-**Thread creation and synchronization with critical sections.**
+**Two Usine threads sharing a critical section.**
 
 | | |
 |---|---|
 | **Module Name** | `multithreading` |
 | **Type** | `mtSimple` |
 | **Color** | `clDataModuleColor` |
+| **Version** | 1.0 |
 | **Source** | `examples/MultiThreading/` |
 
 ## Description
 
-Demonstrates how to create threads and protect shared data with critical sections. Includes a RAII-style `CriticalSectionGuard` helper for safe locking.
+Demonstrates how to create threads with the SDK and protect shared code with a critical section.
 
 ## Parameters
 
-| # | Name | Type | I/O | Callback |
-|---|------|------|-----|----------|
-| 0 | `output` | `ptArray` | Output | None |
+| # | Name | Member | Type | I/O | Callback |
+|---|------|--------|------|-----|----------|
+| 0 | `output` | `arrOut` | `ptArray` | Output | None |
 
 ## How It Works
 
-1. **`onInitModule`**: Creates a critical section (`sdkCriticalSectionCreate`) and two threads (`sdkThreadCreate`) that run every 100ms
-2. **Thread functions**: Each thread locks the critical section, traces a message, then unlocks
-3. **Destructor**: Destroys threads (`sdkThreadDestroy`) and critical section (`sdkCriticalSectionDestroy`)
-
-## RAII Critical Section Pattern
+1. **`onInitModule`**: creates a critical section (`sdkCriticalSectionCreate`) and two threads (`sdkThreadCreate`) with a 100 ms period.
+2. **Thread functions**: each thread locks the critical section, raises its info message, then unlocks it. The thread functions are static, the module comes back through their `pModule` argument.
+3. **Destructor**: destroys the threads (`sdkThreadDestroy`) and the critical section (`sdkCriticalSectionDestroy`).
 
 ```cpp
-class CriticalSectionGuard
+void MultiThreading::processThread1(void* pModule, TThreadPtr pThread)
 {
-    TCriticalSectionPtr cs;
-public:
-    CriticalSectionGuard(TCriticalSectionPtr cs) : cs(cs)
-    {
-        sdkCriticalSectionLock(cs, 1000);  // 1s timeout
-    }
-    ~CriticalSectionGuard()
-    {
-        sdkCriticalSectionUnLock(cs);
-    }
-};
-
-// Usage:
-void processThread(void* pModule, TThreadPtr thread)
-{
-    auto* module = static_cast<MultiThreading*>(pModule);
-    CriticalSectionGuard guard(module->criticalSection);
-    // ... safe access to shared data ...
+	MultiThreading* module = static_cast<MultiThreading*>(pModule);
+	module->sdkCriticalSectionLock(module->criticalSection);
+	sdkRaiseError(INFO_THREAD_1);
+	module->sdkCriticalSectionUnLock(module->criticalSection);
 }
 ```
 
+## Messages
+
+| Message | Level | Raised when |
+|---------|-------|-------------|
+| `INFO_THREAD_1` | Info | Thread 1 runs |
+| `INFO_THREAD_2` | Info | Thread 2 runs |
+
 ## Key Concepts Demonstrated
 
-- **`sdkThreadCreate`** with periodic interval (100ms)
-- **`sdkCriticalSectionCreate/Lock/UnLock/Destroy`** for mutex-like protection
-- **RAII pattern** for exception-safe critical section management
-- **Static thread callback** with module pointer passed as context
-- **`DontProcess = TRUE`** — no audio processing
+- **`sdkThreadCreate`** with a period
+- **`sdkCriticalSectionCreate/Lock/UnLock/Destroy`** to protect shared code
+- **Static thread function** with the module passed as context
+- **Releasing the SDK resources** in the destructor
+- **`DontProcess = TRUE`**: no audio processing
 
 ## SDK Callbacks Used
 
-`onGetModuleInfo` · `onGetNumberOfParams` · `onAfterQuery` · `onInitModule` · `onGetParamInfo` · `onCallBack`
+`onGetModuleInfo` · `onInitModule` · `onCreateParameters`
 
 ## Related Examples
 

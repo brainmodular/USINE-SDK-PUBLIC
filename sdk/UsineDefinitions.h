@@ -84,7 +84,7 @@
 //-----------------------------------------------------------------------------
 /// version of the SDK
 /// to use in GetSDKVersion function to return the SDK version number
-static constexpr int SDK_VERSION = 702002;
+static constexpr int SDK_VERSION = 703003;
 
 //-----------------------------------------------------------------------------
 #if (defined (USINE_WIN64))
@@ -529,7 +529,7 @@ using TParamType = enum TParamType : int32_t
     ptButton,               ///< Button, trigger
     ptListBox,              ///< List box
     ptSwitch,               ///< Switch
-    ptArray,                ///< Array parameter
+    ptArray,                ///< Array parameter of TPrecision (float)
     ptIpAddress,            ///< Designed to display IP addresses X.X.X.X
     ptSmpte,                ///< Designed to Display SMPTE code HH:MM:SS:FF
     ptMidiNoteFader,        ///< MIDI note number in the Range 0..127
@@ -538,11 +538,12 @@ using TParamType = enum TParamType : int32_t
     ptRightLed,             ///< Switch with a led on the right
     ptChooseFolder,         ///< Choose folder dialog box
     ptLeftLed,              ///< Switch with a led on the left
-    ptTriggerLed,           ///< Switch with a led on the right dedicated to triggers
+    ptTriggerLed,           ///< Trigger with a led on the right
     ptFileName,             ///< Choose filename dialog box
     ptBitwise,              ///< Bitwise 32bits parameter
 	ptCardinalHexa,         ///< Cardinal number in hexa format 
-    ptOther                 ///< Not defined
+    ptOther,                ///< Not defined
+    ptDataFieldBounded      ///< Same as ptDataField but bounded to MIN_VALUE and MAX_VALUE
 };
 
 /// --------------------------------------------------------------------------<summary>
@@ -567,7 +568,7 @@ using TSettingInOutletMode = enum TSettingInOutletMode : int32_t
 typedef enum TFastCallBackType : int32_t
 {
 	ctNormal,       ///< Processed in the normal Usine messages handler. The latency is defined by the User in the Usine Setup.
-	ctImmediate,    ///< Each time the parameter change, callback is processed immediately. Be careful, the the callBack procedure is called in the audio thread.
+	ctImmediate,    ///< Each time the parameter change, callback is processed immediately. Be careful, the callBack procedure is called in the audio thread.
     ctAsynchronous, ///< Processed in the window message handler (slower than ctNormal). Use this if the process is very long or if you open a modal window.
     cttVideo,       ///< Processed in the video thread.
     cbtRealTime,    ///< Fast but not immediate realtime.
@@ -589,47 +590,47 @@ class UsineEventClass;
 /// It allows to create and manage parameters in Usine modules.
 struct TParamInfo
 {
-	TParamType        ParamType;            ///< parameter type
-	AnsiCharPtr       Caption;              ///< displayed caption
-	LongBool          IsInput;              ///< TRUE if the parameter has input port
-	LongBool          IsOutput;             ///< TRUE if the parameter has output port
-	TScale            Scale;                ///< scale, if the param is a fader
-	TUsineColor       Color;                ///< front color of the fader or on Color of the switch
-	TUsineColor       OffColor;             ///< off color only if the parameter is a switch
-	TPrecision        MinValue;             ///< min param value
-	TPrecision        MaxValue;             ///< max param value
-	TPrecision        DefaultValue;         ///< default param value, when created
-	AnsiCharPtr       Symbol;               ///< displayed symbol
-	AnsiCharPtr       Format;               ///< format string of the displayed value @see NumericFormats    
-	AnsiCharPtr       ListBoxStrings;       ///< if listbox looks like '"item1","item2"'
-	AnsiCharPtr       TextValue;            ///< default text value if param type = ptText	LongBool          ReadOnly;             ///< TRUE if the user cant modify value
-	LongBool          ReadOnly;             ///< TRUE if the user cant modify value
-    TFastCallBackType CallBackType;         ///< see TFastCallBackType definition
-	LongBool          DontSave;             ///< specifies if the parameter need to be saved or not
+	TParamType        ParamType{};            ///< parameter type
+	AnsiCharPtr       Caption{};              ///< displayed caption
+	LongBool          IsInput{};              ///< TRUE if the parameter has input port
+	LongBool          IsOutput{};             ///< TRUE if the parameter has output port
+	TScale            Scale{};                ///< scale, if the param is a fader
+	TUsineColor       Color{};                ///< front color of the fader or on Color of the switch
+	TUsineColor       OffColor{};             ///< off color only if the parameter is a switch
+	TPrecision        MinValue{};             ///< min param value
+	TPrecision        MaxValue{1};             ///< max param value
+	TPrecision        DefaultValue{};         ///< default param value, when created
+	AnsiCharPtr       Symbol{};               ///< displayed symbol
+	AnsiCharPtr       Format{};               ///< format string of the displayed value @see NumericFormats    
+	AnsiCharPtr       ListBoxStrings{};       ///< if listbox looks like '"item1","item2"'
+	AnsiCharPtr       TextValue{};            ///< default text value if param type = ptText	LongBool          ReadOnly;             ///< TRUE if the user cant modify value
+	LongBool          ReadOnly{};             ///< TRUE if the user cant modify value
+    TFastCallBackType CallBackType{};         ///< see TFastCallBackType definition
+	LongBool          DontSave{};             ///< specifies if the parameter need to be saved or not
 	[[deprecated("Parameters are now ordered according to their param index choosen in onGetParamInfo")]]
-    int               DisplayOrder;         ///< <b>Deprecated</b> Parameters are now ordered according to their param index choosen in onGetParamInfo
-	LongBool          IsSeparator;          ///< optional, determines if the parameter add a blank line above him in the list
-	LongBool          IsInvisible;          ///< set the parameter totally invisible
-	LongBool          IsStoredInPreset;     ///< set the param stored in the preset (default false)
-	AnsiCharPtr       SavedName;            ///< optional: ident used to save the value in inifiles. if NULL Caption is used
-	AnsiCharPtr	      SeparatorCaption;     ///< optional, if isSeparator,  show a section name
-	NativeInt         CallBackId;           ///< the id of the param for the callback, setEvent and param - Set up a constexpr NativeInt with a value up to 0xF000000
-	LongBool		  IsVisibleByDefault;   ///< TRUE by default
-	LongBool		  NotUsed;              ///< Not used anymore
-	LongBool		  Translate;            ///< usine auto translate
+    int               DisplayOrder{-1};         ///< <b>Deprecated</b> Parameters are now ordered according to their param index choosen in onGetParamInfo
+	LongBool          IsSeparator{};          ///< optional, determines if the parameter add a blank line above him in the list
+	LongBool          IsInvisible{};          ///< set the parameter totally invisible
+	LongBool          IsStoredInPreset{};     ///< set the param stored in the preset (default false)
+	AnsiCharPtr       SavedName{};            ///< optional: ident used to save the value in inifiles. if NULL Caption is used
+	AnsiCharPtr	      SeparatorCaption{};     ///< optional, if isSeparator,  show a section name
+	NativeInt         CallBackId{-1};           ///< the id of the param for the callback, setEvent and param - Set up a constexpr NativeInt with a value up to 0xF000000
+	LongBool		  IsVisibleByDefault{true};   ///< TRUE by default
+	LongBool		  NotUsed{};              ///< Not used anymore
+	LongBool		  Translate{};            ///< usine auto translate
 	[[deprecated("Deprecated: use setEventClass(UsineEventClass& e) instead")]]
-    UsineEventPtr*    EventPtr;             ///< Pointer to Event set by Usine to acces to the value of the parameter, introduced
+    UsineEventPtr*    EventPtr{};             ///< Pointer to Event set by Usine to acces to the value of the parameter, introduced
 											///< in HH3. Replace the deprecated SetEventAddress
 
-	AnsiCharPtr       FileNameFilter;       ///< optional: filter used to open file when ParamType = ptFileName
+	AnsiCharPtr       FileNameFilter{};       ///< optional: filter used to open file when ParamType = ptFileName
 											///< ie: "All files (*.*)|*.*" or "'All Images |*.png; *.jpg; *.jpeg; *.bmp; *.tiff; *.gif" 
-    LongBool          AllowZeroLenAsInput;  ///< tels Usine that the parameter can receive null array's
+    LongBool          AllowZeroLenAsInput{};  ///< tels Usine that the parameter can receive null array's
 	
-    UINT32            PointerDataType;          ///< if the parameter is a pointer, this is the type of the pointer @see UsinePointerTypes
+    UINT32            PointerDataType{};          ///< if the parameter is a pointer, this is the type of the pointer @see UsinePointerTypes
                                                 ///< This is used to specify the type of data stored in the pointer.
                                                 ///< It is used in the UsineEventClass to access the data of a parameter.
 												///< It is used in the getPointerDataType function of the UsineEventClass.
-	UINT32  	   PointerDataInitialSize;      ///< if the parameter is a pointer, this is the initial size of the pointer data
+	UINT32  	   PointerDataInitialSize{};      ///< if the parameter is a pointer, this is the initial size of the pointer data
     
     void setEventClass(UsineEventClass&);   ///< Bind the given event to
 
@@ -1151,13 +1152,14 @@ typedef void (*FuncSmoothEvent)        (TPrecision& oldValue, UsineEventPtr curr
 typedef void (*FuncMultEvt2Audio)      (UsineEventPtr in1, UsineEventPtr in2);
 
 // update param callback
-typedef void (*FuncSetListBoxCommaText)	(TModuleInfo* pModuleInfo, int numParam, AnsiCharPtr commaText);
-typedef void (*FuncSetParamCaption)	    (TModuleInfo* pModuleInfo, int numParam, AnsiCharPtr caption);
-typedef void (*FuncSetParamVisible)	    (TModuleInfo* pModuleInfo, int numParam, LongBool visible);
-typedef void (*FuncRecreateParam)	    (TModuleInfo* pModuleInfo, int numParam, TParamInfo* pParamInfo);
-typedef void (*FuncRepaintParam)		(TModuleInfo* pModuleInfo, int numParam);
-typedef void (*FuncSetParamValueText)	(TModuleInfo* pModuleInfo, int numParam, AnsiCharPtr valueText);
-typedef LongBool (*FuncLoading)	        (TModuleInfo* pModuleInfo);
+typedef void (*FuncSetListBoxCommaText)	    (TModuleInfo* pModuleInfo, int numParam, AnsiCharPtr commaText);
+typedef void (*FuncSetParamCaption)	        (TModuleInfo* pModuleInfo, int numParam, AnsiCharPtr caption);
+typedef void (*FuncSetParamVisible)	        (TModuleInfo* pModuleInfo, int numParam, LongBool visible);
+typedef void (*FuncRecreateParam)	        (TModuleInfo* pModuleInfo, int numParam, TParamInfo* pParamInfo);
+typedef UsineEventPtr (*FuncCreateParam)    (TModuleInfo* pModuleInfo, const TParamInfo* pParamInfo);
+typedef void (*FuncRepaintParam)		    (TModuleInfo* pModuleInfo, int numParam);
+typedef void (*FuncSetParamValueText)	    (TModuleInfo* pModuleInfo, int numParam, AnsiCharPtr valueText);
+typedef LongBool (*FuncLoading)	            (TModuleInfo* pModuleInfo);
 
 // audio callbacks
 // Changed for linux testing by basile
@@ -1352,14 +1354,23 @@ enum TFlowType : int32_t
     ftColor       = (0x1 << 17) ///< (131072)
 };
 
-typedef TUsineChunkPtr(*FuncGetChunk) (TModuleInfo* pModuleInfo, AnsiCharPtr chunkName);
-typedef int (*FuncGetChunkItemCount) (TModuleInfo* pModuleInfo, TUsineChunkPtr chunk);
-typedef LongBool (*FuncChunkOperation)(TModuleInfo* pModuleInfo, TUsineChunkPtr chunk, AnsiCharPtr itemName, TFlowType flowType, UsineEventPtr payload, TChunkOperation operation, int index);
-typedef void (*FuncChunkSubscribe)(TModuleInfo* pModuleInfo, TUsineChunkPtr chunk, AnsiCharPtr itemName, NativeInt callbackID, LongBool immediate);
-typedef void (*FuncChunkUnSubscribe)(TModuleInfo* pModuleInfo, TUsineChunkPtr chunk, AnsiCharPtr itemName);
-typedef void (*FuncChunkUnSubscribeAll)(TModuleInfo* pModuleInfo);
-typedef LongBool (*FuncChunkExist)(TModuleInfo* pModuleInfo, AnsiCharPtr chunkName);
-typedef LongBool (*FuncChunkItemExist)(TModuleInfo* pModuleInfo, AnsiCharPtr chunkName, AnsiCharPtr itemName);
+typedef TUsineChunkPtr (*FuncGetChunk)          (TModuleInfo* pModuleInfo, AnsiCharPtr chunkName);
+typedef int         (*FuncGetChunkItemCount)    (TModuleInfo* pModuleInfo, TUsineChunkPtr chunk);
+typedef LongBool    (*FuncChunkOperation)       (TModuleInfo* pModuleInfo, TUsineChunkPtr chunk, AnsiCharPtr itemName, TFlowType flowType, UsineEventPtr payload, TChunkOperation operation, int index);
+typedef void        (*FuncChunkSubscribe)       (TModuleInfo* pModuleInfo, TUsineChunkPtr chunk, AnsiCharPtr itemName, NativeInt callbackID, LongBool immediate);
+typedef void        (*FuncChunkUnSubscribe)     (TModuleInfo* pModuleInfo, TUsineChunkPtr chunk, AnsiCharPtr itemName);
+typedef void        (*FuncChunkUnSubscribeAll)  (TModuleInfo* pModuleInfo);
+typedef LongBool    (*FuncChunkExist)           (TModuleInfo* pModuleInfo, AnsiCharPtr chunkName);
+typedef LongBool    (*FuncChunkItemExist)       (TModuleInfo* pModuleInfo, AnsiCharPtr chunkName, AnsiCharPtr itemName);
+
+// if itemName is not present in the chunk it will be created
+typedef LongBool    (*FuncSetChunkFromFloatPointer)    (TModuleInfo* pModuleInfo, TUsineChunkPtr chunk, AnsiCharPtr itemName, float* payload, UINT32 size);
+// call GetChunkItemSize for itemName to get size with which you allocate the payload before calling GetChunkToFloatPointer
+typedef UINT32      (*FuncGetChunkToFloatPointer)      (TModuleInfo* pModuleInfo, TUsineChunkPtr chunk, AnsiCharPtr itemName, float* payload);
+typedef UINT32      (*FuncGetChunkItemSize)            (TModuleInfo* pModuleInfo, TUsineChunkPtr chunk, AnsiCharPtr itemName);
+
+typedef double      (*FuncGetBlockDuration)             ();
+typedef int         (*FuncGetBlockSize)                 ();
 
 //-----------------------------------------------------------------------------
 /// Contains globals infos provided by Usine and all functions handle of the module wrapper.
@@ -1367,6 +1378,7 @@ typedef LongBool (*FuncChunkItemExist)(TModuleInfo* pModuleInfo, AnsiCharPtr chu
 /// It is a private structure used to access Usine functions and data.
 struct TMasterInfo 
 {
+    [[deprecated("Deprecated: use the function sdkgetBlocSize instead")]]
     int                     BlocSize;				
     NativeUInt              NSApplication;
     FuncRepaintPanel        RepaintPanel;			
@@ -1703,7 +1715,16 @@ struct TMasterInfo
 	// appended at the end to preserve the ABI of modules built against older headers
 	FuncChunkExist          ChunkExist;
 	FuncChunkItemExist      ChunkItemExist;
+    FuncCreateParam         CreateParam;
+
+    FuncSetChunkFromFloatPointer    SetChunkFromFloatPointer;
+    FuncGetChunkToFloatPointer      GetChunkToFloatPointer;
+    FuncGetChunkItemSize            GetChunkItemSize;
+
+    FuncGetBlockDuration            GetBlockDuration;
+    FuncGetBlockSize                GetBlockSize;
 };
+
 /// for backward compatibility
 typedef TMasterInfo MasterInfo;
 
@@ -1717,14 +1738,15 @@ typedef enum TModuleType : int32_t
     mtSimple,           ///< module without graphic canvas
     mtVideo,            ///< video module
     mtControl,          ///< module with a graphic canvas
-	mtDeviceAudio,      ///< not for public use
-	mtDeviceMidi,       ///< not for public use
-	mtDeviceOther,      ///< not for public use
-	mtPluginWrapper,    ///< not for public use
+    mtDeviceAudio,      ///< not for public use
+    mtDeviceMidi,       ///< not for public use
+    mtDeviceOther,      ///< not for public use
+    mtPluginWrapper,    ///< not for public use
     mtPluginLister,     ///< not for public use
     mtDeviceDMX,        ///< not for public use
-	mtDeviceLaser,       ///< not for public use
-	mtOther             ///< not for public use
+    mtDeviceLaser,      ///< not for public use
+    mtBackgroundJob,    ///< module with a background job
+    mtOther             ///< not for public use
 } TModuleType;
 
 
@@ -1746,30 +1768,30 @@ struct TModuleInfo
     /// Default Panel width
     ///<   if moduletype = mtControl : DefaultWidth is set to TMasterInfo.PanelWidth
     ///<   if moduletype = mtSimple  : ignored
-    float       DefaultWidth{};   ///< in pixel
-    
+    float           DefaultWidth{100};   ///< in pixel
+
     // Default Panel height
     ///<   if moduletype = mtControl : DefaultHeight is set to TMasterInfo.PanelHeight
     ///<   if moduletype = mtSimple : ignored
-    float       DefaultHeight{}; ///< in pixel
+    float           DefaultHeight{100}; ///< in pixel
 
-    LongBool    DontProcess{};        ///< FALSE by default. if TRUE, the module doesn't need any processing
-    LongBool	CanRecord{};          ///< FALSE by default. if TRUE, the module will have the Automation record functionality.
+    LongBool        DontProcess{FALSE};        ///< FALSE by default. if TRUE, the module doesn't need any processing
+    LongBool	    CanRecord{FALSE};          ///< FALSE by default. if TRUE, the module will have the Automation record functionality.
 
     //option for not show additional parameters, false by default  
-    LongBool DoNotCreateAddCtrl{} ;   ///< if true usine don't create parameters like mousedown, hint, etc.
+    LongBool        DoNotCreateAddCtrl{} ;   ///< if true usine don't create parameters like mousedown, hint, etc.
 
     // pointer to Usine internal User Module
-    void*   UsineUserModule{};
-    
+    void*           UsineUserModule{};
+
     // to verify that the module has been created properly
-    int     CheckCode{}; ///< @internal not for public use
+    int             CheckCode{}; ///< @internal not for public use
 
     // stuff for the Audio Query system and query lists
     AnsiCharPtr     QueryListString{};        ///< string to ask about entries numbers
     AnsiCharPtr     QueryListValues{};        ///< coma separated list with possible response
     int             QueryListDefaultIdx{};    ///< pre selected choice index for the coma list (0 to N-1)
-                                        
+
 	AnsiCharPtr     Version{};            ///< version of the module. Displayed in the Browser
     
     /// FALSE by default, set to TRUE to activate the global Randomize feature.
@@ -1778,30 +1800,30 @@ struct TModuleInfo
     /// Menu of the module if any and on the toolbar if any.	
     LongBool        CanBeRandomized{};
 
-	// for video modules only
-	int     NumberOfVideoInputs{};  ///< number of video inputs must be in [0..2]
-	int     NumberOfVideoOutputs{}; ///< number of video outputs must be in [0..2]
+    // for video modules only
+    int             NumberOfVideoInputs{};  ///< number of video inputs must be in [0..2]
+    int             NumberOfVideoOutputs{}; ///< number of video outputs must be in [0..2]
 
     /// FALSE by default, set to TRUE to activate the global Reset feature.
     /// If activated you need to implement onReset Callback, Usine can call it at any time to initiate a Reset.
     /// When activated, a new entry is added in the properties tab named can be reset and a reset icon appear in 
     /// the Contextual Menu of the module if any and on the toolbar if any.	
-	LongBool        CanBeReset{};
-	LongBool        CanBeSavedInPreset = true;
+    LongBool        CanBeReset{};
+    LongBool        CanBeSavedInPreset{TRUE};
     LongBool        TransparentBackground{};
 
-    
     // stuff for general queries
-    AnsiCharPtr QueryLabel1{};     ///< query displayed label 1
-    int QueryDefaultValue1{};      ///< default query value 1 value
-    int QueryMaxValue1{};          ///< max query value 1 value
-    int QueryMinValue1{};          ///< min query value 1 value
+    AnsiCharPtr     QueryLabel1{};             ///< query displayed label 1
+    int             QueryDefaultValue1{};      ///< default query value 1 value
+    int             QueryMaxValue1{};          ///< max query value 1 value
+    int             QueryMinValue1{};          ///< min query value 1 value
 
-    AnsiCharPtr QueryLabel2{};     ///< query displayed label 2
-    int QueryDefaultValue2{};      ///< default query value 2 value
-    int QueryMaxValue2{};          ///< max query value 2 value
-    int QueryMinValue2{};          ///< min query value 2 value
-    
+    AnsiCharPtr     QueryLabel2{};              ///< query displayed label 2
+    int             QueryDefaultValue2{};      ///< default query value 2 value
+    int             QueryMaxValue2{};          ///< max query value 2 value
+    int             QueryMinValue2{};          ///< min query value 2 value
+
+    LongBool        HandlesErrors{FALSE};
 };
 
 /// for backward compatibility
@@ -1876,7 +1898,8 @@ USINE_MODULE_EXPORT void Destroy(void* pModule);
 USINE_MODULE_EXPORT void BrowserInfo (TModuleInfo* pModuleInfo);
 /// called by usine to get module informations
 USINE_MODULE_EXPORT void GetModuleInfo (void* pModule, TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
-
+/// called by usine to create parameters
+USINE_MODULE_EXPORT void CreateParameters(void* pModule, TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
 //-----------------------------------------------------------------------------
 /// query system and init
 /// Get total parameters number of the module
@@ -1957,6 +1980,10 @@ USINE_MODULE_EXPORT void MouseMoveMulti (void* pModule, TShiftState Shift, Usine
 USINE_MODULE_EXPORT void MouseDownMulti (void* pModule, TMouseButton MouseButton, TShiftState Shift, UsineEventPtr X, UsineEventPtr Y, UsineEventPtr Pressed);
 /// multi touch up event
 USINE_MODULE_EXPORT void MouseUpMulti (void* pModule, TMouseButton MouseButton, TShiftState Shift, UsineEventPtr X, UsineEventPtr Y, UsineEventPtr Pressed);
+/// dragged content dropped on the module panel
+USINE_MODULE_EXPORT void DragDrop(void* pModule, AnsiCharPtr FilesList, float X, float Y);
+/// dragged content hovering over the module panel, returns TRUE to accept the drop
+USINE_MODULE_EXPORT LongBool AcceptDragOver(void* pModule, AnsiCharPtr FilesList, float X, float Y);
 /// when double clicking on the module in the patch, should open the editor is any (VST or AU plugin)
 USINE_MODULE_EXPORT void OpenEditor(void* pModule);
 //Called by Usine to put the plugin Window to front

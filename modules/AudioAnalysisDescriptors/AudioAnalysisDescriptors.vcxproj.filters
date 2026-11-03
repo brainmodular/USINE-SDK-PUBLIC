@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\functions">
+      <UniqueIdentifier>{6ab3a216-15b2-4f94-88b4-87338154e777}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\sdk\UserDefinitions.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdk\UserModule.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdk\UserUtils.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdk\UsineDefinitions.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdk\UsineEventClass.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\HaudioBuffer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\Hdescriptors.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\Hfeatures.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\Inharmonicity.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\Loudness.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\MFCC.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\OddToEvenRatio.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\RMS.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\Sharpness.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\SpectralCentroid.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\SpectralCrest.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\SpectralDecrease.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\SpectralEntropy.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\SpectralFlatness.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\SpectralKurtosis.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\SpectralPeaks.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\SpectralRolloff.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\SpectralSkewness.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\SpectralSlope.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\SpectralSpread.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\SpectralTonality.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\Tristimulus.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdk\UsineFunctions.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioAnalysis.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\Hanalysis.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanalysis\functions\f0_YIN.h">
+      <Filter>Source Files\functions</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\sdk\UserModule.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdk\UserUtils.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\Inharmonicity.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\Loudness.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\MFCC.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\OddToEvenRatio.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\RMS.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\Sharpness.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\SpectralCentroid.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\SpectralCrest.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\SpectralDecrease.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\SpectralEntropy.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\SpectralFlatness.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\SpectralKurtosis.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\SpectralPeaks.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\SpectralRolloff.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\SpectralSkewness.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\SpectralSlope.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\SpectralSpread.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\SpectralTonality.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\Tristimulus.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioAnalysis.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\Hanalysis.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanalysis\functions\f0_YIN.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

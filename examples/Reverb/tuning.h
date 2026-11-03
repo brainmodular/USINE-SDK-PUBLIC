@@ -1,68 +1,26 @@
-// Reverb model tuning values
+//-----------------------------------------------------------------------------
+// @file    tuning.h
+// @author  Jezar at Dreampoint, adapted by BrainModular team
+// @brief   Tuning values of the Freeverb reverb model.
 //
-// Written by Jezar at Dreampoint, June 2000
-// http://www.dreampoint.co.uk
-// This code is public domain
+// This file is part of the Usine Hollyhock CPP SDK.
+// Based on Freeverb, written by Jezar at Dreampoint in June 2000 and placed in the public domain.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
+//-----------------------------------------------------------------------------
+#pragma once
 
-#ifndef _tuning_
-#define _tuning_
+constexpr int   numcombs     = 8;
+constexpr int   numallpasses = 4;
+constexpr float muted        = 0.0f;
+constexpr float fixedgain    = 0.015f;
+constexpr float freezemode   = 0.5f;
+// offset of the comb and allpass sizes between two channels, decorrelates them
+constexpr int   stereospread = 23;
+// smoothing of the wet and dry levels, per bloc
+constexpr float smooth       = 0.97f;
 
-const int	numvoicesmax	= 64;
-const int	numcombs		= 8;
-const int	numallpasses	= 4;
-const float	muted			= 0;
-const float	fixedgain		= 0.015f;
-const float scalewet		= 3;
-const float scaledry		= 2;
-const float scaledamp		= 0.4f;
-const float scaleroom		= 0.28f;
-const float offsetroom		= 0.7f;
-const float initialroom		= 0.5f;
-const float initialdamp		= 0.5f;
-const float initialwet		= 1/scalewet;
-const float initialdry		= 0;
-const float initialwidth	= 1;
-const float initialmode		= 0;
-const float freezemode		= 0.5f;
-const int	stereospread	= 23;
-
-
-const float	smooth	= 0.97f;
-
-// These values assume 44.1KHz sample rate
-// they will probably be OK for 48KHz sample rate
-// but would need scaling for 96KHz (or other) sample rates.
-// The values were obtained by listening tests.
-const int combtuningL1		= 1116;
-const int combtuningR1		= 1116+stereospread;
-const int combtuningL2		= 1188;
-const int combtuningR2		= 1188+stereospread;
-const int combtuningL3		= 1277;
-const int combtuningR3		= 1277+stereospread;
-const int combtuningL4		= 1356;
-const int combtuningR4		= 1356+stereospread;
-const int combtuningL5		= 1422;
-const int combtuningR5		= 1422+stereospread;
-const int combtuningL6		= 1491;
-const int combtuningR6		= 1491+stereospread;
-const int combtuningL7		= 1557;
-const int combtuningR7		= 1557+stereospread;
-const int combtuningL8		= 1617;
-const int combtuningR8		= 1617+stereospread;
-const int allpasstuningL1	= 556;
-const int allpasstuningR1	= 556+stereospread;
-const int allpasstuningL2	= 441;
-const int allpasstuningR2	= 441+stereospread;
-const int allpasstuningL3	= 341;
-const int allpasstuningR3	= 341+stereospread;
-const int allpasstuningL4	= 225;
-const int allpasstuningR4	= 225+stereospread;
-
-const int combtuning[numcombs] = {1116, 1188, 1277, 1356, 1422, 1491, 1557, 1617};
-const int allpasstuning[numallpasses] = {556, 441, 341, 225};
-
-
-#endif//_tuning_
-
-//ends
-
+// sizes in samples of the comb and allpass buffers, obtained by listening tests.
+// They assume a 44.1 kHz sample rate, they are fine at 48 kHz but should be scaled for higher rates.
+constexpr int combtuning[numcombs]        = { 1116, 1188, 1277, 1356, 1422, 1491, 1557, 1617 };
+constexpr int allpasstuning[numallpasses] = { 556, 441, 341, 225 };

@@ -37,6 +37,7 @@
 #include "UserUtils.h"
 #include "UsineEventClass.h"
 #include "UsineFunctions.h"
+#include "UserError.h"
 
 
 

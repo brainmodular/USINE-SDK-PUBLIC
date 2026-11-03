@@ -1,155 +1,119 @@
-
-#ifndef _ENVELOPES_H_
-#define _ENVELOPES_H_
-
-static constexpr float ENV_VAR_MIN = 0.0002f;
-static constexpr float ENV_VAR_MAX = 1.0f;
-
-//-------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+// @file    Envelopes.h
+// @author  BrainModular team
+// @brief   Amplitude envelopes of the Granulator grains.
 //
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
+//-----------------------------------------------------------------------------
+#pragma once
+
+#include <memory>
+#include <span>
+#include "../../sdk/UsineDefinitions.h"
+
+constexpr float ENV_VAR_MIN = 0.0002f;
+constexpr float ENV_VAR_MAX = 1.0f;
+
+// the order must match the items of the grain env list box
+enum class EnvelopeType
+{
+	Asr,              // Linear Attack/Sustain/Release
+	Bezier,
+	RaisedCosineBell,
+	Hanning,
+	Gaussian
+};
+constexpr int ENVELOPE_TYPE_COUNT = 5;
+
+// envelopeVar (0..1) shapes the envelope, its meaning depends on the envelope type
 class Envelope
 {
 public:
-    Envelope(int size = 10)
-    { };
+	virtual ~Envelope() = default;
 
-    virtual ~Envelope(){};
+	virtual void setVariables(float skew) { envelopeVar = skew; }
+	virtual void getGraphPoints(std::span<TPointF> points) {}
 
-    virtual void setVariables(float skew){envelopeVar = skew;};
-    virtual void getGraphPoints(TPointF Points[], int NumOfPoints){};
+	/// Computes the amplitude at the sample index of the grain.
+	virtual void processEnvelope(int index, float& amp) = 0;
 
-    virtual void processEnvelope(int index, float& amp) = 0;
-
-    void setSize(int size) { envelopeSize = size;};
+	void setSize(int size) { envelopeSize = size; }
 
 protected:
-    int envelopeSize;
-    float envelopeVar;
-
+	int   envelopeSize = 0;
+	float envelopeVar  = 0.0f;
 };
 
-//-------------------------------------------------------------------------
-//
-class AsrEnvelope
-    : public Envelope
+class AsrEnvelope : public Envelope
 {
 public:
-    AsrEnvelope(int size);
-    ~AsrEnvelope(){};
+	explicit AsrEnvelope(int size);
 
-    void setVariables(float skew);
-    void getGraphPoints(TPointF Points[], int NumOfPoints);
+	void setVariables(float skew) override;
+	void getGraphPoints(std::span<TPointF> points) override;
+	void processEnvelope(int index, float& amp) override;
 
-protected:
-    void processEnvelope(int index, float& amp);
-
-    /// ASR variables
-    float asrAttackSize, asrSustainSize;
-	float asrInvAttackSize, asrInvSustainSize;
+private:
+	float asrAttackSize     = 0.0f;
+	float asrSustainSize    = 0.0f;
+	float asrInvAttackSize  = 0.0f;
+	float asrInvSustainSize = 0.0f;
 };
 
-//-------------------------------------------------------------------------
-//
-class RcbEnvelope
-    : public Envelope
+class RcbEnvelope : public Envelope
 {
 public:
-    RcbEnvelope(int size);
-    ~RcbEnvelope(){};
+	explicit RcbEnvelope(int size);
 
-    void setVariables(float skew);
-    void getGraphPoints(TPointF Points[], int NumOfPoints);
+	void setVariables(float skew) override;
+	void getGraphPoints(std::span<TPointF> points) override;
+	void processEnvelope(int index, float& amp) override;
 
-protected:
-
-    /// RCB variables
-    float rcbSectionSize;
-    float angle_increment, attack_angle, release_angle;
-    int attack_samples, sustain_samples, release_samples, release_boundary;
-
-    void processEnvelope(int index, float& amp);
-
-    /// fast Cosine function
-    inline float fastCosine(float angle)
-    {
-        angle += 1.57079632f;
-        if (angle >  3.14159265f) {
-            angle -= 6.28318531f;
-        }
-        if (angle < 0) {
-            return 1.273239545f * angle + 0.405284735f * angle * angle;
-        } else {
-            return 1.273239545f * angle - 0.405284735f * angle * angle;
-        }
-    }
+private:
+	float rcbSectionSize = 0.0f;
+	float angleIncrement = 0.0f;
 };
 
-//-------------------------------------------------------------------------
-//
-class BezierEnvelope
-    : public Envelope
+class BezierEnvelope : public Envelope
 {
 public:
-    BezierEnvelope(int size);
-    ~BezierEnvelope(){};
+	explicit BezierEnvelope(int size);
 
-    void setVariables(float skew);
-    void getGraphPoints(TPointF Points[], int NumOfPoints);
+	void setVariables(float skew) override;
+	void getGraphPoints(std::span<TPointF> points) override;
+	void processEnvelope(int index, float& amp) override;
 
-protected:
-    void processEnvelope(int index, float& amp);
-
-    float left0, left1, left2, center;
+private:
+	float left0  = 0.0f;
+	float left1  = 0.0f;
+	float left2  = 0.0f;
+	float center = 0.0f;
 };
 
-
-//-------------------------------------------------------------------------
-//
-class GaussianEnvelope
-    : public Envelope
+class GaussianEnvelope : public Envelope
 {
 public:
-    GaussianEnvelope(int size);
-    ~GaussianEnvelope(){};
+	explicit GaussianEnvelope(int size);
 
-    void setVariables(float skew);
-    void getGraphPoints(TPointF Points[], int NumOfPoints);
+	void setVariables(float skew) override;
+	void getGraphPoints(std::span<TPointF> points) override;
+	void processEnvelope(int index, float& amp) override;
 
-protected:
-    void processEnvelope(int index, float& amp);
-
-    /// Gaussian variables
-    float gaussMax, gaussSqrDev;
+private:
+	float gaussMax    = 0.0f;
+	float gaussSqrDev = 0.0f;
 };
 
-//-------------------------------------------------------------------------
-//
-class HanningEnvelope
-    : public Envelope
+class HanningEnvelope : public Envelope
 {
 public:
-    HanningEnvelope(int size);
-    ~HanningEnvelope(){};
+	explicit HanningEnvelope(int size);
 
-    void setVariables(float skew);
-    void getGraphPoints(TPointF Points[], int NumOfPoints);
-
-protected:
-    void processEnvelope(int index, float& amp);
-        
-    /// fast Cosine function
-    inline float fastCosine(float angle)
-    {
-        angle += 1.57079632f;
-        if (angle >  3.14159265f) {
-            angle -= 6.28318531f;
-        }
-        if (angle < 0) {
-            return 1.273239545f * angle + 0.405284735f * angle * angle;
-        } else {
-            return 1.273239545f * angle - 0.405284735f * angle * angle;
-        }
-    }
+	void setVariables(float skew) override;
+	void getGraphPoints(std::span<TPointF> points) override;
+	void processEnvelope(int index, float& amp) override;
 };
 
-#endif // _ENVELOPES_H_
+std::unique_ptr<Envelope> makeEnvelope(EnvelopeType type, int size);

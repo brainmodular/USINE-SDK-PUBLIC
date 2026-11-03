@@ -29,6 +29,7 @@
     <ClInclude Include="..\..\sdk\UserDefinitions.h" />
     <ClInclude Include="..\..\sdk\UserModule.h" />
     <ClInclude Include="..\..\sdk\UserUtils.h" />
+    <ClInclude Include="..\..\sdk\UserError.h" />
     <ClInclude Include="..\..\sdk\UsineDefinitions.h" />
     <ClInclude Include="..\..\sdk\UsineEventClass.h" />
     <ClInclude Include="..\..\sdk\UsineFunctions.h" />
@@ -36,6 +37,7 @@
     <ClInclude Include="comb.hpp" />
     <ClInclude Include="denormals.h" />
     <ClInclude Include="Reverb.h" />
+    <ClInclude Include="ModuleDefinition.h" />
     <ClInclude Include="tuning.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

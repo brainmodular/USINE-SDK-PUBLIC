@@ -1,146 +1,25 @@
 //-----------------------------------------------------------------------------
-//@file  
-//	MidiTranspose.h
+// @file    MidiTranspose.h
+// @author  BrainModular team
+// @brief   Transposes midi notes, shows how to process midi messages.
 //
-//@author
-//	BrainModular team
-//
-//@brief 
-//	Definitions of the MidiTransposeExample class.
-//
-//  Example user module to show how to process midi messages.
-//
-//@historic 
-//	2015/02/23
-//    first release for Hollyhock CPP SDK 6.04.001
-//
-//@IMPORTANT
-//	This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs :
-//  support@brainmodular.com 
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE.
-//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2015-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
+#pragma once
 
-// include once, no more
-#ifndef __EXAMPLE_MIDI_TRANSPOSE__
-#define __EXAMPLE_MIDI_TRANSPOSE__
-
-//-----------------------------------------------------------------------------
-// includes
-//-----------------------------------------------------------------------------
 #include "../../sdk/UserDefinitions.h"
-#include <cmath>
 
-//-----------------------------------------------------------------------------
-// class definition
-//-----------------------------------------------------------------------------
-class MidiTransposeExample : public UserModuleBase
+class MidiTranspose : public UserModuleBase
 {
-	//-------------------------------------------------------------------------
-	// module constructors/destructors
-	//-------------------------------------------------------------------------
 public:
-    // constructor
-    MidiTransposeExample(){};
+	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onProcess() override;
 
-    // destructor
-	virtual ~MidiTransposeExample(){};
-
-	//-------------------------------------------------------------------------
-	// public methods inherited from UserModule
-	//------------------------------------------------------------------------
-public:
-	//-----------------------------------------------------------------------------
-	// module info
-	void onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
-
-	//-----------------------------------------------------------------------------
-	// query system and init
-	//void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
-
-	//-----------------------------------------------------------------------------
-	// parameters and process
-	void onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo);
-	//void onCallBack (TUsineMessage *Message);
-	void onProcess ();
-
-	//-----------------------------------------------------------------------------
-	// midi out callbacks
-	//void onMidiSendOut (int DeviceID, UsineMidiCode Code);
-	//void onMidiSysexSendOut (int DeviceID, char* Sysex);
-
-	//-----------------------------------------------------------------------------
-	// chunk system
-	//int  onGetStateChunkLen (LongBool Preset);
-	//void onGetStateChunk (void* chunk, LongBool Preset);
-	//void onSetStateChunk (const void* chunk, int sizeInBytes, LongBool Preset);
-
-	//-----------------------------------------------------------------------------
-	// layout
-	//void onCreateSettings();
-	//void onSettingsHasChanged();
-    //void onCreateCommands();
-	//void onPaint ();
-
-	//-----------------------------------------------------------------------------
-	// mouse and multi touch interaction
-	//void onMouseMove(TShiftState Shift, float X, float Y);
-	//void onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X,float Y);
-	//void onMouseUp (TMouseButton MouseButton, TShiftState Shift, float X,float Y);
-	//void onMouseMoveMulti(TShiftState Shift, UsineEventPtr X, UsineEventPtr Y);
-	//void onMouseDownMulti(TMouseButton MouseButton, TShiftState Shift, UsineEventPtr X, UsineEventPtr Y);
-	//void onMouseUpMulti (TMouseButton MouseButton, TShiftState Shift,UsineEventPtr X, UsineEventPtr Y);
-	//void onOpenEditor();
-	//void onBringToFront();
-
-	//-----------------------------------------------------------------------------
-	// audio setup update
-	//void onBlocSizeChange (int BlocSize);
-	//void onSampleRateChange (double SampleRate);
-	
-	//-----------------------------------------------------------------------------
-	// recording 
-	// void onSetRecordedValue (TPrecision X, TPrecision Y, TPrecision Z);
-	
-	//-------------------------------------------------------------------------
-	// private members
-	//-------------------------------------------------------------------------
 private:
-	//-------------------------------------------------------------------------
-	// parameters events
 	UsineEventClass midiIn;
 	UsineEventClass midiOut;
-	UsineEventClass fdrPitch;
-    	
-	//-------------------------------------------------------------------------
-	// private methods
-	//-------------------------------------------------------------------------
-private:	
-
-}; // class MidiTransposeExample
-
-#endif //__EXAMPLE_MIDI_TRANSPOSE__
+	UsineEventClass pitchFdrIn;
+};

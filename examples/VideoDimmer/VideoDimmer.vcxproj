@@ -27,10 +27,12 @@
     <ClInclude Include="..\..\sdk\UserDefinitions.h" />
     <ClInclude Include="..\..\sdk\UserModule.h" />
     <ClInclude Include="..\..\sdk\UserUtils.h" />
+    <ClInclude Include="..\..\sdk\UserError.h" />
     <ClInclude Include="..\..\sdk\UsineDefinitions.h" />
     <ClInclude Include="..\..\sdk\UsineEventClass.h" />
     <ClInclude Include="..\..\sdk\UsineFunctions.h" />
     <ClInclude Include="VideoDimmer.h" />
+    <ClInclude Include="ModuleDefinition.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{39792AE8-C93C-436D-993D-D8A15E319C2F}</ProjectGuid>

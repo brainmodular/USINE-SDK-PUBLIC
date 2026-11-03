@@ -1,207 +1,74 @@
 //-----------------------------------------------------------------------------
-//@file  
-//	VideoDimmer.cpp
+// @file    VideoDimmer.cpp
+// @author  Olivier Sens (senso), BrainModular team
+// @brief   Dims a video and draws a grid on it, shows how to process video frames.
 //
-//@author
-//	Olivier SENS aka senso
-//
-//@brief 
-//	Implementation of the VideoDimmer class.
-//
-//  Example user module to show how to process video flows.
-//
-//@historic 
-//	2015/02/23
-//    first release for Hollyhock CPP SDK 6.04.001
-//
-//@IMPORTANT
-//	This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs :
-//  support@brainmodular.com 
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE.
-//
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// includes
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2015-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
 #include "VideoDimmer.h"
+#include "ModuleDefinition.h"
 
-//----------------------------------------------------------------------------
-// create, general info and destroy methods
-//----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// Create
 void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 	pModule = new VideoDimmer();
 }
 
-// destroy
-void DestroyModule(void* pModule) 
+void DestroyModule(void* pModule)
 {
-
 	// cast is important to call the good destructor
-	delete ((VideoDimmer*)pModule);
-}
-
-// module constants for browser info and module info
-constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "video dimmer";
-constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "video dimmer sdk module example";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
-
-// browser info
-void GetBrowserInfo(TModuleInfo* pModuleInfo) 
-{
-	pModuleInfo->Name				= UserModuleBase::MODULE_NAME;
-	pModuleInfo->Description		= UserModuleBase::MODULE_DESC;
-	pModuleInfo->Version			= UserModuleBase::MODULE_VERSION;
-}
-
-//-------------------------------------------------------------------------
-// module constructors/destructors
-//-------------------------------------------------------------------------
-
-// constructor
-VideoDimmer::VideoDimmer()
-{ 
-	//
-}
-
-// destructor
-VideoDimmer::~VideoDimmer()
-{
+	delete static_cast<VideoDimmer*>(pModule);
 }
 
 void VideoDimmer::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	pModuleInfo->Name			  	  = MODULE_NAME;
-	pModuleInfo->Description		  = MODULE_DESC;
 	pModuleInfo->ModuleType           = mtVideo;
 	pModuleInfo->BackColor            = sdkGetUsineColor(clVideoModuleColor);
-	pModuleInfo->Version			  = MODULE_VERSION;
 	pModuleInfo->NumberOfVideoInputs  = 1;
 	pModuleInfo->NumberOfVideoOutputs = 1;
-	pModuleInfo->NumberOfParams       = 3;
-
 }
 
-//-----------------------------------------------------------------------------
-// initialisation
-void VideoDimmer::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) 
+void VideoDimmer::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	fdrPixelColor.setColor(0xFFFF0000);
+	pixelColIn.setColor(0xFFFF0000);
 }
 
-//----------------------------------------------------------------------------
-// parameters and process
-//----------------------------------------------------------------------------
+void VideoDimmer::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+{
+	sdkCreateParam(dimmerFdrInParamInfo, dimmerFdrIn);
+	sdkCreateParam(pixelColInParamInfo, pixelColIn);
+	sdkCreateParam(spaceFdrInParamInfo, spaceFdrIn);
+}
 
-//-----------------------------------------------------------------------------
-// Parameters description
-void VideoDimmer::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo)
-{	
-    switch (ParamIndex)
+// called in the video thread instead of onProcess, because ModuleType is mtVideo
+void VideoDimmer::onProcessVideo()
+{
+	sdkGetInputFrame(1, &frameIn);
+	sdkGetNewFrame(&frameOut, frameIn.Width, frameIn.Height, FALSE);
+
+	const int skip = static_cast<int>(spaceFdrIn.getData());
+	if (skip == 0)
 	{
-    // fdrDimmer
-    case 0:
-		pParamInfo->ParamType		= ptDataFader;
-		pParamInfo->Caption			= "dimmer";
-		pParamInfo->IsInput			= TRUE;
-		pParamInfo->IsOutput		= FALSE;
-        pParamInfo->IsSeparator     = FALSE;
-        pParamInfo->CallBackType    = ctNone;
-		pParamInfo->DefaultValue    = 1;
-		pParamInfo->MinValue		= 0;
-		pParamInfo->MaxValue        = 1;
-		pParamInfo->setEventClass	(fdrDimmer);
-		break;
-	// fdrPixelColor
-	case 1:
-		pParamInfo->ParamType		= ptColor;
-		pParamInfo->Caption			= "pixel color";
-		pParamInfo->IsInput			= TRUE;
-		pParamInfo->IsOutput		= FALSE;
-		pParamInfo->IsSeparator		= FALSE;
-		pParamInfo->CallBackType	= ctNone;
-		pParamInfo->setEventClass	(fdrPixelColor);
-		break;
-	// fdrSpace
-	case 2:
-		pParamInfo->ParamType		= ptDataFader;
-		pParamInfo->Caption			= "inter space";
-		pParamInfo->IsInput			= TRUE;
-		pParamInfo->IsOutput		= FALSE;
-		pParamInfo->IsSeparator		= FALSE;
-		pParamInfo->CallBackType	= ctNone;
-		pParamInfo->MinValue		= 0;
-		pParamInfo->MaxValue		= 20;
-		pParamInfo->Format			= DEFAULT_FORMAT_INTEGER;
-		pParamInfo->DefaultValue	= 1;
-		pParamInfo->setEventClass	(fdrSpace);
-		break;
-	}
-}
-
-
-//-----------------------------------------------------------------------------
-// Parameters callback
-void VideoDimmer::onCallBack(TUsineMessage *Message) 
-{
-	// no callback
-}
-
-void VideoDimmer::onProcessVideo() 
-{
-	sdkGetInputFrame(1, &framei);
-	sdkGetNewFrame(&frameo, framei.Width, framei.Height, FALSE);
-
-	int skip = (int)fdrSpace.getData();
-	if (skip == 0) 
-	{
-	   sdkCopyFrame(&framei, &frameo);
+		sdkCopyFrame(&frameIn, &frameOut);
 	}
 	else
 	{
-		TUsinePixel pix = sdkColorToPixel(fdrPixelColor.getColor());
-		sdkClearFrame(&frameo,0xFF000000);
-		for (int h = 0; h < frameo.Height; h++)
+		// keeps one pixel out of skip, followed by a pixel of the grid color, the rest is black
+		const TUsinePixel pix = sdkColorToPixel(pixelColIn.getColor());
+		sdkClearFrame(&frameOut, 0xFF000000);
+		for (int h = 0; h < frameOut.Height; h += skip)
 		{
-			if ((h % skip) == 0)
+			for (int w = 0; w < frameOut.Width; w++)
 			{
-				for (int w = 0; w < frameo.Width; w++)
-				{
-					// dirty job to optimize
-					if ((w % skip) == 0) { sdkSetFramePixel(&frameo, w, h, sdkGetFramePixel(&framei, w, h)); }
-					if ((w % skip) == 1) { sdkSetFramePixel(&frameo, w, h, pix); }
-				}
+				if ((w % skip) == 0)
+					sdkSetFramePixel(&frameOut, w, h, sdkGetFramePixel(&frameIn, w, h));
+				else if ((w % skip) == 1)
+					sdkSetFramePixel(&frameOut, w, h, pix);
 			}
 		}
 	}
-	sdkSetDimmerFrame(&frameo,fdrDimmer.getData());
-	sdkSetOutputFrame(1, &frameo);
+
+	sdkSetDimmerFrame(&frameOut, dimmerFdrIn.getData());
+	sdkSetOutputFrame(1, &frameOut);
 }

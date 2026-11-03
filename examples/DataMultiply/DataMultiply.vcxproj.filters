@@ -19,6 +19,9 @@
     <ClInclude Include="..\..\sdk\UserUtils.h">
       <Filter>sdk</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\sdk\UserError.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\sdk\UsineDefinitions.h">
       <Filter>sdk</Filter>
     </ClInclude>
@@ -29,6 +32,7 @@
     <ClInclude Include="..\..\sdk\UsineFunctions.h">
       <Filter>sdk</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleDefinition.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="sdk">

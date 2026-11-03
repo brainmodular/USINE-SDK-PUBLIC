@@ -1,186 +1,77 @@
 //-----------------------------------------------------------------------------
-//@file  
-//	Reverb.h
+// @file    Reverb.h
+// @author  BrainModular team
+// @brief   Multichannel reverb based on the Freeverb model, with cross-channel feeds.
 //
-//@author
-//	BrainModular team
-//
-//@brief 
-//	Definitions of the Reverb class.
-//
-//  A reverb module based on the original freeverb algo.
-//
-//HISTORIC 
-//	2013/08/27
-//    first release for Hollyhock CPP SDK 6.02.011
-//
-//IMPORTANT
-//	This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs and patch to Usine forum :
-//  support@brainmodular.com 
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015, 2019 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE.
-//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
+#pragma once
 
-// include once, no more
-#ifndef __EXAMPLE_REVERB_H__
-#define __EXAMPLE_REVERB_H__
-
-//-----------------------------------------------------------------------------
-// includes
-//-----------------------------------------------------------------------------
-#include "../../sdk/UserDefinitions.h"  
-#include "comb.hpp"
-#include "allpass.hpp"
-#include "tuning.h"
+#include <array>
 #include <vector>
-//#include "revmodel.hpp"
+#include "../../sdk/UserDefinitions.h"
+#include "allpass.hpp"
+#include "comb.hpp"
+#include "tuning.h"
 
-//-----------------------------------------------------------------------------
-// defines and constantes
-//----------------------------------------------------------------------------
-
-typedef std::vector <std::string>   ListString;
-    
-typedef std::vector <comb>          ListComb;
-typedef std::vector <allpass>       ListAllPass;
-typedef std::vector <float>         ListFloat;
-typedef std::vector <ListFloat>     ListListFloat;
-typedef std::vector <int>           ListInt;
-//-----------------------------------------------------------------------------
-// class definition
-//-----------------------------------------------------------------------------
 class Reverb : public UserModuleBase
 {
-    //-------------------------------------------------------------------------
-	// module constructors/destructors
-	//-------------------------------------------------------------------------
 public:
-    // constructor
-	Reverb();
+	~Reverb() override;
 
-    // destructor
-	virtual ~Reverb();
+	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2) override;
+	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCallBack(TUsineMessage* Message) override;
+	void onProcess() override;
 
-	//-------------------------------------------------------------------------
-	// public methods inherited from UserModule
-	//-------------------------------------------------------------------------
-public:
-	//-----------------------------------------------------------------------------
-	// module info
-	void onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+private:
+	using AudioEvents = std::array<UsineEventClass, USINE_AUDIO_CHANNEL_MODULE_MAX>;
 
-	//-----------------------------------------------------------------------------
-	// query system and init
-	int  onGetNumberOfParams(int queryResult1, int queryResult2);
-	void onAfterQuery (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2);
-	void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
+	AudioEvents     audioInputs;
+	AudioEvents     audioOutputs;
+	UsineEventClass modeSwIn;
+	UsineEventClass roomSizeFdrIn;
+	UsineEventClass dampingFdrIn;
+	UsineEventClass channelsSeparationFdrIn;
+	UsineEventClass wetLevelFdrIn;
+	UsineEventClass dryLevelFdrIn;
 
-	//-----------------------------------------------------------------------------
-	// parameters and process
-	void onGetParamInfo (int ParamIndex, TParamInfo* pParamInfo);
-	void onCallBack (TUsineMessage *Message);
-	void onProcess ();
-    
-	//-------------------------------------------------------------------------
-	// protected methods
-	//-------------------------------------------------------------------------
-protected:
-    void reverbInit();
-    void reverbParamsUpdate();
+	// work buffers created with createEvent, destroyed in the destructor
+	AudioEvents     temp;
+	AudioEvents     processInput;
+	AudioEvents     processOutput;
 
-	//-------------------------------------------------------------------------
-	// protected members
-	//-------------------------------------------------------------------------
-protected:
-	//-------------------------------------------------------------------------
-	// parameters events
-    UsineEventClass audioInputs[USINE_AUDIO_CHANNEL_MODULE_MAX];     // audio input
-    UsineEventClass audioOutputs[USINE_AUDIO_CHANNEL_MODULE_MAX];    // audio output
-	UsineEventClass swtchMode;
-	UsineEventClass fdrRoomSize;
-	UsineEventClass fdrDamping;
-	UsineEventClass fdrChannelsSeparation;
-	UsineEventClass gfdrWetLevel;
-	UsineEventClass gfdrDryLevel;
-	
-	//-------------------------------------------------------------------------
-	int queryResult;
-	int numOfAudiotInsOuts;
-	int numOfParamAfterAudiotInOut;
-    
-    TPrecision* audioInputsPointers[USINE_AUDIO_CHANNEL_MODULE_MAX];
-    TPrecision* audioOutputsPointers[USINE_AUDIO_CHANNEL_MODULE_MAX];
+	int queryResult       = 0;
+	int numOfAudioInsOuts = 2;
 
-    // reverb stuff
-	//revmodel*	reverbModel;
-    UsineEventClass temp[USINE_AUDIO_CHANNEL_MODULE_MAX];
-    UsineEventClass temp2[USINE_AUDIO_CHANNEL_MODULE_MAX];
+	// parameters of the model, see reverbParamsUpdate
+	float mode               = 0.0f;
+	float roomsize           = 0.0f;
+	float damp               = 0.0f;
+	float channelsSeparation = 0.0f;
+	float wet                = 0.0f;
+	float dry                = 0.0f;
+	float gain               = 0.0f;
+	float roomsize1          = 0.0f;
+	float damp1              = 0.0f;
+	// wet1 feeds a channel with its own reverb, wet2 with the reverb of the other channels
+	float wet1               = 0.0f;
+	float wet2               = 0.0f;
+	// smoothed values used by onProcess
+	float currentwet1        = 0.0f;
+	float currentwet2        = 0.0f;
+	float currentdry         = 0.0f;
 
-    UsineEventClass processOutput[USINE_AUDIO_CHANNEL_MODULE_MAX];
-    UsineEventClass processInput[USINE_AUDIO_CHANNEL_MODULE_MAX];
+	// numcombs combs and numallpasses allpasses per channel, with their buffers
+	std::vector<comb>                    combvoices;
+	std::vector<allpass>                 allpassvoices;
+	std::vector<std::vector<float>>      bufcombvoices;
+	std::vector<std::vector<float>>      bufallpassvoices;
 
-    // default values for the reverb model param
-    // !!!!! in module scale (not between 0 and 1)
-    static const float initialWet;      // dB
-    static const float initialDry;      // dB
-    static const float initialRoom;     // %
-    static const float initialDamp;     // %
-    static const float initialChannelsSeparation;    // %
-    static const float initialMode;     // switch
-
-	float	gain;
-	float	roomsize,roomsize1;
-	float	damp,damp1;
-	float	wet,wet1,wet2;
-	float	dry;
-	float	channelsSeparation;
-	float	mode;
-	float	currentwet1,currentwet2,currentdry;
-    float   coeffwet1; 
-    float   coeffwet2;
-
-	// Comb filters
-    ListComb   combvoices;
-    
-	// Allpass filters
-	ListAllPass	allpassvoices;
-    
-    // tuning values for combs and allpass
-    ListInt    combtuningvoices;
-    ListInt    allpasstuningvoices;
-
-	// Buffers for the combs
-	//float	bufcombvoices[numcombs][numvoicesmax][1700];
-	ListListFloat	bufcombvoices[numcombs];
-    
-	// Buffers for the allpasses
-	//float	bufallpassvoices[numallpasses][numvoicesmax][600];
-	ListListFloat	bufallpassvoices[numallpasses];
-
-}; // class Reverb
-
-#endif //__EXAMPLE_REVERB_H__
+	void reverbInit();
+	void reverbParamsUpdate();
+};
