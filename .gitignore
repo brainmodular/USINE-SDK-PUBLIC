@@ -1,0 +1,18 @@
+# Visual Studio
+.vs/
+*.suo
+*.VC.db
+*.VC.opendb
+ipch/
+x64/
+Win32/
+Debug/
+Release/
+
+# Xcode
+xcuserdata/
+DerivedData/
+build/
+
+# macOS
+.DS_Store
