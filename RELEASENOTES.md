@@ -29,7 +29,7 @@ Usine loads several modules in one process, and on macOS and Linux the dynamic l
 
 - New macro `USINE_MODULE_LOCAL`: hidden visibility on macOS and Linux, empty on Windows, for a symbol that must stay private to the module.
 - `MODULE_NAME`, `MODULE_DESC` and `MODULE_VERSION` are `USINE_MODULE_LOCAL`. Before, every module could report the name, description and version of the first module loaded.
-- `current_verbosity_level` of `UserError.h` is `USINE_MODULE_LOCAL`: the verbosity set by a module no longer filters the messages of the others.
+- Everything in `UserError.h` is `USINE_MODULE_LOCAL`: the error registry (`errorList`), `RegisterError`, `sdkRaiseError` and `current_verbosity_level`. Each module keeps its own registry, and the verbosity set by a module no longer filters the messages of the others.
 - Mark the error constants of your `ModuleDefinition.h` `USINE_MODULE_LOCAL`, as every example does: `inline const int ERROR_WRITE USINE_MODULE_LOCAL = RegisterError(Level::Error, "...");`. Otherwise two modules that use the same constant name can mix up their messages. The [Module Conventions](wiki/sdk/module-conventions.md) explain why.
 
 ### Other changes
