@@ -91,9 +91,9 @@ struct Results {
     float perceptSharpness = 0.0f;
     
     Results(int buffer_size) :
+    harmonicMfcc(13,0.0f),
     autocorr(buffer_size,0.0f),
     harmonicTristimulus(3,0.0f),
-    harmonicMfcc(13,0.0f),
     perceptLoudness(25)
     {
         

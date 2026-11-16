@@ -92,17 +92,33 @@ public:
         incIdx(m_iWriteIdx,m_iBufferLength,iLength);
     }
     
-    /*! add a tab of size iLength to the buffer with memcpy, make sure that the buffer is large enough
+    /*! add a tab of iLength samples to the ring buffer, wrapping around its end, and count the analysis frames:
+     the first frame ends m_FftSize samples after the reset, the next ones every m_ClockTime samples (the hop)
      \param ptr_fBufferToAdd : pointer to the first value in the tab
-     \param iLength : length of the buffer to add, must be a multiple of m_iBufferLength
+     \param iLength : number of samples, at most the buffer length minus the fft size (a frame must stay in the buffer)
      */
     void add(const T* ptr_fBufferToAdd, int iLength)
     {
-        assert(m_iBufferLength >=  iLength);
+        assert(iLength >= 0 && iLength <= m_iBufferLength - m_FftSize);
+        iLength = std::max(0, std::min(iLength, m_iBufferLength - m_FftSize));
 
-        std::memcpy(&m_vecBuffer[m_iWriteIdx], ptr_fBufferToAdd, sizeof(T)*iLength);
-        incIdx(m_iWriteIdx,m_iBufferLength,iLength); 
-        incIdx(m_FftIdx, m_FftSize, iLength);
+        const int iFirst = std::min(iLength, m_iBufferLength - m_iWriteIdx);
+        std::memcpy(&m_vecBuffer[m_iWriteIdx], ptr_fBufferToAdd, sizeof(T) * iFirst);
+        std::memcpy(m_vecBuffer.data(), ptr_fBufferToAdd + iFirst, sizeof(T) * (iLength - iFirst));
+        incIdx(m_iWriteIdx, m_iBufferLength, iLength);
+
+        // a frame ended in these samples: keep the latest one, m_iFrameLag samples before the write index
+        m_bFrameReady = (iLength >= m_iToNextFrame);
+        if (m_bFrameReady)
+        {
+            m_iFrameLag = (iLength - m_iToNextFrame) % m_ClockTime;
+            m_iToNextFrame = m_ClockTime - m_iFrameLag;
+            m_bFirstFramePassed = true;
+        }
+        else
+        {
+            m_iToNextFrame -= iLength;
+        }
     }
     
     /*! get the value in the circular buffer at the specified indice
@@ -200,20 +216,19 @@ public:
         return m_vecBuffer.data();
     }
     
-    /*! return a pointer to the first value in m_vecBuffer on which we need to do the FFT
+    /*! copy the m_FftSize samples of the latest frame (see isReadyToProcess) to dest, in order
+     \param dest : destination, m_FftSize values
      */
-    float* getProcessBufferPtr()
+    void copyFrame(T* dest) const
     {
-        int currentPos = m_iWriteIdx;
-        if(currentPos == 0)
+        int iStart = m_iWriteIdx - m_iFrameLag - m_FftSize;
+        while (iStart < 0)
         {
-            currentPos = m_iBufferLength;
+            iStart += m_iBufferLength;
         }
-        if(currentPos - m_FftSize > 0 && currentPos - m_FftSize < m_iBufferLength)
-        {
-            return &m_vecBuffer[currentPos - m_FftSize];
-        }
-        return nullptr;
+        const int iFirst = std::min(m_FftSize, m_iBufferLength - iStart);
+        std::memcpy(dest, &m_vecBuffer[iStart], sizeof(T) * iFirst);
+        std::memcpy(dest + iFirst, m_vecBuffer.data(), sizeof(T) * (m_FftSize - iFirst));
     }
     
     /*! return the current index for writing/add
@@ -262,73 +277,62 @@ public:
         return static_cast<int>(m_vecBuffer.size());
     }
     
-    /*! reset buffer's content and indices to 0
+    /*! reset buffer's content and indices to 0, the next frame ends m_FftSize samples later
     */
     void reset(){
         std::fill(m_vecBuffer.begin(),m_vecBuffer.end(),T(0));
         m_iReadIdx = 0;
         m_iWriteIdx = 0;
-        m_FftIdx = 0;
-        m_FirstFFTPassed = false;
+        m_iToNextFrame = m_FftSize;
+        m_iFrameLag = 0;
+        m_bFrameReady = false;
+        m_bFirstFramePassed = false;
     }
     
-    /*! returns true if the buffer is full
+    /*! returns true when a frame of m_FftSize samples ended in the samples of the last add(): a hop boundary
+     was crossed and the buffer holds at least m_FftSize samples since the reset. copyFrame() gives the latest one
      */
-    bool isFull() const
+    bool isReadyToProcess() const
     {
-        return (m_iWriteIdx % m_iBufferLength == 0);
-    }
-    
-    /*! Copies the needed part for overlap to the beginning of the buffer
-     */
-    void copyToBeginning()
-    {
-        if((m_FftSize - m_ClockTime) < m_iBufferLength && m_FftSize - m_ClockTime != 0)
-        {
-            std::memcpy(m_vecBuffer.data(), &m_vecBuffer[m_iBufferLength - (m_FftSize - m_ClockTime)], sizeof(T) * (m_FftSize - m_ClockTime));
-            //printContentBuffer();
-            incIdx(m_iWriteIdx, m_iBufferLength,(m_FftSize - m_ClockTime));
-        }
-    }
-    
-    /*! returns true when the buffer is ready to process. Depending on FFT size and Clock time
-     */
-    bool isReadyToProcess()
-    {
-        // for first FFT
-        if((m_FftIdx % m_FftSize) == 0 && m_FirstFFTPassed == false)
-        {
-            m_FirstFFTPassed = true;
-            return true;
-        }
-        // for other FFT with overlap
-        else if((m_iWriteIdx % m_ClockTime == 0) && m_FirstFFTPassed == true )
-        {
-            return true;
-        }
-        
-
-        return false;
+        return m_bFrameReady;
     }
  
+    /*! change the frame size and reset the buffer, keeping the number of frames per window
+     \param fftSize : frame size, from 1 to the buffer length minus the largest number of samples added at once
+     */
     void setFFTSize(int fftSize)
     {
-        if(fftSize > 0) // and check if power of 2
+        if(fftSize > 0 && fftSize < m_iBufferLength)
         {
-            reset();
             int oldClock = m_FftSize / m_ClockTime;
             m_FftSize = fftSize;
             setClockTime(oldClock);
+            reset();
         }
     }
     
+    /*! change the hop to m_FftSize/clockTime samples, keeping the buffer content
+     \param clockTime : number of frames per window, from 1 to 4
+     */
     void setClockTime(int clockTime)
     {
         if(clockTime >= 1 && clockTime <= 4)
         {
-            m_ClockTime = m_FftSize/clockTime;
+            m_ClockTime = std::max(1, m_FftSize/clockTime);
+            // once the first frame has passed, the next one comes after one new hop at most
+            if(m_bFirstFramePassed)
+            {
+                m_iToNextFrame = std::min(m_iToNextFrame, m_ClockTime);
+            }
         }
         
+    }
+
+    /*! return the frame size
+     */
+    int getFFTSize() const
+    {
+        return m_FftSize;
     }
     
     
@@ -378,10 +382,12 @@ private:
         m_iReadIdx       = 0,
         m_iWriteIdx      = 0;
         
-    // variables for fft
+    // variables for fft: frames of m_FftSize samples, one every m_ClockTime samples (the hop)
 
-    int m_FftIdx  = 0;
-    bool m_FirstFFTPassed = false;
+    int m_iToNextFrame = 4096;          // samples to add before the end of the next frame
+    int m_iFrameLag = 0;                // samples added after the end of the latest frame
+    bool m_bFrameReady = false;         // a frame ended in the last add()
+    bool m_bFirstFramePassed = false;   // a full frame was added since the reset
     
     int m_ClockTime = 4096;
     

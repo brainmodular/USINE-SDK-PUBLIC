@@ -59,17 +59,16 @@ namespace process {
 		//constructor and destructors
 	public:
 		
-		DataHelper(int batchSize, int inputDim)
-			: batchSize_(batchSize)
-			, inputDim_(inputDim)
-			, processHead_(0)
+		DataHelper()
 		{
-			processDataPoints_.assign(batchSize_, std::vector<TPrecision>(inputDim_, 0.0f));
-
 			// fill the samples with empty vectors
 			for (int i = 0; i < N_MVT_MAX + 1; ++i)
 				trainingMovements_.at(i) = new std::vector<Sample>();
 		}
+
+		// the samples are owned through raw pointers: a copy would free them twice
+		DataHelper(const DataHelper&) = delete;
+		DataHelper& operator=(const DataHelper&) = delete;
 
 		~DataHelper() {
 			for (auto movement : trainingMovements_) {
@@ -83,18 +82,6 @@ namespace process {
 
 	public:
 
-		void shiftAndPushNewPoint(const std::vector<TPrecision>& newPoint) {
-			processDataPoints_[processHead_] = newPoint;
-			processHead_ = (processHead_ + 1) % batchSize_;
-		}
-
-		const std::vector<std::vector<TPrecision>> getProcess() const {
-			std::vector<std::vector<TPrecision>> r;
-			for (int i = 0; i < batchSize_; ++i)
-				r.push_back(processDataPoints_[(processHead_ + i) % batchSize_]);
-			return r;
-		}
-
 		const std::vector<std::vector<std::vector<TPrecision>>> getSample(const int index) const {
 			std::vector<Sample>* movement = trainingMovements_.at(index);
 			std::vector<std::vector<std::vector<TPrecision>>> r;
@@ -107,18 +94,11 @@ namespace process {
 			return r;
 		}
 
-		const std::vector<TPrecision> getAxisOfProcess(const int axis) const {
-			std::vector<TPrecision> r;
-			for (int i = 0; i < batchSize_; ++i)
-				r.push_back(processDataPoints_[(processHead_ + i) % batchSize_][axis]);
-			return r;
-		}
-
 		const std::vector<TPrecision> getAxisOfSample(const int movementIndex, const int sampleIndex,const int axis) const {
 			std::vector<Sample>* movement = trainingMovements_.at(movementIndex);
 			std::vector<TPrecision> r;
 			
-			if (movement->size() <= sampleIndex)
+			if (movement->size() <= static_cast<size_t>(sampleIndex))
 				return {};
 			
 			for (auto& point : *movement->at(sampleIndex))
@@ -177,11 +157,12 @@ namespace process {
 			trainingMovements_.at(movementIndex)->at(sampleIndex).lrd_ = lrd;
 		}
 
-		const bool undo() {
+		bool undo() {
 			if (sampleStack_.empty())
 				return false;
 
 			externalFree(*trainingMovements_.at(sampleStack_.top())->back());
+			delete trainingMovements_.at(sampleStack_.top())->back().sample_;
 			trainingMovements_.at(sampleStack_.top())->pop_back();
 			sampleStack_.pop();
 
@@ -190,8 +171,10 @@ namespace process {
 
 		void clearSamples() {
 			for (auto movement : trainingMovements_) {
-				for (auto& sample : *movement)
+				for (auto& sample : *movement) {
 					externalFree(*sample);
+					delete sample.sample_;
+				}
 				movement->clear();
 			}
 
@@ -199,16 +182,27 @@ namespace process {
 			sampleStack_ = std::stack<int>();
 		}
 
-		const int getByteSize() const {
-			int size = 0;
-			for (const auto& movement : trainingMovements_)
-				for (auto& sample : *movement)
-					size += (int)(META_DATA_SIZE + inputDim_ * (sample->size())) * sizeof(TPrecision);
-			return size;
+		// removes the samples of a movement without touching the undo stack: the recognition adds its window
+		// as the only sample of the movement N_MVT_MAX, and removes it even when it fails half way
+		void removeSamples(const int index) {
+			std::vector<Sample>* movement = trainingMovements_.at(index);
+			for (auto& sample : *movement) {
+				externalFree(*sample);
+				delete sample.sample_;
+			}
+			movement->clear();
+		}
+
+		// replaces the samples by a copy of those of the movements of other, without the undo stack
+		void copySamplesFrom(const DataHelper& other) {
+			clearSamples();
+			for (int index = 0; index < N_MVT_MAX; ++index)
+				for (const auto& sample : other.getSample(index))
+					setSample(sample, index, false);
 		}
 
 		// computes the number of samples from all movements
-		const int getSampleNumber() const {
+		int getSampleNumber() const {
 			int size = 0;
 			for (int movementIndex = 0; movementIndex < N_MVT_MAX; ++movementIndex)
 					size += (int)trainingMovements_.at(movementIndex)->size();
@@ -216,17 +210,12 @@ namespace process {
 		}
 
 		// compute only the number of samples from the specified movement
-		const  int getSampleNumber(int movementIndex) const {
+		int getSampleNumber(int movementIndex) const {
 			return (int)trainingMovements_.at(movementIndex)->size();
 		}
 
 		// Private Members.
 	private:
-
-		// the shape of the data
-		int batchSize_;
-		int inputDim_;
-
 
 		// training points { 
 		// Vector of data points.
@@ -234,11 +223,6 @@ namespace process {
 		
 		std::stack<int> sampleStack_;
 		//std::array<TPrecision, N_MVT_MAX> trainingLabels_;
-		// }
-	
-		// runtime points {
-		std::vector<std::vector<TPrecision>> processDataPoints_;
-		int processHead_;
 		// }
 
 	};

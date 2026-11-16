@@ -7,6 +7,7 @@
 // Copyright (C) 2015-2026 BrainModular, BeSpline, Adamson
 // SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
+#include <cstring>
 #include "SimplePad.h"
 #include "ModuleDefinition.h"
 

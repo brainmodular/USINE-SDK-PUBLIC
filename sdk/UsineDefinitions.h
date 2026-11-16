@@ -84,7 +84,7 @@
 //-----------------------------------------------------------------------------
 /// version of the SDK
 /// to use in GetSDKVersion function to return the SDK version number
-static constexpr int SDK_VERSION = 703003;
+static constexpr int SDK_VERSION = 703005;
 
 //-----------------------------------------------------------------------------
 #if (defined (USINE_WIN64))
@@ -590,50 +590,51 @@ class UsineEventClass;
 /// It allows to create and manage parameters in Usine modules.
 struct TParamInfo
 {
-	TParamType        ParamType{};            ///< parameter type
-	AnsiCharPtr       Caption{};              ///< displayed caption
-	LongBool          IsInput{};              ///< TRUE if the parameter has input port
-	LongBool          IsOutput{};             ///< TRUE if the parameter has output port
-	TScale            Scale{};                ///< scale, if the param is a fader
-	TUsineColor       Color{};                ///< front color of the fader or on Color of the switch
-	TUsineColor       OffColor{};             ///< off color only if the parameter is a switch
-	TPrecision        MinValue{};             ///< min param value
-	TPrecision        MaxValue{1};             ///< max param value
-	TPrecision        DefaultValue{};         ///< default param value, when created
-	AnsiCharPtr       Symbol{};               ///< displayed symbol
-	AnsiCharPtr       Format{};               ///< format string of the displayed value @see NumericFormats    
-	AnsiCharPtr       ListBoxStrings{};       ///< if listbox looks like '"item1","item2"'
-	AnsiCharPtr       TextValue{};            ///< default text value if param type = ptText	LongBool          ReadOnly;             ///< TRUE if the user cant modify value
-	LongBool          ReadOnly{};             ///< TRUE if the user cant modify value
-    TFastCallBackType CallBackType{};         ///< see TFastCallBackType definition
-	LongBool          DontSave{};             ///< specifies if the parameter need to be saved or not
+	TParamType          ParamType{};            ///< parameter type
+	AnsiCharPtr         Caption{};              ///< displayed caption
+	LongBool            IsInput{};              ///< TRUE if the parameter has input port
+	LongBool            IsOutput{};             ///< TRUE if the parameter has output port
+	TScale              Scale{};                ///< scale, if the param is a fader
+	TUsineColor         Color{};                ///< front color of the fader or on Color of the switch
+	TUsineColor         OffColor{};             ///< off color only if the parameter is a switch
+	TPrecision          MinValue{};             ///< min param value
+	TPrecision          MaxValue{1};             ///< max param value
+	TPrecision          DefaultValue{};         ///< default param value, when created
+	AnsiCharPtr         Symbol{};               ///< displayed symbol
+	AnsiCharPtr         Format{};               ///< format string of the displayed value @see NumericFormats    
+	AnsiCharPtr         ListBoxStrings{};       ///< if listbox looks like '"item1","item2"'
+	AnsiCharPtr         TextValue{};            ///< default text value if param type = ptText	LongBool          ReadOnly;             ///< TRUE if the user cant modify value
+	LongBool            ReadOnly{};             ///< TRUE if the user cant modify value
+    TFastCallBackType   CallBackType{};         ///< see TFastCallBackType definition
+	LongBool            DontSave{};             ///< specifies if the parameter need to be saved or not
 	[[deprecated("Parameters are now ordered according to their param index choosen in onGetParamInfo")]]
-    int               DisplayOrder{-1};         ///< <b>Deprecated</b> Parameters are now ordered according to their param index choosen in onGetParamInfo
-	LongBool          IsSeparator{};          ///< optional, determines if the parameter add a blank line above him in the list
-	LongBool          IsInvisible{};          ///< set the parameter totally invisible
-	LongBool          IsStoredInPreset{};     ///< set the param stored in the preset (default false)
-	AnsiCharPtr       SavedName{};            ///< optional: ident used to save the value in inifiles. if NULL Caption is used
-	AnsiCharPtr	      SeparatorCaption{};     ///< optional, if isSeparator,  show a section name
-	NativeInt         CallBackId{-1};           ///< the id of the param for the callback, setEvent and param - Set up a constexpr NativeInt with a value up to 0xF000000
-	LongBool		  IsVisibleByDefault{true};   ///< TRUE by default
-	LongBool		  NotUsed{};              ///< Not used anymore
-	LongBool		  Translate{};            ///< usine auto translate
+    int                 DisplayOrder{-1};         ///< <b>Deprecated</b> Parameters are now ordered according to their param index choosen in onGetParamInfo
+	LongBool            IsSeparator{};          ///< optional, determines if the parameter add a blank line above him in the list
+	LongBool            IsInvisible{};          ///< set the parameter totally invisible
+	LongBool            IsStoredInPreset{};     ///< set the param stored in the preset (default false)
+	AnsiCharPtr         SavedName{};            ///< optional: ident used to save the value in inifiles. if NULL Caption is used
+	AnsiCharPtr	        SeparatorCaption{};     ///< optional, if isSeparator,  show a section name
+	NativeInt           CallBackId{-1};           ///< the id of the param for the callback, setEvent and param - Set up a constexpr NativeInt with a value up to 0xF000000
+	LongBool		    IsVisibleByDefault{true};   ///< TRUE by default
+	LongBool		    NotUsed{};              ///< Not used anymore
+	LongBool		    Translate{};            ///< usine auto translate
 	[[deprecated("Deprecated: use setEventClass(UsineEventClass& e) instead")]]
-    UsineEventPtr*    EventPtr{};             ///< Pointer to Event set by Usine to acces to the value of the parameter, introduced
+    UsineEventPtr*      EventPtr{};             ///< Pointer to Event set by Usine to acces to the value of the parameter, introduced
 											///< in HH3. Replace the deprecated SetEventAddress
 
-	AnsiCharPtr       FileNameFilter{};       ///< optional: filter used to open file when ParamType = ptFileName
+	AnsiCharPtr         FileNameFilter{};       ///< optional: filter used to open file when ParamType = ptFileName
 											///< ie: "All files (*.*)|*.*" or "'All Images |*.png; *.jpg; *.jpeg; *.bmp; *.tiff; *.gif" 
-    LongBool          AllowZeroLenAsInput{};  ///< tels Usine that the parameter can receive null array's
+    LongBool            AllowZeroLenAsInput{};  ///< tels Usine that the parameter can receive null array's
 	
-    UINT32            PointerDataType{};          ///< if the parameter is a pointer, this is the type of the pointer @see UsinePointerTypes
+    UINT32              PointerDataType{};          ///< if the parameter is a pointer, this is the type of the pointer @see UsinePointerTypes
                                                 ///< This is used to specify the type of data stored in the pointer.
                                                 ///< It is used in the UsineEventClass to access the data of a parameter.
 												///< It is used in the getPointerDataType function of the UsineEventClass.
-	UINT32  	   PointerDataInitialSize{};      ///< if the parameter is a pointer, this is the initial size of the pointer data
+	UINT32              PointerDataInitialSize{};      ///< if the parameter is a pointer, this is the initial size of the pointer data
     
-    void setEventClass(UsineEventClass&);   ///< Bind the given event to
+    AnsiCharPtr         Description{};              ///< description of the parameter, shown in its hint and used by mcp. "\n" starts a new line
 
+    void                setEventClass(UsineEventClass&);   ///< Bind the given event to
 };
 /// for backward compatibility
 typedef TParamInfo ParamInfo;
@@ -1760,7 +1761,7 @@ typedef enum TModuleType : int32_t
 struct TModuleInfo 
 {
     AnsiCharPtr     Name{};           ///< short name displayed in the patch view
-    AnsiCharPtr     Description{};    ///< long name displayed in the  Browser
+    AnsiCharPtr     Description{};    ///< long name displayed in the  Browser and in the hint of the module. "\n" starts a new line
     TModuleType     ModuleType;       ///< module type: simple, form, control
     TUsineColor     BackColor{};      ///< module color in the patch view
     int             NumberOfParams{}; ///< number of parameters of the module
@@ -1880,6 +1881,18 @@ struct TColorAhsl
 //-----------------------------------------------------------------------------
 #else
   #error "condidionnal compilation error!"
+#endif
+
+//-----------------------------------------------------------------------------
+// A symbol kept private to the module library. Usine loads several modules in one process and the
+// dynamic linker unifies the weak definitions of the whole process: a constexpr (or an inline
+// function) defined by two modules becomes one shared symbol, so every module would read the values
+// of the first module loaded. Windows has no such unification, macOS and Linux do.
+//-----------------------------------------------------------------------------
+#if (defined (USINE_WIN64))
+#define USINE_MODULE_LOCAL
+#else
+#define USINE_MODULE_LOCAL __attribute__ (( visibility ("hidden") ))
 #endif
 
 //-----------------------------------------------------------------------------

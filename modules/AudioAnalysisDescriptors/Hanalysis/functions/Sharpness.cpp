@@ -18,7 +18,7 @@ void Sharpness::process(Results& results)
         // Calculate sharpness
         for (int band = 0; band < m_iNumBands; band++) {
             
-            Gfunc = (band < 15) ? 1.0f : 0.066f * std::expf(0.171f*band);
+            Gfunc = (band < 15) ? 1.0f : 0.066f * expf(0.171f*band);
             
             num += band * Gfunc * results.perceptLoudness.specificLoudness[band];
         }

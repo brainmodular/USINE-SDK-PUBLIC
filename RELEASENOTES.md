@@ -12,6 +12,45 @@ Olivier Sens & the BrainModular Team
 
 ---
 
+## SDK 703005 — 2026/11/16
+
+Changes since 703003, the previous published version. The intermediate version 703004 was not published.
+
+A module written for 703003 builds without change. Rebuild it with 703005 for macOS and Linux, and mark its error constants `USINE_MODULE_LOCAL` (see below).
+
+### Parameter descriptions
+
+- New field `TParamInfo::Description`, the last of the structure: what the parameter does, shown in the hint of the parameter in Usine and used by the MCP. `"\n"` starts a new line.
+- `MODULE_DESC` is shown in the hint of the module, where `"\n"` starts a new line too.
+
+### Modules loaded together on macOS and Linux
+
+Usine loads several modules in one process, and on macOS and Linux the dynamic linker unifies the weak definitions of the whole process: a module could read the constants of another one.
+
+- New macro `USINE_MODULE_LOCAL`: hidden visibility on macOS and Linux, empty on Windows, for a symbol that must stay private to the module.
+- `MODULE_NAME`, `MODULE_DESC` and `MODULE_VERSION` are `USINE_MODULE_LOCAL`. Before, every module could report the name, description and version of the first module loaded.
+- `current_verbosity_level` of `UserError.h` is `USINE_MODULE_LOCAL`: the verbosity set by a module no longer filters the messages of the others.
+- Mark the error constants of your `ModuleDefinition.h` `USINE_MODULE_LOCAL`, as every example does: `inline const int ERROR_WRITE USINE_MODULE_LOCAL = RegisterError(Level::Error, "...");`. Otherwise two modules that use the same constant name can mix up their messages. The [Module Conventions](wiki/sdk/module-conventions.md) explain why.
+
+### Other changes
+
+- `sdkRaiseError(index, extraMsg)` accepts a null `extraMsg`.
+- `TParamInfo::setEventClass` no longer gives a deprecation warning with clang and clang-cl.
+
+### Examples and documentation
+
+- Every parameter of the 23 examples has a `Description`, and the `MODULE_DESC` of the examples say more precisely what the module does, one sentence per line.
+- New `examples/CMakeLists.txt`: it builds the examples for Windows x64 (clang-cl, `.usr-win64`), macOS (universal, `.usr-macos64uni`) and Linux x86_64 (clang 22, `.usr-linint64`). Its header gives the commands.
+- The modules of the `modules` folder (ArrayDistance, AudioAnalysisDescriptors, DatabaseCreation, DatabasePlayer and MotionRecognition) have a `ModuleDefinition.h`, descriptions of their parameters and a `CMakeLists.txt` for Linux.
+- The wiki explains `USINE_MODULE_LOCAL` in [UserModuleBase](wiki/sdk/user-module-base.md) and [Module Conventions](wiki/sdk/module-conventions.md).
+
+### Compatibility
+
+- `Description` is appended at the end of `TParamInfo`, and Usine reads it only from the modules built with SDK 703004 or later: the modules built with an older SDK keep working.
+- As with 703003, use a module built with this SDK with an up-to-date Usine Hollyhock 7.
+
+---
+
 ## SDK 703003 — 2026/11/03
 
 Changes since 702002, the previous published version. The intermediate versions 703001 and 703002 were not published.

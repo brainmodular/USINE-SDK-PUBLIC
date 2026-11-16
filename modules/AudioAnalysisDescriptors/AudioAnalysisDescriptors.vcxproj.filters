@@ -105,6 +105,9 @@
     <ClInclude Include="AudioAnalysis.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleDefinition.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="Hanalysis\Hanalysis.h">
       <Filter>Source Files</Filter>
     </ClInclude>

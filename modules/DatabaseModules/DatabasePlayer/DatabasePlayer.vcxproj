@@ -25,6 +25,7 @@
     <ClInclude Include="..\..\..\sdk\UsineEventClass.h" />
     <ClInclude Include="..\..\..\sdk\UsineFunctions.h" />
     <ClInclude Include="..\DatabasePlayer\DatabasePlayer.h" />
+    <ClInclude Include="..\DatabasePlayer\ModuleDefinition.h" />
     <ClInclude Include="..\libs\sqlite3lib\sqlite3.h" />
     <ClInclude Include="..\libs\utils\HaudioBuffer.h" />
     <ClInclude Include="..\libs\utils\KDTree.h" />
@@ -87,7 +88,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "C:\tmp\$(ProjectName)\$(SolutionName).usr-win64" "..\..\..\bin\AudioAnalysis\Database Player.usr-win64"</Command>
+      <Command>copy "C:\tmp\$(ProjectName)\$(SolutionName).usr-win64" "..\..\..\bin\DatabaseModules\Database Player.usr-win64"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -109,7 +110,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "C:\tmp\$(ProjectName)\$(SolutionName).usr-win64" "..\..\..\bin\AudioAnalysis\Database Player.usr-win64"</Command>
+      <Command>copy "C:\tmp\$(ProjectName)\$(SolutionName).usr-win64" "..\..\..\bin\DatabaseModules\Database Player.usr-win64"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

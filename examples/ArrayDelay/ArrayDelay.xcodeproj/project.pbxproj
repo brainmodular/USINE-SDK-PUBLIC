@@ -17,6 +17,7 @@
 		62C2EA662B07AD1F00A282C6 /* UserUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD14961A9E2E6500784045 /* UserUtils.cpp */; };
 		62C2EA672B07AD1F00A282C6 /* ArrayDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD149F1A9E2E8800784045 /* ArrayDelay.cpp */; };
 		62C2EA6E2B07AF0500A282C6 /* ArrayDelay.usr-macos64uni in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62C2EA6D2B07AD1F00A282C6 /* ArrayDelay.usr-macos64uni */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		74F9775530AB0A5D008E63E5 /* ModuleDefinition.h in Headers */ = {isa = PBXBuildFile; fileRef = 74F9775430AB0A5D008E63E5 /* ModuleDefinition.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,6 +44,7 @@
 		4EAD14A01A9E2E8800784045 /* ArrayDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayDelay.h; sourceTree = "<group>"; };
 		629CA0C02B15000000BD4832 /* UsineEventClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsineEventClass.h; sourceTree = "<group>"; };
 		62C2EA6D2B07AD1F00A282C6 /* ArrayDelay.usr-macos64uni */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "ArrayDelay.usr-macos64uni"; sourceTree = BUILT_PRODUCTS_DIR; };
+		74F9775430AB0A5D008E63E5 /* ModuleDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModuleDefinition.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -51,6 +53,7 @@
 			children = (
 				4EAD149F1A9E2E8800784045 /* ArrayDelay.cpp */,
 				4EAD14A01A9E2E8800784045 /* ArrayDelay.h */,
+				74F9775430AB0A5D008E63E5 /* ModuleDefinition.h */,
 				4EAD14921A9E2E6500784045 /* sdk */,
 				4EAD14881A9E2D8400784045 /* Products */,
 			);
@@ -90,6 +93,7 @@
 				629CA0C12B15000000BD4832 /* UsineEventClass.h in Headers */,
 				62C2EA602B07AD1F00A282C6 /* UserModule.h in Headers */,
 				62C2EA612B07AD1F00A282C6 /* UserUtils.h in Headers */,
+				74F9775530AB0A5D008E63E5 /* ModuleDefinition.h in Headers */,
 				62C2EA622B07AD1F00A282C6 /* UsineDefinitions.h in Headers */,
 				62C2EA632B07AD1F00A282C6 /* ArrayDelay.h in Headers */,
 			);

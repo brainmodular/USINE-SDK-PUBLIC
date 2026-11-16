@@ -103,9 +103,9 @@ public:
     /// Used by usine to populate browser infos and module infos.
     /// @name Module Constants
 	/// @{ 
-    static const AnsiCharPtr MODULE_NAME;
-    static const AnsiCharPtr MODULE_DESC;
-    static const AnsiCharPtr MODULE_VERSION;
+    static const AnsiCharPtr MODULE_NAME USINE_MODULE_LOCAL;
+    static const AnsiCharPtr MODULE_DESC USINE_MODULE_LOCAL;
+    static const AnsiCharPtr MODULE_VERSION USINE_MODULE_LOCAL;
     /// @}
 
     //-----------------------------------------------------------------------------

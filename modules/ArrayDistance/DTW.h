@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <cmath>
 #include <numeric>
 #include <vector>
@@ -9,17 +10,9 @@ inline T d(T a, T b) {
 	return std::abs(a - b);
 }
 
-template <typename T>
-inline std::vector<std::vector<T>> buildMatrix(size_t n, size_t m) {
-	std::vector<std::vector<T>> r;
-	r.reserve(n);
-	for (size_t i = 0; i < n; ++i)
-		r.push_back(std::vector<T>(m, 0));
-	return r;
-}
-
 // powf is used to guaranty that a float calculation is done and not double for 
 // performance reasons
+// the range is |max - min|: swapped bounds give the same factor as ordered ones
 template <typename T>
 T maxDTW(
 	const std::vector<T>& a, 
@@ -35,12 +28,15 @@ T maxDTW(
 		return 1;
 
 	return
-		std::powf(std::max({static_cast<T>(a.size()), static_cast<T>(b.size()) }), T(1) / q) *
-		(max - min);
+		powf(std::max({static_cast<T>(a.size()), static_cast<T>(b.size()) }), T(1) / q) *
+		std::abs(max - min);
 }
 
 // powf is used to guaranty that a float calculation is done and not double for 
 // performance reasons
+// the n x m cost matrix r[i][j] is calculated row by row and only rows i - 1 and i are kept:
+// the memory grows with m only, each cell is calculated from the same values in the same
+// order as with the full matrix, so the result is the same bit for bit
 template <typename T>
 T DTW(
 	const std::vector<T>& a, 
@@ -53,20 +49,23 @@ T DTW(
 	if (!n || !m)
 		return -1;
 
-	auto r = buildMatrix<T>(n, m);
+	std::vector<T> previous(m, 0); // row i - 1
+	std::vector<T> current(m, 0);  // row i
 
 	for (size_t i = 0; i < n; ++i) {
 		for (size_t j = 0; j < m; ++j) {
-			r[i][j] = std::powf(d(a[i], b[j]), float(q));
+			current[j] = powf(d(a[i], b[j]), float(q));
 			if (i || j) {
-				r[i][j] += std::min({
-					i ? r[i - 1][j] : T(INFINITY),
-					j ? r[i][j - 1] : T(INFINITY),
-					i && j ? r[i - 1][j - 1] : T(INFINITY)
+				current[j] += std::min({
+					i ? previous[j] : T(INFINITY),
+					j ? current[j - 1] : T(INFINITY),
+					i && j ? previous[j - 1] : T(INFINITY)
 					});
 			}
 		}
+		previous.swap(current);
 	}
 
-	return std::pow(r.back().back(), T(1) / q);
+	// after the last swap, previous is row n - 1
+	return std::pow(previous.back(), T(1) / q);
 }

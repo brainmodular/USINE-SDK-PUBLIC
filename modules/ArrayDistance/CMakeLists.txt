@@ -1,33 +1,81 @@
-cmake_minimum_required (VERSION 3.28)
-project (ArrayDistance)
+# ArrayDistance: dynamic time warping distance between two arrays
+#
+# Builds the ArrayDistance module for the three platforms of Usine:
+#   Windows  64-bit          ArrayDistance.usr-win64
+#   macOS    universal       ArrayDistance.usr-macos64uni   (x86_64 10.13 + arm64)
+#   Linux    64-bit          ArrayDistance.usr-linint64
+# The binaries land in <repo>/bin/Machine Learning at the end of the build, like the Xcode and Visual Studio projects.
+#
+#   cmake -S <this folder> -B <build folder> -DCMAKE_BUILD_TYPE=Release
+#   cmake --build <build folder> -j
+#
+# Cross builds: -DCMAKE_TOOLCHAIN_FILE=<toolchain> for MinGW (Windows) or zig (Linux).
 
-set (CMAKE_CXX_STANDARD 23)
-set (CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
-SET (OUTDIR "${CMAKE_SOURCE_DIR}/../../bin/Machine Learning")
-FILE (GLOB SDK_SRC ../../sdk/*.cpp)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.27)
 
-FUNCTION (ADD_COPY_PHASE LIBNAME)
-    IF (WIN32)
-        STRING (REPLACE "/" "\\" WIN_OUTDIR ${OUTDIR})
-        ADD_CUSTOM_COMMAND (TARGET ${LIBNAME} POST_BUILD COMMAND copy *.usr-win64 "${WIN_OUTDIR}" COMMENT "Copying files to bin...")
-    ELSEIF (APPLE)
-        ADD_CUSTOM_COMMAND (TARGET ${LIBNAME} POST_BUILD COMMAND cp -v {*.usr-osx64,*.usr-osxarm64,*.usr-macos64uni} "${OUTDIR}" || true COMMENT "Copying files to bin...")
-    ELSE ()
-        ADD_CUSTOM_COMMAND (TARGET ${LIBNAME} POST_BUILD COMMAND cp --verbose *.so ../../bin/uVector "${OUTDIR}" COMMENT "Copying files to bin...")
-    ENDIF ()
-ENDFUNCTION ()
+# Minimum macOS: 10.13 for x86_64 (clang raises the arm64 slice to 11.0 by itself)
+IF (APPLE AND NOT CMAKE_OSX_DEPLOYMENT_TARGET)
+    SET (CMAKE_OSX_DEPLOYMENT_TARGET "10.13" CACHE STRING "Minimum macOS version")
+ENDIF ()
 
-add_library (ArrayDistance SHARED
+PROJECT (ArrayDistance CXX C)
+
+SET (CMAKE_CXX_STANDARD 23)
+SET (CMAKE_CXX_STANDARD_REQUIRED ON)
+SET (CMAKE_C_STANDARD 11)
+
+# Linux: only the functions marked USINE_MODULE_EXPORT are exported (examples/CMakeLists.txt asks for it on
+# macOS too; here macOS is left as it is).
+# Usine loads many modules in one process: with every symbol exported, two modules can end up sharing a
+# variable or a function that each of them defines (the constants of ModuleDefinition.h, a library compiled in).
+IF (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    SET (CMAKE_C_VISIBILITY_PRESET hidden)
+    SET (CMAKE_CXX_VISIBILITY_PRESET hidden)
+    SET (CMAKE_VISIBILITY_INLINES_HIDDEN ON)
+ENDIF ()
+
+IF (APPLE)
+    SET (CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE STRING "Architectures")
+ENDIF ()
+
+# the same defines as the Xcode and Visual Studio projects
+IF (WIN32)
+    ADD_COMPILE_DEFINITIONS (_WIN32_WINNT=0x0601 NOMINMAX WIN32_LEAN_AND_MEAN)
+ELSEIF (APPLE)
+    ADD_COMPILE_DEFINITIONS (MACOSX=1 USINE_OSX_1068=1)
+ENDIF ()
+
+IF (MSVC)
+    ADD_COMPILE_OPTIONS (/W3 /wd4996)
+ELSE ()
+    ADD_COMPILE_OPTIONS (-Wno-write-strings -Wno-unused-parameter)
+ENDIF ()
+
+SET (OUTDIR "${CMAKE_CURRENT_SOURCE_DIR}/../../bin/Machine Learning")
+SET (SDK_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../sdk")
+FILE (GLOB SDK_SRC "${SDK_DIR}/UserModule.cpp" "${SDK_DIR}/UserUtils.cpp")
+
+# must be set before ADD_LIBRARY: the output directory of a target is read when it is created
+SET (CMAKE_LIBRARY_OUTPUT_DIRECTORY "${OUTDIR}")
+SET (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${OUTDIR}")
+
+ADD_LIBRARY (ArrayDistance SHARED
         ArrayDistance.cpp
         ${SDK_SRC})
-target_compile_options(ArrayDistance PRIVATE ${CXX_FLAGS})
-target_include_directories (ArrayDistance PRIVATE ../../sdk)
-if (WIN32)
-    set_target_properties(ArrayDistance PROPERTIES SUFFIX ".usr-win64" PREFIX "" LIBRARY_OUTPUT_DIRECTORY ${OUTDIR})
-elseif (APPLE)
-    target_link_options (ArrayDistance PRIVATE -U _objc_loadClassref)
-    set_target_properties(ArrayDistance PROPERTIES SUFFIX ".usr-macos64uni" PREFIX "" LIBRARY_OUTPUT_DIRECTORY ${OUTDIR})
-else ()
-    set_target_properties(ArrayDistance PROPERTIES SUFFIX ".usr-linint64" PREFIX "" LIBRARY_OUTPUT_DIRECTORY ${OUTDIR})
-endif ()
-ADD_COPY_PHASE (ArrayDistance)
+TARGET_INCLUDE_DIRECTORIES (ArrayDistance PRIVATE ${SDK_DIR})
+
+IF (WIN32)
+    SET_TARGET_PROPERTIES (ArrayDistance PROPERTIES SUFFIX ".usr-win64" PREFIX "")
+ELSEIF (APPLE)
+    # Xcode links the dylib with a fixed install name, in /usr/local/lib
+    TARGET_LINK_OPTIONS (ArrayDistance PRIVATE "-Wl,-install_name,/usr/local/lib/ArrayDistance.usr-macos64uni,-compatibility_version,1,-current_version,1")
+    SET_TARGET_PROPERTIES (ArrayDistance PROPERTIES SUFFIX ".usr-macos64uni" PREFIX "")
+ELSE ()
+    SET_TARGET_PROPERTIES (ArrayDistance PROPERTIES SUFFIX ".usr-linint64" PREFIX "")
+ENDIF ()
+
+# copy the built module next to the Usine application
+ADD_CUSTOM_COMMAND (TARGET ArrayDistance POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E make_directory "${OUTDIR}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:ArrayDistance>" "${OUTDIR}"
+    COMMENT "Copying the module to bin/Machine Learning")

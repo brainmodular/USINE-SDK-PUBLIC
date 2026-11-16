@@ -83,9 +83,10 @@ void UsineObjects::onProcess()
 	sdkUsineObjectSetLength(PATH_COLOR_ARRAY, OBJECT_ARRAY_SIZE);
 	sdkUsineObjectSetInteger(PATH_COLOR_ROWS, OBJECT_ARRAY_SIZE);
 	sdkRaiseError(INFO_COLOR_ARRAY_LENGTH, std::to_string(sdkUsineObjectGetLength(PATH_COLOR_ARRAY)));
+	// random colors, computed in double: in float 0xFFFFFFFF rounds up to 2^32, out of the range of TUsineColor
 	for (int i = 0; i < OBJECT_ARRAY_SIZE; i++)
 	{
-		sdkUsineObjectSetArrayColor(PATH_COLOR_ARRAY, i, static_cast<TUsineColor>(randomUnit() * 0xFFFFFFFF));
+		sdkUsineObjectSetArrayColor(PATH_COLOR_ARRAY, i, static_cast<TUsineColor>(randomUnit() * 4294967295.0));
 		sdkRaiseError(INFO_COLOR_ARRAY, indexedValue(i, std::to_string(sdkUsineObjectGetArrayColor(PATH_COLOR_ARRAY, i))));
 	}
 

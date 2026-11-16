@@ -1,4 +1,5 @@
 #include "Loudness.h"
+#include <algorithm>
 
 
 Loudness::Loudness(int num_bands, int buffer_size, float sample_rate) :
@@ -20,9 +21,11 @@ void Loudness::init(int buffer_size, float sample_rate)
         m_iNumBands = 25;
         m_vBarkLimits.resize(26, 0);
     }
+    // the bands above Nyquist are cut: a bin index never goes past the buffer_size / 2 + 1 bins of the spectrum
+    const float numBins = static_cast<float>(buffer_size / 2 + 1);
     for(int i = 0; i < m_iNumBands + 1 ;i++)
     {
-        m_vBarkLimits[i] = static_cast<int>(m_vBarkEdges[i] / sample_rate * buffer_size);
+        m_vBarkLimits[i] = (sample_rate > 0.0f) ? static_cast<int>(std::min(m_vBarkEdges[i] / sample_rate * buffer_size, numBins)) : 0;
     }
 
     // resize vectors 
@@ -43,9 +46,11 @@ void Loudness::setFftSize(int new_size, float new_sample_rate)
 
 void Loudness::computeCoefficients(Features& features)
 {
+    const int numBins = static_cast<int>(features.magnitudes.size());
     for(int band = 0; band < m_iNumBands; band++)
     {
-        for(int i = m_vBarkLimits[band]; i < m_vBarkLimits[band+1]; i++)
+        const int end = std::min(m_vBarkLimits[band+1], numBins);
+        for(int i = m_vBarkLimits[band]; i < end; i++)
         {
             m_vBarkCoefficients[band] += features.magnitudes[i];
         }
@@ -57,7 +62,7 @@ std::vector<float> Loudness::computeSpecificLoudness()
     
     for(int band = 0; band < m_iNumBands; band++)
     {
-        m_vSpecificLoudness[band] = std::powf(m_vBarkCoefficients[band], 0.23f);
+        m_vSpecificLoudness[band] = powf(m_vBarkCoefficients[band], 0.23f);
     }
     return m_vSpecificLoudness;
 }

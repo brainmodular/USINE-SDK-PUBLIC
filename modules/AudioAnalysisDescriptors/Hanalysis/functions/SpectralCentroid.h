@@ -2,9 +2,7 @@
 #define __SPECTRAL_CENTROID_H__
 
 
-#ifdef  _WIN32
 #include "../Hfeatures.h"
-#endif // Windows
 
 #ifdef __APPLE__
 #include "Hfeatures.h"

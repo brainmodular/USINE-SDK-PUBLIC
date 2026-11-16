@@ -1,4 +1,5 @@
 #include "Inharmonicity.h"
+#include <cmath>
 
 void Inharmonicity::process(Features &features, Results& results)
 {

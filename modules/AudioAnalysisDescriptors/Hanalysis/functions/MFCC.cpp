@@ -1,18 +1,21 @@
 #include "MFCC.h"
+#include <algorithm>
+#include <cmath>
+#include <cstring>
 
 
 MFCC::MFCC(int buffer_size, float sample_rate) :
     m_iNumMelFilters(NUM_MEL_FILTERS),
-    m_vMelFilterBank(NUM_MEL_FILTERS, std::vector<float>(buffer_size)),
-    m_vMfccEnergy(NUM_MEL_FILTERS,0.0f),
-    m_vMfcc(NUM_COEFF_MFCC,0.0f),
-    m_vLiftering(NUM_COEFF_MFCC-1,0.0f),
-    m_vMelPoints(NUM_MEL_FILTERS + 2, 0.0f),
-    m_vResult(NUM_COEFF_MFCC,0.0f),
     m_vV1(NUM_COEFF_MFCC+1,0.0f),
     m_vV2(NUM_MEL_FILTERS,0.0f),
     m_vTemp(NUM_MEL_FILTERS,0.0f),
-    m_fC(std::sqrtf(2.0f/NUM_MEL_FILTERS))
+    m_fC(sqrtf(2.0f/NUM_MEL_FILTERS)),
+    m_vMelFilterBank(NUM_MEL_FILTERS, std::vector<float>(buffer_size)),
+    m_vMelPoints(NUM_MEL_FILTERS + 2, 0.0f),
+    m_vMfccEnergy(NUM_MEL_FILTERS,0.0f),
+    m_vMfcc(NUM_COEFF_MFCC,0.0f),
+    m_vLiftering(NUM_COEFF_MFCC-1,0.0f),
+    m_vResult(NUM_COEFF_MFCC,0.0f)
 {
     initializeMelFilterBank(buffer_size,sample_rate);
     initializeDct();
@@ -20,7 +23,7 @@ MFCC::MFCC(int buffer_size, float sample_rate) :
     
     for(int i = 0; i < NUM_COEFF_MFCC - 1; i++)
     {
-        m_vLiftering[i] = (1.0f + (LIFT_COEFF_S2)*std::sinf(PI_S_LIFT_COEFF * float(i)));
+        m_vLiftering[i] = (1.0f + (LIFT_COEFF_S2)*sinf(PI_S_LIFT_COEFF * float(i)));
     }
 
 }
@@ -67,12 +70,12 @@ void MFCC::process(Features& features, Results& results)
 
 float MFCC::Hz2Mel(const float& hz)
 {
-    return 2595.0f * std::log10f(1.0f + (hz / 700.0f));
+    return 2595.0f * log10f(1.0f + (hz / 700.0f));
 }
 
 float MFCC::Mel2Hz(const float& mel)
 {
-    return 700.0f * (std::powf(10.0f,mel/2595.0f) - 1.0f);
+    return 700.0f * (powf(10.0f,mel/2595.0f) - 1.0f);
 }
 
 void MFCC::reset()
@@ -98,7 +101,7 @@ void MFCC::initializeDct()
         for (int j=0; j<m_iNumMelFilters; j++)
         {
             //Check if ok ?
-            m_vTemp[j] = (m_fC * std::cosf(M_PI / (float) m_iNumMelFilters * m_vV1[i] * m_vV2[j]));
+            m_vTemp[j] = (m_fC * cosf(M_PI / (float) m_iNumMelFilters * m_vV1[i] * m_vV2[j]));
         }
         m_vDctMatrix.push_back(m_vTemp);
     }
@@ -115,9 +118,16 @@ void MFCC::initializeMelFilterBank(int buffer_size, float sample_rate)
     m_fMelBandWidth = 0.0f;
     int fft_size = buffer_size / 2 + 1;
 
+    // edges of the triangles, evenly spaced on the mel scale from 0 Hz to Nyquist, in bins of the buffer_size
+    // points FFT (bin = frequency * buffer_size / sample_rate, the last edge is the Nyquist bin buffer_size / 2).
+    // Computed in double, the epsilon keeps the exact edges (Nyquist) from rounding down
+    const double melMax = 2595.0 * std::log10(1.0 + (sample_rate / 2.0) / 700.0);
+    const double melStep = melMax / double(m_iNumMelFilters + 1);
     for(int i = 0; i < int(m_vMelPoints.size()); i++)
     {
-        m_vMelPoints[i] = std::floor(Mel2Hz(m_fMelMin + i * m_fMelStep) * fft_size / sample_rate);
+        const double hz = 700.0 * (std::pow(10.0, i * melStep / 2595.0) - 1.0);
+        const double bin = std::floor(hz * buffer_size / sample_rate + 1e-6);
+        m_vMelPoints[i] = static_cast<float>(std::min(std::max(bin, 0.0), double(fft_size - 1)));
     }
 
     for (int j = 0; j < m_iNumMelFilters; j++)
@@ -161,9 +171,9 @@ void MFCC::initializeMelFilterBank(int buffer_size, float sample_rate)
 
 std::vector<float> MFCC::computeMfccEnergy(Features& features)
 {
-    m_fLogEnergy = std::logf(features.sum_magnitudes/features.fft_size);
+    m_fLogEnergy = logf(features.sum_magnitudes/features.fft_size);
     
-    for(int filterCount = 0; filterCount < m_vMelFilterBank.size(); filterCount++)
+    for(int filterCount = 0; filterCount < int(m_vMelFilterBank.size()); filterCount++)
     {
         for(int j = 0; j < features.fft_size; j++)
         {
@@ -177,7 +187,7 @@ std::vector<float> MFCC::computeMfccEnergy(Features& features)
             m_vMfccEnergy[filterCount] = 1e-10f;
         }
         // apply log to the sum of energy to simulate human perception
-        m_vMfccEnergy[filterCount] = std::log10f((m_vMfccEnergy[filterCount]));
+        m_vMfccEnergy[filterCount] = log10f((m_vMfccEnergy[filterCount]));
     }
     
      return m_vMfccEnergy;

@@ -1,13 +1,7 @@
 #ifndef __SPECTRAL_FLATNESS_H__
 #define __SPECTRAL_FLATNESS_H__
 
-#ifdef  _WIN32
-#include "Hfeatures.h"
-#endif // Windows
-
-#ifdef __APPLE__
-#include "Hfeatures.h"
-#endif // MacOs
+#include "HFeatures.h"
 
 class SpectralFlatness{
 public:

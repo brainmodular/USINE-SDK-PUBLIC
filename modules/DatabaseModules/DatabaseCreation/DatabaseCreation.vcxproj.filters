@@ -113,6 +113,9 @@
     <ClInclude Include="..\DatabaseCreation\DatabaseCreation.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\DatabaseCreation\ModuleDefinition.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\sdk\UserDefinitions.h">
       <Filter>Source Files\sdk</Filter>
     </ClInclude>

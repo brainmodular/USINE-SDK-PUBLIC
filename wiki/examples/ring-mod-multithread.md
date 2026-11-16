@@ -8,7 +8,7 @@
 | **Module Name** | `ring mod multithread` |
 | **Type** | `mtSimple` |
 | **Color** | `clAudioModuleColor` |
-| **Version** | 1.0 |
+| **Version** | 1.261112 |
 | **Source** | `examples/RingModMultithread/` |
 
 ## Description

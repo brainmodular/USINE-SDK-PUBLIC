@@ -1,11 +1,10 @@
 #pragma once
 #include <vector>
 #include "functions/MFCC.h"
-#include "functions/Rms.h"
+#include "functions/RMS.h"
 #include "functions/SpectralCentroid.h"
 #include "functions/SpectralFlatness.h"
 #include "functions/SpectralSpread.h"
-#include "functions/HarmonicF0.h"
 #include "functions/Loudness.h"
 
 

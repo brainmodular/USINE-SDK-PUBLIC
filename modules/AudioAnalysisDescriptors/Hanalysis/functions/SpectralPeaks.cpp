@@ -1,4 +1,6 @@
 #include "SpectralPeaks.h"
+#include <algorithm>
+#include <cstring>
 
 
 void SpectralPeaks::process(Features &features, Results& results)

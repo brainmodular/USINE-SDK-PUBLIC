@@ -233,6 +233,7 @@
     <ClInclude Include="..\..\sdk\UsineFunctions.h" />
     <ClInclude Include="DTW.h" />
     <ClInclude Include="ArrayDistance.h" />
+    <ClInclude Include="ModuleDefinition.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sdk\UserModule.cpp" />

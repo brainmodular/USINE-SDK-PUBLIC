@@ -1,161 +1,116 @@
-#include "ArrayDistance.h"
+//-----------------------------------------------------------------------------
+// @file    ArrayDistance.cpp
+// @author  BrainModular team
+// @brief   Dynamic time warping (DTW) distance between two arrays.
+//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
+//-----------------------------------------------------------------------------
+#include <algorithm>
 #include <vector>
+#include "ArrayDistance.h"
+#include "ModuleDefinition.h"
 #include "DTW.h"
 
-//----------------------------------------------------------------------------
-// create, general info and destroy methods
-//----------------------------------------------------------------------------
-
-constexpr NativeInt CALCULATE_CBID = 0x003200F0;
-
-//-----------------------------------------------------------------------------
-// Create
-void CreateModule(void*& pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+namespace
 {
-	pModule = new DTWDistance();
+	// DTW.h works on vectors: copies the values of an array parameter
+	// the size of a Usine event can be -1 (NULL_EVT, an event without value): no value then
+	std::vector<TPrecision> arrayValues(const UsineEventClass& arrayIn)
+	{
+		const int size = std::max(arrayIn.getSize(), 0);
+		std::vector<TPrecision> values;
+		values.reserve(static_cast<size_t>(size));
+		for (int i = 0; i < size; ++i)
+			values.push_back(arrayIn.getArrayData(i));
+		return values;
+	}
+
+	// keeps the patch of a module locked while it exists, until the end of the scope or an exception
+	class PatchLock
+	{
+	public:
+		explicit PatchLock(const UserModuleBase& lockedModule)
+			: owner(lockedModule)
+		{
+			owner.sdkLockPatch();
+		}
+
+		~PatchLock()
+		{
+			owner.sdkUnLockPatch();
+		}
+
+		PatchLock(const PatchLock&) = delete;
+		PatchLock& operator=(const PatchLock&) = delete;
+
+	private:
+		const UserModuleBase& owner;
+	};
 }
 
-// destroy
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+{
+	pModule = new ArrayDistance();
+}
+
 void DestroyModule(void* pModule)
 {
 	// cast is important to call the good destructor
-	delete ((DTWDistance*)pModule);
+	delete static_cast<ArrayDistance*>(pModule);
 }
 
-// module constants for browser info and module info
-constexpr AnsiCharPtr UserModuleBase::MODULE_NAME    = "Array Distance";
-constexpr AnsiCharPtr UserModuleBase::MODULE_DESC    = "Calculates the DTW distance between two arrays.\nThe closer the two arrays are, the lower the difference will be.";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "0.1";
-
-// browser info
-void GetBrowserInfo(TModuleInfo* pModuleInfo)
+void ArrayDistance::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-	pModuleInfo->Name = UserModuleBase::MODULE_NAME;
-	pModuleInfo->Description = UserModuleBase::MODULE_DESC;
-	pModuleInfo->Version = UserModuleBase::MODULE_VERSION;
-}
-
-void DTWDistance::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
-{
-	pModuleInfo->Name = MODULE_NAME;
-	pModuleInfo->Description = MODULE_DESC;
-	pModuleInfo->ModuleType = mtSimple;
-	pModuleInfo->BackColor = sdkGetUsineColor(clArrayModuleColor);
-	pModuleInfo->Version = MODULE_VERSION;
-	pModuleInfo->NumberOfParams = 6;
+	pModuleInfo->ModuleType         = mtSimple;
+	pModuleInfo->BackColor          = sdkGetUsineColor(clArrayModuleColor);
 	pModuleInfo->CanBeSavedInPreset = FALSE;
-	pModuleInfo->DontProcess = true;
+	// no onProcess: the distance is only calculated by the calculate button
+	pModuleInfo->DontProcess        = TRUE;
 }
 
-//-----------------------------------------------------------------------------
-// query system and init methods
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// Called after the query popup
-void DTWDistance::onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
+void ArrayDistance::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
+	sdkCreateParam(array1ArrInParamInfo, array1ArrIn);
+	sdkCreateParam(array2ArrInParamInfo, array2ArrIn);
+	sdkCreateParam(distanceFdrOutParamInfo, distanceFdrOut);
+	sdkCreateParam(minFdrInParamInfo, minFdrIn);
+	sdkCreateParam(maxFdrInParamInfo, maxFdrIn);
+	sdkCreateParam(calculateBtnInParamInfo, calculateBtnIn);
 }
 
-
-//-----------------------------------------------------------------------------
-// initialisation
-void DTWDistance::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
+void ArrayDistance::onCallBack(TUsineMessage* Message)
 {
-}
+	if ((Message->message != NOTIFY_MSG_USINE_CALLBACK) || (Message->lParam != MSG_CHANGE))
+		return;
 
-//----------------------------------------------------------------------------
-// parameters and process
-//-----------------------------------------------------------------------------
-void DTWDistance::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo)
-{
-	if (ParamIndex == 0) {
-		pParamInfo->ParamType = ptArray;
-		pParamInfo->Caption = "array 1";
-		pParamInfo->IsInput = TRUE;
-		pParamInfo->IsOutput = FALSE;
-		pParamInfo->ReadOnly = FALSE;
-		pParamInfo->IsSeparator = TRUE;
-		pParamInfo->SeparatorCaption = "data in";
-		pParamInfo->setEventClass(arrDataA_);
-		pParamInfo->MaxValue = 16384;
-		pParamInfo->MinValue = -16384;
-		pParamInfo->CallBackType = ctNone;
-	}
-	else if (ParamIndex == 1) {
-		pParamInfo->ParamType = ptArray;
-		pParamInfo->Caption = "array 2";
-		pParamInfo->IsInput = TRUE;
-		pParamInfo->IsOutput = FALSE;
-		pParamInfo->ReadOnly = FALSE;
-		pParamInfo->setEventClass(arrDataB_);
-		pParamInfo->MaxValue = 16384;
-		pParamInfo->MinValue = -16384;
-		pParamInfo->CallBackType = ctNone;
-	}
-	else if (ParamIndex == 2) {
-		pParamInfo->ParamType = ptDataField;
-		pParamInfo->Caption = "distance";
-		pParamInfo->IsInput = FALSE;
-		pParamInfo->IsOutput = TRUE;
-		pParamInfo->ReadOnly = FALSE;
-		pParamInfo->setEventClass(dtDistance_);
-		pParamInfo->CallBackType = ctNone;
-	}
-	else if (ParamIndex == 3) {
-		pParamInfo->ParamType = ptDataField;
-		pParamInfo->Caption = "min";
-		pParamInfo->IsInput = TRUE;
-		pParamInfo->IsOutput = FALSE;
-		pParamInfo->ReadOnly = FALSE;
-		pParamInfo->setEventClass(dtMin_);
-		pParamInfo->DefaultValue = 0.0f;
-		pParamInfo->CallBackType = ctNone;
-	}
-	else if (ParamIndex == 4) {
-		pParamInfo->ParamType = ptDataField;
-		pParamInfo->Caption = "max";
-		pParamInfo->IsInput = TRUE;
-		pParamInfo->IsOutput = FALSE;
-		pParamInfo->ReadOnly = FALSE;
-		pParamInfo->setEventClass(dtMax_);
-		pParamInfo->DefaultValue = 1.0f;
-		pParamInfo->CallBackType = ctNone;
-	}
-	else if (ParamIndex == 5) {
-		pParamInfo->ParamType = ptButton;
-		pParamInfo->Caption = "calculate";
-		pParamInfo->IsInput = TRUE;
-		pParamInfo->IsOutput = FALSE;
-		pParamInfo->ReadOnly = FALSE;
-		pParamInfo->setEventClass(btnCalculate_);
-		pParamInfo->CallBackType = ctNormal;
-		pParamInfo->CallBackId = CALCULATE_CBID;
-	}
-}
-
-// onCallback called with a ctNormal callback type will run on the message thread
-void DTWDistance::onCallBack(TUsineMessage* Message) {
-	// filter only message specific to this user module and type MS_CHANGE
-	if (Message->message == NOTIFY_MSG_USINE_CALLBACK &&
-		Message->lParam == MSG_CHANGE &&
-		Message->wParam == CALCULATE_CBID)
+	switch (Message->wParam)
 	{
-		std::vector<TPrecision> a;
-		std::vector<TPrecision> b;
-		a.reserve(arrDataA_.getSize());
-		b.reserve(arrDataB_.getSize());
-
-		for (int i = 0; i <arrDataA_.getSize(); ++i)
-			a.push_back(arrDataA_.getArrayData(i));
-
-		for (int i = 0; i < arrDataB_.getSize(); ++i)
-			b.push_back(arrDataB_.getArrayData(i));
-
-		float normalizationFactor = maxDTW<TPrecision>(a, b, dtMin_.getData(), dtMax_.getData());
-		dtDistance_.setData(DTW<TPrecision>(a, b) / normalizationFactor);
+		case CALCULATE_BTN_CBID:
+			calculateDistance();
+			break;
+		default:
+			break;
 	}
 }
 
-void DTWDistance::onProcess() {}
+void ArrayDistance::calculateDistance()
+{
+	std::vector<TPrecision> array1;
+	std::vector<TPrecision> array2;
+	TPrecision minValue = 0;
+	TPrecision maxValue = 0;
+	{
+		// this callback runs on the main thread while the patch thread writes the inputs and can
+		// reallocate an array: they are copied with the patch locked, the calculation runs unlocked
+		const PatchLock lock(*this);
+		array1   = arrayValues(array1ArrIn);
+		array2   = arrayValues(array2ArrIn);
+		minValue = minFdrIn.getData();
+		maxValue = maxFdrIn.getData();
+	}
+	// 1 when an array is empty or when min equals max: the distance is then not scaled
+	const TPrecision normalizationFactor = maxDTW<TPrecision>(array1, array2, minValue, maxValue);
+	distanceFdrOut.setData(DTW<TPrecision>(array1, array2) / normalizationFactor);
+}

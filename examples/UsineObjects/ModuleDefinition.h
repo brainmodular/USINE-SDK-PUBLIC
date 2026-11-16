@@ -14,8 +14,18 @@
 // module constants for browser info and module info
 // they are defined here, so this file must be included by a single .cpp
 constexpr AnsiCharPtr UserModuleBase::MODULE_NAME    = "usine objects";
-constexpr AnsiCharPtr UserModuleBase::MODULE_DESC    = "reads and writes Usine objects by their path (sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
+	"reads and writes the objects of the patch by their path on each tick of the slow clock: one value in "
+	"a faderdata object, the sixteen elements of a data array through the array-in path, the array-out "
+	"read back, a color array with its number of rows, a comma-text string and a trigger.\n"
+	"Most writes are followed by a trace of the value read back from the object, and the module also "
+	"traces the number of video objects and the hash of the objects list.\n"
+	"The paths are fixed in the code and point to usine.workspace.rack01.patch01, so these objects must "
+	"exist in the workspace; colors are computed in double to stay in the range of TUsineColor and the "
+	"text is fifty random alphanumeric characters.\n"
+	"[array set] and [array get] are declared but never used, the objects being written directly (sdk "
+	"example)";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
 
 // paths of the objects used by the module, they must exist in the workspace
 constexpr AnsiCharPtr PATH_FADER_DATA   = "usine.workspace.rack01.patch01.faderdata";
@@ -27,14 +37,14 @@ constexpr AnsiCharPtr PATH_COMMA_TEXT   = "usine.workspace.rack01.patch01.string
 constexpr AnsiCharPtr PATH_TRIGGER      = "usine.workspace.rack01.patch01.trigger";
 constexpr int         OBJECT_ARRAY_SIZE = 16;
 
-inline const int INFO_VIDEO_OBJECTS      = RegisterError(Level::Info, "video objects: ");
-inline const int INFO_OBJECTS_HASH       = RegisterError(Level::Info, "objects hash: ");
-inline const int INFO_FADER_DATA         = RegisterError(Level::Info, "faderdata = ");
-inline const int INFO_ARRAY_OUT          = RegisterError(Level::Info, "array-out");
-inline const int INFO_COLOR_ARRAY        = RegisterError(Level::Info, "color-array");
-inline const int INFO_COLOR_ARRAY_LENGTH = RegisterError(Level::Info, "color-array length = ");
-inline const int INFO_COMMA_TEXT_EXISTS  = RegisterError(Level::Info, "string.comma-text exists");
-inline const int INFO_COMMA_TEXT         = RegisterError(Level::Info, "string.comma-text = ");
+inline const int INFO_VIDEO_OBJECTS      USINE_MODULE_LOCAL = RegisterError(Level::Info, "video objects: ");
+inline const int INFO_OBJECTS_HASH       USINE_MODULE_LOCAL = RegisterError(Level::Info, "objects hash: ");
+inline const int INFO_FADER_DATA         USINE_MODULE_LOCAL = RegisterError(Level::Info, "faderdata = ");
+inline const int INFO_ARRAY_OUT          USINE_MODULE_LOCAL = RegisterError(Level::Info, "array-out");
+inline const int INFO_COLOR_ARRAY        USINE_MODULE_LOCAL = RegisterError(Level::Info, "color-array");
+inline const int INFO_COLOR_ARRAY_LENGTH USINE_MODULE_LOCAL = RegisterError(Level::Info, "color-array length = ");
+inline const int INFO_COMMA_TEXT_EXISTS  USINE_MODULE_LOCAL = RegisterError(Level::Info, "string.comma-text exists");
+inline const int INFO_COMMA_TEXT         USINE_MODULE_LOCAL = RegisterError(Level::Info, "string.comma-text = ");
 
 inline constexpr TParamInfo setArrInParamInfo {
 	.ParamType        = ptArray,
@@ -43,7 +53,8 @@ inline constexpr TParamInfo setArrInParamInfo {
 	.IsOutput         = FALSE,
 	.CallBackType     = ctNormal,
 	.IsSeparator      = TRUE,
-	.SeparatorCaption = ""
+	.SeparatorCaption = "",
+	.Description      = "Not used: the module writes the objects of the patch directly by their path."
 };
 
 inline constexpr TParamInfo getArrOutParamInfo {
@@ -51,5 +62,6 @@ inline constexpr TParamInfo getArrOutParamInfo {
 	.Caption      = "array get",
 	.IsInput      = FALSE,
 	.IsOutput     = TRUE,
-	.CallBackType = ctNormal
+	.CallBackType = ctNormal,
+	.Description  = "Not used: the values read back from the objects are written in the Usine trace."
 };

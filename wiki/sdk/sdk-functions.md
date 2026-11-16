@@ -303,7 +303,7 @@ Modules report what happens with the error system of `sdk/UserError.h` rather th
 
 ```cpp
 // ModuleDefinition.h
-inline const int ERROR_POINTER_NOT_FLOAT = RegisterError(Level::Error, "the pointer is not type float");
+inline const int ERROR_POINTER_NOT_FLOAT USINE_MODULE_LOCAL = RegisterError(Level::Error, "the pointer is not type float");
 
 // UsinePointers.cpp
 if (ptrIn.getPointerDataType() != usinePtrFloat)

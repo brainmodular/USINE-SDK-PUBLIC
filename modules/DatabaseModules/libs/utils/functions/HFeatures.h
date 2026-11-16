@@ -42,8 +42,8 @@ struct Features {
     Features(int buffer_size, int fft_size, float sample_rate) :
     windowedAudioBuffer(buffer_size,0.0f),
     magnitudes(fft_size, 0.0f),
-    amplitudes(fft_size,0.0f),
     frequencies(fft_size, 0.0f),
+    amplitudes(fft_size,0.0f),
     harmonicMfcc(13,0.0f),
     realPart(8192,0.0f),
     imPart(8192,0.0f),

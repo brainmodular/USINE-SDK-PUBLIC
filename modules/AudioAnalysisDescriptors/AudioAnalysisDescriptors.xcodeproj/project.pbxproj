@@ -507,7 +507,11 @@
 				EXECUTABLE_EXTENSION = "usr-macos64uni";
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"MACOSX=1",
+					"USINE_OSX_1068=1",
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = /usr/local/lib;
@@ -515,7 +519,7 @@
 				NEW_SETTING = "";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "-U -Xlinker _objc_loadClassref";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Audio Analysis Descriptors";
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -536,6 +540,11 @@
 				EXECUTABLE_EXTENSION = "usr-macos64uni";
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NDEBUG=1",
+					"MACOSX=1",
+					"USINE_OSX_1068=1",
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = /usr/local/lib;
@@ -543,7 +552,7 @@
 				NEW_SETTING = "";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "-U -Xlinker _objc_loadClassref";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Audio Analysis Descriptors";
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
 				SWIFT_VERSION = 6.0;

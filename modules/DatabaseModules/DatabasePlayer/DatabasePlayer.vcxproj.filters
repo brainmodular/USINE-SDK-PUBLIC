@@ -68,5 +68,8 @@
     <ClInclude Include="..\DatabasePlayer\DatabasePlayer.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\DatabasePlayer\ModuleDefinition.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

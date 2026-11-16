@@ -8,7 +8,7 @@
 | **Module Name** | `error handling` |
 | **Type** | `mtSimple` |
 | **Color** | `clDataModuleColor` |
-| **Version** | 1.0 |
+| **Version** | 1.261112 |
 | **Source** | `examples/ErrorHandling/` |
 
 ## Description
@@ -61,10 +61,10 @@ With `force_log = true`, Warn and Info messages are written to the log file even
 
 ```cpp
 // ModuleDefinition.h
-inline const int ERROR_WRITE               = RegisterError(Level::Error, "this is an error print");
-inline const int WARNING_WRITE             = RegisterError(Level::Warn, "this is a warn print");
-inline const int INFO_WRITE                = RegisterError(Level::Info, "this is an info print");
-inline const int WARNING_UNKNOWN_VERBOSITY = RegisterError(Level::Warn, "unknown verbosity level, expected None, Error, Warn, Info or All, got: ");
+inline const int ERROR_WRITE               USINE_MODULE_LOCAL = RegisterError(Level::Error, "this is an error print");
+inline const int WARNING_WRITE             USINE_MODULE_LOCAL = RegisterError(Level::Warn, "this is a warn print");
+inline const int INFO_WRITE                USINE_MODULE_LOCAL = RegisterError(Level::Info, "this is an info print");
+inline const int WARNING_UNKNOWN_VERBOSITY USINE_MODULE_LOCAL = RegisterError(Level::Warn, "unknown verbosity level, expected None, Error, Warn, Info or All, got: ");
 
 // ErrorHandling.cpp
 void ErrorHandling::onCallBack(TUsineMessage* Message)

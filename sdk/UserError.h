@@ -12,12 +12,19 @@ struct Error {
     std::string msg;
 };
 
-inline Verbosity current_verbosity_level = Verbosity::All;
+// hidden: an inline variable is a weak definition, and the dynamic linker unifies the weak
+// definitions of the whole process, so the trace level set in one module would filter the traces of
+// every other module (Windows never unifies across DLLs)
+inline Verbosity current_verbosity_level USINE_MODULE_LOCAL = Verbosity::All;
 
 inline void setVerbosityLevel(Verbosity v) { current_verbosity_level = v; }
 
 
-// function-local static: initialised on first use, safe across translation units
+// function-local static: initialised on first use, safe across translation units.
+// NOT hidden, unlike the verbosity: an `inline const int ERROR_X = RegisterError(...)` has a dynamic
+// initializer, so it is a weak definition the dynamic linker unifies between two modules that use the
+// same constant name; the index it holds must therefore stay valid in ONE registry shared by all the
+// modules of the process. A per-module registry would silently drop those errors.
 inline std::vector<Error>& errorList()
 {
     static std::vector<Error> list;
@@ -64,7 +71,8 @@ inline void sdkRaiseError(int index, const char *extraMsg, bool force_log = fals
         return;
 
     Error err = errorList()[index];
-    err.msg = err.msg + extraMsg; 
+    if (extraMsg != nullptr)  
+        err.msg = err.msg + extraMsg;    
 
     if ((int)err.level <= (int)current_verbosity_level)
         traceType(err);

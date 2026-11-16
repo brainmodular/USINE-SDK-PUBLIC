@@ -8,7 +8,7 @@
 | **Module Name** | `usine pointers` |
 | **Type** | `mtSimple` |
 | **Color** | `clArrayModuleColor` |
-| **Version** | 1.0 |
+| **Version** | 1.261112 |
 | **Source** | `examples/UsinePointers/` |
 
 ## Description

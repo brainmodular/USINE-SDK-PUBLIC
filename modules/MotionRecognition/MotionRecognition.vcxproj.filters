@@ -21,6 +21,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ModuleDefinition.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="MotionRecognizer.h">
       <Filter>Source Files</Filter>
     </ClInclude>

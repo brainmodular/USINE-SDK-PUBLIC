@@ -1,4 +1,5 @@
 #include "KDTree.h"
+#include <memory>
 
 KDTree::KDTree(int numDimensions)
 {

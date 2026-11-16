@@ -12,16 +12,8 @@
  Proceedings of the IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP). https://www.eecs.qmul.ac.uk/~simond/pub/2014/MauchDixon-PYIN-ICASSP2014.pdf
  */
 
-#ifdef  _WIN32
-#include "Hfeatures.h"
-//#include "../../../sdk/UserDefinitions.h"
+#include "HFeatures.h"
 #include "UserDefinitions.h"
-#endif // Windows
-
-#ifdef __APPLE__
-#include "Hfeatures.h"
-#include "UserDefinitions.h"
-#endif // MacOs
 
 #include <vector>
 #include <tuple>

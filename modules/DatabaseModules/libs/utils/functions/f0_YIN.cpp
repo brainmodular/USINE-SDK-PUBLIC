@@ -1,14 +1,18 @@
 #include "f0_YIN.h"
+#include <algorithm>
+#include <cstring>
 
+// the autocorrelation is circular: d(buffer_size - tau) = d(tau), so the lags stop at buffer_size / 2
+// (the mirror of tau = 1 at buffer_size - 1 gave a false pitch of sample_rate / buffer_size to the frames without pitch)
 F0_YIN::F0_YIN(int buffer_size, float sample_rate) : 
-    m_vYinBuffer(buffer_size, 0.0f), 
+    m_vYinBuffer(buffer_size / 2, 0.0f), 
     m_vTempBuffer(buffer_size, 0.0f),
 
     m_Re(buffer_size,0.0f),
     m_Im(buffer_size,0.0f),
 
 
-    m_vAutoCorr(buffer_size,0.0f)
+    m_vAutoCorr(buffer_size / 2,0.0f)
 {
     
     m_FftPtr = sdkFFTCreate(buffer_size);
@@ -38,6 +42,17 @@ void F0_YIN::process(Features& features)
     
     float highestProba = 0.0f;
     
+    // a frame without its samples gives no pitch
+    if(features.buffer_size < 4 || static_cast<int>(features.windowedAudioBuffer.size()) < features.buffer_size)
+    {
+        features.harmonicF0_YIN = {0.0f, 0.0f};
+        return;
+    }
+    // the fft and the buffers always have the size of the frames (the host fft reads and writes fft size values)
+    if(features.buffer_size != static_cast<int>(m_vTempBuffer.size()))
+    {
+        setFFTSize(features.buffer_size);
+    }
     // Reset the buffers
     reset();
     // Compute the autocorrelation of audioBuffer via FFT-IFFT and put it in the m_vTempBuffer
@@ -72,8 +87,8 @@ void F0_YIN::process(Features& features)
 void F0_YIN::autocorr(const std::vector<float>& audioInput, const int buffer_size)
 {
     
-        // We copy the audioBuffer into our temp buffer
-    std::memcpy(m_vTempBuffer.data(), audioInput.data(), sizeof(float) * audioInput.size());
+        // We copy the frame (buffer_size samples) into our temp buffer
+    std::memcpy(m_vTempBuffer.data(), audioInput.data(), sizeof(float) * buffer_size);
     
         // Compute mean of buffer for centering
     for(int i = 0; i < buffer_size; i++)
@@ -113,7 +128,9 @@ void F0_YIN::autocorr(const std::vector<float>& audioInput, const int buffer_siz
 
 void F0_YIN::difference(std::vector<float> &yinBuffer, std::vector<float> &tempBuffer, const int buffer_size)
 {
-    for (int tau = 0; tau < buffer_size; tau++)
+    // the lags of yinBuffer only: half the buffer
+    const int numLags = std::min(buffer_size, static_cast<int>(yinBuffer.size()));
+    for (int tau = 0; tau < numLags; tau++)
     {
         yinBuffer[tau] =
         tempBuffer[0] + tempBuffer[1] - 2 * tempBuffer[tau];
@@ -127,24 +144,30 @@ void F0_YIN::cumulative_mean_normalized_difference(std::vector<float> &yinBuffer
     
     for (int tau = 1; tau < signed(yinBuffer.size()); tau++) {
         runningSum += yinBuffer[tau];
-        yinBuffer[tau] *= tau / runningSum;
+        // a silent frame (all the differences are 0) has no dip: 1, as at tau 0
+        if (runningSum != 0.0f)
+            yinBuffer[tau] *= tau / runningSum;
+        else
+            yinBuffer[tau] = 1.0f;
     }
     m_vAutoCorr = yinBuffer;
 }
 
 int F0_YIN::absolute_threshold(std::vector<float> &yinBuffer, const int buffer_size)
 {
+    // the lags of yinBuffer only: half the buffer
+    const int numLags = std::min(buffer_size, static_cast<int>(yinBuffer.size()));
     int tau = 0;
-    for (tau = 2; tau < buffer_size; tau++) {
+    for (tau = 2; tau < numLags; tau++) {
         if (yinBuffer[tau] < YIN_THRESHOLD) {
-            while (tau + 1 < buffer_size && yinBuffer[tau + 1] < yinBuffer[tau]) {
+            while (tau + 1 < numLags && yinBuffer[tau + 1] < yinBuffer[tau]) {
                 tau++;
             }
             break;
         }
     }
     
-    return (tau == buffer_size || yinBuffer[tau] >= YIN_THRESHOLD) ? -1 : tau;
+    return (tau >= numLags || yinBuffer[tau] >= YIN_THRESHOLD) ? -1 : tau;
 }
 
 
@@ -243,9 +266,9 @@ void F0_YIN::setFFTSize(int new_size)
     m_vTempBuffer.clear();
     m_vAutoCorr.clear();
     
-    m_vYinBuffer.resize(new_size);
+    m_vYinBuffer.resize(new_size / 2);
     m_vTempBuffer.resize(new_size);
-    m_vAutoCorr.resize(new_size);
+    m_vAutoCorr.resize(new_size / 2);
     
 
     m_FftPtr = sdkFFTCreate(new_size);
@@ -254,20 +277,12 @@ void F0_YIN::setFFTSize(int new_size)
 
 }
 
-void F0_YIN::setSampleRate(int fft_size, float sample_rate)
+void F0_YIN::setSampleRate(int fft_size, float /*sample_rate*/)
 {
-    m_Re.clear();
-    m_Im.clear();
-    
-    m_vYinBuffer.clear();
-    m_vTempBuffer.clear();
-    m_vAutoCorr.clear();
-    
-    m_vYinBuffer.resize(fft_size);
-    m_vTempBuffer.resize(fft_size);
-    m_vAutoCorr.resize(fft_size);
-    
-    m_Re.resize(fft_size);
-    m_Im.resize(fft_size);
-    
+    // the sample rate is read in the features at each analysis: only a new size matters, and the fft
+    // must be created again with it (the host fft reads and writes fft size values)
+    if(fft_size != static_cast<int>(m_vTempBuffer.size()))
+    {
+        setFFTSize(fft_size);
+    }
 }

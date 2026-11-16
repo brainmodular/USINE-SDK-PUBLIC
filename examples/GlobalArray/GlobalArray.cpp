@@ -75,8 +75,9 @@ void GlobalArray::onProcess()
 	hash = sdkGlobalArrayGetHash(GA_COLOR);
 	if (hash > 0)
 	{
+		// random colors, computed in double: in float 0xFFFFFFFF rounds up to 2^32, out of the range of TUsineColor
 		for (int i = 0; i < GA_SIZE; i++)
-			sdkGlobalArraySetValueColor(hash, i, static_cast<TUsineColor>(randomUnit() * 0xFFFFFFFF), GA_COLOR);
+			sdkGlobalArraySetValueColor(hash, i, static_cast<TUsineColor>(randomUnit() * 4294967295.0), GA_COLOR);
 
 		sdkRaiseError(INFO_GA_COLOR, std::to_string(sdkGlobalArrayGetValueColor(hash, 0, GA_COLOR)));
 	}

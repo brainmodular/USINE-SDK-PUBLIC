@@ -1,52 +1,56 @@
 #include "Tristimulus.h"
+#include <algorithm>
+#include <cmath>
+#include <cstring>
 
+namespace
+{
+    // harmonics taken into account, as in the Timbre Toolbox (Peeters et al. 2011)
+    constexpr int TRISTIMULUS_MAX_HARMONICS = 20;
+}
 
 void Tristimulus::process(Features &features, Results& results)
 {
-    float num1 = 0.0f;
-    float num2 = 0.0f;
-    float num3 = 0.0f;
-    float sum = 0.0f;
-
-    int fundFreqBin = 0;
+    // tristimulus after Pollard and Jansson (1982): the share of the fundamental (T1), of harmonics 2 to 4 (T2)
+    // and of harmonics 5 and above (T3) in the sum of the amplitudes of the harmonics 1 to 20 below Nyquist
+    float sums[3] = {0.0f, 0.0f, 0.0f};
+    float total = 0.0f;
 
     std::fill(m_vResult.begin(), m_vResult.end(), 0.0f);
     
-    if(results.harmonicF0_YIN.frequency > 50.0f && results.harmonicF0_YIN.frequency < 5000.0f)
+    const float f0 = results.harmonicF0_YIN.frequency;
+    if(f0 > 50.0f && f0 < 5000.0f)
     {
-        fundFreqBin = static_cast<int>(results.harmonicF0_YIN.frequency / features.sample_rate * features.buffer_size);
-    }
-    
-    if(fundFreqBin > 1 && fundFreqBin < features.fft_size/2)
-    {
-        
-        num1 = features.magnitudes[fundFreqBin*2];
-        for(int i = 2; i<features.fft_size/fundFreqBin;i++)
+        // fundamental in bins, at least 2 bins between the harmonics
+        const float f0Bin = f0 / features.sample_rate * features.buffer_size;
+        if(f0Bin >= 2.0f)
         {
-            sum += features.magnitudes[fundFreqBin * i];
-            if(i > 2 && i < 6)
+            // amplitude of a harmonic: highest bin around its position (the window spreads it over several
+            // bins), searching 1 bin around when the harmonics are 3 bins apart or more
+            const int halfWidth = (f0Bin >= 3.0f) ? 1 : 0;
+            const int lastBin = features.fft_size - 1;
+            for(int h = 1; h <= TRISTIMULUS_MAX_HARMONICS; h++)
             {
-                num2 += features.magnitudes[fundFreqBin * i];
-            }
-            if(i > 6)
-            {
-                num3 += features.magnitudes[fundFreqBin * i];
+                const int bin = static_cast<int>(std::lround(h * f0Bin));
+                if(bin + halfWidth > lastBin)
+                    break;
+                float amplitude = 0.0f;
+                for(int i = bin - halfWidth; i <= bin + halfWidth; i++)
+                {
+                    amplitude = std::max(amplitude, features.amplitudes[i]);
+                }
+                sums[(h == 1) ? 0 : ((h <= 4) ? 1 : 2)] += amplitude;
+                total += amplitude;
             }
         }
-        if(sum > 0.0f)
-        {
-                // Tristimulus 1
-            if(num1 > 0.0f)
-                m_vResult[0] = num1/sum;
-                // Tristimulus 2
-            if(num2 > 0.0f)
-                m_vResult[1] = num2/sum;
-                // Tristimulus 3
-            if(num3 > 0.0f)
-                m_vResult[2] = num3/sum;
-        } 
-        
+    }
 
+    if(total > 0.0f)
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            m_vResult[i] = sums[i] / total;
+        }
     }
 
     memcpy(results.harmonicTristimulus.data(), m_vResult.data(), sizeof(float) * 3);

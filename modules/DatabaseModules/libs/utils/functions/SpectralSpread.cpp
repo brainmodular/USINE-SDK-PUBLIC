@@ -11,7 +11,7 @@ void SpectralSpread::process(Features& features)
     }
     
     // normalized magnitudes, so we divide by sum_magnitudes = 1
-    result = std::sqrtf(result);
+    result = sqrtf(result);
     
     if(result < 0.0f || std::isnan(result))
     result = 0.0f;

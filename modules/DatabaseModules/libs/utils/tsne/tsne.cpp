@@ -99,7 +99,10 @@ void TSNE::run(double* X, int N, int D, double* Y, int no_dims, double perplexit
     for(int i = 0; i < N * D; i++) {
         if(fabs(X[i]) > max_X) max_X = fabs(X[i]);
     }
-    for(int i = 0; i < N * D; i++) X[i] /= max_X;
+    // identical points are all 0 after zeroMean: dividing by 0 would make them NaN
+    if(max_X > .0) {
+        for(int i = 0; i < N * D; i++) X[i] /= max_X;
+    }
 
     // Compute input similarities for exact t-SNE
     double* P = nullptr; 

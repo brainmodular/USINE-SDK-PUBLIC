@@ -8,7 +8,7 @@
 | **Module Name** | `template` |
 | **Type** | `mtSimple` |
 | **Color** | `clDataModuleColor` |
-| **Version** | 1.0 |
+| **Version** | 1.261112 |
 | **Source** | `examples/TemplateModule/` |
 
 ## Description

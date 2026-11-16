@@ -398,7 +398,7 @@ Modules report errors, warnings and infos with `sdkRaiseError`, never with the r
 
 ```cpp
 // ModuleDefinition.h
-inline const int WARNING_MAX_POINTS = RegisterError(Level::Warn, "maximum number of points reached");
+inline const int WARNING_MAX_POINTS USINE_MODULE_LOCAL = RegisterError(Level::Warn, "maximum number of points reached");
 
 // MyModule.cpp
 if (trajectory.num == MAXPOINTS)

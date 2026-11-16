@@ -75,7 +75,7 @@ namespace process {
 		for (size_t i = 0; i < a.size(); i++) {
 			d += std::pow(std::abs(a[i] - b[i]), p);
 		}
-		return std::powf(d, 1.0f/p);
+		return powf(d, 1.0f/p);
 	}
 
 	inline std::vector<std::vector<float>> buildMatrix(size_t n, size_t m) {
@@ -97,7 +97,7 @@ namespace process {
 
 		for (size_t i = 0; i < n; ++i) {
 			for (size_t j = 0; j < m; ++j) {
-				r[i][j] = std::powf(d(x[i], x_prime[j]), (float)q);
+				r[i][j] = powf(d(x[i], x_prime[j]), (float)q);
 				if (i || j) {
 					r[i][j] += std::min({
 						i ? r[i - 1][j] : INFINITY,

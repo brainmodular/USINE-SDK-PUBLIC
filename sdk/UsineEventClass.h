@@ -550,26 +550,28 @@ inline void UserModuleBase::sdkCreateParam(const TParamInfo &paramInfo, UsineEve
     eventClass.setEvent(UserModuleBase::m_masterInfo->CreateParam(m_moduleInfo, &paramInfo));
 }
 
-// The definition of this function must come after the declaration of UsineEventClass
-#if defined(__GNUC__)
-// Disable deprecation warning
+#if defined(__clang__)                      // clang / clang-cl
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#elif defined(__GNUC__)                     // GCC
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-inline void TParamInfo::setEventClass(UsineEventClass& e)
-{
-    this->EventPtr = &e.event();
-}
-#pragma GCC diagnostic pop
-
-#elif(USINE_WIN64)
+#elif defined(_MSC_VER)                     // MSVC
+#pragma warning(push)
+#pragma warning(disable : 4996)
+#endif
 
 inline void TParamInfo::setEventClass(UsineEventClass &e)
 {
-// disable deprecation warning for this line only.
-#pragma warning(suppress : 4996)
-    this->EventPtr = &e.event();
+    this->EventPtr = &e.event();   // deprecated member, no warning here
 }
 
-#endif // defined(__GNUC__)
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#elif defined(__GNUC__)
+#pragma GCC diagnostic pop
+#elif defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 

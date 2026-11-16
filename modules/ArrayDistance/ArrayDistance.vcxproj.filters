@@ -21,6 +21,7 @@
     </ClInclude>
     <ClInclude Include="ArrayDistance.h" />
     <ClInclude Include="DTW.h" />
+    <ClInclude Include="ModuleDefinition.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sdk\UserUtils.cpp">

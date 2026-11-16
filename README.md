@@ -24,6 +24,10 @@ examples of the integration.
 
 ### Latest changes
 
+SDK 703005 adds the description of the parameters (`TParamInfo::Description`) and `USINE_MODULE_LOCAL`,
+which keeps the constants of a module private on macOS and Linux.
+A module written for 703003 builds without change: the [release notes](RELEASENOTES.md) give the details.
+
 SDK 703003 changes the way a module describes itself and creates its parameters.
 A module written for the previous version (702002) builds again after the steps 1 to 3.
 The steps 4 to 6 move it to the new way of writing a module, followed by every example.

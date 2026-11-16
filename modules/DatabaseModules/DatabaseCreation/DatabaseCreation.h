@@ -1,62 +1,21 @@
 //-----------------------------------------------------------------------------
-//@file
-//    DatabaseCreation.h
+// @file    DatabaseCreation.h
+// @author  BrainModular team
+// @brief   Analyzes the audio files of a folder and saves their descriptors in an SQLite database.
 //
-//@author
-//    BrainModular team
-//
-//@brief
-//    Definitions of the DatabaseCreation class.
-//
-//  A template include to start from for new user module.
-//
-//@historic
-//    2013/05/15
-//    first release for Hollyhock CPP SDK 6.00.226
-//
-//@IMPORTANT
-//    This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs and patch to Usine forum :
-//  support@brainmodular.com
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015, 2019 BrainModular
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy of
-// this software and associated documentation files (the "Software"),
-// to deal in the Software without restriction, including without limitation
-// the rights to use, copy, modify, merge, publish, distribute, sublicense,
-// and/or sell copies of the Software, and to permit persons to whom the Software
-// is furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-//     copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
 #pragma once
 
-//-----------------------------------------------------------------------------
-// includes
-//-----------------------------------------------------------------------------
-#include <iostream>
-#include <chrono>
-#include <fstream>
-#include <numeric>
-#include <unordered_set>
+#include <atomic>
+#include <condition_variable>
+#include <cstdint>
 #include <mutex>
+#include <string>
+#include <vector>
 
-#ifdef  _WIN32
 #include "UserDefinitions.h"
 #include "../libs/utils/tsne/tsne.h"
 #include "../libs/utils/functions/HFeatures.h"
@@ -64,17 +23,6 @@
 #include "../libs/sqlite3lib/sqlite3.h"
 #include "../libs/utils/HaudioBuffer.h"
 #include "../libs/utils/Hdescriptors.h"
-#endif 
-
-#ifdef __APPLE__
-#include "UserDefinitions.h"
-#include "tsne.h"
-#include "HFeatures.h"
-#include "StatisticsFunctions.h"
-#include "sqlite3.h"
-#include "HaudioBuffer.h"
-#include "Hdescriptors.h"
-#endif
 
 #if defined(__APPLE__)
 // std::filesystem needs macOS 10.15 at runtime (libc++ availability); the modules target 10.13,
@@ -82,8 +30,6 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <cstdio>
-#include <string>
-#include <vector>
 #else
 #include <filesystem>
 #endif
@@ -91,227 +37,260 @@
 namespace fsx
 {
 #if defined(__APPLE__)
-    inline bool exists(const std::string& p)          { struct stat st; return ::stat(p.c_str(), &st) == 0; }
-    inline bool is_directory(const std::string& p)    { struct stat st; return ::stat(p.c_str(), &st) == 0 && S_ISDIR(st.st_mode); }
-    inline bool is_regular_file(const std::string& p) { struct stat st; return ::stat(p.c_str(), &st) == 0 && S_ISREG(st.st_mode); }
-    inline bool remove(const std::string& p)          { return std::remove(p.c_str()) == 0; }
+	inline bool exists(const std::string& p)          { struct stat st; return ::stat(p.c_str(), &st) == 0; }
+	inline bool is_directory(const std::string& p)    { struct stat st; return ::stat(p.c_str(), &st) == 0 && S_ISDIR(st.st_mode); }
+	inline bool is_regular_file(const std::string& p) { struct stat st; return ::stat(p.c_str(), &st) == 0 && S_ISREG(st.st_mode); }
+	inline bool remove(const std::string& p)          { return std::remove(p.c_str()) == 0; }
+	// the paths of Usine are UTF-8 on macOS, as the file names of SQLite
+	inline std::string to_utf8(const std::string& p)  { return p; }
 
-    inline std::string filename(const std::string& p)
-    {
-        const auto i = p.find_last_of('/');
-        return (i == std::string::npos) ? p : p.substr(i + 1);
-    }
+	inline std::string filename(const std::string& p)
+	{
+		const auto i = p.find_last_of('/');
+		return (i == std::string::npos) ? p : p.substr(i + 1);
+	}
 
-    inline std::string extension(const std::string& p)
-    {
-        const std::string f = filename(p);
-        const auto i = f.find_last_of('.');
-        return (i == std::string::npos || i == 0) ? std::string() : f.substr(i);
-    }
+	inline std::string extension(const std::string& p)
+	{
+		const std::string f = filename(p);
+		const auto i = f.find_last_of('.');
+		return (i == std::string::npos || i == 0) ? std::string() : f.substr(i);
+	}
 
-    // Recursive listing of regular files (directory symlinks are not followed,
-    // matching std::filesystem::recursive_directory_iterator defaults).
-    inline void list_regular_files(const std::string& dir, std::vector<std::string>& out)
-    {
-        DIR* d = ::opendir(dir.c_str());
-        if (!d) return;
-        while (struct dirent* e = ::readdir(d))
-        {
-            const std::string name = e->d_name;
-            if (name == "." || name == "..") continue;
-            const std::string full = dir + ((!dir.empty() && dir.back() == '/') ? "" : "/") + name;
-            struct stat st;
-            if (::lstat(full.c_str(), &st) != 0) continue;
-            if (S_ISDIR(st.st_mode))
-                list_regular_files(full, out);
-            else if (S_ISREG(st.st_mode) || (S_ISLNK(st.st_mode) && is_regular_file(full)))
-                out.push_back(full);
-        }
-        ::closedir(d);
-    }
+	// Recursive listing of regular files (directory symlinks are not followed,
+	// matching std::filesystem::recursive_directory_iterator defaults), until stop is set.
+	// skipped counts the names that can not be passed to Usine (never on macOS)
+	inline void list_regular_files(const std::string& dir, std::vector<std::string>& out, const std::atomic<bool>& stop, int& skipped)
+	{
+		DIR* d = ::opendir(dir.c_str());
+		if (!d) return;
+		while (struct dirent* e = ::readdir(d))
+		{
+			if (stop.load(std::memory_order_relaxed)) break;
+			const std::string name = e->d_name;
+			if (name == "." || name == "..") continue;
+			const std::string full = dir + ((!dir.empty() && dir.back() == '/') ? "" : "/") + name;
+			struct stat st;
+			if (::lstat(full.c_str(), &st) != 0) continue;
+			if (S_ISDIR(st.st_mode))
+				list_regular_files(full, out, stop, skipped);
+			else if (S_ISREG(st.st_mode) || (S_ISLNK(st.st_mode) && is_regular_file(full)))
+				out.push_back(full);
+		}
+		::closedir(d);
+	}
 #else
-    inline bool exists(const std::string& p)          { return std::filesystem::exists(p); }
-    inline bool is_directory(const std::string& p)    { return std::filesystem::is_directory(p); }
-    inline bool is_regular_file(const std::string& p) { return std::filesystem::is_regular_file(p); }
-    inline bool remove(const std::string& p)          { return std::filesystem::remove(p); }
-    inline std::string filename(const std::string& p) { return std::filesystem::path(p).filename().string(); }
-    inline std::string extension(const std::string& p){ return std::filesystem::path(p).extension().string(); }
+	// the error_code overloads: an inaccessible path is reported as missing instead of throwing
+	inline bool exists(const std::string& p)          { std::error_code ec; return std::filesystem::exists(p, ec); }
+	inline bool is_directory(const std::string& p)    { std::error_code ec; return std::filesystem::is_directory(p, ec); }
+	inline bool is_regular_file(const std::string& p) { std::error_code ec; return std::filesystem::is_regular_file(p, ec); }
+	inline bool remove(const std::string& p)          { std::error_code ec; return std::filesystem::remove(p, ec); }
+	inline std::string filename(const std::string& p) { return std::filesystem::path(p).filename().string(); }
+	inline std::string extension(const std::string& p){ return std::filesystem::path(p).extension().string(); }
 
-    inline void list_regular_files(const std::string& dir, std::vector<std::string>& out)
-    {
-        for (const auto& entry : std::filesystem::recursive_directory_iterator(dir))
-            if (std::filesystem::is_regular_file(entry.status()))
-                out.push_back(entry.path().string());
-    }
+	// the paths of Usine are in the ANSI code page on Windows, SQLite opens UTF-8 file names
+	inline std::string to_utf8(const std::string& p)
+	{
+		try
+		{
+			const auto u8 = std::filesystem::path(p).u8string();
+			return std::string(u8.begin(), u8.end());
+		}
+		catch (const std::exception&)
+		{
+			return p;
+		}
+	}
+
+	// recursive listing of regular files until stop is set, the folders that can not be read are skipped.
+	// skipped counts the names that the ANSI code page of Usine can not represent: Usine could not open them
+	inline void list_regular_files(const std::string& dir, std::vector<std::string>& out, const std::atomic<bool>& stop, int& skipped)
+	{
+		const auto options = std::filesystem::directory_options::skip_permission_denied;
+		for (auto it = std::filesystem::recursive_directory_iterator(dir, options); it != std::filesystem::recursive_directory_iterator(); ++it)
+		{
+			if (stop.load(std::memory_order_relaxed))
+				break;
+			std::error_code ec;
+			if (!it->is_regular_file(ec))
+				continue;
+			try
+			{
+				out.push_back(it->path().string());
+			}
+			catch (const std::system_error&)
+			{
+				skipped++;
+			}
+		}
+	}
 #endif
 }
 
-constexpr UINT32 BUFFER_SIZE = 2048;
-constexpr float SAMPLE_RATE = 44100.0f;
-constexpr UINT32 OVERLAPSIZE = 2048;
-
+// frames of the audio descriptors, without overlap
+constexpr int BUFFER_SIZE   = 2048;
+// initial size of the spectrum frames, then set by [fft size]
 constexpr int SPECTRUM_SIZE = 16384;
-constexpr int SPECTRUM_OVERLAP_SIZE = SPECTRUM_SIZE / 4;
 
 // for float results
-struct StatsStruct {
-    float mean = 0.0f;
-    float stdDev = 0.0f;
+struct StatsStruct
+{
+	float mean   = 0.0f;
+	float stdDev = 0.0f;
 };
 
 // for vec results
 struct StatsVecStruct
 {
-    std::vector<float> mean;
-    std::vector<float> stdDev;
-    
-    void resize(int newSize)
-    {
-        this->mean.resize(newSize);
-        this->stdDev.resize(newSize);
-    }
-    
-    StatsVecStruct(int vec_size)
-    {
-        this->mean.resize(vec_size);
-        this->stdDev.resize(vec_size);
-    }
-    
-    StatsVecStruct()
-    {
-        this->mean.resize(1);
-        this->stdDev.resize(1);
-    }
-};
+	std::vector<float> mean;
+	std::vector<float> stdDev;
 
+	void resize(int newSize)
+	{
+		this->mean.resize(newSize);
+		this->stdDev.resize(newSize);
+	}
+
+	StatsVecStruct(int vec_size)
+	{
+		this->mean.resize(vec_size);
+		this->stdDev.resize(vec_size);
+	}
+
+	StatsVecStruct()
+	{
+		this->mean.resize(1);
+		this->stdDev.resize(1);
+	}
+};
 
 struct FileResults
 {
-    // global infos
-    std::string filePath = "emptyFile";
-    float duration = 0.0f;
-    float sampleRate = 0.0f;
-    uint32_t numSamples = 0;
-    
-    // results
-    StatsStruct spectralCentroid;
-    StatsStruct spectralSpread;
-    StatsStruct spectralFlatness;
-    StatsStruct RMS;
-    StatsStruct loudness;
-    StatsVecStruct MFCC = StatsVecStruct(13);
-    StatsVecStruct f0_yin = StatsVecStruct(2);
-    StatsVecStruct fftMags = StatsVecStruct(SPECTRUM_SIZE/2+1);
-    
-    FileResults() = default;
-    
-    void setGlobalInfos(const std::string& filePath, float duration, float sampleRate, uint32_t numSamples, int fftSize)
-    {
-        this->filePath = filePath;
-        this->duration = duration;
-        this->sampleRate = sampleRate;
-        this->numSamples = numSamples;
-        
-        fftMags.resize(fftSize/2+1);
-        
-    }
-    
+	// global infos
+	std::string filePath   = "emptyFile";
+	float       duration   = 0.0f;
+	float       sampleRate = 0.0f;
+	uint32_t    numSamples = 0;
+
+	// results
+	StatsStruct    spectralCentroid;
+	StatsStruct    spectralSpread;
+	StatsStruct    spectralFlatness;
+	StatsStruct    RMS;
+	StatsStruct    loudness;
+	StatsVecStruct MFCC    = StatsVecStruct(13);
+	StatsVecStruct f0_yin  = StatsVecStruct(2);
+	StatsVecStruct fftMags = StatsVecStruct(SPECTRUM_SIZE / 2 + 1);
+
+	FileResults() = default;
+
+	void setGlobalInfos(const std::string& filePath, float duration, float sampleRate, uint32_t numSamples, int fftSize)
+	{
+		this->filePath   = filePath;
+		this->duration   = duration;
+		this->sampleRate = sampleRate;
+		this->numSamples = numSamples;
+
+		fftMags.resize(fftSize / 2 + 1);
+	}
 };
 
 class DatabaseCreation : public UserModuleBase
 {
 public:
-    
-    DatabaseCreation();
-    virtual ~DatabaseCreation();
+	DatabaseCreation();
+	~DatabaseCreation() override;
 
-public:
-    void onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
-    void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
-    void onGetParamInfo(int ParamIndex, TParamInfo *pParamInfo);
-    void onCallBack(TUsineMessage* Message);
-protected:
-    
-    UsineEventClass folderPath;
-    UsineEventClass databasePath;
-    UsineEventClass databaseName;
-    UsineEventClass databaseFile;
-    UsineEventClass maxFileLength;
-    UsineEventClass fftSize;
-    UsineEventClass launchAnalysis;
-    UsineEventClass stopAnalysis;
+	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCallBack(TUsineMessage* Message) override;
 
-public:
-    void AudioFilesAnalysis();
-
-public:
-    TCriticalSectionPtr criticalSection;
-
-    bool isProcessing = false;
-    std::atomic<bool> needToStopAnalysis { false };
-    
 private:
+	// items of the fft size list box
+	enum class FftSize
+	{
+		Size1024,
+		Size2048,
+		Size4096,
+		Size8192,
+		Size16384
+	};
 
-// General variables
-    TThreadPtr thread;
-    TThreadPtr progressThread;
-    TUsineFFTPtr fftPtr = nullptr;
-    TUsineFFTPtr fftSpectrumPtr = nullptr;
-    TPrecision* audioDataPtr[USINE_AUDIO_CHANNEL_MODULE_MAX];
+	UsineEventClass soundsDirIn;
+	UsineEventClass databaseDirIn;
+	UsineEventClass databaseNameTxtIn;
+	UsineEventClass maxFileDurationFdrIn;
+	UsineEventClass fftSizeLboxIn;
+	UsineEventClass startAnalysisBtnIn;
+	UsineEventClass stopAnalysisBtnIn;
 
-// Files Paths and directories variables
-    bool isValidDirectory = false;
-    bool isValidName = false;
-    std::vector<std::string> m_AudioFilePaths;
-    std::string dbName;
+	// the analysis runs in thread and holds criticalSection until its end
+	TThreadPtr          thread             = nullptr;
+	// shows the progress of the t-SNE, started by the analysis once the files are analyzed
+	TThreadPtr          progressThread     = nullptr;
+	TCriticalSectionPtr criticalSection    = nullptr;
+	// set by [start analysis], cleared by the analysis thread at its end
+	std::atomic<bool>   isProcessing       {false};
+	// set by [stop analysis] and the destructor, cleared by [start analysis] only
+	std::atomic<bool>   needToStopAnalysis {false};
+	TUsineFFTPtr        fftPtr             = nullptr;
+	TUsineFFTPtr        fftSpectrumPtr     = nullptr;
 
-// Analysis variables
-    sqlite3* db = nullptr;
-    Descriptors descriptors;
-    std::vector<TPrecision> m_HanningWindow;
-    std::vector<TPrecision> spectrumHanningWindow;
-    std::vector<TPrecision> m_Re;
-    std::vector<TPrecision> m_Im;
-    bool windowing = true;
-    std::vector<std::string> featuresListForTSNE;
-    
-public:
-    UsineColor white = sdkAlphaColor(1.0f,1.0f,1.0f,1.0f);
+	// parameters read by [start analysis] for the analysis thread, which never reads the parameters
+	std::string analysisSoundsDir;
+	std::string analysisDatabasePath;
+	int         analysisFftSize       = 4096;
+	float       analysisMaxDurationMs = 2000.0f;
 
-// Progress Bar 
-    uint8_t progCounter = 0;
-    std::atomic<bool> analysisOver {false};
-    std::mutex mtx;
-    std::condition_variable cv;
-    TSNEState tsneState;
-private:
+	// analysis
+	sqlite3*                 db                    = nullptr;
+	// the mfcc and the loudness are set again to the sample rate of each analyzed file
+	Descriptors              descriptors           {BUFFER_SIZE, BUFFER_SIZE, static_cast<float>(sdkGetSampleRate()), 25};
+	std::vector<TPrecision>  m_HanningWindow       = std::vector<TPrecision>(BUFFER_SIZE);
+	std::vector<TPrecision>  spectrumHanningWindow = std::vector<TPrecision>(SPECTRUM_SIZE);
+	std::vector<TPrecision>  m_Re                  = std::vector<TPrecision>(BUFFER_SIZE / 2 + 1);
+	std::vector<TPrecision>  m_Im                  = std::vector<TPrecision>(BUFFER_SIZE / 2 + 1);
+	std::vector<std::string> featuresListForTSNE;
 
-    void InitializeHanningWindow(std::vector<float>& hanningWindow, int size);
-    void ApplyHanningWindow(TPrecision* dataPtr, Features& features, int buffer_size);
+	// progress bar: the progress thread runs while finishingPhase is true, both guarded by mtx
+	UsineColor              white          = sdkAlphaColor(1.0f, 1.0f, 1.0f, 1.0f);
+	bool                    finishingPhase = false;
+	std::mutex              mtx;
+	std::condition_variable cv;
+	TSNEState               tsneState;
 
-    // scan the folder and get all audio files paths, return false if no valid audio files found
-    bool GetAudioPaths(const std::string dirPath);
+	// thread functions must be static, the module comes back through pModule
+	static void processThread(void* pModule, TThreadPtr pThread);
+	static void progressBarThread(void* pModule, TThreadPtr pThread);
 
-    // compute Features
-    void Calculation(TPrecision* dataPtr, Descriptors& descriptors, std::vector<FeaturesResults>& sumFileFeatures, Features& features, float sample_rate, bool windowing );
-    // compute Mag spectrum
-    void SpectrumFFT(TPrecision *dataPtr, std::vector<FeaturesResults> &sumFileSpectrum, int fftSize, bool windowing);
+	// checks the parameters and starts the analysis thread, the previous database is kept when it is refused
+	void startAnalysis();
+	void AudioFilesAnalysis();
+	// stops the progress thread: nothing is shown by it after this call
+	void endFinishingPhase();
 
-    // compute and store mean and std dev for each file
-    void computeFileStatistics(FileResults* fileResults, const std::vector<FeaturesResults>& calcResults, const std::vector<FeaturesResults>& spectrumResults, int fftSize);
-    // store results in the database
-    bool insertFileResultsInDB(sqlite3* db, const FileResults& results);
+	void InitializeHanningWindow(std::vector<float>& hanningWindow, int size);
+	void ApplyHanningWindow(TPrecision* dataPtr, Features& features, int buffer_size);
 
-    //-- TSNE related methods --
-    // compute and store global statistics for Z-Score normalization
-    bool computeAndStoreFeatureStats(sqlite3* db, const std::vector<std::string>& features);
-    bool requestForTSNE();
-    std::string buildTSNEQuery(const std::vector<std::string>& features, bool normalizeTSNE);
-    bool processTSNE(double* dataset, int NFiles, int dimensions);
-    bool storeTSNEinDB(const std::vector<double>& TSNEresults);
-    
-    // Debug 
-    void debugPrint(int currFile, int fileNumber, float lengthInSec, float fileSampleRate, int fileLength, const std::vector<std::string>& audioPaths);
+	// scans the folder (until the analysis is stopped) and returns the paths of its audio files
+	std::vector<std::string> GetAudioPaths(const std::string& dirPath);
 
-}; // DatabaseCreation class
+	// computes the features of a frame
+	void Calculation(TPrecision* dataPtr, Descriptors& descriptors, std::vector<FeaturesResults>& sumFileFeatures, Features& features, float sample_rate, bool windowing);
+	// adds the magnitude spectrum of a frame to spectrumSum
+	void SpectrumFFT(TPrecision* dataPtr, std::vector<float>& spectrumSum, int fftSize, bool windowing);
 
+	// computes the mean and the standard deviation of the features of a file
+	void computeFileStatistics(FileResults* fileResults, const std::vector<FeaturesResults>& calcResults, const std::vector<float>& spectrumSum, int numSpectrumFrames);
+	// stores the results of a file in the database
+	[[nodiscard]] bool insertFileResultsInDB(sqlite3* db, const FileResults& results);
+
+	// computes and stores the global statistics of the features, for the Z-score normalization
+	[[nodiscard]] bool computeAndStoreFeatureStats(sqlite3* db, const std::vector<std::string>& features);
+	[[nodiscard]] bool requestForTSNE();
+	[[nodiscard]] std::string buildTSNEQuery(const std::vector<std::string>& features, bool normalizeTSNE);
+	// t-SNE of the rows of dataset, the row i is the file ids[i]
+	[[nodiscard]] bool processTSNE(double* dataset, const std::vector<int>& ids, int dimensions);
+	[[nodiscard]] bool storeTSNEinDB(const std::vector<double>& TSNEresults, const std::vector<int>& ids);
+};

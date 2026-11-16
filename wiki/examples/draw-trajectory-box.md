@@ -8,7 +8,7 @@
 | **Module Name** | `draw trajectory box` |
 | **Type** | `mtControl` |
 | **Color** | `clInterfaceDesignModuleColor` |
-| **Version** | 2.21 |
+| **Version** | 2.261112 |
 | **Source** | `examples/DrawTrajectoryBox/` |
 
 ## Description

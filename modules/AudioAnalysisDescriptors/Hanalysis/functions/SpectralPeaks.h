@@ -1,9 +1,7 @@
 #ifndef __SPECTRALPEAKS_H__
 #define __SPECTRALPEAKS_H__
 
-#ifdef  _WIN32
 #include "../Hfeatures.h"
-#endif // Windows
 
 #ifdef __APPLE__
 #include "Hfeatures.h"

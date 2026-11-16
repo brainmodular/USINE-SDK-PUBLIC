@@ -8,6 +8,7 @@
 // SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
 #include <cmath>
+#include <cstring>
 #include <numbers>
 #include "DrawTrajectoryBox.h"
 #include "ModuleDefinition.h"

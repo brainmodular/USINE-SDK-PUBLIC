@@ -8,7 +8,7 @@
 | **Module Name** | `reverb` |
 | **Type** | `mtSimple` |
 | **Color** | `clAudioModuleColor` |
-| **Version** | 1.1 |
+| **Version** | 1.261112 |
 | **Source** | `examples/Reverb/` |
 
 ## Description

@@ -1,13 +1,7 @@
 #ifndef __LOUDNESS_H__
 #define __LOUDNESS_H__
 
-#ifdef  _WIN32
 #include "HFeatures.h"
-#endif // Windows
-
-#ifdef __APPLE__
-#include "Hfeatures.h"
-#endif // MacOs
 
 
 #include <vector>

@@ -14,8 +14,18 @@
 // module constants for browser info and module info
 // they are defined here, so this file must be included by a single .cpp
 constexpr AnsiCharPtr UserModuleBase::MODULE_NAME    = "ring mod multithread";
-constexpr AnsiCharPtr UserModuleBase::MODULE_DESC    = "ring modulator processing its channels in two threads (sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
+constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
+	"ring modulator with the same parameters as the plain version but processing its channels in two "
+	"threads: the audio inputs are multiplied by the [mod] audio input and blended with the dry signal by "
+	"[mix] (0 to 1, default 0.5, 0 dry only, 1 modulated only), without smoothing.\n"
+	"Thread 1 handles the even channels and thread 2 the odd ones, each walking the channel list with a "
+	"step of two.\n"
+	"Both threads are created once at initialization with a medium priority and stay alive; at each bloc "
+	"onProcess sets a counter to two, restarts them and waits on a sync object for up to 500 ms, and the "
+	"last thread to finish signals it.\n"
+	"A critical section protects the counter.\n"
+	"Each channel owns a temporary bloc buffer allocated at creation and never resized (sdk example)";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
 
 constexpr NativeInt MIX_FDR_CBID = 0x002300F0;
 
@@ -25,7 +35,8 @@ inline constexpr TParamInfo audioInParamInfo {
 	.IsInput      = TRUE,
 	.IsOutput     = FALSE,
 	.ReadOnly     = TRUE,
-	.CallBackType = ctNone
+	.CallBackType = ctNone,
+	.Description  = "Audio input of a channel, multiplied by [mod]."
 };
 
 inline constexpr TParamInfo audioOutParamInfo {
@@ -33,7 +44,8 @@ inline constexpr TParamInfo audioOutParamInfo {
 	.IsInput      = FALSE,
 	.IsOutput     = TRUE,
 	.ReadOnly     = TRUE,
-	.CallBackType = ctNone
+	.CallBackType = ctNone,
+	.Description  = "Audio output of a channel: the input multiplied by [mod], mixed with the dry input by [mix]."
 };
 
 inline constexpr TParamInfo modAudioInParamInfo {
@@ -42,7 +54,8 @@ inline constexpr TParamInfo modAudioInParamInfo {
 	.IsInput      = TRUE,
 	.IsOutput     = FALSE,
 	.ReadOnly     = TRUE,
-	.CallBackType = ctNone
+	.CallBackType = ctNone,
+	.Description  = "Modulation signal, multiplied with every audio input."
 };
 
 inline constexpr TParamInfo mixFdrInParamInfo {
@@ -54,5 +67,7 @@ inline constexpr TParamInfo mixFdrInParamInfo {
 	.MaxValue     = 1.0f,
 	.DefaultValue = 0.5f,
 	.CallBackType = ctNormal,
-	.CallBackId   = MIX_FDR_CBID
+	.CallBackId   = MIX_FDR_CBID,
+	.Description  = "Dry/wet mix balance.\n"
+	                "Range: [0..1]. 0=dry input only, 0.5=equal mix, 1=ring-modulated signal only."
 };

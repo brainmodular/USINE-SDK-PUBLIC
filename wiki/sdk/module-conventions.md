@@ -37,7 +37,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_NAME    = "my module";
 constexpr AnsiCharPtr UserModuleBase::MODULE_DESC    = "converts a frequency to a period (sdk example)";
 constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
-inline const int WARNING_NEGATIVE_FREQUENCY = RegisterError(Level::Warn, "the frequency must be positive, got: ");
+inline const int WARNING_NEGATIVE_FREQUENCY USINE_MODULE_LOCAL = RegisterError(Level::Warn, "the frequency must be positive, got: ");
 
 constexpr NativeInt FREQUENCY_FDR_CBID = 0x001900F0;
 
@@ -55,6 +55,8 @@ inline constexpr TParamInfo frequencyFdrInParamInfo {
 ```
 
 > **Important:** `ModuleDefinition.h` defines the `MODULE_*` constants, so it must be included by **one** `.cpp` only, the one that holds `CreateModule`. Include it after the module header.
+
+> **`USINE_MODULE_LOCAL` on the error constants.** `RegisterError` returns an index in the error registry of the module. An `inline const int` with a dynamic initializer is a weak definition, and macOS and Linux unify the weak definitions of the whole process: two modules using the same constant name (`ERROR_LOCK`, `ERROR_INVALID_CHUNK`, …) would share one index while each keeps its own registry, and the messages of the second module would be silently dropped. `USINE_MODULE_LOCAL` (hidden visibility, empty on Windows) keeps the constant private to the module, like the `MODULE_*` constants.
 
 A module without parameters keeps only the module constants in `ModuleDefinition.h` (see [[examples/drag-and-drop|DragAndDrop]]). When a `TParamInfo` needs a constant of the class, `ModuleDefinition.h` includes the module header (`MAXPOINTS` in [[examples/draw-trajectory-box|DrawTrajectoryBox]]).
 
@@ -174,7 +176,7 @@ Modules never call `sdkTraceChar`, `sdkTraceErrorChar` or `sdkTraceWarningChar` 
 
 ```cpp
 // ModuleDefinition.h
-inline const int ERROR_INVALID_CHUNK = RegisterError(Level::Error, "invalid saved data, it was not restored");
+inline const int ERROR_INVALID_CHUNK USINE_MODULE_LOCAL = RegisterError(Level::Error, "invalid saved data, it was not restored");
 
 // MyModule.cpp
 if (sizeInBytes < static_cast<int>(sizeof(data)))

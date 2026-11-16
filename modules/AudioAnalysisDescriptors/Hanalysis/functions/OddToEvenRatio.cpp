@@ -1,4 +1,5 @@
 #include "OddToEvenRatio.h"
+#include <cmath>
 
 void OddToEvenRatio::process(Features &features, Results& results)
 {
@@ -24,7 +25,8 @@ void OddToEvenRatio::process(Features &features, Results& results)
             
             step = (features.sample_rate / features.buffer_size) / results.harmonicF0_YIN.frequency;
             
-            number = (int)ratio;
+            // nearest harmonic: the bin frequency of the peak can be up to half a bin below or above it
+            number = static_cast<int>(std::lround(ratio));
             
             
             //check if peak is an harmonic of fund freq

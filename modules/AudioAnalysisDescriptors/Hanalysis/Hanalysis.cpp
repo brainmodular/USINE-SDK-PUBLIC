@@ -3,15 +3,17 @@
 #include "UsineFunctions.h"
 
 Hanalysis::Hanalysis(int buffer_size, int fft_size, float sample_rate, AudioAnalysis* modulePtr) :
+features(buffer_size,fft_size,sample_rate),
+results(buffer_size),
+descriptors(buffer_size,fft_size,sample_rate,NUM_BARK_BANDS),
 m_BufferSize(buffer_size),
 m_FftSize(fft_size),
 m_SampleRate(sample_rate),
-m_HanningWindow(buffer_size,0.0f),
-features(buffer_size,fft_size,sample_rate),
-descriptors(buffer_size,fft_size,sample_rate,NUM_BARK_BANDS),
-results(buffer_size)
+m_HanningWindow(buffer_size,0.0f)
 {
-    initFFT(buffer_size);
+    // the members above get fft_size (the module passes the buffer size / 2, without the Nyquist bin, which
+    // also builds the MFCC for a buffer of that size): rebuild everything from the buffer size
+    setFFTSize(buffer_size, sample_rate);
 }
 
 Hanalysis::~Hanalysis()
@@ -43,7 +45,7 @@ void Hanalysis::initFFT(int buffer_size)
 
 void Hanalysis::initializeHanningWindow()
 {
-    if (m_HanningWindow.size() != m_BufferSize)
+    if (int(m_HanningWindow.size()) != m_BufferSize)
         m_HanningWindow.resize(m_BufferSize);
     for (int i = 0; i < m_BufferSize; ++i)
     {
@@ -76,17 +78,17 @@ void Hanalysis::computeFeatures(float* ptrAudioInput, const int buffer_size, con
             features.magnitudes[i] = m_Re[i] * m_Re[i] + m_Im[i] * m_Im[i];
 
             
-            features.amplitudes[i] = std::sqrtf(features.magnitudes[i]);
+            features.amplitudes[i] = sqrtf(features.magnitudes[i]);
             features.frequencies[i] = i * sample_rate / buffer_size;
             features.sum_magnitudes += features.magnitudes[i];
             features.sum_amplitudes += features.amplitudes[i];
             features.sum_magnitudes_times_freqs += features.magnitudes[i] * features.frequencies[i];
             features.sum_frequencies += features.frequencies[i];
             features.sum_frequencies_squared += features.frequencies[i] * features.frequencies[i];
-            features.prod_magnitudes += std::logf(features.magnitudes[i] + std::numeric_limits<float>::epsilon());
+            features.prod_magnitudes += logf(features.magnitudes[i] + std::numeric_limits<float>::epsilon());
         }
         
-        features.prod_magnitudes = std::expf(features.prod_magnitudes);
+        features.prod_magnitudes = expf(features.prod_magnitudes);
         
         if (!features.magnitudes.empty()) {
             auto itMaxAmp = std::max_element(features.magnitudes.begin(), features.magnitudes.end());
@@ -100,7 +102,7 @@ void Hanalysis::computeFeatures(float* ptrAudioInput, const int buffer_size, con
         features.unnormalized_magnitudes = features.magnitudes;
         if (features.sum_magnitudes != 0.0f)
         {
-            for (size_t i = 0; i < m_FftSize; i++)
+            for (int i = 0; i < m_FftSize; i++)
             {
                 features.magnitudes[i] /= features.sum_magnitudes;
             }
@@ -130,7 +132,7 @@ void Hanalysis::computeSimpleFeatures(float *ptrAudioInput, const int buffer_siz
 
         if (features.sum_magnitudes != 0.0f)
         {
-            for (size_t i = 0; i < m_FftSize; i++)
+            for (int i = 0; i < m_FftSize; i++)
             {
                 features.magnitudes[i] /= features.sum_magnitudes;
             }
@@ -158,6 +160,11 @@ void Hanalysis::computeDescriptors(Features& features, Results& results)
     }
     if (harmonicBool)
     {
+        // the inharmonicity and the odd to even ratio use the spectral peaks
+        if (!spectralBool)
+        {
+            descriptors.spectralPeaks.process(features,results);
+        }
         descriptors.mfcc.process(features,results);
         descriptors.f0_YIN.process(features,results);
         descriptors.inharmonicity.process(features,results);
@@ -256,7 +263,8 @@ void Hanalysis::setFFTSize(int new_size, float sample_rate)
     features.fft_size = new_size/2 + 1;
     features.sample_rate = sample_rate;
     m_SampleRate = sample_rate;
-    descriptors.setSampleRate(new_size, sample_rate);
+    // rebuilds the fft of the pitch detector too (setSampleRate keeps it)
+    descriptors.setFftSize(new_size, sample_rate);
 }
 
 

@@ -55,26 +55,12 @@ public:
         m_vecBuffer[m_iWriteIdx] = tNewValue;
     }
     
-    /*! add a vector of values to the circular buffer
+    /*! add a vector of values to the circular buffer at the write index, wrapping around its end
+    (a vector longer than the buffer leaves its last values)
     \param vecNewValues : Vector with the values you want to add to the circular buffer
     */
     void add(const std::vector<T>& vecNewValues){
-        int iLength = static_cast<int>(vecNewValues.size());
-        assert(iLength >= 0);
-        
-        int iSpaceRemaining = m_iBufferLength - m_iWriteIdx;
-        
-        if(iLength <= iSpaceRemaining){
-            //no wrap-around, simply copy it
-            std::memcpy(&m_vecBuffer[m_iWriteIdx], vecNewValues.data(), sizeof(T)*iLength);
-        }
-        else {
-            //if wrap-around needed
-            //copy first part
-            std::memcpy(&m_vecBuffer[m_iWriteIdx], vecNewValues.data(), sizeof(T)*iSpaceRemaining);
-            //copy second part
-            std::memcpy(m_vecBuffer.data(),&vecNewValues.data()[iSpaceRemaining], sizeof(T)*(iLength - iSpaceRemaining));
-        }
+        writeWrapped(m_iWriteIdx, vecNewValues.data(), static_cast<int>(vecNewValues.size()));
     }
     
     /*! add a value of type T to the circular buffer and increment write index
@@ -94,15 +80,15 @@ public:
         incIdx(m_iWriteIdx,m_iBufferLength,iLength);
     }
     
-    /*! add a tab of size iLength to the buffer with memcpy, make sure that the buffer is large enough
+    /*! add a tab of size iLength to the buffer at the write index, wrapping around its end, and increment the write index
      \param ptr_fBufferToAdd : pointer to the first value in the tab
-     \param iLength : length of the buffer to add, must be a multiple of m_iBufferLength
+     \param iLength : length of the buffer to add, at most the buffer length
      */
     void add(const T* ptr_fBufferToAdd, int iLength)
     {
         assert(m_iBufferLength >=  iLength);
 
-        std::memcpy(&m_vecBuffer[m_iWriteIdx], ptr_fBufferToAdd, sizeof(T)*iLength);
+        writeWrapped(m_iWriteIdx, ptr_fBufferToAdd, iLength);
         incIdx(m_iWriteIdx,m_iBufferLength,iLength); 
         incIdx(m_FftIdx, m_FftSize, iLength);
     }
@@ -159,7 +145,7 @@ public:
     
     void put(T* destPtr, int length)
     {
-        std::memcpy(destPtr, &m_vecBuffer[m_iReadIdx], sizeof(T) * length);
+        readWrapped(m_iReadIdx, destPtr, length);
         incIdx(m_iReadIdx,m_iBufferLength,length);
     }
     
@@ -193,26 +179,11 @@ public:
     void get(std::vector<T>& vecNewBuffer, int iLength){
         assert(iLength <= m_iBufferLength && iLength > 0);
         
-        int iSpaceRemaining = m_iBufferLength - m_iReadIdx;
-        
-        if(vecNewBuffer.size() < iLength)
+        if(static_cast<int>(vecNewBuffer.size()) < iLength)
         {
             vecNewBuffer.resize(iLength);
         }
-        
-        if(iLength <= iSpaceRemaining){
-            //no wrap-around, simply copy it
-            std::memcpy(vecNewBuffer.data(), &m_vecBuffer[m_iReadIdx], sizeof(T)*iLength);
-        }
-        else {
-            //if wrap-around needed
-            //copy first part
-            std::memcpy(vecNewBuffer.data(), &m_vecBuffer[m_iReadIdx], sizeof(T)*iSpaceRemaining);
-            //copy second part
-            std::memcpy(&vecNewBuffer[iSpaceRemaining],m_vecBuffer.data(), sizeof(T)*(iLength - iSpaceRemaining));
-            
-        }
-        
+        readWrapped(m_iReadIdx, vecNewBuffer.data(), iLength);
     }
     
     /*! return the value at the current read index and increment read index
@@ -234,7 +205,7 @@ public:
     
     void getAndInc(T* destPtr, int length)
     {
-        std::memcpy(destPtr, &m_vecBuffer[m_iReadIdx], sizeof(T) * length);
+        readWrapped(m_iReadIdx, destPtr, length);
         incIdx(m_iReadIdx, m_iBufferLength,length);
     }
     
@@ -370,7 +341,8 @@ public:
     {
         if((m_FftSize - m_ClockTime) < m_iBufferLength && m_FftSize - m_ClockTime != 0)
         {
-            std::memcpy(m_vecBuffer.data(), &m_vecBuffer[m_iBufferLength - (m_FftSize - m_ClockTime)], sizeof(float) * (m_FftSize - m_ClockTime));
+            // the two ranges overlap when the overlap is longer than half the buffer
+            std::memmove(m_vecBuffer.data(), &m_vecBuffer[m_iBufferLength - (m_FftSize - m_ClockTime)], sizeof(T) * (m_FftSize - m_ClockTime));
             incIdx(m_iWriteIdx, m_iBufferLength,(m_FftSize - m_ClockTime));
         }
     }
@@ -428,13 +400,19 @@ public:
         
     }
 
-    /*! initialize the hann window vector
+    /*! initialize the hann window vector (a window longer than the buffer is cut to the buffer length)
      */
     void initHann(int size)
     {
+        size = std::min(size, static_cast<int>(m_hannWindow.size()));
+        if(size == 1)
+        {
+            m_hannWindow[0] = T(1);
+            return;
+        }
         for(int i = 0; i < size; i++)
         {
-            m_hannWindow[i] = static_cast<T>(0.5f * (1.0f - std::cosf(2.0f * static_cast<float>(M_PI) * i / (size - 1))));
+            m_hannWindow[i] = static_cast<T>(0.5f * (1.0f - cosf(2.0f * static_cast<float>(M_PI) * i / (size - 1))));
         }
         
     }
@@ -487,6 +465,38 @@ private:
             iOffset += buffer_size;
         }
         iIdx = (iIdx + iOffset) % buffer_size;
+    }
+    
+    // copies length values to the ring from the index start, wrapping around its end:
+    // when length is larger than the buffer, only the last m_iBufferLength values remain
+    void writeWrapped(int start, const T* src, int length)
+    {
+        if(length <= 0 || m_iBufferLength <= 0)
+        {
+            return;
+        }
+        if(length > m_iBufferLength)
+        {
+            start   = (start + length - m_iBufferLength) % m_iBufferLength;
+            src    += length - m_iBufferLength;
+            length  = m_iBufferLength;
+        }
+        const int first = std::min(length, m_iBufferLength - start);
+        std::memcpy(&m_vecBuffer[start], src, sizeof(T) * first);
+        std::memcpy(m_vecBuffer.data(), src + first, sizeof(T) * (length - first));
+    }
+    
+    // copies length values of the ring from the index start, wrapping around its end
+    void readWrapped(int start, T* dest, int length) const
+    {
+        while(length > 0 && m_iBufferLength > 0)
+        {
+            const int chunk = std::min(length, m_iBufferLength - start);
+            std::memcpy(dest, &m_vecBuffer[start], sizeof(T) * chunk);
+            dest   += chunk;
+            length -= chunk;
+            start   = 0;
+        }
     }
     
     

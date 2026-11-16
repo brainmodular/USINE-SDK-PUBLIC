@@ -8,7 +8,7 @@
 | **Module Name** | `data sampler` |
 | **Type** | `mtControl` |
 | **Color** | `clInterfaceDesignModuleColor` |
-| **Version** | 1.0 |
+| **Version** | 1.261112 |
 | **Source** | `examples/DataSampler/` |
 
 ## Description

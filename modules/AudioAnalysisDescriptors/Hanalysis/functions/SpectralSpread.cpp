@@ -4,7 +4,8 @@ void SpectralSpread::process(Features& features, Results& results)
 {
     float result = 0.0f;
     float tmp;
-    for (int i = 0; i < features.fft_size - 1; i++)
+    // every bin from DC to Nyquist, as the centroid
+    for (int i = 0; i < features.fft_size; i++)
     {
         tmp = (features.frequencies[i] - results.spectralCentroid);
         result += tmp * tmp * features.magnitudes[i];

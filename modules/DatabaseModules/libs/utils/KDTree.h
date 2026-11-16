@@ -1,13 +1,8 @@
 #pragma once
 #include <vector>
 #include <string>
-#ifdef  _WIN32
+#include <memory>
 #include "UserDefinitions.h"
-#endif // Windows
-
-#ifdef __APPLE__
-#include "UserDefinitions.h"
-#endif // MacOs
 
 struct PointMag
 {

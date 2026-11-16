@@ -1,844 +1,382 @@
 //-----------------------------------------------------------------------------
-//@file  
-//	AudioAnalysis.cpp
+// @file    AudioAnalysis.cpp
+// @author  BrainModular team
+// @brief   Audio descriptors of the input, computed by the Hanalysis library in a background thread.
 //
-//@author
-//	BrainModular team
-//
-//@brief 
-//	Implementation of the AudioAnalysis class.
-//
-//  A template include to start from for new user module.
-//
-//@historic 
-//	2013/05/15
-//    first release for Hollyhock CPP SDK 6.00.226 
-//
-//@IMPORTANT
-//	This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs and patch to Usine forum :
-//  support@brainmodular.com 
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015, 2019 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE.
-//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// includes
-//-----------------------------------------------------------------------------
+#include <algorithm>
+#include <chrono>
+#include <vector>
 #include "AudioAnalysis.h"
+#include "ModuleDefinition.h"
 
-
-//----------------------------------------------------------------------------
-// callback ids
-//----------------------------------------------------------------------------
-
-constexpr NativeInt TOGGLE_ON_CBID          = 0x001000F0;
-constexpr NativeInt FFT_SIZE_CBID           = 0x001000F1;
-constexpr NativeInt OVERLAP_CBID            = 0x001000F2;
-constexpr NativeInt TOGGLE_SPECTRAL_CBID    = 0x001000F3;
-constexpr NativeInt ROLLOFF_THRES_CBID      = 0x001000F4;
-constexpr NativeInt TOGGLE_HARMONIC_CBID    = 0x001000F5;
-constexpr NativeInt TOGGLE_TEMPORAL_CBID    = 0x001000F6;
-constexpr NativeInt TOGGLE_PERCEPTUAL_CBID  = 0x001000F7;
-
-
-//----------------------------------------------------------------------------
-// create, general info and destroy methods
-//----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-void CreateModule(void*& pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+namespace
 {
-    pModule = new AudioAnalysis();
+	// sends the first count values of a result to an array output
+	void setArrayOut(const UsineEventClass& arrOut, const std::vector<float>& values, int count)
+	{
+		arrOut.setSize(count);
+		std::copy_n(values.begin(), count, arrOut.getDataAddr());
+	}
+}
+
+void CreateModule(void* &pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
+{
+	pModule = new AudioAnalysis();
 }
 
 void DestroyModule(void* pModule)
 {
-    delete ((AudioAnalysis*)pModule);
-}
-
-//-------------------------------------------------------------------------
-// module constructors/destructors
-//-------------------------------------------------------------------------
-
-AudioAnalysis::AudioAnalysis() :
-    audioBuffer(PROCESS_BUFFER_SIZE),
-    hanalysis(PROCESS_FFT_SIZE, PROCESS_FFT_SIZE/2 , (float)sdkGetSampleRate(), this)
-{
-    hanalysis.initFFT(PROCESS_FFT_SIZE);
-    
-    // default values, will be overriden by parameters callbacks
-    audioBuffer.setFFTSize(PROCESS_FFT_SIZE);
-    audioBuffer.setClockTime(1);
+	// cast is important to call the good destructor
+	delete static_cast<AudioAnalysis*>(pModule);
 }
 
 AudioAnalysis::~AudioAnalysis()
 {
-    try
-    {
-        sdkCriticalSectionLock(criticalSection);
-        sdkThreadDestroy(thread);
-    }
-    catch (...)
-    {
-        sdkTraceLogChar("error in AudioAnalysis destructor");
-    }
-    sdkCriticalSectionUnLock(criticalSection);
-    sdkCriticalSectionDestroy(criticalSection);
-}
-
-constexpr AnsiCharPtr UserModuleBase::MODULE_NAME = "Audio Analysis";
-constexpr AnsiCharPtr UserModuleBase::MODULE_DESC = "Audio Analysis";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
-
-void GetBrowserInfo(TModuleInfo* pModuleInfo)
-{
-    pModuleInfo->Name = UserModuleBase::MODULE_NAME;
-    pModuleInfo->Description = UserModuleBase::MODULE_DESC;
-    pModuleInfo->Version = UserModuleBase::MODULE_VERSION;
+	// waits for the end of an analysis in progress, before the analysis buffers are destroyed. The thread is
+	// created by onInitModule, which is not called when the creation is cancelled in the query popup
+	if (thread != nullptr)
+		sdkThreadDestroy(thread);
 }
 
 void AudioAnalysis::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-    pModuleInfo->Name = MODULE_NAME;
-    pModuleInfo->Description = MODULE_DESC;
-    pModuleInfo->ModuleType = mtSimple;
-    pModuleInfo->BackColor = sdkGetUsineColor(clDataModuleColor);
-    pModuleInfo->Version = MODULE_VERSION;
-    pModuleInfo->DontProcess = FALSE;
+	pModuleInfo->ModuleType         = mtSimple;
+	pModuleInfo->BackColor          = sdkGetUsineColor(clDataModuleColor);
+	pModuleInfo->DontProcess        = FALSE;
+	pModuleInfo->CanBeSavedInPreset = FALSE;
 
-    if (pMasterInfo != nullptr)
-    {
-        pModuleInfo->QueryListString = "Audio analysis type";
-        pModuleInfo->QueryListValues = "Basic,Advanced";
-        pModuleInfo->QueryListDefaultIdx = 0;
-        pModuleInfo->QueryDefaultValue1 = 0;
-        pModuleInfo->QueryMaxValue1 = 1;
-    }
-    pModuleInfo->CanBeSavedInPreset = false;
+	if (pMasterInfo != nullptr)
+	{
+		pModuleInfo->QueryListString     = "Audio analysis type";
+		pModuleInfo->QueryListValues     = "Basic,Advanced";
+		pModuleInfo->QueryListDefaultIdx = 0;
+		pModuleInfo->QueryDefaultValue1  = 0;
+		pModuleInfo->QueryMaxValue1      = 1;
+	}
 }
 
-int AudioAnalysis::onGetNumberOfParams(int queryResult1, int queryResult2)
-{
-    int result = 0;
-    if (m_QueryResult == SIMPLE_ANALYSIS)
-    {
-        result = 13;
-    }
-    else if (m_QueryResult == COMPLEX_ANALYSIS)
-    {
-        result = 33;
-    }
-    return result;
-}
-
+// called after the query popup, before onCreateParameters
 void AudioAnalysis::onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2)
 {
-    if (queryResult1 == 0 || queryResult1 == 1)
-    {
-        m_QueryResult = queryResult1;
-        hanalysis.m_AnalysisType = queryResult1;
-    }
+	if ((queryResult1 == static_cast<int>(AnalysisType::Basic)) || (queryResult1 == static_cast<int>(AnalysisType::Advanced)))
+	{
+		analysisType             = static_cast<AnalysisType>(queryResult1);
+		hanalysis.m_AnalysisType = queryResult1;
+	}
 }
 
-// Thread function
-void AudioAnalysis::processThread(void* pModule, TThreadPtr pThread)
+void AudioAnalysis::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-    AudioAnalysis* module = static_cast<AudioAnalysis*>(pModule);
-    try {
-        module->isProcessing = TRUE;
-        module->sdkCriticalSectionLock(module->criticalSection);
-        
-        module->onAnalysis();
-    
-        // time tracking
-        static auto lastTime = std::chrono::steady_clock::now();
-        auto currentTime = std::chrono::steady_clock::now();
-        
-        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
-        module->fftDuration.setData((float)duration);
-        lastTime = currentTime;
-        
-    }
-    catch (...)
-    {
-        sdkTraceLogChar("error in AudioAnalysis processThread");
-    }
-    module->isProcessing = FALSE;
-    module->sdkCriticalSectionUnLock(module->criticalSection);
+	// these outputs are displayed up to the Nyquist frequency of the current sample rate
+	const float nyquist           = static_cast<float>(sdkGetSampleRate() / 2.0);
+	const auto  createUpToNyquist = [this, nyquist](const TParamInfo& paramInfo, UsineEventClass& eventClass)
+	{
+		TParamInfo nyquistParamInfo = paramInfo;
+		nyquistParamInfo.MaxValue   = nyquist;
+		sdkCreateParam(nyquistParamInfo, eventClass);
+	};
+
+	sdkCreateParam(onAnalysisSwInParamInfo, onAnalysisSwIn);
+	sdkCreateParam(audioInParamInfo, audioIn);
+	createUpToNyquist(estimatedFrequencyFdrOutParamInfo, estimatedFrequencyFdrOut);
+	sdkCreateParam(frequencyScoreFdrOutParamInfo, frequencyScoreFdrOut);
+	createUpToNyquist(spectralCentroidFdrOutParamInfo, spectralCentroidFdrOut);
+	createUpToNyquist(spectralSpreadFdrOutParamInfo, spectralSpreadFdrOut);
+	sdkCreateParam(spectralFlatnessFdrOutParamInfo, spectralFlatnessFdrOut);
+	sdkCreateParam(rmsFdrOutParamInfo, rmsFdrOut);
+	sdkCreateParam(totalLoudnessFdrOutParamInfo, totalLoudnessFdrOut);
+	sdkCreateParam(loudnessPerBandsArrOutParamInfo, loudnessPerBandsArrOut);
+	sdkCreateParam(fftSizeLboxInParamInfo, fftSizeLboxIn);
+	sdkCreateParam(overlapLboxInParamInfo, overlapLboxIn);
+	sdkCreateParam(latencyFdrOutParamInfo, latencyFdrOut);
+
+	if (analysisType != AnalysisType::Advanced)
+		return;
+
+	sdkCreateParam(onSpectralSwInParamInfo, onSpectralSwIn);
+	sdkCreateParam(spectralSkewnessFdrOutParamInfo, spectralSkewnessFdrOut);
+	sdkCreateParam(spectralKurtosisFdrOutParamInfo, spectralKurtosisFdrOut);
+	sdkCreateParam(spectralSlopeFdrOutParamInfo, spectralSlopeFdrOut);
+	createUpToNyquist(spectralRolloffFdrOutParamInfo, spectralRolloffFdrOut);
+	sdkCreateParam(rolloffThresholdFdrInParamInfo, rolloffThresholdFdrIn);
+	createUpToNyquist(spectralCrestFdrOutParamInfo, spectralCrestFdrOut);
+	sdkCreateParam(tonalityCoeffFdrOutParamInfo, tonalityCoeffFdrOut);
+	sdkCreateParam(spectralDecreaseFdrOutParamInfo, spectralDecreaseFdrOut);
+	sdkCreateParam(spectralEntropyFdrOutParamInfo, spectralEntropyFdrOut);
+	sdkCreateParam(peaksAmplitudesArrOutParamInfo, peaksAmplitudesArrOut);
+	createUpToNyquist(peaksFrequenciesArrOutParamInfo, peaksFrequenciesArrOut);
+	sdkCreateParam(onHarmonicSwInParamInfo, onHarmonicSwIn);
+	sdkCreateParam(mfccArrOutParamInfo, mfccArrOut);
+	sdkCreateParam(inharmonicityFdrOutParamInfo, inharmonicityFdrOut);
+	sdkCreateParam(oddToEvenRatioFdrOutParamInfo, oddToEvenRatioFdrOut);
+	sdkCreateParam(tristimulusArrOutParamInfo, tristimulusArrOut);
+	sdkCreateParam(onTemporalSwInParamInfo, onTemporalSwIn);
+	sdkCreateParam(onPerceptualSwInParamInfo, onPerceptualSwIn);
+	sdkCreateParam(sharpnessFdrOutParamInfo, sharpnessFdrOut);
 }
 
 void AudioAnalysis::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-    criticalSection = sdkCriticalSectionCreate("critical section", true);
-    thread = sdkThreadCreate("process thread", &processThread, tpMedium, UINT32_MAX);
-}
+	thread = sdkThreadCreate("process thread", &processThread, tpMedium, UINT32_MAX);
 
-//-----------------------------------------------------------------------------
-// parameters and process
-void AudioAnalysis::onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo)
-{
-    switch (ParamIndex)
-    {
-    case 0:
-        pParamInfo->ParamType = ptSwitch;
-        pParamInfo->Caption = "on analysis";
-        pParamInfo->IsInput = TRUE;
-        pParamInfo->IsOutput = FALSE;
-        pParamInfo->DefaultValue = true;
-        pParamInfo->CallBackType = ctNormal;
-        pParamInfo->CallBackId  = TOGGLE_ON_CBID;
-        pParamInfo->setEventClass(toggleGlobal);
-        break;
-
-    case 1: // audio input
-        pParamInfo->ParamType = ptAudio;
-        pParamInfo->Caption = "in";
-        pParamInfo->IsInput = TRUE;
-        pParamInfo->IsOutput = FALSE;
-        pParamInfo->CallBackType = ctNone;
-        pParamInfo->setEventClass(audioInput);
-        break;
-
-    case 2:
-        pParamInfo->ParamType = ptDataField;
-        pParamInfo->Caption = "estimated frequency";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->IsSeparator = TRUE;
-        pParamInfo->SeparatorCaption = "Frequency Estimation";
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->MaxValue = (float)(sdkGetSampleRate() / 2.0);
-        pParamInfo->Format = "%.2f";
-        pParamInfo->Symbol = "Hz";
-        pParamInfo->CallBackType = ctNone;
-        pParamInfo->setEventClass(fundFrequency);
-        break;
-
-    case 3:
-        pParamInfo->ParamType = ptDataField;
-        pParamInfo->Caption = "frequency score";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->MaxValue = 1.0f;
-        pParamInfo->Format = "%.2f";
-        pParamInfo->Symbol = "";
-        pParamInfo->CallBackType = ctNone;
-        pParamInfo->setEventClass(frequencyProba);
-        break;
-
-    case 4:
-        pParamInfo->ParamType = ptDataField;
-        pParamInfo->Caption = "spectral centroid";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->IsSeparator = TRUE;
-        pParamInfo->SeparatorCaption = "Spectral Metrics";
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->MaxValue = (float)(sdkGetSampleRate() / 2.0);
-        pParamInfo->Format = "%.2f";
-        pParamInfo->Symbol = "Hz";
-        pParamInfo->CallBackType = ctNone;
-        pParamInfo->setEventClass(spectralCentroid);
-        break;
-
-    case 5:
-        pParamInfo->ParamType = ptDataField;
-        pParamInfo->Caption = "spectral spread";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->MaxValue = (float)(sdkGetSampleRate() / 2.0);
-        pParamInfo->Format = "%.2f";
-        pParamInfo->Symbol = "Hz";
-        pParamInfo->CallBackType = ctNone;
-        pParamInfo->setEventClass(spectralSpread);
-        break;
-
-    case 6:
-        pParamInfo->ParamType = ptDataField;
-        pParamInfo->Caption = "spectral flatness";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->MaxValue = 1.0f;
-        pParamInfo->Format = "%.2f";
-        pParamInfo->CallBackType = ctNone;
-        pParamInfo->setEventClass(spectralFlatness);
-        break;
-
-    case 7:
-        pParamInfo->ParamType = ptDataField;
-        pParamInfo->Caption = "RMS";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = -INFINITY;
-        pParamInfo->MaxValue = 12.0f;
-        pParamInfo->IsSeparator = TRUE;
-        pParamInfo->SeparatorCaption = "Level Metrics";
-        pParamInfo->Format = "%.2f";
-        pParamInfo->Symbol = "dB";
-        pParamInfo->CallBackType = ctNone;
-        pParamInfo->setEventClass(rms);
-        break;
-
-    case 8:
-        pParamInfo->ParamType = ptDataField;
-        pParamInfo->Caption = "total loudness";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->MaxValue = 1.0f;
-        pParamInfo->Format = "%.2f";
-        pParamInfo->CallBackType = ctNone;
-        pParamInfo->setEventClass(loudness);
-        break;
-
-    case 9:
-        pParamInfo->ParamType = ptArray;
-        pParamInfo->Caption = "loudness per bands";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->MaxValue = 1.0f;
-        pParamInfo->Format = "%.2f";
-        pParamInfo->CallBackType = ctNone;
-        pParamInfo->setEventClass(specificLoudness);
-        break;
-
-    case 10:
-        pParamInfo->ParamType = ptListBox;
-        pParamInfo->Caption = "fft size";
-        pParamInfo->IsInput = TRUE;
-        pParamInfo->IsOutput = FALSE;
-        pParamInfo->DefaultValue = 2;
-        pParamInfo->MinValue = 0;
-        pParamInfo->MaxValue = 3;
-        pParamInfo->IsSeparator = TRUE;
-        pParamInfo->SeparatorCaption = "Analysis Parameters";
-        pParamInfo->ListBoxStrings = "1024,2048,4096,8192";
-        pParamInfo->CallBackType = ctNormal;
-        pParamInfo->CallBackId  = FFT_SIZE_CBID;
-        pParamInfo->setEventClass(fftSize);
-        break;
-
-    case 11:
-        pParamInfo->ParamType = ptListBox;
-        pParamInfo->Caption = "overlap";
-        pParamInfo->IsInput = TRUE;
-        pParamInfo->IsOutput = FALSE;
-        pParamInfo->DefaultValue = 0;
-        pParamInfo->MinValue = 0;
-        pParamInfo->MaxValue = 2;
-        pParamInfo->ListBoxStrings = "1,2,4";
-        pParamInfo->CallBackType = ctNormal;
-        pParamInfo->CallBackId  = OVERLAP_CBID;
-        pParamInfo->setEventClass(overlap);
-        break;
-
-    case 12:
-        pParamInfo->ParamType = ptDataField;
-        pParamInfo->Caption = "latency";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->MaxValue = 1000.0f;
-        pParamInfo->Format = "%.2f";
-        pParamInfo->Symbol = "ms";
-        pParamInfo->CallBackType = ctNone;
-        pParamInfo->setEventClass(fftDuration);
-        break;
-
-    case 13:
-        pParamInfo->ParamType = ptSwitch;
-        pParamInfo->Caption = "on spectral";
-        pParamInfo->IsInput = TRUE;
-        pParamInfo->IsOutput = FALSE;
-        pParamInfo->IsSeparator = TRUE;
-        pParamInfo->DefaultValue = true;
-        pParamInfo->SeparatorCaption = "Spectral";
-        pParamInfo->CallBackType = ctNormal;
-        pParamInfo->CallBackId  = TOGGLE_SPECTRAL_CBID;
-        pParamInfo->setEventClass(toggleSpectral);
-        break;
-
-    case 14:
-        pParamInfo->ParamType = ptDataField;
-        pParamInfo->Caption = "spectral skewness";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = -100.0f;
-        pParamInfo->MaxValue = 100.0f;
-        pParamInfo->Format = "%.2f";
-        pParamInfo->setEventClass(spectralSkewness);
-        break;
-
-    case 15:
-        pParamInfo->ParamType = ptDataField;
-        pParamInfo->Caption = "spectral kurtosis";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = -100.0f;
-        pParamInfo->MaxValue = 100.0f;
-        pParamInfo->Format = "%.2f";
-        pParamInfo->setEventClass(spectralKurtosis);
-        break;
-
-    case 16:
-        pParamInfo->ParamType = ptDataField;
-        pParamInfo->Caption = "spectral slope";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->MaxValue = 10.0f;
-        pParamInfo->Format = "%.2f";
-        pParamInfo->Symbol = "1/Hz";
-        pParamInfo->setEventClass(spectralSlope);
-        break;
-
-    case 17:
-        pParamInfo->ParamType = ptDataField;
-        pParamInfo->Caption = "spectral rolloff";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->MaxValue = (float)(sdkGetSampleRate() / 2.0);
-        pParamInfo->Format = "%.2f";
-        pParamInfo->Symbol = "Hz";
-        pParamInfo->setEventClass(spectralRolloff);
-        break;
-
-    case 18:
-        pParamInfo->ParamType = ptDataFader;
-        pParamInfo->Caption = "rolloff threshold";
-        pParamInfo->IsInput = TRUE;
-        pParamInfo->IsOutput = FALSE;
-        pParamInfo->DefaultValue = 0.95f;
-        pParamInfo->MinValue = 0.50f;
-        pParamInfo->MaxValue = 0.99f;
-        pParamInfo->Format = "%.2f";
-        pParamInfo->Symbol = "%";
-        pParamInfo->CallBackType = ctNormal;
-        pParamInfo->CallBackId  = ROLLOFF_THRES_CBID;
-        pParamInfo->setEventClass(rolloffThreshold);
-        break;
-
-
-    case 19:
-        pParamInfo->ParamType = ptDataField;
-        pParamInfo->Caption = "spectral crest";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->MaxValue = (float)(sdkGetSampleRate() / 2.0);
-        pParamInfo->Format = "%.2f";
-        pParamInfo->setEventClass(spectralCrest);
-        break;
-
-    case 20:
-        pParamInfo->ParamType = ptDataField;
-        pParamInfo->Caption = "tonality coeff";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->MaxValue = 1.0f;
-        pParamInfo->Format = "%.2f";
-        pParamInfo->Symbol = "%";
-        pParamInfo->setEventClass(tonalityCoeff);
-        break;
-
-    case 21:
-        pParamInfo->ParamType = ptDataField;
-        pParamInfo->Caption = "spectral decrease";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->MaxValue = 1.0f;
-        pParamInfo->Format = "%.2f";
-        pParamInfo->Symbol = "1/Hz";
-        pParamInfo->setEventClass(spectralDecrease);
-        break;
-
-    case 22:
-        pParamInfo->ParamType = ptDataField;
-        pParamInfo->Caption = "spectral entropy";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->MaxValue = (float)std::log(PROCESS_FFT_SIZE);
-        pParamInfo->Format = "%.2f";
-        pParamInfo->setEventClass(spectralEntropy);
-        break;
-
-    case 23:
-        pParamInfo->ParamType = ptArray;
-        pParamInfo->Caption = "peaks amplitudes";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->MaxValue = 1.0f;
-        pParamInfo->Format = "%.2f";
-        pParamInfo->setEventClass(peaksAmplitudes);
-        break;
-
-    case 24:
-        pParamInfo->ParamType = ptArray;
-        pParamInfo->Caption = "peaks frequencies";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->Format = "%.2f";
-        pParamInfo->MaxValue = (float)(sdkGetSampleRate() / 2.0);
-        pParamInfo->setEventClass(peaksFrequencies);
-        break;
-
-    case 25:
-        pParamInfo->ParamType = ptSwitch;
-        pParamInfo->Caption = "on harmonic";
-        pParamInfo->IsInput = TRUE;
-        pParamInfo->IsOutput = FALSE;
-        pParamInfo->IsSeparator = TRUE;
-        pParamInfo->DefaultValue = true;
-        pParamInfo->SeparatorCaption = "Harmonic";
-        pParamInfo->CallBackType = ctNormal;
-        pParamInfo->CallBackId  = TOGGLE_HARMONIC_CBID;
-        pParamInfo->setEventClass(toggleHarmonic);
-        break;
-
-    case 26:
-        pParamInfo->ParamType = ptArray;
-        pParamInfo->Caption = "MFCC";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->MinValue = -5;
-        pParamInfo->MaxValue = 10;
-        pParamInfo->Format = "%.2f";
-        pParamInfo->setEventClass(mfcc);
-        break;
-
-    case 27:
-        pParamInfo->ParamType = ptDataField;
-        pParamInfo->Caption = "inharmonicity";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->MaxValue = 1.0f;
-        pParamInfo->Format = "%.2f";
-        pParamInfo->setEventClass(inharmonicity);
-        break;
-
-    case 28:
-        pParamInfo->ParamType = ptDataField;
-        pParamInfo->Caption = "odd to even ratio";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = -1.0f;
-        pParamInfo->MaxValue = 1.0f;
-        pParamInfo->Format = "%.2f";
-        pParamInfo->setEventClass(oddToEvenRatio);
-        break;
-
-    case 29:
-        pParamInfo->ParamType = ptArray;
-        pParamInfo->Caption = "tristimulus";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->MaxValue = 100.0f;
-        pParamInfo->Format = "%.1f";
-        pParamInfo->setEventClass(tristimulus);
-        break;
-
-    case 30:
-        pParamInfo->ParamType = ptSwitch;
-        pParamInfo->Caption = "on temporal";
-        pParamInfo->IsInput = TRUE;
-        pParamInfo->IsOutput = FALSE;
-        pParamInfo->IsSeparator = TRUE;
-        pParamInfo->DefaultValue = true;
-        pParamInfo->SeparatorCaption = "Temporal";
-        pParamInfo->CallBackType = ctNormal;
-        pParamInfo->CallBackId  = TOGGLE_TEMPORAL_CBID;
-        pParamInfo->setEventClass(toggleTemporal);
-        break;
-
-    case 31:
-        pParamInfo->ParamType = ptSwitch;
-        pParamInfo->Caption = "on perceptual";
-        pParamInfo->IsInput = TRUE;
-        pParamInfo->IsOutput = FALSE;
-        pParamInfo->IsSeparator = TRUE;
-        pParamInfo->DefaultValue = true;
-        pParamInfo->SeparatorCaption = "Perceptual";
-        pParamInfo->CallBackType = ctNormal;
-        pParamInfo->CallBackId  = TOGGLE_PERCEPTUAL_CBID;
-        pParamInfo->setEventClass(togglePerceptual);
-        break;
-
-    case 32:
-        pParamInfo->ParamType = ptDataFader;
-        pParamInfo->Caption = "sharpness";
-        pParamInfo->IsInput = FALSE;
-        pParamInfo->IsOutput = TRUE;
-        pParamInfo->DefaultValue = 0.0f;
-        pParamInfo->MinValue = 0.0f;
-        pParamInfo->MaxValue = 100.0f;
-        pParamInfo->Format = "%.2f";
-        pParamInfo->setEventClass(sharpness);
-        break;
-
-    default:
-        break;
-    }
+	// a parameter keeping its default value gets no callback, at creation or when a patch is loaded:
+	// start from the current values (a later callback with the same value changes nothing)
+	sampleRate = static_cast<float>(sdkGetSampleRate());
+	for (const NativeInt callbackId : { ON_ANALYSIS_SW_CBID, FFT_SIZE_LBOX_CBID, OVERLAP_LBOX_CBID })
+		applyParameter(callbackId);
+	if (analysisType == AnalysisType::Advanced)
+	{
+		for (const NativeInt callbackId : { ON_SPECTRAL_SW_CBID, ROLLOFF_THRESHOLD_FDR_CBID, ON_HARMONIC_SW_CBID, ON_TEMPORAL_SW_CBID, ON_PERCEPTUAL_SW_CBID })
+			applyParameter(callbackId);
+	}
 }
 
 void AudioAnalysis::onCallBack(TUsineMessage* Message)
 {
-    try {
-        if (Message->message == NOTIFY_MSG_USINE_CALLBACK && Message->lParam == MSG_CHANGE)
-        {
-            switch (Message->wParam)
-            {
-                // Toggles
-                // global on/off
-            case TOGGLE_ON_CBID:
-                hanalysis.globalBool = toggleGlobal.getData();
-                break;
-                // on/off spectral
-            case TOGGLE_SPECTRAL_CBID:
-                hanalysis.spectralBool = toggleSpectral.getData();
-                break;
-                // Parameters change
-            case ROLLOFF_THRES_CBID:
-                if (rolloffThreshold.getData() < 1.0f && rolloffThreshold.getData() >= 0.5f)
-                {
-                    hanalysis.features.rolloffThreshold = rolloffThreshold.getData();
-                }
-                break;
-                // on/off harmonic
-            case TOGGLE_HARMONIC_CBID:
-                hanalysis.harmonicBool = toggleHarmonic.getData();
-                break;
-                // on/off temporal
-            case TOGGLE_TEMPORAL_CBID:
-                hanalysis.temporalBool = toggleTemporal.getData();
-                break;
-                // on/off perceptual
-            case TOGGLE_PERCEPTUAL_CBID:
-                hanalysis.perceptualBool = togglePerceptual.getData();
-                break;
-                // onChange FFT size
-            case FFT_SIZE_CBID:
-                ////////// TODO CHECK ALTERNATIVE 1024=1024...
-                switch((int)fftSize.getData()) {
-                    case 1 : m_FFTSize = 2048; break;
-                    case 2 : m_FFTSize = 4096; break;
-                    case 3 : m_FFTSize = 8192; break;
-                    default: m_FFTSize = 1024; break;
-                }
-                try {
-                    sdkCriticalSectionLock(criticalSection);
-                    setFFTsize(m_FFTSize);
-                }
-                catch (...)
-                {
-                    sdkTraceLogChar("Error while changing the fft size");
-                }
-                sdkCriticalSectionUnLock(criticalSection);
-                break;
-                // onChange Clock Time
-            case OVERLAP_CBID:
-                switch((int)overlap.getData()) {
-                    case 1: m_overlap = 2; break;
-                    case 2: m_overlap = 4; break;
-                    default: m_overlap = 1; break;
-                }
-                try {
-                    sdkCriticalSectionLock(criticalSection);
-                    audioBuffer.setClockTime(m_overlap);
-                }
-                catch (...) {
-                    sdkTraceLogChar("Error while changing the clock time");
-                }
-                sdkCriticalSectionUnLock(criticalSection);
-                break;
-            default:
-                // do nothing
-                break;
-            }
-        }
-    }
-    catch (...) {
-        sdkTraceErrorChar("error on callback");
-    }
+	if ((Message->message != NOTIFY_MSG_USINE_CALLBACK) || (Message->lParam != MSG_CHANGE))
+		return;
+
+	try
+	{
+		applyParameter(Message->wParam);
+	}
+	catch (...)
+	{
+		sdkRaiseError(ERROR_CALLBACK);
+	}
+}
+
+// reads a parameter into the requested state: called by its callback and by onInitModule
+void AudioAnalysis::applyParameter(NativeInt callbackId)
+{
+	switch (callbackId)
+	{
+		case ON_ANALYSIS_SW_CBID:
+			analysisOn = (onAnalysisSwIn.getData() != 0.0f);
+			break;
+		case ON_SPECTRAL_SW_CBID:
+			spectralOn = (onSpectralSwIn.getData() != 0.0f);
+			break;
+		case ROLLOFF_THRESHOLD_FDR_CBID:
+			changeRolloffThreshold();
+			break;
+		case ON_HARMONIC_SW_CBID:
+			harmonicOn = (onHarmonicSwIn.getData() != 0.0f);
+			break;
+		case ON_TEMPORAL_SW_CBID:
+			temporalOn = (onTemporalSwIn.getData() != 0.0f);
+			break;
+		case ON_PERCEPTUAL_SW_CBID:
+			perceptualOn = (onPerceptualSwIn.getData() != 0.0f);
+			break;
+		case FFT_SIZE_LBOX_CBID:
+			changeFftSize();
+			break;
+		case OVERLAP_LBOX_CBID:
+			changeOverlap();
+			break;
+		default:
+			break;
+	}
 }
 
 void AudioAnalysis::onProcess()
 {
-    if (sdkPatchJustActivated())
-    {
-        audioBuffer.reset();
-    }
+	// the fft size and the overlap are applied to the input between two blocs, a new fft size clears it
+	if (const int newFftSize = requestedFftSize; newFftSize != audioBuffer.getFFTSize())
+		audioBuffer.setFFTSize(newFftSize);
+	if (const int newOverlap = requestedOverlap; newOverlap != appliedOverlap)
+	{
+		audioBuffer.setClockTime(newOverlap);
+		appliedOverlap = newOverlap;
+	}
+	if (sdkPatchJustActivated())
+		audioBuffer.reset();
 
-    if (audioBuffer.isFull())
-    {
-        audioBuffer.copyToBeginning();
-    }
+	audioBuffer.add(audioIn.getDataAddr(), sdkGetBlocSize());
 
-    audioBuffer.add(audioInput.getDataAddr(), sdkGetBlocSize());
-
-    if (audioBuffer.isReadyToProcess() && hanalysis.globalBool && !isProcessing)
-    {
-        sdkThreadRestart(thread);
-    }
+	// a frame ended in this bloc: a new analysis starts only when the previous one is finished
+	if (audioBuffer.isReadyToProcess() && analysisOn && !isProcessing && (thread != nullptr))
+	{
+		audioBuffer.copyFrame(frame.data());
+		frameSize    = audioBuffer.getFFTSize();
+		isProcessing = true;
+		sdkThreadRestart(thread);
+	}
 }
 
+// may come from the main thread or from an audio driver thread while an analysis runs:
+// the analysis thread applies the new rate before its next analysis
+void AudioAnalysis::onSampleRateChange(double SampleRate)
+{
+	sampleRate = static_cast<float>(SampleRate);
+}
+
+void AudioAnalysis::processThread(void* pModule, TThreadPtr pThread)
+{
+	auto* module = static_cast<AudioAnalysis*>(pModule);
+	// set by the audio thread once the frame is written
+	if (!module->isProcessing)
+		return;
+	try
+	{
+		module->onAnalysis();
+
+		const auto currentTime = std::chrono::steady_clock::now();
+		const auto duration    = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - module->lastAnalysisTime).count();
+		module->latencyFdrOut.setData(module->hasLastAnalysis ? static_cast<float>(duration) : 0.0f);
+		module->lastAnalysisTime = currentTime;
+		module->hasLastAnalysis  = true;
+	}
+	catch (...)
+	{
+		sdkTraceLogChar("error in AudioAnalysis processThread");
+	}
+	// the audio thread can write the next frame
+	module->isProcessing = false;
+}
+
+// called by the analysis thread, which owns hanalysis and the frame
 void AudioAnalysis::onAnalysis()
 {
-    if (audioBuffer.getProcessBufferPtr())
-    {
-        hanalysis.process(audioBuffer.getProcessBufferPtr(), m_FFTSize, (float)sdkGetSampleRate());
-    }
+	// changes requested since the last analysis
+	const float newSampleRate = sampleRate;
+	if (frameSize != analysisFftSize)
+	{
+		hanalysis.setFFTSize(frameSize, newSampleRate);
+		analysisFftSize    = frameSize;
+		analysisSampleRate = newSampleRate;
+	}
+	else if (newSampleRate != analysisSampleRate)
+	{
+		hanalysis.setSampleRate(newSampleRate);
+		analysisSampleRate = newSampleRate;
+	}
+	hanalysis.spectralBool              = spectralOn;
+	hanalysis.harmonicBool              = harmonicOn;
+	hanalysis.temporalBool              = temporalOn;
+	hanalysis.perceptualBool            = perceptualOn;
+	hanalysis.features.rolloffThreshold = rolloffThreshold;
 
-    if (m_QueryResult == SIMPLE_ANALYSIS)
-    {
-        // frequency estimation
-        if (hanalysis.results.harmonicF0_YIN.frequency > 40.0f && hanalysis.results.harmonicF0_YIN.frequency < 3000.0f)
-        {
-            fundFrequency.setData(hanalysis.results.harmonicF0_YIN.frequency);
-        }
-        frequencyProba.setData(hanalysis.results.harmonicF0_YIN.probability);
+	hanalysis.process(frame.data(), frameSize, analysisSampleRate);
 
-        // spectral metrics
-        spectralCentroid.setData(hanalysis.results.spectralCentroid);
-        spectralSpread.setData(hanalysis.results.spectralSpread);
-        spectralFlatness.setData(hanalysis.results.spectralFlatness);
+	const Results& results = hanalysis.results;
+	if (analysisType == AnalysisType::Basic)
+	{
+		// frequency estimation
+		sendEstimatedFrequency();
 
-        // level metrics
-        rms.setData(hanalysis.results.temporalRMS);
-        loudness.setData(hanalysis.results.perceptLoudness.totalLoudness);
-        specificLoudness.setSize(25);
-        memcpy(specificLoudness.getDataAddr(), hanalysis.results.perceptLoudness.specificLoudness.data(), sizeof(float) * 25);
+		// spectral metrics
+		spectralCentroidFdrOut.setData(results.spectralCentroid);
+		spectralSpreadFdrOut.setData(results.spectralSpread);
+		spectralFlatnessFdrOut.setData(results.spectralFlatness);
 
-    }
-    else if (m_QueryResult == COMPLEX_ANALYSIS)
-    {
-        // spectral
-        spectralCentroid.setData(hanalysis.results.spectralCentroid);
-        spectralSpread.setData(hanalysis.results.spectralSpread);
-        spectralSkewness.setData(hanalysis.results.spectralSkewness);
-        spectralKurtosis.setData(hanalysis.results.spectralKurtosis);
-        spectralSlope.setData(hanalysis.results.spectralSlope);
-        spectralRolloff.setData(hanalysis.results.spectralRolloff);
-        spectralFlatness.setData(hanalysis.results.spectralFlatness);
-        spectralCrest.setData(hanalysis.results.spectralCrest);
-        tonalityCoeff.setData(hanalysis.results.spectralTonality);
-        spectralDecrease.setData(hanalysis.results.spectralDecrease);
-        spectralEntropy.setData(hanalysis.results.spectralEntropy);
-        peaksArray.clear();
-        peaksArray = hanalysis.results.spectralPeaks;
-        peaksAmplitudes.setSize(int(peaksArray.size()));
-        peaksFrequencies.setSize(int(peaksArray.size()));
-        for (int i = 0; i < peaksArray.size(); i++)
-        {
-            peaksFrequencies.setArrayData(i, peaksArray[i].frequency);
-            peaksAmplitudes.setArrayData(i, peaksArray[i].magnitude);
-        }
+		// level metrics
+		rmsFdrOut.setData(results.temporalRMS);
+		totalLoudnessFdrOut.setData(results.perceptLoudness.totalLoudness);
+		setArrayOut(loudnessPerBandsArrOut, results.perceptLoudness.specificLoudness, NUM_BARK_BANDS);
+	}
+	else
+	{
+		// the outputs of a section that is OFF keep their last values
+		if (hanalysis.spectralBool)
+		{
+			spectralCentroidFdrOut.setData(results.spectralCentroid);
+			spectralSpreadFdrOut.setData(results.spectralSpread);
+			spectralSkewnessFdrOut.setData(results.spectralSkewness);
+			spectralKurtosisFdrOut.setData(results.spectralKurtosis);
+			spectralSlopeFdrOut.setData(results.spectralSlope);
+			spectralRolloffFdrOut.setData(results.spectralRolloff);
+			spectralFlatnessFdrOut.setData(results.spectralFlatness);
+			spectralCrestFdrOut.setData(results.spectralCrest);
+			tonalityCoeffFdrOut.setData(results.spectralTonality);
+			spectralDecreaseFdrOut.setData(results.spectralDecrease);
+			spectralEntropyFdrOut.setData(results.spectralEntropy);
+			const int numPeaks = static_cast<int>(results.spectralPeaks.size());
+			peaksAmplitudesArrOut.setSize(numPeaks);
+			peaksFrequenciesArrOut.setSize(numPeaks);
+			for (int i = 0; i < numPeaks; i++)
+			{
+				peaksFrequenciesArrOut.setArrayData(i, results.spectralPeaks[i].frequency);
+				peaksAmplitudesArrOut.setArrayData(i, results.spectralPeaks[i].magnitude);
+			}
+		}
 
-        // harmonic
-        mfcc.setSize(13);
-        memcpy(mfcc.getDataAddr(), hanalysis.results.harmonicMfcc.data(), sizeof(float) * 13);
-        if (hanalysis.results.harmonicF0_YIN.frequency > 40.0f && hanalysis.results.harmonicF0_YIN.frequency < 3000.0f)
-        {
-            fundFrequency.setData(hanalysis.results.harmonicF0_YIN.frequency);
-        }
-        frequencyProba.setData(hanalysis.results.harmonicF0_YIN.probability);
-        inharmonicity.setData(hanalysis.results.harmonicInharmonicity);
-        oddToEvenRatio.setData(hanalysis.results.harmonicOTERatio);
-        tristimulus.setSize(3);
-        memcpy(tristimulus.getDataAddr(), hanalysis.results.harmonicTristimulus.data(), sizeof(float) * 3);
+		if (hanalysis.harmonicBool)
+		{
+			setArrayOut(mfccArrOut, results.harmonicMfcc, NUM_COEFF_MFCC);
+			sendEstimatedFrequency();
+			inharmonicityFdrOut.setData(results.harmonicInharmonicity);
+			oddToEvenRatioFdrOut.setData(results.harmonicOTERatio);
+			setArrayOut(tristimulusArrOut, results.harmonicTristimulus, NUM_TRISTIMULUS);
+		}
 
-        // temporal
-        rms.setData(hanalysis.results.temporalRMS);
+		if (hanalysis.temporalBool)
+			rmsFdrOut.setData(results.temporalRMS);
 
-        // perceptual
-        loudness.setData(hanalysis.results.perceptLoudness.totalLoudness);
-        specificLoudness.setSize(25);
-        memcpy(specificLoudness.getDataAddr(), hanalysis.results.perceptLoudness.specificLoudness.data(), sizeof(float) * 25);
-        sharpness.setData(hanalysis.results.perceptSharpness);
-    }
+		if (hanalysis.perceptualBool)
+		{
+			totalLoudnessFdrOut.setData(results.perceptLoudness.totalLoudness);
+			setArrayOut(loudnessPerBandsArrOut, results.perceptLoudness.specificLoudness, NUM_BARK_BANDS);
+			sharpnessFdrOut.setData(results.perceptSharpness);
+		}
+	}
 }
 
-void AudioAnalysis::setFFTsize(int new_size)
+// out of its range, the estimate is considered wrong and the output keeps its last value
+void AudioAnalysis::sendEstimatedFrequency()
 {
-    audioBuffer.setFFTSize(new_size);
-    hanalysis.setFFTSize(new_size, (float)sdkGetSampleRate());
+	const PitchProbability& pitch = hanalysis.results.harmonicF0_YIN;
+	if ((pitch.frequency > ESTIMATED_FREQUENCY_MIN) && (pitch.frequency < ESTIMATED_FREQUENCY_MAX))
+		estimatedFrequencyFdrOut.setData(pitch.frequency);
+	frequencyScoreFdrOut.setData(pitch.probability);
 }
 
-
-//-----------------------------------------------------------------------------
-// audio setup update
-
-void AudioAnalysis::onBlocSizeChange(int BlocSize) {
-    try{
-        sdkCriticalSectionLock(criticalSection);
-        m_iBlocSize = BlocSize;
-    } catch (...)
-    {
-        sdkTraceLogChar("Error while changing bloc size");
-    }
-    sdkCriticalSectionUnLock(criticalSection);
+void AudioAnalysis::changeRolloffThreshold()
+{
+	const float threshold = rolloffThresholdFdrIn.getData();
+	// the normalized spectrum sums to 1: a threshold of 1 or more might never be reached
+	if ((threshold >= ROLLOFF_THRESHOLD_MIN) && (threshold < 1.0f))
+		rolloffThreshold = threshold;
 }
 
-void AudioAnalysis::onSampleRateChange(double SampleRate) {
-    
-    m_fSampleRate = float(SampleRate);
-    hanalysis.setSampleRate(m_fSampleRate);
+void AudioAnalysis::changeFftSize()
+{
+	int newSize = 1024;
+	switch (static_cast<FftSize>(std::clamp(static_cast<int>(fftSizeLboxIn.getData()), 0, static_cast<int>(FftSize::Size8192))))
+	{
+		case FftSize::Size2048:
+			newSize = 2048;
+			break;
+		case FftSize::Size4096:
+			newSize = 4096;
+			break;
+		case FftSize::Size8192:
+			newSize = 8192;
+			break;
+		default:
+			break;
+	}
+	requestedFftSize = newSize;
+}
+
+void AudioAnalysis::changeOverlap()
+{
+	int overlapFactor = 1;
+	switch (static_cast<Overlap>(std::clamp(static_cast<int>(overlapLboxIn.getData()), 0, static_cast<int>(Overlap::Four))))
+	{
+		case Overlap::Two:
+			overlapFactor = 2;
+			break;
+		case Overlap::Four:
+			overlapFactor = 4;
+			break;
+		default:
+			break;
+	}
+	requestedOverlap = overlapFactor;
 }

@@ -1,55 +1,30 @@
+//-----------------------------------------------------------------------------
+// @file    ArrayDistance.h
+// @author  BrainModular team
+// @brief   Dynamic time warping (DTW) distance between two arrays.
+//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
+//-----------------------------------------------------------------------------
 #pragma once
 
-#include <UserDefinitions.h>
+#include "../../sdk/UserDefinitions.h"
 
-//-----------------------------------------------------------------------------
-// class definition
-//-----------------------------------------------------------------------------
-class DTWDistance : public UserModuleBase {
-
-
-	//-----------------------------------------------------------------------------
-	// Constructor & destructor
-	//-----------------------------------------------------------------------------
+class ArrayDistance : public UserModuleBase
+{
 public:
-
-	//Constructor
-	DTWDistance() = default;
-
-	//Destructor
-	virtual ~DTWDistance() = default;
-
-	//-------------------------------------------------------------------------
-	// public methods inherited from UserModule
-	//-------------------------------------------------------------------------
-
-	//-----------------------------------------------------------------------------
-	// module info
 	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
-
-	void onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2) override;
-
-	//-----------------------------------------------------------------------------
-	//  init
-	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
-
-	//-----------------------------------------------------------------------------
-	// parameters and process
-	void onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo) override;
-
+	void onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
 	void onCallBack(TUsineMessage* Message) override;
 
-	void onProcess() override;
-
-	//-----------------------------------------------------------------------------
-	// Private members
-	//-----------------------------------------------------------------------------
-
 private:
-	UsineEventClass arrDataA_;
-	UsineEventClass arrDataB_;
-	UsineEventClass dtDistance_;
-	UsineEventClass btnCalculate_;
-	UsineEventClass dtMin_;
-	UsineEventClass dtMax_;
+	UsineEventClass array1ArrIn;
+	UsineEventClass array2ArrIn;
+	UsineEventClass distanceFdrOut;
+	UsineEventClass minFdrIn;
+	UsineEventClass maxFdrIn;
+	UsineEventClass calculateBtnIn;
+
+	void calculateDistance();
 };

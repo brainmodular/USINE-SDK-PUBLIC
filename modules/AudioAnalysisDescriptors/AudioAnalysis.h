@@ -1,189 +1,140 @@
 //-----------------------------------------------------------------------------
-//@file  
-//	AudioAnalysis.h
+// @file    AudioAnalysis.h
+// @author  BrainModular team
+// @brief   Audio descriptors of the input, computed by the Hanalysis library in a background thread.
 //
-//@author
-//	BrainModular team
-//
-//@brief 
-//	Definitions of the AudioAnalysis class.
-//
-//  A template include to start from for new user module.
-//
-//@historic 
-//	2013/05/15
-//    first release for Hollyhock CPP SDK 6.00.226 
-//
-//@IMPORTANT
-//	This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs and patch to Usine forum :
-//  support@brainmodular.com 
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015, 2019 BrainModular
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of 
-// this software and associated documentation files (the "Software"), 
-// to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-// and/or sell copies of the Software, and to permit persons to whom the Software 
-// is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all 
-//     copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-// SOFTWARE. 
-//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
 #pragma once
 
-//-----------------------------------------------------------------------------
-// includes
-//-----------------------------------------------------------------------------
-
-#include <iostream>
-#include <cmath>
-#include <limits>
-#include <numeric>
-#include <vector>
-#include <complex>
+#include <atomic>
 #include <chrono>
-
+#include <vector>
 #include "Hanalysis/Hanalysis.h"
 #include "Hanalysis/HaudioBuffer.h"
+#include "../../sdk/UserDefinitions.h"
 
-#include "UserDefinitions.h"
-//#include "UsineFunctions.h"
+// length of the ring buffer receiving the audio input, in samples: a frame of the largest fft size and a bloc
+constexpr int PROCESS_BUFFER_SIZE  = 20480;
+// size of the analysis buffers until the fft size of the parameter is applied
+constexpr int PROCESS_FFT_SIZE     = 4096;
+// largest fft size: size of the frame given to the analysis thread
+constexpr int PROCESS_MAX_FFT_SIZE = 8192;
 
-
-//-----------------------------------------------------------------------------
-// defines and constantes
-//-----------------------------------------------------------------------------
-
-constexpr NativeInt PROCESS_BUFFER_SIZE = 20480;
-constexpr NativeInt PROCESS_FFT_SIZE    = 4096;
-
-constexpr int SIMPLE_ANALYSIS  = 0;
-constexpr int COMPLEX_ANALYSIS = 1;
-
-//-----------------------------------------------------------------------------
-// class definition
-//-----------------------------------------------------------------------------
 class AudioAnalysis : public UserModuleBase
 {
 public:
-    // constructor
-    AudioAnalysis();
+	~AudioAnalysis() override;
 
-    // destructor
-	virtual ~AudioAnalysis();
-
-	//-------------------------------------------------------------------------
-	// public methods inherited from UserModule
-	//-------------------------------------------------------------------------
-	//-----------------------------------------------------------------------------
-	// module info
 	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
-    //-----------------------------------------------------------------------------
-    // query system and init
-    int  onGetNumberOfParams(int queryResult1, int queryResult2) override;
-    void onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2) override;
+	void onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo, int queryResult1, int queryResult2) override;
+	void onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
 	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
-    
-	//-----------------------------------------------------------------------------
-	// parameters and process
-	void onGetParamInfo(int ParamIndex, TParamInfo* pParamInfo) override;
-	void onCallBack(TUsineMessage *Message) override;
+	void onCallBack(TUsineMessage* Message) override;
 	void onProcess() override;
-    void onAnalysis();  //  triggered when the buffer is ready to be analyzed
-    
-    //-----------------------------------------------------------------------------
-    // audio setup update
-    void onBlocSizeChange(int BlocSize) override;
-    void onSampleRateChange(double SampleRate) override;
+	void onSampleRateChange(double SampleRate) override;
 
 private:
-	//-------------------------------------------------------------------------
-	// UsineEventClass members
-	//-------------------------------------------------------------------------
-    UsineEventClass toggleGlobal;               //  global toggle
-    UsineEventClass audioInput;                 //  audio input
-    // Spectral
-    UsineEventClass toggleSpectral;             //  toggle spectral analysis descriptors
-    UsineEventClass spectralCentroid;           //  spectral centroid
-    UsineEventClass spectralSpread;             //  spectral spread
-    UsineEventClass spectralSkewness;           //  spectral skewness
-    UsineEventClass spectralKurtosis;           //  spectral kurtosis
-    UsineEventClass spectralSlope;              //  spectral slope
-    UsineEventClass spectralRolloff;            //  spectral rolloff
-    UsineEventClass rolloffThreshold;           //  rolloff threshold
-    UsineEventClass spectralFlatness;           //  spectral flatness
-    UsineEventClass spectralCrest;              //  spectral crest
-    UsineEventClass tonalityCoeff;              //  tonality coefficient (10log(SFM)/-60)
-    UsineEventClass spectralDecrease;           //  spectral decrease
-    UsineEventClass spectralEntropy;            //  spectral entropy
-    UsineEventClass peaksAmplitudes;            //  spectral peaks amplitudes array
-    UsineEventClass peaksFrequencies;           //  spectral peaks frequencies array
-    // Harmonic
-    UsineEventClass toggleHarmonic;             //  toggle Harmonic Analysis
-    UsineEventClass mfcc;                       //  mfcc array
-    UsineEventClass fundFrequency;              //  estimated fondamental frequency
-    UsineEventClass frequencyProba;             //  estimated frequency probability
-    UsineEventClass inharmonicity;              //  inharmonicity
-    UsineEventClass oddToEvenRatio;             //  Odd to even ratio
-    UsineEventClass tristimulus;                //  Tristimulus 1, 2 and 3 array
-    // Temporal
-    UsineEventClass toggleTemporal;             //  toggle Temporal Analysis
-    UsineEventClass rms;                        //  rms
-    // Perceptual
-    UsineEventClass togglePerceptual;           //  toggle Perceptual Analysis
-    UsineEventClass loudness;                   //  total loudness
-    UsineEventClass specificLoudness;           //  specific loudness array
-    UsineEventClass sharpness;                  //  sharpness
-    // Other
-    //UsineEventClass autocorrelation;          //  autocorrelation
-    UsineEventClass fftSize;                    //  change fft size 
-    UsineEventClass overlap;                    //  change clock time
-    UsineEventClass fftDuration;                //  duration of the fft (every X ms we do the calculations)
-    
+	// items of the query popup: the advanced analysis adds parameters to the basic one
+	enum class AnalysisType
+	{
+		Basic,
+		Advanced
+	};
 
-    //-------------------------------------------------------------------------
-    // member classes
+	// items of the fft size list box
+	enum class FftSize
+	{
+		Size1024,
+		Size2048,
+		Size4096,
+		Size8192
+	};
 
-    AudioBuffer<float> audioBuffer;                                 //  buffer to analyze
-    Hanalysis hanalysis;                                            //  Analysis class
+	// items of the overlap list box: number of analyses per window
+	enum class Overlap
+	{
+		One,
+		Two,
+		Four
+	};
 
-    //-------------------------------------------------------------------------
-    // variables
-    float m_fSampleRate = static_cast<float>(sdkGetSampleRate());   //  sample rate
-    int m_iBlocSize = sdkGetBlocSize();                             //  bloc size
-    int m_FFTSize = 0;                                              //  fft size
-    int m_overlap = 1;                                              //  overlap factor
-    std::vector<SpectralPeak> peaksArray;
+	// basic and advanced analysis
+	UsineEventClass onAnalysisSwIn;
+	UsineEventClass audioIn;
+	UsineEventClass estimatedFrequencyFdrOut;
+	UsineEventClass frequencyScoreFdrOut;
+	UsineEventClass spectralCentroidFdrOut;
+	UsineEventClass spectralSpreadFdrOut;
+	UsineEventClass spectralFlatnessFdrOut;
+	UsineEventClass rmsFdrOut;
+	UsineEventClass totalLoudnessFdrOut;
+	UsineEventClass loudnessPerBandsArrOut;
+	UsineEventClass fftSizeLboxIn;
+	UsineEventClass overlapLboxIn;
+	UsineEventClass latencyFdrOut;
+	// advanced analysis only
+	UsineEventClass onSpectralSwIn;
+	UsineEventClass spectralSkewnessFdrOut;
+	UsineEventClass spectralKurtosisFdrOut;
+	UsineEventClass spectralSlopeFdrOut;
+	UsineEventClass spectralRolloffFdrOut;
+	UsineEventClass rolloffThresholdFdrIn;
+	UsineEventClass spectralCrestFdrOut;
+	UsineEventClass tonalityCoeffFdrOut;
+	UsineEventClass spectralDecreaseFdrOut;
+	UsineEventClass spectralEntropyFdrOut;
+	UsineEventClass peaksAmplitudesArrOut;
+	UsineEventClass peaksFrequenciesArrOut;
+	UsineEventClass onHarmonicSwIn;
+	UsineEventClass mfccArrOut;
+	UsineEventClass inharmonicityFdrOut;
+	UsineEventClass oddToEvenRatioFdrOut;
+	UsineEventClass tristimulusArrOut;
+	UsineEventClass onTemporalSwIn;
+	UsineEventClass onPerceptualSwIn;
+	UsineEventClass sharpnessFdrOut;
 
-    //-------------------------------------------------------------------------
+	AnalysisType analysisType = AnalysisType::Basic;
 
-    // internal variables thread and query related
+	// state requested by the parameters (callbacks and onInitModule) and by onSampleRateChange, whatever their
+	// thread: the audio thread applies the fft size and the overlap, the analysis thread the rest
+	std::atomic<int>   requestedFftSize { PROCESS_FFT_SIZE };
+	std::atomic<int>   requestedOverlap { 1 };
+	std::atomic<bool>  analysisOn { true };
+	std::atomic<bool>  spectralOn { true };
+	std::atomic<bool>  harmonicOn { true };
+	std::atomic<bool>  temporalOn { true };
+	std::atomic<bool>  perceptualOn { true };
+	std::atomic<float> rolloffThreshold { 0.95f };
+	std::atomic<float> sampleRate { static_cast<float>(sdkGetSampleRate()) };
 
-    TCriticalSectionPtr criticalSection;                            //  critical section
-    bool isProcessing = false;                                      //  boolean of processing state
+	// audio thread only: the input, and the overlap applied to it
+	AudioBuffer<float> audioBuffer { PROCESS_BUFFER_SIZE };
+	int                appliedOverlap = 1;
 
-    TThreadPtr thread;                                              //  thread
-    int m_QueryResult = 0;                                          //  query result
+	// the frame to analyze, given by the audio thread to the analysis thread: isProcessing is true from the
+	// restart of the thread to the end of the analysis, the audio thread writes the frame only when it is false
+	std::vector<float> frame = std::vector<float>(PROCESS_MAX_FFT_SIZE, 0.0f);
+	int                frameSize = PROCESS_FFT_SIZE;
+	std::atomic<bool>  isProcessing { false };
+	TThreadPtr         thread = nullptr;
 
-    // private methods
-    void setFFTsize(int new_size);                                  //  change fft size
+	// analysis thread only: the analysis buffers, the size and rate they are built for, the time of the last analysis
+	Hanalysis                             hanalysis { PROCESS_FFT_SIZE, PROCESS_FFT_SIZE / 2, static_cast<float>(sdkGetSampleRate()), this };
+	int                                   analysisFftSize    = PROCESS_FFT_SIZE;
+	float                                 analysisSampleRate = static_cast<float>(sdkGetSampleRate());
+	std::chrono::steady_clock::time_point lastAnalysisTime {};
+	bool                                  hasLastAnalysis = false;
 
-    static void processThread(void* pModule, TThreadPtr pThread);
+	void applyParameter(NativeInt callbackId);
+	void onAnalysis();
+	void sendEstimatedFrequency();
+	void changeRolloffThreshold();
+	void changeFftSize();
+	void changeOverlap();
 
-
-}; // class AudioAnalysis
+	static void processThread(void* pModule, TThreadPtr pThread);
+};

@@ -1,4 +1,5 @@
 #include "SpectralTonality.h"
+#include <algorithm>
 
 void SpectralTonality::process(Features& features, Results& results)
 {

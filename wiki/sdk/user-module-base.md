@@ -24,6 +24,8 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
 The SDK uses them to fill `Name`, `Description` and `Version` of `TModuleInfo`: in `GetBrowserInfo`, which the SDK implements, and before calling `onGetModuleInfo`. The module doesn't set these fields itself. The Usine trace also shows `MODULE_NAME` in front of the messages of the module.
 
+The three constants are declared `USINE_MODULE_LOCAL` (hidden visibility on macOS and Linux, nothing on Windows). A `constexpr` definition is a weak symbol, and the dynamic linker unifies the weak definitions of the whole process: without the attribute, `GetBrowserInfo` — compiled in `UserModule.cpp`, another translation unit of the same library — binds to the copy of the first module loaded, and every module reports its name, description and version.
+
 ---
 
 ## Module Description and Parameters
@@ -509,7 +511,7 @@ virtual void onLaserSendOut(int DeviceID, TUsineILDAPoint** arrayPoint,
 Defined in `sdk/UserError.h`. A module registers its messages once, then raises them:
 
 ```cpp
-inline const int ERROR_INVALID_CHUNK = RegisterError(Level::Error, "invalid saved data, it was not restored");
+inline const int ERROR_INVALID_CHUNK USINE_MODULE_LOCAL = RegisterError(Level::Error, "invalid saved data, it was not restored");
 
 sdkRaiseError(ERROR_INVALID_CHUNK);                     // the registered message
 sdkRaiseError(WARNING_UNKNOWN_VERBOSITY, extraText);    // with an extra text appended

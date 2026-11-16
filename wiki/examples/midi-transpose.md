@@ -8,7 +8,7 @@
 | **Module Name** | `midi transpose` |
 | **Type** | `mtSimple` |
 | **Color** | `clMIDIModuleColor` |
-| **Version** | 1.0 |
+| **Version** | 1.261112 |
 | **Source** | `examples/MidiTranspose/` |
 
 ## Description

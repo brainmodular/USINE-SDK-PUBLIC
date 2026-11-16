@@ -17,7 +17,7 @@ inline float CalcMeanValue (const std::vector<FeaturesResults>& vec, const float
     return result / static_cast<float>(vec_size);
 }
 
-inline std::vector<float> CalcMeanVector(const std::vector<FeaturesResults>& vec, const std::vector<float> FeaturesResults::*member, int normal_member_size)
+inline std::vector<float> CalcMeanVector(const std::vector<FeaturesResults>& vec, const std::vector<float> FeaturesResults::*member, size_t normal_member_size)
 {
     if (vec.empty())
         return {};
@@ -71,7 +71,7 @@ inline float CalcStdDev (const std::vector<FeaturesResults>& vec, const float Fe
     return std::sqrt(variance);
 }
 
-inline std::vector<float> CalcStdDevVector(const std::vector<FeaturesResults>& vec, const std::vector<float> FeaturesResults::*member, int normal_member_size)
+inline std::vector<float> CalcStdDevVector(const std::vector<FeaturesResults>& vec, const std::vector<float> FeaturesResults::*member, size_t normal_member_size)
 {
     if (vec.empty() || (vec[0].*member).empty()) return {};
     

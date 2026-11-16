@@ -1,944 +1,835 @@
 //-----------------------------------------------------------------------------
-//@file
-//    DatabasePlayer.h
+// @file    DatabasePlayer.h
+// @author  BrainModular team
+// @brief   Plays a sound database: 2D map of the samples, resynthesis of the samples under the cursor.
 //
-//@author
-//    BrainModular team
-//
-//@brief
-//    Definitions of the DatabasePlayer class.
-//
-//  A template include to start from for new user module.
-//
-//@historic
-//    2013/05/15
-//    first release for Hollyhock CPP SDK 6.00.226
-//
-//@IMPORTANT
-//    This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs and patch to Usine forum :
-//  support@brainmodular.com
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015, 2019 BrainModular
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy of
-// this software and associated documentation files (the "Software"),
-// to deal in the Software without restriction, including without limitation
-// the rights to use, copy, modify, merge, publish, distribute, sublicense,
-// and/or sell copies of the Software, and to permit persons to whom the Software
-// is furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-//     copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
 #pragma once
 
-#include <iostream>
-#include <fstream>
-#include <random>
-#include <chrono>
-#include <memory>
+#include <algorithm>
+#include <array>
 #include <atomic>
-#include <thread>
+#include <cassert>
+#include <chrono>
+#include <cstddef>
+#include <cstdint>
 #include <functional>
+#include <memory>
 #include <mutex>
 #include <queue>
-
-#ifdef  _WIN32
-#include "UserDefinitions.h"
-#include "../libs/sqlite3lib/sqlite3.h"
-#include "../libs/utils/HaudioBuffer.h"
-#include "../libs/utils/KDTree.h"
-#endif // Windows
-
-#ifdef __APPLE__
-#include "UserDefinitions.h"
-#include "sqlite3.h"
-#include "KDTree.h"
-#include "HaudioBuffer.h"
-#endif // MacOs
-
-
-
-#if defined(__APPLE__)
-// std::filesystem needs macOS 10.15 at runtime (libc++ availability); the modules target 10.13,
-// so file-system access goes through a tiny POSIX-based layer on macOS.
-#include <sys/stat.h>
-#include <dirent.h>
-#include <cstdio>
+#include <random>
 #include <string>
+#include <thread>
 #include <vector>
-#else
-#include <filesystem>
+#if !defined(__APPLE__)
+#include <semaphore>
 #endif
+#include "../../../sdk/UserDefinitions.h"
+#include "../libs/sqlite3lib/sqlite3.h"
+#include "../libs/utils/KDTree.h"
 
-namespace fsx
-{
-#if defined(__APPLE__)
-    inline bool exists(const std::string& p)          { struct stat st; return ::stat(p.c_str(), &st) == 0; }
-    inline bool is_directory(const std::string& p)    { struct stat st; return ::stat(p.c_str(), &st) == 0 && S_ISDIR(st.st_mode); }
-    inline bool is_regular_file(const std::string& p) { struct stat st; return ::stat(p.c_str(), &st) == 0 && S_ISREG(st.st_mode); }
-    inline bool remove(const std::string& p)          { return std::remove(p.c_str()) == 0; }
-
-    inline std::string filename(const std::string& p)
-    {
-        const auto i = p.find_last_of('/');
-        return (i == std::string::npos) ? p : p.substr(i + 1);
-    }
-
-    inline std::string extension(const std::string& p)
-    {
-        const std::string f = filename(p);
-        const auto i = f.find_last_of('.');
-        return (i == std::string::npos || i == 0) ? std::string() : f.substr(i);
-    }
-
-    // Recursive listing of regular files (directory symlinks are not followed,
-    // matching std::filesystem::recursive_directory_iterator defaults).
-    inline void list_regular_files(const std::string& dir, std::vector<std::string>& out)
-    {
-        DIR* d = ::opendir(dir.c_str());
-        if (!d) return;
-        while (struct dirent* e = ::readdir(d))
-        {
-            const std::string name = e->d_name;
-            if (name == "." || name == "..") continue;
-            const std::string full = dir + ((!dir.empty() && dir.back() == '/') ? "" : "/") + name;
-            struct stat st;
-            if (::lstat(full.c_str(), &st) != 0) continue;
-            if (S_ISDIR(st.st_mode))
-                list_regular_files(full, out);
-            else if (S_ISREG(st.st_mode) || (S_ISLNK(st.st_mode) && is_regular_file(full)))
-                out.push_back(full);
-        }
-        ::closedir(d);
-    }
-#else
-    inline bool exists(const std::string& p)          { return std::filesystem::exists(p); }
-    inline bool is_directory(const std::string& p)    { return std::filesystem::is_directory(p); }
-    inline bool is_regular_file(const std::string& p) { return std::filesystem::is_regular_file(p); }
-    inline bool remove(const std::string& p)          { return std::filesystem::remove(p); }
-    inline std::string filename(const std::string& p) { return std::filesystem::path(p).filename().string(); }
-    inline std::string extension(const std::string& p){ return std::filesystem::path(p).extension().string(); }
-
-    inline void list_regular_files(const std::string& dir, std::vector<std::string>& out)
-    {
-        for (const auto& entry : std::filesystem::recursive_directory_iterator(dir))
-            if (std::filesystem::is_regular_file(entry.status()))
-                out.push_back(entry.path().string());
-    }
-#endif
-}
-
-
-// ---- CONSTANTS ----
 constexpr int DEFAULT_PANEL_HEIGHT = 500;
-constexpr int DEFAULT_PANEL_WIDTH = 500;
+constexpr int DEFAULT_PANEL_WIDTH  = 500;
 
-constexpr UINT32 BUFFER_SIZE = 2048;
-constexpr float SAMPLE_RATE = 44100.0f;
-constexpr UINT32 OVERLAPSIZE = 2048;
-
+// size of the table of the random phases of the resynthesis
 constexpr int LUT_SIZE = 10000;
-
-constexpr float coeffThreshold = 0.01f;
-constexpr float baseSmoothDuration = 100.0f;
-constexpr int sampleQueueMaxPoly = 40;
-
+// a released sample leaves the queue once its gain is below this threshold
+constexpr float COEFF_THRESHOLD = 0.01f;
+// slots of the samples queue: twice the maximum of [polyphony]
+constexpr int SAMPLE_QUEUE_MAX_POLY = 40;
+// range and default of [polyphony], see polyphonyFdrInParamInfo
+constexpr int POLYPHONY_MIN     = 1;
+constexpr int POLYPHONY_MAX     = SAMPLE_QUEUE_MAX_POLY / 2;
+constexpr int DEFAULT_POLYPHONY = 10;
+// FFT size of the resynthesis until a database gives its own
 constexpr int DEFAULT_SPECTRUM = 16384;
+// FFT sizes accepted from a database: the powers of two the Usine FFT computes
+constexpr int MIN_SPECTRUM = 32;
+constexpr int MAX_SPECTRUM = 65536;
+// samples per channel between the work thread and the audio thread (a power of two): the lead of the
+// resynthesis (a bloc and 10 ms) plus a hop, at the largest FFT size and 192 kHz
+constexpr int OUTPUT_FIFO_SIZE = 65536;
+// the work thread sleeps until it is woken up, at most this time
+constexpr int WORK_THREAD_IDLE_MS = 100;
+// the work thread computes the frames a bloc and LEAD_MARGIN_SECONDS ahead of the audio thread; each underrun of a
+// running stream adds max(bloc, LEAD_STEP_SECONDS), up to LEAD_EXTRA_MAX_SECONDS
+constexpr double LEAD_MARGIN_SECONDS    = 0.010;
+constexpr double LEAD_STEP_SECONDS      = 0.005;
+constexpr double LEAD_EXTRA_MAX_SECONDS = 0.040;
 
-// enum for settings IDs and callbacks
-enum SettingsId : NativeInt {
-    POINT_RADIUS = 90,
-    SPREAD_X,
-    SPREAD_Y,
-    NORMALIZE_COEFFS
-};
-
-// functions to convert normalized coordinates to RGB colors
-inline void hsv_to_rgb(float h, float s, float v, uint8_t& r, uint8_t& g, uint8_t& b) {
-    float c = v * s;
-    float x = c * (1 - std::fabs(fmod(h / 60.0f, 2.0f) - 1));
-    float m = v - c;
-    float r1, g1, b1;
-    
-    if (h < 60)      { r1 = c; g1 = x; b1 = 0; }
-    else if (h < 120){ r1 = x; g1 = c; b1 = 0; }
-    else if (h < 180){ r1 = 0; g1 = c; b1 = x; }
-    else if (h < 240){ r1 = 0; g1 = x; b1 = c; }
-    else if (h < 300){ r1 = x; g1 = 0; b1 = c; }
-    else             { r1 = c; g1 = 0; b1 = x; }
-    
-    r = static_cast<uint8_t>((r1 + m) * 255);
-    g = static_cast<uint8_t>((g1 + m) * 255);
-    b = static_cast<uint8_t>((b1 + m) * 255);
-}
-inline TUsineColor xy_to_rgb_colorwheel_radial(float x, float y) {
-    static float DEG_PI = 180.0f / static_cast<float>(M_PI);
-    
-    x = std::clamp(x, 0.0f, 1.0f);
-    y = std::clamp(y, 0.0f, 1.0f);
-    
-    float dx = x - 0.5f;
-    float dy = y - 0.5f;
-    float hue = std::atan2(dy, dx) * DEG_PI;
-    if (hue < 0.0f) hue += 360.0f;
-    
-    float dist = std::sqrt(dx * dx + dy * dy) * 1.4142f;
-    float sat = std::clamp(dist * 3.0f, 0.5f, 1.0f);
-    
-    float val = 1.0f;
-    
-    uint8_t r, g, b;
-    hsv_to_rgb(hue, sat, val, r, g, b);
-    return (255 << 24) | (r << 16) | (g << 8) | b; // ARGB
-}
-
-// structure for the circle cursor
+// the cursor circle, in coordinates relative to the panel; the main thread moves it, the work thread reads it
 struct CircleCursor
 {
-    float x = 0.0f;
-    float y = 0.0f;
-    float radius = 50.0f/(2.0f*(float)DEFAULT_PANEL_WIDTH);
-    TColorArgb color;
+	std::atomic<float> x {0.0f};
+	std::atomic<float> y {0.0f};
+	std::atomic<float> radius {50.0f / (2.0f * static_cast<float>(DEFAULT_PANEL_WIDTH))};
 
-    CircleCursor()
-    {
-        color.a = 0.2f;
-        color.r = 0.5;
-        color.b = 0.5;
-        color.g = 0.5;
-    }
-    
-    void setRadius(float newRadius)
-    {
-        this->radius = newRadius;
-    }
-    
+	void setRadius(float newRadius)
+	{
+		this->radius.store(newRadius, std::memory_order_relaxed);
+	}
 };
 
-// structure for the mouse information
+// while the left button is down on the panel, the mouse moves the cursor
 struct MouseInfo
 {
-    float prevX = 0.0f;
-    float prevY = 0.0f;
-    bool leftBtnDown = false;
-    
-    bool hasMouseMoved(float newX, float newY)
-    {
-        return (prevX != newX || prevY != newY);
-    }
-    
-    void storeNewCoords(float newX, float newY)
-    {
-        this->prevX = newX;
-        this->prevY = newY;
-    }
-    
+	std::atomic<bool> leftBtnDown {false};
 };
 
-// linear smoother coefficient structure
-// used to smooth the coefficients of the samples in the queue
+// linear smoothing of the gain of a sample of the queue, updated once per bloc
 struct SmoothCoeff
 {
-    float current = 0.0f;
-    float target = 0.0f;
-    float step = 0.0f;
-    int remainingBlocs = 0;
-    
-    void setTarget(float newTarget, float duration, float blocDuration)
-    {
-        target = newTarget;
-        if(duration <= 0.0f || blocDuration <= 0.0f)
-        {
-            current = target;
-            remainingBlocs = 0;
-            step = 0.0f;
-            return;
-        }
-        
-        remainingBlocs = static_cast<int>(duration / blocDuration);
-        if(remainingBlocs <= 0)
-        {
-            current = target;
-            remainingBlocs = 0;
-            step = 0.0f;
-            return;
-        }
-        
-        step = (target - current) / static_cast<float>(remainingBlocs);
-        
-    }
-    
-    void update()
-    {
-        if(remainingBlocs > 0)
-        {
-            current += step;
-            remainingBlocs--;
-            if(remainingBlocs == 0)
-            {
-                current = target;
-            }
-        }
-        
-    }
-    
-    float getCoeff() const
-    {
-        return current;
-    }
-    
-    
+	float current        = 0.0f;
+	float target         = 0.0f;
+	float step           = 0.0f;
+	int   remainingBlocs = 0;
+
+	void setTarget(float newTarget, float duration, float blocDuration)
+	{
+		target = newTarget;
+		if (duration <= 0.0f || blocDuration <= 0.0f)
+		{
+			current        = target;
+			remainingBlocs = 0;
+			step           = 0.0f;
+			return;
+		}
+
+		remainingBlocs = static_cast<int>(duration / blocDuration);
+		if (remainingBlocs <= 0)
+		{
+			current        = target;
+			remainingBlocs = 0;
+			step           = 0.0f;
+			return;
+		}
+
+		step = (target - current) / static_cast<float>(remainingBlocs);
+	}
+
+	// the bloc duration changed: the ramp in progress ends at the time it would have ended
+	void rescale(float oldBlocDuration, float newBlocDuration)
+	{
+		if (remainingBlocs <= 0 || oldBlocDuration <= 0.0f || newBlocDuration <= 0.0f)
+			return;
+		setTarget(target, static_cast<float>(remainingBlocs) * oldBlocDuration, newBlocDuration);
+	}
+
+	void update()
+	{
+		if (remainingBlocs > 0)
+		{
+			current += step;
+			remainingBlocs--;
+			if (remainingBlocs == 0)
+				current = target;
+		}
+	}
+
+	[[nodiscard]] float getCoeff() const
+	{
+		return current;
+	}
 };
 
-// Implementation of a FIFO queue of actions to be processed in the worker thread. Max Size of 100 pending actions.
-// It uses a mutex and a condition variable to synchronize access to the queue.
-// Actions are store as std::function<void()> with the instance of the module class passed as a lambda
-// No concurrency, single threaded processing - IFFT are prioritized over any other action
-class ActionQueue {
+// the samples queue is written by the work thread and the main thread, which wait for each other, and read
+// and smoothed by the audio thread, which never waits: when a writer holds the queue, it skips its update
+class AudioTryLock
+{
 public:
-    // TODO :   
-    //  - Change std::queue to a circular std::array to prevent memory allocations
-    //  - Adjust the rate of the initSearchThread depending on the work load of the queue.
+	void lockWriter()
+	{
+		writers.lock();
+		// the audio thread holds the queue for a few microseconds at most
+		while (busy.exchange(true, std::memory_order_acquire))
+			std::this_thread::yield();
+	}
 
-    void pushFunc(std::function<void(void*)> func, void* arg)
-    {
-        push([func,arg]() { func(arg); });
-    }
-    
-    void pushIFFTFunc(std::function<void(void*)> func, void* arg)
-    {
-        pushIfftTask([func,arg]() { func(arg); });
-    }
-    
-    void run(void* pModule) {
-        /*
-        using clock = std::chrono::high_resolution_clock;
-        using duration = std::chrono::duration<double, std::milli>;
-        
-        duration totalWorkTime{0};
-        duration totalIdleTime{0};
-        duration zero{0};
-        */
-        
-        m_IsWorking.store(true,std::memory_order_relaxed);
-        
-        while (true) {
-            std::function<void()> task;
-            //auto idleStart = clock::now();
-            {
-                std::unique_lock<std::mutex> lock(m_Mutex);
-                m_CondVar.wait(lock, [this]() {
-                    return m_StopFlag || !m_TaskQueue.empty() || !m_IfftTaskQueue.empty();
-                });
-                //auto idleEnd = clock::now();
-                //totalIdleTime += (idleEnd - idleStart);
-                
-                if (m_StopFlag && m_TaskQueue.empty() && m_IfftTaskQueue.empty())
-                    break;
-                
-                if (!m_IfftTaskQueue.empty()) {
-                    task = std::move(m_IfftTaskQueue.front());
-                    m_IfftTaskQueue.pop();
-                } else if (!m_TaskQueue.empty()) {
-                    task = std::move(m_TaskQueue.front());
-                    m_TaskQueue.pop();
-                }
-            }
-            
-            if (task) {
-                //auto workStart = clock::now();
-                task();
-                //auto workEnd = clock::now();
-                //totalWorkTime += (workEnd - workStart);
-            }
-            
-            /*
-            static int counter = 0;
-            if (++counter % 100 == 0) {
-                std::cout << "Total working time (ms): " << totalWorkTime.count()
-                << " | Total idle time (ms): " << totalIdleTime.count()
-                << " | Ratio work/total: "
-                << (totalWorkTime.count() / (totalWorkTime.count() + totalIdleTime.count())) << std::endl;
-                totalWorkTime = zero;
-                totalIdleTime = zero;
-            }
-            */
-        }
-    }
-    
-    
-    void clear() {
-        std::unique_lock<std::mutex> lock(m_Mutex);
-        for (; !m_TaskQueue.empty(); m_TaskQueue.pop()){}
-    }
-    
-    void stop() {
-        {
-            std::lock_guard<std::mutex> lock(m_Mutex);
-            m_StopFlag = true;
-        }
-        m_CondVar.notify_all();
-    }
-    
-    std::atomic<bool> m_IsWorking{false};
-    
+	void unlockWriter()
+	{
+		busy.store(false, std::memory_order_release);
+		writers.unlock();
+	}
+
+	// audio thread: true when the queue is taken
+	[[nodiscard]] bool tryLockAudio()
+	{
+		return !busy.exchange(true, std::memory_order_acquire);
+	}
+
+	void unlockAudio()
+	{
+		busy.store(false, std::memory_order_release);
+	}
+
 private:
-    std::queue<std::function<void()>> m_TaskQueue;
-    std::queue<std::function<void()>> m_IfftTaskQueue;
-    std::mutex m_Mutex;
-    std::condition_variable m_CondVar;
-
-    std::atomic<bool> m_StopFlag{false};
-    
-    size_t m_MaxQueueSize = 100;
-    
-    void push(std::function<void()> task) {
-        std::lock_guard<std::mutex> lock(m_Mutex);
-        
-        if(m_TaskQueue.size() < m_MaxQueueSize)
-        {
-            m_TaskQueue.push(std::move(task));
-            m_CondVar.notify_one();
-        } else
-        {
-            //std::cout << "ACTION QUEUE FULL, REJECTED ACTION" << std::endl;
-        }
-
-    }
-    
-    void pushIfftTask(std::function<void()> task) {
-        std::lock_guard<std::mutex> lock(m_Mutex);
-        m_IfftTaskQueue.push(std::move(task));
-        m_CondVar.notify_one();
-    }
-    
+	std::mutex        writers;
+	std::atomic<bool> busy {false};
 };
 
+class QueueWriteGuard
+{
+public:
+	explicit QueueWriteGuard(AudioTryLock& lock) : lock(lock)
+	{
+		lock.lockWriter();
+	}
+	~QueueWriteGuard()
+	{
+		lock.unlockWriter();
+	}
+	QueueWriteGuard(const QueueWriteGuard&)            = delete;
+	QueueWriteGuard& operator=(const QueueWriteGuard&) = delete;
 
+private:
+	AudioTryLock& lock;
+};
+
+// resynthesized samples of the 2 audio outputs, from the work thread (the only writer) to the audio thread
+// (the only reader), without lock: the counters published with release/acquire order the samples
+class OutputFifo
+{
+public:
+	// work thread
+	[[nodiscard]] int freeSpace() const
+	{
+		return OUTPUT_FIFO_SIZE - static_cast<int>(writeCount.load(std::memory_order_relaxed) - readCount.load(std::memory_order_acquire));
+	}
+
+	void write(const float* out1, const float* out2, int count)
+	{
+		const size_t start = writeCount.load(std::memory_order_relaxed);
+		for (int i = 0; i < count; i++)
+		{
+			data[0][(start + static_cast<size_t>(i)) & MASK] = out1[i];
+			data[1][(start + static_cast<size_t>(i)) & MASK] = out2[i];
+		}
+		writeCount.store(start + static_cast<size_t>(count), std::memory_order_release);
+	}
+
+	// audio thread
+	[[nodiscard]] int available() const
+	{
+		return static_cast<int>(writeCount.load(std::memory_order_acquire) - readCount.load(std::memory_order_relaxed));
+	}
+
+	// returns the number of samples read, at most count
+	int read(float* out1, float* out2, int count)
+	{
+		const size_t start = readCount.load(std::memory_order_relaxed);
+		const int    n     = std::min(count, static_cast<int>(writeCount.load(std::memory_order_acquire) - start));
+		for (int i = 0; i < n; i++)
+		{
+			out1[i] = data[0][(start + static_cast<size_t>(i)) & MASK];
+			out2[i] = data[1][(start + static_cast<size_t>(i)) & MASK];
+		}
+		readCount.store(start + static_cast<size_t>(n), std::memory_order_release);
+		return n;
+	}
+
+	// drops every sample written
+	void flush()
+	{
+		readCount.store(writeCount.load(std::memory_order_acquire), std::memory_order_release);
+	}
+
+private:
+	static constexpr size_t MASK = OUTPUT_FIFO_SIZE - 1;
+	static_assert((OUTPUT_FIFO_SIZE & (OUTPUT_FIFO_SIZE - 1)) == 0);
+
+	std::array<std::vector<float>, 2> data {std::vector<float>(OUTPUT_FIFO_SIZE, 0.0f), std::vector<float>(OUTPUT_FIFO_SIZE, 0.0f)};
+	// samples written and read since the start, they wrap around the power of two size
+	std::atomic<size_t> writeCount {0};
+	std::atomic<size_t> readCount {0};
+};
+
+// wakes the work thread up. signal() takes no lock and allocates nothing: the audio thread calls it. A libdispatch
+// semaphore on macOS (std::counting_semaphore needs macOS 11, the modules target 10.13), std::counting_semaphore elsewhere
+class WakeUpSignal
+{
+public:
+	WakeUpSignal();
+	~WakeUpSignal();
+	WakeUpSignal(const WakeUpSignal&)            = delete;
+	WakeUpSignal& operator=(const WakeUpSignal&) = delete;
+
+	void signal();
+	// until signaled, or the timeout
+	void wait(int timeoutMs);
+
+private:
+#if defined(__APPLE__)
+	// a dispatch_semaphore_t, see DatabasePlayer.cpp: <dispatch/dispatch.h> defines TRUE and FALSE, declared by the SDK too
+	void* semaphore = nullptr;
+#else
+	std::counting_semaphore<> semaphore {0};
+#endif
+};
+
+// FIFO queue of the actions run one after the other by the work thread, at most 100 pending actions, protected
+// by a mutex. The frames of the resynthesis requested by the audio thread are computed before the other actions:
+// the audio thread only increments a counter and signals the work thread, without lock nor allocation.
+class ActionQueue
+{
+public:
+	// before run: the task computing one frame
+	void setFrameTask(std::function<void()> task)
+	{
+		frameTask = std::move(task);
+	}
+
+	// false when the queue is full
+	bool push(std::function<void()> task)
+	{
+		{
+			std::lock_guard<std::mutex> lock(m_Mutex);
+			if (m_TaskQueue.size() >= m_MaxQueueSize)
+				return false;
+			m_TaskQueue.push(std::move(task));
+		}
+		m_WakeUp.signal();
+		return true;
+	}
+
+	// audio thread
+	void requestFrames(int count)
+	{
+		m_FramesRequested.fetch_add(count, std::memory_order_release);
+		m_WakeUp.signal();
+	}
+
+	// frames requested and not computed yet, the one being computed included
+	[[nodiscard]] int pendingFrames() const
+	{
+		return m_FramesRequested.load(std::memory_order_acquire);
+	}
+
+	// work thread, after a frame: its samples are in the FIFO
+	void frameDone()
+	{
+		m_FramesRequested.fetch_sub(1, std::memory_order_release);
+	}
+
+	// runs the actions until stop is called and the queue is empty
+	void run()
+	{
+		m_IsWorking.store(true, std::memory_order_relaxed);
+
+		while (true)
+		{
+			std::function<void()> task;
+			bool                  frame = false;
+			{
+				std::lock_guard<std::mutex> lock(m_Mutex);
+				if (m_StopFlag.load() && m_TaskQueue.empty())
+					break;
+
+				if (m_FramesRequested.load(std::memory_order_acquire) > 0 && frameTask)
+					frame = true;
+				else if (!m_TaskQueue.empty())
+				{
+					task = std::move(m_TaskQueue.front());
+					m_TaskQueue.pop();
+				}
+			}
+
+			if (frame)
+				frameTask();
+			else if (task)
+				task();
+			else
+				m_WakeUp.wait(WORK_THREAD_IDLE_MS);
+		}
+	}
+
+	void clear()
+	{
+		std::lock_guard<std::mutex> lock(m_Mutex);
+		for (; !m_TaskQueue.empty(); m_TaskQueue.pop())
+		{
+		}
+	}
+
+	void stop()
+	{
+		{
+			std::lock_guard<std::mutex> lock(m_Mutex);
+			m_StopFlag = true;
+		}
+		m_WakeUp.signal();
+	}
+
+	// the long tasks give up when the module is deleted
+	[[nodiscard]] bool isStopping() const
+	{
+		return m_StopFlag.load(std::memory_order_relaxed);
+	}
+
+	std::atomic<bool> m_IsWorking {false};
+
+private:
+	std::queue<std::function<void()>> m_TaskQueue;
+	std::mutex                        m_Mutex;
+	WakeUpSignal                      m_WakeUp;
+	std::atomic<bool>                 m_StopFlag {false};
+	std::atomic<int>                  m_FramesRequested {0};
+	size_t                            m_MaxQueueSize = 100;
+	std::function<void()>             frameTask;
+};
 
 class DatabasePlayer : public UserModuleBase
 {
 public:
-    
-    DatabasePlayer();
-    virtual ~DatabasePlayer();
-    
-public:
-    
-    void onGetModuleInfo (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
-    void onInitModule (TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo);
-    void onGetParamInfo(int ParamIndex, TParamInfo *pParamInfo);
-    void onCreateSettings();
-    void onSettingsHasChanged();
-    void onCallBack(TUsineMessage* Message);
-    void onProcess();
-    void onPaint();
-    
-    void onMouseMove(TShiftState Shift, float X, float Y);
-    void onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X,float Y);
-    void onMouseUp (TMouseButton MouseButton, TShiftState Shift, float X,float Y);
-    void onMouseWheel (TShiftState Shift, int WheelDelta);
-protected:
-    
-    UsineEventClass databaseFile;
-    UsineEventClass reloadDatabase;
-    UsineEventClass firstDim;
-    UsineEventClass secondDim;
-    UsineEventClass numberOfPoints;
-    UsineEventClass closestSamplesPath;
-    UsineEventClass toggleResynth;
-    UsineEventClass rAudioOut;
-    UsineEventClass lAudioOut;
-    UsineEventClass coeffArray;
-    UsineEventClass attackDuration;
-    UsineEventClass releaseDuration;
-    UsineEventClass coeffs;
-    UsineEventClass cursorDown;
-    UsineEventClass cursorX;
-    UsineEventClass cursorY;
-    UsineEventClass cursorRadius;
-    
-public:
+	// a slot of the samples queue: a sample with its gain and its magnitudes
+	struct SampleString
+	{
+		std::string  sample = "null";
+		// id of the sample in the database, compared instead of the path
+		int          uID = -1;
+		SmoothCoeff  coeff;
+		const float* magData     = nullptr;
+		bool         isToRelease = false;
 
-    // methods
-    void computeIFFTMag(float* magPtr);
-    bool sendRequestToDB(const std::string firstDimension,const std::string secondDimension);
-    std::string queryBuilder(const std::string& firstDimension, const std::string& secondDimension);
-    bool openDB();
-    void InitializeHanningWindow(std::vector<float>& hanningWindow, int size);
-    void findEveryNearestPoint(const CircleCursor& circleCursor, std::vector<PointDistance2D>& resultQueue );
+		[[nodiscard]] bool isEmpty() const
+		{
+			return (sample == "null" && magData == nullptr);
+		}
 
-    // Critical section and threads related 
-    TCriticalSectionPtr csPaint;
-    TThreadPtr workThread;
-    TThreadPtr initSearchThread;
+		[[nodiscard]] bool isToClear(float threshold) const
+		{
+			return (this->coeff.getCoeff() < threshold);
+		}
 
-    // Action queue for processing tasks in the worker thread
-    ActionQueue actionQueue;
+		void clear()
+		{
+			coeff.setTarget(0.0f, 0.0f, 0.0f);
+			sample      = "null";
+			uID         = -1;
+			magData     = nullptr;
+			isToRelease = false;
+		}
+	};
 
-    // Database variables
-    sqlite3* db = nullptr;
-    std::string dbName;
-    bool isDBOpen = false;
-    std::atomic<bool> isRequesting {false};
-    std::atomic<bool> isLoading {false};
+	// polyphonic queue of the samples played: NbPoints active samples at most, and as many released samples
+	// fading out, in the maxPoly = 2 x NbPoints first slots; the slots above always stay empty.
+	// Protected by queueLock, see AudioTryLock.
+	struct SampleQueue
+	{
+		std::vector<SampleString> queue          = std::vector<SampleString>(SAMPLE_QUEUE_MAX_POLY);
+		int                       maxPoly        = 2 * DEFAULT_POLYPHONY;
+		int                       NbPoints       = DEFAULT_POLYPHONY;
+		float                     smoothDuration = 0.0f;
+		float                     attackDuration = 0.0f;
+		float                     blocDuration   = 0.0f;
+		int                       availSpace     = DEFAULT_POLYPHONY;
+		// the normalize coeffs setting, see DatabasePlayer::normalizeCoeffs
+		bool  isCoeffNormalized = true;
+		float normalizedCoeff   = 1.0f;
+		int   activeSamples     = 0;
+		float sumCoeffs         = 0.0f;
+		// comma text of the slots, rebuilt by the writers once a slot changes, taken by the audio thread
+		std::string pendingText;
+		bool        textChanged  = false;
+		bool        slotsChanged = true;
 
-    // Output audio buffers 
-    AudioBuffer<float> rBuffer;
-    AudioBuffer<float> lBuffer;
+		// a lower polyphony empties the slots above 2 x [polyphony]: their samples move to free slots below,
+		// with their gain, or stop when there is none
+		void setNbPoints(const int newNbPoints)
+		{
+			NbPoints = std::clamp(newNbPoints, POLYPHONY_MIN, POLYPHONY_MAX);
+			maxPoly  = 2 * NbPoints;
 
-    // Resynth variables
-    TUsineFFTPtr ifftPtr;
-    bool activeResynth = false;
-    float* MagPtr = nullptr;
-        // temp vectors holding results of ifft on which we apply hann
-    std::vector<float> rTempBuffer;
-    std::vector<float> lTempBuffer;
-    std::vector<float> rReal;
-    std::vector<float> rIm;
-    std::vector<float> lReal;
-    std::vector<float> lIm;
+			int freeSlot = 0;
+			for (int i = maxPoly; i < static_cast<int>(queue.size()); i++)
+			{
+				if (queue[i].isEmpty())
+					continue;
+				while (freeSlot < maxPoly && !queue[freeSlot].isEmpty())
+					freeSlot++;
+				if (freeSlot < maxPoly)
+					std::swap(queue[freeSlot], queue[i]);
+				queue[i].clear();
+			}
+			slotsChanged = true;
+			updateAvailSpace();
+		}
 
-    std::vector<float> hanning;
-    int SPECTRUM_SIZE = 16384;
-    int SPECTRUM_SIZE_2 = SPECTRUM_SIZE / 2;
-    int SPECTRUM_SIZE_4 = SPECTRUM_SIZE / 4;
-    int SPECTRUM_OVERLAP_SIZE = SPECTRUM_SIZE / 4;
-        // for remaining frames
-    int remainingFrames = 0;
-    bool isCurrentlyPlaying = false;
-    int ifftCounter = 0;
+		// compares the queue with the samples found in the cursor circle: a sample of the queue no longer
+		// found is released, the target gain of the others is updated. A released sample found again plays
+		// again only when the polyphony allows it, else it keeps fading out.
+		void compareListsAndUpdate(const std::vector<PointDistance2D>& closestPoints)
+		{
+			for (int i = 0; i < maxPoly; i++)
+			{
+				if (queue[i].isEmpty())
+					continue;
 
-    // Points variables         
-    std::vector<Point2D> requestData;
-    std::vector<std::shared_ptr<const PointMag>> pointsMags;
-    
-    // inputs variables
-    CircleCursor circleCursor;
-    MouseInfo mouseInfo;
-    bool isCursorOn = false;
+				bool toClear = true;
+				for (size_t j = 0; j < closestPoints.size(); j++)
+				{
+					if (queue[i].uID == closestPoints[j].point->uID)
+					{
+						if (queue[i].isToRelease && availSpace > 0)
+						{
+							queue[i].isToRelease = false;
+							updateAvailSpace();
+						}
+						toClear = false;
+						if (queue[i].isToRelease)
+							continue;
+						if (isCoeffNormalized)
+							updateTargetCoeff(normalizedCoeff, i);
+						else
+							updateTargetCoeff(closestPoints[j].distance * closestPoints[j].distance, i);
+					}
+				}
 
-    // drawing variables
-    float canvasPointRadius = 2.0f;
-    float minCursorRadius = 1.0f;
-    float maxCursorRadius = 20.0f;
-    
-    float spreadFactorX = 0.25f;
-    float spreadFactorY = 0.25f;
+				if (toClear && !queue[i].isToRelease)
+				{
+					queue[i].isToRelease = true;
+					queue[i].coeff.setTarget(0.0f, smoothDuration, blocDuration);
+					updateAvailSpace();
+				}
+			}
+		}
 
-    int numberOfPointsToDraw = 0;
-    std::vector<TPointF> pointsToDraw;
-    std::vector<TUsineColor> colorsToDraw;
+		// index of the sample in the queue, -1 if not found
+		[[nodiscard]] int isInQueue(const int uID) const
+		{
+			for (int i = 0; i < maxPoly; i++)
+			{
+				if (queue[i].uID == uID && !queue[i].isEmpty())
+					return i;
+			}
+			return -1;
+		}
 
-    // Points search variables
-    KDTree kdTree;
-        // output list of every sample in the cursor circle
-    std::vector<PointDistance2D> listOfSamplesInCircle;
-        
+		// index of the first empty slot of the queue, -1 if there is none
+		[[nodiscard]] int findEmptySpot() const
+		{
+			if (availSpace <= 0)
+				return -1;
 
-    // dimensions variables
-    std::string dimX = "duration";
-    std::string dimY = "centroid";
-        // holders to set the dimensions since ptListBox are integers
-        // could be changed to enums
-    std::vector<std::string> dimensions_x = {
-        "duration",
-        "spectralCentroid_mean",
-        "spectralCentroid_std",
-        "spectralSpread_mean",
-        "spectralSpread_std",
-        "spectralFlatness_mean",
-        "spectralFlatness_std",
-        "RMS_mean",
-        "RMS_std",
-        "f0_frequency_mean",
-        "f0_frequency_std",
-        "f0_probability_mean",
-        "f0_probability_std",
-        "tsne_x",
-        "random"
-    };
-    std::vector<std::string> dimensions_y = {
-        "duration",
-        "spectralCentroid_mean",
-        "spectralCentroid_std",
-        "spectralSpread_mean",
-        "spectralSpread_std",
-        "spectralFlatness_mean",
-        "spectralFlatness_std",
-        "RMS_mean",
-        "RMS_std",
-        "f0_frequency_mean",
-        "f0_frequency_std",
-        "f0_probability_mean",
-        "f0_probability_std",
-        "tsne_y",
-        "random"
-    };
-    
-    // LUT for random phase generation
-    void generateLUT();
-    struct CosSin
-    {
-        float cos = 0.0f;
-        float sin = 0.0f;
-    };
-    std::vector<CosSin> trigoLUT;
-    //----------- LIST RELATED -----------
-public:
-    
-    // Structure representing a sample with its coefficient, magnitudes and a flag indicating its state.
-    struct SampleString
-    {
-        std::string sample = "null";
-        SmoothCoeff coeff;
-        const float* magData = nullptr;        
-        bool isToRelease = false;
-        
-        bool isEmpty() const
-        {
-            return (sample == "null" && magData == nullptr) ;
-        }
-        
-        bool isToClear(float threshold) const
-        {
-            return (this->coeff.getCoeff() < threshold);
-        }
-        
-        void clear()
-        {
-            coeff.setTarget(0.0f, 0.0f, 0.0f);
-            sample = "null";
-            magData = nullptr;
-            isToRelease = false;
-        }
-        
-    };
-    
+			for (int i = 0; i < maxPoly; i++)
+			{
+				if (queue[i].isEmpty())
+					return i;
+			}
+			return -1;
+		}
 
-    // Implementation of a polyphonic sample queue. 
-    // It holds a vector of SampleString objects, each representing a sample with its coefficient and magnitude data.
-    struct SampleQueue {
-        std::vector<SampleString> queue;
-        
-        std::vector<float> globalMags;
-        
-        int maxPoly = 40;
-        
-        int NbPoints = 10;
-        
-        float smoothDuration = 0.0f;
-        float attackDuration = 0.0f;
-        float blocDuration = 0.0f;
-        
-        float thresholdCoeff = 0.0f;
-        
-        int availSpace = 10;
-        
-        int isCoeffNormalized = true;
-        
-        float normalizedCoeff = 1.0f;
-        
-        int activeSamples = 0;
-        
-        float sumCoeffs = 0.0f;
-        
-        void setNbPoints(const int newNbPoints)
-        {
-            NbPoints = newNbPoints;
-            maxPoly = 2*NbPoints;
-            updateAvailSpace();
-        }
-        
-        void changeFFTSize(const int newSize)
-        {
-            globalMags.resize(newSize/2+1);
-        }
-        
-        // compares the current queue with the closest points found in the KDTree search
-        // and updates the queue accordingly.
-        // If a point in the queue is not found in the closest points, it is marked for release.
-        // else its coefficient is updated based on the closest point's distance.
-        void compareListsAndUpdate(const std::vector<PointDistance2D>& closestPoints)
-        {
-            for(size_t i = 0; i < queue.size(); i++)
-            {
-                bool toClear = true;
-                for(size_t j = 0; j < closestPoints.size(); j++)
-                {
-                    if(queue[i].sample == closestPoints[j].point->samplePath)
-                    {
-                        if(queue[i].isToRelease && availSpace > 0)
-                        {
-                            queue[i].isToRelease = false;
-                            updateAvailSpace();
-                        }
-                        toClear = false;
-                        if(isCoeffNormalized)
-                        {
-                            updateTargetCoeff(normalizedCoeff , (int)i);
-                        } else {
-                            updateTargetCoeff(closestPoints[j].distance * closestPoints[j].distance , (int)i);
-                        }
-                        
-                    }
-                }
-                
-                if(toClear == true)
-                {
-                    if(!queue[i].isEmpty())
-                    {
-                        queue[i].isToRelease = true;
-                        queue[i].coeff.setTarget(0.0f, smoothDuration, blocDuration);
-                        updateAvailSpace();
-                    }
-                }
-                
-            }
-            
-        }
-        
-        // returns the index of the sample in the queue, or -1 if not found
-        int isInQueue(const std::string& stringToCheck)
-        {
-            
-            for(int i = 0; i < maxPoly; i++)
-            {
-                if(queue[i].sample == stringToCheck)
-                {
-                    return i;
-                }
-            }
+		// puts a sample in a valid empty slot of the queue, the sample must not be in the queue yet
+		void putInQueue(const std::string& string, const int uID, const float* magPtr, const float coeff, int index)
+		{
+			assert(availSpace >= 0);
+			assert(magPtr);
+			assert(queue[index].magData == nullptr);
 
-            return -1;
-        }
-        
-        // returns the index of the first empty spot in the queue, or -1 if no empty spot
-        int findEmptySpot()
-        {
-            if (availSpace <= 0)
-            {
-                return -1;
-            }
-            
-            for (int i = 0; i < maxPoly; i++)
-            {
-                if (queue[i].isEmpty())
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
-        
-        // puts a sample in the queue at the specified index and updates the available space.
-        // assumes that the index is valid and that the sample is not already in the queue
-        void putInQueue(const std::string& string,const float* magPtr, const float coeff, int index)
-        {
-            assert(availSpace >= 0);
-            assert(magPtr);
-            assert(queue[index].magData == nullptr);
-            
-            queue[index].sample = string;            
-            queue[index].magData = magPtr;
-            
-            updateAvailSpace();
-            
-            if(isCoeffNormalized)
-            {
-                queue[index].coeff.setTarget(normalizedCoeff, smoothDuration, blocDuration);
-            } else {
-                queue[index].coeff.setTarget(coeff, smoothDuration, blocDuration);
-            }
-            
-        }
-        
-        // updates the coefficient of a sample in the queue at the specified index
-        void updateTargetCoeff(const float coeff, const int index)
-        {
-            if(coeff > queue[index].coeff.getCoeff())
-            {
-                    //attack-time
-                queue[index].coeff.setTarget(coeff, attackDuration, blocDuration);
-            } else {
-                    //release-time
-                queue[index].coeff.setTarget(coeff, smoothDuration, blocDuration);
-            }
-        }
-        
-        // updates the coefficients of all active samples in the queue according to their target coefficient.
-        void updateCoeffs()
-        {
-            float sum = 0.0f;
-            for(auto& sample : queue)
-            {
-                if(!sample.isEmpty())
-                {
-                    sample.coeff.update();
-                    sum += sample.coeff.getCoeff();
-                }
-            }
-            sumCoeffs = sum;
-            
-        }
-        
-        // clears the samples that are marked for release and have a coefficient below the threshold
-        void clearSamplesToRelease()
-        {
-            for(auto& sample : queue)
-            {
-                if(!sample.isEmpty())
-                {
-                    if(sample.isToClear(coeffThreshold) && sample.isToRelease)
-                    {
-                        sample.clear();
-                        updateAvailSpace();
-                    }
-                }
-            }
-        }
-        
-        // updates the global magnitudes by summing the magnitudes of all samples in the queue multiplied by their coefficient.
-        void updateMags(const int fftSize_2, bool mouseState)
-        {
-            clearMags();
-            
-            for(auto& sample : queue)
-            {
-                
-                const float* localMagPtr = sample.magData;
-                float coeff = sample.coeff.getCoeff();
-                if(sample.isEmpty()) continue;
-                
-                for(int i = 0; i < fftSize_2; i++)
-                {
-                    assert(localMagPtr);
-                    globalMags[i] += localMagPtr[i] * coeff;
-                }
-            }
-        }
-        
-        // updates the available space in the queue by counting the number of active samples.
-        // An active sample is one that is not empty and not marked for release.
-        // It also updates the activeSamples count and the normalized coefficient.
-        void updateAvailSpace()
-        {
-            int counter = 0;
-            for (const auto& sample : queue)
-            {
-                if (!sample.isEmpty() && !sample.isToRelease)
-                {
-                    counter++;
-                }
-            }
-            availSpace = NbPoints - counter;
-            activeSamples = NbPoints - availSpace;
-            if(activeSamples > 0)
-            {
-                normalizedCoeff = 1.0f/(float)activeSamples;
-            } else {
-                normalizedCoeff = 0.0f;
-            }
-        }
-        
-        // resets the queue instantly, clearing all samples
-        void hardClear()
-        {
-            for(int i = 0; i < maxPoly; i++)
-            {
-                if(!queue[i].isEmpty())
-                {
-                    queue[i].clear();
-                    updateAvailSpace();
-                }
-            }
-        }
-        
-        // resets the queue by setting all samples to release, and setting their coeff to 0 in release time
-        void softClear()
-        {
-            for(int i = 0; i < maxPoly; i++)
-            {
-                if(!queue[i].isEmpty())
-                {
-                    queue[i].isToRelease = true;
-                    queue[i].coeff.setTarget(0.0f, smoothDuration, blocDuration);
-                    updateAvailSpace();
-                }
-            }
-        }
-        
-        void clearMags()
-        {
-            std::fill(globalMags.begin(), globalMags.end(), 0.0f);
-        }
+			queue[index].sample  = string;
+			queue[index].uID     = uID;
+			queue[index].magData = magPtr;
+			slotsChanged         = true;
 
-        // returns a comma-separated string of the samples in the queue, with empty samples as empty strings
-        std::string getCommaText()
-        {
-            std::string commaTextString;
-            commaTextString.reserve(40*200);
-            
-            bool first = true;
-            
-            for (int i = 0; i < maxPoly; ++i)
-            {
-                if (!first)
-                {
-                    commaTextString += ",";
-                } else {
-                    first = false;
-                }
-                
-                if (!queue[i].isEmpty() && !queue[i].sample.empty() && queue[i].sample != "null")
-                {
-                    commaTextString += "\"" + queue[i].sample + "\"";
-                } else {
-                    commaTextString += "\"\"";
-                }
-            }
-            
-            return commaTextString;
-        }
-        
-        
-        void setReleaseDuration(float releaseDuration, float sampleRate, int blocSize)
-        {
-            this->smoothDuration = releaseDuration;
-            this->blocDuration = (static_cast<float>(blocSize)/sampleRate) * 1000.0f;
-        }
-        
-        void setAttackDuration(float attackDuration, float sampleRate, int blocSize)
-        {
-            this->attackDuration = attackDuration;
-            this->blocDuration = (static_cast<float>(blocSize)/sampleRate) * 1000.0f;
-        }
-        
-        SampleQueue()
-        {
-            queue.resize(sampleQueueMaxPoly);
-        }
-        
-    } listOfOutputSamples;
-    
+			updateAvailSpace();
 
-    
-}; // DatabasePlayer class
+			// the sample fades in over the attack time
+			if (isCoeffNormalized)
+				queue[index].coeff.setTarget(normalizedCoeff, attackDuration, blocDuration);
+			else
+				queue[index].coeff.setTarget(coeff, attackDuration, blocDuration);
+		}
 
+		// a higher target is reached in the attack time, a lower one in the release time. A ramp towards the same
+		// target goes on: restarted by every search (20 ms), it would last longer than the attack or release time
+		void updateTargetCoeff(const float coeff, const int index)
+		{
+			if (coeff == queue[index].coeff.target)
+				return;
+			if (coeff > queue[index].coeff.getCoeff())
+				queue[index].coeff.setTarget(coeff, attackDuration, blocDuration);
+			else
+				queue[index].coeff.setTarget(coeff, smoothDuration, blocDuration);
+		}
 
+		// audio thread: moves the gain of every sample of the queue one bloc towards its target
+		void updateCoeffs()
+		{
+			float sum = 0.0f;
+			for (int i = 0; i < maxPoly; i++)
+			{
+				if (!queue[i].isEmpty())
+				{
+					queue[i].coeff.update();
+					sum += queue[i].coeff.getCoeff();
+				}
+			}
+			sumCoeffs = sum;
+		}
 
+		// empties the slots of the released samples whose gain went below the threshold
+		void clearSamplesToRelease()
+		{
+			for (int i = 0; i < maxPoly; i++)
+			{
+				if (!queue[i].isEmpty() && queue[i].isToClear(COEFF_THRESHOLD) && queue[i].isToRelease)
+				{
+					queue[i].clear();
+					slotsChanged = true;
+					updateAvailSpace();
+				}
+			}
+		}
+
+		// the magnitudes and the gains of the samples to resynthesize, in the order of the slots
+		int collectVoices(std::array<const float*, SAMPLE_QUEUE_MAX_POLY>& mags, std::array<float, SAMPLE_QUEUE_MAX_POLY>& gains) const
+		{
+			int voices = 0;
+			for (int i = 0; i < maxPoly; i++)
+			{
+				const float gain = queue[i].coeff.getCoeff();
+				if (queue[i].isEmpty() || queue[i].magData == nullptr || gain == 0.0f)
+					continue;
+				mags[voices]  = queue[i].magData;
+				gains[voices] = gain;
+				voices++;
+			}
+			return voices;
+		}
+
+		// counts the active samples (neither empty nor released), and updates the free space and the normalized gain
+		void updateAvailSpace()
+		{
+			int counter = 0;
+			for (int i = 0; i < maxPoly; i++)
+			{
+				if (!queue[i].isEmpty() && !queue[i].isToRelease)
+					counter++;
+			}
+			availSpace    = NbPoints - counter;
+			activeSamples = NbPoints - availSpace;
+			if (activeSamples > 0)
+				normalizedCoeff = 1.0f / static_cast<float>(activeSamples);
+			else
+				normalizedCoeff = 0.0f;
+		}
+
+		// empties the queue at once, every slot
+		void hardClear()
+		{
+			for (auto& sample : queue)
+			{
+				if (!sample.isEmpty())
+				{
+					sample.clear();
+					slotsChanged = true;
+				}
+			}
+			updateAvailSpace();
+		}
+
+		// releases every sample of the queue: their gain falls to 0 in the release time
+		void softClear()
+		{
+			for (int i = 0; i < maxPoly; i++)
+			{
+				if (!queue[i].isEmpty() && !queue[i].isToRelease)
+				{
+					queue[i].isToRelease = true;
+					queue[i].coeff.setTarget(0.0f, smoothDuration, blocDuration);
+				}
+			}
+			updateAvailSpace();
+		}
+
+		// rebuilds the comma text of the samples after a change of the slots: quoted items, an empty item for
+		// each empty slot
+		void publishText()
+		{
+			if (!slotsChanged)
+				return;
+			slotsChanged = false;
+
+			pendingText.clear();
+			for (int i = 0; i < maxPoly; ++i)
+			{
+				if (i > 0)
+					pendingText += ",";
+
+				if (!queue[i].isEmpty() && !queue[i].sample.empty() && queue[i].sample != "null")
+					pendingText += "\"" + queue[i].sample + "\"";
+				else
+					pendingText += "\"\"";
+			}
+			textChanged = true;
+		}
+
+		// durations in ms; a new bloc duration rescales the ramps in progress
+		void setDurations(float newAttackDuration, float newReleaseDuration, float newBlocDuration)
+		{
+			if (newBlocDuration != blocDuration)
+			{
+				for (auto& sample : queue)
+					sample.coeff.rescale(blocDuration, newBlocDuration);
+			}
+			attackDuration = newAttackDuration;
+			smoothDuration = newReleaseDuration;
+			blocDuration   = newBlocDuration;
+		}
+	};
+
+	DatabasePlayer();
+	~DatabasePlayer() override;
+
+	void onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo) override;
+	void onCreateSettings() override;
+	void onAfterLoading() override;
+	void onBlocSizeChange(int BlocSize) override;
+	void onSampleRateChange(double SampleRate) override;
+	void onCallBack(TUsineMessage* Message) override;
+	void onProcess() override;
+	void onPaint() override;
+	void onMouseMove(TShiftState Shift, float X, float Y) override;
+	void onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X, float Y) override;
+	void onMouseUp(TMouseButton MouseButton, TShiftState Shift, float X, float Y) override;
+	void onMouseWheel(TShiftState Shift, int WheelDelta) override;
+
+	// tasks of the work thread, see ActionQueue
+	void openDatabaseTask(const std::string& fileName);
+	void requestTask();
+	void searchTask();
+	void produceFrame();
+	void computeIFFTMag(const float* magPtr);
+	bool sendRequestToDB(const std::string firstDimension, const std::string secondDimension);
+	bool openDB();
+	void findEveryNearestPoint(const CircleCursor& circleCursor, std::vector<PointDistance2D>& resultQueue);
+	// coalesced: a search or a request already waiting in the queue is not pushed twice
+	void pushSearch();
+	void pushRequest();
+
+	ActionQueue actionQueue;
+
+	sqlite3*          db = nullptr;
+	std::atomic<bool> isDBOpen {false};
+	std::atomic<bool> isLoading {false};
+	std::atomic<bool> searchPending {false};
+	std::atomic<bool> requestPending {false};
+
+	// FFT size of the resynthesis, given by the database (work thread)
+	int SPECTRUM_SIZE   = DEFAULT_SPECTRUM;
+	int SPECTRUM_SIZE_2 = SPECTRUM_SIZE / 2;
+	int SPECTRUM_SIZE_4 = SPECTRUM_SIZE / 4;
+
+	CircleCursor      circleCursor;
+	MouseInfo         mouseInfo;
+	std::atomic<bool> isCursorOn {false};
+	// every sample inside the cursor circle, found by the last search
+	std::vector<PointDistance2D> listOfSamplesInCircle;
+
+	// items of [first dimension] and [second dimension]: columns FIRST_DIMENSION_COLUMNS and SECOND_DIMENSION_COLUMNS
+	std::atomic<int> firstDimensionItem {0};
+	std::atomic<int> secondDimensionItem {0};
+	// copies of the settings, made by the main thread which the host writes them in, for the work thread
+	std::atomic<float> spreadX {0.25f};
+	std::atomic<float> spreadY {0.25f};
+	std::atomic<bool>  normalizeCoeffs {true};
+
+	AudioTryLock queueLock;
+	SampleQueue  listOfOutputSamples;
+
+private:
+	struct CosSin
+	{
+		float cos = 0.0f;
+		float sin = 0.0f;
+	};
+
+	UsineEventClass databaseFileIn;
+	UsineEventClass reloadDatabaseBtnIn;
+	UsineEventClass firstDimensionLboxIn;
+	UsineEventClass secondDimensionLboxIn;
+	UsineEventClass polyphonyFdrIn;
+	UsineEventClass samplesListTxtOut;
+	UsineEventClass samplesCoeffsArrOut;
+	UsineEventClass attackTimeFdrIn;
+	UsineEventClass releaseTimeFdrIn;
+	UsineEventClass onResynthesisSwIn;
+	// audio out 1 plays the first channel of the resynthesis, audio out 2 the second one
+	std::array<UsineEventClass, 2> audioOutputs;
+	UsineEventClass cursorDownSwIn;
+	UsineEventClass cursorXFdrIn;
+	UsineEventClass cursorYFdrIn;
+	UsineEventClass cursorRadiusFdrIn;
+
+	// created by onInitModule
+	TCriticalSectionPtr csPaint          = nullptr;
+	TThreadPtr          workThread       = nullptr;
+	TThreadPtr          initSearchThread = nullptr;
+	TUsineFFTPtr        ifftPtr          = nullptr;
+
+	// main thread: the database file, the audio settings of the fades
+	std::string         dbName;
+	int                 blocSize = 0;
+	std::atomic<double> sampleRate {0.0};
+
+	// audio thread <-> work thread
+	std::atomic<bool>     activeResynth {true};
+	OutputFifo            outputFifo;
+	std::atomic<int>      hopSize {DEFAULT_SPECTRUM / 4};
+	// the audio thread restarts the stream: the work thread drops the tails of the previous frames
+	std::atomic<uint32_t> streamResets {0};
+	std::atomic<uint32_t> streamResetsDone {0};
+
+	// audio thread only
+	bool                                     streamRunning       = false;
+	int                                      tailSamples         = 0;
+	int                                      streamedSamples     = 0;
+	int                                      extraLead           = 0;
+	int                                      leadBloc            = 0;
+	int                                      pendingCoeffUpdates = 0;
+	float                                    audioSumCoeffs      = 0.0f;
+	std::array<float, SAMPLE_QUEUE_MAX_POLY> audioCoeffs {};
+	std::string                              audioSamplesText;
+
+	// work thread only: a frame of the resynthesis is the inverse FFT of the spectrum with random phases,
+	// times the Hann window; the frames overlap by 75% in overlapAdd
+	uint32_t                          seenStreamResets = 0;
+	std::minstd_rand                  phaseRandom;
+	std::vector<float>                spectrumMags = std::vector<float>(DEFAULT_SPECTRUM / 2, 0.0f);
+	std::array<std::vector<float>, 2> overlapAdd {std::vector<float>(DEFAULT_SPECTRUM, 0.0f), std::vector<float>(DEFAULT_SPECTRUM, 0.0f)};
+	std::vector<float>                rTempBuffer = std::vector<float>(DEFAULT_SPECTRUM, 0.0f);
+	std::vector<float>                lTempBuffer = std::vector<float>(DEFAULT_SPECTRUM, 0.0f);
+	std::vector<float>                rReal       = std::vector<float>(DEFAULT_SPECTRUM / 2 + 1, 0.0f);
+	std::vector<float>                rIm         = std::vector<float>(DEFAULT_SPECTRUM / 2 + 1, 0.0f);
+	std::vector<float>                lReal       = std::vector<float>(DEFAULT_SPECTRUM / 2 + 1, 0.0f);
+	std::vector<float>                lIm         = std::vector<float>(DEFAULT_SPECTRUM / 2 + 1, 0.0f);
+	std::vector<float>                hanning;
+	std::vector<CosSin>               trigoLUT;
+
+	// the samples of the database, placed by the last request (work thread)
+	std::vector<Point2D> requestData;
+	KDTree               kdTree {2};
+
+	// bound to the settings, written by the host in the main thread
+	float    canvasPointRadius      = 2.0f;
+	float    spreadFactorX          = 0.25f;
+	float    spreadFactorY          = 0.25f;
+	LongBool normalizeCoeffsSetting = TRUE;
+
+	// drawn by onPaint, protected by csPaint
+	int                      numberOfPointsToDraw = 0;
+	std::vector<TPointF>     pointsToDraw;
+	std::vector<TUsineColor> colorsToDraw;
+
+	[[nodiscard]] std::string queryBuilder(const std::string& firstDimension, const std::string& secondDimension) const;
+	void                      InitializeHanningWindow(std::vector<float>& hanningWindow, int size);
+	void                      generateLUT();
+	void                      readParameters(bool fromLoading);
+	bool                      refreshSettings();
+	void                      setPolyphony(float value);
+	void                      updateFadeDurations();
+};

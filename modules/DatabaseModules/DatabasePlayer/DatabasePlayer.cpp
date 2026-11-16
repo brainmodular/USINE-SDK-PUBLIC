@@ -1,1238 +1,1294 @@
 //-----------------------------------------------------------------------------
-//@file
-//    DatabasePlayer.cpp
+// @file    DatabasePlayer.cpp
+// @author  BrainModular team
+// @brief   Plays a sound database: 2D map of the samples, resynthesis of the samples under the cursor.
 //
-//@author
-//    BrainModular team
-//
-//@brief
-//    Implementation of the DatabasePlayer class.
-//
-//  A template include to start from for new user module.
-//
-//@historic
-//    2013/05/15
-//    first release for Hollyhock CPP SDK 6.00.226
-//
-//@IMPORTANT
-//    This file is part of the Usine Hollyhock CPP SDK
-//
-//  Please, report bugs and patch to Usine forum :
-//  support@brainmodular.com
-//
-// All dependencies are under there own licence.
-//
-//@LICENCE
-// Copyright (C) 2013, 2014, 2015, 2019 BrainModular
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy of
-// this software and associated documentation files (the "Software"),
-// to deal in the Software without restriction, including without limitation
-// the rights to use, copy, modify, merge, publish, distribute, sublicense,
-// and/or sell copies of the Software, and to permit persons to whom the Software
-// is furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-//     copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-//
+// This file is part of the Usine Hollyhock CPP SDK.
+// Copyright (C) 2013-2026 BrainModular, BeSpline, Adamson
+// SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
-
+#include <cmath>
+#include <cstdint>
+#include <cstdlib>
+#include <cstring>
+#include <numbers>
+#if defined(__APPLE__)
+#include <sys/stat.h>
+#else
+#include <filesystem>
+#include <memory>
+#endif
 #include "DatabasePlayer.h"
+#include "ModuleDefinition.h"
+#if defined(__APPLE__)
+// after the SDK headers: it defines TRUE and FALSE as macros
+#include <dispatch/dispatch.h>
+#endif
 
-//----------------------------------------------------------------------------
-// callback ids
-//----------------------------------------------------------------------------
-constexpr NativeInt DATABASE_FILE_CBID    = 0x00F200C0;
-constexpr NativeInt RELOAD_DATABASE_CBID  = 0x00F200C1;
-constexpr NativeInt FIRST_DIMENSION_CBID  = 0x00F200C2;
-constexpr NativeInt SECOND_DIMENSION_CBID = 0x00F200C3;
-constexpr NativeInt POLYPHONY_CBID        = 0x00F200C4;
-constexpr NativeInt ATTACK_TIME_CBID      = 0x00F200C5;
-constexpr NativeInt RELEASE_TIME_CBID     = 0x00F200C6;
-constexpr NativeInt ON_RESYNTHESIS_CBID   = 0x00F200C7;
-constexpr NativeInt CURSOR_DOWN_CBID      = 0x00F200C8;
-constexpr NativeInt CURSOR_X_CBID         = 0x00F200C9;
-constexpr NativeInt CURSOR_Y_CBID         = 0x00F200CA;
-constexpr NativeInt CURSOR_RADIUS_CBID    = 0x00F200CB;
+static_assert(FIRST_DIMENSION_COLUMNS.size() == SECOND_DIMENSION_COLUMNS.size());
+static_assert(POLYPHONY_MAX * 2 == SAMPLE_QUEUE_MAX_POLY);
+
+namespace
+{
+	// std::filesystem needs macOS 10.15 at run time (libc++ availability), the modules target 10.13
+	bool fileExists(const std::string& path)
+	{
+#if defined(__APPLE__)
+		struct stat st;
+		return ::stat(path.c_str(), &st) == 0;
+#else
+		return std::filesystem::exists(path);
+#endif
+	}
+
+	void hsv_to_rgb(float h, float s, float v, uint8_t& r, uint8_t& g, uint8_t& b)
+	{
+		float c = v * s;
+		float x = c * (1 - std::fabs(fmod(h / 60.0f, 2.0f) - 1));
+		float m = v - c;
+		float r1, g1, b1;
+
+		if (h < 60)
+		{
+			r1 = c;
+			g1 = x;
+			b1 = 0;
+		}
+		else if (h < 120)
+		{
+			r1 = x;
+			g1 = c;
+			b1 = 0;
+		}
+		else if (h < 180)
+		{
+			r1 = 0;
+			g1 = c;
+			b1 = x;
+		}
+		else if (h < 240)
+		{
+			r1 = 0;
+			g1 = x;
+			b1 = c;
+		}
+		else if (h < 300)
+		{
+			r1 = x;
+			g1 = 0;
+			b1 = c;
+		}
+		else
+		{
+			r1 = c;
+			g1 = 0;
+			b1 = x;
+		}
+
+		r = static_cast<uint8_t>((r1 + m) * 255);
+		g = static_cast<uint8_t>((g1 + m) * 255);
+		b = static_cast<uint8_t>((b1 + m) * 255);
+	}
+
+	// color of a point of the panel: its angle around the center gives the hue, its distance the saturation
+	TUsineColor xy_to_rgb_colorwheel_radial(float x, float y)
+	{
+		constexpr float DEG_PI = 180.0f / std::numbers::pi_v<float>;
+
+		x = std::clamp(x, 0.0f, 1.0f);
+		y = std::clamp(y, 0.0f, 1.0f);
+
+		float dx  = x - 0.5f;
+		float dy  = y - 0.5f;
+		float hue = std::atan2(dy, dx) * DEG_PI;
+		if (hue < 0.0f)
+			hue += 360.0f;
+
+		float dist = std::sqrt(dx * dx + dy * dy) * 1.4142f;
+		float sat  = std::clamp(dist * 3.0f, 0.5f, 1.0f);
+
+		float val = 1.0f;
+
+		uint8_t r, g, b;
+		hsv_to_rgb(hue, sat, val, r, g, b);
+		return (255 << 24) | (r << 16) | (g << 8) | b; // ARGB
+	}
+
+	// a prepared statement, finalized on every path: a statement left unfinalized keeps the database from closing
+	class Statement
+	{
+	public:
+		Statement(sqlite3* db, const std::string& query)
+		{
+			result = sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr);
+		}
+		~Statement()
+		{
+			sqlite3_finalize(stmt);
+		}
+		Statement(const Statement&)            = delete;
+		Statement& operator=(const Statement&) = delete;
+
+		[[nodiscard]] bool isPrepared() const
+		{
+			return result == SQLITE_OK && stmt != nullptr;
+		}
+		[[nodiscard]] sqlite3_stmt* get() const
+		{
+			return stmt;
+		}
+
+	private:
+		sqlite3_stmt* stmt   = nullptr;
+		int           result = SQLITE_ERROR;
+	};
+
+	// a closed connection is freed by sqlite: forget it, so that it is never closed twice
+	int closeDatabase(DatabasePlayer* module)
+	{
+		const int result = sqlite3_close(module->db);
+		if (result == SQLITE_OK)
+			module->db = nullptr;
+		return result;
+	}
+
+	// item of a dimension list box, as an index of FIRST_DIMENSION_COLUMNS and SECOND_DIMENSION_COLUMNS
+	int dimensionItem(const UsineEventClass& dimensionLbox)
+	{
+		const float value = dimensionLbox.getData();
+		if (!(value >= 0.0f))
+			return 0;
+		return std::clamp(static_cast<int>(std::min(value, 1000.0f)), 0, static_cast<int>(FIRST_DIMENSION_COLUMNS.size()) - 1);
+	}
+
+	// the radius of the cursor circle stays in the range of [cursor radius], in relative coordinates
+	float clampRadius(float radius)
+	{
+		if (!(radius >= CURSOR_RADIUS_MIN * 0.01f))
+			return CURSOR_RADIUS_MIN * 0.01f;
+		return std::min(radius, CURSOR_RADIUS_MAX * 0.01f);
+	}
+
+	// a statement of sqlite is interrupted when the module is deleted
+	int progressHandler(void* pModule)
+	{
+		return static_cast<DatabasePlayer*>(pModule)->actionQueue.isStopping() ? 1 : 0;
+	}
+
+	void workThreadFunc(void* pModule, TThreadPtr thread)
+	{
+		auto* module = static_cast<DatabasePlayer*>(pModule);
+		try
+		{
+			module->actionQueue.run();
+		}
+		catch (const std::exception& e)
+		{
+			sdkRaiseError(ERROR_WORK_THREAD, e.what());
+		}
+	}
+
+	// called every 20 ms: asks the work thread for a search while a database is open
+	void initSearchThreadFunc(void* pModule, TThreadPtr thread)
+	{
+		auto* module = static_cast<DatabasePlayer*>(pModule);
+		try
+		{
+			if (module->isDBOpen.load() && module->actionQueue.m_IsWorking.load(std::memory_order_relaxed))
+				module->pushSearch();
+		}
+		catch (const std::exception& e)
+		{
+			sdkRaiseError(ERROR_SEARCH_THREAD, e.what());
+		}
+	}
+}
+
+#if defined(__APPLE__)
+WakeUpSignal::WakeUpSignal() : semaphore(dispatch_semaphore_create(0))
+{
+}
+
+WakeUpSignal::~WakeUpSignal()
+{
+	dispatch_release(static_cast<dispatch_semaphore_t>(semaphore));
+}
+
+void WakeUpSignal::signal()
+{
+	dispatch_semaphore_signal(static_cast<dispatch_semaphore_t>(semaphore));
+}
+
+void WakeUpSignal::wait(int timeoutMs)
+{
+	dispatch_semaphore_wait(static_cast<dispatch_semaphore_t>(semaphore), dispatch_time(DISPATCH_TIME_NOW, static_cast<int64_t>(timeoutMs) * static_cast<int64_t>(NSEC_PER_MSEC)));
+}
+#else
+WakeUpSignal::WakeUpSignal()  = default;
+WakeUpSignal::~WakeUpSignal() = default;
+
+void WakeUpSignal::signal()
+{
+	semaphore.release();
+}
+
+void WakeUpSignal::wait(int timeoutMs)
+{
+	(void)semaphore.try_acquire_for(std::chrono::milliseconds(timeoutMs));
+}
+#endif
 
 void CreateModule(void*& pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
-    pModule = new DatabasePlayer();
+	pModule = new DatabasePlayer();
 }
 
 void DestroyModule(void* pModule)
 {
-    delete ((DatabasePlayer*)pModule);
+	// cast is important to call the good destructor
+	delete static_cast<DatabasePlayer*>(pModule);
 }
 
-DatabasePlayer::DatabasePlayer() :
-kdTree(2),
-rBuffer(DEFAULT_SPECTRUM*2,DEFAULT_SPECTRUM),
-lBuffer(DEFAULT_SPECTRUM*2,DEFAULT_SPECTRUM),
-rTempBuffer(DEFAULT_SPECTRUM,0.0f),
-lTempBuffer(DEFAULT_SPECTRUM,0.0f),
-rReal(DEFAULT_SPECTRUM/2+1,0.0f),
-rIm(DEFAULT_SPECTRUM/2+1,0.0f),
-lReal(DEFAULT_SPECTRUM/2+1,0.0f),
-lIm(DEFAULT_SPECTRUM/2+1,0.0f)
+DatabasePlayer::DatabasePlayer()
 {
-    generateLUT();
-    InitializeHanningWindow(hanning, DEFAULT_SPECTRUM);
-}
+	generateLUT();
+	InitializeHanningWindow(hanning, DEFAULT_SPECTRUM);
 
+	// each module gets its own sequence of random phases
+	static std::atomic<unsigned> instances {0};
+	phaseRandom.seed(1u + instances.fetch_add(1u));
+}
 
 DatabasePlayer::~DatabasePlayer()
 {
-    try {
-        sdkCriticalSectionLock(csPaint);
-         
-        sdkThreadDestroy(workThread);
-        sdkThreadDestroy(initSearchThread);
-        
-        sdkFFTDestroy(ifftPtr);
-        
-        int errc = sqlite3_close(db);
-        if(errc != SQLITE_OK)
-        {
-            sdkTraceErrorChar("Error closing the database");
-            sdkTraceErrorChar(sqlite3_errmsg(db));
-        } 
-    } catch (...) {
-        sdkTraceErrorChar("Error in DatabasePlayer destructor");
-    }
-    
-    sdkCriticalSectionUnLock(csPaint);
-    sdkCriticalSectionDestroy(csPaint);
+	// the critical section, the threads and the FFT are created by onInitModule, which may not have been called.
+	// csPaint is not held meanwhile: the work thread needs it to finish a loading or a request
+	try
+	{
+		if (initSearchThread != nullptr)
+			sdkThreadDestroy(initSearchThread);
+		if (workThread != nullptr)
+		{
+			// the work thread leaves ActionQueue::run once its queue is stopped, a long task gives up
+			actionQueue.clear();
+			actionQueue.stop();
+			sdkThreadDestroy(workThread);
+		}
+
+		if (ifftPtr != nullptr)
+			sdkFFTDestroy(ifftPtr);
+
+		if (closeDatabase(this) != SQLITE_OK)
+			sdkRaiseError(ERROR_CLOSE_DATABASE, sqlite3_errmsg(db));
+	}
+	catch (...)
+	{
+		sdkRaiseError(ERROR_DELETE);
+	}
+
+	if (csPaint != nullptr)
+		sdkCriticalSectionDestroy(csPaint);
 }
 
-const AnsiCharPtr UserModuleBase::MODULE_NAME = "Database Player";
-const AnsiCharPtr UserModuleBase::MODULE_DESC = "DatabasePlayer";
-const AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
-
-void GetBrowserInfo(TModuleInfo* pModuleInfo)
+void DatabasePlayer::onGetModuleInfo(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-    pModuleInfo->Name = UserModuleBase::MODULE_NAME;
-    pModuleInfo->Description = UserModuleBase::MODULE_DESC;
-    pModuleInfo->Version = UserModuleBase::MODULE_VERSION;
+	pModuleInfo->ModuleType      = mtControl;
+	pModuleInfo->BackColor       = sdkGetUsineColor(clDataModuleColor);
+	pModuleInfo->DefaultWidth    = DEFAULT_PANEL_WIDTH;
+	pModuleInfo->DefaultHeight   = DEFAULT_PANEL_HEIGHT;
+	pModuleInfo->CanBeRandomized = FALSE;
 }
 
-void DatabasePlayer::onGetModuleInfo(TMasterInfo *pMasterInfo, TModuleInfo *pModuleInfo)
+void DatabasePlayer::onInitModule(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-    pModuleInfo->Name = MODULE_NAME;
-    pModuleInfo->Description = MODULE_DESC;
-    pModuleInfo->ModuleType = mtControl;
-    pModuleInfo->BackColor = sdkGetUsineColor(clDataModuleColor);
-    pModuleInfo->NumberOfParams = 16;
-    pModuleInfo->Version = MODULE_VERSION;
-    pModuleInfo->DefaultWidth = DEFAULT_PANEL_WIDTH;
-    pModuleInfo->DefaultHeight = DEFAULT_PANEL_HEIGHT;
-    pModuleInfo->CanBeRandomized = FALSE;
+	csPaint = sdkCriticalSectionCreate("paint critical section", false);
+	ifftPtr = sdkFFTCreate(SPECTRUM_SIZE);
+
+	// the parameters exist: the state starts from their values, no callback comes for a default value
+	blocSize = sdkGetBlocSize();
+	sampleRate.store(sdkGetSampleRate(), std::memory_order_relaxed);
+	readParameters(false);
+
+	actionQueue.setFrameTask([this]() { produceFrame(); });
+	workThread       = sdkThreadCreate("working Thread", workThreadFunc, tpMedium, 0);
+	initSearchThread = sdkThreadCreate("init search Thread", initSearchThreadFunc, tpLow, 20);
 }
 
-void ifftFunction(void* pModule)
+void DatabasePlayer::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 {
-    
-    DatabasePlayer* module = static_cast<DatabasePlayer*>(pModule);
-    try {
-        module->listOfOutputSamples.clearSamplesToRelease();
-        
-        //debug
-        bool isMouseDown = module->mouseInfo.leftBtnDown;
-        
-        module->listOfOutputSamples.updateMags(module->SPECTRUM_SIZE_2,isMouseDown);
-        module->computeIFFTMag(module->MagPtr);
-    } catch(const std::exception& e) {
-        sdkTraceErrorChar(std::string("Error in DatabasePlayer IFFT Function: ") + std::string(e.what()));
-    }
-
-}
-
-void requestFunction(void* pModule)
-{
-    DatabasePlayer* module = static_cast<DatabasePlayer*>(pModule);
-    try {
-        if(module->isDBOpen)
-        {
-            module->isRequesting.store(true,std::memory_order_release);
-            if(module->sendRequestToDB(module->dimX,module->dimY))
-            {
-                module->sdkRepaintPanel();
-            } else
-            {
-                sdkTraceErrorChar("Error during the request, closing the database.");
-                sdkTraceErrorChar("Please re-open a database.");
-                sqlite3_close(module->db);
-                module->isDBOpen = false;
-            }
-            module->isRequesting.store(false,std::memory_order_release);
-        }
-    } catch(const std::exception& e) {
-        sdkTraceErrorChar(std::string("Error in DatabasePlayer request Function : ") + std::string(e.what()));
-    }
-    
-}
-
-void openDatabaseFunc(void* pModule)
-{
-    DatabasePlayer* module = static_cast<DatabasePlayer*>(pModule);
-    try {
-
-        module->isLoading.store(true,std::memory_order_release);
-        
-        if(module->isDBOpen)
-        {
-            int ecc = sqlite3_close(module->db);
-            if(ecc != SQLITE_OK)
-            {
-                sdkTraceErrorChar("Error closing the database");
-                sdkTraceErrorChar(sqlite3_errmsg(module->db));
-            } else {
-                module->isDBOpen = false;
-            }
-        }
-        if(!module->isDBOpen)
-        {
-            if(fsx::exists(module->dbName))
-            {
-                int ec = sqlite3_open(module->dbName.c_str(), &module->db);
-                if(ec != SQLITE_OK)
-                {
-                    sdkTraceErrorChar("Error opening the database");
-                    sdkTraceErrorChar(sqlite3_errmsg(module->db));
-                } else {
-                    std::string openingDbString = std::string("Opening database at : \n") + module->dbName;
-                    module->sdkProgressBar(openingDbString.c_str(),sdkAlphaColor(1.0f,1.0f,1.0f,1.0f));
-                    if(module->openDB())
-                    {
-                        
-                        module->listOfOutputSamples.changeFFTSize(module->SPECTRUM_SIZE);
-                        
-                        module->actionQueue.clear();
-                        module->isDBOpen = true;
-                        module->actionQueue.pushFunc(requestFunction, module);
-                    } else
-                    {
-                        sdkTraceErrorChar("Error in the initialization after opening the database");
-                        sqlite3_close(module->db);
-                        module->isDBOpen = false;
-                    }
-                }
-            } else {
-                sdkTraceErrorChar("No existing database at : " + std::string(module->dbName.c_str()));
-            }
-        }
-       
-        module->isLoading.store(false,std::memory_order_release);
-        
-    } catch(const std::exception& e) {
-        sdkTraceErrorChar(std::string("Error in DatabasePlayer openDatabase Function : ") + std::string(e.what()));
-    }
-}
-
-void searchFunc(void* pModule)
-{
-    DatabasePlayer* module = static_cast<DatabasePlayer*>(pModule);
-    try {
-        module->listOfOutputSamples.clearSamplesToRelease();
-        if(module->isCursorOn || module->mouseInfo.leftBtnDown)
-        {
-            //using clock = std::chrono::high_resolution_clock;
-            //using duration = std::chrono::duration<double, std::milli>;
-            //auto startSearch = clock::now();
-            
-            module->findEveryNearestPoint(module->circleCursor, module->listOfSamplesInCircle);
-            
-            //auto endSearch = clock::now();
-            //duration searchDuration = (endSearch - startSearch);
-            //std::cout << "Search duration : " << searchDuration.count() << " ms" << std::endl;
-            
-        }
-        else if(module->listOfOutputSamples.activeSamples > 0){
-            module->listOfOutputSamples.softClear();
-        }
-        
-    } catch(const std::exception& e) {
-        sdkTraceErrorChar(std::string("Error in DatabasePlayer search Function : ") + std::string(e.what()));
-    }
-}
-
-void workThreadFunc(void* pModule, TThreadPtr thread)
-{
-    DatabasePlayer* module = static_cast<DatabasePlayer*>(pModule);
-    try {
-        module->actionQueue.run(module);
-    } catch(const std::exception& e) {
-        sdkTraceErrorChar(std::string("Error in DatabasePlayer work Thread : ") + std::string(e.what()));
-    }
-}
-
-// this thread pushes the search function to the action queue every 20 ms
-void initSearchThreadFunc(void* pModule, TThreadPtr thread)
-{
-    DatabasePlayer* module = static_cast<DatabasePlayer*>(pModule);
-    try {
-        if(module->isDBOpen && module->actionQueue.m_IsWorking.load(std::memory_order_relaxed))
-        {
-            module->actionQueue.pushFunc(searchFunc, module);
-        }
-    } catch(const std::exception& e) {
-        sdkTraceErrorChar(std::string("Error in DatabasePlayer init search Thread : ") + std::string(e.what()));
-    }
-}
-
-
-void DatabasePlayer::onInitModule(TMasterInfo *pMasterInfo, TModuleInfo *pModuleInfo)
-{
-    csPaint = sdkCriticalSectionCreate("paint critical section", false);
-    
-    workThread = sdkThreadCreate("working Thread", workThreadFunc, tpMedium, 0);
-    initSearchThread = sdkThreadCreate("init search Thread", initSearchThreadFunc, tpLow, 20);
-    
-    ifftPtr = sdkFFTCreate(SPECTRUM_SIZE);
+	sdkCreateParam(databaseFileInParamInfo, databaseFileIn);
+	sdkCreateParam(reloadDatabaseBtnInParamInfo, reloadDatabaseBtnIn);
+	sdkCreateParam(firstDimensionLboxInParamInfo, firstDimensionLboxIn);
+	sdkCreateParam(secondDimensionLboxInParamInfo, secondDimensionLboxIn);
+	sdkCreateParam(polyphonyFdrInParamInfo, polyphonyFdrIn);
+	sdkCreateParam(samplesListTxtOutParamInfo, samplesListTxtOut);
+	sdkCreateParam(samplesCoeffsArrOutParamInfo, samplesCoeffsArrOut);
+	sdkCreateParam(attackTimeFdrInParamInfo, attackTimeFdrIn);
+	sdkCreateParam(releaseTimeFdrInParamInfo, releaseTimeFdrIn);
+	sdkCreateParam(onResynthesisSwInParamInfo, onResynthesisSwIn);
+	sdkCreateParam(audioOut1ParamInfo, audioOutputs[0]);
+	sdkCreateParam(audioOut2ParamInfo, audioOutputs[1]);
+	sdkCreateParam(cursorDownSwInParamInfo, cursorDownSwIn);
+	sdkCreateParam(cursorXFdrInParamInfo, cursorXFdrIn);
+	sdkCreateParam(cursorYFdrInParamInfo, cursorYFdrIn);
+	sdkCreateParam(cursorRadiusFdrInParamInfo, cursorRadiusFdrIn);
 }
 
 void DatabasePlayer::onCreateSettings()
 {
-    sdkAddSettingLineCaption(PROPERTIES_TAB_NAME, "graphical settings");
+	sdkAddSettingLineCaption(PROPERTIES_TAB_NAME, "graphical settings");
 
-    sdkAddSettingLineSingle(PROPERTIES_TAB_NAME, &canvasPointRadius, "points radius", 2.0f, 10.0f,scLinear,"pix",DEFAULT_FORMAT_INTEGER, 2.0f);
-    sdkSetLastSettingCallbackID(SettingsId::POINT_RADIUS);
+	sdkAddSettingLineSingle(PROPERTIES_TAB_NAME, &canvasPointRadius, "points radius", 2.0f, 10.0f, scLinear, "pix", DEFAULT_FORMAT_INTEGER, 2.0f);
+	sdkSetLastSettingCallbackID(POINTS_RADIUS_SETTING_CBID);
 
-    sdkAddSettingLineSingle(PROPERTIES_TAB_NAME, &spreadFactorX, "spread factor X", 0.1f, 1.0f ,scLinear,"","%.2f", 0.25f);
-    sdkSetLastSettingCallbackID(SettingsId::SPREAD_X);
+	sdkAddSettingLineSingle(PROPERTIES_TAB_NAME, &spreadFactorX, "spread factor X", 0.1f, 1.0f, scLinear, "", "%.2f", 0.25f);
+	sdkSetLastSettingCallbackID(SPREAD_FACTOR_X_SETTING_CBID);
 
-    sdkAddSettingLineSingle(PROPERTIES_TAB_NAME, &spreadFactorY, "spread factor Y", 0.1f, 1.0f ,scLinear,"","%.2f", 0.25f);
-    sdkSetLastSettingCallbackID(SettingsId::SPREAD_Y);
+	sdkAddSettingLineSingle(PROPERTIES_TAB_NAME, &spreadFactorY, "spread factor Y", 0.1f, 1.0f, scLinear, "", "%.2f", 0.25f);
+	sdkSetLastSettingCallbackID(SPREAD_FACTOR_Y_SETTING_CBID);
 
-    sdkAddSettingLineCaption(PROPERTIES_TAB_NAME,"output settings");
-    sdkAddSettingLineBoolean(PROPERTIES_TAB_NAME, &listOfOutputSamples.isCoeffNormalized, "normalize coeffs");
-    sdkSetLastSettingCallbackID(SettingsId::NORMALIZE_COEFFS);
-
+	sdkAddSettingLineCaption(PROPERTIES_TAB_NAME, "output settings");
+	sdkAddSettingLineBoolean(PROPERTIES_TAB_NAME, &normalizeCoeffsSetting, "normalize coeffs");
+	sdkSetLastSettingCallbackID(NORMALIZE_COEFFS_SETTING_CBID);
 }
 
-void DatabasePlayer::onSettingsHasChanged()
+// the values loaded with the patch give no callback when they equal the current ones: the state is read again
+void DatabasePlayer::onAfterLoading()
 {
-    
+	readParameters(true);
 }
 
-
-void DatabasePlayer::onGetParamInfo(int ParamIndex, TParamInfo *pParamInfo)
+void DatabasePlayer::onBlocSizeChange(int BlocSize)
 {
-    switch(ParamIndex)
-    {
-        case 0:
-            pParamInfo->ParamType       = ptFileName;
-            pParamInfo->Caption         = "database file";
-            pParamInfo->IsInput         = true;
-            pParamInfo->IsOutput        = false;
-            pParamInfo->IsSeparator     = true;
-            pParamInfo->SeparatorCaption= "database";
-            pParamInfo->CallBackId      = DATABASE_FILE_CBID;
-            pParamInfo->CallBackType    = ctNormal;
-            pParamInfo->setEventClass   (databaseFile);
-            break;
-            
-        case 1:
-            pParamInfo->ParamType = ptButton;
-            pParamInfo->Caption = "reload database";
-            pParamInfo->IsInput = true;
-            pParamInfo->IsOutput = false;
-            pParamInfo->CallBackId   = RELOAD_DATABASE_CBID;
-            pParamInfo->CallBackType = ctNormal;
-            pParamInfo->setEventClass(reloadDatabase);
-            break;
-            
-        case 2:
-            pParamInfo->ParamType = ptListBox;
-            pParamInfo->Caption = "first dimension";
-            pParamInfo->IsInput = true;
-            pParamInfo->IsOutput = false;
-            pParamInfo->ListBoxStrings = "duration,spectral centroid mean,spectral centroid std,spectral spread mean,spectral spread std,spectral flatness mean,spectral flatness std,RMS mean,RMS std,fund frequency mean,fund frequency std,frequency probability mean,frequency probability std,combined 1,random";
-            pParamInfo->DefaultValue = 13;
-            pParamInfo->SeparatorCaption = "2D representation";
-            pParamInfo->CallBackId   = FIRST_DIMENSION_CBID;
-            pParamInfo->CallBackType = ctNormal;
-            pParamInfo->setEventClass(firstDim);
-            break;
-        
-        case 3:
-            pParamInfo->ParamType = ptListBox;
-            pParamInfo->Caption = "second dimension";
-            pParamInfo->IsInput = true;
-            pParamInfo->IsOutput = false;
-            pParamInfo->ListBoxStrings = "duration,spectral centroid mean,spectral centroid std,spectral spread mean,spectral spread std,spectral flatness mean,spectral flatness std,RMS mean,RMS std,frequency mean,frequency std,frequency probability mean,frequency probability std,combined 2,random";
-            pParamInfo->DefaultValue = 13;
-            pParamInfo->CallBackId   = SECOND_DIMENSION_CBID;
-            pParamInfo->CallBackType = ctNormal;
-            pParamInfo->setEventClass(secondDim);
-            break;
-            
-        case 4:
-            pParamInfo->ParamType = ptDataFader;
-            pParamInfo->Caption = "polyphony";
-            pParamInfo->IsInput = true;
-            pParamInfo->IsOutput = false;
-            pParamInfo->MinValue = 1;
-            pParamInfo->MaxValue = 20;
-            pParamInfo->DefaultValue = 10;
-            pParamInfo->Format = DEFAULT_FORMAT_INTEGER;
-            pParamInfo->IsSeparator = true;
-            pParamInfo->SeparatorCaption = "closest samples";
-            pParamInfo->CallBackId   = POLYPHONY_CBID;
-            pParamInfo->CallBackType = ctNormal;
-            pParamInfo->setEventClass(numberOfPoints);
-            break;
-            
-        case 5:
-            pParamInfo->ParamType = ptTextField;
-            pParamInfo->Caption = "samples list";
-            pParamInfo->IsInput = false;
-            pParamInfo->IsOutput = true;
-            pParamInfo->setEventClass(closestSamplesPath);
-            break;
-            
-        case 6:
-            pParamInfo->ParamType = ptArray;
-            pParamInfo->Caption = "samples coeffs";
-            pParamInfo->IsInput = false;
-            pParamInfo->IsOutput = true;
-            pParamInfo->setEventClass(coeffs);
-            break;
-            
-        case 7:
-            pParamInfo->ParamType = ptDataFader;
-            pParamInfo->Caption = "attack time";
-            pParamInfo->IsInput = true;
-            pParamInfo->IsOutput = false;
-            pParamInfo->MinValue = 0.0f;
-            pParamInfo->MaxValue = 2000.0f;
-            pParamInfo->DefaultValue = 50.0f;
-            pParamInfo->Format = "%.2f";
-            pParamInfo->Symbol = "ms";
-            pParamInfo->Scale = scLog;
-            pParamInfo->CallBackId   = ATTACK_TIME_CBID;
-            pParamInfo->CallBackType = ctNormal;
-            pParamInfo->setEventClass(attackDuration);
-            break;
-            
-        case 8:
-            pParamInfo->ParamType = ptDataFader;
-            pParamInfo->Caption = "release time";
-            pParamInfo->IsInput = true;
-            pParamInfo->IsOutput = false;
-            pParamInfo->MinValue = 0.0f;
-            pParamInfo->MaxValue = 2000.0f;
-            pParamInfo->DefaultValue = 200.0f;
-            pParamInfo->Format = "%.2f";
-            pParamInfo->Symbol = "ms";
-            pParamInfo->Scale = scLog;
-            pParamInfo->CallBackId   = RELEASE_TIME_CBID;
-            pParamInfo->CallBackType = ctNormal;
-            pParamInfo->setEventClass(releaseDuration);
-            break;
-        
-        case 9:
-            pParamInfo->ParamType = ptSwitch;
-            pParamInfo->Caption = "on resynthesis";
-            pParamInfo->IsInput = true;
-            pParamInfo->IsOutput = false;
-            pParamInfo->IsSeparator = true;
-            pParamInfo->DefaultValue = true;
-            pParamInfo->SeparatorCaption = "resynthesis";
-            pParamInfo->CallBackId   = ON_RESYNTHESIS_CBID;
-            pParamInfo->CallBackType = ctNormal;
-            pParamInfo->setEventClass(toggleResynth);
-            break;
-            
-        case 10:
-            pParamInfo->ParamType = ptAudio;
-            pParamInfo->Caption = "audio out 1";
-            pParamInfo->IsInput = false;
-            pParamInfo->IsOutput = true;
-            pParamInfo->setEventClass(rAudioOut);
-            break;
-        
-        case 11:
-            pParamInfo->ParamType = ptAudio;
-            pParamInfo->Caption = "audio out 2";
-            pParamInfo->IsInput = false;
-            pParamInfo->IsOutput = true;
-            pParamInfo->setEventClass(lAudioOut);
-            break;
-            
-        case 12:
-            pParamInfo->ParamType = ptSwitch;
-            pParamInfo->Caption = "cursor down";
-            pParamInfo->IsInput = true;
-            pParamInfo->IsOutput = true;
-            pParamInfo->IsSeparator = true;
-            pParamInfo->SeparatorCaption = "controls";
-            pParamInfo->CallBackId   = CURSOR_DOWN_CBID;
-            pParamInfo->CallBackType = ctNormal;
-            pParamInfo->setEventClass(cursorDown);
-            break;
-            
-        case 13:
-            pParamInfo->ParamType = ptDataFader;
-            pParamInfo->Caption = "cursor X";
-            pParamInfo->IsInput = true;
-            pParamInfo->IsOutput = false;
-            pParamInfo->MinValue = 0.0f;
-            pParamInfo->MaxValue = 1.0f;
-            pParamInfo->DefaultValue = 0.0f;
-            pParamInfo->Format = "%.2f";
-            pParamInfo->CallBackId   = CURSOR_X_CBID;
-            pParamInfo->CallBackType = ctNormal;
-            pParamInfo->setEventClass(cursorX);
-            break;
-            
-        case 14:
-            pParamInfo->ParamType = ptDataFader;
-            pParamInfo->Caption = "cursor Y";
-            pParamInfo->IsInput = true;
-            pParamInfo->IsOutput = false;
-            pParamInfo->MinValue = 0.0f;
-            pParamInfo->MaxValue = 1.0f;
-            pParamInfo->DefaultValue = 0.0f;
-            pParamInfo->Format = "%.2f";
-            pParamInfo->CallBackId   = CURSOR_Y_CBID;
-            pParamInfo->CallBackType = ctNormal;
-            pParamInfo->setEventClass(cursorY);
-            break;
-            
-        case 15:
-            pParamInfo->ParamType = ptDataFader;
-            pParamInfo->Caption = "cursor radius";
-            pParamInfo->IsInput = true;
-            pParamInfo->IsOutput = false;
-            pParamInfo->MinValue = 1.0f;
-            pParamInfo->MaxValue = 20.0f;
-            pParamInfo->DefaultValue = 5.0f;
-            pParamInfo->Format = DEFAULT_FORMAT_INTEGER;
-            pParamInfo->Symbol = "pix";
-            pParamInfo->CallBackId   = CURSOR_RADIUS_CBID;
-            pParamInfo->CallBackType = ctNormal;
-            pParamInfo->setEventClass(cursorRadius);
-            break;
-
-        default:
-            break;
-    }
-    
+	blocSize = BlocSize;
+	updateFadeDurations();
 }
 
-void DatabasePlayer::onCallBack(TUsineMessage *Message)
+void DatabasePlayer::onSampleRateChange(double SampleRate)
 {
-    try {
-        if (Message->message == NOTIFY_MSG_USINE_CALLBACK && Message->lParam == MSG_CHANGE)
-        {
-            switch (Message->wParam) {
-
-                case DATABASE_FILE_CBID:
-                    dbName = std::string(databaseFile.getPChar());
-                    rAudioOut.clearAudio();
-                    lAudioOut.clearAudio();
-                    actionQueue.pushFunc(openDatabaseFunc,this);
-                    break;
-
-                case RELOAD_DATABASE_CBID:
-                    if(!isDBOpen)
-                    {
-                        sdkTraceErrorChar("No database open, please open a database first");
-                        break;
-                    }
-
-                    dbName = std::string(databaseFile.getPChar());
-                    rAudioOut.clearAudio();
-                    lAudioOut.clearAudio();
-                    if(!isLoading.load(std::memory_order_acquire))
-                    {
-                        actionQueue.pushFunc(openDatabaseFunc,this);
-                    }
-                    break;
-
-                case FIRST_DIMENSION_CBID:
-                    if(firstDim.getData() >= 0 && firstDim.getData() < (int)dimensions_x.size())
-                    {
-                        dimX = dimensions_x[static_cast<size_t>(firstDim.getData())];
-                        actionQueue.pushFunc(requestFunction,this);
-
-                    }
-                    break;
-
-                case SECOND_DIMENSION_CBID:
-                    if(secondDim.getData() >= 0 && secondDim.getData() < (int)dimensions_y.size())
-                    {
-                        dimY = dimensions_y[static_cast<size_t>(secondDim.getData())];
-                        actionQueue.pushFunc(requestFunction, this);
-                    }
-                    break;
-
-                case POLYPHONY_CBID:
-                    listOfOutputSamples.setNbPoints(static_cast<int>(numberOfPoints.getData()));
-                    break;
-
-                case ATTACK_TIME_CBID:
-                    listOfOutputSamples.setAttackDuration(attackDuration.getData(), static_cast<float>(sdkGetSampleRate()), sdkGetBlocSize());
-                    break;
-
-                case RELEASE_TIME_CBID:
-                    listOfOutputSamples.setReleaseDuration(releaseDuration.getData(), static_cast<float>(sdkGetSampleRate()), sdkGetBlocSize());
-                    break;
-
-                case ON_RESYNTHESIS_CBID:
-                    activeResynth = toggleResynth.getData();
-                    if(!activeResynth)
-                    {
-                        rAudioOut.clearAudio();
-                        lAudioOut.clearAudio();
-                    }
-                    break;
-
-                case CURSOR_DOWN_CBID:
-                    isCursorOn = cursorDown.getData();
-                    actionQueue.pushFunc(searchFunc,this);
-                    if(!mouseInfo.leftBtnDown && !isCursorOn)
-                    {
-                        listOfOutputSamples.softClear();
-                    }
-                    sdkRepaintPanel();
-                    break;
-
-                case CURSOR_X_CBID:
-                    if(!mouseInfo.leftBtnDown)
-                    {
-                        circleCursor.x = cursorX.getData();
-                    }
-                    sdkRepaintPanel();
-                    break;
-
-                case CURSOR_Y_CBID:
-                    if(!mouseInfo.leftBtnDown)
-                    {
-                        circleCursor.y = cursorY.getData();
-                    }
-                    sdkRepaintPanel();
-                    break;
-
-                case CURSOR_RADIUS_CBID:
-                    circleCursor.setRadius(cursorRadius.getData() * 0.01f);
-                    sdkRepaintPanel();
-                    break;
-                    
-                case SettingsId::POINT_RADIUS :
-                    actionQueue.pushFunc(requestFunction, this);
-                    break;
-
-                case SettingsId::SPREAD_X :
-                    actionQueue.pushFunc(requestFunction, this);
-                    break;
-
-                case SettingsId::SPREAD_Y :
-                    actionQueue.pushFunc(requestFunction, this);
-                    break;
-
-                case SettingsId::NORMALIZE_COEFFS :
-                    break;
-
-                default:
-                    break;
-            }
-            
-        }
-    } catch (...)
-    {
-        sdkTraceErrorChar("Error on callback in DatabasePlayer module");
-        if (Message->message == NOTIFY_MSG_USINE_CALLBACK && Message->lParam == MSG_CHANGE)
-        {
-            sdkTraceErrorChar(std::string("For parameter number " + std::to_string(Message->wParam)));
-        }
-    }
+	sampleRate.store(SampleRate, std::memory_order_relaxed);
+	updateFadeDurations();
 }
 
+void DatabasePlayer::onCallBack(TUsineMessage* Message)
+{
+	if ((Message->message != NOTIFY_MSG_USINE_CALLBACK) || (Message->lParam != MSG_CHANGE))
+		return;
+
+	try
+	{
+		switch (Message->wParam)
+		{
+			case DATABASE_FILE_CBID:
+				dbName = std::string(databaseFileIn.getPChar());
+				actionQueue.push([this, fileName = dbName]() { openDatabaseTask(fileName); });
+				break;
+			case RELOAD_DATABASE_BTN_CBID:
+				if (!isDBOpen.load())
+				{
+					sdkRaiseError(ERROR_NO_DATABASE_OPEN);
+					break;
+				}
+				dbName = std::string(databaseFileIn.getPChar());
+				if (!isLoading.load(std::memory_order_acquire))
+					actionQueue.push([this, fileName = dbName]() { openDatabaseTask(fileName); });
+				break;
+			case FIRST_DIMENSION_LBOX_CBID:
+				firstDimensionItem.store(dimensionItem(firstDimensionLboxIn));
+				pushRequest();
+				break;
+			case SECOND_DIMENSION_LBOX_CBID:
+				secondDimensionItem.store(dimensionItem(secondDimensionLboxIn));
+				pushRequest();
+				break;
+			case POLYPHONY_FDR_CBID:
+				setPolyphony(polyphonyFdrIn.getData());
+				break;
+			case ATTACK_TIME_FDR_CBID:
+			case RELEASE_TIME_FDR_CBID:
+				updateFadeDurations();
+				break;
+			case ON_RESYNTHESIS_SW_CBID:
+				// the audio thread silences its outputs itself
+				activeResynth.store(onResynthesisSwIn.getData() != 0.0f, std::memory_order_relaxed);
+				break;
+			case CURSOR_DOWN_SW_CBID:
+				isCursorOn.store(cursorDownSwIn.getData() != 0.0f);
+				pushSearch();
+				if (!mouseInfo.leftBtnDown.load() && !isCursorOn.load())
+				{
+					QueueWriteGuard guard(queueLock);
+					listOfOutputSamples.softClear();
+				}
+				sdkRepaintPanel();
+				break;
+			case CURSOR_X_FDR_CBID:
+				if (!mouseInfo.leftBtnDown.load())
+					circleCursor.x.store(cursorXFdrIn.getData());
+				sdkRepaintPanel();
+				break;
+			case CURSOR_Y_FDR_CBID:
+				if (!mouseInfo.leftBtnDown.load())
+					circleCursor.y.store(cursorYFdrIn.getData());
+				sdkRepaintPanel();
+				break;
+			case CURSOR_RADIUS_FDR_CBID:
+				circleCursor.setRadius(clampRadius(cursorRadiusFdrIn.getData() * 0.01f));
+				sdkRepaintPanel();
+				break;
+			case POINTS_RADIUS_SETTING_CBID:
+			case SPREAD_FACTOR_X_SETTING_CBID:
+			case SPREAD_FACTOR_Y_SETTING_CBID:
+				refreshSettings();
+				pushRequest();
+				break;
+			case NORMALIZE_COEFFS_SETTING_CBID:
+				refreshSettings();
+				break;
+			default:
+				break;
+		}
+	}
+	catch (...)
+	{
+		sdkRaiseError(ERROR_CALLBACK, std::to_string(Message->wParam));
+	}
+}
+
+// audio thread: no lock waited for, no allocation. The gains are smoothed here, the samples come from the
+// work thread through outputFifo
 void DatabasePlayer::onProcess()
 {
-    rAudioOut.setSize(sdkGetBlocSize());
-    lAudioOut.setSize(sdkGetBlocSize());
-    
-    //------ COEFFS -------
-    coeffs.setSize((int)listOfOutputSamples.queue.size());
+	const int bloc = sdkGetBlocSize();
+	for (const UsineEventClass& audioOut : audioOutputs)
+		audioOut.setSize(bloc);
 
-    listOfOutputSamples.updateCoeffs();
-    
-    bool coeffsNonZero = listOfOutputSamples.sumCoeffs > 1e-5f;
-    
-    if(coeffsNonZero)
-    {
-        isCurrentlyPlaying = true;
-        remainingFrames = 3 * SPECTRUM_SIZE_4;
-    } else if(!coeffsNonZero && isCurrentlyPlaying)
-    {
-        if(remainingFrames > 0)
-        {
-            remainingFrames -= sdkGetBlocSize();
-        } else {
-            lBuffer.clearBuffer();
-            rBuffer.clearBuffer();
-            isCurrentlyPlaying = false;
-        }
-        
-    }
-    
-    //---------------------
-    
-    //------ RESULTS ------
-    for(int i = 0; i < listOfOutputSamples.queue.size(); i++)
-    {
-        coeffs.setArrayData(i,listOfOutputSamples.queue[i].coeff.getCoeff());
-    }
+	samplesCoeffsArrOut.setSize(SAMPLE_QUEUE_MAX_POLY);
 
-    closestSamplesPath.setPChar(listOfOutputSamples.getCommaText().c_str());
+	// the gains move one bloc towards their target; while a writer holds the queue, the step is made at the next bloc
+	pendingCoeffUpdates++;
+	if (queueLock.tryLockAudio())
+	{
+		for (; pendingCoeffUpdates > 0; pendingCoeffUpdates--)
+			listOfOutputSamples.updateCoeffs();
+		for (int i = 0; i < SAMPLE_QUEUE_MAX_POLY; i++)
+			audioCoeffs[i] = listOfOutputSamples.queue[i].coeff.getCoeff();
+		audioSumCoeffs = listOfOutputSamples.sumCoeffs;
+		if (listOfOutputSamples.textChanged)
+		{
+			audioSamplesText.swap(listOfOutputSamples.pendingText);
+			listOfOutputSamples.textChanged = false;
+		}
+		queueLock.unlockAudio();
+	}
 
-    //---------------------
-    
-    //---- RESYNTHESIS ----
-    if(isLoading) return;
-    if(!activeResynth) return;
-    if(ifftCounter >= SPECTRUM_SIZE_4 || ifftCounter == 0)
-    {
-        if(ifftCounter != 0)
-        {
-            ifftCounter -= SPECTRUM_SIZE_4;
-        }
+	for (int i = 0; i < SAMPLE_QUEUE_MAX_POLY; i++)
+		samplesCoeffsArrOut.setArrayData(i, audioCoeffs[i]);
 
-        MagPtr = listOfOutputSamples.globalMags.data();
-        if(MagPtr)
-        {
-            actionQueue.pushIFFTFunc(ifftFunction, this);
-        }
-        
-    }
-    
-    if(!isLoading){
-        rBuffer.readAndZero(rAudioOut.getDataAddr(), sdkGetBlocSize());
-        lBuffer.readAndZero(lAudioOut.getDataAddr(), sdkGetBlocSize());
-    } else {
-        rAudioOut.clearAudio();
-        lAudioOut.clearAudio();
-    }
+	samplesListTxtOut.setPChar(audioSamplesText.c_str());
 
-    ifftCounter += sdkGetBlocSize();
-    //---------------------
+	float* out1 = audioOutputs[0].getDataAddr();
+	float* out2 = audioOutputs[1].getDataAddr();
+	if (out1 == nullptr || out2 == nullptr || bloc <= 0)
+		return;
+
+	if (isLoading.load(std::memory_order_acquire) || !activeResynth.load(std::memory_order_relaxed))
+	{
+		// silent, and what the work thread computes meanwhile is dropped
+		std::fill(out1, out1 + bloc, 0.0f);
+		std::fill(out2, out2 + bloc, 0.0f);
+		outputFifo.flush();
+		streamRunning   = false;
+		tailSamples     = 0;
+		streamedSamples = 0;
+		return;
+	}
+
+	if (!streamRunning)
+	{
+		// the stream starts from silence: the work thread drops the tails of its previous frames
+		streamResets.fetch_add(1u, std::memory_order_release);
+		streamRunning = true;
+	}
+	// until the work thread has dropped them, its samples belong to the previous stream
+	if (streamResetsDone.load(std::memory_order_acquire) != streamResets.load(std::memory_order_relaxed))
+		outputFifo.flush();
+
+	const int read = outputFifo.read(out1, out2, bloc);
+	std::fill(out1 + read, out1 + bloc, 0.0f);
+	std::fill(out2 + read, out2 + bloc, 0.0f);
+
+	// frames are computed while a sample sounds, then until the tails of the last frames are out. The work thread
+	// keeps a bloc and 10 ms of samples ahead, more after an underrun of a running stream (the work thread was late,
+	// or the host calls the process in bursts), see LEAD_MARGIN_SECONDS
+	const int    hop  = std::max(1, hopSize.load(std::memory_order_relaxed));
+	const double rate = sampleRate.load(std::memory_order_relaxed);
+	if (bloc != leadBloc)
+	{
+		leadBloc  = bloc;
+		extraLead = 0;
+	}
+	const int baseLead = bloc + static_cast<int>(rate * LEAD_MARGIN_SECONDS);
+	if (read < bloc && tailSamples > 0 && streamedSamples >= baseLead + extraLead + 2 * hop)
+		extraLead = std::min(extraLead + std::max(bloc, static_cast<int>(rate * LEAD_STEP_SECONDS)), std::max(bloc, static_cast<int>(rate * LEAD_EXTRA_MAX_SECONDS)));
+	const int lead = baseLead + extraLead;
+
+	if (audioSumCoeffs > 1e-5f)
+		tailSamples = 3 * hop + lead + bloc;
+	else if (tailSamples > 0)
+		tailSamples -= bloc;
+
+	if (tailSamples > 0)
+	{
+		streamedSamples = std::min(streamedSamples + bloc, OUTPUT_FIFO_SIZE);
+		const int64_t ahead = static_cast<int64_t>(outputFifo.available()) + static_cast<int64_t>(actionQueue.pendingFrames()) * hop;
+		if (ahead < lead)
+			actionQueue.requestFrames(static_cast<int>((lead - ahead + hop - 1) / hop));
+	}
+	else
+	{
+		streamedSamples = 0;
+	}
 }
 
-void DatabasePlayer::computeIFFTMag(float* magPtr)
+// work thread: a frame of the resynthesis, the spectrum of magnitudes with random phases to the time domain, windowed
+void DatabasePlayer::computeIFFTMag(const float* magPtr)
 {
-    assert(magPtr != nullptr);
-    
-    std::fill(rReal.begin(), rReal.end(), 0.0f);
-    std::fill(rIm.begin(), rIm.end(), 0.0f);
-    std::fill(lReal.begin(), lReal.end(), 0.0f);
-    std::fill(lIm.begin(), lIm.end(), 0.0f);
+	assert(magPtr != nullptr);
 
-    int idx = 0;
-    int lIdx = 0;
-    
-    for(int i = 0; i < SPECTRUM_SIZE_2; i++)
-    {
-        idx = rand() % LUT_SIZE;
-        lIdx = rand() % LUT_SIZE;
-        
-        rReal[i] = magPtr[i] * trigoLUT[idx].cos;
-        rIm[i] = magPtr[i] * trigoLUT[idx].sin;
-        lReal[i] = magPtr[i] * trigoLUT[lIdx].cos;
-        lIm[i] = magPtr[i] * trigoLUT[lIdx].sin;
-    }
-    
-    rIm[0] = 0.0f;
-    rIm[SPECTRUM_SIZE_2 - 1] = 0.0f;
-    lIm[0] = 0.0f;
-    lIm[SPECTRUM_SIZE_2 - 1] = 0.0f;
-    
-    if(isLoading)
-    {
-        std::fill(rReal.begin(),rReal.end(),0.0f);
-        std::fill(rIm.begin(),rIm.end(),0.0f);
-        std::fill(lReal.begin(),lReal.end(),0.0f);
-        std::fill(lIm.begin(),lIm.end(),0.0f);
-    }
-    
-    sdkFFTInverse(ifftPtr, rTempBuffer.data(), rReal.data(), rIm.data());
-    sdkFFTInverse(ifftPtr, lTempBuffer.data(), lReal.data(), lIm.data());
-    
-    for(int i = 0; i < SPECTRUM_SIZE; i++)
-    {
-        rTempBuffer[i] *= hanning[i];
-        lTempBuffer[i] *= hanning[i];
-    }
-    
-    rBuffer.addPlus(rTempBuffer.data(), SPECTRUM_SIZE);
-    rBuffer.moveWriteIdx(SPECTRUM_SIZE_4);
-    lBuffer.addPlus(lTempBuffer.data(), SPECTRUM_SIZE);
-    lBuffer.moveWriteIdx(SPECTRUM_SIZE_4);
+	std::fill(rReal.begin(), rReal.end(), 0.0f);
+	std::fill(rIm.begin(), rIm.end(), 0.0f);
+	std::fill(lReal.begin(), lReal.end(), 0.0f);
+	std::fill(lIm.begin(), lIm.end(), 0.0f);
 
+	int idx  = 0;
+	int lIdx = 0;
+
+	for (int i = 0; i < SPECTRUM_SIZE_2; i++)
+	{
+		idx  = static_cast<int>(phaseRandom() % LUT_SIZE);
+		lIdx = static_cast<int>(phaseRandom() % LUT_SIZE);
+
+		rReal[i] = magPtr[i] * trigoLUT[idx].cos;
+		rIm[i]   = magPtr[i] * trigoLUT[idx].sin;
+		lReal[i] = magPtr[i] * trigoLUT[lIdx].cos;
+		lIm[i]   = magPtr[i] * trigoLUT[lIdx].sin;
+	}
+
+	rIm[0]                   = 0.0f;
+	rIm[SPECTRUM_SIZE_2 - 1] = 0.0f;
+	lIm[0]                   = 0.0f;
+	lIm[SPECTRUM_SIZE_2 - 1] = 0.0f;
+
+	sdkFFTInverse(ifftPtr, rTempBuffer.data(), rReal.data(), rIm.data());
+	sdkFFTInverse(ifftPtr, lTempBuffer.data(), lReal.data(), lIm.data());
+
+	for (int i = 0; i < SPECTRUM_SIZE; i++)
+	{
+		rTempBuffer[i] *= hanning[i];
+		lTempBuffer[i] *= hanning[i];
+	}
+}
+
+// work thread: sums the magnitudes of the samples of the queue weighted by their gain, adds the frame to the
+// overlap-add and gives its first hop, complete, to the audio thread
+void DatabasePlayer::produceFrame()
+{
+	try
+	{
+		const uint32_t resets = streamResets.load(std::memory_order_acquire);
+		if (resets != seenStreamResets)
+		{
+			for (auto& channel : overlapAdd)
+				std::fill(channel.begin(), channel.end(), 0.0f);
+			seenStreamResets = resets;
+			streamResetsDone.store(resets, std::memory_order_release);
+		}
+
+		std::array<const float*, SAMPLE_QUEUE_MAX_POLY> mags {};
+		std::array<float, SAMPLE_QUEUE_MAX_POLY>        gains {};
+		int                                             voices = 0;
+		{
+			QueueWriteGuard guard(queueLock);
+			listOfOutputSamples.clearSamplesToRelease();
+			voices = listOfOutputSamples.collectVoices(mags, gains);
+			listOfOutputSamples.publishText();
+		}
+
+		const int size = SPECTRUM_SIZE;
+		const int hop  = SPECTRUM_SIZE_4;
+		if (voices > 0 && ifftPtr != nullptr)
+		{
+			std::fill(spectrumMags.begin(), spectrumMags.end(), 0.0f);
+			for (int v = 0; v < voices; v++)
+			{
+				for (int i = 0; i < SPECTRUM_SIZE_2; i++)
+					spectrumMags[i] += mags[v][i] * gains[v];
+			}
+			computeIFFTMag(spectrumMags.data());
+
+			for (int i = 0; i < size; i++)
+			{
+				overlapAdd[0][i] += rTempBuffer[i];
+				overlapAdd[1][i] += lTempBuffer[i];
+			}
+		}
+
+		if (outputFifo.freeSpace() >= hop)
+			outputFifo.write(overlapAdd[0].data(), overlapAdd[1].data(), hop);
+		for (auto& channel : overlapAdd)
+		{
+			std::copy(channel.begin() + hop, channel.end(), channel.begin());
+			std::fill(channel.end() - hop, channel.end(), 0.0f);
+		}
+	}
+	catch (const std::exception& e)
+	{
+		sdkRaiseError(ERROR_RESYNTHESIS, e.what());
+	}
+	actionQueue.frameDone();
 }
 
 void DatabasePlayer::onPaint()
 {
-    try {
-        
-        sdkCriticalSectionLock(csPaint);
-            
-            if (numberOfPointsToDraw > 0 && numberOfPointsToDraw == pointsToDraw.size() && numberOfPointsToDraw == colorsToDraw.size())
-            {
-                sdkDrawMultiPoints(pointsToDraw.data(), colorsToDraw.data(), canvasPointRadius, false, numberOfPointsToDraw);
-            }
+	try
+	{
+		sdkCriticalSectionLock(csPaint);
+		if (numberOfPointsToDraw > 0 && numberOfPointsToDraw == static_cast<int>(pointsToDraw.size()) && numberOfPointsToDraw == static_cast<int>(colorsToDraw.size()))
+			sdkDrawMultiPoints(pointsToDraw.data(), colorsToDraw.data(), canvasPointRadius, FALSE, numberOfPointsToDraw);
+		sdkCriticalSectionUnLock(csPaint);
 
-        sdkCriticalSectionUnLock(csPaint);
-        
-        if(mouseInfo.leftBtnDown || isCursorOn)
-        {
-            sdkDrawPoint(TPointF(circleCursor.x,circleCursor.y),
-                         sdkAlphaColor(0.5f,0.5f,0.5f,0.2f),
-                         2.0f*circleCursor.radius*(float)DEFAULT_PANEL_WIDTH,
-                         true);
-        }
-        
-    } catch (const std::exception& e) {
-        sdkTraceErrorChar(std::string("Error in DatabasePlayer OnPaint function : ") + std::string(e.what()));
-    }
-
+		// the diameter of the circle of the search, in pixels of the panel width
+		if (mouseInfo.leftBtnDown.load() || isCursorOn.load())
+		{
+			sdkDrawPoint(TPointF {.x = circleCursor.x.load(), .y = circleCursor.y.load()},
+				sdkAlphaColor(0.5f, 0.5f, 0.5f, 0.2f),
+				2.0f * sdkWidthPercentToPixel(circleCursor.radius.load()),
+				TRUE);
+		}
+	}
+	catch (const std::exception& e)
+	{
+		sdkRaiseError(ERROR_PAINT, e.what());
+	}
 }
 
 void DatabasePlayer::onMouseMove(TShiftState Shift, float X, float Y)
 {
-    if(mouseInfo.leftBtnDown)
-    {
-        mouseInfo.storeNewCoords(X,Y);
-        circleCursor.x = X;
-        circleCursor.y = Y;
-    }
+	if (mouseInfo.leftBtnDown.load())
+	{
+		circleCursor.x.store(X);
+		circleCursor.y.store(Y);
+	}
 }
 
-void DatabasePlayer::onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X,float Y)
+void DatabasePlayer::onMouseDown(TMouseButton MouseButton, TShiftState Shift, float X, float Y)
 {
-    if(MouseButton == mbLeft)
-    {
-        mouseInfo.leftBtnDown = true;
-        mouseInfo.storeNewCoords(X,Y);
-        circleCursor.x = X;
-        circleCursor.y = Y;
-        
-        actionQueue.pushFunc(searchFunc, this);
-    }
-    
+	if (MouseButton == mbLeft)
+	{
+		circleCursor.x.store(X);
+		circleCursor.y.store(Y);
+		mouseInfo.leftBtnDown.store(true);
+
+		pushSearch();
+	}
 }
 
 void DatabasePlayer::onMouseUp(TMouseButton MouseButton, TShiftState Shift, float X, float Y)
 {
-    if(MouseButton == mbLeft)
-    {
-        mouseInfo.leftBtnDown = false;
-        if(!isCursorOn)
-        {
-            listOfOutputSamples.softClear();
-            actionQueue.pushFunc(searchFunc, this);
-        }
-
-    }
+	if (MouseButton == mbLeft)
+	{
+		mouseInfo.leftBtnDown.store(false);
+		if (!isCursorOn.load())
+		{
+			{
+				QueueWriteGuard guard(queueLock);
+				listOfOutputSamples.softClear();
+			}
+			pushSearch();
+		}
+	}
 }
 
 void DatabasePlayer::onMouseWheel(TShiftState Shift, int WheelDelta)
 {
-    if(isCursorOn || mouseInfo.leftBtnDown)
-    {
-        if(circleCursor.radius > (minCursorRadius * 0.01f) && ( WheelDelta < 0 ))
-        {
-            circleCursor.setRadius(circleCursor.radius + WheelDelta * 0.005f);
-        }
-        else if (circleCursor.radius < (maxCursorRadius * 0.01f) && ( WheelDelta > 0 ))
-        {
-            circleCursor.setRadius(circleCursor.radius + WheelDelta * 0.005f);
-        }
-    }
-
-    
+	if (isCursorOn.load() || mouseInfo.leftBtnDown.load())
+		circleCursor.setRadius(clampRadius(circleCursor.radius.load() + static_cast<float>(WheelDelta) * 0.005f));
 }
 
-bool DatabasePlayer::sendRequestToDB(const std::string firstDimension,const std::string secondDimension)
+void DatabasePlayer::pushSearch()
 {
-
-    try {
-        std::string query = queryBuilder(firstDimension, secondDimension);
-        
-        sqlite3_stmt* stmt = nullptr;
-        std::vector<Point2D> pendingRequestData = requestData;
-        
-        std::vector<TPointF> pendingPointsToDraw = pointsToDraw;
-        std::vector<TUsineColor> pendingColorsToDraw = colorsToDraw;
-        
-        if (sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr) == SQLITE_OK) {
-            while (sqlite3_step(stmt) == SQLITE_ROW)
-            {
-                float normX = static_cast<float>(sqlite3_column_double(stmt, 0));
-                float normY = static_cast<float>(sqlite3_column_double(stmt, 1));
-                int id = static_cast<int>(sqlite3_column_int(stmt, 2)) - 1; // NOTE : ID IS STARTING FROM 1 IN THE DB
-                
-                if(id >= 0 && id < (int)pendingRequestData.size())
-                {
-                    float coordX = std::powf(normX, spreadFactorX);
-                    float coordY = std::powf(normY, spreadFactorY);
-                    pendingRequestData[id].dim1 = coordX;
-                    pendingRequestData[id].dim2 = 1.0f - coordY;
-                    pendingRequestData[id].color = xy_to_rgb_colorwheel_radial(coordX,coordY);
-                    
-                    
-                    //
-                    pendingPointsToDraw[id] = TPointF(coordX,1.0f - coordY);
-                    pendingColorsToDraw[id] = pendingRequestData[id].color;
-                    
-                } else {
-                    sdkTraceErrorChar("Error during request with id " + std::to_string(id) + " : " + std::string(sqlite3_errmsg(db)));
-                    sqlite3_finalize(stmt);
-                    return false;
-                }
-            }
-        } else {
-            sdkTraceErrorChar("Error during request to the database :" + std::string(sqlite3_errmsg(db)));
-            sdkTraceErrorChar(std::string("The error occurred for this query : " + query));
-            return false;
-        }
-        sqlite3_finalize(stmt);
-        
-        std::vector<Point2D*> ptrVector;
-        ptrVector.reserve(pendingRequestData.size());
-        for(auto& point : pendingRequestData)
-        {
-            ptrVector.push_back(&point);
-        }
-        
-        KDTree pendingTree(2);
-        pendingTree.root = pendingTree.buildTree(ptrVector, 0);
-        
-        sdkCriticalSectionLock(csPaint);
-        
-            requestData = std::move(pendingRequestData);
-            kdTree.root = std::move(pendingTree.root);
-            if(!kdTree.root)
-            {
-                sdkCriticalSectionUnLock(csPaint);
-                return false;
-            }
-        
-            pointsToDraw = std::move(pendingPointsToDraw);
-            colorsToDraw = std::move(pendingColorsToDraw);
-            
-        sdkCriticalSectionUnLock(csPaint);
-
-        
-    } catch (const std::exception& e) {
-        sdkTraceErrorChar(std::string("Error in DatabasePlayer Request Function : ") + std::string(e.what()));
-        return false;
-    }
-    
-    return true;
+	if (!searchPending.exchange(true))
+	{
+		if (!actionQueue.push([this]() { searchTask(); }))
+			searchPending.store(false);
+	}
 }
 
-std::string DatabasePlayer::queryBuilder(const std::string& firstDimension, const std::string& secondDimension)
+void DatabasePlayer::pushRequest()
 {
-    // The SQL query used
-    /*
-    std::string query =
-    "SELECT\n"
-    "    (" + firstDimension + " - min_max.min_" + firstDimension + ") / "
-    "    (min_max.max_" + firstDimension + " - min_max.min_" + firstDimension + ") AS norm_x,\n"
-    "    (" + secondDimension + " - min_max.min_" + secondDimension + ") / "
-    "    (min_max.max_" + secondDimension + " - min_max.min_" + secondDimension + ") AS norm_y,\n"
-    "    id\n"
-    "FROM FileResults,\n"
-    "     (SELECT \n"
-    "         MIN(" + firstDimension + ") AS min_" + firstDimension + ", MAX(" + firstDimension + ") AS max_" + firstDimension + ",\n"
-    "         MIN(" + secondDimension + ") AS min_" + secondDimension + ", MAX(" + secondDimension + ") AS max_" + secondDimension + "\n"
-    "      FROM FileResults) AS min_max;";
-    */
-    std::string queryFunction = "SELECT\n";
-    std::string normX, normY;
-    std::string subSelectFunc, subSelectNorm, subSelectEnd;
-    bool needsMinMax = (firstDimension != "random" || secondDimension != "random");
-    
-        // norm_x
-    if (firstDimension == "random") {
-        normX = "(abs(random()) / 9223372036854775807.0) AS norm_x,\n";
-    } else {
-        normX = "(" + firstDimension + " - min_max.min_" + firstDimension + ") / "
-        + "(min_max.max_" + firstDimension + " - min_max.min_" + firstDimension + ") AS norm_x,\n";
-        
-        subSelectNorm += "MIN(" + firstDimension + ") AS min_" + firstDimension + ", MAX(" + firstDimension + ") AS max_" + firstDimension;
-    }
-    
-        // norm_y
-    if (secondDimension == "random") {
-        normY = "(abs(random()) / 9223372036854775807.0) AS norm_y,\n";
-    } else {
-        normY = "(" + secondDimension + " - min_max.min_" + secondDimension + ") / "
-        + "(min_max.max_" + secondDimension + " - min_max.min_" + secondDimension + ") AS norm_y,\n";
-        
-        if (!subSelectNorm.empty()) {
-            subSelectNorm += ",\n";
-        }
-        subSelectNorm += "MIN(" + secondDimension + ") AS min_" + secondDimension + ", MAX(" + secondDimension + ") AS max_" + secondDimension;
-    }
-    
-
-    if (needsMinMax) {
-        subSelectFunc = "(SELECT\n";
-        subSelectEnd = "\nFROM FileResults) AS min_max";
-    }
-    
-    std::string finalQuery;
-    finalQuery += queryFunction;
-    finalQuery += normX;
-    finalQuery += normY;
-    finalQuery += "id\nFROM FileResults";
-    if (needsMinMax) {
-        finalQuery += ",\n";
-        finalQuery += subSelectFunc;
-        finalQuery += subSelectNorm;
-        finalQuery += subSelectEnd;
-    }
-    finalQuery += ";\n";
-
-    return finalQuery;
+	if (!requestPending.exchange(true))
+	{
+		if (!actionQueue.push([this]() { requestTask(); }))
+			requestPending.store(false);
+	}
 }
 
+// the tasks below are run by the work thread, see ActionQueue
 
-void DatabasePlayer::findEveryNearestPoint(const CircleCursor& circleCursor, std::vector<PointDistance2D>& listOfSamplesInCircle )
+// opens a database in place of the current one, then places its samples
+void DatabasePlayer::openDatabaseTask(const std::string& fileName)
 {
-    listOfSamplesInCircle.clear();
-    kdTree.searchInRange(circleCursor.x, circleCursor.y, circleCursor.radius, listOfSamplesInCircle);
-    std::sort(listOfSamplesInCircle.begin(),listOfSamplesInCircle.end(), std::greater<>());
-    
-    listOfOutputSamples.compareListsAndUpdate(listOfSamplesInCircle);
-    
-    int step = ((int)listOfSamplesInCircle.size()) / listOfOutputSamples.NbPoints;
-    if(step == 0)
-        step = 1;
-    if(listOfSamplesInCircle.size() > 0)
-    {
-        for(size_t i = 0; i < listOfSamplesInCircle.size(); i = i + step)
-        {
-            if(!listOfSamplesInCircle[i].point) continue;
-            if(listOfSamplesInCircle[i].point->mag == nullptr) continue;
-            
-            if(listOfSamplesInCircle[i].point->mag->vec.size() != SPECTRUM_SIZE_2) continue;
-            
-            int checkPos = listOfOutputSamples.isInQueue(listOfSamplesInCircle[i].point->samplePath);
-            if(checkPos < 0)
-            {
-                int idx = listOfOutputSamples.findEmptySpot();
-                if(idx >= 0)
-                {
-                        // change here law of distance
-                    listOfOutputSamples.putInQueue(listOfSamplesInCircle[i].point->samplePath,
-                                                   listOfSamplesInCircle[i].point->mag->vec.data(),
-                                                   listOfSamplesInCircle[i].distance * listOfSamplesInCircle[i].distance,
-                                                   idx);
-                    
-                }
-                    // if we are here there is no empty spots...
-                    // we can create a waiting list here
-            }
-                // not in queue
-            
-        }
-    }
-
+	isLoading.store(true, std::memory_order_release);
+	try
+	{
+		if (isDBOpen.load())
+		{
+			if (closeDatabase(this) != SQLITE_OK)
+				sdkRaiseError(ERROR_CLOSE_DATABASE, sqlite3_errmsg(db));
+			else
+				isDBOpen.store(false);
+		}
+		if (!isDBOpen.load())
+		{
+			if (fileExists(fileName))
+			{
+				if (sqlite3_open(fileName.c_str(), &db) != SQLITE_OK)
+				{
+					sdkRaiseError(ERROR_OPEN_DATABASE, sqlite3_errmsg(db));
+					// the connection of a failed open must be freed too
+					closeDatabase(this);
+				}
+				else
+				{
+					sqlite3_progress_handler(db, 10000, progressHandler, this);
+					const std::string openingDbString = std::string("Opening database at : \n") + fileName;
+					sdkProgressBar(openingDbString.c_str(), sdkAlphaColor(1.0f, 1.0f, 1.0f, 1.0f));
+					if (openDB())
+					{
+						isDBOpen.store(true);
+						pushRequest();
+					}
+					else
+					{
+						if (!actionQueue.isStopping())
+							sdkRaiseError(ERROR_LOAD_FAILED);
+						closeDatabase(this);
+					}
+				}
+			}
+			else
+			{
+				sdkRaiseError(ERROR_DATABASE_NOT_FOUND, fileName);
+			}
+		}
+	}
+	catch (const std::exception& e)
+	{
+		sdkRaiseError(ERROR_LOADING, e.what());
+	}
+	isLoading.store(false, std::memory_order_release);
 }
 
+// places the samples on the panel according to the dimensions
+void DatabasePlayer::requestTask()
+{
+	// a dimension changed from now on is requested again
+	requestPending.store(false);
+	try
+	{
+		if (isDBOpen.load())
+		{
+			const std::string firstDimension  = FIRST_DIMENSION_COLUMNS[static_cast<size_t>(firstDimensionItem.load())];
+			const std::string secondDimension = SECOND_DIMENSION_COLUMNS[static_cast<size_t>(secondDimensionItem.load())];
+			if (sendRequestToDB(firstDimension, secondDimension))
+			{
+				sdkRepaintPanel();
+			}
+			else if (!actionQueue.isStopping())
+			{
+				sdkRaiseError(ERROR_REQUEST_FAILED);
+				closeDatabase(this);
+				isDBOpen.store(false);
+			}
+		}
+	}
+	catch (const std::exception& e)
+	{
+		sdkRaiseError(ERROR_REQUEST, e.what());
+	}
+}
 
+// selects the samples inside the cursor circle, or releases every sample when the cursor is up
+void DatabasePlayer::searchTask()
+{
+	// a move from now on is searched again
+	searchPending.store(false);
+	try
+	{
+		if (isCursorOn.load() || mouseInfo.leftBtnDown.load())
+		{
+			findEveryNearestPoint(circleCursor, listOfSamplesInCircle);
+		}
+		else
+		{
+			QueueWriteGuard guard(queueLock);
+			listOfOutputSamples.clearSamplesToRelease();
+			if (listOfOutputSamples.activeSamples > 0)
+				listOfOutputSamples.softClear();
+			listOfOutputSamples.publishText();
+		}
+	}
+	catch (const std::exception& e)
+	{
+		sdkRaiseError(ERROR_SEARCH, e.what());
+	}
+}
 
+bool DatabasePlayer::sendRequestToDB(const std::string firstDimension, const std::string secondDimension)
+{
+	try
+	{
+		std::string query = queryBuilder(firstDimension, secondDimension);
+
+		const float          factorX            = spreadX.load(std::memory_order_relaxed);
+		const float          factorY            = spreadY.load(std::memory_order_relaxed);
+		std::vector<Point2D> pendingRequestData = requestData;
+
+		std::vector<TPointF>     pendingPointsToDraw = pointsToDraw;
+		std::vector<TUsineColor> pendingColorsToDraw = colorsToDraw;
+
+		{
+			Statement stmt(db, query);
+			if (!stmt.isPrepared())
+			{
+				sdkRaiseError(ERROR_PREPARE_REQUEST, std::string(sqlite3_errmsg(db)) + ", query: " + query);
+				return false;
+			}
+
+			int stepResult = SQLITE_ROW;
+			while ((stepResult = sqlite3_step(stmt.get())) == SQLITE_ROW)
+			{
+				float normX = static_cast<float>(sqlite3_column_double(stmt.get(), 0));
+				float normY = static_cast<float>(sqlite3_column_double(stmt.get(), 1));
+				int   id    = sqlite3_column_int(stmt.get(), 2);
+
+				// the samples are sorted by id, which can have gaps (rows deleted from the database)
+				const auto sample = std::lower_bound(pendingRequestData.begin(), pendingRequestData.end(), id, [](const Point2D& point, int value) {
+					return point.uID < value;
+				});
+				const auto index = static_cast<size_t>(sample - pendingRequestData.begin());
+				if (sample != pendingRequestData.end() && sample->uID == id && index < pendingPointsToDraw.size() && index < pendingColorsToDraw.size())
+				{
+					float coordX                    = powf(normX, factorX);
+					float coordY                    = powf(normY, factorY);
+					pendingRequestData[index].dim1  = coordX;
+					pendingRequestData[index].dim2  = 1.0f - coordY;
+					pendingRequestData[index].color = xy_to_rgb_colorwheel_radial(coordX, coordY);
+
+					pendingPointsToDraw[index] = TPointF {.x = coordX, .y = 1.0f - coordY};
+					pendingColorsToDraw[index] = pendingRequestData[index].color;
+				}
+				else
+				{
+					sdkRaiseError(ERROR_INVALID_SAMPLE_ID, std::to_string(id));
+					return false;
+				}
+			}
+			if (stepResult != SQLITE_DONE)
+			{
+				if (!actionQueue.isStopping())
+					sdkRaiseError(ERROR_REQUEST, sqlite3_errmsg(db));
+				return false;
+			}
+		}
+
+		std::vector<Point2D*> ptrVector;
+		ptrVector.reserve(pendingRequestData.size());
+		for (auto& point : pendingRequestData)
+			ptrVector.push_back(&point);
+
+		KDTree pendingTree(2);
+		pendingTree.root = pendingTree.buildTree(ptrVector, 0);
+		if (!pendingTree.root)
+			return false;
+
+		// only moves under the lock, they do not throw
+		sdkCriticalSectionLock(csPaint);
+
+		// the moved vector keeps its buffer: the nodes of the tree still point to the samples
+		requestData  = std::move(pendingRequestData);
+		kdTree.root  = std::move(pendingTree.root);
+		pointsToDraw = std::move(pendingPointsToDraw);
+		colorsToDraw = std::move(pendingColorsToDraw);
+
+		sdkCriticalSectionUnLock(csPaint);
+	}
+	catch (const std::exception& e)
+	{
+		sdkRaiseError(ERROR_REQUEST, e.what());
+		return false;
+	}
+
+	return true;
+}
+
+// each coordinate is the value of its column normalized between its minimum and maximum in the FileResults table:
+// (x - min) / (max - min), or a random value between 0 and 1 for random
+std::string DatabasePlayer::queryBuilder(const std::string& firstDimension, const std::string& secondDimension) const
+{
+	std::string queryFunction = "SELECT\n";
+	std::string normX, normY;
+	std::string subSelectFunc, subSelectNorm, subSelectEnd;
+	bool        needsMinMax = (firstDimension != "random" || secondDimension != "random");
+
+	if (firstDimension == "random")
+	{
+		normX = "(abs(random()) / 9223372036854775807.0) AS norm_x,\n";
+	}
+	else
+	{
+		normX = "(" + firstDimension + " - min_max.min_" + firstDimension + ") / " + "(min_max.max_" + firstDimension + " - min_max.min_" + firstDimension + ") AS norm_x,\n";
+
+		subSelectNorm += "MIN(" + firstDimension + ") AS min_" + firstDimension + ", MAX(" + firstDimension + ") AS max_" + firstDimension;
+	}
+
+	if (secondDimension == "random")
+	{
+		normY = "(abs(random()) / 9223372036854775807.0) AS norm_y,\n";
+	}
+	else
+	{
+		normY = "(" + secondDimension + " - min_max.min_" + secondDimension + ") / " + "(min_max.max_" + secondDimension + " - min_max.min_" + secondDimension + ") AS norm_y,\n";
+
+		if (!subSelectNorm.empty())
+			subSelectNorm += ",\n";
+		subSelectNorm += "MIN(" + secondDimension + ") AS min_" + secondDimension + ", MAX(" + secondDimension + ") AS max_" + secondDimension;
+	}
+
+	if (needsMinMax)
+	{
+		subSelectFunc = "(SELECT\n";
+		subSelectEnd  = "\nFROM FileResults) AS min_max";
+	}
+
+	std::string finalQuery;
+	finalQuery += queryFunction;
+	finalQuery += normX;
+	finalQuery += normY;
+	finalQuery += "id\nFROM FileResults";
+	if (needsMinMax)
+	{
+		finalQuery += ",\n";
+		finalQuery += subSelectFunc;
+		finalQuery += subSelectNorm;
+		finalQuery += subSelectEnd;
+	}
+	finalQuery += ";\n";
+
+	return finalQuery;
+}
+
+void DatabasePlayer::findEveryNearestPoint(const CircleCursor& circleCursor, std::vector<PointDistance2D>& listOfSamplesInCircle)
+{
+	// the tree is empty from the loading of a database to its request
+	listOfSamplesInCircle.clear();
+	kdTree.searchInRange(circleCursor.x.load(), circleCursor.y.load(), circleCursor.radius.load(), listOfSamplesInCircle);
+	// the closest samples first
+	std::sort(listOfSamplesInCircle.begin(), listOfSamplesInCircle.end(), std::greater<>());
+
+	QueueWriteGuard guard(queueLock);
+	listOfOutputSamples.isCoeffNormalized = normalizeCoeffs.load(std::memory_order_relaxed);
+	listOfOutputSamples.clearSamplesToRelease();
+	listOfOutputSamples.compareListsAndUpdate(listOfSamplesInCircle);
+
+	// when the circle holds more samples than the polyphony, they are taken at regular steps
+	int step = static_cast<int>(listOfSamplesInCircle.size()) / listOfOutputSamples.NbPoints;
+	if (step == 0)
+		step = 1;
+	for (size_t i = 0; i < listOfSamplesInCircle.size(); i = i + step)
+	{
+		const Point2D* point = listOfSamplesInCircle[i].point;
+		// the samples whose magnitudes do not match the FFT size are not played
+		if (point == nullptr || point->mag == nullptr || point->mag->vec.size() < static_cast<size_t>(SPECTRUM_SIZE_2))
+			continue;
+
+		if (listOfOutputSamples.isInQueue(point->uID) < 0)
+		{
+			// with no empty slot, the sample is not played
+			int idx = listOfOutputSamples.findEmptySpot();
+			if (idx >= 0)
+			{
+				// without normalization, the gain is the squared closeness to the center of the cursor
+				listOfOutputSamples.putInQueue(point->samplePath, point->uID, point->mag->vec.data(), listOfSamplesInCircle[i].distance * listOfSamplesInCircle[i].distance, idx);
+			}
+		}
+	}
+	listOfOutputSamples.publishText();
+}
 
 bool DatabasePlayer::openDB()
 {
-    int spectrumSize = 0;
-    try {
-        // ------FFT SIZE-------
-        std::string queryFFT =
-        "SELECT "
-        "fftSizeValue "
-        "FROM FileFFTSize ";
-        
-        sqlite3_stmt* stmtFFT = nullptr;
-        
-        if (sqlite3_prepare_v2(db, queryFFT.c_str(), -1, &stmtFFT, nullptr) == SQLITE_OK) {
-            if (sqlite3_step(stmtFFT) == SQLITE_ROW) {
-                spectrumSize = sqlite3_column_int(stmtFFT, 0);
-            } else {
-                sdkTraceErrorChar("No FFT size entry found in FileFFTSize table");
-                sqlite3_finalize(stmtFFT);
-                return false;
-            }
-        } else {
-            sdkTraceErrorChar("Error preparing FFT size query : " + std::string(sqlite3_errmsg(db)));
-            return false;
-        }
-        sqlite3_finalize(stmtFFT);
-        
-        // ------POINTS-------
+	try
+	{
+		// FFT size of the analysis made by Database Creation
+		int spectrumSize = 0;
+		{
+			Statement stmtFFT(db, "SELECT fftSizeValue FROM FileFFTSize ");
+			if (!stmtFFT.isPrepared())
+			{
+				sdkRaiseError(ERROR_READ_FFT_SIZE, sqlite3_errmsg(db));
+				return false;
+			}
+			if (sqlite3_step(stmtFFT.get()) != SQLITE_ROW)
+			{
+				sdkRaiseError(ERROR_NO_FFT_SIZE);
+				return false;
+			}
+			spectrumSize = sqlite3_column_int(stmtFFT.get(), 0);
+		}
+		// the FFT of Usine computes powers of two
+		if (spectrumSize < MIN_SPECTRUM || spectrumSize > MAX_SPECTRUM || (spectrumSize & (spectrumSize - 1)) != 0)
+		{
+			sdkRaiseError(ERROR_INVALID_FFT_SIZE, std::to_string(spectrumSize));
+			return false;
+		}
+		const int bins = spectrumSize / 2;
 
-        int pointCount = 0;
-        sqlite3_stmt* stmtCount = nullptr;
-        if (sqlite3_prepare_v2(db, "SELECT COUNT(*) FROM FileResults", -1, &stmtCount, nullptr) == SQLITE_OK) {
-            if (sqlite3_step(stmtCount) == SQLITE_ROW) {
-                pointCount = sqlite3_column_int(stmtCount, 0);
-            }
-        }
-        sqlite3_finalize(stmtCount);
-        
-        std::vector<std::shared_ptr<const PointMag>> pendingPointMags;
-        std::vector<Point2D> pendingRequestPoints;
-        pendingRequestPoints.reserve(pointCount);
-        
-        std::vector<TPointF> pendingPointsToDraw;
-        pendingPointsToDraw.resize(pointCount);
-        
-        std::vector<TUsineColor> pendingColorsToDraw;
-        pendingColorsToDraw.resize(pointCount);
-        
-        
-        
-        
-        std::string queryPoints = "SELECT id, filePath, mag_mean, tsne_x, tsne_y FROM FileResults ORDER BY id ASC";
-        sqlite3_stmt* stmtPoints = nullptr;
-        
-        if (sqlite3_prepare_v2(db, queryPoints.c_str(), -1, &stmtPoints, nullptr) == SQLITE_OK) {
-            while (sqlite3_step(stmtPoints) == SQLITE_ROW) {
-                int id = sqlite3_column_int(stmtPoints, 0);
-                
-                const unsigned char* filepath_text = sqlite3_column_text(stmtPoints, 1);
-                std::string filePath = filepath_text ? reinterpret_cast<const char*>(filepath_text) : "";
-                
-                const void* magBlob = sqlite3_column_blob(stmtPoints, 2);
-                int magBlobSize = sqlite3_column_bytes(stmtPoints, 2);
-                
-                float normX = static_cast<float>(sqlite3_column_double(stmtPoints, 3));
-                float normY = static_cast<float>(sqlite3_column_double(stmtPoints, 4));
-                
-                if(magBlob && magBlobSize > 0)
-                {
-                    std::vector<float> magData(magBlobSize / sizeof(float));
-                    std::memcpy(magData.data(), magBlob, magBlobSize);
-                    
-                    auto magPtr = std::make_shared<PointMag>(PointMag{std::move(magData),id});
-                    
-                    Point2D point;
-                    point.samplePath = filePath;
-                    point.uID = id;
-                    point.dim1 = normX;
-                    point.dim2 = normY;
-                    point.mag = magPtr;
-                    
-                    pendingPointMags.push_back(magPtr);
-                    pendingRequestPoints.push_back(point);
+		// the samples, with the mean of the magnitudes of their spectrum
+		int pointCount = 0;
+		{
+			Statement stmtCount(db, "SELECT COUNT(*) FROM FileResults");
+			if (stmtCount.isPrepared() && sqlite3_step(stmtCount.get()) == SQLITE_ROW)
+				pointCount = sqlite3_column_int(stmtCount.get(), 0);
+		}
 
-                } else {
-                    sdkTraceErrorChar("Error fetching magnitudes data, please recreate the database");
-                    return false;
-                }
-                
-            }
-        } else {
-            std::cerr << "SQLite error: " << sqlite3_errmsg(db) << "\n";
-            sdkTraceErrorChar("Error preparing points creation query : " + std::string(sqlite3_errmsg(db)));
-            return false;
-        }
-        sqlite3_finalize(stmtPoints);
-                
-        // ------APPLY NEW DB-------
+		std::vector<Point2D> pendingRequestPoints;
+		pendingRequestPoints.reserve(static_cast<size_t>(std::max(pointCount, 0)));
+		int invalidMagnitudes = 0;
+		int nanMagnitudes     = 0;
+		{
+			Statement stmtPoints(db, "SELECT id, filePath, mag_mean, tsne_x, tsne_y FROM FileResults ORDER BY id ASC");
+			if (!stmtPoints.isPrepared())
+			{
+				sdkRaiseError(ERROR_READ_SAMPLES, sqlite3_errmsg(db));
+				return false;
+			}
 
-        sdkCriticalSectionLock(csPaint);
-        
-            rAudioOut.clearAudio();
-            lAudioOut.clearAudio();
-            
-            listOfOutputSamples.hardClear();
-            listOfOutputSamples.clearMags();
-            
-            requestData = std::move(pendingRequestPoints);
-            pointsMags = std::move(pendingPointMags);
-        
-            pointsToDraw = std::move(pendingPointsToDraw);
-            colorsToDraw = std::move(pendingColorsToDraw);
-            numberOfPointsToDraw = pointCount;
-            if(spectrumSize > 0)
-            {
-                SPECTRUM_SIZE = spectrumSize;
-                SPECTRUM_SIZE_2 = SPECTRUM_SIZE / 2;
-                SPECTRUM_SIZE_4 = SPECTRUM_SIZE / 4;
-                SPECTRUM_OVERLAP_SIZE = SPECTRUM_SIZE_4;
-                sdkFFTDestroy(ifftPtr);
-                ifftPtr = sdkFFTCreate(SPECTRUM_SIZE);
-                rTempBuffer.clear();
-                rBuffer.reset();
-                lTempBuffer.clear();
-                lBuffer.reset();
-                rReal.clear();
-                rIm.clear();
-                lReal.clear();
-                lIm.clear();
-                rReal.resize(SPECTRUM_SIZE_2);
-                rIm.resize(SPECTRUM_SIZE_2);
-                lReal.resize(SPECTRUM_SIZE_2);
-                lIm.resize(SPECTRUM_SIZE_2);
-                rTempBuffer.resize(SPECTRUM_SIZE);
-                lTempBuffer.resize(SPECTRUM_SIZE);
-                InitializeHanningWindow(hanning,SPECTRUM_SIZE);
-                ifftCounter = 0;
-                
-            } else {
-                sdkTraceErrorChar("Error in FFT Size, please restart the analysis of the sound folder");
-                sdkCriticalSectionUnLock(csPaint);
-                return false;
-            }
+			int stepResult = SQLITE_ROW;
+			while ((stepResult = sqlite3_step(stmtPoints.get())) == SQLITE_ROW)
+			{
+				int id = sqlite3_column_int(stmtPoints.get(), 0);
 
-        sdkCriticalSectionUnLock(csPaint);
-        
-    } catch (const std::exception& e) {
-        sdkTraceErrorChar(std::string("Error in DatabasePlayer Request FFT size function : ") + std::string(e.what()));
-        return false;
-    }
-    
-    return true;
+				const unsigned char* filepath_text = sqlite3_column_text(stmtPoints.get(), 1);
+				std::string          filePath      = filepath_text ? reinterpret_cast<const char*>(filepath_text) : "";
+
+				const void* magBlob     = sqlite3_column_blob(stmtPoints.get(), 2);
+				int         magBlobSize = sqlite3_column_bytes(stmtPoints.get(), 2);
+
+				float normX = static_cast<float>(sqlite3_column_double(stmtPoints.get(), 3));
+				float normY = static_cast<float>(sqlite3_column_double(stmtPoints.get(), 4));
+
+				Point2D point;
+				point.samplePath = filePath;
+				point.uID        = id;
+				point.dim1       = normX;
+				point.dim2       = normY;
+
+				// mag_mean holds size/2 floats (Database Creation before 2026-04-30) or size/2+1, with the Nyquist
+				// bin; the resynthesis uses the size/2 first ones. Another size comes from another FFT size: not played
+				const int floats = magBlobSize / static_cast<int>(sizeof(float));
+				if (magBlob != nullptr && magBlobSize % static_cast<int>(sizeof(float)) == 0 && (floats == bins || floats == bins + 1))
+				{
+					std::vector<float> magData(static_cast<size_t>(bins));
+					std::memcpy(magData.data(), magBlob, magData.size() * sizeof(float));
+
+					// the magnitudes of a silent file are not numbers: 0 instead
+					bool notNumbers = false;
+					for (float& magnitude : magData)
+					{
+						if (!std::isfinite(magnitude))
+						{
+							magnitude  = 0.0f;
+							notNumbers = true;
+						}
+					}
+					if (notNumbers)
+						nanMagnitudes++;
+
+					point.mag = std::make_shared<PointMag>(PointMag {std::move(magData), id});
+				}
+				else
+				{
+					invalidMagnitudes++;
+				}
+				pendingRequestPoints.push_back(std::move(point));
+			}
+			if (stepResult != SQLITE_DONE)
+			{
+				if (!actionQueue.isStopping())
+					sdkRaiseError(ERROR_READ_SAMPLES, sqlite3_errmsg(db));
+				return false;
+			}
+		}
+
+		const int count = static_cast<int>(pendingRequestPoints.size());
+		if (count == 0)
+		{
+			sdkRaiseError(ERROR_NO_SAMPLES);
+			return false;
+		}
+		if (invalidMagnitudes == count)
+		{
+			sdkRaiseError(ERROR_NO_MAGNITUDES);
+			return false;
+		}
+		if (invalidMagnitudes > 0)
+			sdkRaiseError(WARNING_INVALID_MAGNITUDES, std::to_string(invalidMagnitudes));
+		if (nanMagnitudes > 0)
+			sdkRaiseError(WARNING_NAN_MAGNITUDES, std::to_string(nanMagnitudes));
+
+		// the FFT of the new size, before the previous database is replaced
+		TUsineFFTPtr newFFT = sdkFFTCreate(static_cast<UINT32>(spectrumSize));
+		if (newFFT == nullptr)
+		{
+			sdkRaiseError(ERROR_CREATE_FFT, std::to_string(spectrumSize));
+			return false;
+		}
+		if (ifftPtr != nullptr)
+			sdkFFTDestroy(ifftPtr);
+		ifftPtr = newFFT;
+
+		std::vector<TPointF>     pendingPointsToDraw(static_cast<size_t>(count));
+		std::vector<TUsineColor> pendingColorsToDraw(static_cast<size_t>(count));
+
+		// the new database replaces the previous one: nothing plays the previous samples any more, and the tree is
+		// empty until the request places the new ones
+		{
+			QueueWriteGuard guard(queueLock);
+			listOfOutputSamples.hardClear();
+			listOfOutputSamples.publishText();
+		}
+
+		// only moves under the lock, they do not throw
+		sdkCriticalSectionLock(csPaint);
+		kdTree.root.reset();
+		requestData          = std::move(pendingRequestPoints);
+		pointsToDraw         = std::move(pendingPointsToDraw);
+		colorsToDraw         = std::move(pendingColorsToDraw);
+		numberOfPointsToDraw = count;
+		sdkCriticalSectionUnLock(csPaint);
+
+		// the resynthesis at the FFT size of the database
+		SPECTRUM_SIZE   = spectrumSize;
+		SPECTRUM_SIZE_2 = SPECTRUM_SIZE / 2;
+		SPECTRUM_SIZE_4 = SPECTRUM_SIZE / 4;
+		// the inverse FFT reads size/2+1 real values, the last one (Nyquist) stays at 0
+		rReal.assign(static_cast<size_t>(SPECTRUM_SIZE_2 + 1), 0.0f);
+		rIm.assign(static_cast<size_t>(SPECTRUM_SIZE_2), 0.0f);
+		lReal.assign(static_cast<size_t>(SPECTRUM_SIZE_2 + 1), 0.0f);
+		lIm.assign(static_cast<size_t>(SPECTRUM_SIZE_2), 0.0f);
+		rTempBuffer.assign(static_cast<size_t>(SPECTRUM_SIZE), 0.0f);
+		lTempBuffer.assign(static_cast<size_t>(SPECTRUM_SIZE), 0.0f);
+		spectrumMags.assign(static_cast<size_t>(SPECTRUM_SIZE_2), 0.0f);
+		for (auto& channel : overlapAdd)
+			channel.assign(static_cast<size_t>(SPECTRUM_SIZE), 0.0f);
+		InitializeHanningWindow(hanning, SPECTRUM_SIZE);
+		hopSize.store(SPECTRUM_SIZE_4, std::memory_order_relaxed);
+	}
+	catch (const std::exception& e)
+	{
+		sdkRaiseError(ERROR_LOADING, e.what());
+		return false;
+	}
+
+	return true;
 }
 
+// the state from the current values of the parameters and of the settings, in onInitModule and onAfterLoading:
+// harmless when a callback did the same before
+void DatabasePlayer::readParameters(bool fromLoading)
+{
+	const bool spreadChanged = refreshSettings();
+
+	const int  firstItem         = dimensionItem(firstDimensionLboxIn);
+	const int  secondItem        = dimensionItem(secondDimensionLboxIn);
+	const bool firstChanged      = firstDimensionItem.exchange(firstItem) != firstItem;
+	const bool secondChanged     = secondDimensionItem.exchange(secondItem) != secondItem;
+	const bool dimensionsChanged = firstChanged || secondChanged;
+
+	setPolyphony(polyphonyFdrIn.getData());
+	updateFadeDurations();
+	activeResynth.store(onResynthesisSwIn.getData() != 0.0f, std::memory_order_relaxed);
+	isCursorOn.store(cursorDownSwIn.getData() != 0.0f);
+	if (!mouseInfo.leftBtnDown.load())
+	{
+		circleCursor.x.store(cursorXFdrIn.getData());
+		circleCursor.y.store(cursorYFdrIn.getData());
+	}
+	circleCursor.setRadius(clampRadius(cursorRadiusFdrIn.getData() * 0.01f));
+
+	if (fromLoading)
+	{
+		if (dimensionsChanged || spreadChanged)
+			pushRequest();
+		pushSearch();
+		sdkRepaintPanel();
+	}
+}
+
+// the work thread reads copies of the settings, the host writes the bound values in the main thread;
+// returns true when a spread factor changed
+bool DatabasePlayer::refreshSettings()
+{
+	const float factorX = std::isfinite(spreadFactorX) ? std::clamp(spreadFactorX, 0.1f, 1.0f) : 0.25f;
+	const float factorY = std::isfinite(spreadFactorY) ? std::clamp(spreadFactorY, 0.1f, 1.0f) : 0.25f;
+	const bool  changedX = spreadX.exchange(factorX) != factorX;
+	const bool  changedY = spreadY.exchange(factorY) != factorY;
+	normalizeCoeffs.store(normalizeCoeffsSetting != FALSE, std::memory_order_relaxed);
+	return changedX || changedY;
+}
+
+void DatabasePlayer::setPolyphony(float value)
+{
+	const int polyphony = std::isfinite(value) ? static_cast<int>(std::clamp(value, static_cast<float>(POLYPHONY_MIN), static_cast<float>(POLYPHONY_MAX))) : DEFAULT_POLYPHONY;
+
+	QueueWriteGuard guard(queueLock);
+	listOfOutputSamples.setNbPoints(polyphony);
+	listOfOutputSamples.publishText();
+}
+
+// the fades are counted in blocs: their length follows the bloc duration
+void DatabasePlayer::updateFadeDurations()
+{
+	const double rate         = sampleRate.load(std::memory_order_relaxed);
+	const float  blocDuration = (rate > 0.0 && blocSize > 0) ? (static_cast<float>(blocSize) / static_cast<float>(rate)) * 1000.0f : 0.0f;
+	const float  attack       = std::max(0.0f, attackTimeFdrIn.getData());
+	const float  release      = std::max(0.0f, releaseTimeFdrIn.getData());
+
+	QueueWriteGuard guard(queueLock);
+	listOfOutputSamples.setDurations(attack, release, blocDuration);
+}
 
 void DatabasePlayer::generateLUT()
 {
-    int N = LUT_SIZE;
-    trigoLUT.resize(N);
-    
-    for(int i = 0; i < N; i++)
-    {
-        float theta = 2.0f * static_cast<float>(M_PI) * static_cast<float>(i)/ static_cast<float>(N);
-        trigoLUT[i].cos = std::cosf(theta);
-        trigoLUT[i].sin = std::sinf(theta);
-    }
-    
+	int N = LUT_SIZE;
+	trigoLUT.resize(N);
+
+	for (int i = 0; i < N; i++)
+	{
+		float theta     = 2.0f * std::numbers::pi_v<float> * static_cast<float>(i) / static_cast<float>(N);
+		trigoLUT[i].cos = cosf(theta);
+		trigoLUT[i].sin = sinf(theta);
+	}
 }
 
 void DatabasePlayer::InitializeHanningWindow(std::vector<float>& hanningWindow, int size)
 {
-    hanningWindow.resize(size);
-    for (int i = 0; i < size; ++i)
-    {
-        hanningWindow[i] = 0.5f * (1.0f - std::cosf(2.0f * static_cast<float>(M_PI) * i / (size - 1)));
-        hanningWindow[i] /= size;
-    }
+	hanningWindow.resize(size);
+	for (int i = 0; i < size; ++i)
+	{
+		hanningWindow[i] = 0.5f * (1.0f - cosf(2.0f * std::numbers::pi_v<float> * i / (size - 1)));
+		hanningWindow[i] /= size;
+	}
 }
-
-
-

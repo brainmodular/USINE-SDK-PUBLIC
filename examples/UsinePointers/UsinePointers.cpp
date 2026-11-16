@@ -7,6 +7,7 @@
 // Copyright (C) 2025-2026 BrainModular, BeSpline, Adamson
 // SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
+#include <cstring>
 #include "UsinePointers.h"
 #include "ModuleDefinition.h"
 

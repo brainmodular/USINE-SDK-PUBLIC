@@ -12,9 +12,7 @@
  Proceedings of the IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP). https://www.eecs.qmul.ac.uk/~simond/pub/2014/MauchDixon-PYIN-ICASSP2014.pdf
  */
 
-#ifdef  _WIN32
 #include "../Hfeatures.h"
-#endif // Windows
 
 #ifdef __APPLE__
 #include "Hfeatures.h"
@@ -47,7 +45,9 @@ public:
     
 private:
     // variables
+    // cumulative mean normalized difference, for tau from 0 to buffer_size / 2 - 1
     std::vector<float> m_vYinBuffer;
+    // the centered frame
     std::vector<float> m_vTempBuffer;
 
     std::vector<PitchProbability> m_vPitchProbability;
@@ -62,13 +62,22 @@ private:
     
 
     TUsineFFTPtr m_FftPtr = nullptr;
+    // spectrum of the first half of the frame zero padded, then the cross spectrum
     std::vector<TPrecision> m_Re;
     std::vector<TPrecision> m_Im;
+    // spectrum of the whole frame
+    std::vector<TPrecision> m_Re2;
+    std::vector<TPrecision> m_Im2;
+    // first half of the frame zero padded
+    std::vector<TPrecision> m_vPadded;
+    // cross correlation of the first half of the frame with the frame
+    std::vector<TPrecision> m_vCorr;
+    // size of m_FftPtr and of the buffers
+    int m_iSize = 0;
 
     
     // methods
-    void autocorr(const std::vector<float>& audioInput, const int buffer_size);
-    void difference(std::vector<float>& yinBuffer, std::vector<float>& tempBuffer, const int buffer_size);
+    void difference(const float* audioInput, const int buffer_size);
     void cumulative_mean_normalized_difference(std::vector<float>& yinBuffer);
     int absolute_threshold(std::vector<float>& yinBuffer, const int buffer_size);
     std::vector<PitchProbability> probabilistic_threshold(const std::vector<float>& yinBuffer, int sample_rate);
