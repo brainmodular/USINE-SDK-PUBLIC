@@ -43,8 +43,8 @@ the link fails. The SDK also sets `Name`, `Description` and `Version` before cal
 `onGetModuleInfo`, remove these lines from your `onGetModuleInfo` too.
 
 **3. Check the new global names.** `UserDefinitions.h` now includes `UserError.h`, which declares
-`Level`, `Verbosity`, `Error`, `errorList`, `RegisterError`, `traceType`, `sdkRaiseError`,
-`setVerbosityLevel` and `current_verbosity_level` in the global namespace.
+`UReportLevel`, `UReportVerbosity`, `UReport`, `uReportList`, `registerReport` and `reportWithVerbosity`
+in the global namespace.
 Rename what clashes in your module.
 
 **4. Describe the module in `ModuleDefinition.h`, and create the parameters in `onCreateParameters`.**
@@ -139,15 +139,15 @@ void MyModule::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pModule
   change the copy (`Caption`...) and create it in a loop: see the AudioVolume example.
 - `onGetParamInfo` still works as the legacy system. Use one system or the other in a module.
 
-**5. Report errors with `sdkRaiseError`.** Register each message once in `ModuleDefinition.h`,
+**5. Report errors with `sdkReport`.** Register each message once in `ModuleDefinition.h`,
 then raise it where the problem happens. The user filters the messages with a verbosity level.
 
 ```cpp
 // ModuleDefinition.h
-inline const int ERROR_INVALID_CHUNK = RegisterError(Level::Error, "invalid saved data, it was not restored");
+inline const int ERROR_INVALID_CHUNK USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "invalid saved data, it was not restored");
 
 // MyModule.cpp
-sdkRaiseError(ERROR_INVALID_CHUNK);
+sdkReport(ERROR_INVALID_CHUNK);
 ```
 
 **6. Follow the naming of the examples.** A parameter is named `<name><Type><In|Out>`

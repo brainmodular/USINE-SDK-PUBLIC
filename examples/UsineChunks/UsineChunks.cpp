@@ -67,12 +67,12 @@ void UsineChunks::onCallBack(TUsineMessage* Message)
 	// the chunk notifications come with their own lParam
 	if (Message->lParam == MSG_CHUNK_DESTROYED && Message->wParam == CHUNK_SUB_CBID)
 	{
-		sdkRaiseError(WARNING_CHUNK_DESTROYED, CHUNK_NAME);
+		sdkReport(WARNING_CHUNK_DESTROYED, CHUNK_NAME);
 		return;
 	}
 	if (Message->lParam == MSG_CHUNK_ITEM_LIST_CHANGED && Message->wParam == CHUNK_SUB_CBID)
 	{
-		sdkRaiseError(INFO_CHUNK_ITEMS_CHANGED, CHUNK_NAME);
+		sdkReport(INFO_CHUNK_ITEMS_CHANGED, CHUNK_NAME);
 		return;
 	}
 	if (Message->lParam != MSG_CHANGE)

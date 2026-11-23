@@ -32,7 +32,7 @@ void MultiThreading::processThread1(void* pModule, TThreadPtr pThread)
 {
 	MultiThreading* module = static_cast<MultiThreading*>(pModule);
 	module->sdkCriticalSectionLock(module->criticalSection);
-	sdkRaiseError(INFO_THREAD_1);
+	module->sdkReport(INFO_THREAD_1);   // static function: through the instance
 	module->sdkCriticalSectionUnLock(module->criticalSection);
 }
 ```
@@ -59,7 +59,7 @@ void MultiThreading::processThread1(void* pModule, TThreadPtr pThread)
 ## Related Examples
 
 - [[examples/ring-mod-multithread|RingModMultithread]] — Multi-threaded audio processing
-- [[examples/background-job|BackgroundJob]] — Background task execution
+- [[examples/background-job|BackgroundJob]] — Background job execution
 
 ### SDK Reference
 

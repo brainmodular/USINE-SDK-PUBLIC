@@ -268,7 +268,7 @@ Clamp the channel count to `USINE_AUDIO_CHANNEL_MODULE_MAX`: the event arrays of
 
 ## Background Jobs
 
-For long-running tasks that can't run in `onProcess()`:
+For long-running work that can't run in `onProcess()`, use a background job:
 
 ```mermaid
 sequenceDiagram
@@ -324,7 +324,7 @@ void MyModule::onSetStateChunk(const void* chunk, int sizeInBytes, LongBool Pres
 	// the chunk comes from a file: check its size before reading it
 	if (sizeInBytes < static_cast<int>(sizeof(myData)))
 	{
-		sdkRaiseError(ERROR_INVALID_CHUNK);
+		sdkReport(ERROR_INVALID_CHUNK);
 		return;
 	}
 	std::memcpy(&myData, chunk, sizeof(myData));
@@ -394,15 +394,15 @@ graph LR
 
 ## Errors and Messages
 
-Modules report errors, warnings and infos with `sdkRaiseError`, never with the raw `sdkTrace*` functions. Each message is registered once with `RegisterError` in `ModuleDefinition.h`, the user can filter them with a verbosity level:
+Modules report errors, warnings and infos with `sdkReport`, never with the raw `sdkTrace*` functions. Each message is registered once with `registerReport` in `ModuleDefinition.h`, the user filters them per instance with the `verbosity level` combo box that the SDK adds:
 
 ```cpp
 // ModuleDefinition.h
-inline const int WARNING_MAX_POINTS USINE_MODULE_LOCAL = RegisterError(Level::Warn, "maximum number of points reached");
+inline const int WARNING_MAX_POINTS USINE_MODULE_LOCAL = registerReport(UReportLevel::Warn, "maximum number of points reached");
 
 // MyModule.cpp
 if (trajectory.num == MAXPOINTS)
-	sdkRaiseError(WARNING_MAX_POINTS);
+	sdkReport(WARNING_MAX_POINTS);
 ```
 
 See [[examples/error-handling|ErrorHandling]] and [[sdk/module-conventions|Module Conventions]].

@@ -236,7 +236,7 @@ Parameter types determine how a parameter appears and behaves.
 | `ptDataField` | Numeric data field |
 | `ptDataFader` | Data fader with range |
 | `ptButton` | Push button |
-| `ptListBox` | Dropdown list box |
+| `ptComboBox` | Combo box (drop-down list) |
 | `ptSwitch` | Toggle switch |
 | `ptArray` | Data array |
 | `ptIpAddress` | IP address field |

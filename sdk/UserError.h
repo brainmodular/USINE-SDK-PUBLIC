@@ -4,95 +4,66 @@
 # include "UsineFunctions.h"
 
 
-enum class Level     { Error, Warn, Info };
-enum class Verbosity { None = -1, Error, Warn, Info, All = Info };
+enum class UReportLevel     { Error = 1, Warn, Info };
+enum class UReportVerbosity { None, Error, Warn, All };
 
-struct Error {
-    Level       level;
-    std::string msg;
+struct UReport {
+    UReportLevel       level;
+    std::string        msg;
 };
 
-// Every module has its own error registry and its own verbosity, never shared with the other modules.
+// Every module binary has its own report registry, never shared with the other modules.
 // Everything below is USINE_MODULE_LOCAL: an inline variable or function is a weak definition, and on
 // macOS and Linux the dynamic linker unifies the weak definitions of the whole process (Windows never
-// unifies across DLLs). Without it, the modules loaded together would share one registry and one
-// verbosity, or call the RegisterError and sdkRaiseError of another module, which use its registry.
-// The error constants of a module (inline const int ERROR_X = RegisterError(...)) must be
+// unifies across DLLs). Without it, the modules loaded together would share one registry, or call the
+// registerReport of another module, which uses its registry.
+// The report constants of a module (inline const int ERROR_X = registerReport(...)) must be
 // USINE_MODULE_LOCAL too, so that each one holds an index in the registry of its own module.
-inline Verbosity current_verbosity_level USINE_MODULE_LOCAL = Verbosity::All;
-
-USINE_MODULE_LOCAL inline void setVerbosityLevel(Verbosity v) { current_verbosity_level = v; }
-
+// The registry is shared by every instance of the module. The verbosity is not: each instance
+// has its own "verbosity level" combo box, read by UserModuleBase::sdkReport.
 
 // the registry of the module, a function-local static: initialised on first use, safe across
 // translation units
-USINE_MODULE_LOCAL inline std::vector<Error>& errorList()
+USINE_MODULE_LOCAL inline std::vector<UReport>& uReportList()
 {
-    static std::vector<Error> list;
+    static std::vector<UReport> list;
     return list;
 }
 
-USINE_MODULE_LOCAL inline int RegisterError(Level level, const char* message)
+USINE_MODULE_LOCAL inline int registerReport(UReportLevel level, const char* message)
 {
-    errorList().push_back(Error{level, message});
-    return int(errorList().size()) -1;
+    uReportList().push_back(UReport{level, message});
+    return int(uReportList().size()) -1;
 }
 
-
-USINE_MODULE_LOCAL inline void traceType(const Error& err)
+// Traces a registered report if its level passes the given verbosity. An invalid index is ignored.
+// forceLog also writes a warning or an info in the Usine log file, even when the verbosity hides it.
+// Modules call UserModuleBase::sdkReport, which filters with the verbosity of the instance. Call this one
+// only from code that has no module instance (a global library callback for example), with a verbosity
+// of your own.
+USINE_MODULE_LOCAL inline void reportWithVerbosity(UReportVerbosity verbosity, int index,
+                                                   const std::string& extraMsg = {}, bool forceLog = false)
 {
-    switch (err.level)
-    {
-        case Level::Error:
-            sdkTraceErrorChar(err.msg); break;
-        case Level::Warn:
-            sdkTraceWarningChar(err.msg); break;
-        case Level::Info:
-            sdkTraceChar(err.msg); break;
+    if (index < 0 || index >= static_cast<int>(uReportList().size()))
+        return;
+
+    const UReport& registered = uReportList()[index];
+    const std::string msg = registered.msg + extraMsg;
+
+    if (static_cast<int>(registered.level) <= static_cast<int>(verbosity)) {
+        switch (registered.level) {
+            case UReportLevel::Error:
+                sdkTraceErrorChar(msg);
+                break;
+            case UReportLevel::Warn:
+                sdkTraceWarningChar(msg);
+                break;
+            case UReportLevel::Info:
+                sdkTraceChar(msg);
+                break;
+        }
     }
-}
-
-USINE_MODULE_LOCAL inline void sdkRaiseError(int index, bool force_log = false)
-{
-    if (index < 0 || index >= (int)errorList().size())
-        return;
-
-    const Error& err = errorList()[index];
-
-    if ((int)err.level <= (int)current_verbosity_level)
-        traceType(err);
-
-    if (force_log && err.level != Level::Error)
-        sdkTraceLogChar(err.msg, FALSE);
-}
-
-USINE_MODULE_LOCAL inline void sdkRaiseError(int index, const char *extraMsg, bool force_log = false)
-{
-    if (index < 0 || index >= (int)errorList().size())
-        return;
-
-    Error err = errorList()[index];
-    if (extraMsg != nullptr)  
-        err.msg = err.msg + extraMsg;    
-
-    if ((int)err.level <= (int)current_verbosity_level)
-        traceType(err);
-
-    if (force_log && err.level != Level::Error)
-        sdkTraceLogChar(err.msg, FALSE);
-}
-
-USINE_MODULE_LOCAL inline void sdkRaiseError(int index, const std::string &extraMsg, bool force_log = false)
-{
-    if (index < 0 || index >= (int)errorList().size())
-        return;
-
-    Error err = errorList()[index];
-    err.msg = err.msg + extraMsg; 
-
-    if ((int)err.level <= (int)current_verbosity_level)
-        traceType(err);
-
-    if (force_log && err.level != Level::Error)
-        sdkTraceLogChar(err.msg, FALSE);
+    // forceLog has no effect on errors
+    if (forceLog && registered.level != UReportLevel::Error)
+        sdkTraceLogChar(msg, FALSE);
 }

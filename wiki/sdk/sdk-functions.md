@@ -80,6 +80,8 @@ Shared data arrays accessible across all modules in a workspace.
 
 `errorMsg` is the text Usine reports if the operation fails: the examples give the name of the array.
 
+Give `sdkGlobalArrayGetHash` the name as the global-array module displays it. Usine puts it in upper case, so the case does not matter (since Usine 7.1.261119; before, the name had to be in upper case), but the module keeps only the first 40 characters of its name, then adds its suffix (**name suffix** setting): give that name, suffix included. A longer name, or the name without its suffix, finds no global array. `sdkGlobalArrayGetSize` returns the size as a `TPrecision`; Usine returned an integer until 7.1.261119, which the modules read as garbage.
+
 ### Usage
 ```cpp
 UINT64 hash = sdkGlobalArrayGetHash("my-shared-data");
@@ -291,23 +293,25 @@ sdkFFTDestroy(fft);
 
 ## Errors, Warnings and Infos
 
-Modules report what happens with the error system of `sdk/UserError.h` rather than with the raw trace functions below: each message is registered once, and the user can filter them with a verbosity level.
+Modules report what happens with the report system of `sdk/UserError.h` rather than with the raw trace functions below: each message is registered once, and the user filters them per instance with the `verbosity level` combo box that the SDK adds to the module. The `sdkReport`, `sdkSetVerbosity` and `sdkGetVerbosity` functions are members of `UserModuleBase`: from a static function, call them through the instance (`module->sdkReport(...)`).
 
 | Function | Description |
 |----------|-------------|
-| `RegisterError(Level level, const char* message)` | Registers a message (`Level::Error`, `Level::Warn` or `Level::Info`), returns its index |
-| `sdkRaiseError(int index, bool force_log = false)` | Traces the message, `force_log` also writes a warning or an info in the Usine log file |
-| `sdkRaiseError(int index, const char* extraMsg, bool force_log = false)` | Same, with `extraMsg` appended to the message |
-| `sdkRaiseError(int index, const std::string& extraMsg, bool force_log = false)` | Same, with a `std::string` |
-| `setVerbosityLevel(Verbosity v)` | `Verbosity::None`, `Error`, `Warn`, `Info` or `All`: the messages above this level are not traced |
+| `registerReport(UReportLevel level, const char* message)` | Registers a message (`UReportLevel::Error`, `UReportLevel::Warn` or `UReportLevel::Info`), returns its index |
+| `sdkReport(int index, bool forceLog = false)` | Traces the message if its level passes the verbosity of the instance, `forceLog` also writes a warning or an info in the Usine log file |
+| `sdkReport(int index, const char* extraMsg, bool forceLog = false)` | Same, with `extraMsg` appended to the message |
+| `sdkReport(int index, const std::string& extraMsg, bool forceLog = false)` | Same, with a `std::string` |
+| `sdkSetVerbosity(UReportVerbosity v)` | `UReportVerbosity::None`, `Error`, `Warn` or `All`: the messages above this level are not traced by this instance, its combo box shows the new value |
+| `sdkGetVerbosity()` | The verbosity of the instance, `All` before its combo box is created |
+| `reportWithVerbosity(UReportVerbosity v, int index, const std::string& extraMsg = {}, bool forceLog = false)` | For code that has no module instance: traces the message with the given verbosity |
 
 ```cpp
 // ModuleDefinition.h
-inline const int ERROR_POINTER_NOT_FLOAT USINE_MODULE_LOCAL = RegisterError(Level::Error, "the pointer is not type float");
+inline const int ERROR_POINTER_NOT_FLOAT USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "the pointer is not type float");
 
 // UsinePointers.cpp
 if (ptrIn.getPointerDataType() != usinePtrFloat)
-	sdkRaiseError(ERROR_POINTER_NOT_FLOAT);
+	sdkReport(ERROR_POINTER_NOT_FLOAT);
 ```
 
 > **Example:** See [[examples/error-handling|ErrorHandling]].
@@ -316,7 +320,7 @@ if (ptrIn.getPointerDataType() != usinePtrFloat)
 
 ## Trace & Logging
 
-Low level functions, used by `sdkRaiseError` and by the SDK itself.
+Low level functions, used by `sdkReport` and by the SDK itself.
 
 | Function | Description |
 |----------|-------------|

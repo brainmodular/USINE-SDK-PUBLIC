@@ -15,7 +15,7 @@ USINE-SDK-PRIVATE/
 │   ├── UserDefinitions.h   # Master include file
 │   ├── UserModule.h        # Base class for all modules
 │   ├── UserModule.cpp      # Base class implementation
-│   ├── UserError.h         # Errors, warnings and infos (sdkRaiseError)
+│   ├── UserError.h         # Errors, warnings and infos (sdkReport)
 │   ├── UsineDefinitions.h  # Data types, constants, enums
 │   ├── UsineEventClass.h   # Event data container class
 │   ├── UsineFunctions.h    # SDK utility functions
@@ -188,7 +188,7 @@ void MyModule::computePeriod()
 }
 ```
 
-To report a problem to the user, register a message in `ModuleDefinition.h` and raise it with `sdkRaiseError`, see [[examples/error-handling|ErrorHandling]].
+To report a problem to the user, register a message in `ModuleDefinition.h` and raise it with `sdkReport`, see [[examples/error-handling|ErrorHandling]].
 
 ### 7. Build and Deploy
 

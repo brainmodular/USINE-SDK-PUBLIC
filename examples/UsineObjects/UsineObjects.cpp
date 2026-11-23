@@ -64,37 +64,37 @@ void UsineObjects::onProcess()
 	if (!sdkSlowClock())
 		return;
 
-	sdkRaiseError(INFO_VIDEO_OBJECTS, sdkUsineObjectFind("video"));
-	sdkRaiseError(INFO_OBJECTS_HASH, sdkUsineObjectListHash());
+	sdkReport(INFO_VIDEO_OBJECTS, sdkUsineObjectFind("video"));
+	sdkReport(INFO_OBJECTS_HASH, sdkUsineObjectListHash());
 
 	// a single value
 	sdkUsineObjectSetFloat(PATH_FADER_DATA, randomUnit());
-	sdkRaiseError(INFO_FADER_DATA, std::to_string(sdkUsineObjectGetFloat(PATH_FADER_DATA)));
+	sdkReport(INFO_FADER_DATA, std::to_string(sdkUsineObjectGetFloat(PATH_FADER_DATA)));
 
 	// a data array: write the input of the arraydata module, read its output
 	sdkUsineObjectSetLength(PATH_ARRAY_IN, OBJECT_ARRAY_SIZE);
 	for (int i = 0; i < OBJECT_ARRAY_SIZE; i++)
 	{
 		sdkUsineObjectSetArray(PATH_ARRAY_IN, i, 100.0f * randomUnit());
-		sdkRaiseError(INFO_ARRAY_OUT, indexedValue(i, std::to_string(sdkUsineObjectGetArray(PATH_ARRAY_OUT, i))));
+		sdkReport(INFO_ARRAY_OUT, indexedValue(i, std::to_string(sdkUsineObjectGetArray(PATH_ARRAY_OUT, i))));
 	}
 
 	// a color array
 	sdkUsineObjectSetLength(PATH_COLOR_ARRAY, OBJECT_ARRAY_SIZE);
 	sdkUsineObjectSetInteger(PATH_COLOR_ROWS, OBJECT_ARRAY_SIZE);
-	sdkRaiseError(INFO_COLOR_ARRAY_LENGTH, std::to_string(sdkUsineObjectGetLength(PATH_COLOR_ARRAY)));
+	sdkReport(INFO_COLOR_ARRAY_LENGTH, std::to_string(sdkUsineObjectGetLength(PATH_COLOR_ARRAY)));
 	// random colors, computed in double: in float 0xFFFFFFFF rounds up to 2^32, out of the range of TUsineColor
 	for (int i = 0; i < OBJECT_ARRAY_SIZE; i++)
 	{
 		sdkUsineObjectSetArrayColor(PATH_COLOR_ARRAY, i, static_cast<TUsineColor>(randomUnit() * 4294967295.0));
-		sdkRaiseError(INFO_COLOR_ARRAY, indexedValue(i, std::to_string(sdkUsineObjectGetArrayColor(PATH_COLOR_ARRAY, i))));
+		sdkReport(INFO_COLOR_ARRAY, indexedValue(i, std::to_string(sdkUsineObjectGetArrayColor(PATH_COLOR_ARRAY, i))));
 	}
 
 	// a text
 	if (sdkUsineObjectExists(PATH_COMMA_TEXT))
-		sdkRaiseError(INFO_COMMA_TEXT_EXISTS);
+		sdkReport(INFO_COMMA_TEXT_EXISTS);
 	sdkUsineObjectSetAnsiChar(PATH_COMMA_TEXT, randomString(50).c_str());
-	sdkRaiseError(INFO_COMMA_TEXT, sdkUsineObjectGetAnsiChar(PATH_COMMA_TEXT));
+	sdkReport(INFO_COMMA_TEXT, sdkUsineObjectGetAnsiChar(PATH_COMMA_TEXT));
 
 	// a trigger
 	sdkUsineObjectSetTrigger(PATH_TRIGGER);

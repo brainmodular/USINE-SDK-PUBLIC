@@ -138,7 +138,7 @@ classDiagram
         +TPrecision MinValue / MaxValue
         +TPrecision DefaultValue
         +AnsiCharPtr Symbol / Format
-        +AnsiCharPtr ListBoxStrings
+        +AnsiCharPtr ComboBoxStrings
         +LongBool ReadOnly
         +TFastCallBackType CallBackType
         +NativeInt CallBackId
@@ -171,7 +171,7 @@ classDiagram
         ptAudio · ptMidi
         ptGainFader · ptColor
         ptButton · ptSwitch
-        ptListBox · ptArray
+        ptComboBox · ptArray
         ptText · ptPointer
         ptRightLed · ptLeftLed
         ptTriggerLed
@@ -437,7 +437,7 @@ classDiagram
 | `UserModule.cpp` | `UserModuleBase` implementation, DLL export bridge functions, `GetBrowserInfo` |
 | `UsineEventClass.h` | `UsineEventClass` wrapper class, `sdkCreateParam` |
 | `UsineFunctions.h` | Inline SDK utility functions (wrappers around `TMasterInfo` pointers) |
-| `UserError.h` | `RegisterError`, `sdkRaiseError` and the verbosity level |
+| `UserError.h` | `registerReport` and `reportWithVerbosity` (`sdkReport` and the verbosity are `UserModuleBase` members) |
 | `UsineChunks.h` | `UsineChunk`, typed reader of a Usine chunk (not included by `UserDefinitions.h`) |
 | `UserUtils.h` | Color conversion, geometry, numeric helper functions |
 

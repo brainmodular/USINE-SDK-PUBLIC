@@ -57,7 +57,7 @@ void GlobalArray::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pMod
 void GlobalArray::onProcess()
 {
 	if (sdkSlowClock())
-		sdkRaiseError(INFO_GA_NAMES, sdkGlobalArrayGetAllNames());
+		sdkReport(INFO_GA_NAMES, sdkGlobalArrayGetAllNames());
 
 	if (!sdkRefreshSpeedClock())
 		return;
@@ -69,7 +69,7 @@ void GlobalArray::onProcess()
 		for (int i = 0; i < GA_SIZE; i++)
 			sdkGlobalArraySetValueFloat(hash, i, randomUnit(), GA_FLOAT);
 
-		sdkRaiseError(INFO_GA_FLOAT, std::to_string(sdkGlobalArrayGetValueFloat(hash, 0, GA_FLOAT)));
+		sdkReport(INFO_GA_FLOAT, std::to_string(sdkGlobalArrayGetValueFloat(hash, 0, GA_FLOAT)));
 	}
 
 	hash = sdkGlobalArrayGetHash(GA_COLOR);
@@ -79,7 +79,7 @@ void GlobalArray::onProcess()
 		for (int i = 0; i < GA_SIZE; i++)
 			sdkGlobalArraySetValueColor(hash, i, static_cast<TUsineColor>(randomUnit() * 4294967295.0), GA_COLOR);
 
-		sdkRaiseError(INFO_GA_COLOR, std::to_string(sdkGlobalArrayGetValueColor(hash, 0, GA_COLOR)));
+		sdkReport(INFO_GA_COLOR, std::to_string(sdkGlobalArrayGetValueColor(hash, 0, GA_COLOR)));
 	}
 
 	hash = sdkGlobalArrayGetHash(GA_STRING);
@@ -88,7 +88,7 @@ void GlobalArray::onProcess()
 		for (int i = 0; i < GA_SIZE; i++)
 			sdkGlobalArraySetValueAnsiChar(hash, i, randomString(5).c_str(), GA_STRING);
 
-		sdkRaiseError(INFO_GA_STRING, sdkGlobalArrayGetValueAnsiChar(hash, 0, GA_STRING));
+		sdkReport(INFO_GA_STRING, sdkGlobalArrayGetValueAnsiChar(hash, 0, GA_STRING));
 	}
 
 	hash = sdkGlobalArrayGetHash(GA_EVENT);

@@ -129,11 +129,11 @@ void DatabaseCreation::onCallBack(TUsineMessage* Message)
 			// the folders are checked again by [start analysis]: no callback is sent for a default value
 			case SOUNDS_DIR_CBID:
 				if (!fsx::is_directory(soundsDirIn.getPChar()))
-					sdkRaiseError(ERROR_INVALID_SOUNDS_FOLDER, soundsDirIn.getPChar());
+					sdkReport(ERROR_INVALID_SOUNDS_FOLDER, soundsDirIn.getPChar());
 				break;
 			case DATABASE_DIR_CBID:
 				if (!fsx::is_directory(databaseDirIn.getPChar()))
-					sdkRaiseError(ERROR_INVALID_DATABASE_FOLDER, databaseDirIn.getPChar());
+					sdkReport(ERROR_INVALID_DATABASE_FOLDER, databaseDirIn.getPChar());
 				break;
 			case START_ANALYSIS_BTN_CBID:
 				startAnalysis();
@@ -155,25 +155,25 @@ void DatabaseCreation::startAnalysis()
 {
 	if (isProcessing.load(std::memory_order_acquire))
 	{
-		sdkRaiseError(ERROR_ALREADY_PROCESSING);
+		sdkReport(ERROR_ALREADY_PROCESSING);
 		return;
 	}
 	const std::string soundsDir = soundsDirIn.getPChar();
 	if (!fsx::is_directory(soundsDir))
 	{
-		sdkRaiseError(ERROR_INVALID_SOUNDS_FOLDER, soundsDir);
+		sdkReport(ERROR_INVALID_SOUNDS_FOLDER, soundsDir);
 		return;
 	}
 	const std::string databaseDir = databaseDirIn.getPChar();
 	if (!fsx::is_directory(databaseDir))
 	{
-		sdkRaiseError(ERROR_INVALID_DATABASE_FOLDER, databaseDir);
+		sdkReport(ERROR_INVALID_DATABASE_FOLDER, databaseDir);
 		return;
 	}
 	const std::string databaseName = databaseNameTxtIn.getPChar();
 	if (databaseName.empty())
 	{
-		sdkRaiseError(ERROR_NO_DATABASE_NAME);
+		sdkReport(ERROR_NO_DATABASE_NAME);
 		return;
 	}
 	// the analysis thread only reads this copy: the parameters can change during the analysis
@@ -196,7 +196,7 @@ void DatabaseCreation::processThread(void* pModule, TThreadPtr pThread)
 	{
 		// stopped, or module destroyed, since [start analysis]: the previous database is kept
 		if (module->needToStopAnalysis.load(std::memory_order_acquire))
-			sdkRaiseError(INFO_ANALYSIS_STOPPED);
+			module->sdkReport(INFO_ANALYSIS_STOPPED);
 		else
 			module->AudioFilesAnalysis();
 	}
@@ -239,8 +239,8 @@ void DatabaseCreation::progressBarThread(void* pModule, TThreadPtr pThread)
 			if (startedTsne && step != lastStep)
 			{
 				if (lastStep < 0)
-					sdkRaiseError(INFO_TSNE_STARTED);
-				sdkRaiseError(INFO_TSNE_STEP, std::to_string(step) + " / " + std::to_string(TSNE_MAX_ITERATIONS));
+					module->sdkReport(INFO_TSNE_STARTED);
+				module->sdkReport(INFO_TSNE_STEP, std::to_string(step) + " / " + std::to_string(TSNE_MAX_ITERATIONS));
 				lastStep = step;
 			}
 
@@ -287,10 +287,10 @@ std::vector<std::string> DatabaseCreation::GetAudioPaths(const std::string& dirP
 	}
 	catch (const std::exception& e)
 	{
-		sdkRaiseError(ERROR_SCAN_FOLDER, dirPath + " - " + e.what());
+		sdkReport(ERROR_SCAN_FOLDER, dirPath + " - " + e.what());
 	}
 	if (unrepresentableNames > 0)
-		sdkRaiseError(ERROR_UNREPRESENTABLE_NAMES, std::to_string(unrepresentableNames));
+		sdkReport(ERROR_UNREPRESENTABLE_NAMES, std::to_string(unrepresentableNames));
 
 	for (const std::string& path : allFiles)
 	{
@@ -312,7 +312,7 @@ std::vector<std::string> DatabaseCreation::GetAudioPaths(const std::string& dirP
 			}
 			catch (const std::exception& e)
 			{
-				sdkRaiseError(ERROR_LIST_FILE, path + " - " + e.what());
+				sdkReport(ERROR_LIST_FILE, path + " - " + e.what());
 			}
 		}
 	}
@@ -327,13 +327,13 @@ void DatabaseCreation::AudioFilesAnalysis()
 	if (needToStopAnalysis.load(std::memory_order_acquire))
 	{
 		sdkProgressBar("Analysis stopped", white);
-		sdkRaiseError(INFO_ANALYSIS_STOPPED);
+		sdkReport(INFO_ANALYSIS_STOPPED);
 		return;
 	}
 	// nothing to analyze: the previous database is kept
 	if (audioPaths.empty())
 	{
-		sdkRaiseError(ERROR_INVALID_SOUNDS_FOLDER, analysisSoundsDir);
+		sdkReport(ERROR_INVALID_SOUNDS_FOLDER, analysisSoundsDir);
 		return;
 	}
 
@@ -354,15 +354,15 @@ void DatabaseCreation::AudioFilesAnalysis()
 	{
 		if (!fsx::remove(dbPathName))
 		{
-			sdkRaiseError(ERROR_DELETE_DATABASE, dbPathName);
+			sdkReport(ERROR_DELETE_DATABASE, dbPathName);
 			return;
 		}
-		sdkRaiseError(INFO_DATABASE_DELETED, dbPathName);
+		sdkReport(INFO_DATABASE_DELETED, dbPathName);
 	}
 
 	if (sqlite3_open(fsx::to_utf8(dbPathName).c_str(), &db) != SQLITE_OK)
 	{
-		sdkRaiseError(ERROR_CREATE_DATABASE, dbPathName + ": " + sqlite3_errmsg(db));
+		sdkReport(ERROR_CREATE_DATABASE, dbPathName + ": " + sqlite3_errmsg(db));
 		// the connection is allocated even when the opening fails
 		sqlite3_close(db);
 		db = nullptr;
@@ -438,7 +438,7 @@ void DatabaseCreation::AudioFilesAnalysis()
 	// load tables in the database
 	if (sqlite3_exec(db, createTablesSQL, nullptr, nullptr, nullptr) != SQLITE_OK)
 	{
-		sdkRaiseError(ERROR_CREATE_TABLE, sqlite3_errmsg(db));
+		sdkReport(ERROR_CREATE_TABLE, sqlite3_errmsg(db));
 		sqlite3_close(db);
 		db = nullptr;
 		return;
@@ -453,7 +453,7 @@ void DatabaseCreation::AudioFilesAnalysis()
 
 	if (sqlite3_exec(db, fftSizeTableSQL, nullptr, nullptr, nullptr) != SQLITE_OK)
 	{
-		sdkRaiseError(ERROR_CREATE_TABLE, sqlite3_errmsg(db));
+		sdkReport(ERROR_CREATE_TABLE, sqlite3_errmsg(db));
 		sqlite3_close(db);
 		db = nullptr;
 		return;
@@ -468,7 +468,7 @@ void DatabaseCreation::AudioFilesAnalysis()
 	sqlite3_stmt* stmtFFT = nullptr;
 	if (sqlite3_prepare_v2(db, insertFFTSizeSQL, -1, &stmtFFT, nullptr) != SQLITE_OK)
 	{
-		sdkRaiseError(ERROR_PREPARE_INSERT, sqlite3_errmsg(db));
+		sdkReport(ERROR_PREPARE_INSERT, sqlite3_errmsg(db));
 		sqlite3_close(db);
 		db = nullptr;
 		return;
@@ -476,7 +476,7 @@ void DatabaseCreation::AudioFilesAnalysis()
 	sqlite3_bind_int(stmtFFT, 1, fileFftSize);
 	if (sqlite3_step(stmtFFT) != SQLITE_DONE)
 	{
-		sdkRaiseError(ERROR_INSERT_FFT_SIZE, sqlite3_errmsg(db));
+		sdkReport(ERROR_INSERT_FFT_SIZE, sqlite3_errmsg(db));
 		sqlite3_finalize(stmtFFT);
 		sqlite3_close(db);
 		db = nullptr;
@@ -491,7 +491,7 @@ void DatabaseCreation::AudioFilesAnalysis()
 	{
 		if (sqlite3_get_autocommit(db) == 0 && sqlite3_exec(db, "COMMIT;", nullptr, nullptr, nullptr) != SQLITE_OK)
 		{
-			sdkRaiseError(ERROR_COMMIT_TRANSACTION, sqlite3_errmsg(db));
+			sdkReport(ERROR_COMMIT_TRANSACTION, sqlite3_errmsg(db));
 			sqlite3_exec(db, "ROLLBACK;", nullptr, nullptr, nullptr);
 		}
 		sqlite3_close(db);
@@ -499,7 +499,7 @@ void DatabaseCreation::AudioFilesAnalysis()
 	};
 	if (sqlite3_exec(db, "BEGIN TRANSACTION;", nullptr, nullptr, nullptr) != SQLITE_OK)
 	{
-		sdkRaiseError(ERROR_BEGIN_TRANSACTION, sqlite3_errmsg(db));
+		sdkReport(ERROR_BEGIN_TRANSACTION, sqlite3_errmsg(db));
 		sqlite3_close(db);
 		db = nullptr;
 		return;
@@ -512,7 +512,7 @@ void DatabaseCreation::AudioFilesAnalysis()
 		if (needToStopAnalysis.load(std::memory_order_acquire))
 		{
 			sdkProgressBar("Analysis stopped", white);
-			sdkRaiseError(INFO_ANALYSIS_STOPPED);
+			sdkReport(INFO_ANALYSIS_STOPPED);
 			commitAndClose();
 			return;
 		}
@@ -529,7 +529,7 @@ void DatabaseCreation::AudioFilesAnalysis()
 
 		std::ostringstream fileInfo;
 		fileInfo << "[" << fileNumber << "] " << fileName << ", duration: " << lengthInSec << " s";
-		sdkRaiseError(INFO_FILE_LOADED, fileInfo.str());
+		sdkReport(INFO_FILE_LOADED, fileInfo.str());
 
 		std::ostringstream ossFileName;
 		ossFileName << "[" << fileNumber << "] : " << fileName << "\n";
@@ -541,7 +541,7 @@ void DatabaseCreation::AudioFilesAnalysis()
 		if (fileLength == 0 || numChannels == 0 || !(fileSampleRate > 0.0f))
 		{
 			sdkDestroyAudioFile(audioFilePtr);
-			sdkRaiseError(ERROR_EMPTY_FILE, fileName);
+			sdkReport(ERROR_EMPTY_FILE, fileName);
 			continue;
 		}
 
@@ -549,7 +549,7 @@ void DatabaseCreation::AudioFilesAnalysis()
 		if (durationMs > analysisMaxDurationMs)
 		{
 			sdkDestroyAudioFile(audioFilePtr);
-			sdkRaiseError(ERROR_FILE_TOO_LONG, fileName);
+			sdkReport(ERROR_FILE_TOO_LONG, fileName);
 			continue;
 		}
 
@@ -573,7 +573,7 @@ void DatabaseCreation::AudioFilesAnalysis()
 			const TPrecision* audioData = sdkGetSampleArrayAudioFile(audioFilePtr, channel + 1);
 			if (audioData == nullptr)
 			{
-				sdkRaiseError(ERROR_NO_SAMPLES, fileName);
+				sdkReport(ERROR_NO_SAMPLES, fileName);
 				sdkDestroyAudioFile(audioFilePtr);
 				continue;
 			}
@@ -640,7 +640,7 @@ void DatabaseCreation::AudioFilesAnalysis()
 
 			if (!insertFileResultsInDB(db, fileResults))
 			{
-				sdkRaiseError(ERROR_STORE_FILE, fileName);
+				sdkReport(ERROR_STORE_FILE, fileName);
 				commitAndClose();
 				sdkDestroyAudioFile(audioFilePtr);
 				return;
@@ -652,7 +652,7 @@ void DatabaseCreation::AudioFilesAnalysis()
 			if (needToStopAnalysis.load(std::memory_order_acquire))
 			{
 				sdkProgressBar("Analysis stopped", white);
-				sdkRaiseError(INFO_ANALYSIS_STOPPED);
+				sdkReport(INFO_ANALYSIS_STOPPED);
 				commitAndClose();
 				return;
 			}
@@ -662,7 +662,7 @@ void DatabaseCreation::AudioFilesAnalysis()
 				filesInTransaction = 0;
 				if (sqlite3_exec(db, "COMMIT;", nullptr, nullptr, nullptr) != SQLITE_OK || sqlite3_exec(db, "BEGIN TRANSACTION;", nullptr, nullptr, nullptr) != SQLITE_OK)
 				{
-					sdkRaiseError(ERROR_COMMIT_TRANSACTION, sqlite3_errmsg(db));
+					sdkReport(ERROR_COMMIT_TRANSACTION, sqlite3_errmsg(db));
 					commitAndClose();
 					return;
 				}
@@ -672,7 +672,7 @@ void DatabaseCreation::AudioFilesAnalysis()
 
 	if (sqlite3_exec(db, "COMMIT;", nullptr, nullptr, nullptr) != SQLITE_OK)
 	{
-		sdkRaiseError(ERROR_COMMIT_TRANSACTION, sqlite3_errmsg(db));
+		sdkReport(ERROR_COMMIT_TRANSACTION, sqlite3_errmsg(db));
 		sqlite3_exec(db, "ROLLBACK;", nullptr, nullptr, nullptr);
 		sqlite3_close(db);
 		db = nullptr;
@@ -688,7 +688,7 @@ void DatabaseCreation::AudioFilesAnalysis()
         )SQL";
 	if (sqlite3_exec(db, statTableSQL, nullptr, nullptr, nullptr) != SQLITE_OK)
 	{
-		sdkRaiseError(ERROR_CREATE_TABLE, sqlite3_errmsg(db));
+		sdkReport(ERROR_CREATE_TABLE, sqlite3_errmsg(db));
 		sqlite3_close(db);
 		db = nullptr;
 		return;
@@ -706,7 +706,7 @@ void DatabaseCreation::AudioFilesAnalysis()
 	// total mean and standard deviation of each feature, for the Z-score normalization
 	if (!computeAndStoreFeatureStats(db, featuresListForTSNE))
 	{
-		sdkRaiseError(ERROR_FEATURE_STATS, sqlite3_errmsg(db));
+		sdkReport(ERROR_FEATURE_STATS, sqlite3_errmsg(db));
 		sqlite3_close(db);
 		db = nullptr;
 		return;
@@ -729,13 +729,13 @@ void DatabaseCreation::AudioFilesAnalysis()
 
 	if (sqlite3_close(db) != SQLITE_OK)
 	{
-		sdkRaiseError(ERROR_CLOSE_DATABASE);
+		sdkReport(ERROR_CLOSE_DATABASE);
 		return;
 	}
 	// closed: the destructor must not close it again
 	db = nullptr;
 
-	sdkRaiseError(INFO_ANALYSIS_COMPLETED, std::to_string(fileNumber) + " files in " + std::to_string(duration) + " s");
+	sdkReport(INFO_ANALYSIS_COMPLETED, std::to_string(fileNumber) + " files in " + std::to_string(duration) + " s");
 
 	sdkProgressBar(std::string("Database successfully saved at :\n" + dbPathName).c_str(), white, 100);
 }
@@ -963,7 +963,7 @@ bool DatabaseCreation::insertFileResultsInDB(sqlite3* db, const FileResults& res
 
 	if (sqlite3_prepare_v2(db, insertSQL, -1, &stmt, nullptr) != SQLITE_OK)
 	{
-		sdkRaiseError(ERROR_PREPARE_INSERT, sqlite3_errmsg(db));
+		sdkReport(ERROR_PREPARE_INSERT, sqlite3_errmsg(db));
 		return false;
 	}
 
@@ -1001,7 +1001,7 @@ bool DatabaseCreation::insertFileResultsInDB(sqlite3* db, const FileResults& res
 
 	if (sqlite3_step(stmt) != SQLITE_DONE)
 	{
-		sdkRaiseError(ERROR_INSERT_FILE, sqlite3_errmsg(db));
+		sdkReport(ERROR_INSERT_FILE, sqlite3_errmsg(db));
 		sqlite3_finalize(stmt);
 		return false;
 	}
@@ -1016,7 +1016,7 @@ bool DatabaseCreation::computeAndStoreFeatureStats(sqlite3* db, const std::vecto
 
 	if (sqlite3_exec(db, "BEGIN TRANSACTION;", nullptr, nullptr, nullptr) != SQLITE_OK)
 	{
-		sdkRaiseError(ERROR_BEGIN_TRANSACTION, sqlite3_errmsg(db));
+		sdkReport(ERROR_BEGIN_TRANSACTION, sqlite3_errmsg(db));
 		return false;
 	}
 
@@ -1029,7 +1029,7 @@ bool DatabaseCreation::computeAndStoreFeatureStats(sqlite3* db, const std::vecto
 
 		if (sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr) != SQLITE_OK)
 		{
-			sdkRaiseError(ERROR_PREPARE_FEATURE_QUERY, feature + ": " + sqlite3_errmsg(db));
+			sdkReport(ERROR_PREPARE_FEATURE_QUERY, feature + ": " + sqlite3_errmsg(db));
 			success = false;
 			break;
 		}
@@ -1041,7 +1041,7 @@ bool DatabaseCreation::computeAndStoreFeatureStats(sqlite3* db, const std::vecto
 		if (rc != SQLITE_DONE)
 		{
 			// the statistics of a feature can not be computed from a part of its values
-			sdkRaiseError(ERROR_READ_DATABASE, feature + ": " + sqlite3_errmsg(db));
+			sdkReport(ERROR_READ_DATABASE, feature + ": " + sqlite3_errmsg(db));
 			sqlite3_finalize(stmt);
 			success = false;
 			break;
@@ -1065,7 +1065,7 @@ bool DatabaseCreation::computeAndStoreFeatureStats(sqlite3* db, const std::vecto
 
 		if (sqlite3_prepare_v2(db, insertSQL, -1, &stmt, nullptr) != SQLITE_OK)
 		{
-			sdkRaiseError(ERROR_PREPARE_STATS_INSERT, sqlite3_errmsg(db));
+			sdkReport(ERROR_PREPARE_STATS_INSERT, sqlite3_errmsg(db));
 			success = false;
 			break;
 		}
@@ -1076,7 +1076,7 @@ bool DatabaseCreation::computeAndStoreFeatureStats(sqlite3* db, const std::vecto
 
 		if (sqlite3_step(stmt) != SQLITE_DONE)
 		{
-			sdkRaiseError(ERROR_INSERT_FEATURE_STATS, feature + ": " + sqlite3_errmsg(db));
+			sdkReport(ERROR_INSERT_FEATURE_STATS, feature + ": " + sqlite3_errmsg(db));
 			success = false;
 			sqlite3_finalize(stmt);
 			break;
@@ -1089,7 +1089,7 @@ bool DatabaseCreation::computeAndStoreFeatureStats(sqlite3* db, const std::vecto
 	{
 		if (sqlite3_exec(db, "END TRANSACTION;", nullptr, nullptr, nullptr) != SQLITE_OK)
 		{
-			sdkRaiseError(ERROR_COMMIT_TRANSACTION, sqlite3_errmsg(db));
+			sdkReport(ERROR_COMMIT_TRANSACTION, sqlite3_errmsg(db));
 			return false;
 		}
 	}
@@ -1114,7 +1114,7 @@ bool DatabaseCreation::requestForTSNE()
 	sqlite3_stmt* stmt = nullptr;
 	if (sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr) != SQLITE_OK)
 	{
-		sdkRaiseError(ERROR_PREPARE_TSNE_QUERY, sqlite3_errmsg(db));
+		sdkReport(ERROR_PREPARE_TSNE_QUERY, sqlite3_errmsg(db));
 		return false;
 	}
 
@@ -1132,7 +1132,7 @@ bool DatabaseCreation::requestForTSNE()
 	}
 	if (rc != SQLITE_DONE)
 	{
-		sdkRaiseError(ERROR_READ_DATABASE, sqlite3_errmsg(db));
+		sdkReport(ERROR_READ_DATABASE, sqlite3_errmsg(db));
 		sqlite3_finalize(stmt);
 		return false;
 	}
@@ -1142,16 +1142,16 @@ bool DatabaseCreation::requestForTSNE()
 	const int numFiles = static_cast<int>(ids.size());
 	if (numFiles == 0 || flatDataset.size() != static_cast<size_t>(numFiles) * static_cast<size_t>(numDims))
 	{
-		sdkRaiseError(ERROR_TSNE_DIMENSIONS, std::to_string(flatDataset.size()) + " values for " + std::to_string(numFiles) + " files and " + std::to_string(numDims) + " dimensions");
+		sdkReport(ERROR_TSNE_DIMENSIONS, std::to_string(flatDataset.size()) + " values for " + std::to_string(numFiles) + " files and " + std::to_string(numDims) + " dimensions");
 		return false;
 	}
 
 	if (!processTSNE(flatDataset.data(), ids, numDims))
 	{
 		if (needToStopAnalysis.load(std::memory_order_acquire))
-			sdkRaiseError(INFO_TSNE_STOPPED);
+			sdkReport(INFO_TSNE_STOPPED);
 		else
-			sdkRaiseError(ERROR_TSNE);
+			sdkReport(ERROR_TSNE);
 		return false;
 	}
 
@@ -1194,12 +1194,12 @@ bool DatabaseCreation::processTSNE(double* dataset, const std::vector<int>& ids,
 	if (NFiles < TSNE_MIN_FILES)
 	{
 		// the perplexity (NFiles - 1) / 3 would be 0: the files are placed on the diagonal, in their order
-		sdkRaiseError(INFO_TSNE_TOO_FEW_FILES, std::to_string(NFiles));
+		sdkReport(INFO_TSNE_TOO_FEW_FILES, std::to_string(NFiles));
 		for (int i = 0; i < NFiles; ++i)
 			results[2 * i] = results[2 * i + 1] = (NFiles == 1) ? 0.5 : static_cast<double>(i) / (NFiles - 1);
 		if (!storeTSNEinDB(results, ids))
 		{
-			sdkRaiseError(ERROR_STORE_TSNE);
+			sdkReport(ERROR_STORE_TSNE);
 			return false;
 		}
 		return true;
@@ -1252,7 +1252,7 @@ bool DatabaseCreation::processTSNE(double* dataset, const std::vector<int>& ids,
 
 	if (!storeTSNEinDB(results, ids))
 	{
-		sdkRaiseError(ERROR_STORE_TSNE);
+		sdkReport(ERROR_STORE_TSNE);
 		return false;
 	}
 	return true;
@@ -1263,13 +1263,13 @@ bool DatabaseCreation::storeTSNEinDB(const std::vector<double>& TSNEresults, con
 	const int numFiles = static_cast<int>(ids.size());
 	if (TSNEresults.size() != static_cast<size_t>(numFiles) * 2)
 	{
-		sdkRaiseError(ERROR_TSNE_SIZE);
+		sdkReport(ERROR_TSNE_SIZE);
 		return false;
 	}
 
 	if (sqlite3_exec(db, "BEGIN TRANSACTION;", nullptr, nullptr, nullptr) != SQLITE_OK)
 	{
-		sdkRaiseError(ERROR_BEGIN_TRANSACTION, sqlite3_errmsg(db));
+		sdkReport(ERROR_BEGIN_TRANSACTION, sqlite3_errmsg(db));
 		return false;
 	}
 
@@ -1278,7 +1278,7 @@ bool DatabaseCreation::storeTSNEinDB(const std::vector<double>& TSNEresults, con
 	sqlite3_stmt* stmt = nullptr;
 	if (sqlite3_prepare_v2(db, updateSQL, -1, &stmt, nullptr) != SQLITE_OK)
 	{
-		sdkRaiseError(ERROR_PREPARE_TSNE_UPDATE, sqlite3_errmsg(db));
+		sdkReport(ERROR_PREPARE_TSNE_UPDATE, sqlite3_errmsg(db));
 		sqlite3_exec(db, "ROLLBACK;", nullptr, nullptr, nullptr);
 		return false;
 	}
@@ -1291,7 +1291,7 @@ bool DatabaseCreation::storeTSNEinDB(const std::vector<double>& TSNEresults, con
 
 		if (sqlite3_step(stmt) != SQLITE_DONE)
 		{
-			sdkRaiseError(ERROR_UPDATE_TSNE, "id " + std::to_string(ids[i]) + ": " + sqlite3_errmsg(db));
+			sdkReport(ERROR_UPDATE_TSNE, "id " + std::to_string(ids[i]) + ": " + sqlite3_errmsg(db));
 			sqlite3_finalize(stmt);
 			sqlite3_exec(db, "ROLLBACK;", nullptr, nullptr, nullptr);
 			return false;
@@ -1303,7 +1303,7 @@ bool DatabaseCreation::storeTSNEinDB(const std::vector<double>& TSNEresults, con
 
 	if (sqlite3_exec(db, "END TRANSACTION;", nullptr, nullptr, nullptr) != SQLITE_OK)
 	{
-		sdkRaiseError(ERROR_COMMIT_TRANSACTION, sqlite3_errmsg(db));
+		sdkReport(ERROR_COMMIT_TRANSACTION, sqlite3_errmsg(db));
 		return false;
 	}
 

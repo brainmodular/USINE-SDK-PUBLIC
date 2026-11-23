@@ -31,52 +31,52 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
 
 // parameters
-inline const int ERROR_INVALID_SOUNDS_FOLDER   USINE_MODULE_LOCAL = RegisterError(Level::Error, "invalid sounds folder, it must exist and hold .wav, .aif or .aiff files: ");
-inline const int ERROR_INVALID_DATABASE_FOLDER USINE_MODULE_LOCAL = RegisterError(Level::Error, "invalid database folder: ");
-inline const int ERROR_NO_DATABASE_NAME        USINE_MODULE_LOCAL = RegisterError(Level::Error, "empty database name, the analysis is not started");
-inline const int ERROR_ALREADY_PROCESSING      USINE_MODULE_LOCAL = RegisterError(Level::Error, "an analysis is already running");
+inline const int ERROR_INVALID_SOUNDS_FOLDER   USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "invalid sounds folder, it must exist and hold .wav, .aif or .aiff files: ");
+inline const int ERROR_INVALID_DATABASE_FOLDER USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "invalid database folder: ");
+inline const int ERROR_NO_DATABASE_NAME        USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "empty database name, the analysis is not started");
+inline const int ERROR_ALREADY_PROCESSING      USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "an analysis is already running");
 // scan of the sounds folder
-inline const int ERROR_SCAN_FOLDER             USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to scan the folder: ");
-inline const int ERROR_LIST_FILE               USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to add the file to the analysis: ");
-inline const int ERROR_UNREPRESENTABLE_NAMES   USINE_MODULE_LOCAL = RegisterError(Level::Error, "files skipped, Usine can not open their names (characters outside the ANSI code page): ");
+inline const int ERROR_SCAN_FOLDER             USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to scan the folder: ");
+inline const int ERROR_LIST_FILE               USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to add the file to the analysis: ");
+inline const int ERROR_UNREPRESENTABLE_NAMES   USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "files skipped, Usine can not open their names (characters outside the ANSI code page): ");
 // creation of the database
-inline const int ERROR_DELETE_DATABASE         USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to delete the previous database: ");
-inline const int INFO_DATABASE_DELETED         USINE_MODULE_LOCAL = RegisterError(Level::Info, "previous database deleted: ");
-inline const int ERROR_CREATE_DATABASE         USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to create the database: ");
-inline const int ERROR_CREATE_TABLE            USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to create a table: ");
-inline const int ERROR_PREPARE_INSERT          USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to prepare an insert: ");
-inline const int ERROR_INSERT_FFT_SIZE         USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to insert the fft size: ");
+inline const int ERROR_DELETE_DATABASE         USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to delete the previous database: ");
+inline const int INFO_DATABASE_DELETED         USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "previous database deleted: ");
+inline const int ERROR_CREATE_DATABASE         USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to create the database: ");
+inline const int ERROR_CREATE_TABLE            USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to create a table: ");
+inline const int ERROR_PREPARE_INSERT          USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to prepare an insert: ");
+inline const int ERROR_INSERT_FFT_SIZE         USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to insert the fft size: ");
 // analysis of the files
-inline const int INFO_FILE_LOADED              USINE_MODULE_LOCAL = RegisterError(Level::Info, "file loaded: ");
-inline const int ERROR_EMPTY_FILE              USINE_MODULE_LOCAL = RegisterError(Level::Error, "empty file, skipped: ");
-inline const int ERROR_FILE_TOO_LONG           USINE_MODULE_LOCAL = RegisterError(Level::Error, "file longer than [max file duration], skipped: ");
-inline const int ERROR_NO_SAMPLES              USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to read the samples, file skipped: ");
-inline const int ERROR_INSERT_FILE             USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to insert or update the results of a file: ");
-inline const int ERROR_STORE_FILE              USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to store the results in the database, the analysis stops at: ");
-inline const int INFO_ANALYSIS_STOPPED         USINE_MODULE_LOCAL = RegisterError(Level::Info, "analysis stopped");
+inline const int INFO_FILE_LOADED              USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "file loaded: ");
+inline const int ERROR_EMPTY_FILE              USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "empty file, skipped: ");
+inline const int ERROR_FILE_TOO_LONG           USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "file longer than [max file duration], skipped: ");
+inline const int ERROR_NO_SAMPLES              USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to read the samples, file skipped: ");
+inline const int ERROR_INSERT_FILE             USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to insert or update the results of a file: ");
+inline const int ERROR_STORE_FILE              USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to store the results in the database, the analysis stops at: ");
+inline const int INFO_ANALYSIS_STOPPED         USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "analysis stopped");
 // statistics of the features, used for the Z-score normalization
-inline const int ERROR_BEGIN_TRANSACTION       USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to begin a transaction: ");
-inline const int ERROR_COMMIT_TRANSACTION      USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to commit a transaction: ");
-inline const int ERROR_PREPARE_FEATURE_QUERY   USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to prepare the query of a feature: ");
-inline const int ERROR_PREPARE_STATS_INSERT    USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to prepare the insert of the feature statistics: ");
-inline const int ERROR_INSERT_FEATURE_STATS    USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to insert the statistics of a feature: ");
-inline const int ERROR_FEATURE_STATS           USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to compute and store the statistics of the features: ");
-inline const int ERROR_READ_DATABASE           USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to read the database: ");
+inline const int ERROR_BEGIN_TRANSACTION       USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to begin a transaction: ");
+inline const int ERROR_COMMIT_TRANSACTION      USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to commit a transaction: ");
+inline const int ERROR_PREPARE_FEATURE_QUERY   USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to prepare the query of a feature: ");
+inline const int ERROR_PREPARE_STATS_INSERT    USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to prepare the insert of the feature statistics: ");
+inline const int ERROR_INSERT_FEATURE_STATS    USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to insert the statistics of a feature: ");
+inline const int ERROR_FEATURE_STATS           USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to compute and store the statistics of the features: ");
+inline const int ERROR_READ_DATABASE           USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to read the database: ");
 // t-SNE map of the files (the combined dimensions)
-inline const int INFO_TSNE_STARTED             USINE_MODULE_LOCAL = RegisterError(Level::Info, "finishing the analysis (t-SNE)...");
-inline const int INFO_TSNE_STEP                USINE_MODULE_LOCAL = RegisterError(Level::Info, "t-SNE step: ");
-inline const int INFO_TSNE_TOO_FEW_FILES       USINE_MODULE_LOCAL = RegisterError(Level::Info, "no t-SNE below 4 files, the files are placed on the diagonal of the map: ");
-inline const int ERROR_PREPARE_TSNE_QUERY      USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to prepare the t-SNE query: ");
-inline const int ERROR_TSNE_DIMENSIONS         USINE_MODULE_LOCAL = RegisterError(Level::Error, "invalid t-SNE data dimensions: ");
-inline const int INFO_TSNE_STOPPED             USINE_MODULE_LOCAL = RegisterError(Level::Info, "analysis stopped during the t-SNE computation, start it again to compute the combined dimensions");
-inline const int ERROR_TSNE                    USINE_MODULE_LOCAL = RegisterError(Level::Error, "error during the t-SNE computation of the combined dimensions");
-inline const int ERROR_STORE_TSNE              USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to store the t-SNE results in the database");
-inline const int ERROR_TSNE_SIZE               USINE_MODULE_LOCAL = RegisterError(Level::Error, "the number of t-SNE results does not match the number of files");
-inline const int ERROR_PREPARE_TSNE_UPDATE     USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to prepare the update of the t-SNE coordinates: ");
-inline const int ERROR_UPDATE_TSNE             USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to update the t-SNE coordinates: ");
+inline const int INFO_TSNE_STARTED             USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "finishing the analysis (t-SNE)...");
+inline const int INFO_TSNE_STEP                USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "t-SNE step: ");
+inline const int INFO_TSNE_TOO_FEW_FILES       USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "no t-SNE below 4 files, the files are placed on the diagonal of the map: ");
+inline const int ERROR_PREPARE_TSNE_QUERY      USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to prepare the t-SNE query: ");
+inline const int ERROR_TSNE_DIMENSIONS         USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "invalid t-SNE data dimensions: ");
+inline const int INFO_TSNE_STOPPED             USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "analysis stopped during the t-SNE computation, start it again to compute the combined dimensions");
+inline const int ERROR_TSNE                    USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "error during the t-SNE computation of the combined dimensions");
+inline const int ERROR_STORE_TSNE              USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to store the t-SNE results in the database");
+inline const int ERROR_TSNE_SIZE               USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "the number of t-SNE results does not match the number of files");
+inline const int ERROR_PREPARE_TSNE_UPDATE     USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to prepare the update of the t-SNE coordinates: ");
+inline const int ERROR_UPDATE_TSNE             USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to update the t-SNE coordinates: ");
 // end of the analysis
-inline const int ERROR_CLOSE_DATABASE          USINE_MODULE_LOCAL = RegisterError(Level::Error, "unable to close the database at the end of the analysis");
-inline const int INFO_ANALYSIS_COMPLETED       USINE_MODULE_LOCAL = RegisterError(Level::Info, "analysis completed: ");
+inline const int ERROR_CLOSE_DATABASE          USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to close the database at the end of the analysis");
+inline const int INFO_ANALYSIS_COMPLETED       USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "analysis completed: ");
 
 constexpr NativeInt SOUNDS_DIR_CBID         = 0x00F100B0;
 constexpr NativeInt DATABASE_DIR_CBID       = 0x00F100B1;

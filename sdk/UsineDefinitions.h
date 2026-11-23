@@ -84,7 +84,7 @@
 //-----------------------------------------------------------------------------
 /// version of the SDK
 /// to use in GetSDKVersion function to return the SDK version number
-static constexpr int SDK_VERSION = 703005;
+static constexpr int SDK_VERSION = 703006;
 
 //-----------------------------------------------------------------------------
 #if (defined (USINE_WIN64))
@@ -243,10 +243,12 @@ static constexpr NativeInt NOTIFY_MSG_ON_TOP                = 0xFAB67A;  ///< ne
 static constexpr NativeInt NOTIFY_MSG_TO_BACK               = 0xFAB67B;  ///< need all windows to back
 static constexpr NativeInt NOTIFY_MSG_RESCAN_MIDI_DEVICES   = 0xFAB67D;  ///< tell Usine that Midi devices have been rescanned
 static constexpr NativeInt NOTIFY_MSG_RESET_MIDI_DEVICES    = 0xFAB67E;  ///< tell Usine that Midi devices have been reset
-static constexpr NativeInt CALLBACK_JOB_START               = 0xFABA00;  ///< tell Usine to run user defined task process
-static constexpr NativeInt CALLBACK_JOB_END                 = 0xFABA01;  ///< tell Usine to run user defined post task process
-static constexpr NativeInt CALLBACK_WPARAM_LIMIT            = 0xF000000;
 
+//----------------------------------------------------------------------------
+//  Internal callbacks
+static constexpr NativeInt CALLBACK_SDK_LIMIT               = 0xFFFF00;  ///< CallBackIds from this value are reserved by the SDK, never sent to onCallBack
+static constexpr NativeInt CALLBACK_JOB_START               = 0xFFFF00;  ///< tell Usine to run the background job (onJobBegin and onJobProcess on the job thread)
+static constexpr NativeInt CALLBACK_JOB_END                 = 0xFFFF01;  ///< tell Usine the background job is finished, calls onJobEnd
 
 //----------------------------------------------------------------------------
 /// keys state modifier.
@@ -527,7 +529,7 @@ using TParamType = enum TParamType : int32_t
     ptDataField,            ///< General data parameter without fader (only the value is displayed)
     ptDataFader,            ///< General data parameter with fader (can be modified with the mouse)
     ptButton,               ///< Button, trigger
-    ptListBox,              ///< List box
+    ptComboBox,             ///< Combo box
     ptSwitch,               ///< Switch
     ptArray,                ///< Array parameter of TPrecision (float)
     ptIpAddress,            ///< Designed to display IP addresses X.X.X.X
@@ -543,7 +545,8 @@ using TParamType = enum TParamType : int32_t
     ptBitwise,              ///< Bitwise 32bits parameter
 	ptCardinalHexa,         ///< Cardinal number in hexa format 
     ptOther,                ///< Not defined
-    ptDataFieldBounded      ///< Same as ptDataField but bounded to MIN_VALUE and MAX_VALUE
+    ptDataFieldBounded,     ///< Same as ptDataField but bounded to MIN_VALUE and MAX_VALUE
+    ptListBox = ptComboBox  ///< deprecated alias of ptComboBox
 };
 
 /// --------------------------------------------------------------------------<summary>
@@ -602,7 +605,7 @@ struct TParamInfo
 	TPrecision          DefaultValue{};         ///< default param value, when created
 	AnsiCharPtr         Symbol{};               ///< displayed symbol
 	AnsiCharPtr         Format{};               ///< format string of the displayed value @see NumericFormats    
-	AnsiCharPtr         ListBoxStrings{};       ///< if listbox looks like '"item1","item2"'
+	AnsiCharPtr         ComboBoxStrings{};      ///< if combo box, looks like '"item1","item2"'
 	AnsiCharPtr         TextValue{};            ///< default text value if param type = ptText	LongBool          ReadOnly;             ///< TRUE if the user cant modify value
 	LongBool            ReadOnly{};             ///< TRUE if the user cant modify value
     TFastCallBackType   CallBackType{};         ///< see TFastCallBackType definition
@@ -614,7 +617,7 @@ struct TParamInfo
 	LongBool            IsStoredInPreset{};     ///< set the param stored in the preset (default false)
 	AnsiCharPtr         SavedName{};            ///< optional: ident used to save the value in inifiles. if NULL Caption is used
 	AnsiCharPtr	        SeparatorCaption{};     ///< optional, if isSeparator,  show a section name
-	NativeInt           CallBackId{-1};           ///< the id of the param for the callback, setEvent and param - Set up a constexpr NativeInt with a value up to 0xF000000
+	NativeInt           CallBackId{-1};           ///< the id of the param for the callback, setEvent and param - Set up a constexpr NativeInt with a value below CALLBACK_SDK_LIMIT (0xFFFF00)
 	LongBool		    IsVisibleByDefault{true};   ///< TRUE by default
 	LongBool		    NotUsed{};              ///< Not used anymore
 	LongBool		    Translate{};            ///< usine auto translate
@@ -636,6 +639,9 @@ struct TParamInfo
 
     void                setEventClass(UsineEventClass&);   ///< Bind the given event to
 };
+
+# define ListBoxStrings ComboBoxStrings // deprecated alias of ComboBoxStrings
+
 /// for backward compatibility
 typedef TParamInfo ParamInfo;
 

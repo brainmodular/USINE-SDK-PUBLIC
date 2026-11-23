@@ -31,7 +31,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"[on analysis] and the section switches freeze the outputs, keeping their last values";
 constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
 
-inline const int ERROR_CALLBACK USINE_MODULE_LOCAL = RegisterError(Level::Error, "error while handling a parameter change");
+inline const int ERROR_CALLBACK USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "error while handling a parameter change");
 
 constexpr NativeInt ON_ANALYSIS_SW_CBID        = 0x001000F0;
 constexpr NativeInt FFT_SIZE_LBOX_CBID         = 0x001000F1;

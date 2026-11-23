@@ -184,7 +184,7 @@ namespace
 		}
 		catch (const std::exception& e)
 		{
-			sdkRaiseError(ERROR_WORK_THREAD, e.what());
+			module->sdkReport(ERROR_WORK_THREAD, e.what());
 		}
 	}
 
@@ -199,7 +199,7 @@ namespace
 		}
 		catch (const std::exception& e)
 		{
-			sdkRaiseError(ERROR_SEARCH_THREAD, e.what());
+			module->sdkReport(ERROR_SEARCH_THREAD, e.what());
 		}
 	}
 }
@@ -279,11 +279,11 @@ DatabasePlayer::~DatabasePlayer()
 			sdkFFTDestroy(ifftPtr);
 
 		if (closeDatabase(this) != SQLITE_OK)
-			sdkRaiseError(ERROR_CLOSE_DATABASE, sqlite3_errmsg(db));
+			sdkReport(ERROR_CLOSE_DATABASE, sqlite3_errmsg(db));
 	}
 	catch (...)
 	{
-		sdkRaiseError(ERROR_DELETE);
+		sdkReport(ERROR_DELETE);
 	}
 
 	if (csPaint != nullptr)
@@ -386,7 +386,7 @@ void DatabasePlayer::onCallBack(TUsineMessage* Message)
 			case RELOAD_DATABASE_BTN_CBID:
 				if (!isDBOpen.load())
 				{
-					sdkRaiseError(ERROR_NO_DATABASE_OPEN);
+					sdkReport(ERROR_NO_DATABASE_OPEN);
 					break;
 				}
 				dbName = std::string(databaseFileIn.getPChar());
@@ -451,7 +451,7 @@ void DatabasePlayer::onCallBack(TUsineMessage* Message)
 	}
 	catch (...)
 	{
-		sdkRaiseError(ERROR_CALLBACK, std::to_string(Message->wParam));
+		sdkReport(ERROR_CALLBACK, std::to_string(Message->wParam));
 	}
 }
 
@@ -644,7 +644,7 @@ void DatabasePlayer::produceFrame()
 	}
 	catch (const std::exception& e)
 	{
-		sdkRaiseError(ERROR_RESYNTHESIS, e.what());
+		sdkReport(ERROR_RESYNTHESIS, e.what());
 	}
 	actionQueue.frameDone();
 }
@@ -669,7 +669,7 @@ void DatabasePlayer::onPaint()
 	}
 	catch (const std::exception& e)
 	{
-		sdkRaiseError(ERROR_PAINT, e.what());
+		sdkReport(ERROR_PAINT, e.what());
 	}
 }
 
@@ -745,7 +745,7 @@ void DatabasePlayer::openDatabaseTask(const std::string& fileName)
 		if (isDBOpen.load())
 		{
 			if (closeDatabase(this) != SQLITE_OK)
-				sdkRaiseError(ERROR_CLOSE_DATABASE, sqlite3_errmsg(db));
+				sdkReport(ERROR_CLOSE_DATABASE, sqlite3_errmsg(db));
 			else
 				isDBOpen.store(false);
 		}
@@ -755,7 +755,7 @@ void DatabasePlayer::openDatabaseTask(const std::string& fileName)
 			{
 				if (sqlite3_open(fileName.c_str(), &db) != SQLITE_OK)
 				{
-					sdkRaiseError(ERROR_OPEN_DATABASE, sqlite3_errmsg(db));
+					sdkReport(ERROR_OPEN_DATABASE, sqlite3_errmsg(db));
 					// the connection of a failed open must be freed too
 					closeDatabase(this);
 				}
@@ -772,20 +772,20 @@ void DatabasePlayer::openDatabaseTask(const std::string& fileName)
 					else
 					{
 						if (!actionQueue.isStopping())
-							sdkRaiseError(ERROR_LOAD_FAILED);
+							sdkReport(ERROR_LOAD_FAILED);
 						closeDatabase(this);
 					}
 				}
 			}
 			else
 			{
-				sdkRaiseError(ERROR_DATABASE_NOT_FOUND, fileName);
+				sdkReport(ERROR_DATABASE_NOT_FOUND, fileName);
 			}
 		}
 	}
 	catch (const std::exception& e)
 	{
-		sdkRaiseError(ERROR_LOADING, e.what());
+		sdkReport(ERROR_LOADING, e.what());
 	}
 	isLoading.store(false, std::memory_order_release);
 }
@@ -807,7 +807,7 @@ void DatabasePlayer::requestTask()
 			}
 			else if (!actionQueue.isStopping())
 			{
-				sdkRaiseError(ERROR_REQUEST_FAILED);
+				sdkReport(ERROR_REQUEST_FAILED);
 				closeDatabase(this);
 				isDBOpen.store(false);
 			}
@@ -815,7 +815,7 @@ void DatabasePlayer::requestTask()
 	}
 	catch (const std::exception& e)
 	{
-		sdkRaiseError(ERROR_REQUEST, e.what());
+		sdkReport(ERROR_REQUEST, e.what());
 	}
 }
 
@@ -841,7 +841,7 @@ void DatabasePlayer::searchTask()
 	}
 	catch (const std::exception& e)
 	{
-		sdkRaiseError(ERROR_SEARCH, e.what());
+		sdkReport(ERROR_SEARCH, e.what());
 	}
 }
 
@@ -862,7 +862,7 @@ bool DatabasePlayer::sendRequestToDB(const std::string firstDimension, const std
 			Statement stmt(db, query);
 			if (!stmt.isPrepared())
 			{
-				sdkRaiseError(ERROR_PREPARE_REQUEST, std::string(sqlite3_errmsg(db)) + ", query: " + query);
+				sdkReport(ERROR_PREPARE_REQUEST, std::string(sqlite3_errmsg(db)) + ", query: " + query);
 				return false;
 			}
 
@@ -891,14 +891,14 @@ bool DatabasePlayer::sendRequestToDB(const std::string firstDimension, const std
 				}
 				else
 				{
-					sdkRaiseError(ERROR_INVALID_SAMPLE_ID, std::to_string(id));
+					sdkReport(ERROR_INVALID_SAMPLE_ID, std::to_string(id));
 					return false;
 				}
 			}
 			if (stepResult != SQLITE_DONE)
 			{
 				if (!actionQueue.isStopping())
-					sdkRaiseError(ERROR_REQUEST, sqlite3_errmsg(db));
+					sdkReport(ERROR_REQUEST, sqlite3_errmsg(db));
 				return false;
 			}
 		}
@@ -926,7 +926,7 @@ bool DatabasePlayer::sendRequestToDB(const std::string firstDimension, const std
 	}
 	catch (const std::exception& e)
 	{
-		sdkRaiseError(ERROR_REQUEST, e.what());
+		sdkReport(ERROR_REQUEST, e.what());
 		return false;
 	}
 
@@ -1037,12 +1037,12 @@ bool DatabasePlayer::openDB()
 			Statement stmtFFT(db, "SELECT fftSizeValue FROM FileFFTSize ");
 			if (!stmtFFT.isPrepared())
 			{
-				sdkRaiseError(ERROR_READ_FFT_SIZE, sqlite3_errmsg(db));
+				sdkReport(ERROR_READ_FFT_SIZE, sqlite3_errmsg(db));
 				return false;
 			}
 			if (sqlite3_step(stmtFFT.get()) != SQLITE_ROW)
 			{
-				sdkRaiseError(ERROR_NO_FFT_SIZE);
+				sdkReport(ERROR_NO_FFT_SIZE);
 				return false;
 			}
 			spectrumSize = sqlite3_column_int(stmtFFT.get(), 0);
@@ -1050,7 +1050,7 @@ bool DatabasePlayer::openDB()
 		// the FFT of Usine computes powers of two
 		if (spectrumSize < MIN_SPECTRUM || spectrumSize > MAX_SPECTRUM || (spectrumSize & (spectrumSize - 1)) != 0)
 		{
-			sdkRaiseError(ERROR_INVALID_FFT_SIZE, std::to_string(spectrumSize));
+			sdkReport(ERROR_INVALID_FFT_SIZE, std::to_string(spectrumSize));
 			return false;
 		}
 		const int bins = spectrumSize / 2;
@@ -1071,7 +1071,7 @@ bool DatabasePlayer::openDB()
 			Statement stmtPoints(db, "SELECT id, filePath, mag_mean, tsne_x, tsne_y FROM FileResults ORDER BY id ASC");
 			if (!stmtPoints.isPrepared())
 			{
-				sdkRaiseError(ERROR_READ_SAMPLES, sqlite3_errmsg(db));
+				sdkReport(ERROR_READ_SAMPLES, sqlite3_errmsg(db));
 				return false;
 			}
 
@@ -1127,7 +1127,7 @@ bool DatabasePlayer::openDB()
 			if (stepResult != SQLITE_DONE)
 			{
 				if (!actionQueue.isStopping())
-					sdkRaiseError(ERROR_READ_SAMPLES, sqlite3_errmsg(db));
+					sdkReport(ERROR_READ_SAMPLES, sqlite3_errmsg(db));
 				return false;
 			}
 		}
@@ -1135,24 +1135,24 @@ bool DatabasePlayer::openDB()
 		const int count = static_cast<int>(pendingRequestPoints.size());
 		if (count == 0)
 		{
-			sdkRaiseError(ERROR_NO_SAMPLES);
+			sdkReport(ERROR_NO_SAMPLES);
 			return false;
 		}
 		if (invalidMagnitudes == count)
 		{
-			sdkRaiseError(ERROR_NO_MAGNITUDES);
+			sdkReport(ERROR_NO_MAGNITUDES);
 			return false;
 		}
 		if (invalidMagnitudes > 0)
-			sdkRaiseError(WARNING_INVALID_MAGNITUDES, std::to_string(invalidMagnitudes));
+			sdkReport(WARNING_INVALID_MAGNITUDES, std::to_string(invalidMagnitudes));
 		if (nanMagnitudes > 0)
-			sdkRaiseError(WARNING_NAN_MAGNITUDES, std::to_string(nanMagnitudes));
+			sdkReport(WARNING_NAN_MAGNITUDES, std::to_string(nanMagnitudes));
 
 		// the FFT of the new size, before the previous database is replaced
 		TUsineFFTPtr newFFT = sdkFFTCreate(static_cast<UINT32>(spectrumSize));
 		if (newFFT == nullptr)
 		{
-			sdkRaiseError(ERROR_CREATE_FFT, std::to_string(spectrumSize));
+			sdkReport(ERROR_CREATE_FFT, std::to_string(spectrumSize));
 			return false;
 		}
 		if (ifftPtr != nullptr)
@@ -1198,7 +1198,7 @@ bool DatabasePlayer::openDB()
 	}
 	catch (const std::exception& e)
 	{
-		sdkRaiseError(ERROR_LOADING, e.what());
+		sdkReport(ERROR_LOADING, e.what());
 		return false;
 	}
 

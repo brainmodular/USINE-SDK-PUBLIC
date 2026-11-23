@@ -55,7 +55,7 @@ void MultiThreading::processThread1(void* pModule, TThreadPtr pThread)
 {
 	MultiThreading* module = static_cast<MultiThreading*>(pModule);
 	module->sdkCriticalSectionLock(module->criticalSection);
-	sdkRaiseError(INFO_THREAD_1);
+	module->sdkReport(INFO_THREAD_1);
 	module->sdkCriticalSectionUnLock(module->criticalSection);
 }
 
@@ -63,6 +63,6 @@ void MultiThreading::processThread2(void* pModule, TThreadPtr pThread)
 {
 	MultiThreading* module = static_cast<MultiThreading*>(pModule);
 	module->sdkCriticalSectionLock(module->criticalSection);
-	sdkRaiseError(INFO_THREAD_2);
+	module->sdkReport(INFO_THREAD_2);
 	module->sdkCriticalSectionUnLock(module->criticalSection);
 }

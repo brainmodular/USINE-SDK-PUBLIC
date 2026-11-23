@@ -18,24 +18,21 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"raises errors, warnings and infos in the Usine trace to show how the error system works.\n"
 	"[error btn] raises a registered error followed by an additional text, [warning btn] raises a warning "
 	"and also writes it in the Usine log file, [info btn] raises a plain info.\n"
-	"[verbosity level] filters these messages: None traces nothing, Error only errors, Warn errors and "
-	"warnings, Info or All traces everything, since a message is traced when its level is lower than or "
-	"equal to the setting.\n"
-	"An empty text is ignored and any other text raises a warning that names the received value.\n"
+	"[verbosity level], in the Report section shown with all the parameters, filters these messages for this "
+	"instance only: none traces nothing, error only errors, warn errors and warnings, all traces everything. "
+	"It is saved with the patch.\n"
 	"Messages are registered once when the module loads and raised by index, and the module does no audio "
-	"or data processing, it only reacts to its buttons and text field (sdk example)";
+	"or data processing, it only reacts to its buttons (sdk example)";
 constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
 
-// each message is registered once, RegisterError returns the index to give to sdkRaiseError
-inline const int ERROR_WRITE               USINE_MODULE_LOCAL = RegisterError(Level::Error, "this is an error print");
-inline const int WARNING_WRITE             USINE_MODULE_LOCAL = RegisterError(Level::Warn, "this is a warn print");
-inline const int INFO_WRITE                USINE_MODULE_LOCAL = RegisterError(Level::Info, "this is an info print");
-inline const int WARNING_UNKNOWN_VERBOSITY USINE_MODULE_LOCAL = RegisterError(Level::Warn, "unknown verbosity level, expected None, Error, Warn, Info or All, got: ");
+// each message is registered once, registerReport returns the index to give to sdkReport
+inline const int ERROR_WRITE               USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "this is an error print");
+inline const int WARNING_WRITE             USINE_MODULE_LOCAL = registerReport(UReportLevel::Warn, "this is a warn print");
+inline const int INFO_WRITE                USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "this is an info print");
 
 constexpr NativeInt ERROR_BTN_CBID     = 0x00100000;
 constexpr NativeInt WARNING_BTN_CBID   = 0x00200000;
 constexpr NativeInt INFO_BTN_CBID      = 0x00300000;
-constexpr NativeInt VERBOSITY_TXT_CBID = 0x00001000;
 
 inline constexpr TParamInfo errorBtnInParamInfo {
 	.ParamType    = ptButton,
@@ -65,15 +62,4 @@ inline constexpr TParamInfo infoBtnInParamInfo {
 	.CallBackType = ctImmediate,
 	.CallBackId   = INFO_BTN_CBID,
 	.Description  = "Raises the example info message in the Usine trace."
-};
-
-inline constexpr TParamInfo verbosityTxtInParamInfo {
-	.ParamType    = ptText,
-	.Caption      = "verbosity level",
-	.IsInput      = TRUE,
-	.IsOutput     = FALSE,
-	.CallBackType = ctImmediate,
-	.CallBackId   = VERBOSITY_TXT_CBID,
-	.Description  = "Messages traced by the module: None, Error (errors only), Warn (errors and warnings), Info or All (every message).\n"
-	                "Other texts raise a warning."
 };

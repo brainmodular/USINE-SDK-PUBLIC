@@ -31,9 +31,9 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"[trig out] blinks at each grain start, with a warning when grains overlap (sdk example)";
 constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "2.261112";
 
-inline const int ERROR_RECORD_AUTOMATION      USINE_MODULE_LOCAL = RegisterError(Level::Error, "failed to record automation");
-inline const int ERROR_STOP_RECORD_AUTOMATION USINE_MODULE_LOCAL = RegisterError(Level::Error, "failed to stop automation recording");
-inline const int WARNING_GRAIN_OVERLAP        USINE_MODULE_LOCAL = RegisterError(Level::Warn, "too many overlapping grains, the oldest ones are cut");
+inline const int ERROR_RECORD_AUTOMATION      USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "failed to record automation");
+inline const int ERROR_STOP_RECORD_AUTOMATION USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "failed to stop automation recording");
+inline const int WARNING_GRAIN_OVERLAP        USINE_MODULE_LOCAL = registerReport(UReportLevel::Warn, "too many overlapping grains, the oldest ones are cut");
 
 constexpr NativeInt GRAIN_INTERVAL_FDR_CBID  = 0x001700F0;
 constexpr NativeInt GRAIN_ENVELOPE_LBOX_CBID = 0x001700F1;
@@ -97,12 +97,12 @@ inline constexpr TParamInfo grainIntervalFdrInParamInfo {
 
 // the order of the items must match Grain::EnvType
 inline constexpr TParamInfo grainEnvelopeLboxInParamInfo {
-	.ParamType        = ptListBox,
+	.ParamType        = ptComboBox,
 	.Caption          = "grain env",
 	.IsInput          = TRUE,
 	.IsOutput         = FALSE,
 	.DefaultValue     = 0,
-	.ListBoxStrings   = "\"Linear ASR\",\"Bezier\",\"Raised Cosine Bell\",\"Hanning\",\"Gaussian\"",
+	.ComboBoxStrings  = "\"Linear ASR\",\"Bezier\",\"Raised Cosine Bell\",\"Hanning\",\"Gaussian\"",
 	.ReadOnly         = FALSE,
 	.CallBackType     = ctImmediate,
 	.IsStoredInPreset = TRUE,
@@ -167,12 +167,12 @@ inline constexpr TParamInfo grainPitchFdrInParamInfo {
 
 // the order of the items must match GRAIN_MODE_INTERVAL and GRAIN_MODE_PLAY
 inline constexpr TParamInfo grainModeLboxInParamInfo {
-	.ParamType        = ptListBox,
+	.ParamType        = ptComboBox,
 	.Caption          = "grain mode",
 	.IsInput          = TRUE,
 	.IsOutput         = FALSE,
 	.DefaultValue     = 0,
-	.ListBoxStrings   = "\"Interval\",\"Play Button\"",
+	.ComboBoxStrings  = "\"Interval\",\"Play Button\"",
 	.ReadOnly         = FALSE,
 	.CallBackType     = ctImmediate,
 	.IsStoredInPreset = TRUE,

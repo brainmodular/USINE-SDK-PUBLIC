@@ -22,7 +22,7 @@ Helper classes go in their own files (see `Grain.h` in [[examples/granulator|Gra
 The file is organized in this order:
 
 1. the module constants `MODULE_NAME`, `MODULE_DESC` and `MODULE_VERSION`
-2. the messages raised with `sdkRaiseError`
+2. the messages raised with `sdkReport`
 3. the callback ids
 4. the `TParamInfo` of each parameter
 
@@ -37,7 +37,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_NAME    = "my module";
 constexpr AnsiCharPtr UserModuleBase::MODULE_DESC    = "converts a frequency to a period (sdk example)";
 constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
-inline const int WARNING_NEGATIVE_FREQUENCY USINE_MODULE_LOCAL = RegisterError(Level::Warn, "the frequency must be positive, got: ");
+inline const int WARNING_NEGATIVE_FREQUENCY USINE_MODULE_LOCAL = registerReport(UReportLevel::Warn, "the frequency must be positive, got: ");
 
 constexpr NativeInt FREQUENCY_FDR_CBID = 0x001900F0;
 
@@ -56,7 +56,7 @@ inline constexpr TParamInfo frequencyFdrInParamInfo {
 
 > **Important:** `ModuleDefinition.h` defines the `MODULE_*` constants, so it must be included by **one** `.cpp` only, the one that holds `CreateModule`. Include it after the module header.
 
-> **`USINE_MODULE_LOCAL` on the error constants.** `RegisterError` returns an index in the error registry of the module. An `inline const int` with a dynamic initializer is a weak definition, and macOS and Linux unify the weak definitions of the whole process: two modules using the same constant name (`ERROR_LOCK`, `ERROR_INVALID_CHUNK`, …) would share one index while each keeps its own registry, and the messages of the second module would be silently dropped. `USINE_MODULE_LOCAL` (hidden visibility, empty on Windows) keeps the constant private to the module, like the `MODULE_*` constants.
+> **`USINE_MODULE_LOCAL` on the report constants.** `registerReport` returns an index in the report registry of the module. An `inline const int` with a dynamic initializer is a weak definition, and macOS and Linux unify the weak definitions of the whole process: two modules using the same constant name (`ERROR_LOCK`, `ERROR_INVALID_CHUNK`, …) would share one index while each keeps its own registry, and the messages of the second module would be silently dropped. `USINE_MODULE_LOCAL` (hidden visibility, empty on Windows) keeps the constant private to the module, like the `MODULE_*` constants.
 
 A module without parameters keeps only the module constants in `ModuleDefinition.h` (see [[examples/drag-and-drop|DragAndDrop]]). When a `TParamInfo` needs a constant of the class, `ModuleDefinition.h` includes the module header (`MAXPOINTS` in [[examples/draw-trajectory-box|DrawTrajectoryBox]]).
 
@@ -87,9 +87,9 @@ A `UsineEventClass` member bound to a parameter is named `<what><Type><In|Out>` 
 | `Fdr` | `ptDataFader`, `ptGainFader`, `ptMidiNoteFader`, `ptDataField`, `ptDataFieldBounded` | `gainFdrIn`, `outFdrOut` |
 | `Sw` | `ptSwitch`, `ptLeftLed`, `ptRightLed`, `ptTriggerLed` | `muteSwIn`, `grainStartSwOut` |
 | `Btn` | `ptButton` | `startBtnIn` |
-| `Lbox` | `ptListBox` | `grainModeLboxIn` |
+| `Lbox` | `ptComboBox` | `grainModeLboxIn` |
 | `Arr` | `ptArray` | `delayArrIn`, `posXArrOut` |
-| `Txt` | `ptText` | `verbosityTxtIn` |
+| `Txt` | `ptText` | `exampleTxtIn`, `setCommaTxtIn` |
 | `Col` | `ptColor` | `boxColIn` |
 | `Audio` | `ptAudio` | `modAudioIn` |
 | `Midi` | `ptMidi` | `midiIn` |
@@ -172,21 +172,21 @@ A contextual menu command created with `sdkAddCommand` calls `onCallBack` with i
 
 ## Errors, Warnings and Infos
 
-Modules never call `sdkTraceChar`, `sdkTraceErrorChar` or `sdkTraceWarningChar` directly. Each message is registered once in `ModuleDefinition.h`, and raised with `sdkRaiseError`:
+Modules never call `sdkTraceChar`, `sdkTraceErrorChar` or `sdkTraceWarningChar` directly. Each message is registered once in `ModuleDefinition.h`, and raised with `sdkReport`:
 
 ```cpp
 // ModuleDefinition.h
-inline const int ERROR_INVALID_CHUNK USINE_MODULE_LOCAL = RegisterError(Level::Error, "invalid saved data, it was not restored");
+inline const int ERROR_INVALID_CHUNK USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "invalid saved data, it was not restored");
 
 // MyModule.cpp
 if (sizeInBytes < static_cast<int>(sizeof(data)))
 {
-	sdkRaiseError(ERROR_INVALID_CHUNK);
+	sdkReport(ERROR_INVALID_CHUNK);
 	return;
 }
 ```
 
-The user can then filter the messages of the module with its verbosity level. The trace already starts with the module name, so the messages don't repeat it. A message ending with `": "` is meant to receive an extra text: `sdkRaiseError(WARNING_UNKNOWN_VERBOSITY, verbosityLevel)`.
+The user can then filter the messages of each instance with its `verbosity level` combo box, added by the SDK. The trace already starts with the module name, so the messages don't repeat it. A message ending with `": "` is meant to receive an extra text: `sdkReport(WARNING_CHUNK_DESTROYED, CHUNK_NAME)`.
 
 Raise a message where something goes wrong and the module can't do what the user asked: invalid data from a file, a value out of range, a failed SDK call. Avoid raising on every bloc: raise once when the problem appears (see `grainOverlapWarned` in [[examples/granulator|Granulator]]).
 

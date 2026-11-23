@@ -28,8 +28,8 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"(sdk example)";
 constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
 
-inline const int INFO_THREAD_1 USINE_MODULE_LOCAL = RegisterError(Level::Info, "thread 1");
-inline const int INFO_THREAD_2 USINE_MODULE_LOCAL = RegisterError(Level::Info, "thread 2");
+inline const int INFO_THREAD_1 USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "thread 1");
+inline const int INFO_THREAD_2 USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "thread 2");
 
 inline constexpr TParamInfo arrOutParamInfo {
 	.ParamType        = ptArray,

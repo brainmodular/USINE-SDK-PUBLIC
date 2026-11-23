@@ -34,12 +34,13 @@
 #include "UserModule.h"
 #include "UsineEventClass.h"
 #include "UsineFunctions.h"
+#include "UserError.h"
 #include <cmath>
 //#include <format>
 
 //-----------------------------------------------------------------------------
 // parameters created automatically for mtBackgroundJob modules
-constexpr TParamInfo jobProcessingParamInfo {
+constexpr TParamInfo jobRunningParamInfo {
     .ParamType = ptRightLed,
     .Caption = "processing",
     .IsInput = FALSE,
@@ -51,7 +52,7 @@ constexpr TParamInfo jobProcessingParamInfo {
     .SeparatorCaption = "job"
 };
 
-constexpr TParamInfo jobProcessingTimeParamInfo {
+constexpr TParamInfo jobDurationParamInfo {
     .ParamType = ptDataField,
     .Caption = "processing time",
     .IsInput = FALSE,
@@ -63,12 +64,28 @@ constexpr TParamInfo jobProcessingTimeParamInfo {
     .DontSave = TRUE
 };
 
+// the combo box holds the verbosity of the instance, read by sdkReport: no callback needed
+constexpr TParamInfo verbosityParamInfo {
+    .ParamType = ptComboBox,
+    .Caption = "verbosity level",
+    .IsInput = FALSE,
+    .IsOutput = FALSE,
+    .DefaultValue = static_cast<TPrecision>(UReportVerbosity::All),
+    .ComboBoxStrings = "\"none\",\"error\",\"warn\",\"all\"",
+    .CallBackType = ctNone,
+    .DontSave = FALSE,
+    .IsSeparator = TRUE,
+    .SeparatorCaption = "Report",
+    .IsVisibleByDefault = FALSE,
+    .Description = "Reports traced by this module: none, error (errors only), warn (errors and warnings) or all."
+};
+
 // constructor
 UserModuleBase::UserModuleBase()
     : panelWidth(10)
     , panelHeight(10)
     , m_moduleInfo(nullptr)
-    , m_job_thread(nullptr)
+    , m_jobThread(nullptr)
 {}
 
 TMasterInfo* UserModuleBase::m_masterInfo = nullptr;
@@ -76,8 +93,8 @@ TMasterInfo* UserModuleBase::m_masterInfo = nullptr;
 // destructor
 UserModuleBase::~UserModuleBase()
 {
-    if (m_job_thread != nullptr) {
-        sdkThreadDestroy(m_job_thread);
+    if (m_jobThread != nullptr) {
+        sdkThreadDestroy(m_jobThread);
     }
 }
 
@@ -102,8 +119,13 @@ void UserModuleBase::Init(TMasterInfo* pMasterInfo, TModuleInfo* pModuleInfo)
 
 void UserModuleBase::CreateJobParameters()
 {
-    m_jobProcessingEvt = m_masterInfo->CreateParam(m_moduleInfo, &jobProcessingParamInfo);
-    m_jobTimeEvt = m_masterInfo->CreateParam(m_moduleInfo, &jobProcessingTimeParamInfo);
+    m_jobRunningEvt = m_masterInfo->CreateParam(m_moduleInfo, &jobRunningParamInfo);
+    m_jobDurationEvt = m_masterInfo->CreateParam(m_moduleInfo, &jobDurationParamInfo);
+}
+
+void UserModuleBase::CreateVerbosityParameter()
+{
+    m_verbosityEvt = m_masterInfo->CreateParam(m_moduleInfo, &verbosityParamInfo);
 }
 
 // IMPORTANT : it's up to you to initialize the user module before further use
@@ -124,17 +146,19 @@ void UserModuleBase::CallBack(TUsineMessage* Message)
     try
     {
         // sanity check
-        if (Message->wParam < CALLBACK_WPARAM_LIMIT) {
-            // if wParam is set to CALLBACK_JOB_{START || END} bypass normal user callback to run task on non priority thread
+        const bool isSdkCallback = Message->message == NOTIFY_MSG_USINE_CALLBACK
+                                && Message->wParam >= CALLBACK_SDK_LIMIT;
+        if (isSdkCallback) {
+            // reserved for the SDK, never sent to onCallBack
             if (Message->wParam == CALLBACK_JOB_START) {
-                processStartJob();
+                handleJobStart();
             }
             else if (Message->wParam == CALLBACK_JOB_END) {
-                terminateJob();
+                handleJobEnd();
             }
-            else {
-                onCallBack(Message);
-            }
+        }
+        else {
+            onCallBack(Message);
         }
     }
     catch (...) // (...) or (std::exception& e)
@@ -154,24 +178,24 @@ void UserModuleBase::startJob()
     );
 }
 
-void UserModuleBase::processStartJob()
+void UserModuleBase::handleJobStart()
 {
-    if (!m_taskRunning) {
-        m_taskRunning = true;
+    if (!m_jobRunning) {
+        m_jobRunning = true;
         m_jobStartTimeMs = sdkGetTimeMs();
-        if (m_jobProcessingEvt != nullptr) {
-            UsineEventClass(m_jobProcessingEvt).setData(1.0f);
+        if (m_jobRunningEvt != nullptr) {
+            UsineEventClass(m_jobRunningEvt).setData(1.0f);
         }
         try {
-            if (m_job_thread == nullptr) {
-                m_job_thread = sdkThreadCreate("thread job", &UserModuleBase::processThreadJob, tpMedium, UINT32_MAX);
+            if (m_jobThread == nullptr) {
+                m_jobThread = sdkThreadCreate("job thread", &UserModuleBase::jobThreadProc, tpMedium, UINT32_MAX);
             }
-            sdkThreadRestart(m_job_thread);
+            sdkThreadRestart(m_jobThread);
         }
         catch (...) {
-            m_taskRunning = false;
-            if (m_jobProcessingEvt != nullptr) {
-                UsineEventClass(m_jobProcessingEvt).setData(0.0f);
+            m_jobRunning = false;
+            if (m_jobRunningEvt != nullptr) {
+                UsineEventClass(m_jobRunningEvt).setData(0.0f);
             }
         }
     }
@@ -180,7 +204,7 @@ void UserModuleBase::processStartJob()
     }
 }
 
-void UserModuleBase::processThreadJob(void* pModule, TThreadPtr pThread)
+void UserModuleBase::jobThreadProc(void* pModule, TThreadPtr pThread)
 {
     UserModuleBase* module = static_cast<UserModuleBase*>(pModule);
     try {
@@ -191,31 +215,93 @@ void UserModuleBase::processThreadJob(void* pModule, TThreadPtr pThread)
         // nothing more to do, job end is notified below in every case
     }
     module->m_jobDurationMs = module->sdkGetTimeMs() - module->m_jobStartTimeMs;
-    module->notifyUsineOnJobEnd();
+    module->notifyJobEnd();
 }
 
-void UserModuleBase::notifyUsineOnJobEnd() const
+void UserModuleBase::notifyJobEnd() const
 {
     sdkNotifyUsine(NOTIFY_TARGET_USER_MODULE, NOTIFY_MSG_USINE_CALLBACK,
         CALLBACK_JOB_END, MSG_CHANGE, TNotifyUsineMode::numRealTime, static_cast<int>(std::ceil(m_masterInfo->GetBlockDuration()))
     );
 }
 
-void UserModuleBase::terminateJob()
+void UserModuleBase::handleJobEnd()
 {
     try {
         onJobEnd();
     }
     catch (...) {
-        m_taskRunning = false;
+        m_jobRunning = false;
     }
-    if (m_jobTimeEvt != nullptr) {
-        UsineEventClass(m_jobTimeEvt).setData(static_cast<TPrecision>(m_jobDurationMs.load()));
+    if (m_jobDurationEvt != nullptr) {
+        UsineEventClass(m_jobDurationEvt).setData(static_cast<TPrecision>(m_jobDurationMs.load()));
     }
-    if (m_jobProcessingEvt != nullptr) {
-        UsineEventClass(m_jobProcessingEvt).setData(0.0f);
+    if (m_jobRunningEvt != nullptr) {
+        UsineEventClass(m_jobRunningEvt).setData(0.0f);
     }
-    m_taskRunning = false;
+    m_jobRunning = false;
+}
+
+//-----------------------------------------------------------------------------
+// reports, filtered by the verbosity level combo box of the instance
+
+UReportVerbosity UserModuleBase::sdkGetVerbosity() const
+{
+    if (m_verbosityEvt == nullptr)
+        return UReportVerbosity::All;
+    return static_cast<UReportVerbosity>(static_cast<int>(UsineEventClass(m_verbosityEvt).getData()));
+}
+
+void UserModuleBase::sdkSetVerbosity(UReportVerbosity verbosity)
+{
+    if (m_verbosityEvt != nullptr)
+        UsineEventClass(m_verbosityEvt).setData(static_cast<TPrecision>(verbosity));
+}
+
+void UserModuleBase::traceReport(const UReport& rep, bool forceLog) const
+{
+    if (static_cast<int>(rep.level) <= static_cast<int>(sdkGetVerbosity())) {
+        switch (rep.level) {
+            case UReportLevel::Error:
+                sdkTraceErrorChar(rep.msg);
+                break;
+            case UReportLevel::Warn:
+                sdkTraceWarningChar(rep.msg);
+                break;
+            case UReportLevel::Info:
+                sdkTraceChar(rep.msg);
+                break;
+        }
+    }
+    // forceLog has no effect on errors
+    if (forceLog && rep.level != UReportLevel::Error)
+        sdkTraceLogChar(rep.msg, FALSE);
+}
+
+void UserModuleBase::sdkReport(int index, bool forceLog) const
+{
+    if (index < 0 || index >= static_cast<int>(uReportList().size()))
+        return;
+    traceReport(uReportList()[index], forceLog);
+}
+
+void UserModuleBase::sdkReport(int index, const std::string& extraMsg, bool forceLog) const
+{
+    if (index < 0 || index >= static_cast<int>(uReportList().size()))
+        return;
+    UReport rep = uReportList()[index];
+    rep.msg += extraMsg;
+    traceReport(rep, forceLog);
+}
+
+void UserModuleBase::sdkReport(int index, const char* extraMsg, bool forceLog) const
+{
+    if (index < 0 || index >= static_cast<int>(uReportList().size()))
+        return;
+    UReport rep = uReportList()[index];
+    if (extraMsg != nullptr)
+        rep.msg += extraMsg;
+    traceReport(rep, forceLog);
 }
 
 void UserModuleBase::ResizeModule(float contentWidth, float contentHeight)
@@ -322,6 +408,8 @@ void CreateParameters(void* pModule, TMasterInfo* pMasterInfo, TModuleInfo* pMod
     if (userModule->getModuleType() == mtBackgroundJob) {
         userModule->CreateJobParameters();
     }
+    if (!uReportList().empty())
+        userModule->CreateVerbosityParameter();
 }
 //-----------------------------------------------------------------------------
 // query system and init

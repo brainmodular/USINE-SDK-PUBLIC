@@ -34,11 +34,11 @@ Created in `onCreateParameters`, N is the number of channels chosen in the query
 | N..2N-1 | `out 1`, `out 2`, ... | `audioOutputs[]` | `ptAudio` | Output | Grains |
 | 2N | `trig out` | `grainStartSwOut` | `ptTriggerLed` | Output | Blinks when a grain starts |
 | 2N+1 | `interval` | `grainIntervalFdrIn` | `ptDataFader` | Input | -1000 – 20000 ms (`scLog`), a negative interval overlaps the grains |
-| 2N+2 | `grain env` | `grainEnvelopeLboxIn` | `ptListBox` | Input | Linear ASR / Bezier / Raised Cosine Bell / Hanning / Gaussian, read as an `EnvelopeType` |
+| 2N+2 | `grain env` | `grainEnvelopeLboxIn` | `ptComboBox` | Input | Linear ASR / Bezier / Raised Cosine Bell / Hanning / Gaussian, read as an `EnvelopeType` |
 | 2N+3 | `env var` | `grainEnvVarFdrIn` | `ptDataFader` | Input | Shape of the envelope |
 | 2N+4 | `duration` | `grainDurationFdrIn` | `ptDataFader` | Input | 0.05 – 2000 ms (`scLog`) |
 | 2N+5 | `pitch` | `grainPitchFdrIn` | `ptDataFader` | Input | -48 – +48 halftones |
-| 2N+6 | `grain mode` | `grainModeLboxIn` | `ptListBox` | Input | Interval / Play Button, read as a `GrainMode` |
+| 2N+6 | `grain mode` | `grainModeLboxIn` | `ptComboBox` | Input | Interval / Play Button, read as a `GrainMode` |
 | 2N+7 | `play` | `grainGoBtnIn` | `ptButton` | Input/Output | Starts a grain in Play Button mode |
 
 All the inputs have a `ctImmediate` callback, their ids are named after the members (`GRAIN_PITCH_FDR_CBID`...).

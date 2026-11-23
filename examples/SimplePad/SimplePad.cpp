@@ -97,7 +97,7 @@ void SimplePad::onCallBack(TUsineMessage* Message)
 	}
 	catch (...)
 	{
-		sdkRaiseError(ERROR_CALLBACK);
+		sdkReport(ERROR_CALLBACK);
 	}
 }
 
@@ -119,7 +119,7 @@ void SimplePad::onSetStateChunk(const void* chunk, int sizeInBytes, LongBool Pre
 
 	if (sizeInBytes < CHUNK_SIZE)
 	{
-		sdkRaiseError(ERROR_INVALID_CHUNK);
+		sdkReport(ERROR_INVALID_CHUNK);
 		return;
 	}
 
@@ -175,7 +175,7 @@ void SimplePad::onMouseMove(TShiftState Shift, float X, float Y)
 	}
 	catch (std::exception&)
 	{
-		sdkRaiseError(ERROR_RECORD_AUTOMATION);
+		sdkReport(ERROR_RECORD_AUTOMATION);
 	}
 }
 
@@ -199,7 +199,7 @@ void SimplePad::onMouseUp(TMouseButton MouseButton, TShiftState Shift, float X, 
 	}
 	catch (std::exception&)
 	{
-		sdkRaiseError(ERROR_STOP_RECORD_AUTOMATION);
+		sdkReport(ERROR_STOP_RECORD_AUTOMATION);
 	}
 }
 

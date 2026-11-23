@@ -65,7 +65,7 @@ void MotionRecognizer::onAfterQuery(TMasterInfo* pMasterInfo, TModuleInfo* pModu
 
 	handler = std::make_unique<process::Handler>(BATCH_SIZE, numOfInputs, MAX_RECORDED_POINTS);
 	if (!handler->canRecognize())
-		sdkRaiseError(ERROR_NO_RECOGNITION_THREAD);
+		sdkReport(ERROR_NO_RECOGNITION_THREAD);
 	normalizationBuffers.assign(numOfInputs, std::vector<TPrecision>(NORMALIZATION_WINDOW, 0.0f));
 	lastValidValues.assign(numOfInputs, 0.0f);
 	newPoint.assign(numOfInputs, 0.0f);
@@ -125,7 +125,7 @@ void MotionRecognizer::onCallBack(TUsineMessage* Message)
 				break;
 			case UNDO_BTN_CBID:
 				if (!handler->undo())
-					sdkRaiseError(WARNING_NOTHING_TO_UNDO);
+					sdkReport(WARNING_NOTHING_TO_UNDO);
 				drawSample();
 				break;
 			case CLEAR_BTN_CBID:
@@ -138,7 +138,7 @@ void MotionRecognizer::onCallBack(TUsineMessage* Message)
 	}
 	catch (...)
 	{
-		sdkRaiseError(ERROR_CALLBACK_FAILED);
+		sdkReport(ERROR_CALLBACK_FAILED);
 	}
 }
 
@@ -249,13 +249,13 @@ void MotionRecognizer::storeRecordings()
 {
 	const process::RecordingEvents events = handler->storeRecordings();
 	if (events.empty > 0)
-		sdkRaiseError(WARNING_EMPTY_RECORDING);
+		sdkReport(WARNING_EMPTY_RECORDING);
 	if (events.truncated > 0)
-		sdkRaiseError(WARNING_RECORDING_TRUNCATED);
+		sdkReport(WARNING_RECORDING_TRUNCATED);
 	if (events.lateStart > 0)
-		sdkRaiseError(WARNING_RECORDING_START_LOST);
+		sdkReport(WARNING_RECORDING_START_LOST);
 	if (events.lost > 0)
-		sdkRaiseError(WARNING_RECORDING_LOST);
+		sdkReport(WARNING_RECORDING_LOST);
 }
 
 // the chunk is an array of floats: a header of META_DATA_SIZE values (version, number of movements,
@@ -310,7 +310,7 @@ int MotionRecognizer::onGetStateChunkLen(LongBool Preset)
 		std::vector<TPrecision> chunk = buildChunk();
 		if (chunk.size() > static_cast<size_t>(std::numeric_limits<int>::max()) / sizeof(TPrecision))
 		{
-			sdkRaiseError(ERROR_SAVE_FAILED);
+			sdkReport(ERROR_SAVE_FAILED);
 			return 0;
 		}
 		const int                   len = static_cast<int>(chunk.size() * sizeof(TPrecision));
@@ -320,7 +320,7 @@ int MotionRecognizer::onGetStateChunkLen(LongBool Preset)
 	}
 	catch (...)
 	{
-		sdkRaiseError(ERROR_SAVE_FAILED);
+		sdkReport(ERROR_SAVE_FAILED);
 		return 0;
 	}
 }
@@ -351,7 +351,7 @@ void MotionRecognizer::onSetStateChunk(const void* chunk, int sizeInBytes, LongB
 
 		if (chunkSize < META_DATA_SIZE)
 		{
-			sdkRaiseError(ERROR_CORRUPTED_CHUNK);
+			sdkReport(ERROR_CORRUPTED_CHUNK);
 			return;
 		}
 
@@ -359,7 +359,7 @@ void MotionRecognizer::onSetStateChunk(const void* chunk, int sizeInBytes, LongB
 		const bool isVersion = toInt(castedChunk[0], version);
 		if (!isVersion || (version != CHUNK_VERSION))
 		{
-			sdkRaiseError(ERROR_UNKNOWN_CHUNK_VERSION, isVersion ? std::to_string(version) : std::to_string(castedChunk[0]));
+			sdkReport(ERROR_UNKNOWN_CHUNK_VERSION, isVersion ? std::to_string(version) : std::to_string(castedChunk[0]));
 			return;
 		}
 
@@ -368,20 +368,20 @@ void MotionRecognizer::onSetStateChunk(const void* chunk, int sizeInBytes, LongB
 		int savedNumberOfIns = 0;
 		if (!toInt(castedChunk[1], savedNbMovements) || !toInt(castedChunk[2], savedNbSamples) || !toInt(castedChunk[3], savedNumberOfIns))
 		{
-			sdkRaiseError(ERROR_CORRUPTED_CHUNK);
+			sdkReport(ERROR_CORRUPTED_CHUNK);
 			return;
 		}
 
 		const bool tooManyMovements = (savedNbMovements > N_MVT_MAX);
 		if (tooManyMovements)
 		{
-			sdkRaiseError(WARNING_TOO_MANY_MOVEMENTS, std::to_string(savedNbMovements) + " movements, " + std::to_string(N_MVT_MAX) + " max");
+			sdkReport(WARNING_TOO_MANY_MOVEMENTS, std::to_string(savedNbMovements) + " movements, " + std::to_string(N_MVT_MAX) + " max");
 			savedNbMovements = N_MVT_MAX;
 		}
 
 		if (savedNumberOfIns != numOfInputs)
 		{
-			sdkRaiseError(ERROR_WRONG_NUMBER_OF_INPUTS, "expected " + std::to_string(numOfInputs) + ", received " + std::to_string(savedNumberOfIns));
+			sdkReport(ERROR_WRONG_NUMBER_OF_INPUTS, "expected " + std::to_string(numOfInputs) + ", received " + std::to_string(savedNumberOfIns));
 			return;
 		}
 
@@ -445,15 +445,15 @@ void MotionRecognizer::onSetStateChunk(const void* chunk, int sizeInBytes, LongB
 		handler->replaceSamples(samples);
 
 		if (corrupted)
-			sdkRaiseError(ERROR_CORRUPTED_CHUNK);
+			sdkReport(ERROR_CORRUPTED_CHUNK);
 		if (invalidValues)
-			sdkRaiseError(WARNING_INVALID_SAVED_VALUES);
+			sdkReport(WARNING_INVALID_SAVED_VALUES);
 		if (ignored > 0)
-			sdkRaiseError(WARNING_IGNORED_RECORDINGS, std::to_string(ignored));
+			sdkReport(WARNING_IGNORED_RECORDINGS, std::to_string(ignored));
 	}
 	catch (...)
 	{
-		sdkRaiseError(ERROR_RESTORE_FAILED);
+		sdkReport(ERROR_RESTORE_FAILED);
 	}
 
 	// [sample out] is drawn in the main thread: Usine may restore the chunk in another one

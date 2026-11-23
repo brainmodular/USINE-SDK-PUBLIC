@@ -60,7 +60,7 @@ AnsiCharPtr names = sdkGlobalArrayGetAllNames();
 | `INFO_GA_NAMES` | Info | On each slow clock, with the names of the global arrays |
 | `INFO_GA_FLOAT`, `INFO_GA_COLOR`, `INFO_GA_STRING` | Info | On each refresh tick, with the value read at index 0 |
 
-Set the verbosity level to `Warn` to hide them, see [[examples/error-handling|ErrorHandling]].
+To hide them, show all the parameters of the module and set `verbosity level` (in the `Report` section) to `warn`, see [[examples/error-handling|ErrorHandling]].
 
 ## Key Concepts Demonstrated
 
@@ -68,7 +68,7 @@ Set the verbosity level to `Warn` to hide them, see [[examples/error-handling|Er
 - **Several data types**: float, color, string, event
 - **Data shared between modules**: any module can read and write the same named array
 - **`sdkSlowClock`** / **`sdkRefreshSpeedClock`**: two update rates in `onProcess`
-- **`sdkRaiseError` with an extra text** to trace values
+- **`sdkReport` with an extra text** to trace values
 
 ## SDK Callbacks Used
 

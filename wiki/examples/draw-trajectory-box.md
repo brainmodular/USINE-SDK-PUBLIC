@@ -52,7 +52,7 @@ Draw a trajectory in the panel by clicking and dragging. The trajectory can be d
 - **Contextual menu** commands sharing the callback ids of the buttons
 - **Settings**: inverse Y axis, line and cursor colors and widths, closed line, smooth line
 - **Array import/export** of the trajectory
-- **`sdkRaiseError`** for limits and invalid data
+- **`sdkReport`** for limits and invalid data
 
 ## SDK Callbacks Used
 

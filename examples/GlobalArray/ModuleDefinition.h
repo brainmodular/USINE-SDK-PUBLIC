@@ -33,10 +33,10 @@ constexpr AnsiCharPtr GA_STRING = "GA-STRING";
 constexpr AnsiCharPtr GA_EVENT  = "GA-EVENT";
 constexpr int         GA_SIZE   = 16;
 
-inline const int INFO_GA_NAMES  USINE_MODULE_LOCAL = RegisterError(Level::Info, "global arrays: ");
-inline const int INFO_GA_FLOAT  USINE_MODULE_LOCAL = RegisterError(Level::Info, "ga-float[0] = ");
-inline const int INFO_GA_COLOR  USINE_MODULE_LOCAL = RegisterError(Level::Info, "ga-color[0] = ");
-inline const int INFO_GA_STRING USINE_MODULE_LOCAL = RegisterError(Level::Info, "ga-string[0] = ");
+inline const int INFO_GA_NAMES  USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "global arrays: ");
+inline const int INFO_GA_FLOAT  USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "ga-float[0] = ");
+inline const int INFO_GA_COLOR  USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "ga-color[0] = ");
+inline const int INFO_GA_STRING USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "ga-string[0] = ");
 
 inline constexpr TParamInfo setArrInParamInfo {
 	.ParamType        = ptArray,

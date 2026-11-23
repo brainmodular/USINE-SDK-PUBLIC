@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // @file    ErrorHandling.cpp
 // @author  BrainModular team
-// @brief   Registers errors, warnings and infos, raises them with sdkRaiseError
+// @brief   Registers errors, warnings and infos, raises them with sdkReport
 //          and filters them with a verbosity level.
 //
 // This file is part of the Usine Hollyhock CPP SDK.
@@ -35,7 +35,6 @@ void ErrorHandling::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pM
 	sdkCreateParam(errorBtnInParamInfo, errorBtnIn);
 	sdkCreateParam(warningBtnInParamInfo, warningBtnIn);
 	sdkCreateParam(infoBtnInParamInfo, infoBtnIn);
-	sdkCreateParam(verbosityTxtInParamInfo, verbosityTxtIn);
 }
 
 void ErrorHandling::onCallBack(TUsineMessage* Message)
@@ -46,37 +45,16 @@ void ErrorHandling::onCallBack(TUsineMessage* Message)
 	switch (Message->wParam)
 	{
 		case ERROR_BTN_CBID:
-			sdkRaiseError(ERROR_WRITE, " And this is an additional msg");
+			sdkReport(ERROR_WRITE, " And this is an additional msg");
 			break;
 		case WARNING_BTN_CBID:
-			// force_log: also writes the message in the Usine log file
-			sdkRaiseError(WARNING_WRITE, true);
+			// forceLog: also writes the message in the Usine log file
+			sdkReport(WARNING_WRITE, true);
 			break;
 		case INFO_BTN_CBID:
-			sdkRaiseError(INFO_WRITE);
-			break;
-		case VERBOSITY_TXT_CBID:
-			changeVerbosityLevel();
+			sdkReport(INFO_WRITE);
 			break;
 		default:
 			break;
 	}
-}
-
-void ErrorHandling::changeVerbosityLevel()
-{
-	const std::string verbosityLevel = verbosityTxtIn.getPChar();
-
-	if (verbosityLevel.empty())
-		return;
-	if (verbosityLevel == "None")
-		setVerbosityLevel(Verbosity::None);
-	else if (verbosityLevel == "Error")
-		setVerbosityLevel(Verbosity::Error);
-	else if (verbosityLevel == "Warn")
-		setVerbosityLevel(Verbosity::Warn);
-	else if (verbosityLevel == "Info" || verbosityLevel == "All")
-		setVerbosityLevel(Verbosity::Info);
-	else
-		sdkRaiseError(WARNING_UNKNOWN_VERBOSITY, verbosityLevel);
 }

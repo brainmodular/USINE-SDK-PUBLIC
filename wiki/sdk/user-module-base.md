@@ -131,7 +131,7 @@ inline constexpr TParamInfo gainFdrInParamInfo {
 | `DefaultValue` | `TPrecision` | `0` | Default value |
 | `Symbol` | `AnsiCharPtr` | `nullptr` | Unit symbol (e.g., "Hz", "dB") |
 | `Format` | `AnsiCharPtr` | `nullptr` | Display format (e.g., "%.2f") |
-| `ListBoxStrings` | `AnsiCharPtr` | `nullptr` | Comma-text for `ptListBox` |
+| `ComboBoxStrings` | `AnsiCharPtr` | `nullptr` | Comma-text for `ptComboBox` |
 | `TextValue` | `AnsiCharPtr` | `nullptr` | Default text for `ptText` |
 | `ReadOnly` | `LongBool` | `FALSE` | `TRUE` for output-only parameters |
 | `CallBackType` | `TFastCallBackType` | `ctNormal` | `ctNormal`, `ctImmediate`, `ctAsynchronous`, `cttVideo`, `cbtRealTime`, `cbtGraphic`, `cbtNetwork`, `ctNone` |
@@ -253,7 +253,7 @@ Called on the job thread before processing begins. Set up job state here.
 ```cpp
 virtual void onJobProcess();
 ```
-Called on the job thread. Execute your long-running task here.
+Called on the job thread. Execute your long-running work here.
 
 ### onJobEnd
 ```cpp
@@ -511,13 +511,15 @@ virtual void onLaserSendOut(int DeviceID, TUsineILDAPoint** arrayPoint,
 Defined in `sdk/UserError.h`. A module registers its messages once, then raises them:
 
 ```cpp
-inline const int ERROR_INVALID_CHUNK USINE_MODULE_LOCAL = RegisterError(Level::Error, "invalid saved data, it was not restored");
+inline const int ERROR_INVALID_CHUNK USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "invalid saved data, it was not restored");
 
-sdkRaiseError(ERROR_INVALID_CHUNK);                     // the registered message
-sdkRaiseError(WARNING_UNKNOWN_VERBOSITY, extraText);    // with an extra text appended
-sdkRaiseError(WARNING_WRITE, true);                     // also written in the Usine log file
-setVerbosityLevel(Verbosity::Warn);                     // hides the infos
+sdkReport(ERROR_INVALID_CHUNK);                    // the registered message
+sdkReport(WARNING_CHUNK_DESTROYED, CHUNK_NAME);    // with an extra text appended
+sdkReport(WARNING_WRITE, true);                    // also written in the Usine log file
+sdkSetVerbosity(UReportVerbosity::Warn);           // hides the infos of this instance
 ```
+
+`sdkReport`, `sdkSetVerbosity` and `sdkGetVerbosity` are members: each instance filters its messages with its own `verbosity level` combo box, added by the SDK (hidden by default, in the `Report` section, saved with the patch). From a static function, call them through the instance: `module->sdkReport(...)`.
 
 Use it instead of the raw `sdkTrace*` functions. See [[examples/error-handling|ErrorHandling]].
 

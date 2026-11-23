@@ -711,11 +711,24 @@ sdkSplineInterpolation(const TPrecision fr, const TPrecision inm1, const TPrecis
 
 /// Show a string in the Trace Panel.
 /// @param s The string to show in the Trace Panel.
+/// @param namePrefix TRUE to start the line with [MODULE_NAME].
 /// This function is used to display debug information, messages, or other text in the Usine Trace Panel.
 [[maybe_unused]]
-inline void sdkTraceChar(const AnsiCharPtr s)
+inline void sdkTraceChar(const AnsiCharPtr s, const LongBool namePrefix = TRUE)
 {
-    UserModuleBase::m_masterInfo->TraceChar(s);
+    std::stringstream traceString;
+    if (UserModuleBase::m_masterInfo)
+    {
+        if (namePrefix)
+        {
+            traceString << "[" << UserModuleBase::MODULE_NAME << "]" << " " << s;
+        }
+        else
+        {
+            traceString << s;
+        }
+        UserModuleBase::m_masterInfo->TraceChar(static_cast<AnsiCharPtr>(traceString.str().c_str()));
+    }
 }
 
 [[maybe_unused]]
@@ -724,7 +737,13 @@ inline void sdkTraceChar(const AnsiCharPtr s)
 /// This function is used to display debug information, messages, or other text in the Usine Trace Panel.
 inline void sdkTraceChar(const std::string &s)
 {
-    UserModuleBase::m_masterInfo->TraceChar(s.c_str());
+    if (UserModuleBase::m_masterInfo) {
+        std::stringstream traceString;
+        traceString
+            << "[" << UserModuleBase::MODULE_NAME << "]"
+            << " " << s;
+        UserModuleBase::m_masterInfo->TraceChar(static_cast<AnsiCharPtr>(traceString.str().c_str()));
+    }
 }
 
 /// Show an integer in the Trace Panel.

@@ -38,8 +38,8 @@ constexpr AnsiCharPtr DATA_BULK_ITEM_NAME   = "data_bulk";
 constexpr AnsiCharPtr DATA_BULK_ITEM_NAME_COPY   = "data_bulk_from_module";
 constexpr AnsiCharPtr DEFAULT_COMMA_TEXT    = "value1,value2,value3,value4";
 
-inline const int WARNING_CHUNK_DESTROYED  USINE_MODULE_LOCAL = RegisterError(Level::Warn, "the chunk has been destroyed: ");
-inline const int INFO_CHUNK_ITEMS_CHANGED USINE_MODULE_LOCAL = RegisterError(Level::Info, "the item list of the chunk has changed: ");
+inline const int WARNING_CHUNK_DESTROYED  USINE_MODULE_LOCAL = registerReport(UReportLevel::Warn, "the chunk has been destroyed: ");
+inline const int INFO_CHUNK_ITEMS_CHANGED USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "the item list of the chunk has changed: ");
 
 constexpr NativeInt SET_ITEM_ARR_CBID        = 0x00000AC0;
 constexpr NativeInt SET_COMMA_TXT_CBID       = 0x00000AC1;

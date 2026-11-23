@@ -29,21 +29,21 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"Recordings are saved in the patch";
 constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "0.261112";
 
-inline const int WARNING_NOTHING_TO_UNDO      USINE_MODULE_LOCAL = RegisterError(Level::Warn, "nothing to undo");
-inline const int ERROR_CALLBACK_FAILED        USINE_MODULE_LOCAL = RegisterError(Level::Error, "unexpected error while handling a parameter change");
-inline const int ERROR_UNKNOWN_CHUNK_VERSION  USINE_MODULE_LOCAL = RegisterError(Level::Error, "unknown version of the saved recordings, they were not restored: ");
-inline const int WARNING_TOO_MANY_MOVEMENTS   USINE_MODULE_LOCAL = RegisterError(Level::Warn, "too many movements in the saved recordings, the extra ones are ignored: ");
-inline const int ERROR_WRONG_NUMBER_OF_INPUTS USINE_MODULE_LOCAL = RegisterError(Level::Error, "the saved recordings have another number of inputs, they were not restored: ");
-inline const int ERROR_CORRUPTED_CHUNK        USINE_MODULE_LOCAL = RegisterError(Level::Error, "saved recordings truncated or corrupted, the remaining ones were not restored");
-inline const int WARNING_INVALID_SAVED_VALUES USINE_MODULE_LOCAL = RegisterError(Level::Warn, "invalid values (NaN or infinite) in the saved recordings were replaced by 0");
-inline const int ERROR_SAVE_FAILED            USINE_MODULE_LOCAL = RegisterError(Level::Error, "unexpected error while saving the recordings, they were not saved");
-inline const int ERROR_RESTORE_FAILED         USINE_MODULE_LOCAL = RegisterError(Level::Error, "unexpected error while restoring the saved recordings");
-inline const int WARNING_EMPTY_RECORDING      USINE_MODULE_LOCAL = RegisterError(Level::Warn, "nothing recorded: [record] was ON for less than [sampling period], the recording is ignored");
-inline const int WARNING_RECORDING_TRUNCATED  USINE_MODULE_LOCAL = RegisterError(Level::Warn, "recording truncated: 2000 points max");
-inline const int WARNING_RECORDING_START_LOST USINE_MODULE_LOCAL = RegisterError(Level::Warn, "the start of a recording was lost: the previous recordings were not stored in time");
-inline const int WARNING_RECORDING_LOST       USINE_MODULE_LOCAL = RegisterError(Level::Warn, "a recording was lost: the previous recordings were not stored in time");
-inline const int ERROR_NO_RECOGNITION_THREAD  USINE_MODULE_LOCAL = RegisterError(Level::Error, "the recognition thread could not be created, the movements are not recognized");
-inline const int WARNING_IGNORED_RECORDINGS   USINE_MODULE_LOCAL = RegisterError(Level::Warn, "saved recordings with an invalid movement number were ignored: ");
+inline const int WARNING_NOTHING_TO_UNDO      USINE_MODULE_LOCAL = registerReport(UReportLevel::Warn, "nothing to undo");
+inline const int ERROR_CALLBACK_FAILED        USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unexpected error while handling a parameter change");
+inline const int ERROR_UNKNOWN_CHUNK_VERSION  USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unknown version of the saved recordings, they were not restored: ");
+inline const int WARNING_TOO_MANY_MOVEMENTS   USINE_MODULE_LOCAL = registerReport(UReportLevel::Warn, "too many movements in the saved recordings, the extra ones are ignored: ");
+inline const int ERROR_WRONG_NUMBER_OF_INPUTS USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "the saved recordings have another number of inputs, they were not restored: ");
+inline const int ERROR_CORRUPTED_CHUNK        USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "saved recordings truncated or corrupted, the remaining ones were not restored");
+inline const int WARNING_INVALID_SAVED_VALUES USINE_MODULE_LOCAL = registerReport(UReportLevel::Warn, "invalid values (NaN or infinite) in the saved recordings were replaced by 0");
+inline const int ERROR_SAVE_FAILED            USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unexpected error while saving the recordings, they were not saved");
+inline const int ERROR_RESTORE_FAILED         USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unexpected error while restoring the saved recordings");
+inline const int WARNING_EMPTY_RECORDING      USINE_MODULE_LOCAL = registerReport(UReportLevel::Warn, "nothing recorded: [record] was ON for less than [sampling period], the recording is ignored");
+inline const int WARNING_RECORDING_TRUNCATED  USINE_MODULE_LOCAL = registerReport(UReportLevel::Warn, "recording truncated: 2000 points max");
+inline const int WARNING_RECORDING_START_LOST USINE_MODULE_LOCAL = registerReport(UReportLevel::Warn, "the start of a recording was lost: the previous recordings were not stored in time");
+inline const int WARNING_RECORDING_LOST       USINE_MODULE_LOCAL = registerReport(UReportLevel::Warn, "a recording was lost: the previous recordings were not stored in time");
+inline const int ERROR_NO_RECOGNITION_THREAD  USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "the recognition thread could not be created, the movements are not recognized");
+inline const int WARNING_IGNORED_RECORDINGS   USINE_MODULE_LOCAL = registerReport(UReportLevel::Warn, "saved recordings with an invalid movement number were ignored: ");
 
 constexpr NativeInt SELECT_MOVEMENT_LBOX_CBID = 0x00A01;
 constexpr NativeInt UNDO_BTN_CBID             = 0x00A03;

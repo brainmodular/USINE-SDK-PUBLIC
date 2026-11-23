@@ -32,8 +32,8 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"raises an error (sdk example)";
 constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "2.261112";
 
-inline const int WARNING_MAX_POINTS  USINE_MODULE_LOCAL = RegisterError(Level::Warn, "maximum number of points reached, the trajectory is truncated");
-inline const int ERROR_INVALID_CHUNK USINE_MODULE_LOCAL = RegisterError(Level::Error, "invalid saved trajectory, it was not restored");
+inline const int WARNING_MAX_POINTS  USINE_MODULE_LOCAL = registerReport(UReportLevel::Warn, "maximum number of points reached, the trajectory is truncated");
+inline const int ERROR_INVALID_CHUNK USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "invalid saved trajectory, it was not restored");
 
 // RESET_BTN_CBID and RANDOMIZE_BTN_CBID are also used by the contextual menu commands, see onCreateCommands
 constexpr NativeInt SEL_POINT_INDEX_FDR_CBID = 0x001600F0;

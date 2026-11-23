@@ -27,8 +27,8 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"until code is added (sdk example)";
 constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
 
-// messages raised with sdkRaiseError, example:
-// inline const int ERROR_EXAMPLE USINE_MODULE_LOCAL = RegisterError(Level::Error, "something went wrong: ");
+// messages raised with sdkReport, example:
+// inline const int ERROR_EXAMPLE USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "something went wrong: ");
 
 // one callback id per parameter that has a callback, example:
 // constexpr NativeInt EXAMPLE_FDR_CBID = 0x00100000;

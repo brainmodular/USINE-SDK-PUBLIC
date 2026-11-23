@@ -33,6 +33,7 @@
 #include "UsineDefinitions.h"
 
 constexpr int PUSH_GRANULARITY = 128;
+
 //-----------------------------------------------------------------------------
 // former module functions
 //-----------------------------------------------------------------------------
@@ -543,10 +544,18 @@ private:
 
 /// @}
 
-// Because of circular inclusion of UserModule.h 
+inline void sdkTraceErrorChar(const std::string& s); // defined in UsineFunctions.h, included after this file
+
+// Because of circular inclusion of UserModule.h
 // The definition of this function must come after the declaration of UsineEventClass
 inline void UserModuleBase::sdkCreateParam(const TParamInfo &paramInfo, UsineEventClass &eventClass)
 {
+    if (paramInfo.CallBackType != ctNone && paramInfo.CallBackId >= CALLBACK_SDK_LIMIT)
+    {
+        sdkTraceErrorChar(std::string("CallBackId reserved by the SDK (0xFFFF00 and above), parameter not created: ")
+                          + (paramInfo.Caption != nullptr ? paramInfo.Caption : ""));
+        return;
+    }
     eventClass.setEvent(UserModuleBase::m_masterInfo->CreateParam(m_moduleInfo, &paramInfo));
 }
 

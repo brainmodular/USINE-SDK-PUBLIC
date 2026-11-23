@@ -54,7 +54,7 @@ void UsinePointers::copyPointer()
 	// a pointer input accepts any pointer type, check it before reading the data
 	if (ptrIn.getPointerDataType() != usinePtrFloat)
 	{
-		sdkRaiseError(ERROR_POINTER_NOT_FLOAT);
+		sdkReport(ERROR_POINTER_NOT_FLOAT);
 		return;
 	}
 

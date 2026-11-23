@@ -12,6 +12,51 @@ Olivier Sens & the BrainModular Team
 
 ---
 
+## SDK 703006 — 2026/11/23
+
+Changes since 703005, the previous published version.
+
+### Breaking changes
+
+The error system of `UserError.h` is renamed: it reports errors, warnings and infos, not only errors. A module written for 703005 must rename these names to build.
+
+| Before | Now |
+|---|---|
+| `sdkRaiseError(...)` | `sdkReport(...)` |
+| `RegisterError(...)` | `registerReport(...)` |
+| `setVerbosityLevel(...)` | `sdkSetVerbosity(...)` |
+| `Level::Error`, `Level::Warn`, `Level::Info` | `UReportLevel::Error`, `UReportLevel::Warn`, `UReportLevel::Info` |
+| `Verbosity::None`, `Error`, `Warn` | `UReportVerbosity::None`, `Error`, `Warn` |
+| `Verbosity::Info`, `Verbosity::All` | `UReportVerbosity::All` |
+| `Error`, `errorList()` | `UReport`, `uReportList()` |
+| `current_verbosity_level` | removed: the verbosity belongs to each instance, see below |
+
+- `UReportVerbosity` has no `Info` value any more: `All` shows every message, as `Info` did.
+- The numeric values change: `UReportLevel` starts at 1, `UReportVerbosity` is `None` = 0, `Error` = 1, `Warn` = 2, `All` = 3. Use the names, not the numbers.
+
+The verbosity is now set per instance, not per module binary:
+
+- `sdkReport(...)` and `sdkSetVerbosity(...)` are members of `UserModuleBase`, no longer free functions. A call in a member function builds without change. A call in a static function, such as a thread proc, must go through the instance: `module->sdkReport(...)`.
+- New `sdkGetVerbosity()`, the verbosity of the instance.
+- New `reportWithVerbosity(verbosity, index, extraMsg, forceLog)` in `UserError.h`, for code that has no module instance: it traces a registered message with the verbosity you give it.
+- `traceType` is removed.
+
+Reserved CallBackIds:
+
+- The CallBackIds from `CALLBACK_SDK_LIMIT` (`0xFFFF00`) are reserved by the SDK: `sdkCreateParam` traces an error and does not create a parameter with a callback that uses one. Before, the documentation allowed values up to `0xF000000`.
+- `CALLBACK_WPARAM_LIMIT` is removed, use `CALLBACK_SDK_LIMIT`. `CALLBACK_JOB_START` and `CALLBACK_JOB_END` move to `0xFFFF00` and `0xFFFF01`.
+
+### New features
+
+- **Verbosity level combo box**: every module that registers at least one report gets a `verbosity level` combo box, created by the SDK after the parameters of the module. It is hidden by default and shown with all the parameters, in a `Report` section. Each instance filters its messages with its own level (`none`, `error`, `warn` or `all`, default `all`), saved with the patch.
+
+### Other changes
+
+- `ptListBox` is renamed `ptComboBox`, and the `TParamInfo::ListBoxStrings` field `ComboBoxStrings`. The old names are kept as deprecated aliases, so a module that uses them still builds.
+- `sdkTraceChar` starts the line with `[MODULE_NAME]`, as `sdkTraceErrorChar` and `sdkTraceWarningChar` already did. Pass `namePrefix = FALSE` to the `AnsiCharPtr` overload to trace without it.
+
+---
+
 ## SDK 703005 — 2026/11/16
 
 Changes since 703003, the previous published version. The intermediate version 703004 was not published.

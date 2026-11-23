@@ -27,7 +27,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"(sdk example)";
 constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
 
-inline const int ERROR_POINTER_NOT_FLOAT USINE_MODULE_LOCAL = RegisterError(Level::Error, "the pointer is not type float");
+inline const int ERROR_POINTER_NOT_FLOAT USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "the pointer is not type float");
 
 constexpr NativeInt PTR_IN_CBID = 0x002300F0;
 

@@ -37,14 +37,14 @@ constexpr AnsiCharPtr PATH_COMMA_TEXT   = "usine.workspace.rack01.patch01.string
 constexpr AnsiCharPtr PATH_TRIGGER      = "usine.workspace.rack01.patch01.trigger";
 constexpr int         OBJECT_ARRAY_SIZE = 16;
 
-inline const int INFO_VIDEO_OBJECTS      USINE_MODULE_LOCAL = RegisterError(Level::Info, "video objects: ");
-inline const int INFO_OBJECTS_HASH       USINE_MODULE_LOCAL = RegisterError(Level::Info, "objects hash: ");
-inline const int INFO_FADER_DATA         USINE_MODULE_LOCAL = RegisterError(Level::Info, "faderdata = ");
-inline const int INFO_ARRAY_OUT          USINE_MODULE_LOCAL = RegisterError(Level::Info, "array-out");
-inline const int INFO_COLOR_ARRAY        USINE_MODULE_LOCAL = RegisterError(Level::Info, "color-array");
-inline const int INFO_COLOR_ARRAY_LENGTH USINE_MODULE_LOCAL = RegisterError(Level::Info, "color-array length = ");
-inline const int INFO_COMMA_TEXT_EXISTS  USINE_MODULE_LOCAL = RegisterError(Level::Info, "string.comma-text exists");
-inline const int INFO_COMMA_TEXT         USINE_MODULE_LOCAL = RegisterError(Level::Info, "string.comma-text = ");
+inline const int INFO_VIDEO_OBJECTS      USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "video objects: ");
+inline const int INFO_OBJECTS_HASH       USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "objects hash: ");
+inline const int INFO_FADER_DATA         USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "faderdata = ");
+inline const int INFO_ARRAY_OUT          USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "array-out");
+inline const int INFO_COLOR_ARRAY        USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "color-array");
+inline const int INFO_COLOR_ARRAY_LENGTH USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "color-array length = ");
+inline const int INFO_COMMA_TEXT_EXISTS  USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "string.comma-text exists");
+inline const int INFO_COMMA_TEXT         USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "string.comma-text = ");
 
 inline constexpr TParamInfo setArrInParamInfo {
 	.ParamType        = ptArray,

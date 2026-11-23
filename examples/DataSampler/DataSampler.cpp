@@ -60,20 +60,20 @@ void DataSampler::onCallBack(TUsineMessage* Message)
 			{
 				resetBuffers();
 				outFdrOut.setData(0.0f);
-				sdkRaiseError(INFO_REC_STARTED);
+				sdkReport(INFO_REC_STARTED);
 			}
 			else
 			{
 				aggCurrentBuffer();
 				bufferLength = static_cast<int>(bufRecord.size());
-				sdkRaiseError(INFO_REC_STOPPED);
+				sdkReport(INFO_REC_STOPPED);
 			}
 			break;
 		case CLEAR_BTN_CBID:
 			isRec = false;
 			resetBuffers();
 			outFdrOut.setData(0.0f);
-			sdkRaiseError(INFO_REC_CLEARED);
+			sdkReport(INFO_REC_CLEARED);
 			break;
 		case BOX_COL_CBID:
 			colorBox = boxColIn.getColor();

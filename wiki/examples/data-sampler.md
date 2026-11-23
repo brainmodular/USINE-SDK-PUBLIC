@@ -46,7 +46,7 @@ Records the values of a data input, then plays them back in a loop and draws the
 - **Self notification**: `sdkNotifyUsine(NOTIFY_TARGET_USER_MODULE, ...)` with a callback id that is not a parameter
 - **Path drawing** of the recorded curve
 - **Settings panel** with a color setting
-- **`sdkRaiseError`** for informative messages
+- **`sdkReport`** for informative messages
 
 ## SDK Callbacks Used
 

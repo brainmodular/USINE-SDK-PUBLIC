@@ -29,9 +29,9 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"(sdk example)";
 constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
 
-inline const int INFO_REC_STARTED USINE_MODULE_LOCAL = RegisterError(Level::Info, "recording started");
-inline const int INFO_REC_STOPPED USINE_MODULE_LOCAL = RegisterError(Level::Info, "recording stopped");
-inline const int INFO_REC_CLEARED USINE_MODULE_LOCAL = RegisterError(Level::Info, "record cleared");
+inline const int INFO_REC_STARTED USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "recording started");
+inline const int INFO_REC_STOPPED USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "recording stopped");
+inline const int INFO_REC_CLEARED USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "record cleared");
 
 constexpr NativeInt REC_SW_CBID  = 0x001400F0;
 constexpr NativeInt CLEAR_BTN_CBID  = 0x001400F1;

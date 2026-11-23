@@ -146,7 +146,7 @@ void AudioAnalysis::onCallBack(TUsineMessage* Message)
 	}
 	catch (...)
 	{
-		sdkRaiseError(ERROR_CALLBACK);
+		sdkReport(ERROR_CALLBACK);
 	}
 }
 

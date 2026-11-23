@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // @file    ErrorHandling.h
 // @author  BrainModular team
-// @brief   Registers errors, warnings and infos, raises them with sdkRaiseError
+// @brief   Registers errors, warnings and infos, raises them with sdkReport
 //          and filters them with a verbosity level.
 //
 // This file is part of the Usine Hollyhock CPP SDK.
@@ -23,7 +23,4 @@ private:
 	UsineEventClass errorBtnIn;
 	UsineEventClass warningBtnIn;
 	UsineEventClass infoBtnIn;
-	UsineEventClass verbosityTxtIn;
-
-	void changeVerbosityLevel();
 };

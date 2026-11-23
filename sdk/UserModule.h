@@ -41,6 +41,8 @@
 #define SDK_UNUSED(expr) do { (void)(expr); } while (0)
 
 class UsineEventClass;
+struct UReport;                 // UserError.h
+enum class UReportVerbosity;    // UserError.h
 
 
 
@@ -161,20 +163,22 @@ public:
         SDK_UNUSED(Message);
     }
 
-    // Used for managing asynchronous job. Start the background job 
+    /// Background job: asks Usine to start the job. The SDK then runs onJobBegin and onJobProcess on the job thread.
+    /// A start requested while a job is running waits for the end of that job.
     virtual void startJob();
 
-    /// Used for managing asynchronous job. Is called before the job start
+    /// Background job: called on the job thread, before onJobProcess.
     virtual void onJobBegin()
     {
     }
 
-    /// Used for managing asynchronous job. Execute long running task here
+    /// Background job: called on the job thread. Execute the long running work here.
     virtual void onJobProcess()
     {
     }
 
-    /// Used for managing asynchronous job. It is called after the job terminated
+    /// Background job: called on the Usine callback thread, not on the job thread, one audio block after the job thread ended.
+    /// Collect the results here.
     virtual void onJobEnd()
     {
     }
@@ -648,6 +652,7 @@ public:
     void InitInfosStructures(TMasterInfo *pMasterInfo, TModuleInfo *pModuleInfo);
     void CallBack(TUsineMessage *Message);
     void ResizeModule(float contentWidth, float contentHeight);
+    void CreateVerbosityParameter();
 
 public:
     //-----------------------------------------------------------------------------
@@ -1753,6 +1758,33 @@ public:
     }
     /// @}
 
+    //----------------------------------------------------------------------------
+    /// Reports registered with registerReport (UserError.h), filtered by the verbosity of this instance.
+    /// The verbosity is the "verbosity level" combo box, created automatically when the module
+    /// registers at least one report: hidden by default, in the "Report" section, saved with the patch.
+    /// From a static function (a thread proc for example), call them through the instance: module->sdkReport(...).
+    /// @name Reports
+    /// @{
+
+    /// Traces a registered report if its level passes the verbosity of this instance.
+    /// @param index The index returned by registerReport. An invalid index is ignored.
+    /// @param forceLog TRUE to also write a warning or an info in the Usine log file, even when the verbosity hides it.
+    void sdkReport(int index, bool forceLog = false) const;
+
+    /// Same as sdkReport(int, bool), with a text appended to the message.
+    void sdkReport(int index, const char* extraMsg, bool forceLog = false) const;
+
+    /// Same as sdkReport(int, bool), with a text appended to the message.
+    void sdkReport(int index, const std::string& extraMsg, bool forceLog = false) const;
+
+    /// Sets the verbosity of this instance, its combo box shows the new value.
+    /// @param verbosity None traces nothing, Error only the errors, Warn the errors and warnings, All every report.
+    void sdkSetVerbosity(UReportVerbosity verbosity);
+
+    /// @return The verbosity of this instance, All before the combo box is created.
+    UReportVerbosity sdkGetVerbosity() const;
+    /// @}
+
     
     //----------------------------------------------------------------------------
     /// Useful to convert between pixel coord and graphic canvas unit.
@@ -1838,21 +1870,24 @@ private:
     // declare non copyable
     UserModuleBase(const UserModuleBase &) = delete;
 
-    // This section is specific to manage asynchronous jobs
-    TThreadPtr m_job_thread = nullptr;
-    bool m_taskRunning = false;
-    bool m_taskStarted = false;
+    // This section is specific to manage the background job
+    TThreadPtr m_jobThread = nullptr;
+    bool m_jobRunning = false;
 
     // job parameters created automatically when ModuleType is mtBackgroundJob
-    UsineEventPtr m_jobProcessingEvt = nullptr;
-    UsineEventPtr m_jobTimeEvt = nullptr;
+    UsineEventPtr m_jobRunningEvt = nullptr;
+    UsineEventPtr m_jobDurationEvt = nullptr;
     double m_jobStartTimeMs = 0.0;
     std::atomic<double> m_jobDurationMs { 0.0 }; // written by the job thread, read on job end
 
-    static void processThreadJob(void* pModule, TThreadPtr pThread);
-    void processStartJob();
-    void notifyUsineOnJobEnd() const;
-    void terminateJob();
+    static void jobThreadProc(void* pModule, TThreadPtr pThread);
+    void handleJobStart();   // CALLBACK_JOB_START: starts the job thread, or waits if a job is running
+    void handleJobEnd();     // CALLBACK_JOB_END: calls onJobEnd and updates the job outputs
+    void notifyJobEnd() const;
+
+    // verbosity level combo box created automatically when the module registers reports
+    UsineEventPtr m_verbosityEvt = nullptr;
+    void traceReport(const UReport& rep, bool forceLog) const;   // traces rep if it passes the verbosity of the instance
 
     //UserModuleBase &operator=(const UserModuleBase &);
 }; // class UserModuleBase

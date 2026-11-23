@@ -27,10 +27,10 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"and the quick color replaces the pad color (sdk example)";
 constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
 
-inline const int ERROR_CALLBACK               USINE_MODULE_LOCAL = RegisterError(Level::Error, "error in callback");
-inline const int ERROR_INVALID_CHUNK          USINE_MODULE_LOCAL = RegisterError(Level::Error, "invalid saved pad positions, they were not restored");
-inline const int ERROR_RECORD_AUTOMATION      USINE_MODULE_LOCAL = RegisterError(Level::Error, "failed to record automation");
-inline const int ERROR_STOP_RECORD_AUTOMATION USINE_MODULE_LOCAL = RegisterError(Level::Error, "failed to stop automation recording");
+inline const int ERROR_CALLBACK               USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "error in callback");
+inline const int ERROR_INVALID_CHUNK          USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "invalid saved pad positions, they were not restored");
+inline const int ERROR_RECORD_AUTOMATION      USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "failed to record automation");
+inline const int ERROR_STOP_RECORD_AUTOMATION USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "failed to stop automation recording");
 
 // RANDOMIZE_BTN_CBID is also used by the contextual menu command, see onCreateCommands
 constexpr NativeInt RANDOMIZE_BTN_CBID = 0x002400F0;

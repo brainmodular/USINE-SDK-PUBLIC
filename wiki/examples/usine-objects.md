@@ -58,7 +58,7 @@ AnsiCharPtr results = sdkUsineObjectFind("video");
 | `INFO_FADER_DATA`, `INFO_ARRAY_OUT`, `INFO_COLOR_ARRAY`, `INFO_COLOR_ARRAY_LENGTH`, `INFO_COMMA_TEXT` | Info | Values read back from the objects |
 | `INFO_COMMA_TEXT_EXISTS` | Info | The text object exists |
 
-Set the verbosity level to `Warn` to hide them, see [[examples/error-handling|ErrorHandling]].
+To hide them, show all the parameters of the module and set `verbosity level` (in the `Report` section) to `warn`, see [[examples/error-handling|ErrorHandling]].
 
 ## Key Concepts Demonstrated
 

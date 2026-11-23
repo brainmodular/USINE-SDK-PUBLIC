@@ -47,7 +47,7 @@ Welcome to the **Usine Hollyhock SDK** documentation wiki. This SDK allows you t
 - [[examples/video-dimmer|VideoDimmer]] — Video frame processing
 
 #### System & Advanced
-- [[examples/background-job|BackgroundJob]] — Asynchronous background tasks
+- [[examples/background-job|BackgroundJob]] — Background job on its own thread
 - [[examples/multithreading|MultiThreading]] — Thread creation and synchronization
 - [[examples/global-array|GlobalArray]] — Shared global array manipulation
 - [[examples/usine-chunks|UsineChunks]] — Chunk-based data persistence

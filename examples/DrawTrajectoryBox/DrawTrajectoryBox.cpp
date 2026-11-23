@@ -96,7 +96,7 @@ void DrawTrajectoryBox::onCallBack(TUsineMessage* Message)
 		{
 			const int inPoints = coordsArrIn.getSize() / LINES_PER_POINT;
 			if (inPoints > MAXPOINTS)
-				sdkRaiseError(WARNING_MAX_POINTS);
+				sdkReport(WARNING_MAX_POINTS);
 			const int total = std::min(inPoints, MAXPOINTS);
 
 			coordsArrOut.setSize(total * LINES_PER_POINT);
@@ -177,7 +177,7 @@ void DrawTrajectoryBox::onSetStateChunk(const void* chunk, int sizeInBytes, Long
 	const int expectedSize = static_cast<int>(sizeof(num) + sizeof(TPointF) * std::max(num, 0));
 	if (sizeInBytes < static_cast<int>(sizeof(num)) || num < 0 || num > MAXPOINTS || sizeInBytes < expectedSize)
 	{
-		sdkRaiseError(ERROR_INVALID_CHUNK);
+		sdkReport(ERROR_INVALID_CHUNK);
 		return;
 	}
 
@@ -308,7 +308,7 @@ void DrawTrajectoryBox::appendTrajectory(float X, float Y)
 
 	addPoint(point);
 	if (trajectory.num == MAXPOINTS)
-		sdkRaiseError(WARNING_MAX_POINTS);
+		sdkReport(WARNING_MAX_POINTS);
 
 	sdkRepaintPanel();
 }

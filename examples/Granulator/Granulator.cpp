@@ -246,7 +246,7 @@ void Granulator::onMouseMove(TShiftState Shift, float X, float Y)
 		}
 		catch (std::exception&)
 		{
-			sdkRaiseError(ERROR_RECORD_AUTOMATION);
+			sdkReport(ERROR_RECORD_AUTOMATION);
 		}
 	}
 
@@ -264,7 +264,7 @@ void Granulator::onMouseUp(TMouseButton MouseButton, TShiftState Shift, float X,
 		}
 		catch (std::exception&)
 		{
-			sdkRaiseError(ERROR_STOP_RECORD_AUTOMATION);
+			sdkReport(ERROR_STOP_RECORD_AUTOMATION);
 		}
 	}
 
@@ -370,7 +370,7 @@ void Granulator::startNewGrain(const ChannelFlags& isConnected)
 
 	// warns once when grains start to overlap, not for every new grain
 	if (overlap && !grainOverlapWarned)
-		sdkRaiseError(WARNING_GRAIN_OVERLAP);
+		sdkReport(WARNING_GRAIN_OVERLAP);
 	grainOverlapWarned = overlap;
 
 	nextNewGrainIndex = (nextNewGrainIndex + 1) % NUM_OF_GRAIN;
