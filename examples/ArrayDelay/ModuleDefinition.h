@@ -27,11 +27,11 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"The module handles up to 512 elements and allocates one delay line per element when it is created, "
 	"whatever the number of elements actually used.\n"
 	"[array out] carries the delayed elements (sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "2.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "2.261125";
 
 constexpr NativeInt DELAY_ARR_CBID = 0x001000FF;
 
-inline constexpr TParamInfo arrInParamInfo {
+constexpr TParamInfo arrInParamInfo {
 	.ParamType    = ptArray,
 	.Caption      = "array in",
 	.IsInput      = TRUE,
@@ -42,7 +42,7 @@ inline constexpr TParamInfo arrInParamInfo {
 	.Description  = "Array to delay, up to 512 elements: each element has its own delay line."
 };
 
-inline constexpr TParamInfo delayArrInParamInfo {
+constexpr TParamInfo delayArrInParamInfo {
 	.ParamType    = ptArray,
 	.Caption      = "delay in blocs",
 	.IsInput      = TRUE,
@@ -55,7 +55,7 @@ inline constexpr TParamInfo delayArrInParamInfo {
 	                "Element i uses value i of this array, which repeats when it is shorter."
 };
 
-inline constexpr TParamInfo arrOutParamInfo {
+constexpr TParamInfo arrOutParamInfo {
 	.ParamType    = ptArray,
 	.Caption      = "array out",
 	.IsInput      = FALSE,

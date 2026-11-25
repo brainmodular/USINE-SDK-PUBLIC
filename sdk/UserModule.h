@@ -177,8 +177,8 @@ public:
     {
     }
 
-    /// Background job: called on the Usine callback thread, not on the job thread, one audio block after the job thread ended.
-    /// Collect the results here.
+    /// Background job: called on the main thread, not on the job thread, one audio block after the job thread ended,
+    /// one at a time with the ctNormal callbacks of the module. Collect the results and update the outputs here.
     virtual void onJobEnd()
     {
     }
@@ -1490,18 +1490,27 @@ public:
     /// Usine notification
 	///
 	/// Send a message to Usine, Usine's setup or this user module.
-	/// A delay maybe specified.
-	/// @param Target The target of the message, can be a module or Usine's setup.
+	/// The message is posted to a queue of Usine and delivered later by the thread of that queue, chosen by
+	/// CallbackMode (see TNotifyUsineMode): the call returns at once and can be made from any thread, the
+	/// audio thread included. Sent to NOTIFY_TARGET_USER_MODULE with NOTIFY_MSG_USINE_CALLBACK, the message
+	/// reaches onCallBack with WParam in wParam (a callback id below CALLBACK_SDK_LIMIT) and LParam in lParam.
+	/// The default mode, numRealTime, delivers it on the real-time queue thread of Usine, which is neither the
+	/// audio thread nor the main thread: pass numMainThread for a callback that must run on the main thread,
+	/// with the callbacks of the ctNormal parameters.
+	/// @param Target The target of the message: NOTIFY_TARGET_USINE, NOTIFY_TARGET_SETUP or NOTIFY_TARGET_USER_MODULE.
 	/// @param Msg The message to send.
 	/// @param WParam The first parameter of the message, can be used to pass additional information.
 	/// @param LParam The second parameter of the message, can be used to pass additional information.
-	/// @param Delay The delay in milliseconds before the message is sent.
+	/// @param CallbackMode The queue, and so the thread, that delivers the message (see TNotifyUsineMode).
+	/// @param Delay The delay in milliseconds before the message is delivered.
     void sdkNotifyUsine(const NativeInt Target, const NativeInt Msg, const NativeInt WParam = 0, const NativeInt LParam = 0,
                         const TNotifyUsineMode CallbackMode = TNotifyUsineMode::numRealTime, const int Delay = 0) const
     {
         m_masterInfo->NotifyUsine(m_moduleInfo, Target, Msg, WParam, LParam, CallbackMode, Delay);
     }
 
+	/// Former signature of sdkNotifyUsine, without CallbackMode: the message is always delivered on the main
+	/// thread, as with numMainThread.
     void sdkNotifyUsineOld(const NativeInt Target, const NativeInt Msg, const NativeInt WParam = 0, const NativeInt LParam = 0,
         const int Delay = 0) const
     {
@@ -1847,7 +1856,8 @@ public:
     // TMasterInfo
     //------------------------------------------------------------------------
 
-    static void sdkSetMasterInfo(TMasterInfo *masterInfo) { m_masterInfo = masterInfo; }
+    // written only when it changes: the threads of the running instances read it (see Create in UserModule.cpp)
+    static void sdkSetMasterInfo(TMasterInfo *masterInfo) { if (m_masterInfo != masterInfo) m_masterInfo = masterInfo; }
     static const TMasterInfo *sdkGetMasterInfo() { return m_masterInfo; }
     // Pointer to TMasterInfo provided by Usine.
     static TMasterInfo *m_masterInfo;

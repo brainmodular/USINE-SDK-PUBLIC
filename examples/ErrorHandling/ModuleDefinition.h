@@ -23,7 +23,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"It is saved with the patch.\n"
 	"Messages are registered once when the module loads and raised by index, and the module does no audio "
 	"or data processing, it only reacts to its buttons (sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
 // each message is registered once, registerReport returns the index to give to sdkReport
 inline const int ERROR_WRITE               USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "this is an error print");
@@ -34,7 +34,7 @@ constexpr NativeInt ERROR_BTN_CBID     = 0x00100000;
 constexpr NativeInt WARNING_BTN_CBID   = 0x00200000;
 constexpr NativeInt INFO_BTN_CBID      = 0x00300000;
 
-inline constexpr TParamInfo errorBtnInParamInfo {
+constexpr TParamInfo errorBtnInParamInfo {
 	.ParamType    = ptButton,
 	.Caption      = "error btn",
 	.IsInput      = TRUE,
@@ -44,7 +44,7 @@ inline constexpr TParamInfo errorBtnInParamInfo {
 	.Description  = "Raises the example error message in the Usine trace, followed by an additional text."
 };
 
-inline constexpr TParamInfo warningBtnInParamInfo {
+constexpr TParamInfo warningBtnInParamInfo {
 	.ParamType    = ptButton,
 	.Caption      = "warning btn",
 	.IsInput      = TRUE,
@@ -54,7 +54,7 @@ inline constexpr TParamInfo warningBtnInParamInfo {
 	.Description  = "Raises the example warning message in the Usine trace and also writes it in the Usine log file."
 };
 
-inline constexpr TParamInfo infoBtnInParamInfo {
+constexpr TParamInfo infoBtnInParamInfo {
 	.ParamType    = ptButton,
 	.Caption      = "info btn",
 	.IsInput      = TRUE,

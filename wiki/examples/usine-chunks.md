@@ -8,7 +8,7 @@
 | **Module Name** | `usine chunks` |
 | **Type** | `mtSimple` |
 | **Color** | `clChunkModuleColor` |
-| **Version** | 1.261112 |
+| **Version** | 1.261125 |
 | **Source** | `examples/UsineChunks/` |
 
 ## Description

@@ -8,7 +8,7 @@
 | **Module Name** | `array delay` |
 | **Type** | `mtSimple` |
 | **Color** | `clArrayModuleColor` |
-| **Version** | 2.261112 |
+| **Version** | 2.261125 |
 | **Source** | `examples/ArrayDelay/` |
 
 ## Description

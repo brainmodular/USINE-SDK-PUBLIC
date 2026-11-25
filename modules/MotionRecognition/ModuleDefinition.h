@@ -27,7 +27,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"[sample out 1] and the following arrays carry the last recording of the selected movement;\n"
 	"[latency] gives the recognition time in ms.\n"
 	"Recordings are saved in the patch";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "0.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "0.261125";
 
 inline const int WARNING_NOTHING_TO_UNDO      USINE_MODULE_LOCAL = registerReport(UReportLevel::Warn, "nothing to undo");
 inline const int ERROR_CALLBACK_FAILED        USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unexpected error while handling a parameter change");
@@ -69,7 +69,7 @@ constexpr int        MAX_RECORDED_POINTS  = 2000;
 constexpr TPrecision LOF_THRESHOLD_MAX    = 4.0f;
 
 // data inputs: the caption depends on the input, it is set in onCreateParameters
-inline constexpr TParamInfo dataFdrInParamInfo {
+constexpr TParamInfo dataFdrInParamInfo {
 	.ParamType    = ptDataField,
 	.IsInput      = TRUE,
 	.IsOutput     = FALSE,
@@ -80,7 +80,7 @@ inline constexpr TParamInfo dataFdrInParamInfo {
 	                "A NaN or infinite value is replaced by the last valid one."
 };
 
-inline constexpr TParamInfo detectionFdrOutParamInfo {
+constexpr TParamInfo detectionFdrOutParamInfo {
 	.ParamType        = ptDataField,
 	.Caption          = "detection out",
 	.IsInput          = FALSE,
@@ -94,7 +94,7 @@ inline constexpr TParamInfo detectionFdrOutParamInfo {
 	                    "Its result is sent at the first point after its end, the next point when it lasts less than [sampling period]; a recognition is skipped when the previous one is still running."
 };
 
-inline constexpr TParamInfo samplingPeriodFdrInParamInfo {
+constexpr TParamInfo samplingPeriodFdrInParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "sampling period",
 	.IsInput      = TRUE,
@@ -109,7 +109,7 @@ inline constexpr TParamInfo samplingPeriodFdrInParamInfo {
 	                "Each point is read in the audio bloc where its time falls, so the average period is exact; when it is shorter than an audio bloc, one point is read per bloc."
 };
 
-inline constexpr TParamInfo thresholdFdrInParamInfo {
+constexpr TParamInfo thresholdFdrInParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "threshold",
 	.IsInput      = TRUE,
@@ -124,7 +124,7 @@ inline constexpr TParamInfo thresholdFdrInParamInfo {
 	                "The last points are recognized when their local outlier factor among the recordings is below 4 x [threshold]: higher values recognize the movements more easily."
 };
 
-inline constexpr TParamInfo selectMovementLboxInParamInfo {
+constexpr TParamInfo selectMovementLboxInParamInfo {
 	.ParamType        = ptListBox,
 	.Caption          = "select movement",
 	.IsInput          = TRUE,
@@ -140,7 +140,7 @@ inline constexpr TParamInfo selectMovementLboxInParamInfo {
 	                    "The last recording of this movement is sent to the [sample out] arrays."
 };
 
-inline constexpr TParamInfo recordSwInParamInfo {
+constexpr TParamInfo recordSwInParamInfo {
 	.ParamType    = ptSwitch,
 	.Caption      = "record",
 	.IsInput      = TRUE,
@@ -155,7 +155,7 @@ inline constexpr TParamInfo recordSwInParamInfo {
 	                "Read at each audio bloc."
 };
 
-inline constexpr TParamInfo undoBtnInParamInfo {
+constexpr TParamInfo undoBtnInParamInfo {
 	.ParamType    = ptButton,
 	.Caption      = "undo",
 	.IsInput      = TRUE,
@@ -167,7 +167,7 @@ inline constexpr TParamInfo undoBtnInParamInfo {
 	                "The recordings restored with the patch can't be undone."
 };
 
-inline constexpr TParamInfo clearBtnInParamInfo {
+constexpr TParamInfo clearBtnInParamInfo {
 	.ParamType    = ptButton,
 	.Caption      = "clear",
 	.IsInput      = TRUE,
@@ -180,7 +180,7 @@ inline constexpr TParamInfo clearBtnInParamInfo {
 };
 
 // sample outputs, one per input: the caption is set in onCreateParameters
-inline constexpr TParamInfo sampleArrOutParamInfo {
+constexpr TParamInfo sampleArrOutParamInfo {
 	.ParamType    = ptArray,
 	.IsInput      = FALSE,
 	.IsOutput     = TRUE,
@@ -189,7 +189,7 @@ inline constexpr TParamInfo sampleArrOutParamInfo {
 	.Description  = "Last recording of the movement selected by [select movement], for the input of the same number: its normalized values, one per point."
 };
 
-inline constexpr TParamInfo latencyFdrOutParamInfo {
+constexpr TParamInfo latencyFdrOutParamInfo {
 	.ParamType          = ptDataField,
 	.Caption            = "latency",
 	.IsInput            = FALSE,

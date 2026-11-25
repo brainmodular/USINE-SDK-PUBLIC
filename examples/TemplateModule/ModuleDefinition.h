@@ -25,7 +25,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"in wParam, and the chunk methods report an empty state.\n"
 	"The module is declared as a simple module with processing enabled; its process functions stay empty "
 	"until code is added (sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
 // messages raised with sdkReport, example:
 // inline const int ERROR_EXAMPLE USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "something went wrong: ");
@@ -33,7 +33,9 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
 // one callback id per parameter that has a callback, example:
 // constexpr NativeInt EXAMPLE_FDR_CBID = 0x00100000;
 
-inline constexpr TParamInfo exampleTxtInParamInfo {
+// the TParamInfo constants are constexpr, never inline: an inline constant is a weak symbol, and on macOS dyld
+// gives every module the definition of the first module loaded (unless the module hides its symbols)
+constexpr TParamInfo exampleTxtInParamInfo {
 	.ParamType    = ptText,
 	.Caption      = "text",
 	.IsInput      = TRUE,

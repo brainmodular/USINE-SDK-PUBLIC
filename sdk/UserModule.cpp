@@ -171,10 +171,13 @@ void UserModuleBase::CallBack(TUsineMessage* Message)
     }
 }
 
+// The job notifications go through the main thread queue: handleJobStart and onJobEnd then run on the main thread,
+// one at a time with the ctNormal callbacks of the module and never during its destruction (the main thread deletes
+// the modules). The real-time queue thread of numRealTime is serialized with neither.
 void UserModuleBase::startJob()
 {
     sdkNotifyUsine(NOTIFY_TARGET_USER_MODULE, NOTIFY_MSG_USINE_CALLBACK,
-        CALLBACK_JOB_START, MSG_CHANGE, TNotifyUsineMode::numRealTime
+        CALLBACK_JOB_START, MSG_CHANGE, TNotifyUsineMode::numMainThread
     );
 }
 
@@ -221,7 +224,7 @@ void UserModuleBase::jobThreadProc(void* pModule, TThreadPtr pThread)
 void UserModuleBase::notifyJobEnd() const
 {
     sdkNotifyUsine(NOTIFY_TARGET_USER_MODULE, NOTIFY_MSG_USINE_CALLBACK,
-        CALLBACK_JOB_END, MSG_CHANGE, TNotifyUsineMode::numRealTime, static_cast<int>(std::ceil(m_masterInfo->GetBlockDuration()))
+        CALLBACK_JOB_END, MSG_CHANGE, TNotifyUsineMode::numMainThread, static_cast<int>(std::ceil(m_masterInfo->GetBlockDuration()))
     );
 }
 
@@ -324,7 +327,10 @@ int GetSDKVersion(void)
 void Create(void*& pModule, AnsiCharPtr optionalString, LongBool Flag, TMasterInfo* pMasterInfo, AnsiCharPtr optionalContent)
 {
 
-    if (pMasterInfo != nullptr)
+    // Usine gives every module the same TMasterInfo: written once, by the first creation. A write at each
+    // creation would race with the threads of the instances that run already (they read it in sdkReport,
+    // sdkNotifyUsine, UsineEventClass...), even with the same value.
+    if (pMasterInfo != nullptr && UserModuleBase::m_masterInfo != pMasterInfo)
     {
         UserModuleBase::m_masterInfo = pMasterInfo;
         // TODO : parse pMasterInfo->UsineVersion and sdk version to compare them (major + minor only)

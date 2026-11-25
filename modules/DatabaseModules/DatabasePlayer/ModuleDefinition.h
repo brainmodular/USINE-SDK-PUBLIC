@@ -30,7 +30,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"[audio out 1] and [audio out 2] play the gain weighted sum of their mean spectra with independent "
 	"random phases, from a work thread.\n"
 	"[samples list] and [samples coeffs] describe the 40 slots";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
 inline const int ERROR_DATABASE_NOT_FOUND USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "no database at: ");
 inline const int ERROR_OPEN_DATABASE      USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to open the database: ");
@@ -121,7 +121,7 @@ constexpr float TSNE_DIMENSION_ITEM = 13.0f;
 constexpr float CURSOR_RADIUS_MIN = 1.0f;
 constexpr float CURSOR_RADIUS_MAX = 20.0f;
 
-inline constexpr TParamInfo databaseFileInParamInfo {
+constexpr TParamInfo databaseFileInParamInfo {
 	.ParamType        = ptFileName,
 	.Caption          = "database file",
 	.IsInput          = TRUE,
@@ -136,7 +136,7 @@ inline constexpr TParamInfo databaseFileInParamInfo {
 	                    "A sample whose mean spectrum does not match the FFT size of the database is drawn but not played, with a warning."
 };
 
-inline constexpr TParamInfo reloadDatabaseBtnInParamInfo {
+constexpr TParamInfo reloadDatabaseBtnInParamInfo {
 	.ParamType    = ptButton,
 	.Caption      = "reload database",
 	.IsInput      = TRUE,
@@ -147,7 +147,7 @@ inline constexpr TParamInfo reloadDatabaseBtnInParamInfo {
 	                "Ignored, with an error message, when no database is open."
 };
 
-inline constexpr TParamInfo firstDimensionLboxInParamInfo {
+constexpr TParamInfo firstDimensionLboxInParamInfo {
 	.ParamType        = ptListBox,
 	.Caption          = "first dimension",
 	.IsInput          = TRUE,
@@ -162,7 +162,7 @@ inline constexpr TParamInfo firstDimensionLboxInParamInfo {
 	                    "Combined 1 is the X axis of the t-SNE map computed by Database Creation, and random places the samples at random."
 };
 
-inline constexpr TParamInfo secondDimensionLboxInParamInfo {
+constexpr TParamInfo secondDimensionLboxInParamInfo {
 	.ParamType      = ptListBox,
 	.Caption        = "second dimension",
 	.IsInput        = TRUE,
@@ -175,7 +175,7 @@ inline constexpr TParamInfo secondDimensionLboxInParamInfo {
 	                  "Combined 2 is the Y axis of the t-SNE map computed by Database Creation, and random places the samples at random."
 };
 
-inline constexpr TParamInfo polyphonyFdrInParamInfo {
+constexpr TParamInfo polyphonyFdrInParamInfo {
 	.ParamType        = ptDataFader,
 	.Caption          = "polyphony",
 	.IsInput          = TRUE,
@@ -194,7 +194,7 @@ inline constexpr TParamInfo polyphonyFdrInParamInfo {
 	                    "Range: [1..20]."
 };
 
-inline constexpr TParamInfo samplesListTxtOutParamInfo {
+constexpr TParamInfo samplesListTxtOutParamInfo {
 	.ParamType    = ptTextField,
 	.Caption      = "samples list",
 	.IsInput      = FALSE,
@@ -203,7 +203,7 @@ inline constexpr TParamInfo samplesListTxtOutParamInfo {
 	.Description  = "Paths of the samples in the 2 x [polyphony] slots of the player, as a comma text of quoted items: the samples playing or fading out, and an empty item for each free slot."
 };
 
-inline constexpr TParamInfo samplesCoeffsArrOutParamInfo {
+constexpr TParamInfo samplesCoeffsArrOutParamInfo {
 	.ParamType    = ptArray,
 	.Caption      = "samples coeffs",
 	.IsInput      = FALSE,
@@ -213,7 +213,7 @@ inline constexpr TParamInfo samplesCoeffsArrOutParamInfo {
 	                "The target gain of a sample is 1/(number of selected samples) when the normalize coeffs setting is ON, else its squared closeness to the cursor center (1 at the center, 0 on the circle)."
 };
 
-inline constexpr TParamInfo attackTimeFdrInParamInfo {
+constexpr TParamInfo attackTimeFdrInParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "attack time",
 	.IsInput      = TRUE,
@@ -229,7 +229,7 @@ inline constexpr TParamInfo attackTimeFdrInParamInfo {
 	.Description  = "Time for the gain of a sample to rise to a higher target, in ms: the samples entering the selection fade in over this time."
 };
 
-inline constexpr TParamInfo releaseTimeFdrInParamInfo {
+constexpr TParamInfo releaseTimeFdrInParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "release time",
 	.IsInput      = TRUE,
@@ -245,7 +245,7 @@ inline constexpr TParamInfo releaseTimeFdrInParamInfo {
 	.Description  = "Time for the gain of a sample to fall to a lower target, in ms: the samples leaving the cursor circle fade out to 0 over this time."
 };
 
-inline constexpr TParamInfo onResynthesisSwInParamInfo {
+constexpr TParamInfo onResynthesisSwInParamInfo {
 	.ParamType        = ptSwitch,
 	.Caption          = "on resynthesis",
 	.IsInput          = TRUE,
@@ -261,7 +261,7 @@ inline constexpr TParamInfo onResynthesisSwInParamInfo {
 };
 
 // the two outputs play the same spectrum with independent random phases
-inline constexpr TParamInfo audioOut1ParamInfo {
+constexpr TParamInfo audioOut1ParamInfo {
 	.ParamType    = ptAudio,
 	.Caption      = "audio out 1",
 	.IsInput      = FALSE,
@@ -271,7 +271,7 @@ inline constexpr TParamInfo audioOut1ParamInfo {
 	                "Its random phases differ from the ones of [audio out 2]: the two outputs make a decorrelated pair."
 };
 
-inline constexpr TParamInfo audioOut2ParamInfo {
+constexpr TParamInfo audioOut2ParamInfo {
 	.ParamType    = ptAudio,
 	.Caption      = "audio out 2",
 	.IsInput      = FALSE,
@@ -280,7 +280,7 @@ inline constexpr TParamInfo audioOut2ParamInfo {
 	.Description  = "Same resynthesis as [audio out 1] with other random phases: the two outputs make a decorrelated pair."
 };
 
-inline constexpr TParamInfo cursorDownSwInParamInfo {
+constexpr TParamInfo cursorDownSwInParamInfo {
 	.ParamType        = ptSwitch,
 	.Caption          = "cursor down",
 	.IsInput          = TRUE,
@@ -293,7 +293,7 @@ inline constexpr TParamInfo cursorDownSwInParamInfo {
 	                    "When OFF and the mouse button is up, the playing samples fade out over [release time]."
 };
 
-inline constexpr TParamInfo cursorXFdrInParamInfo {
+constexpr TParamInfo cursorXFdrInParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "cursor X",
 	.IsInput      = TRUE,
@@ -309,7 +309,7 @@ inline constexpr TParamInfo cursorXFdrInParamInfo {
 	                "Ignored while the left mouse button is held down on the panel: the mouse moves the cursor."
 };
 
-inline constexpr TParamInfo cursorYFdrInParamInfo {
+constexpr TParamInfo cursorYFdrInParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "cursor Y",
 	.IsInput      = TRUE,
@@ -325,7 +325,7 @@ inline constexpr TParamInfo cursorYFdrInParamInfo {
 	                "Ignored while the left mouse button is held down on the panel: the mouse moves the cursor."
 };
 
-inline constexpr TParamInfo cursorRadiusFdrInParamInfo {
+constexpr TParamInfo cursorRadiusFdrInParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "cursor radius",
 	.IsInput      = TRUE,

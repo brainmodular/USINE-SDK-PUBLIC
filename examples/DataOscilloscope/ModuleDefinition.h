@@ -25,13 +25,13 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"[color] sets the path color, also editable as box color in the edit layout settings, and each new "
 	"point or settings change repaints the panel.\n"
 	"The default panel is 134 by 134 and points sit in a vector cleared at start (sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
 constexpr NativeInt Y_FDR_CBID     = 0x001300F0;
 constexpr NativeInt SPEED_FDR_CBID = 0x001300F1;
 constexpr NativeInt BOX_COL_CBID   = 0x001300F2;
 
-inline constexpr TParamInfo yFdrInParamInfo {
+constexpr TParamInfo yFdrInParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "y",
 	.IsInput      = TRUE,
@@ -44,7 +44,7 @@ inline constexpr TParamInfo yFdrInParamInfo {
 	.Description  = "Value drawn by the curve: 0 at the bottom of the panel, 1 at the top."
 };
 
-inline constexpr TParamInfo speedFdrInParamInfo {
+constexpr TParamInfo speedFdrInParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "speed",
 	.IsInput      = TRUE,
@@ -59,7 +59,7 @@ inline constexpr TParamInfo speedFdrInParamInfo {
 	                "0 freezes the curve."
 };
 
-inline constexpr TParamInfo boxColInParamInfo {
+constexpr TParamInfo boxColInParamInfo {
 	.ParamType    = ptColor,
 	.Caption      = "color",
 	.IsInput      = TRUE,

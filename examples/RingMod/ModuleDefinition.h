@@ -25,12 +25,12 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"at creation with the bloc size and never resized afterwards.\n"
 	"One [mod] input drives all channels; feeding it an audio signal produces the ring modulation (sdk "
 	"example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
 constexpr NativeInt MIX_FDR_CBID = 0x002200F0;
 
 // audio in/out: the caption depends on the channel, it is set in onCreateParameters
-inline constexpr TParamInfo audioInParamInfo {
+constexpr TParamInfo audioInParamInfo {
 	.ParamType    = ptAudio,
 	.IsInput      = TRUE,
 	.IsOutput     = FALSE,
@@ -39,7 +39,7 @@ inline constexpr TParamInfo audioInParamInfo {
 	.Description  = "Audio input of a channel, multiplied by [mod]."
 };
 
-inline constexpr TParamInfo audioOutParamInfo {
+constexpr TParamInfo audioOutParamInfo {
 	.ParamType    = ptAudio,
 	.IsInput      = FALSE,
 	.IsOutput     = TRUE,
@@ -48,7 +48,7 @@ inline constexpr TParamInfo audioOutParamInfo {
 	.Description  = "Audio output of a channel: the input multiplied by [mod], mixed with the dry input by [mix]."
 };
 
-inline constexpr TParamInfo modAudioInParamInfo {
+constexpr TParamInfo modAudioInParamInfo {
 	.ParamType    = ptAudio,
 	.Caption      = "mod",
 	.IsInput      = TRUE,
@@ -58,7 +58,7 @@ inline constexpr TParamInfo modAudioInParamInfo {
 	.Description  = "Modulation signal, multiplied with every audio input."
 };
 
-inline constexpr TParamInfo mixFdrInParamInfo {
+constexpr TParamInfo mixFdrInParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "mix",
 	.IsInput      = TRUE,

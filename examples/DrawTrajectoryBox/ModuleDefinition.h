@@ -30,7 +30,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"Settings handle smooth and closed lines, Y inversion and colors.\n"
 	"The trajectory is saved in the state chunk of workspaces, patches and presets, and a corrupted chunk "
 	"raises an error (sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "2.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "2.261125";
 
 inline const int WARNING_MAX_POINTS  USINE_MODULE_LOCAL = registerReport(UReportLevel::Warn, "maximum number of points reached, the trajectory is truncated");
 inline const int ERROR_INVALID_CHUNK USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "invalid saved trajectory, it was not restored");
@@ -42,7 +42,7 @@ constexpr NativeInt RANDOMIZE_BTN_CBID       = 0x001600F2;
 constexpr NativeInt COORDS_ARR_IN_CBID       = 0x001600F3;
 constexpr NativeInt COORDS_ARR_OUT_CBID      = 0x001600F4;
 
-inline constexpr TParamInfo nbPointsFdrOutParamInfo {
+constexpr TParamInfo nbPointsFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "nbpoints",
 	.IsInput      = FALSE,
@@ -58,7 +58,7 @@ inline constexpr TParamInfo nbPointsFdrOutParamInfo {
 };
 
 // the integer part selects a point, the fractional part moves the cursor toward the next one
-inline constexpr TParamInfo selPointIndexFdrInParamInfo {
+constexpr TParamInfo selPointIndexFdrInParamInfo {
 	.ParamType        = ptDataField,
 	.Caption          = "cursor pos",
 	.IsInput          = TRUE,
@@ -74,7 +74,7 @@ inline constexpr TParamInfo selPointIndexFdrInParamInfo {
 	                    "-1 hides the cursor."
 };
 
-inline constexpr TParamInfo selPointXFdrOutParamInfo {
+constexpr TParamInfo selPointXFdrOutParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "pos x",
 	.IsInput      = FALSE,
@@ -90,7 +90,7 @@ inline constexpr TParamInfo selPointXFdrOutParamInfo {
 	.Description  = "X coordinate of the cursor, from 0 (left) to 1 (right)."
 };
 
-inline constexpr TParamInfo selPointYFdrOutParamInfo {
+constexpr TParamInfo selPointYFdrOutParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "pos y",
 	.IsInput      = FALSE,
@@ -105,7 +105,7 @@ inline constexpr TParamInfo selPointYFdrOutParamInfo {
 	.Description  = "Y coordinate of the cursor, from 0 (top) to 1 (bottom)."
 };
 
-inline constexpr TParamInfo resetBtnInParamInfo {
+constexpr TParamInfo resetBtnInParamInfo {
 	.ParamType    = ptButton,
 	.Caption      = "reset",
 	.IsInput      = TRUE,
@@ -117,7 +117,7 @@ inline constexpr TParamInfo resetBtnInParamInfo {
 	.Description  = "Clears the trajectory and hides the cursor."
 };
 
-inline constexpr TParamInfo randomizeBtnInParamInfo {
+constexpr TParamInfo randomizeBtnInParamInfo {
 	.ParamType    = ptButton,
 	.Caption      = "randomize",
 	.IsInput      = TRUE,
@@ -128,7 +128,7 @@ inline constexpr TParamInfo randomizeBtnInParamInfo {
 	.Description  = "Replaces the trajectory with a random Lissajous curve."
 };
 
-inline constexpr TParamInfo coordsArrInParamInfo {
+constexpr TParamInfo coordsArrInParamInfo {
 	.ParamType    = ptArray,
 	.Caption      = "coords in",
 	.IsInput      = TRUE,
@@ -144,7 +144,7 @@ inline constexpr TParamInfo coordsArrInParamInfo {
 };
 
 // output that the user can also edit in the lines tab, hence the callback
-inline constexpr TParamInfo coordsArrOutParamInfo {
+constexpr TParamInfo coordsArrOutParamInfo {
 	.ParamType    = ptArray,
 	.Caption      = "coords out",
 	.IsInput      = FALSE,

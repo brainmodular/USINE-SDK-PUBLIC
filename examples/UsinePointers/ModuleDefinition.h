@@ -25,14 +25,14 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"[pointer out] always declares float data, so it can feed any other pointer inlet expecting floats.\n"
 	"The module is a simple module with processing disabled and the copy happens only in the callback "
 	"(sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
 inline const int ERROR_POINTER_NOT_FLOAT USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "the pointer is not type float");
 
 constexpr NativeInt PTR_IN_CBID = 0x002300F0;
 
 // PointerDataType can be any UINT32, see UsinePointerTypes for the types known by Usine
-inline constexpr TParamInfo ptrInParamInfo {
+constexpr TParamInfo ptrInParamInfo {
 	.ParamType       = ptPointer,
 	.Caption         = "pointer in",
 	.IsInput         = TRUE,
@@ -44,7 +44,7 @@ inline constexpr TParamInfo ptrInParamInfo {
 	                   "Another pointer type raises an error."
 };
 
-inline constexpr TParamInfo ptrOutParamInfo {
+constexpr TParamInfo ptrOutParamInfo {
 	.ParamType       = ptPointer,
 	.Caption         = "pointer out",
 	.IsInput         = FALSE,

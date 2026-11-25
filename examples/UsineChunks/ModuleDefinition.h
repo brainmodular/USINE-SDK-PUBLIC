@@ -28,7 +28,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"[read from chunk] reads that buffer, then writes the same number of floats of the module test data "
 	"in data_bulk_from_module.\n"
 	"The module is not saved in presets (sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
 // the chunk and its items, shared by every module that uses the same names
 constexpr AnsiCharPtr CHUNK_NAME            = "mychunk";
@@ -52,7 +52,7 @@ constexpr NativeInt CHUNK_SUB_TEXT_CBID      = 0x00000FF2;
 
 
 
-inline constexpr TParamInfo setItemArrInParamInfo {
+constexpr TParamInfo setItemArrInParamInfo {
 	.ParamType        = ptArray,
 	.Caption          = "set item1",
 	.IsInput          = TRUE,
@@ -64,7 +64,7 @@ inline constexpr TParamInfo setItemArrInParamInfo {
 	.Description      = "Array written in the item 'item1' of the chunk 'mychunk', shared with every module using this chunk."
 };
 
-inline constexpr TParamInfo setCommaTxtInParamInfo {
+constexpr TParamInfo setCommaTxtInParamInfo {
 	.ParamType        = ptText,
 	.Caption          = "commatxt idx 1",
 	.IsInput          = TRUE,
@@ -76,7 +76,7 @@ inline constexpr TParamInfo setCommaTxtInParamInfo {
 	.Description      = "Text written at index 1 of the comma-text item 'commatxt' of the chunk 'mychunk', the other values are kept."
 };
 
-inline constexpr TParamInfo getItemArrOutParamInfo {
+constexpr TParamInfo getItemArrOutParamInfo {
 	.ParamType    = ptArray,
 	.Caption      = "get item1",
 	.IsInput      = FALSE,
@@ -85,7 +85,7 @@ inline constexpr TParamInfo getItemArrOutParamInfo {
 	.Description  = "Content of the item 'item1' of the chunk 'mychunk', read back each time it changes, also when another module writes it."
 };
 
-inline constexpr TParamInfo getCommaTxtOutParamInfo {
+constexpr TParamInfo getCommaTxtOutParamInfo {
 	.ParamType    = ptText,
 	.Caption      = "get commatxt",
 	.IsInput      = FALSE,
@@ -95,7 +95,7 @@ inline constexpr TParamInfo getCommaTxtOutParamInfo {
 	.Description  = "Content of the comma-text item 'commatxt' of the chunk 'mychunk', read back each time it changes."
 };
 
-inline constexpr TParamInfo getChunkDataBtnInParamInfo {
+constexpr TParamInfo getChunkDataBtnInParamInfo {
 	.ParamType    = ptButton,
 	.Caption      = "read from chunk",
 	.IsInput      = TRUE,
@@ -105,7 +105,7 @@ inline constexpr TParamInfo getChunkDataBtnInParamInfo {
 	.Description  = "Reads the float buffer 'data_bulk' of the chunk in one call, then writes the test buffer of the module in 'data_bulk_from_module'."
 };
 
-inline constexpr TParamInfo setChunkDataBtnInParamInfo {
+constexpr TParamInfo setChunkDataBtnInParamInfo {
 	.ParamType    = ptButton,
 	.Caption      = "push to chunk",
 	.IsInput      = TRUE,

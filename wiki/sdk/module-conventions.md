@@ -41,7 +41,7 @@ inline const int WARNING_NEGATIVE_FREQUENCY USINE_MODULE_LOCAL = registerReport(
 
 constexpr NativeInt FREQUENCY_FDR_CBID = 0x001900F0;
 
-inline constexpr TParamInfo frequencyFdrInParamInfo {
+constexpr TParamInfo frequencyFdrInParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "freq",
 	.IsInput      = TRUE,
@@ -57,6 +57,8 @@ inline constexpr TParamInfo frequencyFdrInParamInfo {
 > **Important:** `ModuleDefinition.h` defines the `MODULE_*` constants, so it must be included by **one** `.cpp` only, the one that holds `CreateModule`. Include it after the module header.
 
 > **`USINE_MODULE_LOCAL` on the report constants.** `registerReport` returns an index in the report registry of the module. An `inline const int` with a dynamic initializer is a weak definition, and macOS and Linux unify the weak definitions of the whole process: two modules using the same constant name (`ERROR_LOCK`, `ERROR_INVALID_CHUNK`, …) would share one index while each keeps its own registry, and the messages of the second module would be silently dropped. `USINE_MODULE_LOCAL` (hidden visibility, empty on Windows) keeps the constant private to the module, like the `MODULE_*` constants.
+
+> **`constexpr TParamInfo`, never `inline constexpr`.** A `constexpr` variable at namespace scope has internal linkage: each module keeps its own copy of its `TParamInfo`, with no `USINE_MODULE_LOCAL`. Declared `inline`, a `TParamInfo` becomes a weak symbol that a module built without hidden visibility exports, and on macOS dyld gives every module the definition of the first module loaded that uses the same name. [[examples/draw-box|DrawBox]] and [[examples/simple-pad|SimplePad]] both have a `randomizeBtnInParamInfo`: with `inline`, when DrawBox is loaded first, SimplePad creates its button with the caption, callback type and callback id of DrawBox, and its `onCallBack` never recognizes the id. Build the modules with hidden visibility on macOS and Linux as well, so that they export only the functions marked `USINE_MODULE_EXPORT` (see [[docs/writing-user-modules-macos|Writing User Modules on macOS]]).
 
 A module without parameters keeps only the module constants in `ModuleDefinition.h` (see [[examples/drag-and-drop|DragAndDrop]]). When a `TParamInfo` needs a constant of the class, `ModuleDefinition.h` includes the module header (`MAXPOINTS` in [[examples/draw-trajectory-box|DrawTrajectoryBox]]).
 
@@ -113,7 +115,7 @@ A `UsineEventClass` member bound to a parameter is named `<what><Type><In|Out>` 
 
 A callback id keeps the direction when it is needed: to tell an input from an output of the same name (`COORDS_ARR_IN_CBID` and `COORDS_ARR_OUT_CBID` in [[examples/draw-trajectory-box|DrawTrajectoryBox]]), or when the name is the type alone (`PTR_IN_CBID` for `ptrIn`).
 
-A callback id shared by several parameters, or that is not a parameter (a chunk subscription, a notification the module sends to itself), is named after what it triggers and documented with a comment: `INPUT_FDR_CBID` in [[examples/data-multiply|DataMultiply]], `AGG_BUFFER_CBID` in [[examples/data-sampler|DataSampler]]. A contextual menu command reuses the callback id of the matching button (`RESET_BTN_CBID`).
+A callback id shared by several parameters, or that is not a parameter (a chunk subscription, a notification the module sends to itself), is named after what it triggers and documented with a comment: `INPUT_FDR_CBID` in [[examples/data-multiply|DataMultiply]], `NEXT_CHUNK_CBID` in [[examples/data-sampler|DataSampler]]. A contextual menu command reuses the callback id of the matching button (`RESET_BTN_CBID`).
 
 ### Module name and description
 

@@ -8,7 +8,7 @@
 | **Module Name** | `global array` |
 | **Type** | `mtSimple` |
 | **Color** | `clArrayModuleColor` |
-| **Version** | 1.261112 |
+| **Version** | 1.261125 |
 | **Source** | `examples/GlobalArray/` |
 
 ## Description

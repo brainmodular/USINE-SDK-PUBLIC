@@ -8,7 +8,7 @@
 | **Module Name** | `video dimmer` |
 | **Type** | `mtVideo` |
 | **Color** | `clVideoModuleColor` |
-| **Version** | 1.261112 |
+| **Version** | 1.261125 |
 | **Source** | `examples/VideoDimmer/` |
 
 ## Description

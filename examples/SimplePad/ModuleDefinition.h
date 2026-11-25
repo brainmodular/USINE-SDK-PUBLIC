@@ -25,7 +25,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"expected raises an error and keeps the pads on their diagonal.\n"
 	"The edit layout panel sets the pad color and the ellipse size in pixels, from 1 to 30, default 20, "
 	"and the quick color replaces the pad color (sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
 inline const int ERROR_CALLBACK               USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "error in callback");
 inline const int ERROR_INVALID_CHUNK          USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "invalid saved pad positions, they were not restored");
@@ -37,7 +37,7 @@ constexpr NativeInt RANDOMIZE_BTN_CBID = 0x002400F0;
 constexpr NativeInt POS_X_ARR_CBID     = 0x002400F1;
 constexpr NativeInt POS_Y_ARR_CBID     = 0x002400F2;
 
-inline constexpr TParamInfo randomizeBtnInParamInfo {
+constexpr TParamInfo randomizeBtnInParamInfo {
 	.ParamType    = ptButton,
 	.Caption      = "randomize position",
 	.IsInput      = TRUE,
@@ -49,7 +49,7 @@ inline constexpr TParamInfo randomizeBtnInParamInfo {
 };
 
 // outputs that the user can also edit, hence the callbacks
-inline constexpr TParamInfo posXArrOutParamInfo {
+constexpr TParamInfo posXArrOutParamInfo {
 	.ParamType    = ptArray,
 	.Caption      = "arr pos x",
 	.IsInput      = FALSE,
@@ -63,7 +63,7 @@ inline constexpr TParamInfo posXArrOutParamInfo {
 	                "Setting the array moves the pads."
 };
 
-inline constexpr TParamInfo posYArrOutParamInfo {
+constexpr TParamInfo posYArrOutParamInfo {
 	.ParamType    = ptArray,
 	.Caption      = "arr pos y",
 	.IsInput      = FALSE,

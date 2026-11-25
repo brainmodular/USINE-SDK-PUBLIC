@@ -8,7 +8,7 @@
 | **Module Name** | `multithreading` |
 | **Type** | `mtSimple` |
 | **Color** | `clDataModuleColor` |
-| **Version** | 1.261112 |
+| **Version** | 1.261125 |
 | **Source** | `examples/MultiThreading/` |
 
 ## Description

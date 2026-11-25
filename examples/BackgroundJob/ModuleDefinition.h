@@ -26,13 +26,13 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"onJobBegin is empty, onJobProcess runs in a background thread, and onJobEnd, called by Usine once "
 	"the job is done, writes the result to [out], which is not saved with the module.\n"
 	"There is no process callback (sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
 constexpr NativeInt ONE_FDR_CBID   = 0x001800F0;
 constexpr NativeInt TWO_FDR_CBID   = 0x001800F1;
 constexpr NativeInt START_BTN_CBID = 0x001800F2;
 
-inline constexpr TParamInfo oneFdrInParamInfo {
+constexpr TParamInfo oneFdrInParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "data1",
 	.IsInput      = TRUE,
@@ -45,7 +45,7 @@ inline constexpr TParamInfo oneFdrInParamInfo {
 	.Description  = "First input of the computation, read when the job starts."
 };
 
-inline constexpr TParamInfo twoFdrInParamInfo {
+constexpr TParamInfo twoFdrInParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "data2",
 	.IsInput      = TRUE,
@@ -58,7 +58,7 @@ inline constexpr TParamInfo twoFdrInParamInfo {
 	.Description  = "Second input of the computation, read when the job starts."
 };
 
-inline constexpr TParamInfo startBtnInParamInfo {
+constexpr TParamInfo startBtnInParamInfo {
 	.ParamType    = ptButton,
 	.Caption      = "start job",
 	.IsInput      = TRUE,
@@ -70,7 +70,7 @@ inline constexpr TParamInfo startBtnInParamInfo {
 	                "Pressed during a job, another job starts when it ends."
 };
 
-inline constexpr TParamInfo outFdrOutParamInfo {
+constexpr TParamInfo outFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "out",
 	.IsInput      = FALSE,

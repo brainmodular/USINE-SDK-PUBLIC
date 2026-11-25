@@ -84,7 +84,7 @@
 //-----------------------------------------------------------------------------
 /// version of the SDK
 /// to use in GetSDKVersion function to return the SDK version number
-static constexpr int SDK_VERSION = 703006;
+static constexpr int SDK_VERSION = 703007;
 
 //-----------------------------------------------------------------------------
 #if (defined (USINE_WIN64))
@@ -178,17 +178,22 @@ typedef TUsineMessage UsineMessage;
 
 
 /// --------------------------------------------------------------------------<summary>
-/// Possible values for @see sdkNotifyUsine callback mode param
-/// Determines the usine message queue used, subsequentely on which thread
-/// 
+/// Possible values for the CallbackMode parameter of @see sdkNotifyUsine.
+/// The mode chooses the message queue of Usine, and so the thread that delivers the message (the onCallBack
+/// of the module for NOTIFY_TARGET_USER_MODULE). sdkNotifyUsine only posts the message and returns, from any
+/// thread. numVideo, numRealTime and numNetwork deliver it outside the main thread, concurrently with the main
+/// thread callbacks of the module (its ctNormal parameters); numRealTime and numNetwork are not serialized
+/// with the destruction of the module either, which the main thread does. Use numMainThread for a callback
+/// that must not overlap them.
+/// Any other value is handled as numMainThread.
 using TNotifyUsineMode = enum TNotifyUsineMode : int32_t
 {
-    numMainThread,
-    numAsync,
-    numVideo,
-    numRealTime,
-    numGraphic,
-    numNetwork
+    numMainThread, ///< the main thread, in the message pass that the main timer of Usine runs every 5 to 150 ms (the refresh speed of the setup)
+    numAsync,      ///< the main thread too, in the same pass, right after the numMainThread messages
+    numVideo,      ///< the video queue thread (QueueVideoThread), with the video engine locked, at the video frame rate and only while the video is on. Usine also runs these messages on the main thread when it flushes all its queues (before deleting modules, when it loads or saves its setup...)
+    numRealTime,   ///< default of sdkNotifyUsine: the real-time queue thread of Usine (RealTimeQueueThread, medium priority, every 10 ms), neither the audio thread nor the main thread
+    numGraphic,    ///< the main thread, in the same pass, after the numMainThread and numAsync messages
+    numNetwork     ///< the network thread of Usine (NetworkUpdateThread, medium priority, every 20 ms by default), only while the network of Usine is on and no workspace is loading or saving: the messages wait otherwise
 };
 
 
@@ -568,15 +573,18 @@ using TSettingInOutletMode = enum TSettingInOutletMode : int32_t
 /// This enum is used to specify the type of callback for a parameter.
 /// It is used in the TParamInfo structure to define how the parameter should be processed when its value changes.
 /// It allows to choose between a normal callback, an immediate callback, or an asynchronous callback.
+/// The queued types go through the same queues, and so the same threads, as the TNotifyUsineMode values:
+/// ctNormal as numMainThread, ctAsynchronous as numAsync, cttVideo as numVideo, cbtRealTime as numRealTime
+/// (the real-time queue thread, not the audio thread), cbtGraphic as numGraphic, cbtNetwork as numNetwork.
 typedef enum TFastCallBackType : int32_t
 {
-	ctNormal,       ///< Processed in the normal Usine messages handler. The latency is defined by the User in the Usine Setup.
-	ctImmediate,    ///< Each time the parameter change, callback is processed immediately. Be careful, the callBack procedure is called in the audio thread.
-    ctAsynchronous, ///< Processed in the window message handler (slower than ctNormal). Use this if the process is very long or if you open a modal window.
-    cttVideo,       ///< Processed in the video thread.
-    cbtRealTime,    ///< Fast but not immediate realtime.
-    cbtGraphic,     ///< Graphic thread (Main thread but slower).
-    cbtNetwork,     ///< realtime thread dedicated to network operations.
+	ctNormal,       ///< The main thread, in the message pass of the main timer (every 5 to 150 ms, the refresh speed set in the Usine Setup).
+	ctImmediate,    ///< Called at once, by the thread that changes the value: the audio thread for a value that comes through a wire (no allocation, no lock there), the main thread for a change made in the interface.
+    ctAsynchronous, ///< The main thread too, in the same pass, right after the ctNormal messages. Use this for a long process or to open a modal window.
+    cttVideo,       ///< The video queue thread (QueueVideoThread), with the video engine locked, only while the video is on.
+    cbtRealTime,    ///< The real-time queue thread of Usine (RealTimeQueueThread, medium priority, every 10 ms): neither the audio thread nor the main thread.
+    cbtGraphic,     ///< The main thread, in the same pass, after the ctNormal and ctAsynchronous messages.
+    cbtNetwork,     ///< The network thread of Usine (NetworkUpdateThread), only while the network of Usine is on.
     ctNone          ///< No callback, the parameter change is not notified.
 } TFastCallBackType;
 
@@ -1891,9 +1899,16 @@ struct TColorAhsl
 
 //-----------------------------------------------------------------------------
 // A symbol kept private to the module library. Usine loads several modules in one process and the
-// dynamic linker unifies the weak definitions of the whole process: a constexpr (or an inline
-// function) defined by two modules becomes one shared symbol, so every module would read the values
-// of the first module loaded. Windows has no such unification, macOS and Linux do.
+// dynamic linker unifies the weak definitions of the whole process: an inline variable (a constexpr
+// static data member such as MODULE_NAME is one) or an inline function defined by two modules becomes
+// one shared symbol, so every module would read the values of the first module loaded. Windows has no
+// such unification, macOS and Linux do. Build the modules with hidden visibility too (-fvisibility=hidden
+// -fvisibility-inlines-hidden, in Xcode GCC_SYMBOLS_PRIVATE_EXTERN and GCC_INLINES_ARE_PRIVATE_EXTERN):
+// only the USINE_MODULE_EXPORT functions are then exported.
+// The TParamInfo constants of a ModuleDefinition.h are constexpr, never inline: a constexpr variable at
+// namespace scope has internal linkage, so each module keeps its own copy without USINE_MODULE_LOCAL.
+// Declared inline, a TParamInfo is a weak symbol, and a module could create its parameters from the
+// TParamInfo of another module that uses the same name (another type, callback type or callback id).
 //-----------------------------------------------------------------------------
 #if (defined (USINE_WIN64))
 #define USINE_MODULE_LOCAL

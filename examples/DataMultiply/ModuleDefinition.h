@@ -24,12 +24,12 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"product grows freely.\n"
 	"[result] is an output only, with no callback and marked as not saved, so the host does not restore "
 	"it from the file, and the whole module is excluded from presets (sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
 // shared by both inputs: any change recomputes the result
 constexpr NativeInt INPUT_FDR_CBID = 0x001200FF;
 
-inline constexpr TParamInfo aFdrInParamInfo {
+constexpr TParamInfo aFdrInParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "a",
 	.IsInput      = TRUE,
@@ -39,7 +39,7 @@ inline constexpr TParamInfo aFdrInParamInfo {
 	.Description  = "First factor: each change recomputes [result]."
 };
 
-inline constexpr TParamInfo bFdrInParamInfo {
+constexpr TParamInfo bFdrInParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "b",
 	.IsInput      = TRUE,
@@ -49,7 +49,7 @@ inline constexpr TParamInfo bFdrInParamInfo {
 	.Description  = "Second factor: each change recomputes [result]."
 };
 
-inline constexpr TParamInfo resultFdrOutParamInfo {
+constexpr TParamInfo resultFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "result",
 	.IsInput      = FALSE,

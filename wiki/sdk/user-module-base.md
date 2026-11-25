@@ -24,7 +24,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
 The SDK uses them to fill `Name`, `Description` and `Version` of `TModuleInfo`: in `GetBrowserInfo`, which the SDK implements, and before calling `onGetModuleInfo`. The module doesn't set these fields itself. The Usine trace also shows `MODULE_NAME` in front of the messages of the module.
 
-The three constants are declared `USINE_MODULE_LOCAL` (hidden visibility on macOS and Linux, nothing on Windows). A `constexpr` definition is a weak symbol, and the dynamic linker unifies the weak definitions of the whole process: without the attribute, `GetBrowserInfo` — compiled in `UserModule.cpp`, another translation unit of the same library — binds to the copy of the first module loaded, and every module reports its name, description and version.
+The three constants are declared `USINE_MODULE_LOCAL` (hidden visibility on macOS and Linux, nothing on Windows). A `constexpr` static data member is an inline variable, hence a weak symbol, and the dynamic linker unifies the weak definitions of the whole process: without the attribute, `GetBrowserInfo` — compiled in `UserModule.cpp`, another translation unit of the same library — binds to the copy of the first module loaded, and every module reports its name, description and version.
 
 ---
 
@@ -101,10 +101,10 @@ void AudioVolume::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pMod
 }
 ```
 
-The `TParamInfo` are `inline constexpr` structures written with designated initializers in `ModuleDefinition.h`. The fields must follow their declaration order, the ones left out keep their default value:
+The `TParamInfo` are `constexpr` structures written with designated initializers in `ModuleDefinition.h`, never `inline`: each module must keep its own copy (see [[sdk/module-conventions|Module Conventions]]). The fields must follow their declaration order, the ones left out keep their default value:
 
 ```cpp
-inline constexpr TParamInfo gainFdrInParamInfo {
+constexpr TParamInfo gainFdrInParamInfo {
 	.ParamType        = ptGainFader,
 	.Caption          = "gain",
 	.IsInput          = TRUE,
@@ -259,7 +259,7 @@ Called on the job thread. Execute your long-running work here.
 ```cpp
 virtual void onJobEnd();
 ```
-Called after the job thread finishes, through a notification the SDK sends to Usine in real-time mode (`numRealTime`), delayed by the duration of one audio block (`sdkGetBlockDuration`), not on the job thread. Collect results and update outputs here.
+Called after the job thread finishes, through a notification the SDK sends to Usine on the main thread queue (`numMainThread`), delayed by the duration of one audio block (`sdkGetBlockDuration`). It runs on the main thread, one at a time with the `ctNormal` parameter callbacks and never during the destruction of the module; it is neither the job thread nor the audio thread. Collect results and update outputs here.
 
 ### Automatic job parameters (`mtBackgroundJob`)
 When `onGetModuleInfo` sets `pModuleInfo->ModuleType = mtBackgroundJob`, the SDK creates two output parameters, **after** the parameters created in `onCreateParameters` (user param indices don't shift):

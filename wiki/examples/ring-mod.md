@@ -8,7 +8,7 @@
 | **Module Name** | `ring mod` |
 | **Type** | `mtSimple` |
 | **Color** | `clAudioModuleColor` |
-| **Version** | 1.261112 |
+| **Version** | 1.261125 |
 | **Source** | `examples/RingMod/` |
 
 ## Description

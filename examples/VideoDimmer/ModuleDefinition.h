@@ -24,10 +24,10 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"A step of 1 keeps every pixel and the grid color never appears.\n"
 	"The dimmer is applied after the grid, then the frame is sent to the output at each video tick (sdk "
 	"example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
 // no callbacks: the values are read in onProcessVideo
-inline constexpr TParamInfo dimmerFdrInParamInfo {
+constexpr TParamInfo dimmerFdrInParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "dimmer",
 	.IsInput      = TRUE,
@@ -39,7 +39,7 @@ inline constexpr TParamInfo dimmerFdrInParamInfo {
 	.Description  = "Brightness of the output video, from 0 (black) to 1 (unchanged)."
 };
 
-inline constexpr TParamInfo pixelColInParamInfo {
+constexpr TParamInfo pixelColInParamInfo {
 	.ParamType    = ptColor,
 	.Caption      = "pixel color",
 	.IsInput      = TRUE,
@@ -49,7 +49,7 @@ inline constexpr TParamInfo pixelColInParamInfo {
 	                "Red by default."
 };
 
-inline constexpr TParamInfo spaceFdrInParamInfo {
+constexpr TParamInfo spaceFdrInParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "inter space",
 	.IsInput      = TRUE,

@@ -124,7 +124,7 @@ Each parameter is described by a `constexpr TParamInfo` in `ModuleDefinition.h`,
 
 ```cpp
 // ModuleDefinition.h
-inline constexpr TParamInfo inputFdrInParamInfo {
+constexpr TParamInfo inputFdrInParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "input",
 	.IsInput      = TRUE,
@@ -178,13 +178,13 @@ void MyModule::onCallBack(TUsineMessage* Message)
 ```mermaid
 graph TB
     subgraph "Callback Threading Model"
-        CT[ctNormal] -->|Main Thread| MT[Deferred to next tick]
-        CI[ctImmediate] -->|Audio Thread| AT["Immediate — no alloc!"]
-        CA[ctAsynchronous] -->|Window Msg Handler| BT[Slow — for long tasks]
-        CV[cttVideo] -->|Video Thread| VT[Video rendering]
-        CR[cbtRealTime] -->|Real-time Thread| RT[Fast non-immediate]
-        CG[cbtGraphic] -->|Main Thread| GT[Lower priority graphics]
-        CNW[cbtNetwork] -->|Network Thread| NT[Network operations]
+        CT[ctNormal] -->|Main Thread| MT[Next pass of the main timer]
+        CI[ctImmediate] -->|Thread that changes the value| AT["At once — audio thread for a wire: no alloc!"]
+        CA[ctAsynchronous] -->|Main Thread| BT[After the ctNormal messages — long tasks]
+        CV[cttVideo] -->|Video Queue Thread| VT[While the video is on]
+        CR[cbtRealTime] -->|Real-time Queue Thread| RT[Every 10 ms, not the audio thread]
+        CG[cbtGraphic] -->|Main Thread| GT[After ctNormal and ctAsynchronous]
+        CNW[cbtNetwork] -->|Network Thread| NT[While the network is on]
         CN[ctNone] -->|—| NONE[No callback fired]
     end
 
@@ -197,16 +197,18 @@ graph TB
 
 | Type | Constant | Thread | When |
 |------|----------|--------|------|
-| Normal | `ctNormal` | Main thread | Deferred to next tick |
-| Immediate | `ctImmediate` | Audio thread | Immediately on change |
-| Asynchronous | `ctAsynchronous` | Window message handler | For long processes or modal windows |
-| Video | `cttVideo` | Video thread | Video rendering thread |
-| Real-time | `cbtRealTime` | Real-time thread | Fast but not immediate |
-| Graphic | `cbtGraphic` | Main thread (slower) | Lower priority graphic updates |
-| Network | `cbtNetwork` | Network thread | Dedicated network operations |
+| Normal | `ctNormal` | Main thread | Next pass of the main timer (5 to 150 ms) |
+| Immediate | `ctImmediate` | Thread that changes the value | At once: the audio thread for a value from a wire, the main thread for an edit in the interface |
+| Asynchronous | `ctAsynchronous` | Main thread | Same pass, after the `ctNormal` messages: long processes or modal windows |
+| Video | `cttVideo` | Video queue thread | While the video is on, video engine locked |
+| Real-time | `cbtRealTime` | Real-time queue thread | Every 10 ms, not the audio thread |
+| Graphic | `cbtGraphic` | Main thread | Same pass, after the `ctNormal` and `ctAsynchronous` messages |
+| Network | `cbtNetwork` | Network thread | While the network of Usine is on |
 | None | `ctNone` | — | No callback fired |
 
-> **Warning:** `ctImmediate` callbacks run on the audio thread. Never allocate memory or perform blocking operations in immediate callbacks.
+> **Warning:** `ctImmediate` callbacks can run on the audio thread (a value that comes through a wire). Never allocate memory or perform blocking operations in immediate callbacks.
+
+The queued types (`ctNormal`, `ctAsynchronous`, `cttVideo`, `cbtRealTime`, `cbtGraphic`, `cbtNetwork`) go through the message queues of Usine that `sdkNotifyUsine` uses, with the same threads (see [[sdk/data-types|TNotifyUsineMode]]): `cbtRealTime` is the real-time queue thread of Usine, every 10 ms, not the audio thread.
 
 ## Audio Processing
 
@@ -298,7 +300,7 @@ void BackgroundJob::onJobProcess() { /* heavy computation here */ }
 void BackgroundJob::onJobEnd()     { /* collect results, update outputs */ }
 ```
 
-`startJob()` doesn't run anything itself: it notifies Usine, and the SDK starts the job thread when the notification comes back. `onJobBegin` and `onJobProcess` run on the job thread. When they return, the SDK notifies Usine again and calls `onJobEnd` from the callback dispatch, in real-time mode (`numRealTime`). If a job is still running, the new start is postponed until it ends.
+`startJob()` doesn't run anything itself: it notifies Usine, and the SDK starts the job thread when the notification comes back. `onJobBegin` and `onJobProcess` run on the job thread. When they return, the SDK notifies Usine again and calls `onJobEnd` from the callback dispatch, through the main thread queue (`numMainThread`): on the main thread, with the `ctNormal` parameter callbacks, never during the destruction of the module. If a job is still running, the new start is postponed until it ends.
 
 With `ModuleType = mtBackgroundJob`, the SDK also creates two outputs after the parameters of the module: `processing`, on while the job runs, and `processing time`, the duration of the last job (see [[sdk/user-module-base|UserModuleBase]]).
 

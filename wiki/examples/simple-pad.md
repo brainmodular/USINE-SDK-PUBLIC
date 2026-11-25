@@ -8,7 +8,7 @@
 | **Module Name** | `simple pad` |
 | **Type** | `mtControl` |
 | **Color** | `clInterfaceDesignModuleColor` |
-| **Version** | 1.261112 |
+| **Version** | 1.261125 |
 | **Source** | `examples/SimplePad/` |
 
 ## Description

@@ -25,7 +25,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"text is fifty random alphanumeric characters.\n"
 	"[array set] and [array get] are declared but never used, the objects being written directly (sdk "
 	"example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
 // paths of the objects used by the module, they must exist in the workspace
 constexpr AnsiCharPtr PATH_FADER_DATA   = "usine.workspace.rack01.patch01.faderdata";
@@ -46,7 +46,7 @@ inline const int INFO_COLOR_ARRAY_LENGTH USINE_MODULE_LOCAL = registerReport(URe
 inline const int INFO_COMMA_TEXT_EXISTS  USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "string.comma-text exists");
 inline const int INFO_COMMA_TEXT         USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "string.comma-text = ");
 
-inline constexpr TParamInfo setArrInParamInfo {
+constexpr TParamInfo setArrInParamInfo {
 	.ParamType        = ptArray,
 	.Caption          = "array set",
 	.IsInput          = TRUE,
@@ -57,7 +57,7 @@ inline constexpr TParamInfo setArrInParamInfo {
 	.Description      = "Not used: the module writes the objects of the patch directly by their path."
 };
 
-inline constexpr TParamInfo getArrOutParamInfo {
+constexpr TParamInfo getArrOutParamInfo {
 	.ParamType    = ptArray,
 	.Caption      = "array get",
 	.IsInput      = FALSE,

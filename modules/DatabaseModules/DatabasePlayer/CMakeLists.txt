@@ -24,12 +24,13 @@ SET (CMAKE_CXX_STANDARD 23)
 SET (CMAKE_CXX_STANDARD_REQUIRED ON)
 SET (CMAKE_C_STANDARD 11)
 
-# Linux: only the functions marked USINE_MODULE_EXPORT are exported (examples/CMakeLists.txt asks for it on
-# macOS too; here macOS is left as it is).
+# macOS and Linux: only the functions marked USINE_MODULE_EXPORT are exported, as in examples/CMakeLists.txt
+# (a Windows DLL exports only them anyway).
 # Usine loads many modules in one process: with every symbol exported, two modules can end up sharing a
 # variable or a function that each of them defines (the constants of ModuleDefinition.h, a library compiled in
-# such as sqlite, which Database Creation and Database Player both contain).
-IF (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+# such as sqlite, which Database Creation and Database Player both contain). On macOS, dyld gives every module
+# the weak definitions of the first module loaded.
+IF (NOT WIN32)
     SET (CMAKE_C_VISIBILITY_PRESET hidden)
     SET (CMAKE_CXX_VISIBILITY_PRESET hidden)
     SET (CMAKE_VISIBILITY_INLINES_HIDDEN ON)

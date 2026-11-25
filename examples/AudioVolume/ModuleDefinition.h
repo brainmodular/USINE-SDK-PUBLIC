@@ -25,13 +25,13 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"onProcess copies each input to its matching output and multiplies the copy, bloc by bloc, with no "
 	"latency.\n"
 	"The channel count is fixed at creation and the module is never stored in presets (sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "2.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "2.261125";
 
 constexpr NativeInt GAIN_FDR_CBID = 0x001100F0;
 constexpr NativeInt MUTE_SW_CBID = 0x001100FF;
 
 // audio in/out: the caption depends on the channel, it is set in onCreateParameters
-inline constexpr TParamInfo audioInParamInfo {
+constexpr TParamInfo audioInParamInfo {
 	.ParamType    = ptAudio,
 	.IsInput      = TRUE,
 	.IsOutput     = FALSE,
@@ -41,7 +41,7 @@ inline constexpr TParamInfo audioInParamInfo {
 	                "The number of channels is chosen when the module is created."
 };
 
-inline constexpr TParamInfo audioOutParamInfo {
+constexpr TParamInfo audioOutParamInfo {
 	.ParamType    = ptAudio,
 	.IsInput      = FALSE,
 	.IsOutput     = TRUE,
@@ -50,7 +50,7 @@ inline constexpr TParamInfo audioOutParamInfo {
 	.Description  = "Audio output of a channel: the matching input multiplied by [gain], silent when [mute] is ON."
 };
 
-inline constexpr TParamInfo gainFdrInParamInfo {
+constexpr TParamInfo gainFdrInParamInfo {
 	.ParamType        = ptGainFader,
 	.Caption          = "gain",
 	.IsInput          = TRUE,
@@ -63,7 +63,7 @@ inline constexpr TParamInfo gainFdrInParamInfo {
 	                    "0 dB leaves the signal unchanged."
 };
 
-inline constexpr TParamInfo muteSwInParamInfo {
+constexpr TParamInfo muteSwInParamInfo {
 	.ParamType    = ptLeftLed,
 	.Caption      = "mute",
 	.IsInput      = TRUE,

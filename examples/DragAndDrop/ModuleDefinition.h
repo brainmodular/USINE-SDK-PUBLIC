@@ -25,4 +25,4 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"There is no drag leave callback: a drag that leaves the panel without a drop keeps it green until "
 	"the mouse moves over it again.\n"
 	"Dropped files are only displayed, never opened or loaded (sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";

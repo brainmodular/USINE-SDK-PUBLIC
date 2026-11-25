@@ -26,7 +26,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"[freeze] holds the tail indefinitely and stops feeding it from the inputs.\n"
 	"Channel buffers are offset to decorrelate them and the tuning assumes a 44.1 kHz sample rate (sdk "
 	"example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
 constexpr NativeInt MODE_SW_CBID                = 0x002100F0;
 constexpr NativeInt ROOM_SIZE_FDR_CBID             = 0x002100F1;
@@ -44,7 +44,7 @@ constexpr float INITIAL_CHANNELS_SEPARATION = 50.0f;   // %
 constexpr float INITIAL_MODE                = 0.0f;    // switch
 
 // audio in/out: the caption depends on the channel, it is set in onCreateParameters
-inline constexpr TParamInfo audioInParamInfo {
+constexpr TParamInfo audioInParamInfo {
 	.ParamType    = ptAudio,
 	.IsInput      = TRUE,
 	.IsOutput     = FALSE,
@@ -53,7 +53,7 @@ inline constexpr TParamInfo audioInParamInfo {
 	.Description  = "Audio input of a channel, sent to the reverb and to the matching output."
 };
 
-inline constexpr TParamInfo audioOutParamInfo {
+constexpr TParamInfo audioOutParamInfo {
 	.ParamType    = ptAudio,
 	.IsInput      = FALSE,
 	.IsOutput     = TRUE,
@@ -62,7 +62,7 @@ inline constexpr TParamInfo audioOutParamInfo {
 	.Description  = "Audio output of a channel: the reverb at [wet level] plus the input at [dry level]."
 };
 
-inline constexpr TParamInfo modeSwInParamInfo {
+constexpr TParamInfo modeSwInParamInfo {
 	.ParamType    = ptSwitch,
 	.Caption      = "freeze",
 	.IsInput      = TRUE,
@@ -73,7 +73,7 @@ inline constexpr TParamInfo modeSwInParamInfo {
 	.Description  = "When ON, holds the reverb tail indefinitely and stops feeding it with the inputs."
 };
 
-inline constexpr TParamInfo roomSizeFdrInParamInfo {
+constexpr TParamInfo roomSizeFdrInParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "room size",
 	.IsInput      = TRUE,
@@ -89,7 +89,7 @@ inline constexpr TParamInfo roomSizeFdrInParamInfo {
 	.Description  = "Size of the simulated room: the larger, the longer the reverb tail."
 };
 
-inline constexpr TParamInfo dampingFdrInParamInfo {
+constexpr TParamInfo dampingFdrInParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "damping",
 	.IsInput      = TRUE,
@@ -104,7 +104,7 @@ inline constexpr TParamInfo dampingFdrInParamInfo {
 	.Description  = "Absorption of the high frequencies in the reverb tail: higher values give a darker sound."
 };
 
-inline constexpr TParamInfo channelsSeparationFdrInParamInfo {
+constexpr TParamInfo channelsSeparationFdrInParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "channels separation",
 	.IsInput      = TRUE,
@@ -119,7 +119,7 @@ inline constexpr TParamInfo channelsSeparationFdrInParamInfo {
 	.Description  = "At 100% each channel is reverberated alone, lower values mix the other channels into the reverb of each one."
 };
 
-inline constexpr TParamInfo wetLevelFdrInParamInfo {
+constexpr TParamInfo wetLevelFdrInParamInfo {
 	.ParamType    = ptGainFader,
 	.Caption      = "wet level",
 	.IsInput      = TRUE,
@@ -131,7 +131,7 @@ inline constexpr TParamInfo wetLevelFdrInParamInfo {
 	.Description  = "Level of the reverberated signal, in dB."
 };
 
-inline constexpr TParamInfo dryLevelFdrInParamInfo {
+constexpr TParamInfo dryLevelFdrInParamInfo {
 	.ParamType    = ptGainFader,
 	.Caption      = "dry level",
 	.IsInput      = TRUE,

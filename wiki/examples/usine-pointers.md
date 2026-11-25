@@ -8,7 +8,7 @@
 | **Module Name** | `usine pointers` |
 | **Type** | `mtSimple` |
 | **Color** | `clArrayModuleColor` |
-| **Version** | 1.261112 |
+| **Version** | 1.261125 |
 | **Source** | `examples/UsinePointers/` |
 
 ## Description
@@ -34,7 +34,7 @@ When the input changes, and once in `onInitModule`, `copyPointer()`:
 
 ```cpp
 // ModuleDefinition.h
-inline constexpr TParamInfo ptrInParamInfo {
+constexpr TParamInfo ptrInParamInfo {
 	.ParamType       = ptPointer,
 	// ...
 	.PointerDataType = usinePtrFloat

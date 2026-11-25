@@ -8,7 +8,7 @@
 | **Module Name** | `data multiply` |
 | **Type** | `mtSimple` |
 | **Color** | `clDataModuleColor` |
-| **Version** | 1.261112 |
+| **Version** | 1.261125 |
 | **Source** | `examples/DataMultiply/` |
 
 ## Description

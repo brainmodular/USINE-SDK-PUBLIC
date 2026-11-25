@@ -57,7 +57,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
 constexpr NativeInt FREQUENCY_FDR_CBID = 0x001900F0;
 
-inline constexpr TParamInfo frequencyFdrInParamInfo {
+constexpr TParamInfo frequencyFdrInParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "freq",
 	.IsInput      = TRUE,
@@ -71,7 +71,7 @@ inline constexpr TParamInfo frequencyFdrInParamInfo {
 	.CallBackId   = FREQUENCY_FDR_CBID
 };
 
-inline constexpr TParamInfo periodFdrOutParamInfo {
+constexpr TParamInfo periodFdrOutParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "period",
 	.IsInput      = FALSE,
@@ -88,6 +88,8 @@ inline constexpr TParamInfo periodFdrOutParamInfo {
 Each parameter with a callback has its own `CallBackId`: Usine gives it back to `onCallBack` when the parameter changes.
 
 A `TParamInfo` only lists the fields that matter, in their declaration order: the others keep their default value (`MaxValue` 1, `CallBackType` `ctNormal`, `CallBackId` -1, `IsVisibleByDefault` `TRUE`, everything else 0, `FALSE` or `nullptr`). A parameter without callback says so with `.CallBackType = ctNone`.
+
+The `TParamInfo` are `constexpr`, never `inline`: each module keeps its own copy, even when another module loaded by Usine uses the same names (see [[sdk/module-conventions|Module Conventions]]).
 
 The names follow the naming of the [[sdk/module-conventions|Module Conventions]]: what the parameter is, its type and its direction (`frequencyFdrIn`, `periodFdrOut`).
 

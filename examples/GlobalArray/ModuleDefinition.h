@@ -24,7 +24,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"refresh, and read back into [array get].\n"
 	"Every second the module also traces the list of all global array names.\n"
 	"Nothing is stored in presets and there is no audio input or output (sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
 // names of the global arrays, create them in Usine to see the module work
 constexpr AnsiCharPtr GA_FLOAT  = "GA-FLOAT";
@@ -38,7 +38,7 @@ inline const int INFO_GA_FLOAT  USINE_MODULE_LOCAL = registerReport(UReportLevel
 inline const int INFO_GA_COLOR  USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "ga-color[0] = ");
 inline const int INFO_GA_STRING USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "ga-string[0] = ");
 
-inline constexpr TParamInfo setArrInParamInfo {
+constexpr TParamInfo setArrInParamInfo {
 	.ParamType        = ptArray,
 	.Caption          = "array set",
 	.IsInput          = TRUE,
@@ -50,7 +50,7 @@ inline constexpr TParamInfo setArrInParamInfo {
 	                    "The module fills it with 16 random values at each refresh, overwriting any input."
 };
 
-inline constexpr TParamInfo getArrOutParamInfo {
+constexpr TParamInfo getArrOutParamInfo {
 	.ParamType    = ptArray,
 	.Caption      = "array get",
 	.IsInput      = FALSE,

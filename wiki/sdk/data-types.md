@@ -270,13 +270,13 @@ Callback processing modes (`typedef enum TFastCallBackType : int32_t`).
 
 | Value | Thread | Description |
 |-------|--------|-------------|
-| `ctNormal` | Main thread | Processed in Usine's normal message handler (latency set in Setup) |
-| `ctImmediate` | Audio thread | Fired immediately on change — no memory allocation allowed |
-| `ctAsynchronous` | Window message handler | Slower than `ctNormal`, use for long processes or modal windows |
-| `cttVideo` | Video thread | Processed in the video rendering thread |
-| `cbtRealTime` | Real-time thread | Fast but not immediate real-time processing |
-| `cbtGraphic` | Main thread (slower) | Lower priority graphic thread updates |
-| `cbtNetwork` | Network thread | Dedicated real-time thread for network operations |
+| `ctNormal` | Main thread | The message pass of the main timer, every 5 to 150 ms (refresh speed set in the Setup) |
+| `ctImmediate` | Thread that changes the value | Called at once: the audio thread for a value that comes through a wire (no memory allocation, no lock), the main thread for a change made in the interface |
+| `ctAsynchronous` | Main thread | Same pass, right after the `ctNormal` messages; for long processes or modal windows |
+| `cttVideo` | Video queue thread | `QueueVideoThread`, with the video engine locked, only while the video is on |
+| `cbtRealTime` | Real-time queue thread | `RealTimeQueueThread`, medium priority, every 10 ms: neither the audio thread nor the main thread |
+| `cbtGraphic` | Main thread | Same pass, after the `ctNormal` and `ctAsynchronous` messages |
+| `cbtNetwork` | Network thread | `NetworkUpdateThread`, only while the network of Usine is on |
 | `ctNone` | — | No callback, parameter changes are not notified |
 
 ### TThreadPriority
@@ -309,16 +309,18 @@ Text alignment options.
 | `taTrailing` | Right aligned |
 
 ### TNotifyUsineMode
-Notification delivery modes.
+The `CallbackMode` of `sdkNotifyUsine`: the message queue of Usine, and so the thread that delivers the message (to `onCallBack` for `NOTIFY_TARGET_USER_MODULE`). `sdkNotifyUsine` only posts the message and returns, from any thread, the audio thread included.
 
-| Value | Description |
-|-------|-------------|
-| `numMainThread` | Deliver on main thread |
-| `numAsync` | Deliver asynchronously |
-| `numVideo` | Deliver on video thread |
-| `numRealTime` | Deliver on audio thread |
-| `numGraphic` | Deliver on graphic thread |
-| `numNetwork` | Deliver on network thread |
+| Value | Thread that delivers the message |
+|-------|----------------------------------|
+| `numMainThread` | The main thread, in the message pass that the main timer of Usine runs every 5 to 150 ms (the refresh speed of the setup) |
+| `numAsync` | The main thread too, in the same pass, right after the `numMainThread` messages |
+| `numVideo` | The video queue thread, with the video engine locked, at the video frame rate and only while the video is on. Usine also runs these messages on the main thread when it flushes all its queues (before deleting modules, when it loads or saves its setup...) |
+| `numRealTime` | Default of `sdkNotifyUsine`: the real-time queue thread of Usine (medium priority, every 10 ms), neither the audio thread nor the main thread |
+| `numGraphic` | The main thread, in the same pass, after the `numMainThread` and `numAsync` messages |
+| `numNetwork` | The network thread of Usine (medium priority, every 20 ms by default), only while the network of Usine is on and no workspace is loading or saving: the messages wait otherwise |
+
+`numVideo`, `numRealTime` and `numNetwork` deliver the message outside the main thread, concurrently with the main thread callbacks of the module (its `ctNormal` parameters). `numRealTime` and `numNetwork` are not serialized with the destruction of the module either, which the main thread does. Use `numMainThread` for a callback that must not overlap them.
 
 ### TChunkOperation
 Chunk data operations.

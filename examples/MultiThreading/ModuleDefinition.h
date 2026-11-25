@@ -26,12 +26,12 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"the two messages never interleave.\n"
 	"Both threads and the section are destroyed with the module, and the module is not saved in presets "
 	"(sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
 inline const int INFO_THREAD_1 USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "thread 1");
 inline const int INFO_THREAD_2 USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "thread 2");
 
-inline constexpr TParamInfo arrOutParamInfo {
+constexpr TParamInfo arrOutParamInfo {
 	.ParamType        = ptArray,
 	.Caption          = "output",
 	.IsInput          = FALSE,

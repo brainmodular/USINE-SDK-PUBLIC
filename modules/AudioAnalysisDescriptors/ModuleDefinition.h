@@ -29,7 +29,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"[overlap] gives 1, 2 or 4 analyses per window.\n"
 	"The analysis runs in a background thread, one at a time;\n"
 	"[on analysis] and the section switches freeze the outputs, keeping their last values";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
 inline const int ERROR_CALLBACK USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "error while handling a parameter change");
 
@@ -51,7 +51,7 @@ constexpr float SPECTRAL_ENTROPY_MAX    = 8.317766f;
 // number of values of the tristimulus output
 constexpr int   NUM_TRISTIMULUS         = 3;
 
-inline constexpr TParamInfo onAnalysisSwInParamInfo {
+constexpr TParamInfo onAnalysisSwInParamInfo {
 	.ParamType    = ptSwitch,
 	.Caption      = "on analysis",
 	.IsInput      = TRUE,
@@ -63,7 +63,7 @@ inline constexpr TParamInfo onAnalysisSwInParamInfo {
 	                "When OFF, no new analysis is started and the outputs keep their last values."
 };
 
-inline constexpr TParamInfo audioInParamInfo {
+constexpr TParamInfo audioInParamInfo {
 	.ParamType    = ptAudio,
 	.Caption      = "in",
 	.IsInput      = TRUE,
@@ -74,7 +74,7 @@ inline constexpr TParamInfo audioInParamInfo {
 };
 
 // MaxValue: the Nyquist frequency, set by onCreateParameters
-inline constexpr TParamInfo estimatedFrequencyFdrOutParamInfo {
+constexpr TParamInfo estimatedFrequencyFdrOutParamInfo {
 	.ParamType        = ptDataField,
 	.Caption          = "estimated frequency",
 	.IsInput          = FALSE,
@@ -91,7 +91,7 @@ inline constexpr TParamInfo estimatedFrequencyFdrOutParamInfo {
 	                    "Only updated when the estimate is between 40 and 3000 Hz, else it keeps its last value."
 };
 
-inline constexpr TParamInfo frequencyScoreFdrOutParamInfo {
+constexpr TParamInfo frequencyScoreFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "frequency score",
 	.IsInput      = FALSE,
@@ -109,7 +109,7 @@ inline constexpr TParamInfo frequencyScoreFdrOutParamInfo {
 };
 
 // MaxValue: the Nyquist frequency, set by onCreateParameters
-inline constexpr TParamInfo spectralCentroidFdrOutParamInfo {
+constexpr TParamInfo spectralCentroidFdrOutParamInfo {
 	.ParamType        = ptDataField,
 	.Caption          = "spectral centroid",
 	.IsInput          = FALSE,
@@ -126,7 +126,7 @@ inline constexpr TParamInfo spectralCentroidFdrOutParamInfo {
 };
 
 // MaxValue: the Nyquist frequency, set by onCreateParameters
-inline constexpr TParamInfo spectralSpreadFdrOutParamInfo {
+constexpr TParamInfo spectralSpreadFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "spectral spread",
 	.IsInput      = FALSE,
@@ -140,7 +140,7 @@ inline constexpr TParamInfo spectralSpreadFdrOutParamInfo {
 	                "Low for a pure tone, high for a noise."
 };
 
-inline constexpr TParamInfo spectralFlatnessFdrOutParamInfo {
+constexpr TParamInfo spectralFlatnessFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "spectral flatness",
 	.IsInput      = FALSE,
@@ -155,7 +155,7 @@ inline constexpr TParamInfo spectralFlatnessFdrOutParamInfo {
 	                "Close to 0 for a tonal sound (below 0.000001 for a pure tone), about 0.56 for a white noise, 1 for a perfectly flat spectrum."
 };
 
-inline constexpr TParamInfo rmsFdrOutParamInfo {
+constexpr TParamInfo rmsFdrOutParamInfo {
 	.ParamType        = ptDataField,
 	.Caption          = "RMS",
 	.IsInput          = FALSE,
@@ -172,7 +172,7 @@ inline constexpr TParamInfo rmsFdrOutParamInfo {
 	                    "A silence gives -240 dB."
 };
 
-inline constexpr TParamInfo totalLoudnessFdrOutParamInfo {
+constexpr TParamInfo totalLoudnessFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "total loudness",
 	.IsInput      = FALSE,
@@ -186,7 +186,7 @@ inline constexpr TParamInfo totalLoudnessFdrOutParamInfo {
 	                "The spectrum is normalized first: the value follows the spectral balance of the sound, not its level."
 };
 
-inline constexpr TParamInfo loudnessPerBandsArrOutParamInfo {
+constexpr TParamInfo loudnessPerBandsArrOutParamInfo {
 	.ParamType    = ptArray,
 	.Caption      = "loudness per bands",
 	.IsInput      = FALSE,
@@ -201,7 +201,7 @@ inline constexpr TParamInfo loudnessPerBandsArrOutParamInfo {
 	                "The bands above the Nyquist frequency (sample rate / 2) are 0."
 };
 
-inline constexpr TParamInfo fftSizeLboxInParamInfo {
+constexpr TParamInfo fftSizeLboxInParamInfo {
 	.ParamType        = ptListBox,
 	.Caption          = "fft size",
 	.IsInput          = TRUE,
@@ -218,7 +218,7 @@ inline constexpr TParamInfo fftSizeLboxInParamInfo {
 	                    "A change clears the input buffer."
 };
 
-inline constexpr TParamInfo overlapLboxInParamInfo {
+constexpr TParamInfo overlapLboxInParamInfo {
 	.ParamType      = ptListBox,
 	.Caption        = "overlap",
 	.IsInput        = TRUE,
@@ -232,7 +232,7 @@ inline constexpr TParamInfo overlapLboxInParamInfo {
 	.Description    = "Number of analyses per window: 1 analyzes every [fft size] samples, 2 every half window, 4 every quarter window."
 };
 
-inline constexpr TParamInfo latencyFdrOutParamInfo {
+constexpr TParamInfo latencyFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "latency",
 	.IsInput      = FALSE,
@@ -246,7 +246,7 @@ inline constexpr TParamInfo latencyFdrOutParamInfo {
 	.Description  = "Time elapsed between the last two analyses of this module, in ms."
 };
 
-inline constexpr TParamInfo onSpectralSwInParamInfo {
+constexpr TParamInfo onSpectralSwInParamInfo {
 	.ParamType        = ptSwitch,
 	.Caption          = "on spectral",
 	.IsInput          = TRUE,
@@ -260,7 +260,7 @@ inline constexpr TParamInfo onSpectralSwInParamInfo {
 	                    "When OFF, they keep their last values."
 };
 
-inline constexpr TParamInfo spectralSkewnessFdrOutParamInfo {
+constexpr TParamInfo spectralSkewnessFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "spectral skewness",
 	.IsInput      = FALSE,
@@ -273,7 +273,7 @@ inline constexpr TParamInfo spectralSkewnessFdrOutParamInfo {
 	.Description  = "Asymmetry of the power spectrum around the [spectral centroid]: 0 for a symmetric spectrum, positive when the energy lies below the centroid with a tail towards the high frequencies."
 };
 
-inline constexpr TParamInfo spectralKurtosisFdrOutParamInfo {
+constexpr TParamInfo spectralKurtosisFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "spectral kurtosis",
 	.IsInput      = FALSE,
@@ -286,7 +286,7 @@ inline constexpr TParamInfo spectralKurtosisFdrOutParamInfo {
 	.Description  = "Peakedness of the power spectrum around the [spectral centroid]: about 3 for a gaussian shape, higher for a peaky spectrum, lower for a flat one."
 };
 
-inline constexpr TParamInfo spectralSlopeFdrOutParamInfo {
+constexpr TParamInfo spectralSlopeFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "spectral slope",
 	.IsInput      = FALSE,
@@ -302,7 +302,7 @@ inline constexpr TParamInfo spectralSlopeFdrOutParamInfo {
 };
 
 // MaxValue: the Nyquist frequency, set by onCreateParameters
-inline constexpr TParamInfo spectralRolloffFdrOutParamInfo {
+constexpr TParamInfo spectralRolloffFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "spectral rolloff",
 	.IsInput      = FALSE,
@@ -315,7 +315,7 @@ inline constexpr TParamInfo spectralRolloffFdrOutParamInfo {
 	.Description  = "Frequency below which lies the part of the spectrum energy set by [rolloff threshold], in Hz."
 };
 
-inline constexpr TParamInfo rolloffThresholdFdrInParamInfo {
+constexpr TParamInfo rolloffThresholdFdrInParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "rolloff threshold",
 	.IsInput      = TRUE,
@@ -332,7 +332,7 @@ inline constexpr TParamInfo rolloffThresholdFdrInParamInfo {
 };
 
 // MaxValue: the Nyquist frequency, set by onCreateParameters
-inline constexpr TParamInfo spectralCrestFdrOutParamInfo {
+constexpr TParamInfo spectralCrestFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "spectral crest",
 	.IsInput      = FALSE,
@@ -344,7 +344,7 @@ inline constexpr TParamInfo spectralCrestFdrOutParamInfo {
 	.Description  = "Highest bin of the power spectrum divided by the mean of the bins: high for a tonal sound, low for a noise."
 };
 
-inline constexpr TParamInfo tonalityCoeffFdrOutParamInfo {
+constexpr TParamInfo tonalityCoeffFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "tonality coeff",
 	.IsInput      = FALSE,
@@ -359,7 +359,7 @@ inline constexpr TParamInfo tonalityCoeffFdrOutParamInfo {
 	                "Range: [0..1]. 0 for a noise, 1 for a pure tone."
 };
 
-inline constexpr TParamInfo spectralDecreaseFdrOutParamInfo {
+constexpr TParamInfo spectralDecreaseFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "spectral decrease",
 	.IsInput      = FALSE,
@@ -373,7 +373,7 @@ inline constexpr TParamInfo spectralDecreaseFdrOutParamInfo {
 	.Description  = "Decrease of the spectrum from its first bin, emphasizing the low frequencies: 1 when the energy is in the lowest bin, smaller as it moves towards the high frequencies."
 };
 
-inline constexpr TParamInfo spectralEntropyFdrOutParamInfo {
+constexpr TParamInfo spectralEntropyFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "spectral entropy",
 	.IsInput      = FALSE,
@@ -386,7 +386,7 @@ inline constexpr TParamInfo spectralEntropyFdrOutParamInfo {
 	.Description  = "Shannon entropy of the normalized power spectrum, in nats (natural logarithm): 0 when the energy is in a single bin, up to ln(number of bins) for a flat spectrum (white noise): 6.2, 6.9, 7.6 and 8.3 for an [fft size] of 1024, 2048, 4096 and 8192."
 };
 
-inline constexpr TParamInfo peaksAmplitudesArrOutParamInfo {
+constexpr TParamInfo peaksAmplitudesArrOutParamInfo {
 	.ParamType    = ptArray,
 	.Caption      = "peaks amplitudes",
 	.IsInput      = FALSE,
@@ -401,7 +401,7 @@ inline constexpr TParamInfo peaksAmplitudesArrOutParamInfo {
 };
 
 // MaxValue: the Nyquist frequency, set by onCreateParameters
-inline constexpr TParamInfo peaksFrequenciesArrOutParamInfo {
+constexpr TParamInfo peaksFrequenciesArrOutParamInfo {
 	.ParamType    = ptArray,
 	.Caption      = "peaks frequencies",
 	.IsInput      = FALSE,
@@ -414,7 +414,7 @@ inline constexpr TParamInfo peaksFrequenciesArrOutParamInfo {
 	                "Same order as [peaks amplitudes]."
 };
 
-inline constexpr TParamInfo onHarmonicSwInParamInfo {
+constexpr TParamInfo onHarmonicSwInParamInfo {
 	.ParamType        = ptSwitch,
 	.Caption          = "on harmonic",
 	.IsInput          = TRUE,
@@ -428,7 +428,7 @@ inline constexpr TParamInfo onHarmonicSwInParamInfo {
 	                    "When OFF, they keep their last values."
 };
 
-inline constexpr TParamInfo mfccArrOutParamInfo {
+constexpr TParamInfo mfccArrOutParamInfo {
 	.ParamType    = ptArray,
 	.Caption      = "MFCC",
 	.IsInput      = FALSE,
@@ -440,7 +440,7 @@ inline constexpr TParamInfo mfccArrOutParamInfo {
 	.Description  = "13 mel-frequency cepstral coefficients, a compact description of the spectral envelope (timbre): the DCT of the log amplitudes of 30 mel bands from 0 Hz to the Nyquist frequency, with liftering."
 };
 
-inline constexpr TParamInfo inharmonicityFdrOutParamInfo {
+constexpr TParamInfo inharmonicityFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "inharmonicity",
 	.IsInput      = FALSE,
@@ -454,7 +454,7 @@ inline constexpr TParamInfo inharmonicityFdrOutParamInfo {
 	                "Range: [0..1]. 0 for a harmonic sound, or when no fundamental is found."
 };
 
-inline constexpr TParamInfo oddToEvenRatioFdrOutParamInfo {
+constexpr TParamInfo oddToEvenRatioFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "odd to even ratio",
 	.IsInput      = FALSE,
@@ -468,7 +468,7 @@ inline constexpr TParamInfo oddToEvenRatioFdrOutParamInfo {
 	                "Range: [-1..1]. 1 = odd harmonics only, -1 = even harmonics only, 0 when no fundamental is found."
 };
 
-inline constexpr TParamInfo tristimulusArrOutParamInfo {
+constexpr TParamInfo tristimulusArrOutParamInfo {
 	.ParamType    = ptArray,
 	.Caption      = "tristimulus",
 	.IsInput      = FALSE,
@@ -482,7 +482,7 @@ inline constexpr TParamInfo tristimulusArrOutParamInfo {
 	                "0 when no fundamental is found."
 };
 
-inline constexpr TParamInfo onTemporalSwInParamInfo {
+constexpr TParamInfo onTemporalSwInParamInfo {
 	.ParamType        = ptSwitch,
 	.Caption          = "on temporal",
 	.IsInput          = TRUE,
@@ -496,7 +496,7 @@ inline constexpr TParamInfo onTemporalSwInParamInfo {
 	                    "When OFF, it keeps its last value."
 };
 
-inline constexpr TParamInfo onPerceptualSwInParamInfo {
+constexpr TParamInfo onPerceptualSwInParamInfo {
 	.ParamType        = ptSwitch,
 	.Caption          = "on perceptual",
 	.IsInput          = TRUE,
@@ -510,7 +510,7 @@ inline constexpr TParamInfo onPerceptualSwInParamInfo {
 	                    "When OFF, they keep their last values."
 };
 
-inline constexpr TParamInfo sharpnessFdrOutParamInfo {
+constexpr TParamInfo sharpnessFdrOutParamInfo {
 	.ParamType    = ptDataFader,
 	.Caption      = "sharpness",
 	.IsInput      = FALSE,

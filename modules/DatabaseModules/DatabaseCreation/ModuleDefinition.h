@@ -28,7 +28,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"start.\n"
 	"The files are committed every 50, so [stop analysis] keeps the partial results.\n"
 	"No audio or data output";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
 // parameters
 inline const int ERROR_INVALID_SOUNDS_FOLDER   USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "invalid sounds folder, it must exist and hold .wav, .aif or .aiff files: ");
@@ -92,7 +92,7 @@ constexpr int TSNE_MIN_FILES = 4;
 // the inserted files are committed by groups: one transaction per file is slow on slow disks
 constexpr int FILES_PER_TRANSACTION = 50;
 
-inline constexpr TParamInfo soundsDirInParamInfo {
+constexpr TParamInfo soundsDirInParamInfo {
 	.ParamType        = ptChooseFolder,
 	.Caption          = "sounds folder",
 	.IsInput          = TRUE,
@@ -105,7 +105,7 @@ inline constexpr TParamInfo soundsDirInParamInfo {
 	                    "[start analysis] is refused while it holds no audio file."
 };
 
-inline constexpr TParamInfo databaseDirInParamInfo {
+constexpr TParamInfo databaseDirInParamInfo {
 	.ParamType    = ptChooseFolder,
 	.Caption      = "database folder",
 	.IsInput      = TRUE,
@@ -116,7 +116,7 @@ inline constexpr TParamInfo databaseDirInParamInfo {
 	                "A previous database of the same name is deleted when the analysis starts."
 };
 
-inline constexpr TParamInfo databaseNameTxtInParamInfo {
+constexpr TParamInfo databaseNameTxtInParamInfo {
 	.ParamType    = ptTextField,
 	.Caption      = "database name",
 	.IsInput      = TRUE,
@@ -126,7 +126,7 @@ inline constexpr TParamInfo databaseNameTxtInParamInfo {
 	                "[start analysis] is refused while it is empty."
 };
 
-inline constexpr TParamInfo maxFileDurationFdrInParamInfo {
+constexpr TParamInfo maxFileDurationFdrInParamInfo {
 	.ParamType        = ptDataFader,
 	.Caption          = "max file duration",
 	.IsInput          = TRUE,
@@ -144,7 +144,7 @@ inline constexpr TParamInfo maxFileDurationFdrInParamInfo {
 	                    "Range: [100..60000]."
 };
 
-inline constexpr TParamInfo fftSizeLboxInParamInfo {
+constexpr TParamInfo fftSizeLboxInParamInfo {
 	.ParamType      = ptListBox,
 	.Caption        = "fft size",
 	.IsInput        = TRUE,
@@ -158,7 +158,7 @@ inline constexpr TParamInfo fftSizeLboxInParamInfo {
 	                  "The audio descriptors always use frames of 2048 samples."
 };
 
-inline constexpr TParamInfo startAnalysisBtnInParamInfo {
+constexpr TParamInfo startAnalysisBtnInParamInfo {
 	.ParamType        = ptButton,
 	.Caption          = "start analysis",
 	.IsInput          = TRUE,
@@ -171,7 +171,7 @@ inline constexpr TParamInfo startAnalysisBtnInParamInfo {
 	                    "Refused while an analysis is running."
 };
 
-inline constexpr TParamInfo stopAnalysisBtnInParamInfo {
+constexpr TParamInfo stopAnalysisBtnInParamInfo {
 	.ParamType    = ptButton,
 	.Caption      = "stop analysis",
 	.IsInput      = TRUE,

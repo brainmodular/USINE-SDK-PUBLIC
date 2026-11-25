@@ -26,9 +26,9 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"preset.\n"
 	"When [in] is empty the module clears [out] and does nothing else, and it keeps no state between "
 	"blocs (sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
-inline constexpr TParamInfo midiInParamInfo {
+constexpr TParamInfo midiInParamInfo {
 	.ParamType    = ptMidi,
 	.Caption      = "in",
 	.IsInput      = TRUE,
@@ -37,7 +37,7 @@ inline constexpr TParamInfo midiInParamInfo {
 	.Description  = "MIDI flow to transpose."
 };
 
-inline constexpr TParamInfo midiOutParamInfo {
+constexpr TParamInfo midiOutParamInfo {
 	.ParamType    = ptMidi,
 	.Caption      = "out",
 	.IsInput      = FALSE,
@@ -47,7 +47,7 @@ inline constexpr TParamInfo midiOutParamInfo {
 };
 
 // no callback: the value is read in onProcess
-inline constexpr TParamInfo pitchFdrInParamInfo {
+constexpr TParamInfo pitchFdrInParamInfo {
 	.ParamType        = ptDataFader,
 	.Caption          = "pitch",
 	.IsInput          = TRUE,

@@ -26,13 +26,13 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"The box color setting of the layout panel, by default the cursor color, sets the fill color, and the "
 	"contextual menu offers the cmd_reset and cmd_randomize commands, which use the same ids as the "
 	"buttons (sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.261125";
 
 // also used by the contextual menu commands, see onCreateCommands
 constexpr NativeInt RESET_BTN_CBID     = 0x001500F0;
 constexpr NativeInt RANDOMIZE_BTN_CBID = 0x001500F1;
 
-inline constexpr TParamInfo resetBtnInParamInfo {
+constexpr TParamInfo resetBtnInParamInfo {
 	.ParamType    = ptButton,
 	.Caption      = "reset",
 	.IsInput      = TRUE,
@@ -44,7 +44,7 @@ inline constexpr TParamInfo resetBtnInParamInfo {
 	.Description  = "Erases the rectangle."
 };
 
-inline constexpr TParamInfo randomizeBtnInParamInfo {
+constexpr TParamInfo randomizeBtnInParamInfo {
 	.ParamType    = ptButton,
 	.Caption      = "randomize",
 	.IsInput      = TRUE,

@@ -25,7 +25,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"[distance] is -1 when an array is empty.\n"
 	"The cost matrix is computed row by row, its memory growing with the size of [array 2] only; the time "
 	"grows with the product of the two sizes and the calculation blocks the interface until it ends";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "0.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "0.261125";
 
 constexpr NativeInt CALCULATE_BTN_CBID = 0x003200F0;
 
@@ -33,7 +33,7 @@ constexpr NativeInt CALCULATE_BTN_CBID = 0x003200F0;
 constexpr float ARRAY_MIN_VALUE = -16384.0f;
 constexpr float ARRAY_MAX_VALUE = 16384.0f;
 
-inline constexpr TParamInfo array1ArrInParamInfo {
+constexpr TParamInfo array1ArrInParamInfo {
 	.ParamType        = ptArray,
 	.Caption          = "array 1",
 	.IsInput          = TRUE,
@@ -47,7 +47,7 @@ inline constexpr TParamInfo array1ArrInParamInfo {
 	.Description      = "First array of values, compared with [array 2] when [calculate] is pressed."
 };
 
-inline constexpr TParamInfo array2ArrInParamInfo {
+constexpr TParamInfo array2ArrInParamInfo {
 	.ParamType    = ptArray,
 	.Caption      = "array 2",
 	.IsInput      = TRUE,
@@ -60,7 +60,7 @@ inline constexpr TParamInfo array2ArrInParamInfo {
 	                "The two arrays can have different sizes."
 };
 
-inline constexpr TParamInfo distanceFdrOutParamInfo {
+constexpr TParamInfo distanceFdrOutParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "distance",
 	.IsInput      = FALSE,
@@ -72,7 +72,7 @@ inline constexpr TParamInfo distanceFdrOutParamInfo {
 	                "-1 when one of the arrays is empty."
 };
 
-inline constexpr TParamInfo minFdrInParamInfo {
+constexpr TParamInfo minFdrInParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "min",
 	.IsInput      = TRUE,
@@ -85,7 +85,7 @@ inline constexpr TParamInfo minFdrInParamInfo {
 	                "When [min] equals [max], [distance] is not scaled."
 };
 
-inline constexpr TParamInfo maxFdrInParamInfo {
+constexpr TParamInfo maxFdrInParamInfo {
 	.ParamType    = ptDataField,
 	.Caption      = "max",
 	.IsInput      = TRUE,
@@ -98,7 +98,7 @@ inline constexpr TParamInfo maxFdrInParamInfo {
 	                "When [min] equals [max], [distance] is not scaled."
 };
 
-inline constexpr TParamInfo calculateBtnInParamInfo {
+constexpr TParamInfo calculateBtnInParamInfo {
 	.ParamType    = ptButton,
 	.Caption      = "calculate",
 	.IsInput      = TRUE,

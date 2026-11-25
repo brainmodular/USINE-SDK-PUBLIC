@@ -48,7 +48,9 @@ in the global namespace.
 Rename what clashes in your module.
 
 **4. Describe the module in `ModuleDefinition.h`, and create the parameters in `onCreateParameters`.**
-Each parameter is an `inline constexpr TParamInfo`, created and bound to its event by `sdkCreateParam`.
+Each parameter is a `constexpr TParamInfo`, created and bound to its event by `sdkCreateParam`.
+Don't declare it `inline`: each module must keep its own copy (see the
+[Module Conventions](wiki/sdk/module-conventions.md)).
 
 Before, with SDK 702002:
 
@@ -105,7 +107,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "1.0";
 
 constexpr NativeInt GAIN_FDR_CBID = 0x00100000;
 
-inline constexpr TParamInfo gainFdrInParamInfo {
+constexpr TParamInfo gainFdrInParamInfo {
     .ParamType    = ptGainFader,
     .Caption      = "gain",
     .IsInput      = TRUE,

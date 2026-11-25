@@ -29,7 +29,7 @@ constexpr AnsiCharPtr UserModuleBase::MODULE_DESC =
 	"The curve is painted in the panel, where a drag also edits duration, envelope variable and, with "
 	"Shift, pitch, and records an automation.\n"
 	"[trig out] blinks at each grain start, with a warning when grains overlap (sdk example)";
-constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "2.261112";
+constexpr AnsiCharPtr UserModuleBase::MODULE_VERSION = "2.261125";
 
 inline const int ERROR_RECORD_AUTOMATION      USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "failed to record automation");
 inline const int ERROR_STOP_RECORD_AUTOMATION USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "failed to stop automation recording");
@@ -44,7 +44,7 @@ constexpr NativeInt GRAIN_MODE_LBOX_CBID     = 0x001700F5;
 constexpr NativeInt GRAIN_GO_BTN_CBID        = 0x001700F6;
 
 // audio in/out: the caption depends on the channel, it is set in onCreateParameters
-inline constexpr TParamInfo audioInParamInfo {
+constexpr TParamInfo audioInParamInfo {
 	.ParamType    = ptAudio,
 	.IsInput      = TRUE,
 	.IsOutput     = FALSE,
@@ -53,7 +53,7 @@ inline constexpr TParamInfo audioInParamInfo {
 	.Description  = "Audio input of a channel, continuously recorded in the delay line where the grains are read."
 };
 
-inline constexpr TParamInfo audioOutParamInfo {
+constexpr TParamInfo audioOutParamInfo {
 	.ParamType    = ptAudio,
 	.IsInput      = FALSE,
 	.IsOutput     = TRUE,
@@ -63,7 +63,7 @@ inline constexpr TParamInfo audioOutParamInfo {
 };
 
 // blinks each time a grain starts
-inline constexpr TParamInfo grainStartSwOutParamInfo {
+constexpr TParamInfo grainStartSwOutParamInfo {
 	.ParamType    = ptTriggerLed,
 	.Caption      = "trig out",
 	.IsInput      = FALSE,
@@ -76,7 +76,7 @@ inline constexpr TParamInfo grainStartSwOutParamInfo {
 	.Description  = "Blinks each time a grain starts."
 };
 
-inline constexpr TParamInfo grainIntervalFdrInParamInfo {
+constexpr TParamInfo grainIntervalFdrInParamInfo {
 	.ParamType        = ptDataFader,
 	.Caption          = "interval",
 	.IsInput          = TRUE,
@@ -96,7 +96,7 @@ inline constexpr TParamInfo grainIntervalFdrInParamInfo {
 };
 
 // the order of the items must match Grain::EnvType
-inline constexpr TParamInfo grainEnvelopeLboxInParamInfo {
+constexpr TParamInfo grainEnvelopeLboxInParamInfo {
 	.ParamType        = ptComboBox,
 	.Caption          = "grain env",
 	.IsInput          = TRUE,
@@ -111,7 +111,7 @@ inline constexpr TParamInfo grainEnvelopeLboxInParamInfo {
 	                    "Its curve is drawn in the panel."
 };
 
-inline constexpr TParamInfo grainEnvVarFdrInParamInfo {
+constexpr TParamInfo grainEnvVarFdrInParamInfo {
 	.ParamType        = ptDataFader,
 	.Caption          = "env var",
 	.IsInput          = TRUE,
@@ -128,7 +128,7 @@ inline constexpr TParamInfo grainEnvVarFdrInParamInfo {
 	                    "No effect on Hanning."
 };
 
-inline constexpr TParamInfo grainDurationFdrInParamInfo {
+constexpr TParamInfo grainDurationFdrInParamInfo {
 	.ParamType        = ptDataFader,
 	.Caption          = "duration",
 	.IsInput          = TRUE,
@@ -147,7 +147,7 @@ inline constexpr TParamInfo grainDurationFdrInParamInfo {
 	                    "A horizontal drag in the panel also changes it."
 };
 
-inline constexpr TParamInfo grainPitchFdrInParamInfo {
+constexpr TParamInfo grainPitchFdrInParamInfo {
 	.ParamType        = ptDataFader,
 	.Caption          = "pitch",
 	.IsInput          = TRUE,
@@ -166,7 +166,7 @@ inline constexpr TParamInfo grainPitchFdrInParamInfo {
 };
 
 // the order of the items must match GRAIN_MODE_INTERVAL and GRAIN_MODE_PLAY
-inline constexpr TParamInfo grainModeLboxInParamInfo {
+constexpr TParamInfo grainModeLboxInParamInfo {
 	.ParamType        = ptComboBox,
 	.Caption          = "grain mode",
 	.IsInput          = TRUE,
@@ -181,7 +181,7 @@ inline constexpr TParamInfo grainModeLboxInParamInfo {
 };
 
 // starts a grain in the Play Button mode
-inline constexpr TParamInfo grainGoBtnInParamInfo {
+constexpr TParamInfo grainGoBtnInParamInfo {
 	.ParamType    = ptButton,
 	.Caption      = "play",
 	.IsInput      = TRUE,

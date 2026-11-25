@@ -8,7 +8,7 @@
 | **Module Name** | `background job` |
 | **Type** | `mtBackgroundJob` |
 | **Color** | `clInterfaceDesignModuleColor` |
-| **Version** | 1.261112 |
+| **Version** | 1.261125 |
 | **Source** | `examples/BackgroundJob/` |
 
 ## Description
@@ -34,7 +34,7 @@ Parameters 4 and 5 are added by the SDK because the module type is `mtBackground
 2. The SDK switches the `processing` led on and starts the job thread.
 3. **`onJobBegin`** (job thread): nothing to set up here.
 4. **`onJobProcess`** (job thread): runs the computation, 100 million iterations of nested `std::sin`.
-5. **`onJobEnd`** (called back by Usine once the job is done): writes the result.
+5. **`onJobEnd`** (main thread, called back by Usine once the job is done): writes the result.
 6. The SDK writes the duration in `processing time` and switches the led off.
 
 ## Job Lifecycle
@@ -44,7 +44,7 @@ User clicks "start job"
     └── onCallBack() → startJob()        ← notifies Usine
         ├── onJobBegin()                  ← job thread
         ├── onJobProcess()                ← job thread: heavy work
-        └── onJobEnd()                    ← callback dispatch, after the job thread
+        └── onJobEnd()                    ← main thread, after the job thread
 ```
 
 `startJob()` only asks Usine to start the job, the SDK starts the job thread when the notification comes back. A start requested while a job is running waits for the end of that job.

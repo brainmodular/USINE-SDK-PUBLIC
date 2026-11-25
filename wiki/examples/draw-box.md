@@ -8,7 +8,7 @@
 | **Module Name** | `draw box` |
 | **Type** | `mtControl` |
 | **Color** | `clInterfaceDesignModuleColor` |
-| **Version** | 1.261112 |
+| **Version** | 1.261125 |
 | **Source** | `examples/DrawBox/` |
 
 ## Description

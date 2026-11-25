@@ -8,7 +8,7 @@
 | **Module Name** | `granulator` |
 | **Type** | `mtControl` |
 | **Color** | `clAudioModuleColor` |
-| **Version** | 2.261112 |
+| **Version** | 2.261125 |
 | **Source** | `examples/Granulator/` |
 
 ## Description

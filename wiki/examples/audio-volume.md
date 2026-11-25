@@ -8,7 +8,7 @@
 | **Module Name** | `audio volume` |
 | **Type** | `mtSimple` |
 | **Color** | `clAudioModuleColor` |
-| **Version** | 2.261112 |
+| **Version** | 2.261125 |
 | **Source** | `examples/AudioVolume/` |
 
 ## Description

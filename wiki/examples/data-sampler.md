@@ -8,12 +8,12 @@
 | **Module Name** | `data sampler` |
 | **Type** | `mtControl` |
 | **Color** | `clInterfaceDesignModuleColor` |
-| **Version** | 1.261112 |
+| **Version** | 1.261125 |
 | **Source** | `examples/DataSampler/` |
 
 ## Description
 
-Records the values of a data input, then plays them back in a loop and draws the recorded curve in the panel. Demonstrates double buffering and a module that sends a notification to itself.
+Records the values of a data input, then plays them back in a loop and draws the recorded curve in the panel. Demonstrates how the audio thread, the main thread and the immediate callbacks share data without lock and without allocation in `onProcess`, and a module that sends notifications to itself.
 
 ## Parameters
 
@@ -27,10 +27,11 @@ Records the values of a data input, then plays them back in a loop and draws the
 
 ## How It Works
 
-1. **Recording**: while `toggle rec` is on, `onProcess` pushes the input in the current buffer and copies it to the output.
-2. **Double buffering**: when the current buffer is nearly full, `onProcess` swaps the two buffers and sends `AGG_BUFFER_CBID` to the module itself with `sdkNotifyUsine(NOTIFY_TARGET_USER_MODULE, ...)`. `onCallBack` then appends the full buffer to the recording, outside of the audio process.
-3. **Playback**: when recording stops, the last buffer is appended and the recording is played back in a loop on the output.
-4. **Drawing**: on `sdkRefreshSpeedClock()`, the panel is repainted, `onPaint` draws the recording as a path that scrolls with the playback position.
+1. **Requests**: `toggle rec` and `clear rec` are `ctImmediate`. Their callback runs in the thread that changes the value: the audio thread when the value comes through a wire, the main thread when the user clicks. It only stores a request in an atomic, which `onProcess` applies at the start of its next block.
+2. **Recording**: while recording, `onProcess` writes the input into the current chunk of 2000 values and copies it to the output. The chunks are allocated by the main thread: when a chunk begins, `onProcess` sends `NEXT_CHUNK_CBID` to the module itself with `sdkNotifyUsine(NOTIFY_TARGET_USER_MODULE, ..., TNotifyUsineMode::numMainThread)`, and `onCallBack` allocates the next one, 2000 blocks before the audio thread needs it. `onProcess` never allocates, and the recorded values never move.
+3. **Playback**: when recording stops, the recording is played back in a loop on the output.
+4. **Drawing**: on `sdkRefreshSpeedClock()`, the panel is repainted, `onPaint` (main thread) draws the recording as a path that scrolls with the playback position. The values are `std::atomic<TPrecision>`: the main thread can read them while a new recording writes them.
+5. **Messages**: `onProcess` notifies the main thread (`REC_STARTED_CBID`, `REC_STOPPED_CBID`, `REC_CLEARED_CBID`), which calls `sdkReport`: a report allocates, never in the audio thread.
 
 ## Messages
 
@@ -38,19 +39,20 @@ Records the values of a data input, then plays them back in a loop and draws the
 |---------|-------|-------------|
 | `INFO_REC_STARTED` | Info | Recording starts |
 | `INFO_REC_STOPPED` | Info | Recording stops |
-| `INFO_REC_CLEARED` | Info | `clear rec` is clicked |
+| `INFO_REC_CLEARED` | Info | The recording is cleared |
 
 ## Key Concepts Demonstrated
 
-- **Double buffering** to record without blocking the audio process
-- **Self notification**: `sdkNotifyUsine(NOTIFY_TARGET_USER_MODULE, ...)` with a callback id that is not a parameter
+- **Chunks allocated ahead** by the main thread, to record without allocating in the audio process
+- **Atomics** between the audio thread, the main thread and the immediate callbacks, without lock
+- **Self notification**: `sdkNotifyUsine(NOTIFY_TARGET_USER_MODULE, ...)` with `numMainThread` and callback ids that are not parameters
 - **Path drawing** of the recorded curve
 - **Settings panel** with a color setting
 - **`sdkReport`** for informative messages
 
 ## SDK Callbacks Used
 
-`onGetModuleInfo` · `onInitModule` · `onCreateParameters` · `onCallBack` · `onProcess` · `onCreateSettings` · `onSettingsHasChanged` · `onPaint`
+`onGetModuleInfo` · `onInitModule` · `onCreateParameters` · `onCallBack` · `onProcess` · `onCreateSettings` · `onSettingsHasChanged` · `onPaint` · destructor
 
 ## Related Examples
 

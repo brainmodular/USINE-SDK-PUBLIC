@@ -98,6 +98,8 @@ Select **All** at the top to show all settings, then configure:
 
 **C++ Language Dialect** — set to **C++20** (`CLANG_CXX_LANGUAGE_STANDARD = c++20`), needed by the parameter descriptions.
 
+**Symbols Hidden by Default** and **Inline Methods Hidden** — set both to **Yes** (`GCC_SYMBOLS_PRIVATE_EXTERN = YES`, `GCC_INLINES_ARE_PRIVATE_EXTERN = YES`). The module then exports only the functions marked `USINE_MODULE_EXPORT`. Usine loads many modules in one process, and dyld gives every module the weak definitions (inline functions and variables, template instances) of the first module loaded that defines the same name: with these settings each module keeps its own. To check a build, `nm -gU MyModule.usr-macos64uni` lists the SDK entry points (`_GetSDKVersion`, `_Create`, `_Destroy`, `_BrowserInfo`...) and at most some typeinfo names of standard library templates (`__ZTI...`, `__ZTS...`), which libc++ keeps visible. The `TParamInfo` of `ModuleDefinition.h` stay private in any case, as long as they are `constexpr` without `inline` (see [[sdk/module-conventions|Module Conventions]]).
+
 **Build Active Architecture Only** — set to **No**:
 
 ![Build Active Architecture Only](images/macos/xcode-build-active-architecture-only-no.png)
@@ -205,6 +207,8 @@ Set `VALID_ARCHS` to `arm64`:
 | Executable Prefix | (empty) | (empty) | (empty) |
 | Deployment Target | 10.13 | 10.13 | 10.13 |
 | C++ Language Dialect | C++20 | C++20 | C++20 |
+| Symbols Hidden by Default | Yes | Yes | Yes |
+| Inline Methods Hidden | Yes | Yes | Yes |
 | Library Type | Dynamic | Dynamic | Dynamic |
 
 ---
