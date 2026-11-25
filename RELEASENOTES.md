@@ -12,6 +12,50 @@ Olivier Sens & the BrainModular Team
 
 ---
 
+## SDK 703007 — 2026/11/25
+
+Changes since 703006, the previous published version.
+
+A module written for 703006 builds without change. Remove `inline` from its `TParamInfo`, build it with hidden visibility on macOS and Linux (see below) and rebuild it with 703007.
+
+### `TParamInfo` private to each module
+
+On macOS, dyld gives every module the weak definitions of the first module loaded that defines the same name, and an `inline constexpr TParamInfo` is one. DrawBox and SimplePad both have a `randomizeBtnInParamInfo`: when DrawBox was loaded first, SimplePad created its button with the caption, callback type and callback id of DrawBox, and its `onCallBack` never recognized the id.
+
+- Declare the `TParamInfo` of `ModuleDefinition.h` `constexpr`, never `inline`. A `constexpr` variable at namespace scope has internal linkage: each module keeps its own copy, without `USINE_MODULE_LOCAL`. The examples, the modules of the `modules` folder, the README and the wiki do so.
+- Build the modules with hidden visibility on macOS and Linux, so that they export only the `USINE_MODULE_EXPORT` functions. In Xcode, set *Symbols Hidden by Default* and *Inline Methods Hidden* to Yes (`GCC_SYMBOLS_PRIVATE_EXTERN`, `GCC_INLINES_ARE_PRIVATE_EXTERN`). With CMake, set `CMAKE_C_VISIBILITY_PRESET` and `CMAKE_CXX_VISIBILITY_PRESET` to `hidden` and `CMAKE_VISIBILITY_INLINES_HIDDEN` to `ON`.
+- The Xcode projects of the examples and of the `modules` folder set both options. The `CMakeLists.txt` of the `modules` folder set hidden visibility on macOS too, not only on Linux.
+- [Writing User Modules on macOS](wiki/docs/writing-user-modules-macos.md) explains how to check a build with `nm -gU`, and [Module Conventions](wiki/sdk/module-conventions.md) why a `TParamInfo` must not be `inline`.
+
+### Background jobs
+
+- `startJob()` and the end of the job notify Usine with `numMainThread` instead of `numRealTime`. `onJobEnd` now runs on the main thread, one at a time with the `ctNormal` callbacks of the module and never during its destruction. Before, it ran on the real-time queue thread of Usine, concurrently with both.
+
+### Threads of the callbacks and notifications
+
+The documentation of `TNotifyUsineMode`, `TFastCallBackType` and `sdkNotifyUsine` gives the thread of each value. It corrects the former one:
+
+- `numRealTime`, the default of `sdkNotifyUsine`, and `cbtRealTime` are the real-time queue thread of Usine (medium priority, every 10 ms), neither the audio thread nor the main thread. The wiki gave the audio thread for `numRealTime`.
+- `ctImmediate` runs in the thread that changes the value: the audio thread for a value that comes through a wire, the main thread for a change made in the interface.
+- `numVideo`, `numRealTime` and `numNetwork` deliver the message concurrently with the `ctNormal` callbacks of the module, and `numRealTime` and `numNetwork` are not serialized with its destruction either. Use `numMainThread` for a callback that must not overlap them.
+- `sdkNotifyUsine` only posts the message and returns at once, from any thread, the audio thread included.
+
+### Other changes
+
+- `Create` writes `UserModuleBase::m_masterInfo` only when it changes, and so does `sdkSetMasterInfo`. Usine gives every module the same `TMasterInfo`, and the write at each creation raced with the threads of the running instances, which read it.
+
+### Examples and documentation
+
+- [DataSampler](wiki/examples/data-sampler.md) is rewritten. Its double buffer was shared by the audio thread, the real-time queue thread and the main thread without synchronization, and `toggle rec` and `clear rec` reset it and reported from their immediate callback, possibly in the audio thread. It now records in chunks of 2000 values that the main thread allocates before the audio thread reaches them, shares its state through atomics, and reports its messages from the main thread. A recording holds at most 8 192 000 values, about 6 hours at 375 blocks per second.
+- The wiki pages [Module Architecture](wiki/sdk/module-architecture.md), [Data Types](wiki/sdk/data-types.md) and [UserModuleBase](wiki/sdk/user-module-base.md) give the threads of the callback types, of the notification modes and of `onJobEnd`.
+
+### Compatibility
+
+- The structures and the exports don't change: the modules built with SDK 703006 keep working.
+- Rebuild for macOS a module whose `TParamInfo` are `inline`, with hidden visibility: loaded with another module that uses the same constant names, it can create its parameters from the `TParamInfo` of the other one.
+
+---
+
 ## SDK 703006 — 2026/11/23
 
 Changes since 703005, the previous published version.
