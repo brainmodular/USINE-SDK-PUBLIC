@@ -8,6 +8,8 @@ x64/
 Win32/
 Debug/
 Release/
+.vscode/
+.claude/
 
 # Xcode
 xcuserdata/
