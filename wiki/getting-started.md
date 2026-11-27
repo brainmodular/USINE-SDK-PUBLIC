@@ -207,5 +207,5 @@ Copy the built file to your Usine user modules folder, restart Usine, and find y
 - Read the platform-specific setup guides: [[docs/writing-user-modules-windows|Windows]] | [[docs/writing-user-modules-macos|macOS]]
 - Follow the [[sdk/module-conventions|Module Conventions]] used by all the examples
 - Explore the [[sdk/module-architecture|Module Architecture]] to understand the full lifecycle
-- Browse the [[README|Examples]] for working code demonstrations
+- Browse the [Examples](README.md#examples) for working code demonstrations
 - Check the [[sdk/user-module-base|UserModuleBase reference]] for all available callbacks

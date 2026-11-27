@@ -18,7 +18,7 @@ Welcome to the **Usine Hollyhock SDK** documentation wiki. This SDK allows you t
 - [[sdk/data-types|Data Types & Constants]] — All SDK types, structs, enums, and constants
 - [[sdk/sdk-functions|SDK Functions]] — Global utility functions (audio, threads, files, etc.)
 - [[sdk/utility-functions|Utility Functions]] — Color, geometry, and numeric helpers
-- [Release Notes](https://github.com/brainmodular/USINE-SDK-PUBLIC/blob/master/RELEASENOTES.md) — SDK version history
+- [Release Notes](../RELEASENOTES.md) — SDK version history, and what to change in a module written for an older SDK
 
 ### Examples
 

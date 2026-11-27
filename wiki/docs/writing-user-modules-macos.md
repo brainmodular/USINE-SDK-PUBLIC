@@ -216,7 +216,7 @@ Set `VALID_ARCHS` to `arm64`:
 ## Next Steps
 
 - Write your module code — see [[getting-started|Getting Started]] for a minimal example
-- Study the [[README|Examples]] for working demonstrations
+- Study the [Examples](../README.md#examples) for working demonstrations
 - Read [[sdk/module-architecture|Module Architecture]] for the full lifecycle
 - Check [[sdk/user-module-base|UserModuleBase]] for all available callbacks
 

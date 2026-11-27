@@ -166,17 +166,23 @@ To automatically copy the built module to Usine's user modules folder, add a pos
 
 ## Step 6: Debugging
 
-To debug your module directly in Visual Studio:
+To debug your module directly in Visual Studio, Visual Studio launches Usine. The projects of the SDK find Usine through the `USINE_64_APP` environment variable, so that no path is written in a project:
 
-1. Go to **Project > Properties > Debugging**
-2. Set **Command** to the Usine executable path
+1. Set `USINE_64_APP` to the full path of the Usine executable, once per computer. Change the path in `SetPath.bat`, at the root of the SDK, and run it, or type in a command prompt:
+   ```
+   setx USINE_64_APP "C:\Usine HH7\Bin\Usine.exe"
+   ```
+2. Restart Visual Studio: it only reads the environment variables when it starts
+3. Go to **Project > Properties > Debugging**, select **All Configurations**, and set **Command** to `$(USINE_64_APP)`
 
 ![Debugging configuration](images/windows/vs-debugging-command.png)
 
 > **Important:** Use the executable in the `Bin` folder, not the one at the root of Usine's installation (the root exe is a launcher).
 
-3. Click **Run** (F5) — Visual Studio will launch Usine with your debugger attached
-4. You can set breakpoints, step through code, inspect variables, etc.
+4. Click **Run** (F5) — Visual Studio will launch Usine with your debugger attached
+5. You can set breakpoints, step through code, inspect variables, etc.
+
+The examples and the modules of the SDK already use `$(USINE_64_APP)`: once the variable is set, F5 launches Usine for any of them.
 
 ---
 
@@ -189,14 +195,14 @@ To debug your module directly in Visual Studio:
 | Character Set | Multi-Byte Character Set |
 | Additional Include Directories | `..\..\sdk` (relative) |
 | C++ Standard | C++20 |
-| Debug Command | `C:\Usine HH7\Bin\Usine.exe` |
+| Debug Command | `$(USINE_64_APP)`, the environment variable set to the Usine executable |
 
 ---
 
 ## Next Steps
 
 - Write your module code — see [[getting-started|Getting Started]] for a minimal example
-- Study the [[README|Examples]] for working demonstrations
+- Study the [Examples](../README.md#examples) for working demonstrations
 - Read [[sdk/module-architecture|Module Architecture]] for the full lifecycle
 - Check [[sdk/user-module-base|UserModuleBase]] for all available callbacks
 
