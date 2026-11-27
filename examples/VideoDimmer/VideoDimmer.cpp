@@ -44,7 +44,15 @@ void VideoDimmer::onCreateParameters(TMasterInfo* pMasterInfo, TModuleInfo* pMod
 // called in the video thread instead of onProcess, because ModuleType is mtVideo
 void VideoDimmer::onProcessVideo()
 {
+	// local frames: an input frame, and a frame of sdkGetNewFrame that is not permanent, are valid during this
+	// call only. Usine then hands them to other modules and gives their pixels back to the system when they stay
+	// unused, so never keep them, or their Pixels, for a later call: copy the picture into a permanent frame instead
+	TUsineFrame frameIn;
+	TUsineFrame frameOut;
+
 	sdkGetInputFrame(1, &frameIn);
+	// without a picture on the input, frameIn is not Valid and its size is 0 x 0: frameOut is then an empty frame,
+	// which tells the next modules that there is no picture (the copy, the clear and the loops below do nothing)
 	sdkGetNewFrame(&frameOut, frameIn.Width, frameIn.Height, FALSE);
 
 	const int skip = static_cast<int>(spaceFdrIn.getData());
@@ -54,7 +62,8 @@ void VideoDimmer::onProcessVideo()
 	}
 	else
 	{
-		// keeps one pixel out of skip, followed by a pixel of the grid color, the rest is black
+		// keeps one pixel out of skip, followed by a pixel of the grid color, the rest is black (frameOut may be a
+		// frame used before: the clear writes every pixel the loops leave)
 		const TUsinePixel pix = sdkColorToPixel(pixelColIn.getColor());
 		sdkClearFrame(&frameOut, 0xFF000000);
 		for (int h = 0; h < frameOut.Height; h += skip)

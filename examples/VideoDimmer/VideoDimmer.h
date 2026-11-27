@@ -23,7 +23,5 @@ private:
 	UsineEventClass dimmerFdrIn;
 	UsineEventClass pixelColIn;
 	UsineEventClass spaceFdrIn;
-
-	TUsineFrame frameIn;
-	TUsineFrame frameOut;
+	// no frame member: the frames are local to onProcessVideo, valid during one call only
 };

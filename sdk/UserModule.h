@@ -233,6 +233,8 @@ public:
  	/// @{
 	/// Called by the the video thread to process video frames only for TModuleInfo::ModuleType == mtVideo
 	/// Don't process video outside this procedure.
+	/// The input frames and the frames of sdkGetNewFrame that are not permanent are valid until it returns: see
+	/// Video Frame manipulation.
 	/// @see TModuleInfo::ModuleType
     virtual void onProcessVideo()
     {
@@ -756,6 +758,9 @@ public:
     /// @param H height of the pixels array
     /// @param destRect destination rectangle in normalized coordinates (0..1).
     /// No verification of the pixels array size is made so be sure that W and H have the right values.
+    /// The array must belong to the module: never the Pixels of an input frame or of a frame that is not permanent,
+    /// which are valid during onProcessVideo only (see Video Frame manipulation). Copy the picture into a buffer of
+    /// the module, or into a permanent frame, to draw it.
     void sdkBitBlit(const TUsinePixelPtr pArray, const int W, const int H, const TRectF destRect) const
     {
         m_masterInfo->BitBlit(m_moduleInfo, pArray, W, H, destRect);
@@ -1021,21 +1026,40 @@ public:
     //----------------------------------------------------------------------------
     /// Utils functions to help manipulate video frames
     /// @name Video Frame manipulation
+    ///
+    /// Lifetime of the frames: a @ref TUsineFrame and its Pixels are valid only during the call of onProcessVideo
+    /// that obtained them, unless the frame is permanent.
+    /// - An input frame (sdkGetInputFrame) and a frame of sdkGetNewFrame that is not permanent belong to the frame
+    ///   pool of Usine. Once onProcessVideo has returned, Usine hands the frame to other modules, which overwrite its
+    ///   pixels, and gives its pixels back to the system when it has stayed unused for a few seconds: Pixels then
+    ///   points to memory that no longer exists, and reading or writing it crashes Usine. Never keep such a frame,
+    ///   or its Pixels pointer, for a later call of onProcessVideo, for onProcess, onPaint or another thread.
+    /// - To keep a picture from one call to the next (the previous frame, a delay, a freeze), copy it into a
+    ///   permanent frame (sdkGetNewFrame with permanent = TRUE, then sdkCopyFrame) and release that frame with
+    ///   sdkReleaseFrame when it is replaced and when the module is destroyed: a permanent frame never released stays
+    ///   in memory until Usine quits.
+    /// - Test the size before reading or writing the pixels: an input that receives no picture gives Valid = FALSE,
+    ///   Width = Height = 0 and Pixels = nullptr, and a new frame whose allocation failed has a size of 0 x 0.
     /// @{
 
     /// Get incoming video Frames
 	/// @param numInput The index of the input frame to get.
 	/// @param frame ptr to a @ref TUsineFrame
-	/// @note The frame must be created with sdkGetNewFrame before calling this function.
+	/// @note The structure is filled by this function: it needs no sdkGetNewFrame before.
+	/// @note The frame is valid until onProcessVideo returns (see the lifetime of the frames above), and it belongs
+	/// to the module that sends it: read its pixels, never write them, never release it.
+	/// When the input receives no picture, Valid is FALSE, Width and Height are 0 and Pixels is nullptr.
     void sdkGetInputFrame(const int numInput, const TUsineFramePtr frame) const
     {
         m_masterInfo->GetInputFrame(m_moduleInfo, numInput, frame);
     }
-    
+
     /// Set outgoing video Frames
 	/// @param numOutput The index of the output frame to set.
 	/// @param frame ptr to a @ref TUsineFrame
 	/// @note The frame must be created with sdkGetNewFrame before calling this function.
+	/// @note The next modules and the video outputs read the frame after this call: do not change its pixels once
+	/// it is set, take a new frame for the next picture. A frame of 0 x 0 pixels tells them that there is no picture.
     void sdkSetOutputFrame(const int numOutput, const TUsineFramePtr frame) const
     {
         m_masterInfo->SetOutputFrame(m_moduleInfo, numOutput, frame);
@@ -1056,9 +1080,14 @@ public:
     /// @param height height in pixels
     /// @param permanent Determines if the frame has a short lifespan (FALSE) or an infinite (TRUE)
     ///
-    /// Permanent frames must be destroyed by sdkReleaseFrame
+    /// Non permanent frames are released automatically: such a frame is valid until onProcessVideo returns, never
+    /// keep it, or its Pixels pointer, for a later call (see the lifetime of the frames above).
     ///
-    /// Non permanent frames are released automatically
+    /// Permanent frames stay valid until sdkReleaseFrame, which the module must call when it no longer needs the
+    /// frame: when it replaces it, and when it is destroyed.
+    ///
+    /// The frame may be one that Usine used before: its pixels are not cleared. Write all of them, or clear the frame
+    /// with sdkClearFrame. Width and Height are 0 when the allocation failed: test them before writing the pixels.
     ///@see sdkReleaseFrame
     void sdkGetNewFrame(const TUsineFramePtr frame, const int width, const int height, const LongBool permanent) const
     {
@@ -1067,6 +1096,8 @@ public:
 
     /// Release permanent frames
 	/// @param frame ptr to a @ref TUsineFrame
+	/// @note Only for the permanent frames of the module (sdkGetNewFrame with permanent = TRUE), never for an input
+	/// frame: the frame goes back to the frame pool of Usine, and the module must not use it any more.
     void sdkReleaseFrame(const TUsineFramePtr frame) const
     {
     m_masterInfo->ReleaseFrame(m_moduleInfo, frame);
@@ -1094,6 +1125,8 @@ public:
 	/// @param Y The Y coordinate of the pixel in the frame
 	/// @param pixel The pixel to set at position X,Y
 	/// @note The pixel is a TUsinePixel structure that contains the color and alpha values.
+	/// @note No check is made: the frame must be valid (see the lifetime of the frames above) and X,Y inside it
+	/// (0 <= X < Width, 0 <= Y < Height).
     static void sdkSetFramePixel(const TUsineFramePtr frame, const int X, const int Y, const TUsinePixel pixel)
     {
         TUsinePixelPtr pix = frame->Pixels;
@@ -1106,6 +1139,8 @@ public:
 	/// @param X The X coordinate of the pixel in the frame
 	/// @param Y The Y coordinate of the pixel in the frame
 	/// @return The pixel at position X,Y in the frame
+	/// @note No check is made: the frame must be valid (see the lifetime of the frames above) and X,Y inside it
+	/// (0 <= X < Width, 0 <= Y < Height).
     static TUsinePixel sdkGetFramePixel(const TUsineFramePtr frame, const int X, const int Y)
     {
         TUsinePixelPtr pix = frame->Pixels;

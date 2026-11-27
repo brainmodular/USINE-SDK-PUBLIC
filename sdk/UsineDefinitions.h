@@ -84,7 +84,7 @@
 //-----------------------------------------------------------------------------
 /// version of the SDK
 /// to use in GetSDKVersion function to return the SDK version number
-static constexpr int SDK_VERSION = 703007;
+static constexpr int SDK_VERSION = 703008;
 
 //-----------------------------------------------------------------------------
 #if (defined (USINE_WIN64))

@@ -27,12 +27,12 @@ The parameters have no callback: their values are read in `onProcessVideo`.
 
 ## How It Works
 
-Processing happens in **`onProcessVideo`**, called by the video thread, not in `onProcess`:
+Processing happens in **`onProcessVideo`**, called by the video thread, not in `onProcess`. Its two frames are local variables: an input frame, and a frame that is not permanent, are valid during one call only (see [[sdk/user-module-base#Video frames|Video frames]]).
 
 1. Gets the input frame: `sdkGetInputFrame(1, &frameIn)`
-2. Gets a new output frame of the same size: `sdkGetNewFrame(&frameOut, w, h, FALSE)`
+2. Gets a new output frame of the same size: `sdkGetNewFrame(&frameOut, w, h, FALSE)`. Without a picture on the input, `frameIn` is not `Valid` and its size is 0 x 0: `frameOut` is then an empty frame, which tells the next modules that there is no picture, and the steps below do nothing.
 3. If `inter space` is 0: copies the frame with `sdkCopyFrame`
-4. Otherwise, draws a grid on one line out of `inter space`:
+4. Otherwise, clears the frame (a new frame may hold the pixels of its former use) and draws a grid on one line out of `inter space`:
    - one pixel out of `inter space` is copied from the input
    - the next pixel takes the grid color
    - the other pixels stay black
@@ -44,6 +44,7 @@ Processing happens in **`onProcessVideo`**, called by the video thread, not in `
 - **`mtVideo`** module type
 - **`NumberOfVideoInputs = 1`**, **`NumberOfVideoOutputs = 1`** in the module info
 - **`onProcessVideo`** instead of `onProcess`
+- **Lifetime of the frames**: local to `onProcessVideo`, never kept for a later call
 - **Video frame API**:
   - `sdkGetInputFrame` — get the input frame
   - `sdkGetNewFrame` — allocate an output frame

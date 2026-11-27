@@ -12,6 +12,37 @@ Olivier Sens & the BrainModular Team
 
 ---
 
+## SDK 703008 — 2026/11/27
+
+Changes since 703007, the previous published version.
+
+A module written for 703007 builds without change. Check that a video module keeps no frame from one call of `onProcessVideo` to the next (see below).
+
+### Lifetime of the video frames
+
+The SDK did not say how long a `TUsineFrame` stays valid, and the VideoDimmer example kept its two frames as members of its class.
+
+- An input frame (`sdkGetInputFrame`) and a frame of `sdkGetNewFrame` that is not permanent, and their `Pixels`, are valid only during the call of `onProcessVideo` that obtained them. Usine then hands the frame to other modules, which overwrite its pixels, and gives its pixels back to the system when it has stayed unused for a few seconds. A module that keeps such a frame, or its `Pixels` pointer, for a later call, for `onProcess`, `onPaint` (`sdkBitBlit`) or another thread reads or writes memory that no longer exists, and crashes Usine.
+- To keep a picture from one call to the next (the previous frame, a delay, a freeze), copy it into a permanent frame (`sdkGetNewFrame` with `permanent = TRUE`, then `sdkCopyFrame`) and release it with `sdkReleaseFrame` when it is replaced and when the module is destroyed. A permanent frame never released stays in memory until Usine quits.
+- `sdkReleaseFrame` is only for the permanent frames of the module, never for an input frame. Read the pixels of an input, never write them.
+- An input that receives no picture gives `Valid = FALSE`, `Width = Height = 0` and `Pixels = nullptr`, and a new frame whose allocation failed has a size of 0 x 0: test the size before reading or writing the pixels. `sdkGetFramePixel` and `sdkSetFramePixel` check nothing.
+- A new frame may be one that Usine used before: its pixels are not cleared. Write all of them, or clear it with `sdkClearFrame`.
+- Once a frame is set with `sdkSetOutputFrame`, the next modules and the video outputs read it: do not change its pixels any more. A frame of 0 x 0 pixels tells them that there is no picture.
+- `sdkGetInputFrame` fills the structure: it needs no `sdkGetNewFrame` before, contrary to what its documentation said.
+
+### Examples and documentation
+
+- The comments of `UserModule.h` (Video Frame manipulation, `onProcessVideo`, `sdkGetInputFrame`, `sdkSetOutputFrame`, `sdkGetNewFrame`, `sdkReleaseFrame`, `sdkBitBlit`, `sdkGetFramePixel`, `sdkSetFramePixel`) give these rules.
+- [UserModuleBase](wiki/sdk/user-module-base.md) has a section *Video frames*, with an example that keeps the previous frame in a permanent frame. [Data Types](wiki/sdk/data-types.md) gives the whole `TUsineFrame` structure, with its two unused pointers.
+- [VideoDimmer](wiki/examples/video-dimmer.md) keeps its frames local to `onProcessVideo`.
+
+### Compatibility
+
+- The structures and the exports don't change: the modules built with SDK 703007 keep working.
+- Fix and rebuild a video module that keeps a frame that is not permanent, or its `Pixels`, from one call to the next: it can crash Usine.
+
+---
+
 ## SDK 703007 — 2026/11/25
 
 Changes since 703006, the previous published version.

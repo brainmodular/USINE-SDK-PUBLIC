@@ -138,11 +138,15 @@ Video frame structure.
 struct TUsineFrame {
     int Width;
     int Height;
-    TUsinePixelPtr Pixels;
+    TUsinePixelPtr Pixels;  // Width * Height pixels
     LongBool Valid;
-    void* intern;
+    void* intern;           // do not use
+    void* notused1;         // no longer used
+    void* notused2;         // no longer used
 };
 ```
+
+A frame and its `Pixels` are valid only during the call of `onProcessVideo` that obtained them, unless the frame is permanent: see [[sdk/user-module-base#Video frames|Video frames]].
 
 > **Example:** See [[examples/video-dimmer|VideoDimmer]] for `TUsineFrame` and `TUsinePixel` usage.
 

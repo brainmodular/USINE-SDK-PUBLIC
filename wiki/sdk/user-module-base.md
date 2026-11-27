@@ -233,6 +233,61 @@ virtual void onProcessVideo();
 ```
 Called by the video thread for `mtVideo` modules. Use `sdkGetInputFrame()` and `sdkSetOutputFrame()` here.
 
+### Video frames
+
+A `TUsineFrame` and its `Pixels` are valid only during the call of `onProcessVideo` that obtained them, unless the frame is permanent.
+
+- **Input frames** (`sdkGetInputFrame`) and **frames that are not permanent** (`sdkGetNewFrame` with `permanent = FALSE`) belong to the frame pool of Usine. Once `onProcessVideo` has returned, Usine hands the frame to other modules, which overwrite its pixels. When the frame has stayed unused for a few seconds, Usine gives its pixels back to the system: `Pixels` then points to memory that no longer exists, and reading or writing it crashes Usine. Never keep such a frame, or its `Pixels` pointer, for a later call of `onProcessVideo`, for `onProcess`, `onPaint` (`sdkBitBlit`) or another thread.
+- **To keep a picture from one call to the next** (the previous frame, a delay, a freeze), copy it into a **permanent frame**: `sdkGetNewFrame` with `permanent = TRUE`, then `sdkCopyFrame`. Release it with `sdkReleaseFrame` when it is replaced and in the destructor of the module: a permanent frame that is never released stays in memory until Usine quits.
+- `sdkReleaseFrame` is only for the permanent frames of the module. Never release an input frame: it belongs to the module that sends it. Read the pixels of an input, never write them.
+- **Test the size** before reading or writing the pixels. An input that receives no picture gives `Valid = FALSE`, `Width = Height = 0` and `Pixels = nullptr`. A new frame whose allocation failed has a size of 0 x 0. `sdkGetFramePixel` and `sdkSetFramePixel` check nothing.
+- A new frame may be one that Usine used before: **its pixels are not cleared**. Write all of them, or clear it with `sdkClearFrame`.
+- Once a frame is set with `sdkSetOutputFrame`, the next modules and the video outputs read it: do not change its pixels any more, take a new frame for the next picture. A frame of 0 x 0 pixels tells them that there is no picture.
+
+Keeping the previous frame, for a frame difference or a feedback:
+
+```cpp
+// in the class: TUsineFrame prevFrame{}; bool hasPrev = false;
+
+void MyVideoModule::onProcessVideo()
+{
+    TUsineFrame frameIn;
+    TUsineFrame frameOut;
+    sdkGetInputFrame(1, &frameIn);
+    if (!frameIn.Valid || frameIn.Width <= 0 || frameIn.Height <= 0)
+    {
+        // no picture: an empty output, rather than the frame of a former call
+        sdkGetNewFrame(&frameOut, 0, 0, FALSE);
+        sdkSetOutputFrame(1, &frameOut);
+        return;
+    }
+
+    sdkGetNewFrame(&frameOut, frameIn.Width, frameIn.Height, FALSE);
+    if (frameOut.Width != frameIn.Width || frameOut.Height != frameIn.Height)
+        return; // the allocation failed
+    // ... compute frameOut from frameIn and prevFrame (when hasPrev and of the same size) ...
+    sdkSetOutputFrame(1, &frameOut);
+
+    // keep a copy of this input for the next call, in a permanent frame of the module
+    if (!hasPrev || prevFrame.Width != frameIn.Width || prevFrame.Height != frameIn.Height)
+    {
+        if (hasPrev)
+            sdkReleaseFrame(&prevFrame);
+        sdkGetNewFrame(&prevFrame, frameIn.Width, frameIn.Height, TRUE);
+        hasPrev = true;
+    }
+    sdkCopyFrame(&frameIn, &prevFrame);
+}
+
+MyVideoModule::~MyVideoModule()
+{
+    if (hasPrev)
+        sdkReleaseFrame(&prevFrame);
+}
+```
+
+> **Example:** [[examples/video-dimmer|VideoDimmer]] processes its frames this way: local to `onProcessVideo`, never kept.
+
 ---
 
 ## Background Job System

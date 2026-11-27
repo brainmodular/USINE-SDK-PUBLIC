@@ -49,7 +49,8 @@ inline const int ERROR_INSERT_FFT_SIZE         USINE_MODULE_LOCAL = registerRepo
 // analysis of the files
 inline const int INFO_FILE_LOADED              USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "file loaded: ");
 inline const int ERROR_EMPTY_FILE              USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "empty file, skipped: ");
-inline const int ERROR_FILE_TOO_LONG           USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "file longer than [max file duration], skipped: ");
+// an info, not an error: [max file duration] is there to leave the long files out
+inline const int INFO_FILE_TOO_LONG            USINE_MODULE_LOCAL = registerReport(UReportLevel::Info, "file longer than [max file duration], skipped: ");
 inline const int ERROR_NO_SAMPLES              USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to read the samples, file skipped: ");
 inline const int ERROR_INSERT_FILE             USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to insert or update the results of a file: ");
 inline const int ERROR_STORE_FILE              USINE_MODULE_LOCAL = registerReport(UReportLevel::Error, "unable to store the results in the database, the analysis stops at: ");

@@ -549,7 +549,7 @@ void DatabaseCreation::AudioFilesAnalysis()
 		if (durationMs > analysisMaxDurationMs)
 		{
 			sdkDestroyAudioFile(audioFilePtr);
-			sdkReport(ERROR_FILE_TOO_LONG, fileName);
+			sdkReport(INFO_FILE_TOO_LONG, fileName);
 			continue;
 		}
 
